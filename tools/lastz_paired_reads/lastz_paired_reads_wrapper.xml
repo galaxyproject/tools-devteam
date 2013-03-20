@@ -62,7 +62,7 @@
             -->
             <param name="input2" value="lastz_paired_input2.fasta" ftype="fasta" />
             <param name="ref_source" value="cached" />
-            <param name="input1_2bit" value="/galaxy/data/hg18/seq/chr21.2bit" />
+            <param name="input1_2bit" value="hg18chr21" />
             <param name="input3" value="lastz_paired_input3.fasta" ftype="fasta" />
             <param name="input4" value="lastz_paired_input4.qual454" ftype="qual454" />
             <param name="how_to_name" value="no" />
