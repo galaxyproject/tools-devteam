@@ -148,8 +148,7 @@
             -->
             <param name="input2" value="b1.fasta" ftype="fasta" />
             <param name="ref_source" value="cached" />
-            <!-- this is the backwards-compatible "unique value" for this file, not an actual path -->
-            <param name="input1_2bit" value="/galaxy/data/phiX/seq/phiX.2bit" />
+            <param name="input1_2bit" value="phiX174" />
             <param name="out_format" value="sam" />
             <param name="source_select" value="full" />
             <param name="strand" value="both" />
