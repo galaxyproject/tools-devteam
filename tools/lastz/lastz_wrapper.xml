@@ -5,41 +5,41 @@
     <description> map short reads against reference sequence</description>
     <command interpreter="python">lastz_wrapper.py
       #if $seq_name.how_to_name=="yes":
-        --ref_name=$seq_name.ref_name 
+        --ref_name="${seq_name.ref_name}"
       #end if
-      --ref_source=$source.ref_source
-      --source_select=$params.source_select
-      --out_format=$out_format
-      --input2=$input2 
+      --ref_source="${source.ref_source}"
+      --source_select="${params.source_select}"
+      --out_format="${out_format}"
+      --input2="${input2}"
       #if $source.ref_source=="history":
-        --input1=$source.input1
-        --ref_sequences=$input1.metadata.sequences 
+        --input1="${source.input1}"
+        --ref_sequences="${input1.metadata.sequences}"
       #else:
         --input1="${source.input1_2bit.fields.path}"
         --ref_sequences="None" 
       #end if
       #if $params.source_select=="pre_set":
-        --pre_set_options=${params.pre_set_options}
+        --pre_set_options="${params.pre_set_options}"
       #else:
-        --strand=$params.strand
-        --seed=$params.seed
-        --gfextend=$params.gfextend
-        --chain=$params.chain
-        --transition="$params.transition"
-        --O=$params.O
-        --E=$params.E
-        --X=$params.X
-        --Y=$params.Y
-        --K=$params.K
-        --L=$params.L
-        --entropy=$params.entropy 
+        --strand="${params.strand}"
+        --seed="${params.seed}"
+        --gfextend="${params.gfextend}"
+        --chain="${params.chain}"
+        --transition="${params.transition}"
+        --O="${params.O}"
+        --E="${params.E}"
+        --X="${params.X}"
+        --Y="${params.Y}"
+        --K="${params.K}"
+        --L="${params.L}"
+        --entropy="${params.entropy}"
       #end if
-      --identity_min=$min_ident
-      --identity_max=$max_ident
-      --coverage=$min_cvrg
-      --output=$output1
-      --unmask=$unmask
-      --lastzSeqsFileDir=${GALAXY_DATA_INDEX_DIR}
+      --identity_min="${min_ident}"
+      --identity_max="${max_ident}"
+      --coverage="${min_cvrg}"
+      --output="${output1}"
+      --unmask="${unmask}"
+      --lastzSeqsFileDir="${GALAXY_DATA_INDEX_DIR}"
     </command>
     <inputs>
         <param name="input2" format="fasta" type="data" label="Align sequencing reads in" />
