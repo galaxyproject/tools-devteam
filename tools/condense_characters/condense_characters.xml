@@ -1,6 +1,6 @@
 <tool id="Condense characters1" name="Condense">
   <description>consecutive characters</description>
-  <command interpreter="perl">condense_characters.pl $input $character $out_file1</command>
+  <command interpreter="perl">condense_characters.pl "${input}" "${character}" "${out_file1}"</command>
   <inputs>
 <!--    <display>condense all consecutive $character from $input</display> -->
     <param name="character" type="select" label="Condense all consecutive">
