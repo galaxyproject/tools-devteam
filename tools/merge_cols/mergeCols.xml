@@ -2,10 +2,10 @@
   <description>together</description>
   <command interpreter="python">
    mergeCols.py 
-      $input1
-      $out_file1
-      $col1
-      $col2
+      "${input1}"
+      "${out_file1}"
+      "${col1}"
+      "${col2}"
       #for $col in $columns
         ${col.datacol}
       #end for
