@@ -9,30 +9,30 @@
       ## Hackish setting of number of threads
       --threads="4"
       ## Outputs
-      --output=$output
+      --output="${output}"
       #if str( $singlePaired.sPaired ) == "single"
         #if $output_unmapped_reads_l
-          --output_unmapped_reads=$output_unmapped_reads_l
+          --output_unmapped_reads="${output_unmapped_reads_l}"
         #end if
         #if $output_suppressed_reads_l
-          --output_suppressed_reads=$output_suppressed_reads_l
+          --output_suppressed_reads="${output_suppressed_reads_l}"
         #end if
         --galaxy_input_format="${singlePaired.sInput1.ext}"
       #else
         #if $output_unmapped_reads_l and $output_unmapped_reads_r
-          --output_unmapped_reads_l=$output_unmapped_reads_l
-          --output_unmapped_reads_r=$output_unmapped_reads_r
+          --output_unmapped_reads_l="${output_unmapped_reads_l}"
+          --output_unmapped_reads_r="${output_unmapped_reads_r}"
         #end if
         #if $output_suppressed_reads_l and $output_suppressed_reads_l
-          --output_suppressed_reads_l=$output_suppressed_reads_l
-          --output_suppressed_reads_r=$output_suppressed_reads_r
+          --output_suppressed_reads_l="${output_suppressed_reads_l}"
+          --output_suppressed_reads_r="${output_suppressed_reads_r}"
         #end if
         --galaxy_input_format="${singlePaired.pInput1.ext}"
       #end if
       ## Inputs
       --dataType="solexa" ##this indicates that nucleotide base space is used in the wrapper
-      --suppressHeader=$suppressHeader
-      --genomeSource=$refGenomeSource.genomeSource
+      --suppressHeader="${suppressHeader}"
+      --genomeSource="${refGenomeSource.genomeSource}"
       #if $refGenomeSource.genomeSource == "history":
         ##index already exists
         #if $refGenomeSource.ownFile.extension.startswith( 'bowtie_' ):
@@ -41,91 +41,91 @@
           --do_not_build_index
         #else:
           ##build index on the fly
-          --ref=$refGenomeSource.ownFile
-          --indexSettings=$refGenomeSource.indexParams.indexSettings
+          --ref="${refGenomeSource.ownFile}"
+          --indexSettings="${refGenomeSource.indexParams.indexSettings}"
           #if $refGenomeSource.indexParams.indexSettings == "indexFull":
-            --iautoB=$refGenomeSource.indexParams.autoBehavior.autoB
+            --iautoB="${refGenomeSource.indexParams.autoBehavior.autoB}"
             #if $refGenomeSource.indexParams.autoBehavior.autoB == "set":
-              --ipacked=$refGenomeSource.indexParams.autoBehavior.packed
-              --ibmax=$refGenomeSource.indexParams.autoBehavior.bmax
-              --ibmaxdivn=$refGenomeSource.indexParams.autoBehavior.bmaxdivn
-              --idcv=$refGenomeSource.indexParams.autoBehavior.dcv
+              --ipacked="${refGenomeSource.indexParams.autoBehavior.packed}"
+              --ibmax="${refGenomeSource.indexParams.autoBehavior.bmax}"
+              --ibmaxdivn="${refGenomeSource.indexParams.autoBehavior.bmaxdivn}"
+              --idcv="${refGenomeSource.indexParams.autoBehavior.dcv}"
             #end if
-            --inodc=$refGenomeSource.indexParams.nodc
-            --inoref=$refGenomeSource.indexParams.noref
-            --ioffrate=$refGenomeSource.indexParams.offrate
-            --iftab=$refGenomeSource.indexParams.ftab
-            --intoa=$refGenomeSource.indexParams.ntoa
-            --iendian=$refGenomeSource.indexParams.endian
-            --iseed=$refGenomeSource.indexParams.seed
-            --icutoff=$refGenomeSource.indexParams.cutoff 
+            --inodc="${refGenomeSource.indexParams.nodc}"
+            --inoref="${refGenomeSource.indexParams.noref}"
+            --ioffrate="${refGenomeSource.indexParams.offrate}"
+            --iftab="${refGenomeSource.indexParams.ftab}"
+            --intoa="${refGenomeSource.indexParams.ntoa}"
+            --iendian="${refGenomeSource.indexParams.endian}"
+            --iseed="${refGenomeSource.indexParams.seed}"
+            --icutoff="${refGenomeSource.indexParams.cutoff}"
           #end if
         #end if
       #else
         ##use pre-built index
         --ref="${refGenomeSource.index.fields.path}"
       #end if
-      --paired=$singlePaired.sPaired
+      --paired="${singlePaired.sPaired}"
       #if $singlePaired.sPaired == "single":
-        --input1=$singlePaired.sInput1
-        --params=$singlePaired.sParams.sSettingsType
+        --input1="${singlePaired.sInput1}"
+        --params="${singlePaired.sParams.sSettingsType}"
         #if $singlePaired.sParams.sSettingsType == "full":
-          --skip=$singlePaired.sParams.sSkip
-          --alignLimit=$singlePaired.sParams.sAlignLimit
-          --trimH=$singlePaired.sParams.sTrimH
-          --trimL=$singlePaired.sParams.sTrimL
-          --mismatchSeed=$singlePaired.sParams.sMismatchSeed
-          --mismatchQual=$singlePaired.sParams.sMismatchQual
-          --seedLen=$singlePaired.sParams.sSeedLen
-          --rounding=$singlePaired.sParams.sRounding
-          --maqSoapAlign=$singlePaired.sParams.sMaqSoapAlign
-          --tryHard=$singlePaired.sParams.sTryHard
-          --valAlign=$singlePaired.sParams.sValAlign
-          --allValAligns=$singlePaired.sParams.sAllValAligns
-          --suppressAlign=$singlePaired.sParams.sSuppressAlign
-          --best=$singlePaired.sParams.sBestOption.sBest
+          --skip="${singlePaired.sParams.sSkip}"
+          --alignLimit="${singlePaired.sParams.sAlignLimit}"
+          --trimH="${singlePaired.sParams.sTrimH}"
+          --trimL="${singlePaired.sParams.sTrimL}"
+          --mismatchSeed="${singlePaired.sParams.sMismatchSeed}"
+          --mismatchQual="${singlePaired.sParams.sMismatchQual}"
+          --seedLen="${singlePaired.sParams.sSeedLen}"
+          --rounding="${singlePaired.sParams.sRounding}"
+          --maqSoapAlign="${singlePaired.sParams.sMaqSoapAlign}"
+          --tryHard="${singlePaired.sParams.sTryHard}"
+          --valAlign="${singlePaired.sParams.sValAlign}"
+          --allValAligns="${singlePaired.sParams.sAllValAligns}"
+          --suppressAlign="${singlePaired.sParams.sSuppressAlign}"
+          --best="${singlePaired.sParams.sBestOption.sBest}"
           #if $singlePaired.sParams.sBestOption.sBest == "doBest":
-            --maxBacktracks=$singlePaired.sParams.sBestOption.sdMaxBacktracks
-            --strata=$singlePaired.sParams.sBestOption.sdStrata
+            --maxBacktracks="${singlePaired.sParams.sBestOption.sdMaxBacktracks}"
+            --strata="${singlePaired.sParams.sBestOption.sdStrata}"
           #else:
-            --maxBacktracks=$singlePaired.sParams.sBestOption.snMaxBacktracks
+            --maxBacktracks="${singlePaired.sParams.sBestOption.snMaxBacktracks}"
           #end if
-          --offrate=$singlePaired.sParams.sOffrate
-          --seed=$singlePaired.sParams.sSeed
+          --offrate="${singlePaired.sParams.sOffrate}"
+          --seed="${singlePaired.sParams.sSeed}"
         #end if
       #else:
-        --input1=$singlePaired.pInput1
-        --input2=$singlePaired.pInput2
-        --maxInsert=$singlePaired.pMaxInsert
-        --mateOrient=$singlePaired.pMateOrient
-        --params=$singlePaired.pParams.pSettingsType
+        --input1="${singlePaired.pInput1}"
+        --input2="${singlePaired.pInput2}"
+        --maxInsert="${singlePaired.pMaxInsert}"
+        --mateOrient="${singlePaired.pMateOrient}"
+        --params="${singlePaired.pParams.pSettingsType}"
         #if $singlePaired.pParams.pSettingsType == "full":
-          --skip=$singlePaired.pParams.pSkip
-          --alignLimit=$singlePaired.pParams.pAlignLimit
-          --trimH=$singlePaired.pParams.pTrimH
-          --trimL=$singlePaired.pParams.pTrimL
-          --mismatchSeed=$singlePaired.pParams.pMismatchSeed
-          --mismatchQual=$singlePaired.pParams.pMismatchQual
-          --seedLen=$singlePaired.pParams.pSeedLen
-          --rounding=$singlePaired.pParams.pRounding
-          --maqSoapAlign=$singlePaired.pParams.pMaqSoapAlign
-          --minInsert=$singlePaired.pParams.pMinInsert
-          --maxAlignAttempt=$singlePaired.pParams.pMaxAlignAttempt
-          --forwardAlign=$singlePaired.pParams.pForwardAlign
-          --reverseAlign=$singlePaired.pParams.pReverseAlign
-          --tryHard=$singlePaired.pParams.pTryHard
-          --valAlign=$singlePaired.pParams.pValAlign
-          --allValAligns=$singlePaired.pParams.pAllValAligns
-          --suppressAlign=$singlePaired.pParams.pSuppressAlign
-          --best=$singlePaired.pParams.pBestOption.pBest
+          --skip="${singlePaired.pParams.pSkip}"
+          --alignLimit="${singlePaired.pParams.pAlignLimit}"
+          --trimH="${singlePaired.pParams.pTrimH}"
+          --trimL="${singlePaired.pParams.pTrimL}"
+          --mismatchSeed="${singlePaired.pParams.pMismatchSeed}"
+          --mismatchQual="${singlePaired.pParams.pMismatchQual}"
+          --seedLen="${singlePaired.pParams.pSeedLen}"
+          --rounding="${singlePaired.pParams.pRounding}"
+          --maqSoapAlign="${singlePaired.pParams.pMaqSoapAlign}"
+          --minInsert="${singlePaired.pParams.pMinInsert}"
+          --maxAlignAttempt="${singlePaired.pParams.pMaxAlignAttempt}"
+          --forwardAlign="${singlePaired.pParams.pForwardAlign}"
+          --reverseAlign="${singlePaired.pParams.pReverseAlign}"
+          --tryHard="${singlePaired.pParams.pTryHard}"
+          --valAlign="${singlePaired.pParams.pValAlign}"
+          --allValAligns="${singlePaired.pParams.pAllValAligns}"
+          --suppressAlign="${singlePaired.pParams.pSuppressAlign}"
+          --best="${singlePaired.pParams.pBestOption.pBest}"
           #if $singlePaired.pParams.pBestOption.pBest == "doBest":
-            --maxBacktracks=$singlePaired.pParams.pBestOption.pdMaxBacktracks
-            --strata=$singlePaired.pParams.pBestOption.pdStrata
+            --maxBacktracks="${singlePaired.pParams.pBestOption.pdMaxBacktracks}"
+            --strata="${singlePaired.pParams.pBestOption.pdStrata}"
           #else:
-            --maxBacktracks=$singlePaired.pParams.pBestOption.pnMaxBacktracks
+            --maxBacktracks="${singlePaired.pParams.pBestOption.pnMaxBacktracks}"
           #end if
-          --offrate=$singlePaired.pParams.pOffrate
-          --seed=$singlePaired.pParams.pSeed
+          --offrate="${singlePaired.pParams.pOffrate}"
+          --seed="${singlePaired.pParams.pSeed}"
         #end if
       #end if
   </command>
