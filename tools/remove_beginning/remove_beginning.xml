@@ -1,6 +1,6 @@
 <tool id="Remove beginning1" name="Remove beginning">
   <description>of a file</description>
-  <command interpreter="perl">remove_beginning.pl $input $num_lines $out_file1</command>
+  <command interpreter="perl">remove_beginning.pl "${input}" "${num_lines}" "${out_file1}"</command>
   <inputs>
     <param name="num_lines" size="5" type="integer" value="1" label="Remove first" help="lines"/>
     <param format="txt" name="input" type="data" label="from"/>
