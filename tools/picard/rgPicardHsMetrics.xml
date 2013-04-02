@@ -2,8 +2,8 @@
   <description>for targeted resequencing data</description>
   <command interpreter="python">
 
-    picard_wrapper.py -i "$input_file" -d "$html_file.files_path" -t "$html_file" --datatype "$input_file.ext"
-    --baitbed "$bait_bed" --targetbed "$target_bed" -n "$out_prefix" --tmpdir "${__new_file_path__}"
+    picard_wrapper.py -i "${input_file}" -d "${html_file.files_path}" -t "${html_file}" --datatype "${input_file.ext}"
+    --baitbed "${bait_bed}" --targetbed "${target_bed}" -n "${out_prefix}" --tmpdir "${__new_file_path__}"
     -j "\$JAVA_JAR_PATH/CalculateHsMetrics.jar"
 
   </command>

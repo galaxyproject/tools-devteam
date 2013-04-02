@@ -2,19 +2,19 @@
   <requirements><requirement type="package" version="1.56.0">picard</requirement></requirements>
   <command interpreter="python">
     picard_wrapper.py
-      --input="$inputFile"
-      --rg-lb="$rglb"
-      --rg-pl="$rgpl"
-      --rg-pu="$rgpu"
-      --rg-sm="$rgsm"
-      --rg-id="$rgid"
-      --rg-opts=${readGroupOpts.rgOpts}
+      --input="${inputFile}"
+      --rg-lb="${rglb}"
+      --rg-pl="${rgpl}"
+      --rg-pu="${rgpu}"
+      --rg-sm="${rgsm}"
+      --rg-id="${rgid}"
+      --rg-opts="${readGroupOpts.rgOpts}"
       #if $readGroupOpts.rgOpts == "full"
-        --rg-cn="$readGroupOpts.rgcn"
-        --rg-ds="$readGroupOpts.rgds"
+        --rg-cn="${readGroupOpts.rgcn}"
+        --rg-ds="${readGroupOpts.rgds}"
       #end if
-      --output-format=$outputFormat
-      --output=$outFile
+      --output-format="${outputFormat}"
+      --output="${outFile}"
       -j "\$JAVA_JAR_PATH/AddOrReplaceReadGroups.jar"
       --tmpdir "${__new_file_path__}" 
   </command>

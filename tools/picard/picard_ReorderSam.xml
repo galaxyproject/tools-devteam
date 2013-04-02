@@ -2,19 +2,19 @@
   <requirements><requirement type="package" version="1.56.0">picard</requirement></requirements>
   <command interpreter="python">
     picard_wrapper.py
-      --input=$inputFile
+      --input="${inputFile}"
       #if $source.indexSource == "built-in"
         --ref="${source.ref.fields.path}"
       #else
-        --ref-file=$refFile
-        --species-name=$source.speciesName
-        --build-name=$source.buildName
-        --trunc-names=$source.truncateSeqNames
+        --ref-file="${refFile}"
+        --species-name="${source.speciesName}"
+        --build-name="${source.buildName}"
+        --trunc-names="${source.truncateSeqNames}"
       #end if
-      --allow-inc-dict-concord=$allowIncDictConcord
-      --allow-contig-len-discord=$allowContigLenDiscord
-      --output-format=$outputFormat
-      --output=$outFile
+      --allow-inc-dict-concord="${allowIncDictConcord}"
+      --allow-contig-len-discord="${allowContigLenDiscord}"
+      --output-format="${outputFormat}"
+      --output="${outFile}"
       --tmpdir "${__new_file_path__}" 
       -j "\$JAVA_JAR_PATH/ReorderSam.jar"
   </command>

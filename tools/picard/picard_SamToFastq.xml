@@ -8,8 +8,8 @@
     -jar "\$JAVA_JAR_PATH/SamToFastq.jar"
     INPUT="${input_sam}"
     VALIDATION_STRINGENCY="LENIENT"
-    RE_REVERSE=${re_reverse}
-    INCLUDE_NON_PF_READS=${include_non_pf_reads}
+    RE_REVERSE="${re_reverse}"
+    INCLUDE_NON_PF_READS="${include_non_pf_reads}"
     #if str( $clipping_attribute ):
         CLIPPING_ATTRIBUTE="${clipping_attribute}"
     #end if
@@ -22,7 +22,7 @@
     #if str( $read1_max_bases_to_write ):
         READ1_MAX_BASES_TO_WRITE="${read1_max_bases_to_write}"
     #end if
-    INCLUDE_NON_PRIMARY_ALIGNMENTS=${include_non_primary_alignments}
+    INCLUDE_NON_PRIMARY_ALIGNMENTS="${include_non_primary_alignments}"
     
     #if str( $output_per_read_group_selector ) == 'per_sam_file':
         ##OUTPUT_PER_RG=false
@@ -54,7 +54,7 @@
         #end if
         '
         --read_group_file_1 "${output_fastq1}"
-        --new_files_path "${$__new_file_path__}"
+        --new_files_path "${__new_file_path__}"
         --file_id_1 "${output_fastq1.id}"
     #end if
   </command>

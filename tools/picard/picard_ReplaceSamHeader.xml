@@ -2,10 +2,10 @@
   <requirements><requirement type="package" version="1.56.0">picard</requirement></requirements>
   <command interpreter="python">
     picard_wrapper.py
-      --input "$inputFile"
-      -o $outFile
-      --header-file $headerFile
-      --output-format $outputFormat
+      --input "${inputFile}"
+      -o "${outFile}"
+      --header-file "${headerFile}"
+      --output-format "${outputFormat}"
       -j "\$JAVA_JAR_PATH/ReplaceSamHeader.jar"
       --tmpdir "${__new_file_path__}" 
   </command>

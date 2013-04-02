@@ -2,10 +2,10 @@
   <requirements><requirement type="package" version="1.56.0">picard</requirement></requirements>
   <command interpreter="python">
     picard_wrapper.py
-      --input "$input_file"
-      --bai-file "$input_file.metadata.bam_index"
-      -t "$htmlfile"
-      -d "$htmlfile.files_path"
+      --input "${input_file}"
+      --bai-file "${input_file.metadata.bam_index}"
+      -t "${htmlfile}"
+      -d "${htmlfile.files_path}"
       -j "\$JAVA_JAR_PATH/BamIndexStats.jar"
       --tmpdir "${__new_file_path__}" 
   </command>
