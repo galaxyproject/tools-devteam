@@ -37,7 +37,7 @@
         #if str( $param_type.min_q ) != "":
             MIN_Q="${param_type.min_q}"
         #end if
-        #if str( $param_type.min_q ) != "":
+        #if str( $param_type.max_q ) != "":
             MAX_Q="${param_type.max_q}"
         #end if
         SORT_ORDER="${param_type.sort_order}"
