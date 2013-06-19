@@ -4,19 +4,21 @@
         <install version="1.0">
             <actions>
                 <action type="download_by_url">ftp://emboss.open-bio.org/pub/EMBOSS/old/5.0.0/EMBOSS-5.0.0.tar.gz</action>
-                <action type="shell_command">./configure --without-x --prefix=$INSTALL_DIR</action>
+                <action type="shell_command">./configure --prefix=$INSTALL_DIR</action>
                 <action type="shell_command">make</action>
                 <action type="shell_command">make install</action>
             </actions>
             <actions>
                 <action type="download_by_url">ftp://emboss.open-bio.org/pub/EMBOSS/old/5.0.0/PHYLIP-3.6b.tar.gz</action>
-                <action type="shell_command">./configure --without-x --prefix=$INSTALL_DIR</action>
+                <action type="shell_command">./configure --prefix=$INSTALL_DIR CFLAGS='-I$INSTALL_DIR/include'</action>
                 <action type="shell_command">make</action>
                 <action type="shell_command">make install</action>
             </actions>
         </install>
         <readme>
-These links provide information for building the Emboss package in most environments .
+Compiling the Emboss binaries requires the X11 client libraries and header files.
+
+These links provide information for building the Emboss package in most environments.
 
 System requirements
 http://emboss.sourceforge.net/download/#Requirements
