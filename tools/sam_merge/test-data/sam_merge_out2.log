@@ -1,0 +1,5 @@
+[Thu Aug 04 13:49:53 EST 2011] net.sf.picard.sam.MergeSamFiles INPUT=[/data/tmp/tmpjnE9mC/database/files/000/dataset_5.dat, /data/tmp/tmpjnE9mC/database/files/000/dataset_6.dat, /data/tmp/tmpjnE9mC/database/files/000/dataset_7.dat] OUTPUT=/data/tmp/tmpjnE9mC/database/files/000/dataset_8.dat MERGE_SEQUENCE_DICTIONARIES=true VALIDATION_STRINGENCY=LENIENT    SORT_ORDER=coordinate ASSUME_SORTED=false USE_THREADING=false TMP_DIR=/tmp/rlazarus VERBOSITY=INFO QUIET=false COMPRESSION_LEVEL=5 MAX_RECORDS_IN_RAM=500000 CREATE_INDEX=false CREATE_MD5_FILE=false
+INFO	2011-08-04 13:49:54	MergeSamFiles	Sorting input files using temp directory /tmp/rlazarus
+INFO	2011-08-04 13:49:54	MergeSamFiles	Finished reading inputs.
+[Thu Aug 04 13:49:54 EST 2011] net.sf.picard.sam.MergeSamFiles done.
+Runtime.totalMemory()=2028732416
