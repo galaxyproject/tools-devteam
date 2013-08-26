@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<tool_dependency>
+    <package name="samtools" version="0.1.18">
+        <repository changeset_revision="a7936f4ea405" name="package_samtools_0_1_18" owner="devteam" toolshed="http://toolshed.g2.bx.psu.edu" />
+    </package>
+</tool_dependency>
