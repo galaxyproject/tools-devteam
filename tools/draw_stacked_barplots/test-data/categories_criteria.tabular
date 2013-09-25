@@ -1,0 +1,9 @@
+ 	10bp	20bp	40bp	80bp	160bp	320bp	640bp	1280bp
+Deletion_Hotspots	2	3	4	4	5	6	7	7
+Dna_Pol_Pause/Frameshift_Hotspots	8	10	14	17	18	15	19	20
+Indel_Hotspots	1	1	1	2	1	0	0	0
+Insertion_Hotspots	0	0	1	2	2	2	2	5
+Topoisomerase_Cleavage_Sites	2	3	5	4	3	3	4	4
+Translin_Targets	0	0	2	2	3	3	3	2
+VDJ_Recombination_Signals	0	0	1	1	1	2	2	2
+X-like_Sites	4	4	4	5	6	7	7	10
