@@ -1,0 +1,233 @@
+#Input	GeneSymbol	GeneName	GeneID	DiseaseName	DiseaseID	GeneDiseaseRelation	OmimIDs	PubMedIDs
+abo	ABO	ABO blood group (transferase A, alpha 1-3-N-acetylgalactosaminyltransferase; transferase B, alpha 1-3-galactosyltransferase)	28	Inflammation	MESH:D007249	inferred via Flavonoids		17296493
+abo	ABO	ABO blood group (transferase A, alpha 1-3-N-acetylgalactosaminyltransferase; transferase B, alpha 1-3-galactosyltransferase)	28	Pancreatic Neoplasms	MESH:D010190	marker/mechanism		19648918
+abo	ABO	ABO blood group (transferase A, alpha 1-3-N-acetylgalactosaminyltransferase; transferase B, alpha 1-3-galactosyltransferase)	28	Prostatic Neoplasms	MESH:D011471	marker/mechanism		17013881
+lmna	LMNA	lamin A/C	4000	Abdominal Neoplasms	MESH:D000008	inferred via Tamoxifen		14745880
+lmna	LMNA	lamin A/C	4000	Acne Vulgaris	MESH:D000152	inferred via Ethinyl Estradiol		17505938
+lmna	LMNA	lamin A/C	4000	Acute-Phase Reaction	MESH:D000210	inferred via zoledronic acid		20200999
+lmna	LMNA	lamin A/C	4000	Adenocarcinoma	MESH:D000230	inferred via Ethinyl Estradiol		14692618
+lmna	LMNA	lamin A/C	4000	Adenoma	MESH:D000236	inferred via resveratrol		15688382
+lmna	LMNA	lamin A/C	4000	Adenoma, Liver Cell	MESH:D018248	inferred via Tetrachlorodibenzodioxin		16835633
+lmna	LMNA	lamin A/C	4000	Alzheimer Disease	MESH:D000544	inferred via resveratrol		16162502|16183991
+lmna	LMNA	lamin A/C	4000	Anemia, Hemolytic	MESH:D000743	inferred via Quercetin		17084956
+lmna	LMNA	lamin A/C	4000	Angioedema	MESH:D000799	inferred via Acetaminophen		10982225
+lmna	LMNA	lamin A/C	4000	Arteriosclerosis	MESH:D001161	inferred via Ethinyl Estradiol		11256880
+lmna	LMNA	lamin A/C	4000	Arthritis, Experimental	MESH:D001169	inferred via Ethinyl Estradiol		15885639
+lmna	LMNA	lamin A/C	4000	Arthritis, Experimental	MESH:D001169	inferred via resveratrol		17115116
+lmna	LMNA	lamin A/C	4000	Asthma	MESH:D001249	inferred via Mustard Gas		10378619
+lmna	LMNA	lamin A/C	4000	Ataxia Telangiectasia	MESH:D001260	inferred via Quercetin		15336622
+lmna	LMNA	lamin A/C	4000	Atherosclerosis	MESH:D050197	inferred via resveratrol		17967414|16873680
+lmna	LMNA	lamin A/C	4000	Autistic Disorder	MESH:D001321	inferred via Acetaminophen		18445737
+lmna	LMNA	lamin A/C	4000	Autistic Disorder	MESH:D001321	inferred via Mercury		17497416
+lmna	LMNA	lamin A/C	4000	Autoimmune Diseases	MESH:D001327	inferred via Mercury		16634805
+lmna	LMNA	lamin A/C	4000	Autoimmune Diseases	MESH:D001327	inferred via Quercetin		19761891
+lmna	LMNA	lamin A/C	4000	Melanoma, Experimental	MESH:D008546	inferred via Acetaminophen		19513568
+lmna	LMNA	lamin A/C	4000	Blister	MESH:D001768	inferred via Mustard Gas		19167455
+lmna	LMNA	lamin A/C	4000	Blood Coagulation Disorders	MESH:D001778	inferred via pirinixic acid		19483382
+lmna	LMNA	lamin A/C	4000	Bone Neoplasms	MESH:D001859	inferred via zoledronic acid		16778634|16121404|17312309|11697798|19442620|15867366
+lmna	LMNA	lamin A/C	4000	Bone Resorption	MESH:D001862	inferred via zoledronic acid		18404659|11869084|15845617|18496637|16769263|8053405
+lmna	LMNA	lamin A/C	4000	Brain Ischemia	MESH:D002545	inferred via resveratrol		17600658
+lmna	LMNA	lamin A/C	4000	Brain Neoplasms	MESH:D001932	inferred via KCC 009		16170020
+lmna	LMNA	lamin A/C	4000	Breast Neoplasms	MESH:D001943	inferred via Quercetin		18628248
+lmna	LMNA	lamin A/C	4000	Breast Neoplasms	MESH:D001943	inferred via Tamoxifen		18855134|17049068|16818667|17242785|16202921|15565566|11161223|16873071|17261762|15668708|17440819|17893378|16273361
+lmna	LMNA	lamin A/C	4000	Breast Neoplasms	MESH:D001943	inferred via resveratrol		16393696|17534123|17651959
+lmna	LMNA	lamin A/C	4000	Breast Neoplasms	MESH:D001943	inferred via zoledronic acid		18695136|16096432
+lmna	LMNA	lamin A/C	4000	Bronchiolitis Obliterans	MESH:D001989	inferred via Mustard Gas		15286001
+lmna	LMNA	lamin A/C	4000	Bronchitis, Chronic	MESH:D029481	inferred via Mustard Gas		10378619|17687719
+lmna	LMNA	lamin A/C	4000	Cadmium Poisoning	MESH:D002105	inferred via Quercetin		16962696
+lmna	LMNA	lamin A/C	4000	Carbon Tetrachloride Poisoning	MESH:D002252	inferred via Vitamin E		16050911
+lmna	LMNA	lamin A/C	4000	Carcinoma	MESH:D002277	inferred via Tetrachlorodibenzodioxin		16835633
+lmna	LMNA	lamin A/C	4000	Carcinoma, Hepatocellular	MESH:D006528	inferred via Quercetin		12508355|19519916
+lmna	LMNA	lamin A/C	4000	Carcinoma, Hepatocellular	MESH:D006528	inferred via Tamoxifen		16924424
+lmna	LMNA	lamin A/C	4000	Carcinoma, Hepatocellular	MESH:D006528	inferred via resveratrol		16227395
+lmna	LMNA	lamin A/C	4000	Carcinoma, Lewis Lung	MESH:D018827	inferred via resveratrol		16675471
+lmna	LMNA	lamin A/C	4000	Carcinoma, Pancreatic Ductal	MESH:D021441	inferred via Quercetin		17234771
+lmna	LMNA	lamin A/C	4000	Carcinoma, Renal Cell	MESH:D002292	inferred via zoledronic acid		18507039
+lmna	LMNA	lamin A/C	4000	Carcinoma, Squamous Cell	MESH:D002294	inferred via resveratrol		16227395
+lmna	LMNA	lamin A/C	4000	Carcinoma, Transitional Cell	MESH:D002295	inferred via Tamoxifen		17572228
+lmna	LMNA	lamin A/C	4000	Cardiomegaly	MESH:D006332	inferred via Quercetin		19794523
+lmna	LMNA	lamin A/C	4000	Cardiomyopathy, Dilated	MESH:D002311	marker/mechanism	115200	
+lmna	LMNA	lamin A/C	4000	Cardiovascular Diseases	MESH:D002318	inferred via resveratrol		15458977
+lmna	LMNA	lamin A/C	4000	Cataract	MESH:D002386	inferred via Acetaminophen		10977129
+lmna	LMNA	lamin A/C	4000	CHARCOT-MARIE-TOOTH DISEASE, AXONAL, TYPE 2B1	OMIM:605588	marker/mechanism	605588	
+lmna	LMNA	lamin A/C	4000	Cholangiocarcinoma	MESH:D018281	inferred via Tetrachlorodibenzodioxin		16835633
+lmna	LMNA	lamin A/C	4000	Cholestasis	MESH:D002779	inferred via Ethinyl Estradiol		11677210|17681005|17110522|16919318|17333356|15861022|16105132
+lmna	LMNA	lamin A/C	4000	Cleft Palate	MESH:D002972	inferred via Tetrachlorodibenzodioxin		8697196
+lmna	LMNA	lamin A/C	4000	Colitis	MESH:D003092	inferred via Selenium		17936198
+lmna	LMNA	lamin A/C	4000	Colitis	MESH:D003092	inferred via resveratrol		16474422
+lmna	LMNA	lamin A/C	4000	Colonic Neoplasms	MESH:D003110	inferred via Quercetin		17148506|19440933|19056647|15741050|16640504|17191121|11134977
+lmna	LMNA	lamin A/C	4000	Colonic Neoplasms	MESH:D003110	inferred via resveratrol		16338953
+lmna	LMNA	lamin A/C	4000	Colorectal Neoplasms	MESH:D015179	inferred via Quercetin		18095365|18852136
+lmna	LMNA	lamin A/C	4000	Colorectal Neoplasms	MESH:D015179	inferred via resveratrol		16550006
+lmna	LMNA	lamin A/C	4000	Coronary Disease	MESH:D003327	inferred via fluvastatin		16142594
+lmna	LMNA	lamin A/C	4000	Coronary Disease	MESH:D003327	inferred via resveratrol		16507316
+lmna	LMNA	lamin A/C	4000	Craniofacial Abnormalities	MESH:D019465	inferred via Tetrachlorodibenzodioxin		10048152|20055451
+lmna	LMNA	lamin A/C	4000	Craniofacial Abnormalities	MESH:D019465	inferred via Vitamin E		19769572
+lmna	LMNA	lamin A/C	4000	Craniofacial Abnormalities	MESH:D019465	marker/mechanism		15726408
+lmna	LMNA	lamin A/C	4000	Diabetes Mellitus, Type 2	MESH:D003924	inferred via Tetrachlorodibenzodioxin		17107852
+lmna	LMNA	lamin A/C	4000	Diabetes Mellitus, Experimental	MESH:D003921	inferred via Quercetin		19496084
+lmna	LMNA	lamin A/C	4000	Diabetes Mellitus, Experimental	MESH:D003921	inferred via resveratrol		16873680
+lmna	LMNA	lamin A/C	4000	Diabetic Nephropathies	MESH:D003928	inferred via resveratrol		16286809
+lmna	LMNA	lamin A/C	4000	Drug-Induced Liver Injury	MESH:D056486	inferred via Acetaminophen		10663392|11529661|12540782|15619225|12705907|19370779|14550746|11421492|19420014|18713872|12153990|11739529|19739265|10915739|17906064|16393943|10774834|16485898|14725611|19416960|11287661|12958197|11834606|11461765|19164858|16081117|17522070|17562736|14986274|16177239|16227642|15968718|11743745|12392966|2444490|16781746|18071297|19085960|12594235
+lmna	LMNA	lamin A/C	4000	Drug-Induced Liver Injury	MESH:D056486	inferred via Selenium		15131321
+lmna	LMNA	lamin A/C	4000	Drug-Induced Liver Injury, Chronic	MESH:D056487	inferred via Acetaminophen		19426721
+lmna	LMNA	lamin A/C	4000	Edema	MESH:D004487	inferred via Mustard Gas		11428647|9260866|11428631|11402378
+lmna	LMNA	lamin A/C	4000	Edema	MESH:D004487	inferred via pirinixic acid		12083418
+lmna	LMNA	lamin A/C	4000	Edema	MESH:D004487	inferred via resveratrol		8985016
+lmna	LMNA	lamin A/C	4000	EMERY-DREIFUSS MUSCULAR DYSTROPHY, AUTOSOMAL DOMINANT	OMIM:181350	marker/mechanism	181350	
+lmna	LMNA	lamin A/C	4000	Encephalomyelitis, Autoimmune, Experimental	MESH:D004681	inferred via Ethinyl Estradiol		12538720
+lmna	LMNA	lamin A/C	4000	Encephalomyelitis, Autoimmune, Experimental	MESH:D004681	inferred via resveratrol		17872969
+lmna	LMNA	lamin A/C	4000	Endometrial Neoplasms	MESH:D016889	inferred via Tamoxifen		17893378|16202921
+lmna	LMNA	lamin A/C	4000	Enterocolitis, Necrotizing	MESH:D020345	inferred via resveratrol		17923197
+lmna	LMNA	lamin A/C	4000	Erythema	MESH:D004890	inferred via Mustard Gas		9357497
+lmna	LMNA	lamin A/C	4000	Eye Abnormalities	MESH:D005124	inferred via Tetrachlorodibenzodioxin		11564622
+lmna	LMNA	lamin A/C	4000	Fatty Liver	MESH:D005234	inferred via Ethinyl Estradiol		15345470
+lmna	LMNA	lamin A/C	4000	Fatty Liver	MESH:D005234	inferred via Tamoxifen		14986274
+lmna	LMNA	lamin A/C	4000	Female Urogenital Diseases	MESH:D052776	inferred via Tamoxifen		16709447
+lmna	LMNA	lamin A/C	4000	Femoral Fractures	MESH:D005264	inferred via zoledronic acid		16234978
+lmna	LMNA	lamin A/C	4000	Fibromatosis, Abdominal	MESH:D018221	inferred via Tamoxifen		14745880
+lmna	LMNA	lamin A/C	4000	Fibromatosis, Aggressive	MESH:D018222	inferred via Tamoxifen		19069698
+lmna	LMNA	lamin A/C	4000	Fibrosis	MESH:D005355	inferred via Quercetin		19474275
+lmna	LMNA	lamin A/C	4000	Glioblastoma	MESH:D005909	inferred via KCC 009		16170020
+lmna	LMNA	lamin A/C	4000	Glioblastoma	MESH:D005909	inferred via Quercetin		19804834
+lmna	LMNA	lamin A/C	4000	Glioma	MESH:D005910	inferred via Quercetin		17643826
+lmna	LMNA	lamin A/C	4000	Heart Defects, Congenital	MESH:D006330	inferred via Tetrachlorodibenzodioxin		10048152
+lmna	LMNA	lamin A/C	4000	Heart Defects, Congenital	MESH:D006330	inferred via Vitamin E		16080930
+lmna	LMNA	lamin A/C	4000	Heart Failure	MESH:D006333	inferred via Selenium		17162251
+lmna	LMNA	lamin A/C	4000	HEART-HAND SYNDROME, SLOVENIAN TYPE	OMIM:610140	marker/mechanism	610140	
+lmna	LMNA	lamin A/C	4000	Hernia, Diaphragmatic	MESH:D006548	inferred via Vitamin E		16490937|16863852
+lmna	LMNA	lamin A/C	4000	Herpes Simplex	MESH:D006561	inferred via resveratrol		16876885
+lmna	LMNA	lamin A/C	4000	Hot Flashes	MESH:D019584	inferred via Vitamin E		14716179
+lmna	LMNA	lamin A/C	4000	Hydronephrosis	MESH:D006869	inferred via Tetrachlorodibenzodioxin		8697196
+lmna	LMNA	lamin A/C	4000	Hyperalgesia	MESH:D006930	inferred via Acetaminophen		16870215
+lmna	LMNA	lamin A/C	4000	Hyperalgesia	MESH:D006930	inferred via zoledronic acid		16769263
+lmna	LMNA	lamin A/C	4000	Hypercalcemia	MESH:D006934	inferred via zoledronic acid		19622757|18089816
+lmna	LMNA	lamin A/C	4000	Hypercholesterolemia	MESH:D006937	inferred via resveratrol		17188708
+lmna	LMNA	lamin A/C	4000	Hyperglycemia	MESH:D006943	inferred via Quercetin		11834736|18262572
+lmna	LMNA	lamin A/C	4000	Hyperlipidemias	MESH:D006949	inferred via resveratrol		16873680
+lmna	LMNA	lamin A/C	4000	Hypertension	MESH:D006973	inferred via Quercetin		18356687
+lmna	LMNA	lamin A/C	4000	Hypertrophy, Left Ventricular	MESH:D017379	inferred via resveratrol		17488730
+lmna	LMNA	lamin A/C	4000	Hypocalcemia	MESH:D006996	inferred via zoledronic acid		12669777
+lmna	LMNA	lamin A/C	4000	Hypospadias	MESH:D007021	inferred via Ethinyl Estradiol		16945680|16569931
+lmna	LMNA	lamin A/C	4000	Infarction, Middle Cerebral Artery	MESH:D020244	inferred via resveratrol		17600658
+lmna	LMNA	lamin A/C	4000	Infertility, Female	MESH:D007247	inferred via Ethinyl Estradiol		12013081
+lmna	LMNA	lamin A/C	4000	Infertility, Male	MESH:D007248	inferred via Ethinyl Estradiol		17937319
+lmna	LMNA	lamin A/C	4000	Inflammation	MESH:D007249	inferred via Mustard Gas		8975870|11428620|11428631|16001271|17524151|9357497|11402378|11428647|9260866
+lmna	LMNA	lamin A/C	4000	Inflammation	MESH:D007249	inferred via resveratrol		16366677
+lmna	LMNA	lamin A/C	4000	Influenza, Human	MESH:D007251	inferred via Quercetin		16624496
+lmna	LMNA	lamin A/C	4000	Influenza, Human	MESH:D007251	inferred via Selenium		16624496
+lmna	LMNA	lamin A/C	4000	Influenza, Human	MESH:D007251	inferred via Vitamin E		16624496
+lmna	LMNA	lamin A/C	4000	Influenza, Human	MESH:D007251	inferred via resveratrol		16624496
+lmna	LMNA	lamin A/C	4000	Keloid	MESH:D007627	inferred via Quercetin		17086741
+lmna	LMNA	lamin A/C	4000	Kidney Diseases	MESH:D007674	inferred via Quercetin		16962696
+lmna	LMNA	lamin A/C	4000	Kidney Diseases	MESH:D007674	inferred via Vitamin E		12488133
+lmna	LMNA	lamin A/C	4000	Kidney Failure, Acute	MESH:D007675	inferred via resveratrol		16538975
+lmna	LMNA	lamin A/C	4000	Kidney Failure, Acute	MESH:D007675	inferred via zoledronic acid		19715164
+lmna	LMNA	lamin A/C	4000	Kidney Failure, Chronic	MESH:D007676	inferred via Selenium		16518626
+lmna	LMNA	lamin A/C	4000	Leukemia	MESH:D007938	inferred via Quercetin		17468513
+lmna	LMNA	lamin A/C	4000	Leukemia-Lymphoma, Adult T-Cell	MESH:D015459	inferred via zoledronic acid		18089816
+lmna	LMNA	lamin A/C	4000	Lipidoses	MESH:D008064	inferred via Tamoxifen		17567588|15342952
+lmna	LMNA	lamin A/C	4000	LIPODYSTROPHY, FAMILIAL PARTIAL, TYPE 2	OMIM:151660	marker/mechanism	151660	
+lmna	LMNA	lamin A/C	4000	Liver Cirrhosis, Experimental	MESH:D008106	inferred via Quercetin		12741479
+lmna	LMNA	lamin A/C	4000	Liver Cirrhosis, Experimental	MESH:D008106	inferred via Tamoxifen		18564211
+lmna	LMNA	lamin A/C	4000	Liver Cirrhosis, Experimental	MESH:D008106	inferred via Vitamin E		16169303
+lmna	LMNA	lamin A/C	4000	Liver Cirrhosis, Experimental	MESH:D008106	inferred via pirinixic acid		15474484
+lmna	LMNA	lamin A/C	4000	Liver Diseases	MESH:D008107	inferred via Acetaminophen		16610002|19460945|19014921|12969438|16611625|11587558|19784758
+lmna	LMNA	lamin A/C	4000	Liver Failure, Acute	MESH:D017114	inferred via Acetaminophen		17185352|16871587
+lmna	LMNA	lamin A/C	4000	Liver Neoplasms	MESH:D008113	inferred via Mitomycin		15113037
+lmna	LMNA	lamin A/C	4000	Liver Neoplasms	MESH:D008113	inferred via Quercetin		18980244
+lmna	LMNA	lamin A/C	4000	Liver Neoplasms	MESH:D008113	inferred via Tamoxifen		16684651
+lmna	LMNA	lamin A/C	4000	Liver Neoplasms	MESH:D008113	inferred via Tetrachlorodibenzodioxin		16984957
+lmna	LMNA	lamin A/C	4000	Liver Neoplasms	MESH:D008113	inferred via pirinixic acid		15890375
+lmna	LMNA	lamin A/C	4000	Liver Neoplasms, Experimental	MESH:D008114	inferred via Quercetin		19519916
+lmna	LMNA	lamin A/C	4000	Lung Diseases	MESH:D008171	inferred via Mustard Gas		18702808|18161513
+lmna	LMNA	lamin A/C	4000	Lung Diseases	MESH:D008171	inferred via Vitamin E		16863852
+lmna	LMNA	lamin A/C	4000	Lung Neoplasms	MESH:D008175	inferred via Mustard Gas		3148597|8781369
+lmna	LMNA	lamin A/C	4000	Lung Neoplasms	MESH:D008175	inferred via Quercetin		16280456
+lmna	LMNA	lamin A/C	4000	Lung Neoplasms	MESH:D008175	inferred via Vitamin E		11062179
+lmna	LMNA	lamin A/C	4000	Lymphoma, B-Cell	MESH:D016393	inferred via resveratrol		17088997
+lmna	LMNA	lamin A/C	4000	Mammary Neoplasms, Animal	MESH:D015674	inferred via resveratrol		15688416
+lmna	LMNA	lamin A/C	4000	Mammary Neoplasms, Experimental	MESH:D008325	inferred via Selenium		15318939
+lmna	LMNA	lamin A/C	4000	Mammary Neoplasms, Experimental	MESH:D008325	inferred via Tamoxifen		16827153|14580682|11731420
+lmna	LMNA	lamin A/C	4000	Mammary Neoplasms, Experimental	MESH:D008325	inferred via resveratrol		11606380|8985016
+lmna	LMNA	lamin A/C	4000	Mammary Neoplasms, Experimental	MESH:D008325	inferred via zoledronic acid		17312309
+lmna	LMNA	lamin A/C	4000	MANDIBULOACRAL DYSPLASIA WITH TYPE A LIPODYSTROPHY	OMIM:248370	marker/mechanism	248370	17848409|12788894|19764019
+lmna	LMNA	lamin A/C	4000	Melanoma	MESH:D008545	inferred via Tamoxifen		12393984
+lmna	LMNA	lamin A/C	4000	Melanoma	MESH:D008545	inferred via resveratrol		17992120
+lmna	LMNA	lamin A/C	4000	Melanoma, Amelanotic	MESH:D018328	inferred via Tamoxifen		15990972
+lmna	LMNA	lamin A/C	4000	Mesothelioma	MESH:D008654	inferred via Selenium		15107826
+lmna	LMNA	lamin A/C	4000	Mesothelioma	MESH:D008654	inferred via zoledronic acid		16675582
+lmna	LMNA	lamin A/C	4000	Metabolic Diseases	MESH:D008659	inferred via resveratrol		17112576
+lmna	LMNA	lamin A/C	4000	Multiple Myeloma	MESH:D009101	inferred via fluvastatin		16996129
+lmna	LMNA	lamin A/C	4000	Multiple Myeloma	MESH:D009101	inferred via lonafarnib		16996129
+lmna	LMNA	lamin A/C	4000	Multiple Myeloma	MESH:D009101	inferred via resveratrol		16267019|16490592|17049120|14749477|17935668|17164350
+lmna	LMNA	lamin A/C	4000	Multiple Myeloma	MESH:D009101	inferred via zoledronic acid		18089719|16996129|19621390
+lmna	LMNA	lamin A/C	4000	Muscular Atrophy, Spinal	MESH:D009134	inferred via resveratrol		17962980
+lmna	LMNA	lamin A/C	4000	Muscular Dystrophies, Limb-Girdle	MESH:D049288	marker/mechanism		12032588
+lmna	LMNA	lamin A/C	4000	Muscular Dystrophy, Emery-Dreifuss	MESH:D020389	marker/mechanism		12032588
+lmna	LMNA	lamin A/C	4000	MUSCULAR DYSTROPHY, LIMB-GIRDLE, TYPE 1B	OMIM:159001	marker/mechanism	159001	
+lmna	LMNA	lamin A/C	4000	Leukemia, Promyelocytic, Acute	MESH:D015473	inferred via resveratrol		16087638
+lmna	LMNA	lamin A/C	4000	Myocardial Infarction	MESH:D009203	inferred via Quercetin		19595682
+lmna	LMNA	lamin A/C	4000	Myocardial Infarction	MESH:D009203	inferred via resveratrol		16317513|17188708|17015251|17125593|16525036|16456233
+lmna	LMNA	lamin A/C	4000	Myocardial Ischemia	MESH:D017202	inferred via resveratrol		17015251|17125593
+lmna	LMNA	lamin A/C	4000	Myocardial Reperfusion Injury	MESH:D015428	inferred via Quercetin		19207477
+lmna	LMNA	lamin A/C	4000	Myocarditis	MESH:D009205	inferred via resveratrol		17322642
+lmna	LMNA	lamin A/C	4000	Neoplasm Metastasis	MESH:D009362	inferred via zoledronic acid		15867366|17312309|19139120
+lmna	LMNA	lamin A/C	4000	Neoplasms	MESH:D009369	inferred via Quercetin		15185748
+lmna	LMNA	lamin A/C	4000	Neoplasms, Experimental	MESH:D009374	inferred via resveratrol		8985016
+lmna	LMNA	lamin A/C	4000	Neurodegenerative Diseases	MESH:D019636	inferred via Acetaminophen		18514411
+lmna	LMNA	lamin A/C	4000	Neurodegenerative Diseases	MESH:D019636	inferred via resveratrol		17652729
+lmna	LMNA	lamin A/C	4000	Neurogenic Inflammation	MESH:D020078	inferred via Quercetin		17929310
+lmna	LMNA	lamin A/C	4000	Neurogenic Inflammation	MESH:D020078	inferred via resveratrol		17929310
+lmna	LMNA	lamin A/C	4000	Neutropenia	MESH:D009503	inferred via Mustard Gas		7688884|16761898
+lmna	LMNA	lamin A/C	4000	Lymphoma, Non-Hodgkin	MESH:D008228	inferred via resveratrol		14749477
+lmna	LMNA	lamin A/C	4000	Carcinoma, Non-Small-Cell Lung	MESH:D002289	inferred via zoledronic acid		19233551
+lmna	LMNA	lamin A/C	4000	Osteolysis	MESH:D010014	inferred via zoledronic acid		15867366
+lmna	LMNA	lamin A/C	4000	Osteoporosis	MESH:D010024	inferred via zoledronic acid		17882678
+lmna	LMNA	lamin A/C	4000	Osteoporosis, Postmenopausal	MESH:D015663	inferred via Quercetin		19495926
+lmna	LMNA	lamin A/C	4000	Osteoporosis, Postmenopausal	MESH:D015663	inferred via resveratrol		17513867
+lmna	LMNA	lamin A/C	4000	Ovarian Neoplasms	MESH:D010051	inferred via Quercetin		19005980
+lmna	LMNA	lamin A/C	4000	Pain	MESH:D010146	inferred via Acetaminophen		16870215
+lmna	LMNA	lamin A/C	4000	Pain	MESH:D010146	inferred via zoledronic acid		16475674
+lmna	LMNA	lamin A/C	4000	Pancreatic Neoplasms	MESH:D010190	inferred via Mitomycin		15113037
+lmna	LMNA	lamin A/C	4000	Pancreatic Neoplasms	MESH:D010190	inferred via Quercetin		16965848
+lmna	LMNA	lamin A/C	4000	Panic Disorder	MESH:D016584	inferred via Ethinyl Estradiol		11578682
+lmna	LMNA	lamin A/C	4000	Plasmacytoma	MESH:D010954	inferred via Selenium		15087411
+lmna	LMNA	lamin A/C	4000	Poisoning	MESH:D011041	inferred via Mustard Gas		15727166
+lmna	LMNA	lamin A/C	4000	Precancerous Conditions	MESH:D011230	inferred via Quercetin		19056647
+lmna	LMNA	lamin A/C	4000	Prenatal Exposure Delayed Effects	MESH:D011297	inferred via resveratrol		16679765
+lmna	LMNA	lamin A/C	4000	Progeria	MESH:D011371	marker/mechanism	176670	15726408|17469202
+lmna	LMNA	lamin A/C	4000	Prostatic Neoplasms	MESH:D011471	inferred via AGN 194204		16000583
+lmna	LMNA	lamin A/C	4000	Prostatic Neoplasms	MESH:D011471	inferred via Quercetin		17292933|14715546
+lmna	LMNA	lamin A/C	4000	Prostatic Neoplasms	MESH:D011471	inferred via Tamoxifen		15067354
+lmna	LMNA	lamin A/C	4000	Prostatic Neoplasms	MESH:D011471	inferred via Vitamin E		15084515
+lmna	LMNA	lamin A/C	4000	Prostatic Neoplasms	MESH:D011471	inferred via resveratrol		17718901|17636462|17804756|15767336|17675339|16731767
+lmna	LMNA	lamin A/C	4000	Prostatic Neoplasms	MESH:D011471	inferred via zoledronic acid		12438248|19103299
+lmna	LMNA	lamin A/C	4000	Pruritus	MESH:D011537	inferred via Ethinyl Estradiol		15861022|16919318
+lmna	LMNA	lamin A/C	4000	Pruritus	MESH:D011537	inferred via Mustard Gas		18058305
+lmna	LMNA	lamin A/C	4000	Pulmonary Fibrosis	MESH:D011658	inferred via Mustard Gas		17620002|17720292|17894541|10334151|17266442
+lmna	LMNA	lamin A/C	4000	Renal Insufficiency, Chronic	MESH:D051436	inferred via resveratrol		16325855
+lmna	LMNA	lamin A/C	4000	Reperfusion Injury	MESH:D015427	inferred via resveratrol		15827377|17520802|17058453|16314181|16317513
+lmna	LMNA	lamin A/C	4000	RESTRICTIVE DERMOPATHY, LETHAL	OMIM:275210	marker/mechanism	275210	
+lmna	LMNA	lamin A/C	4000	Sarcoma, Ewing's	MESH:D012512	inferred via zoledronic acid		16121404
+lmna	LMNA	lamin A/C	4000	Schistosomiasis japonica	MESH:D012554	inferred via Quercetin		16862918
+lmna	LMNA	lamin A/C	4000	Scleroderma, Localized	MESH:D012594	marker/mechanism		15726408
+lmna	LMNA	lamin A/C	4000	Skin Diseases	MESH:D012871	inferred via Mustard Gas		16961503|15451306|12880345
+lmna	LMNA	lamin A/C	4000	Skin Neoplasms	MESH:D012878	inferred via resveratrol		8985016|15837718
+lmna	LMNA	lamin A/C	4000	Spermatocele	MESH:D013088	inferred via Ethinyl Estradiol		16709447
+lmna	LMNA	lamin A/C	4000	Spermatocele	MESH:D013088	inferred via Tamoxifen		16709447
+lmna	LMNA	lamin A/C	4000	Stroke	MESH:D020521	inferred via Vitamin E		16517955
+lmna	LMNA	lamin A/C	4000	STROKE, ISCHEMIC	OMIM:601367	inferred via resveratrol		16321402
+lmna	LMNA	lamin A/C	4000	Thrombophilia	MESH:D019851	inferred via Ethinyl Estradiol		11994571
+lmna	LMNA	lamin A/C	4000	Thrombosis	MESH:D013927	inferred via Ethinyl Estradiol		15669648
+lmna	LMNA	lamin A/C	4000	Tongue Neoplasms	MESH:D014062	inferred via resveratrol		16227395
+lmna	LMNA	lamin A/C	4000	Urinary Bladder Neoplasms	MESH:D001749	inferred via Quercetin		16720314
+lmna	LMNA	lamin A/C	4000	Urinary Bladder Neoplasms	MESH:D001749	inferred via Tamoxifen		17572228|16712894
+lmna	LMNA	lamin A/C	4000	Urticaria	MESH:D014581	inferred via Acetaminophen		10982225
+lmna	LMNA	lamin A/C	4000	Uterine Cervical Neoplasms	MESH:D002583	inferred via resveratrol		17473185
+lmna	LMNA	lamin A/C	4000	Uterine Neoplasms	MESH:D014594	inferred via Ethinyl Estradiol		14692618
+lmna	LMNA	lamin A/C	4000	Uterine Neoplasms	MESH:D014594	inferred via resveratrol		17044934
+lmna	LMNA	lamin A/C	4000	Venous Thrombosis	MESH:D020246	inferred via Ethinyl Estradiol		15869587
+lmna	LMNA	lamin A/C	4000	Ventricular Dysfunction, Left	MESH:D018487	inferred via resveratrol		17488730
+lmna	LMNA	lamin A/C	4000	Werner Syndrome	MESH:D014898	marker/mechanism	277700	
+
