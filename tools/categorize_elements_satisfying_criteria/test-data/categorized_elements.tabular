@@ -1,0 +1,6 @@
+	10bp	20bp	40bp
+Deletion_Hotspots	2	2	3
+Dna_Pol_Pause_Frameshift	1	4	4
+Indel_Hotspots	0	0	0
+Insertion_Hotspots	1	1	2
+Topoisomerase_Cleavage_Sites	2	3	4
