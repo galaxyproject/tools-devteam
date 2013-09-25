@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<tool_dependency>
+    <package name="R" version="2.11.0">
+        <install version="1.0">
+            <actions>
+                <action type="download_by_url">http://cran.rstudio.com/src/base/R-2/R-2.11.0.tar.gz</action>
+                <action type="shell_command">
+                    ./configure --enable-R-shlib \
+                                --with-readline=no \
+                                --with-x=no \
+                                --prefix=$INSTALL_DIR \
+                                --libdir=$INSTALL_DIR/lib \
+                                --disable-R-framework
+                </action>
+                <action type="shell_command">make &amp;&amp; make install</action>
+                <action type="set_environment">
+                    <environment_variable action="set_to" name="R_HOME">$INSTALL_DIR/lib/R</environment_variable>
+                    <environment_variable action="set_to" name="R_LIBS">$INSTALL_DIR/lib/R/library</environment_variable>
+                    <environment_variable action="prepend_to" name="PATH">$INSTALL_DIR/lib/R/bin</environment_variable>
+                </action>
+            </actions>
+        </install>
+        <readme>
+            R is a free software environment for statistical computing and graphics.
+            NOTE: See custom compilation options above 
+        </readme>
+    </package>
+</tool_dependency>
