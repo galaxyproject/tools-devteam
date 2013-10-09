@@ -26,14 +26,14 @@
 
             ## Bias correction?
             #if $bias_correction.do_bias_correction == "Yes":
-	        -b
+               -b
                 #if $bias_correction.seq_source.index_source == "history":
-                    --ref_file=$bias_correction.seq_source.ref_file
+                    ## Custom genome from history.
+                    $bias_correction.seq_source.ref_file
                 #else:
-                    --ref_file="None"
+                    ## Built-in genome.
+                    ${__get_data_table_entry__('sam_fa_indexes', 'value', $gtf_input.dbkey, 'path')}
                 #end if
-                --dbkey=${gtf_input.metadata.dbkey} 
-                --index_dir=${GALAXY_DATA_INDEX_DIR}
             #end if
 
             #set labels = ','.join( [ str( $condition.name ) for $condition in $conditions ] )
@@ -116,6 +116,7 @@
     </inputs>
 
     <stdio>
+        <regex match="Error" source="both" level="fatal" description="Error"/>
         <regex match=".*" source="both" level="log" description="tool progress"/>
     </stdio>
 
