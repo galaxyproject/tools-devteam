@@ -1,12 +1,9 @@
 #EMBOSS format corrector
 
 import operator
-#from galaxy import datatypes
 
-#Properly set file formats after job run
-def exec_after_process( app, inp_data, out_data, param_dict,tool, stdout, stderr):
 #Properly set file formats before job run
-#def exec_before_job(trans, inp_data, out_data, param_dict,tool):
+def exec_before_job( app, inp_data=None, out_data=None, tool=None, param_dict=None ):
     #why isn't items an ordered list?
     items = out_data.items()
     #lets sort it ourselves....
