@@ -7,6 +7,7 @@
     <version_command>cuffdiff 2>&amp;1 | head -n 1</version_command>
     <command>
         cuffdiff
+            --no-update-check
             --FDR=$fdr
             --num-threads="4"
             --min-alignment-count=$min_alignment_count
@@ -36,7 +37,7 @@
                 #end if
             #end if
 
-            #set labels = ','.join( [ str( $condition.name ) for $condition in $conditions ] )
+            #set labels = '\'' + '\',\''.join( [ str( $condition.name ) for $condition in $conditions ] ) + '\''
             --labels $labels
 
             ## Inputs.
