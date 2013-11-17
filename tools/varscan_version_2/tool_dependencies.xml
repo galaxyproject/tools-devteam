@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<tool_dependency>
+    <package name="varscan" version="2.3.6">
+        <install version="1.0">
+            <actions>
+                <action type="download_by_url">http://downloads.sourceforge.net/project/varscan/VarScan.v2.3.6.jar</action>
+                <action type="move_file">
+                    <source>VarScan.v2.3.6.jar</source>
+                    <destination>$INSTALL_DIR/jars</destination>
+                </action>
+                <action type="set_environment">
+                    <environment_variable name="JAVA_JAR_PATH" action="set_to">$INSTALL_DIR/jars</environment_variable>
+                </action>
+            </actions>
+        </install>
+        <readme>
+        </readme>
+    </package>
+</tool_dependency>
