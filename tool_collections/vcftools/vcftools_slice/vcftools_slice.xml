@@ -1,0 +1,50 @@
+<tool id="vcftools_slice" name="Slice VCF" version="0.1">
+    <description>to get data from selected regions</description>
+
+    <requirements>
+        <requirement type="binary">echo</requirement>
+        <requirement type="package" version="0.1.11">vcftools</requirement>
+    </requirements>
+    
+    <command>
+        ## Only works if input is sorted.
+        vcf-sort ${input} > sorted.vcf
+
+        ## As of v0.1.10, the first line of a BED file is assumed to be a header and ignored,
+        ## so add a dummy header line if necessary.
+        #set first_line = open( str($regions) ).readline()
+        #if first_line.startswith( '#' ):
+            ## Header already exists, so just link.
+            ; ln -s $regions regions.bed
+        #else:
+            ## Add dummy header.
+            ; echo '#dummy header' | cat - $regions > regions.bed
+        #end if
+
+        ## Slice VCF.
+        ; vcftools --vcf sorted.vcf --out output --bed regions.bed --recode
+    </command>
+    
+    <inputs>
+        <param name="input" label="Input dataset" type="data" format="vcf"/>
+        <param name="regions" label="Regions" type="data" format="bed"/>
+    </inputs>
+
+    <outputs>
+        <data name="output" format="vcf" from_work_dir="output.recode.vcf"/>
+    </outputs>
+
+    <tests>
+        <test>
+            <param name="input" value="slice_in.vcf"/>
+            <param name="regions" value="regions.bed"/>
+            <output name="output" file="slice_out.vcf"/>
+        </test>
+    </tests>
+
+    <help>
+        Please see the VCFtools `documentation`__ for help and further information.
+
+        .. __: http://vcftools.sourceforge.net/docs.html
+    </help>
+</tool>
