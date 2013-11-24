@@ -1,0 +1,53 @@
+<tool id="vcftools_merge" name="Merge" version="0.1">
+    <description>multiple VCF datasets</description>
+
+    <requirements>
+        <requirement type="package">tabix</requirement>
+        <requirement type="package" version="0.1.11">vcftools</requirement>
+    </requirements>
+    
+    <command>
+        ## Preprocessing for each dataset.
+        #set dataset_names = []
+        #for i, $input in enumerate( $inputs ):
+            ## Sort file.         
+            vcf-sort ${input.file} > ${i}.vcf.sorted ;
+
+            ## Compress.
+            bgzip ${i}.vcf.sorted ;
+
+            ## Index.
+            tabix -p vcf ${i}.vcf.sorted.gz ;
+
+            #silent dataset_names.append( str($i) + '.vcf.sorted.gz' )
+        #end for
+
+        ## Merge.
+        vcf-merge
+        #echo ' '.join( dataset_names ) # > ${output}
+        
+    </command>
+    <inputs>
+        <repeat name="inputs" title="Datasets to Merge" min="2">
+            <param name="file" label="Dataset" type="data" format="vcf"/>
+        </repeat>
+    </inputs>
+
+    <outputs>
+        <data name="output" format="vcf"/>
+    </outputs>
+
+    <stdio>
+        <regex match=".*" source="both" level="log" description="tool progress"/>
+    </stdio>
+
+    <tests>
+        <!-- Cannot specify multiple repeats in test framework right now, so no tests possible. -->
+    </tests>
+
+    <help>
+        Please see the VCFtools `documentation`__ for help and further information.
+
+        .. __: http://vcftools.sourceforge.net/docs.html
+    </help>
+</tool>

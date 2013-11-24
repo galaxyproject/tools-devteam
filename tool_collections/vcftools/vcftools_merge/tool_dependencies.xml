@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<tool_dependency>
+    <package name="vcftools" version="0.1.11">
+        <repository changeset_revision="61f9ddecde82" name="package_vcftools_0_1_11" owner="devteam" toolshed="http://toolshed.g2.bx.psu.edu" />
+    </package>
+</tool_dependency>
