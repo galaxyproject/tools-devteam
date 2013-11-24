@@ -1,0 +1,58 @@
+<tool id="vcftools_compare" name="Compare" version="0.1">
+    <description>multiple VCF datasets</description>
+
+    <requirements>
+        <requirement type="package">tabix</requirement>
+        <requirement type="package" version="0.1.11">vcftools</requirement>
+    </requirements>
+    
+    <command>
+        ## Preprocessing for each dataset.
+        #set dataset_names = []
+        #for $input in $inputs:
+            ## Sort file.                                     
+            sort -k1,1 -k2,2n ${input.file} > ${input.name}.vcf.sorted ;
+
+            ## Compress.
+            bgzip ${input.name}.vcf.sorted ;
+
+            ## Index.
+            tabix -p vcf ${input.name}.vcf.sorted.gz ;
+
+            #silent dataset_names.append( str($input.name) + '.vcf.sorted.gz' )
+        #end for
+
+        ## Compare and use sed to simplify output.
+        vcf-compare -w ${window} ${ignore_indels} #echo ' '.join( dataset_names )# | sed 's/\.vcf\.sorted\.gz//g' > ${output}
+    </command>
+    <inputs>
+        <repeat name="inputs" title="Datasets to Compare" min="2">
+            <param name="name" label="Dataset name" type="text" />
+            <param name="file" label="Dataset" type="data" format="vcf"/>
+        </repeat>
+        <param name="window" label="Comparison window" type="integer" min="0" value="0" help="In repetitive sequences, the same indel can be called at different positions. Consider records this far apart as matching (be it a SNP or an indel)."/>
+
+        <param name="ignore_indels" label="Ignore indels" type="select" help="Exclude sites containing indels from genotype comparison">
+            <option value="" selected="True">No</option>
+            <option value="--ignore-indels">Yes</option>
+        </param>
+    </inputs>
+
+    <outputs>
+        <data name="output" format="tabular"/>
+    </outputs>
+
+    <stdio>
+        <regex match=".*" source="both" level="log" description="tool progress"/>
+    </stdio>
+
+    <tests>
+        <!-- Cannot specify multiple repeats in test framework right now, so no tests possible. -->
+    </tests>
+
+    <help>
+        Please see the VCFtools `documentation`__ for help and further information.
+
+        .. __: http://vcftools.sourceforge.net/docs.html
+    </help>
+</tool>
