@@ -1,0 +1,63 @@
+<tool id="vcftools_subset" name="Subset" version="0.1">
+    <description>columns from a VCF dataset</description>
+
+    <requirements>
+        <requirement type="package">tabix</requirement>
+        <requirement type="package" version="0.1.11">vcftools</requirement>
+    </requirements>
+    
+    <command>
+        ln -s ${input} input.vcf ;
+
+        ## Sort file.
+        sort -k1,1 -k2,2n input.vcf > input.vcf.sorted ;
+
+        ## Compress.
+        bgzip input.vcf.sorted ;
+
+        ## Index.
+        tabix -p vcf input.vcf.sorted.gz ;
+
+        ## Subset.
+        vcf-subset ${trim_alt_alleles} ${exclude_rows_with_no_variants} -c "${columns}" input.vcf.sorted.gz > $output
+    </command>
+    
+    <inputs>
+        <param name="input" label="Input dataset" type="data" format="vcf"/>
+        <param name="columns" label="Columns" type="text" value=""/>
+        <param name="trim_alt_alleles" type="select" label="Remove alternate alleles if not found in the subset" help="">
+            <option value="" selected="True">No</option>
+            <option value="-a">Yes</option>
+        </param>
+        <param name="exclude_rows_with_no_variants" type="select" label="Exclude rows not containing variants" help="">
+            <option value="" selected="True">No</option>
+            <option value="-e">Yes</option>
+        </param>
+    </inputs>
+
+    <outputs>
+        <data name="output" format="vcf"/>
+    </outputs>
+
+    <stdio>
+        <regex match=".*" source="both" level="log" description="tool progress"/>
+    </stdio>
+
+    <tests>
+        <test>
+            <param name="input" value="subset_in.vcf"/>
+            <param name="columns" value="sample1"/>
+            <param name="trim_alt_alleles" value="Yes"/>
+            <param name="exclude_rows_with_no_variants" value="Yes"/>
+            <!-- 2 lines diff because command line with full file path is included in output VCF, and
+                 it not possible to match full file path.  -->
+            <output name="output" file="subset_out.vcf" lines_diff="2"/>
+        </test>
+    </tests>
+
+    <help>
+        Please see the VCFtools `documentation`__ for help and further information.
+
+        .. __: http://vcftools.sourceforge.net/docs.html
+    </help>
+</tool>
