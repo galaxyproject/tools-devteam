@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<repositories description="This is a metapackage that will install all vcftools wrappers and dependencies.">
+    <repository changeset_revision="bc178c43e4fe" name="vcftools_annotate" owner="devteam" toolshed="http://toolshed.g2.bx.psu.edu" />
+    <repository changeset_revision="ad50c257e758" name="vcftools_compare" owner="devteam" toolshed="http://toolshed.g2.bx.psu.edu" />
+    <repository changeset_revision="026d0f104183" name="vcftools_isec" owner="devteam" toolshed="http://toolshed.g2.bx.psu.edu" />
+    <repository changeset_revision="76ff5512748c" name="vcftools_merge" owner="devteam" toolshed="http://toolshed.g2.bx.psu.edu" />
+    <repository changeset_revision="1363e5d4a8b8" name="vcftools_slice" owner="devteam" toolshed="http://toolshed.g2.bx.psu.edu" />
+    <repository changeset_revision="23436d1d0fa1" name="vcftools_subset" owner="devteam" toolshed="http://toolshed.g2.bx.psu.edu" />
+</repositories>
