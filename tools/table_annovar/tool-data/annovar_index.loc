@@ -1,0 +1,20 @@
+#
+# Database name (value), dbkey, type, and path.
+#
+# Sample entries for gene-based annotations:
+#refGene	hg19	gene_ann	/aut/bx/jgoecks/galaxy/data/Homo_sapiens/UCSC/hg19/AnnovarIndices/
+#wgEncodeGencodeCompV14	hg19	gene_ann	/aut/bx/jgoecks/galaxy/data/Homo_sapiens/UCSC/hg19/AnnovarIndices/
+#
+# Samples entries for region-based annotations:
+#
+#genomicSuperDups	hg19	region	/aut/bx/jgoecks/galaxy/data/Homo_sapiens/UCSC/hg19/AnnovarIndices/
+#phastConsElements46way	hg19	region	/aut/bx/jgoecks/galaxy/data/Homo_sapiens/UCSC/hg19/AnnovarIndices/
+#
+# Sample entries for filter-based annotations:
+#
+#1000g2012apr_all	hg19	filter	/aut/bx/jgoecks/galaxy/data/Homo_sapiens/UCSC/hg19/AnnovarIndices/
+#avsift	hg19	filter	/aut/bx/jgoecks/galaxy/data/Homo_sapiens/UCSC/hg19/AnnovarIndices/
+#snp137NonFlagged	hg19	filter	/aut/bx/jgoecks/galaxy/data/Homo_sapiens/UCSC/hg19/AnnovarIndices/
+#esp6500si_all	hg19	filter	/aut/bx/jgoecks/galaxy/data/Homo_sapiens/UCSC/hg19/AnnovarIndice/
+#snp137	hg19	filter	/aut/bx/jgoecks/galaxy/data/Homo_sapiens/UCSC/hg19/AnnovarIndices/
+#cosmic64	hg19	filter	/aut/bx/jgoecks/galaxy/data/Homo_sapiens/UCSC/hg19/AnnovarIndices/

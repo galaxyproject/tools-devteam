@@ -1,0 +1,7 @@
+<!-- ANNOVAR files -->
+<tables>
+	<table name="annovar_indexes" comment_char="#">
+		<columns>value, dbkey, type, path</columns>
+		<file path="tool-data/annovar_index.loc" /> 
+	</table>
+</tables>

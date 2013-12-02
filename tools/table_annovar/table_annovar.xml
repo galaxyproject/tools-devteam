@@ -1,0 +1,85 @@
+<tool id="table_annovar" name="Annotate VCF" version="0.1">
+    <description>with functional information using ANNOVAR</description>
+
+    <requirements>
+        <requirement type="package">annovar</requirement>
+    </requirements>
+
+    <command>
+        ## Convert VCF to AV input format.
+        convert2annovar.pl -format vcf4 -includeinfo ${input} > input.avinput
+
+        ## Variant annotation; make sure to include entry in indexes table for build database. 
+
+        #set protocol = []
+        #set operation = []
+
+        ## Add gene annotations.
+        #if $gene_anns:
+            #silent protocol.append( str( $gene_anns )  )
+            #silent operation.append( ','.join( ['g' for t in range( str($gene_anns).count(',') + 1 )] ) )
+        #end if
+
+        ## Add regions.
+        #if $regions:
+            #silent protocol.append( str( $regions ) )
+            #silent operation.append( ','.join( ['r' for t in range( str($regions).count(',') + 1 )] ) )
+        #end if
+
+        ## Add filters.
+        #if $filters:
+            #silent protocol.append( str( $filters ) )
+            #silent operation.append( ','.join( ['f' for t in range( str($filters).count(',') + 1 )] ) )
+        #end if
+
+        #set protocol = ','.join( $protocol )
+        #set operation = ','.join( $operation ) 
+
+        ## Reduce variants.
+        ; table_annovar.pl input.avinput ${__get_data_table_entry__('annovar_indexes', 'dbkey', $input.dbkey, 'path')} -protocol ${protocol} -operation ${operation} -nastring NA -buildver ${input.dbkey} --outfile output
+
+        ## Copy annotated table to output.
+        ; cp output.${input.dbkey}_multianno.txt ${output}
+    </command>
+
+    <inputs>
+        <param name="input" type="data" format="vcf" metadata_name="dbkey" label="Variants" help="">
+        <validator type="unspecified_build" />
+    </param>
+
+    <param name="gene_anns" type="select" multiple="True" optional="True" label="Gene Annotations" help="" >
+        <options from_data_table="annovar_indexes">
+            <filter type="data_meta" key="dbkey" ref="input" column="1"/>
+            <filter type="static_value" name="type" value="gene_ann" column="2"/>
+        </options>
+    </param>
+
+    <param name="regions" type="select" multiple="True" optional="True" label="Annotation Regions" help="" >
+        <options from_data_table="annovar_indexes">
+            <filter type="data_meta" key="dbkey" ref="input" column="1"/>
+            <filter type="static_value" name="type" value="region" column="2"/>
+        </options>
+    </param>
+    
+    <param name="filters" type="select" multiple="True" label="Annotation Databases" help="" >
+        <options from_data_table="annovar_indexes">
+            <filter type="data_meta" key="dbkey" ref="input" column="1"/>
+            <filter type="static_value" name="type" value="filter" column="2"/>
+        </options>
+    </param>
+    </inputs>
+
+    <stdio>
+        <regex match=".*" source="both" level="log" description="tool progress"/>
+    </stdio>
+
+    <outputs>
+        <data name="output" format="tabular"/>
+    </outputs>
+
+    <tests>
+    </tests>
+
+    <help>
+    </help>
+</tool>
