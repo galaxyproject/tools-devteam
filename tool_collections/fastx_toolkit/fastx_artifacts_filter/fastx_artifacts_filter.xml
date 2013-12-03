@@ -10,25 +10,25 @@
 	</command>
 
 	<inputs>
-		<param format="fasta,fastqsanger,fastqsolexa,fastqillumina" version="1.0.0" name="input" type="data" label="Library to filter" />
+		<param format="fasta,fastqsanger,fastqsolexa,fastqillumina" name="input" type="data" label="Library to filter" />
 
 	</inputs>
 
 	<tests>
 		<test>
 			<!-- Filter FASTA file -->
-			<param version="1.0.0" name="input" value="fastx_artifacts1.fasta" /> 
-			<output version="1.0.0" name="output" file="fastx_artifacts1.out" />
+			<param name="input" value="fastx_artifacts1.fasta" /> 
+			<param name="output" file="fastx_artifacts1.out" />
 		</test>
 		<test>
 			<!-- Filter FASTQ file -->
-			<param version="1.0.0" name="input" value="fastx_artifacts2.fastq" ftype="fastqsanger" />
-			<output version="1.0.0" name="output" file="fastx_artifacts2.out" />
+			<param name="input" value="fastx_artifacts2.fastq" ftype="fastqsanger" />
+			<param name="output" file="fastx_artifacts2.out" />
 		</test>
 	</tests>
 
 	<outputs>
-		<data format="input" version="1.0.0" name="output" metadata_source="input" />
+		<data format="input" name="output" metadata_source="input" />
 	</outputs>
 <help>
 **What it does**
