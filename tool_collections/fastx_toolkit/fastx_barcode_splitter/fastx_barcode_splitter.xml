@@ -6,34 +6,34 @@
 	<command interpreter="bash">fastx_barcode_splitter_galaxy_wrapper.sh $BARCODE $input "$input.name" "$output.files_path" --mismatches $mismatches --partial $partial $EOL > $output </command>
 
 	<inputs>
-		<param format="txt" version="1.0.0" name="BARCODE" type="data" label="Barcodes to use" />
-		<param format="fasta,fastqsanger,fastqsolexa,fastqillumina" version="1.0.0" name="input" type="data" label="Library to split" />
+		<param format="txt" name="BARCODE" type="data" label="Barcodes to use" />
+		<param format="fasta,fastqsanger,fastqsolexa,fastqillumina" name="input" type="data" label="Library to split" />
 
-		<param version="1.0.0" name="EOL" type="select" label="Barcodes found at">
+		<param name="EOL" type="select" label="Barcodes found at">
 			<option value="--bol">Start of sequence (5' end)</option>
 			<option value="--eol">End of sequence (3' end)</option>
 		</param>
 
-		<param version="1.0.0" name="mismatches" type="integer" size="3" value="2" label="Number of allowed mismatches" />
+		<param name="mismatches" type="integer" size="3" value="2" label="Number of allowed mismatches" />
 		
-		<param version="1.0.0" name="partial" type="integer" size="3" value="0" label="Number of allowed barcodes nucleotide deletions" />
+		<param name="partial" type="integer" size="3" value="0" label="Number of allowed barcodes nucleotide deletions" />
 	
 	</inputs>
 	
 	<tests>
 		<test>
 			<!-- Split a FASTQ file -->
-			<param version="1.0.0" name="BARCODE" value="fastx_barcode_splitter1.txt" />
-			<param version="1.0.0" name="input" value="fastx_barcode_splitter1.fastq" ftype="fastqsolexa" />
-			<param version="1.0.0" name="EOL" value="Start of sequence (5' end)" />
-			<param version="1.0.0" name="mismatches" value="2" />
-			<param version="1.0.0" name="partial" value="0" />
-			<output version="1.0.0" name="output" file="fastx_barcode_splitter1.out" />
+			<param name="BARCODE" value="fastx_barcode_splitter1.txt" />
+			<param name="input" value="fastx_barcode_splitter1.fastq" ftype="fastqsolexa" />
+			<param name="EOL" value="Start of sequence (5' end)" />
+			<param name="mismatches" value="2" />
+			<param name="partial" value="0" />
+			<param name="output" file="fastx_barcode_splitter1.out" />
 		</test>
 	</tests>
 
 	<outputs>
-		<data format="html" version="1.0.0" name="output" />
+		<data format="html" name="output" />
 	</outputs>
 <help>
 
