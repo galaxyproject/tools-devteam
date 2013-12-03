@@ -14,28 +14,28 @@
 	-->
 	<command>zcat -f '$input' | fasta_formatter -w $width -o $output</command>
 	<inputs>
-		<param format="fasta" version="1.0.0" name="input" type="data" label="Library to re-format" />
+		<param format="fasta" name="input" type="data" label="Library to re-format" />
 
-		<param version="1.0.0" name="width" type="integer" value="0" label="New width for nucleotides strings" help="Use 0 for single line out." />
+		<param name="width" type="integer" value="0" label="New width for nucleotides strings" help="Use 0 for single line out." />
 	</inputs>
 
 	<tests>
 		<test>
 			<!-- Re-format a FASTA file into a single line -->
-			<param version="1.0.0" name="input" value="fasta_formatter1.fasta" /> 
-			<param version="1.0.0" name="width" value="0" />
-			<output version="1.0.0" name="output" file="fasta_formatter1.out" />
+			<param name="input" value="fasta_formatter1.fasta" /> 
+			<param name="width" value="0" />
+			<param name="output" file="fasta_formatter1.out" />
 		</test>
 		<test>
 			<!-- Re-format a FASTA file into multiple lines wrapping at 60 charactes -->
-			<param version="1.0.0" name="input" value="fasta_formatter1.fasta" />
-			<param version="1.0.0" name="width" value="60" />
-			<output version="1.0.0" name="output" file="fasta_formatter2.out" />
+			<param name="input" value="fasta_formatter1.fasta" />
+			<param name="width" value="60" />
+			<param name="output" file="fasta_formatter2.out" />
 		</test>
 	</tests>
 
 	<outputs>
-		<data format="input" version="1.0.0" name="output" metadata_source="input" />
+		<data format="input" name="output" metadata_source="input" />
 	</outputs>
 
 <help>
