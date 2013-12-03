@@ -6,18 +6,18 @@
 	<command>zcat -f $input | fastx_quality_stats -o $output -Q 33</command>
 
 	<inputs>
-		<param format="fastqsanger" version="1.0.0" name="input" type="data" label="Library to analyse" />
+		<param format="fastqsanger" name="input" type="data" label="Library to analyse" />
 	</inputs>
 
 	<tests>
 		<test>
-			<param version="1.0.0" name="input" value="fastq_stats1.fastq" ftype="fastqsanger"/>
-			<output version="1.0.0" name="output" file="fastq_stats1.out" />
+			<param name="input" value="fastq_stats1.fastq" ftype="fastqsanger"/>
+			<param name="output" file="fastq_stats1.out" />
 		</test>
 	</tests>
 
 	<outputs>
-		<data format="txt" version="1.0.0" name="output" metadata_source="input" />
+		<data format="txt" name="output" metadata_source="input" />
 	</outputs>
 
 <help>
