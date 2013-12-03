@@ -10,13 +10,13 @@
 	</command>
 
 	<inputs>
-		<param format="fasta,fastqsolexa,fastqsanger" version="1.0.0" name="input" type="data" label="Library to clip" />
+		<param format="fasta,fastqsolexa,fastqsanger" name="input" type="data" label="Library to clip" />
 
-		<param version="1.0.0" name="first" size="4" type="integer" value="1">
+		<param name="first" size="4" type="integer" value="1">
 			<label>First base to keep</label>
 		</param>
 
-		<param version="1.0.0" name="last" size="4" type="integer" value="21">
+		<param name="last" size="4" type="integer" value="21">
 			<label>Last base to keep</label>
 		</param>
 	</inputs>
@@ -24,22 +24,22 @@
 	<tests>
 		<test>
 			<!-- Trim a FASTA file - remove first four bases (e.g. a barcode) -->
-			<param version="1.0.0" name="input" value="fastx_trimmer1.fasta" />
-			<param version="1.0.0" name="first" value="5"/>
-			<param version="1.0.0" name="last" value="36"/>
-			<output version="1.0.0" name="output" file="fastx_trimmer1.out" />
+			<param name="input" value="fastx_trimmer1.fasta" />
+			<param name="first" value="5"/>
+			<param name="last" value="36"/>
+			<param name="output" file="fastx_trimmer1.out" />
 		</test>
 		<test>
 			<!-- Trim a FASTQ file - remove last 9 bases (e.g. keep only miRNA length sequences) -->
-			<param version="1.0.0" name="input" value="fastx_trimmer2.fastq" ftype="fastqsolexa"/>
-			<param version="1.0.0" name="first" value="1"/>
-			<param version="1.0.0" name="last" value="27"/>
-			<output version="1.0.0" name="output" file="fastx_trimmer2.out" />
+			<param name="input" value="fastx_trimmer2.fastq" ftype="fastqsolexa"/>
+			<param name="first" value="1"/>
+			<param name="last" value="27"/>
+			<param name="output" file="fastx_trimmer2.out" />
 		</test>
 	</tests>
 
 	<outputs>
-		<data format="input" version="1.0.0" name="output" metadata_source="input" />
+		<data format="input" name="output" metadata_source="input" />
 	</outputs>
 	<help>
 **What it does**
