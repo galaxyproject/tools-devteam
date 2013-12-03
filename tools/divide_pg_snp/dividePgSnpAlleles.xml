@@ -6,27 +6,27 @@
     #end if
   </command>
   <inputs>
-    <param format="interval" version="1.0.0" name="input1" type="data" label="pgSnp dataset" />
-    <conditional version="1.0.0" name="refcol">
-      <param version="1.0.0" name="ref" type="select" label="Dataset has a column with the reference allele:">
+    <param format="interval" name="input1" type="data" label="pgSnp dataset" />
+    <conditional name="refcol">
+      <param name="ref" type="select" label="Dataset has a column with the reference allele:">
         <option value="yes">yes</option>
         <option value="no" selected="true">no</option>
       </param>
       <when value="yes">
-      <param version="1.0.0" name="ref_column" type="data_column" data_ref="input1" label="Column with reference allele" />
+      <param name="ref_column" type="data_column" data_ref="input1" label="Column with reference allele" />
       </when>
       <when value="no"> <!-- do nothing -->
       </when>
     </conditional>
   </inputs>
   <outputs>
-  <data format="interval" version="1.0.0" name="out_file1" />
+  <data format="interval" name="out_file1" />
   </outputs>
   <tests>
     <test>
       <param name='input1' value='dividePgSnp_input.pgSnp' ftype='interval' />
       <param name='ref' value='no' />
-      <output version="1.0.0" name="output" file="dividePgSnp_output.txt" />
+      <param name="output" file="dividePgSnp_output.txt" />
     </test>
   </tests>
 
