@@ -9,25 +9,25 @@
 #end if
 	</command>
 	<inputs>
-		<param format="fasta,fastqsolexa,fastqsanger" version="1.0.0" name="input" type="data" label="Library to reverse-complement" />
+		<param format="fasta,fastqsolexa,fastqsanger" name="input" type="data" label="Library to reverse-complement" />
 	</inputs>
 
 	<tests>
 		<test>
 			<!-- Reverse-complement a FASTA file -->
-			<param version="1.0.0" name="input" value="fastx_rev_comp1.fasta" /> 
-			<output version="1.0.0" name="output" file="fastx_reverse_complement1.out" />
+			<param name="input" value="fastx_rev_comp1.fasta" /> 
+			<param name="output" file="fastx_reverse_complement1.out" />
 		</test>
 		<test>
 			<!-- Reverse-complement a FASTQ file -->
-			<param version="1.0.0" name="input" value="fastx_rev_comp2.fastq" ftype="fastqsolexa"/>
-			<output version="1.0.0" name="output" file="fastx_reverse_complement2.out" />
+			<param name="input" value="fastx_rev_comp2.fastq" ftype="fastqsolexa"/>
+			<param name="output" file="fastx_reverse_complement2.out" />
 		</test>
 	</tests>
 
   
 	<outputs>
-		<data format="input" version="1.0.0" name="output" metadata_source="input" />
+		<data format="input" name="output" metadata_source="input" />
 	</outputs>
 
 <help>
