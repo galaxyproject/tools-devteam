@@ -5,9 +5,9 @@
     </requirements>
 	<command>zcat -f '$input' | fasta_nucleotide_changer -$mode -v -o $output</command>
 	<inputs>
-		<param format="fasta" version="1.0.0" name="input" type="data" label="Library to convert" />
+		<param format="fasta" name="input" type="data" label="Library to convert" />
 
-		<param version="1.0.0" name="mode" type="select" label="Convert">
+		<param name="mode" type="select" label="Convert">
 			<option value="d">RNA to DNA (U to T)</option>
 			<option value="r">DNA to RNA (T to U)</option>
 		</param>
@@ -18,19 +18,19 @@
      -->
 	<tests>
 		<test>
-			<param version="1.0.0" name="input" value="fasta_nuc_changer1.fasta" /> 
-			<param version="1.0.0" name="mode" value="r" /> 
-			<output version="1.0.0" name="output" file="fasta_nuc_change1.out" />
+			<param name="input" value="fasta_nuc_changer1.fasta" /> 
+			<param name="mode" value="r" /> 
+			<param name="output" file="fasta_nuc_change1.out" />
 		</test>
 		<test>
-			<param version="1.0.0" name="input" value="fasta_nuc_changer2.fasta" /> 
-			<param version="1.0.0" name="mode" value="d" /> 
-			<output version="1.0.0" name="output" file="fasta_nuc_change2.out" />
+			<param name="input" value="fasta_nuc_changer2.fasta" /> 
+			<param name="mode" value="d" /> 
+			<param name="output" file="fasta_nuc_change2.out" />
 		</test>
 	</tests>
   
 	<outputs>
-		<data format="input" version="1.0.0" name="output" metadata_source="input" />
+		<data format="input" name="output" metadata_source="input" />
 	</outputs>
 
 <help>
