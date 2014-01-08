@@ -65,7 +65,7 @@
                   <when value="cached">
                     <param name="index" type="select" label="Using reference genome">
                       <options from_data_table="fasta_indexes">
-                        <filter type="data_meta" ref="input" key="dbkey" column="1" />
+                        <filter type="data_meta" ref="first_input" key="dbkey" column="1" />
                         <validator type="no_options" message="No reference genome is available for the build associated with the selected input dataset" />
                       </options>
                     </param>
