@@ -13,8 +13,6 @@
       #else:
         --index=${refOrHistory.index.fields.path}
       #end if
-       --dbkey=${input1.metadata.dbkey}
-       --indexDir=${GALAXY_DATA_INDEX_DIR}
        --bamIndex=${input1.metadata.bam_index}
        --lastCol=$lastCol
        --indels=$indels
