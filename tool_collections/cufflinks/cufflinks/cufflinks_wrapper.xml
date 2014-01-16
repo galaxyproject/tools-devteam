@@ -9,7 +9,7 @@
         cufflinks_wrapper.py 
             --input=$input
             --assembled-isoforms-output=$assembled_isoforms
-            --num-threads="4"
+            --num-threads="\${GALAXY_SLOTS:-4}"
             -I $max_intron_len
             -F $min_isoform_fraction
             -j $pre_mrna_fraction
