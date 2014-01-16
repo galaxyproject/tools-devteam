@@ -6,7 +6,7 @@
   <parallelism method="basic"></parallelism>
   <command interpreter="python">
     bwa_wrapper.py 
-      --threads="4"
+      --threads="\${GALAXY_SLOTS:-4}"
 
       #if $input1.ext == "fastqillumina":
             --illumina1.3
