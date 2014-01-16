@@ -9,7 +9,7 @@
         cuffdiff
             --no-update-check
             --FDR=$fdr
-            --num-threads="4"
+            --num-threads="\${GALAXY_SLOTS:-4}"
             --min-alignment-count=$min_alignment_count
             --library-norm-method=$library_norm_method
             --dispersion-method=$dispersion_method
