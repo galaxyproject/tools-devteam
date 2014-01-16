@@ -6,8 +6,8 @@
   <parallelism method="basic"></parallelism>
   <command interpreter="python">
     bowtie_wrapper.py
-      ## Hackish setting of number of threads
-      --threads="4"
+      ## Set number of threads
+      --threads="\${GALAXY_SLOTS:-4}"
       ## Outputs
       --output="${output}"
       #if str( $singlePaired.sPaired ) == "single"
@@ -449,7 +449,7 @@
       Bowtie command:
       bowtie -q -p 4 -S +sam-nohead chrM_base test-data/bowtie_in2.fastqsanger > bowtie_out6_u.sam
       sort bowtie_out6_u.sam > bowtie_out6.sam
-      -p is the number of threads, which is hardcoded above. You need to replace the + with 2 dashes. 
+      -p is the number of threads. You need to replace the + with 2 dashes. 
       chrM_base needs to be the base location/name of the index files.
       -->
       <param name="genomeSource" value="indexed" />
@@ -470,7 +470,7 @@
       sort bowtie_out8_u_1.sam > bowtie_out8_1.sam
       sort bowtie_out8_u_2.sam > bowtie_out8_2.sam
       Then also need to modify bowtie_out8_1.sam and bowtie_out8_2.sam so that all @ lines come before sequence lines.
-      -p is the number of threads, hardcoded above. You need to replace the + with 2 dashes.
+      -p is the number of threads. You need to replace the + with 2 dashes.
       The two unmapped output files will be named bowtie_out8_1.fastq and bowtie_out8_2.fastq.
       chrM_base is the index files' location/base name. 
       -->
@@ -597,7 +597,7 @@
       Bowtie command:
       bowtie -q -p 4 -S +sam-nohead -n 2 -e 70 -l 28 +maxbts 125 -y -k 1 chrM_base test-data/bowtie_in2.fastqsanger > bowtie_out9_u.sam
       sort bowtie_out9_u.sam > bowtie_out9.sam
-      -p is the number of threads, hardcoded above. You need to replace the + with 2 dashes.
+      -p is the number of threads. You need to replace the + with 2 dashes.
       chrM_base is the index files' location/base name. 
       -->
       <param name="genomeSource" value="indexed" />
@@ -634,7 +634,7 @@
       bowtie-build +offrate 5 +ftabchars 10 +little -f test-data/phiX.fasta phiX_base
       bowtie -q -X 1000 +ff -p 4 -S +sam-nohead phiX_base -1 test-data/bowtie_in5.fastqsanger -2 test-data/bowtie_in6.fastqsanger > bowtie_out10_u.sam
       sort bowtie_out10_u.sam > bowtie_out10.sam
-      -p is the number of threads, hardcoded above. You need to replace the + with 2 dashes.
+      -p is the number of threads. You need to replace the + with 2 dashes.
       chrM_base is the index files' location/base name. 
       -->
       <param name="genomeSource" value="history" />
