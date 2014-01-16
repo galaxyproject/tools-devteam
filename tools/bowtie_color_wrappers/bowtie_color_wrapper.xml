@@ -5,8 +5,8 @@
   <description></description>
   <command interpreter="python">
     bowtie_wrapper.py 
-    ## Hackish setting of number of threads
-    --threads="4"
+    ## Set number of threads
+    --threads="\${GALAXY_SLOTS:-4}"
     ## Outputs
       --output="${output}"
       #if str( $singlePaired.sPaired ) == "single"
@@ -402,7 +402,7 @@
       Bowtie command:
       bowtie -q -p 4 -S +sam-nohead -C chrM_color test-data/bowtie_in1.fastqcssanger > bowtie_out1_u.sam
       sort bowtie_out1_u.sam > bowtie_out1.sam
-      -p is the number of threads, which is hardcoded above. You need to replace the + with 2 dashes. 
+      -p is the number of threads. You need to replace the + with 2 dashes. 
       chrM_color needs to be the base location/name of the index files.
       -->
       <param name="genomeSource" value="indexed" />
@@ -423,7 +423,7 @@
       sort bowtie_out3_u_2.sam > bowtie_out3_2.sam
       Then also need to modify bowtie_out3_1.sam and bowtie_out3_2.sam so that all @ lines come before sequence lines.
       The two unmapped output files will be named bowtie_out4_1.fastq and bowtie_out4_2.fastq
-      -p is the number of threads, hardcoded above. You need to replace the + with 2 dashes.
+      -p is the number of threads. You need to replace the + with 2 dashes.
       chrM_base is the index files' location/base name. 
       -->
       <param name="genomeSource" value="history" />
@@ -471,7 +471,7 @@
       Bowtie command:
       bowtie -q -p 4 -S +sam-nohead -C -n 2 -e 70 -l 28 +maxbts 125 -k 1 +snpfrac 0.001 +col-keepends chrM_color test-data/bowtie_in1.fastqcssanger > bowtie_out4_u.sam
       sort bowtie_out4_u.sam > bowtie_out4.sam
-      -p is the number of threads, hardcoded above. You need to replace the + with 2 dashes.
+      -p is the number of threads. You need to replace the + with 2 dashes.
       chrM_base is the index files' location/base name. 
       -->
       <param name="genomeSource" value="indexed" />
@@ -510,7 +510,7 @@
       bowtie-build +noauto +bmaxdivn 4 +dcv 1024 +offrate 5 +ftabchars 10 +little -C -f test-data/chr_m.fasta chrM_color
       bowtie -q -X 1000 +ff -p 4 -S +sam-nohead -C chrM_color -1 test-data/bowtie_in3.fastqcssanger -2 test-data/bowtie_in4.fastqcssanger > bowtie_out5_u.sam
       sort bowtie_out5_u.sam > bowtie_out5.sam
-      -p is the number of threads, hardcoded above. You need to replace the + with 2 dashes.
+      -p is the number of threads. You need to replace the + with 2 dashes.
       chrM_base is the index files' location/base name. 
       -->
       <param name="genomeSource" value="history" />
