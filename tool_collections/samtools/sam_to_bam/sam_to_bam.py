@@ -48,7 +48,6 @@ def __main__():
         # We're using locally cached reference sequences( e.g., /galaxy/data/equCab2/sam_index/equCab2.fa ).
         # The indexes for /galaxy/data/equCab2/sam_index/equCab2.fa will be contained in
         # a file named /galaxy/data/equCab2/sam_index/equCab2.fa.fai
-        fai_index_file_base = seq_path
         fai_index_file_path = '%s.fai' % options.index
         if not os.path.exists( fai_index_file_path ):
             #clean up temp files
