@@ -11,26 +11,26 @@
             
             ## Use annotation reference?
             #if $annotation.use_ref_annotation == "Yes":
-                -g $annotation.reference_annotation
+                -g "${annotation.reference_annotation}"
             #end if
             
             ## Use sequence data?
             #if $seq_data.use_seq_data == "Yes":
-	        -s
+	            -s
                 #if $seq_data.seq_source.index_source == "history":
-                    --ref_file=$seq_data.seq_source.ref_file
+                    --ref_file="${seq_data.seq_source.ref_file}"
                 #else:
-                    --index=${bias_correction.seq_source.index.fields.path}
+                    --index="${seq_data.seq_source.index.fields.path}"
                 #end if
             #end if
             
             ## Outputs.
-            --merged-transcripts=${merged_transcripts}
+            --merged-transcripts="${merged_transcripts}"
                         
             ## Inputs.
-            ${first_input}
+            "${first_input}"
             #for $input_file in $input_files:
-              ${input_file.additional_input}
+                "${input_file.additional_input}"
             #end for
             
     </command>
