@@ -1,0 +1,3 @@
+track name=junctions description="TopHat junctions"
+test_chromosome	177	400	JUNC00000001	51	+	177	400	255,0,0	2	73,50	0,173
+test_chromosome	350	550	JUNC00000002	43	+	350	550	255,0,0	2	50,50	0,150
