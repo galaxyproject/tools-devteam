@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<tool_dependency>
+  <package name="macs" version="1.3.7.1">
+      <repository changeset_revision="a7ea583a35d2" name="package_macs_1_3_7_1" owner="devteam" prior_installation_required="False" toolshed="http://toolshed.g2.bx.psu.edu" />
+    </package>
+    <package name="R" version="2.15.0">
+      <repository changeset_revision="8ab0d08a3da1" name="package_r_2_15_0" owner="devteam" prior_installation_required="False" toolshed="http://toolshed.g2.bx.psu.edu" />
+    </package>
+</tool_dependency>
