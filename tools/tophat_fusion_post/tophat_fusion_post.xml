@@ -2,7 +2,8 @@
     <description>post-processing to identify fusion genes</description>
     <version_command>tophat-fusion-post --version</version_command>
     <requirements>
-        <requirement type="package">tophat2</requirement>
+        <requirement type="package" version="2.2.28">blast+</requirement>
+        <requirement type="package" version="2.1.0">bowtie2</requirement>
     </requirements>
     <command>
         ## Set up tophat_out structure.
@@ -24,8 +25,8 @@
               --non-human
         #end if
 
-	## Bowtie2 indices.
-	${__get_data_table_entry__('bowtie2_indexes', 'dbkey', $accepted_hits.dbkey, 'path')}
+	    ## Bowtie2 indices.
+	    ${__get_data_table_entry__('bowtie2_indexes', 'dbkey', $accepted_hits.dbkey, 'path')}
     </command>
 
     <inputs>
