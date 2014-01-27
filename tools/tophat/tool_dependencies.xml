@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<tool_dependency>
+  <package name="bowtie" version="0.12.7">
+      <repository changeset_revision="028d22e7b70f" name="package_bowtie_0_12_7" owner="devteam" prior_installation_required="False" toolshed="http://toolshed.g2.bx.psu.edu" />
+    </package>
+    <package name="samtools" version="0.1.18">
+      <repository changeset_revision="171cd8bc208d" name="package_samtools_0_1_18" owner="devteam" prior_installation_required="False" toolshed="http://toolshed.g2.bx.psu.edu" />
+    </package>
+    <package name="tophat" version="1.4.0">
+      <repository changeset_revision="0fea0c8cc6cf" name="package_tophat_1_4_0" owner="devteam" prior_installation_required="False" toolshed="http://toolshed.g2.bx.psu.edu" />
+    </package>
+</tool_dependency>
