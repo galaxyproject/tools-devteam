@@ -1,0 +1,2 @@
+bundle_id	target_id	length	eff_length	tot_counts	uniq_counts	est_counts	eff_counts	ambig_distr_alpha	ambig_distr_beta	fpkm	fpkm_conf_low	fpkm_conf_high	solvable
+1	comp54169_c1_seq1	15308	13615.768074	23	23	23.000000	25.858549	0.000000	0.000000	73444.259227	38489.134441	108399.384012	T
