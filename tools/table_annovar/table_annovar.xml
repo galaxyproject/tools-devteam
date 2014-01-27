@@ -1,4 +1,4 @@
-<tool id="table_annovar" name="Annotate VCF" version="0.1">
+<tool id="table_annovar" name="ANNOVAR Annotate VCF" version="0.1">
     <description>with functional information using ANNOVAR</description>
 
     <requirements>
@@ -38,8 +38,8 @@
         ## Reduce variants.
         ; table_annovar.pl input.avinput ${__get_data_table_entry__('annovar_indexes', 'dbkey', $input.dbkey, 'path')} -protocol ${protocol} -operation ${operation} -nastring NA -buildver ${input.dbkey} --outfile output
 
-        ## Copy annotated table to output.
-        ; cp output.${input.dbkey}_multianno.txt ${output}
+        ## Process annotated table to remove "NA" strings from numerical columns and copy to output.
+        ; cat output.${input.dbkey}_multianno.txt | replace_NA.py > ${output}
     </command>
 
     <inputs>
@@ -81,5 +81,20 @@
     </tests>
 
     <help>
+**What it does**
+
+This tool will annotate variants using specified gene annotations, regions, and filtering databases. Input is a VCF dataset, and output is a table of annotations for each variant in the 
+VCF dataset.
+
+**ANNOVAR Website and Documentation**
+
+Website: http://www.openbioinformatics.org/annovar/
+
+Paper: http://nar.oxfordjournals.org/content/38/16/e164
+
+**Important Usage Note**
+
+ANNOVAR is open-source and free for non-profit use. If you use it for commercial purposes, please contact BIOBASE (info@biobase-international.com) directly for license related issues. Also see http://www.openbioinformatics.org/annovar/annovar_faq.html#license
+
     </help>
 </tool>
