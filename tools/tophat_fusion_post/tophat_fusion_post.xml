@@ -3,14 +3,14 @@
     <version_command>tophat-fusion-post --version</version_command>
     <requirements>
         <requirement type="package" version="2.2.28">blast+</requirement>
-        <requirement type="package" version="2.1.0">bowtie2</requirement>
+        <requirement type='package' version="0.12.7">bowtie</requirement>
     </requirements>
     <command>
         ## Set up tophat_out structure.
         mkdir tophat_out; ln -s $accepted_hits tophat_out/accepted_hits.bam; ln -s $fusions tophat_out/fusions.out;
 
         ## Set up blast directory structure.
-        #set blast_db_path = ${__get_data_table_entry__('tophat_fusion_blastdb_indexes', 'dbkey', $accepted_hits.dbkey, 'path')}
+        #set blast_db_path = $__get_data_table_entry__('tophat_fusion_blastdb_indexes', 'dbkey', $accepted_hits.dbkey, 'path')
         ln -s ${blast_db_path}/ blast;
 
         ## Set up additional files:
@@ -25,8 +25,8 @@
               --non-human
         #end if
 
-	    ## Bowtie2 indices.
-	    ${__get_data_table_entry__('bowtie2_indexes', 'dbkey', $accepted_hits.dbkey, 'path')}
+	    ## Bowtie indices.
+	    ${__get_data_table_entry__('bowtie_indexes', 'dbkey', $accepted_hits.dbkey, 'path')}
     </command>
 
     <inputs>

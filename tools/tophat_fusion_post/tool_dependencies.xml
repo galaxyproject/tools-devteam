@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <tool_dependency>
     <package name="blast+" version="2.2.28">
-        <repository changeset_revision="23b9ba41ad00" name="package_blast_plus_2_2_28" owner="iuc" toolshed="http://toolshed.g2.bx.psu.edu" />
+        <repository name="package_blast_plus_2_2_28" owner="iuc"/>
     </package>
-    <package name="bowtie2" version="2.1.0">
-        <repository changeset_revision="017a00c265f1" name="package_bowtie2_2_1_0" owner="devteam" toolshed="http://toolshed.g2.bx.psu.edu" />
+    <package name="bowtie" version="0.12.7">
+        <repository name="package_bowtie_0_12_7" owner="devteam"/>
     </package>
 </tool_dependency>
