@@ -49,7 +49,7 @@
     </stdio>
 
     <outputs>
-        <data format="txt" name="results_txt" label="${tool.name} on ${on_string}: text results" from_work_dir="tophatfusion_out/result.txt"/>
+        <data format="tabular" name="results_txt" label="${tool.name} on ${on_string}: text results" from_work_dir="tophatfusion_out/result.txt"/>
         <data format="html" name="results_html" label="${tool.name} on ${on_string}: html results" from_work_dir="tophatfusion_out/result.html"/>
     </outputs>
 </tool>
