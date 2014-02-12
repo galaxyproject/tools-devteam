@@ -3,6 +3,7 @@
 
     <requirements>
         <requirement type="package">annovar</requirement>
+        <requirement type="set_environment">SCRIPT_PATH</requirement>
     </requirements>
 
     <command>
@@ -39,7 +40,7 @@
         ; table_annovar.pl input.avinput ${__get_data_table_entry__('annovar_indexes', 'dbkey', $input.dbkey, 'path')} -protocol ${protocol} -operation ${operation} -nastring NA -buildver ${input.dbkey} --outfile output
 
         ## Process annotated table to remove "NA" strings from numerical columns and copy to output.
-        ; cat output.${input.dbkey}_multianno.txt | replace_NA.py > ${output}
+        ; cat output.${input.dbkey}_multianno.txt | \$SCRIPT_PATH/replace_NA.py > ${output}
     </command>
 
     <inputs>
