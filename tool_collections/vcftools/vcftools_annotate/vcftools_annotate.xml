@@ -4,7 +4,6 @@
     <requirements>
         <requirement type="binary">echo</requirement>
         <requirement type="package" version="0.1.11">vcftools</requirement>
-        <requirement type="set_environment">PERL5LIB</requirement>
     </requirements>
     
     <command>
