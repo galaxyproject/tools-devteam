@@ -1,8 +1,5 @@
 <?xml version="1.0"?>
 <tool_dependency>
-    <set_environment version="1.0">
-        <environment_variable name="PERL5LIB" action="set_to">$REPOSITORY_INSTALL_DIR/perl</environment_variable>   
-    </set_environment>
     <package name="vcftools" version="0.1.11">
         <install version="1.0">
             <actions>
