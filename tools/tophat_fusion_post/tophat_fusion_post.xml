@@ -20,7 +20,7 @@
         ln -s ${blast_db_path}/mcl .;
 
         ## Run tophat-fusion-post
-        tophat-fusion-post -p 22
+        tophat-fusion-post -p \${GALAXY_SLOTS:-4}
         --num-fusion-reads $num_fusion_reads --num-fusion-pairs $num_fusion_pairs --num-fusion-both $num_fusion_both --fusion-read-mismatches $fusion_read_mismatches --fusion-multireads $fusion_multireads
         #if str($is_human) == 'No':
               --non-human
