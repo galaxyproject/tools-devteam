@@ -24,7 +24,7 @@
       <when value="default">
         <param name="index" type="select" label="Check the assigned reference genome" help="Galaxy thinks that the reads in you dataset were aligned against this reference. If this is not correct, use the 'Select a build-in reference genome' option of the 'Select Reference Genome' dropdown to select approprtiate Reference.">
           <options from_data_table="all_fasta">
-          <filter type="data_meta" ref="input_file" key="dbkey" column="dbkey" multiple="True" separator=","/>
+          <filter type="data_meta" ref="input_file" key="dbkey" column="1" multiple="True" separator=","/>
           <validator type="no_options" message="No reference build available for the selected input data" />
           </options>
         </param>
