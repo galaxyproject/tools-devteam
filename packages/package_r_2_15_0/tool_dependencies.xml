@@ -8,7 +8,9 @@
           <actions>
               <action type="download_by_url">http://cran.rstudio.com/src/base/R-2/R-2.15.0.tar.gz</action>
                 <action type="set_environment_for_install">
-                  <repository changeset_revision="16fc64dad9ca" name="package_readline_6_2" owner="devteam" prior_installation_required="False" toolshed="http://toolshed.g2.bx.psu.edu" />
+                  <repository changeset_revision="16fc64dad9ca" name="package_readline_6_2" owner="devteam" prior_installation_required="False" toolshed="http://toolshed.g2.bx.psu.edu">
+                    <package name="readline" version="6.2" />
+                  </repository>
                 </action>
                 <action type="make_directory">$INSTALL_DIR</action>
                 <action type="shell_command">export LDFLAGS="-L$READLINE_LIBS" &amp;&amp; ./configure --with-blas --with-lapack --enable-R-shlib --with-x=no --prefix=$INSTALL_DIR &amp;&amp; make &amp;&amp; make install</action>
