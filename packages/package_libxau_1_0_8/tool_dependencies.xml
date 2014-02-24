@@ -11,8 +11,12 @@
           <actions>
               <action type="download_by_url">ftp://ftp.x.org/pub/individual/lib/libXau-1.0.8.tar.bz2</action>
                 <action type="set_environment_for_install">
-                  <repository changeset_revision="743289b9c605" name="package_xorg_macros_1_17_1" owner="devteam" prior_installation_required="True" toolshed="http://toolshed.g2.bx.psu.edu" />
-                    <repository changeset_revision="6a512bc84b0d" name="package_libxproto_7_0_23" owner="devteam" prior_installation_required="True" toolshed="http://toolshed.g2.bx.psu.edu" />
+                  <repository changeset_revision="743289b9c605" name="package_xorg_macros_1_17_1" owner="devteam" prior_installation_required="True" toolshed="http://toolshed.g2.bx.psu.edu">
+                    <package name="xorg_macros" version="1.17.1" />
+                    </repository>
+                    <repository changeset_revision="6a512bc84b0d" name="package_libxproto_7_0_23" owner="devteam" prior_installation_required="True" toolshed="http://toolshed.g2.bx.psu.edu">
+                        <package name="libxproto" version="7.0.23" />
+                    </repository>
                 </action>
                 <action type="shell_command">./configure --prefix=$INSTALL_DIR</action>
                 <action type="shell_command">make &amp;&amp; make install</action>
