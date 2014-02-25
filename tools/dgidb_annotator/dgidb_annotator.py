@@ -2,7 +2,7 @@
 Annotates a tabular file with information from the Drug-Gene Interaction (DGI) database.
 '''
 
-import optparse, json, urllib2, sys
+import optparse, json, urllib2, sys, re
 
 def __main__():
     # -- Parse command line. --
@@ -25,13 +25,17 @@ def __main__():
     gene_list = []
     lines = []
     for line in input_file:
-        gene_list.append( line.split('\t')[gene_name_col].strip() )
+        entry = line.split('\t')[gene_name_col].strip()
+        # Some annotations may be of the form 
+        #    <gene_name>(<splicing_info>) or <gene_name>;<gene_name>(splicing_info)
+        gene_list.append(entry.split(';')[0].split('(')[0])
         lines.append(line.strip())
     
     # Query for results.
     query_str = 'http://dgidb.genome.wustl.edu/api/v1/interactions.json?genes=%s' % ','.join(set(gene_list))
     if options.expert_curated:
         query_str += '&source_trust_levels=Expert%20curated'
+    print query_str
     results = urllib2.urlopen(query_str).read()
     results_dict = json.loads(results)
     
