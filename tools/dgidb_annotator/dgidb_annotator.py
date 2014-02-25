@@ -35,7 +35,6 @@ def __main__():
     query_str = 'http://dgidb.genome.wustl.edu/api/v1/interactions.json?genes=%s' % ','.join(set(gene_list))
     if options.expert_curated:
         query_str += '&source_trust_levels=Expert%20curated'
-    print query_str
     results = urllib2.urlopen(query_str).read()
     results_dict = json.loads(results)
     
