@@ -27,7 +27,7 @@
         #end if
 
 	    ## Bowtie indices.
-	    ${__get_data_table_entry__('bowtie_indexes', 'dbkey', $accepted_hits.dbkey, 'path')}
+	    ${__get_data_table_entry__('bowtie_indexes', 'value', $accepted_hits.dbkey, 'path')}
     </command>
 
     <inputs>
