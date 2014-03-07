@@ -1,4 +1,4 @@
-<tool id="dgidb_annotator" name="Annotate with DGI" version="0.1">
+<tool id="dgidb_annotate" name="Annotate with DGI" version="0.1">
     <description>database info</description>
     
     <command interpreter="python">

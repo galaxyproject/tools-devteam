@@ -2,7 +2,7 @@
 Annotates a tabular file with information from the Drug-Gene Interaction (DGI) database.
 '''
 
-import optparse, json, urllib2, sys, re
+import optparse, json, urllib2, sys
 
 def __main__():
     # -- Parse command line. --
@@ -19,7 +19,7 @@ def __main__():
     else:
         input_file = sys.stdin
 
-    # -- Make connection and get results. --
+    # -- Set up gene list queries. --
 
     # Get gene list.
     gene_list = []
@@ -31,16 +31,36 @@ def __main__():
         gene_list.append(entry.split(';')[0].split('(')[0])
         lines.append(line.strip())
     
+    # Set up gene lists to be ~8K because this is near the max HTTP request length.
+    gene_list = ','.join(set(gene_list))
+    queries = []
+    MAX_QUERY_SIZE = 8000
+    if len(gene_list) > MAX_QUERY_SIZE:
+        # Break queries.
+        queries = [ gene_list[i:i + MAX_QUERY_SIZE] for i in range(0, len(gene_list), MAX_QUERY_SIZE) ]
+
+        # Adjust queries to include whole genes.
+        for i, query in enumerate( queries[1:] ):
+            part_gene, comma, remainder = query.partition(',')
+            queries[i] += part_gene
+            queries[i+1] = remainder
+    else:
+        queries = [ gene_list ]
+
+    # -- Query and process results. --
+
     # Query for results.
-    query_str = 'http://dgidb.genome.wustl.edu/api/v1/interactions.json?genes=%s' % ','.join(set(gene_list))
-    if options.expert_curated:
-        query_str += '&source_trust_levels=Expert%20curated'
-    results = urllib2.urlopen(query_str).read()
-    results_dict = json.loads(results)
-    
+    results = []
+    for genes in queries:
+        query_str = 'http://dgidb.genome.wustl.edu/api/v1/interactions.json?genes=%s' % genes
+        if options.expert_curated:
+            query_str += '&source_trust_levels=Expert%20curated'
+        raw_results = urllib2.urlopen(query_str).read()
+        results_dict = json.loads(raw_results)
+        results.extend(results_dict['matchedTerms'])
+        
     # Process results.
-    matched_results = results_dict['matchedTerms']
-    for result in matched_results:
+    for result in results:
         # Process result.
         processed_results = []
         result_fields = [ result['geneName'], result['geneLongName'], ','.join( result['geneCategories'] ) ]
