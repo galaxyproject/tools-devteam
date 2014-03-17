@@ -7,6 +7,7 @@
                 <action type="shell_command">./configure --prefix=$INSTALL_DIR</action>
                 <action type="shell_command">make &amp;&amp; make install</action>
                 <action type="set_environment">
+                  <environment_variable action="prepend_to" name="PATH">$INSTALL_DIR/bin</environment_variable>
                   <environment_variable action="set_to" name="LIBPNG_ROOT">$INSTALL_DIR</environment_variable>
                   <environment_variable action="prepend_to" name="PKG_CONFIG_PATH">$INSTALL_DIR/lib/pkgconfig</environment_variable>
                 </action>
