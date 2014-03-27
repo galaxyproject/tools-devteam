@@ -1,6 +1,6 @@
-<tool id="samtools_rmdup" name="rmdup" version="1.0.0">
+<tool id="samtools_rmdup" name="rmdup" version="1.0.1">
   <requirements>
-    <requirement type="package" version="0.1.18">samtools</requirement>
+    <requirement type="package" version="0.1.19">samtools</requirement>
   </requirements>
   <description>remove PCR duplicates</description>
   <command>samtools rmdup 
