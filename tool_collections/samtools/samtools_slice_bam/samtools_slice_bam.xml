@@ -1,7 +1,7 @@
-<tool id="samtools_slice_bam" name="Slice BAM" version="0.0.1">
+<tool id="samtools_slice_bam" name="Slice BAM" version="0.0.2">
   <description>by provided regions</description>
   <requirements>
-      <requirement type="package" version="0.1.18">samtools</requirement>
+      <requirement type="package" version="0.1.19">samtools</requirement>
   </requirements>
   <command interpreter="python">samtools_slice_bam.py
     "${input_bam}"
