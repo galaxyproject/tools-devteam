@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<repositories>
+    <repository changeset_revision="f2ab5b44870d" name="fasta_clipping_histogram" owner="devteam" toolshed="http://toolshed.g2.bx.psu.edu" />
+    <repository changeset_revision="1dbb5181c327" name="fasta_formatter" owner="devteam" toolshed="http://toolshed.g2.bx.psu.edu" />
+    <repository changeset_revision="2f868bfbe9de" name="fasta_nucleotide_changer" owner="devteam" toolshed="http://toolshed.g2.bx.psu.edu" />
+    <repository changeset_revision="e359ce20fbd9" name="fastq_quality_boxplot" owner="devteam" toolshed="http://toolshed.g2.bx.psu.edu" />
+    <repository changeset_revision="b87c74b61d81" name="fastq_quality_converter" owner="devteam" toolshed="http://toolshed.g2.bx.psu.edu" />
+    <repository changeset_revision="57adb07cccfc" name="fastq_quality_filter" owner="devteam" toolshed="http://toolshed.g2.bx.psu.edu" />
+    <repository changeset_revision="04614cf6ed39" name="fastq_to_fasta" owner="devteam" toolshed="http://toolshed.g2.bx.psu.edu" />
+    <repository changeset_revision="c8808979ba33" name="fastx_artifacts_filter" owner="devteam" toolshed="http://toolshed.g2.bx.psu.edu" />
+    <repository changeset_revision="c5300ff2aa1e" name="fastx_barcode_splitter" owner="devteam" toolshed="http://toolshed.g2.bx.psu.edu" />
+    <repository changeset_revision="2fe2d2b9e8e4" name="fastx_clipper" owner="devteam" toolshed="http://toolshed.g2.bx.psu.edu" />
+    <repository changeset_revision="13c2d9e8c6d5" name="fastx_collapser" owner="devteam" toolshed="http://toolshed.g2.bx.psu.edu" />
+    <repository changeset_revision="63d6e2daad48" name="fastx_nucleotides_distribution" owner="devteam" toolshed="http://toolshed.g2.bx.psu.edu" />
+    <repository changeset_revision="c2af34024061" name="fastx_quality_statistics" owner="devteam" toolshed="http://toolshed.g2.bx.psu.edu" />
+    <repository changeset_revision="d7bce63e6e09" name="fastx_renamer" owner="devteam" toolshed="http://toolshed.g2.bx.psu.edu" />
+    <repository changeset_revision="5bd826723d61" name="fastx_reverse_complement" owner="devteam" toolshed="http://toolshed.g2.bx.psu.edu" />
+    <repository changeset_revision="d77c9c6ecf68" name="fastx_trimmer" owner="devteam" toolshed="http://toolshed.g2.bx.psu.edu" />
+</repositories>
