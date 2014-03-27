@@ -1,6 +1,6 @@
-<tool id="samtools_flagstat" name="flagstat" version="1.0.0">
+<tool id="samtools_flagstat" name="flagstat" version="1.0.1">
   <requirements>
-    <requirement type="package" version="0.1.18">samtools</requirement>
+    <requirement type="package" version="0.1.19">samtools</requirement>
   </requirements>
   <description>provides simple stats on BAM files</description>
   <command>samtools flagstat "$input1" > "$output1"
