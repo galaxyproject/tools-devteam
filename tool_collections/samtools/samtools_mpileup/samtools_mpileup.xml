@@ -1,7 +1,7 @@
-<tool id="samtools_mpileup" name="MPileup" version="0.0.2">
+<tool id="samtools_mpileup" name="MPileup" version="0.0.3">
   <description>SNP and indel caller</description>
   <requirements>
-      <requirement type="package" version="0.1.18">samtools</requirement>
+      <requirement type="package" version="0.1.19">samtools</requirement>
   </requirements>
   <command interpreter="python">samtools_wrapper.py
     -p 'samtools mpileup'
