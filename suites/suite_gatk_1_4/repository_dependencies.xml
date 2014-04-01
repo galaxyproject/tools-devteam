@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<repositories description="The suite of tool wrappers for GATK 1.4.">
+  <repository changeset_revision="619dd9e9c09c" name="data_manager_gatk_picard_index_builder" owner="devteam" prior_installation_required="False" toolshed="http://toolshed.g2.bx.psu.edu" />
+    <repository changeset_revision="be6bede22459" name="analyze_covariates" owner="devteam" prior_installation_required="False" toolshed="http://toolshed.g2.bx.psu.edu" />
+    <repository changeset_revision="14e304b70425" name="count_covariates" owner="devteam" prior_installation_required="False" toolshed="http://toolshed.g2.bx.psu.edu" />
+    <repository changeset_revision="c3f08370fc82" name="depth_of_coverage" owner="devteam" prior_installation_required="False" toolshed="http://toolshed.g2.bx.psu.edu" />
+    <repository changeset_revision="bb0beda6cf83" name="indel_realigner" owner="devteam" prior_installation_required="False" toolshed="http://toolshed.g2.bx.psu.edu" />
+    <repository changeset_revision="e768f4851646" name="print_reads" owner="devteam" prior_installation_required="False" toolshed="http://toolshed.g2.bx.psu.edu" />
+    <repository changeset_revision="b83a853a3156" name="realigner_target_creator" owner="devteam" prior_installation_required="False" toolshed="http://toolshed.g2.bx.psu.edu" />
+    <repository changeset_revision="53dd1bfced54" name="table_recalibration" owner="devteam" prior_installation_required="False" toolshed="http://toolshed.g2.bx.psu.edu" />
+    <repository changeset_revision="66dd4d4c1743" name="unified_genotyper" owner="devteam" prior_installation_required="False" toolshed="http://toolshed.g2.bx.psu.edu" />
+    <repository changeset_revision="ae9d0a543e9b" name="variant_annotator" owner="devteam" prior_installation_required="False" toolshed="http://toolshed.g2.bx.psu.edu" />
+    <repository changeset_revision="350a4d0d1678" name="variant_apply_recalibration" owner="devteam" prior_installation_required="False" toolshed="http://toolshed.g2.bx.psu.edu" />
+    <repository changeset_revision="1a6e16391727" name="variant_combine" owner="devteam" prior_installation_required="False" toolshed="http://toolshed.g2.bx.psu.edu" />
+    <repository changeset_revision="fbca1c0956d2" name="variant_eval" owner="devteam" prior_installation_required="False" toolshed="http://toolshed.g2.bx.psu.edu" />
+    <repository changeset_revision="da6e2503c62d" name="variant_filtration" owner="devteam" prior_installation_required="False" toolshed="http://toolshed.g2.bx.psu.edu" />
+    <repository changeset_revision="cb7cf57397a7" name="variant_recalibrator" owner="devteam" prior_installation_required="False" toolshed="http://toolshed.g2.bx.psu.edu" />
+    <repository changeset_revision="135e8721ffc5" name="variant_select" owner="devteam" prior_installation_required="False" toolshed="http://toolshed.g2.bx.psu.edu" />
+    <repository changeset_revision="7e1ecaa64370" name="variants_validate" owner="devteam" prior_installation_required="False" toolshed="http://toolshed.g2.bx.psu.edu" />
+</repositories>
