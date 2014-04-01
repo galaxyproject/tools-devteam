@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<tool_dependency>
+  <package name="R" version="2.11.0">
+      <repository changeset_revision="6e1b17857732" name="package_r_2_11_0" owner="devteam" prior_installation_required="False" toolshed="http://toolshed.g2.bx.psu.edu" />
+    </package>
+    <package name="bioc_qvalue" version="1.34.0">
+      <repository changeset_revision="11735242a19e" name="package_bioc_qvalue_1_34_0" owner="devteam" prior_installation_required="False" toolshed="http://toolshed.g2.bx.psu.edu" />
+    </package>
+</tool_dependency>
