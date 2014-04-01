@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<tool_dependency>
+  <package name="picard" version="1.56.0">
+      <repository changeset_revision="7206dbf34dcd" name="package_picard_1_56_0" owner="devteam" prior_installation_required="False" toolshed="http://testtoolshed.g2.bx.psu.edu" />
+    </package>
+    <package name="samtools" version="0.1.18">
+      <repository changeset_revision="c0f72bdba484" name="package_samtools_0_1_18" owner="devteam" prior_installation_required="False" toolshed="http://testtoolshed.g2.bx.psu.edu" />
+    </package>
+</tool_dependency>
