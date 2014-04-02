@@ -11,7 +11,7 @@
    --stdout "${output_log}"
    --html_report_from_directory "${output_html}" "${output_html.files_path}"
    -p 'java 
-    -jar "${JAVA_JAR_PATH}/AnalyzeCovariates.jar"
+    -jar "\$JAVA_JAR_PATH/AnalyzeCovariates.jar"
     -recalFile "${input_recal}"
     -outputDir "${output_html.files_path}"
     ##--num_threads 4 ##hard coded, for now
