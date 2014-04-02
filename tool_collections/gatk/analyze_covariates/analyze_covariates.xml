@@ -2,6 +2,7 @@
   <description>- draw plots</description>
   <requirements>
       <requirement type="package" version="1.4">gatk</requirement>
+      <requirement type="package" version="2.11.0">R</requirement>
   </requirements>
   <macros>
     <import>gatk_macros.xml</import>
