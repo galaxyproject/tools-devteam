@@ -1,5 +1,9 @@
 <tool id="wtavg" name="Assign weighted-average" version="1.0.0">
   <description> of the values of features overlapping an interval </description>
+  <requirements>
+    <requirement type="package" version="1.0.0">galaxy-ops</requirement>
+    <requirement type="package" version="0.7.1">bx-python</requirement>
+  </requirements>
   <command interpreter="python">WeightedAverage.py  $genomic_interval $genomic_feature $out_file1 -1 ${genomic_interval.metadata.chromCol},${genomic_interval.metadata.startCol},${genomic_interval.metadata.endCol},${genomic_interval.metadata.strandCol} -2 ${genomic_feature.metadata.chromCol},${genomic_feature.metadata.startCol},${genomic_feature.metadata.endCol},${genomic_feature.metadata.strandCol},${genomic_feature.metadata.nameCol}</command>
 
   <inputs>
