@@ -1,5 +1,9 @@
 <tool id="BestSubsetsRegression1" name="Perform Best-subsets Regression" version="0.0.1">
   <description> </description>
+  <requirements>
+    <requirement type="package" version="1.7.1">numpy</requirement>
+    <requirement type="package" version="1.0.3">rpy</requirement>
+  </requirements>
   <command interpreter="python">
     best_regression_subsets.py 
       $input1
@@ -21,9 +25,6 @@
     <data format="input" name="out_file1" metadata_source="input1" />
     <data format="pdf" name="out_file2" />
   </outputs>
-  <requirements>
-    <requirement type="python-module">rpy</requirement>
-  </requirements>
   <tests>
     <!-- Testing this tool will not be possible because this tool produces a pdf output file.
     -->
