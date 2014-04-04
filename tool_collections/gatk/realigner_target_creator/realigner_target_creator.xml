@@ -15,7 +15,7 @@
        -d "" "${reference_source.input_bam.metadata.bam_index}" "bam_index" "gatk_input" ##hardcode galaxy ext type as bam_index
    #end if
    -p 'java 
-    -jar "${JAVA_JAR_PATH}/GenomeAnalysisTK.jar"
+    -jar "\$JAVA_JAR_PATH/GenomeAnalysisTK.jar"
     -T "RealignerTargetCreator"
     -o "${output_interval}"
     -et "NO_ET" ##ET no phone home
