@@ -1,4 +1,4 @@
-<tool id="gops_basecoverage_1" name="Base Coverage" version="0.0.1">
+<tool id="gops_basecoverage_1" name="Base Coverage" version="1.0.0">
   <description>of all intervals</description>
   <command interpreter="python">gops_basecoverage.py $input1 $output -1 ${input1.metadata.chromCol},${input1.metadata.startCol},${input1.metadata.endCol},${input1.metadata.strandCol}</command>
   <requirements>
