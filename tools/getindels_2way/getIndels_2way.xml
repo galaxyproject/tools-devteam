@@ -1,4 +1,4 @@
-<tool id="getIndels_2way" name="Fetch Indels" version="0.0.1">
+<tool id="getIndels_2way" name="Fetch Indels" version="1.0.0">
   <description> from pairwise alignments</description>
   <requirements>
     <requirement type="package" version="1.7.1">numpy</requirement>
