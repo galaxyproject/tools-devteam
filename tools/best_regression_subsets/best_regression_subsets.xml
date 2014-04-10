@@ -1,4 +1,4 @@
-<tool id="BestSubsetsRegression1" name="Perform Best-subsets Regression" version="0.0.1">
+<tool id="BestSubsetsRegression1" name="Perform Best-subsets Regression" version="1.0.0">
   <description> </description>
   <requirements>
     <requirement type="package" version="1.7.1">numpy</requirement>
