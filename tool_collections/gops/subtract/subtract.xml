@@ -1,4 +1,4 @@
-<tool id="gops_subtract_1" name="Subtract" version="0.0.1">
+<tool id="gops_subtract_1" name="Subtract" version="1.0.0">
   <description>the intervals of two datasets</description>
   <requirements>
     <requirement type="package" version="0.7.1">bx-python</requirement>
