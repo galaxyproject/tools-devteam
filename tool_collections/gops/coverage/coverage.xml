@@ -1,4 +1,4 @@
-<tool id="gops_coverage_1" name="Coverage" version="0.0.1">
+<tool id="gops_coverage_1" name="Coverage" version="1.0.0">
   <description>of a set of intervals on second set of intervals</description>
   <requirements>
     <requirement type="package" version="0.7.1">bx-python</requirement>
