@@ -1,4 +1,4 @@
-<tool id="gops_merge_1" name="Merge">
+<tool id="gops_merge_1" name="Merge" version="1.0.0">
   <description>the overlapping intervals of a dataset</description>
   <requirements>
     <requirement type="package" version="0.7.1">bx-python</requirement>
