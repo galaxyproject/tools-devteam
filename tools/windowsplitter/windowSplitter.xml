@@ -1,4 +1,4 @@
-<tool id="winSplitter" name="Make windows" version="0.0.1">
+<tool id="winSplitter" name="Make windows" version="1.0.0">
   <description></description>
   <command interpreter="python">windowSplitter.py $input $size $out_file1 ${wintype.choice} ${wintype.offset} -l ${input.metadata.chromCol},${input.metadata.startCol},${input.metadata.endCol},${input.metadata.strandCol}</command>
   <inputs>
