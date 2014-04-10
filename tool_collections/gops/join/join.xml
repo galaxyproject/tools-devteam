@@ -1,4 +1,4 @@
-<tool id="gops_join_1" name="Join" version="0.0.1">
+<tool id="gops_join_1" name="Join" version="1.0.0">
   <description>the intervals of two datasets side-by-side</description>
   <requirements>
     <requirement type="package" version="0.7.1">bx-python</requirement>
