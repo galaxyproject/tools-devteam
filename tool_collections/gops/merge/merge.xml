@@ -56,7 +56,7 @@ This operation merges all overlapping intervals into single intervals.
 
 **Example**
 
-.. image:: ${static_path}/operation_icons/gops_merge.gif
+.. image:: gops_merge.gif
 
 </help>
 </tool>
