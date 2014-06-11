@@ -1,0 +1,28 @@
+<tool id="vcfgenotypes" name="VCFgenotypes:" version="0.0.1">
+<requirements>
+    <requirement type="package" version="586c5ae5d57a38dae6b32ea831fb1f7cfa14c9bd">vcflib</requirement>
+</requirements>
+  <description>Convert numerical representation of genotypes to allelic</description>
+  <command>vcfgenotypes "${vcf_input}" > "${out_file1}"</command>
+  <inputs>
+    <param format="vcf" name="vcf_input" type="data" label="Select VCF dataset"/>
+  </inputs>
+  <outputs>
+    <data format="tabular" name="out_file1" />
+  </outputs>
+  <tests>
+    <test>
+      <param name="vcf_input" value="vcflib.vcf"/>
+      <output name="out_file1" file="vcfgenotypes-test1.tab"/>
+    </test>
+    </tests>
+  <help>
+
+Converts numerical representation of genotypes (standard in GT field) to the alleles provided in the call's ALT/REF fields.
+
+----
+
+Vcfgenotypes is a part of VCFlib toolkit developed by Erik Garrison (https://github.com/ekg/vcflib).                                                                                                                                 
+
+</help>
+</tool>

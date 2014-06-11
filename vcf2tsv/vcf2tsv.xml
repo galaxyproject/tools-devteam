@@ -1,0 +1,44 @@
+<tool id="vcf2tsv" name="VCFtoTab-delimited:" version="0.0.1">
+<requirements>
+    <requirement type="package" version="586c5ae5d57a38dae6b32ea831fb1f7cfa14c9bd">vcflib</requirement>
+</requirements>
+  <description>Convert VCF data into TAB-delimited format</description>
+  <command>vcf2tsv ${g_option} -n "${null_filler}" "${input}" > "${out_file1}"</command>
+  <inputs>
+    <param format="vcf" name="input" type="data" label="Select VCF dataset to convert"/>
+    <param name="g_option" type="boolean" checked="true" truevalue="-g" falsevalue="" label="Report data per sample" help="-g option"/>
+    <param name="null_filler" type="select" label="Fill empty fields with" help="-n option" >
+      <option value="">Nothing</option>
+      <option value=".">.</option>
+      <option value="*">*</option>
+      <option value="NULL">NULL</option>
+    </param>
+  </inputs>
+  <outputs>
+    <data format="tabular" name="out_file1" />
+  </outputs>
+  <tests>
+    <test>
+      <param name="g_option" value="true"/>
+      <param name="null_filler" value="."/>
+      <param name="input" value="vcflib.vcf"/>
+      <output name="out_file1" file="vcf2tsv-test1.tab"/>
+    </test>
+   <test>
+      <param name="g_option" value="false"/>
+      <param name="null_filler" value="."/>
+      <param name="input" value="vcflib.vcf"/>
+      <output name="out_file1" file="vcf2tsv-test2.tab"/>
+    </test>
+    </tests>
+  <help>
+
+Converts stdin or given VCF file to tab-delimited format, using null string to replace empty values in the table.
+Specifying "**Report data per sample**" (-g) will output one line per sample with genotype information.
+
+----
+
+Vcf2Tsv is a part of VCFlib toolkit developed by Erik Garrison (https://github.com/ekg/vcflib).    
+
+</help>
+</tool>
