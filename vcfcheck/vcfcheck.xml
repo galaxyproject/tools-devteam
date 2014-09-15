@@ -1,6 +1,6 @@
-<tool id="vcfcheck" name="VCFcheck:" version="0.0.1">
+<tool id="vcfcheck" name="VCFcheck:" version="0.0.2">
 <requirements>
-    <requirement type="package" version="586c5ae5d57a38dae6b32ea831fb1f7cfa14c9bd">vcflib</requirement>
+    <requirement type="package" version="8a5602bf07">vcflib</requirement>
 </requirements>
   <description>Verify that the reference allele matches the reference genome</description>
   <command>

@@ -1,6 +1,6 @@
-<tool id="vcfcombine" name="VCFcombine:" version="0.0.1">
+<tool id="vcfcombine" name="VCFcombine:" version="0.0.2">
 <requirements>
-    <requirement type="package" version="586c5ae5d57a38dae6b32ea831fb1f7cfa14c9bd">vcflib</requirement>
+    <requirement type="package" version="8a5602bf07">vcflib</requirement>
 </requirements>
   <description>Combine multiple VCF datasets</description>
   <command>
@@ -30,7 +30,7 @@
     </tests>
   <help>
 
-Combines VCF files positionally, combining samples when sites and alleles are identical. Any number of VCF files may be combined. The INFO field and other columns are taken from one of the files which are combined when records in multiple files match. Alleles must have identical ordering to be combined into one record. If they do not, multiple records will be emitted.
+Combines VCF files positionally, combining samples when sites and alleles are identical. Any number of VCF files may be combined. The INFO field and other columns are taken from one of the files, which are combined when records in multiple files match. Alleles must have identical ordering to be combined into one record. If they do not, multiple records will be emitted.
 
 -----
 

@@ -1,20 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
 <tool id="vcfallelicprimitives" name="VcfAllelicPrimitives:" version="0.0.2">
     <description>Split alleleic primitives (gaps or mismatches) into multiple VCF lines</description>
     <requirements>
-        <requirement type="package" version="586c5ae5d57a38dae6b32ea831fb1f7cfa14c9bd">vcflib</requirement>
+        <requirement type="package" version="8a5602bf07">vcflib</requirement>
     </requirements>
     <command>
         cat "${input}" | vcfallelicprimitives 
             ${m_option} 
-            -t "${t_option}" 
+            -t "${t_option}"
+	    -L "${max_length}" 
             $keep_info 
             $keep_geno > "${out_file1}"
     </command>
     <inputs>
         <param format="vcf" name="input" type="data" label="Select VCF dataset"/>
-        <param name="m_option" type="boolean" checked="true" truevalue="-m" falsevalue="" label="Retain MNPs as separate events" help="--use-mnps option"/>
-        <param name="t_option" size="20" type="text" value="Split primitives" label="Mark records which are split with this tag" help="--tag-parsed option"/>
-
+        <param name="m_option" type="boolean" checked="false" truevalue="--use-mnps" falsevalue="" label="Retain MNPs as separate events" help="--use-mnps option"/>
+        <param name="t_option" size="20" type="text" value="Split primitives" label="Tag records which are split apart of a complex allele with this flag. " help="--tag-parsed option"/>
+	<param name="max_length" type="integer" size="4" value="200" label="Do not manipulate records in which either the ALT or REF is longer than (bp)" help="--max-length option"/>
         <param name="keep_info" type="boolean" truevalue="--keep-info" falsevalue="" checked="False" 
             label="Maintain site and allele-level annotations when decomposing" 
             help="Note that in many cases, such as multisample VCFs, these won't be valid post-decomposition.  For biallelic loci in single-sample VCFs, they should be usable with caution. (--keep-info)"/>
@@ -27,8 +29,6 @@
     </outputs>
     <tests>
         <test>
-            <param name="m_option" value="true"/>
-            <param name="t_option" value="Split primitives"/>
             <param name="input" value="vcflib.vcf"/>
             <output name="out_file1" file="vcfallelicprimitives-test1.vcf"/>
         </test>
@@ -41,12 +41,16 @@ Genotypes are phased where complex alleles have been decomposed, provided genoty
 
 The options are::
 
-    --use-mnps (-m)
-    Retain MNPs as separate events
-
-    --tag-parsed (-t) FLAG
-    Tag records which are split apart of a complex allele
-    with this flag
+    -m, --use-mnps          Retain MNPs as separate events (default: false).
+    -t, --tag-parsed FLAG   Tag records which are split apart of a complex allele with this flag.
+    -L, --max-length LEN    Do not manipulate records in which either the ALT or
+                            REF is longer than LEN (default: 200).
+    -k, --keep-info         Maintain site and allele-level annotations when decomposing.
+                            Note that in many cases, such as multisample VCFs, these won't
+                            be valid post-decomposition.  For biallelic loci in single-sample
+                            VCFs, they should be usable with caution.
+    -g, --keep-geno         Maintain genotype-level annotations when decomposing.  Similar
+                            caution should be used for this as for --keep-info.
 
 ----
 

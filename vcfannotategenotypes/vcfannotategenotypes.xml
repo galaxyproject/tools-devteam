@@ -1,6 +1,6 @@
-<tool id="vcfannotategenotypes" name="VCFannotateGenotypes:" version="0.0.1">
+<tool id="vcfannotategenotypes" name="VCFannotateGenotypes:" version="0.0.2">
 <requirements>
-    <requirement type="package" version="586c5ae5d57a38dae6b32ea831fb1f7cfa14c9bd">vcflib</requirement>
+    <requirement type="package" version="8a5602bf07">vcflib</requirement>
 </requirements>
   <description>Annotate genotypes in a VCF dataset using genotypes from another VCF dataset</description>
   <command>vcfannotategenotypes "${tag_option}" "${input1}" "${input2}" > "${out_file1}"</command>
@@ -22,7 +22,7 @@
     </tests>
 <help>
 
-Annotates genotypes in the **First** file with genotypes in the **Second** adding the genotype as another flag to each sample filed in the first file. **Annotation-tag** is the name of the sample flag which is added to store the annotation.  also adds a 'has\_variant' flag for sites where the second file has a variant.
+Annotates genotypes in the **First** dataset with genotypes from the **Second** adding the genotype as another flag to each sample filled in the first file. **Annotation-tag** is the name of the sample flag which is added to store the annotation.  Also adds a 'has\_variant' flag for sites where the second file has a variant.
 
 -----
 

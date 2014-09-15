@@ -1,12 +1,12 @@
-<tool id="vcfannotate" name="VCFannotate:" version="0.0.1">
+<tool id="vcfannotate" name="VCFannotate:" version="0.0.2">
 <requirements>
-    <requirement type="package" version="586c5ae5d57a38dae6b32ea831fb1f7cfa14c9bd">vcflib</requirement>
+    <requirement type="package" version="8a5602bf07">vcflib</requirement>
 </requirements>
   <description>Intersect VCF records with BED annotations</description>
   <command>vcfannotate --key "${key_option}" -b "${bed_data}" "${input}" > "${out_file1}"</command>
   <inputs>        
     <param format="vcf" name="input" type="data" label="Select VCF dataset"/>
-    <param name="bed_data" type="data" format="bed" label="BED datasets to itersect with"/>
+    <param name="bed_data" type="data" format="bed" label="Select BED dataset to itersect with"/>
     <param name="key_option" size="20" type="text" value="BED-features" label="Intersecting VCF records will be prefixed with this TAG within the INFO field" help="--key option"/>
   </inputs>
   <outputs>
@@ -22,7 +22,7 @@
     </tests>
   <help>
 
-Intersect the records in the VCF file with targets provided in a BED file. Intersections are done on the reference sequences in the VCF file. 
+Intersect the records in the VCF file with intervals (features) provided in a BED file. Intersections are done on the reference sequences in the VCF file. 
 
 -----
 

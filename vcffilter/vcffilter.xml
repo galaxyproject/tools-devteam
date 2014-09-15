@@ -1,6 +1,6 @@
-<tool id="vcffilter2" name="VCFfilter:" version="0.0.1">
+<tool id="vcffilter2" name="VCFfilter:" version="0.0.2">
 <requirements>
-    <requirement type="package" version="586c5ae5d57a38dae6b32ea831fb1f7cfa14c9bd">vcflib</requirement>
+    <requirement type="package" version="8a5602bf07">vcflib</requirement>
 </requirements>
   <description>filter VCF data in a variety of attributes</description>
   <command>
@@ -21,7 +21,7 @@
         </mapping>
       </sanitizer>
     </param>
-    <param format="vcf_bgzip" name="input1" type="data" label="From">
+    <param format="vcf_bgzip" name="input1" type="data" label="VCF dataset to filter">
       <conversion name="Tabixized_input" type="tabix" />
     </param>
   </inputs>
@@ -37,7 +37,7 @@
 </tests> 
  <help>
 
-You can specify the following option the **Specify filtering expression** box in any combination::
+You can specify the following options within the **Specify filtering expression** box in any combination::
 
     -f, --info-filter     specifies a filter to apply to the info fields of records, removes alleles which do not pass the filter
     -g, --genotype-filter specifies a filter to apply to the genotype fields of records
@@ -48,20 +48,20 @@ You can specify the following option the **Specify filtering expression** box in
     -a, --allele-tag      apply -t on a per-allele basis.  adds or sets the corresponding INFO field tag
     -v, --invert          inverts the filter, e.g. grep -v
     -o, --or              use logical OR instead of AND to combine filters
-    -r, --region          specify a region on which to target the filtering (must be used in conjunction with -f or -g
+    -r, --region          specify a region on which to target the filtering (must be used in conjunction with -f or -g)
 
-Filters are specified in the form {ID}  {operator} {value}::
+Filters are specified in the form {ID} {operator} {value}::
 
  -f "DP > 10"          # for info fields
  -g "GT = 1|1"         # for genotype fields
  -f "CpG"              # for 'flag' fields
 
-Any number of filters may be specified.  They are combined via logical AND unless --or is specified on the command line. For convenience, you can specify "QUAL" to refer to the quality of the site, even though it does not appear in the INFO fields.  
+Any number of filters may be specified.  They are combined via logical AND unless the --or option is specified. For convenience, you can specify "QUAL" to refer to the quality of the site, even though it does not appear in the INFO fields.  
 
 Operators can be any of: =, !, &lt;, &gt;, pipe, &amp;
 
 
-To restrict output to a specific location use -r option (much be used in conjunction with -g or -f)::
+To restrict output to a specific location use the -r option (must be used in conjunction with -g or -f)::
 
  -r chr20:14000-15000  # only output calls between positions 14,000 and 15,000 on chromosome 20
  -r chrX               # only output call on chromosome X

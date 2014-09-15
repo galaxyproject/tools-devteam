@@ -13,6 +13,7 @@
     <repository name="vcfdistance" owner="anton" />
     <repository name="vcffilter" owner="anton" /> 
     <repository name="vcffixup" owner="anton" />
+    <repository name="vcfflatten" owner="anton" />
     <repository name="vcfgeno2haplo" owner="anton" />
     <repository name="vcfgenotypes" owner="anton" />
     <repository name="vcfhethom" owner="anton" />

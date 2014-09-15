@@ -1,6 +1,6 @@
-<tool id="vcfcommonsamples" name="VCFcommonSamples:" version="0.0.1">
+<tool id="vcfcommonsamples" name="VCFcommonSamples:" version="0.0.2">
 <requirements>
-    <requirement type="package" version="586c5ae5d57a38dae6b32ea831fb1f7cfa14c9bd">vcflib</requirement>
+    <requirement type="package" version="8a5602bf07">vcflib</requirement>
 </requirements>
   <description>Output records belonging to samples commong between two datasets</description>
   <command>vcfcommonsamples "${input1}" "${input2}" > "${out_file1}"</command>

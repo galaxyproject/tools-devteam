@@ -1,6 +1,6 @@
-<tool id="vcfgeno2haplo" name="VCFgenotype-to-haplotype:" version="0.0.1">
+<tool id="vcfgeno2haplo" name="VCFgenotype-to-haplotype:" version="0.0.2">
 <requirements>
-    <requirement type="package" version="586c5ae5d57a38dae6b32ea831fb1f7cfa14c9bd">vcflib</requirement>
+    <requirement type="package" version="8a5602bf07">vcflib</requirement>
 </requirements>
   <description>Convert genotype-based phased alleles into haplotype alleles</description>
   <command>
@@ -36,7 +36,7 @@
 	 <param name="input_vcf" type="data" format="vcf" label="Select VCF dataset" />
        </when>
      </conditional>
-     <param name="window_size" type="text" size="4" value="30" label="compare records up to this many bp away (window size)" help="--window-size option (default = 30)" />
+     <param name="window_size" type="text" size="4" value="30" label="compare records up to this many bp away" help="--window-size option (default = 30)" />
      <param name="output_option" type="boolean" truevalue="-o" falsevalue="" label="What to report?" help="--only-variants option" />
 <!--       <option value=" ">Output entire haplotype</option>
        <option value="-o">Don't output the entire haplotype, just concatenate REF/ALT strings (delimited by &quot;:&quot;)</option>
@@ -64,7 +64,6 @@ Convert genotype-based phased alleles within a window size specified by -w optio
 
 The options are::
 
-    -r, --reference FILE    FASTA reference file, required with -i and -u
     -w, --window-size N     Merge variants at most this many bp apart (default 30)
     -o, --only-variants     Don't output the entire haplotype, just concatenate
                             REF/ALT strings (delimited by ":")

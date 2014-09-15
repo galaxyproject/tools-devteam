@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <tool_dependency>
-    <package name="vcflib" version="586c5ae5d57a38dae6b32ea831fb1f7cfa14c9bd">
-        <repository name="package_vcflib" owner="anton" />
+    <package name="vcflib" version="8a5602bf07">
+        <repository name="package_vcflib_8a5602bf07" owner="anton" />
     </package>
 </tool_dependency>
