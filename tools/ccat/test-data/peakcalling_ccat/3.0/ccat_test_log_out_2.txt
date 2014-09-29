@@ -1,0 +1,131 @@
+chromosome length information read. chromNum = 49!
+config file read.
+fragmentSize = 200
+isStrandSensitiveMode = 0
+slidingWinSize = 1000
+movingStep = 50
+outputNum = 100000
+minCount = 4
+minScore = 5.000000
+bootstrapPass = 50
+randSeed = 123456
+reading tag files......
+10000 tags in L1, 10000 tags in L2.
+tag file read.
+pre-processing......
+pre-processing finished.
+estimating noise rate......
+not enough reads for noise rate estimation.
+noise rate estimation failed. noise rate set to be 1.0
+noise rate = 1.000000
+peak-finding......
+chr1......673 candidate peaks.
+chr1_random......0 candidate peaks.
+chr10......0 candidate peaks.
+chr10_random......0 candidate peaks.
+chr11......0 candidate peaks.
+chr11_random......0 candidate peaks.
+chr12......0 candidate peaks.
+chr13......0 candidate peaks.
+chr13_random......0 candidate peaks.
+chr14......0 candidate peaks.
+chr15......0 candidate peaks.
+chr15_random......0 candidate peaks.
+chr16......0 candidate peaks.
+chr16_random......0 candidate peaks.
+chr17......0 candidate peaks.
+chr17_random......0 candidate peaks.
+chr18......0 candidate peaks.
+chr18_random......0 candidate peaks.
+chr19......0 candidate peaks.
+chr19_random......0 candidate peaks.
+chr2......0 candidate peaks.
+chr2_random......0 candidate peaks.
+chr20......0 candidate peaks.
+chr21......0 candidate peaks.
+chr21_random......0 candidate peaks.
+chr22......0 candidate peaks.
+chr22_random......0 candidate peaks.
+chr22_h2_hap1......0 candidate peaks.
+chr3......0 candidate peaks.
+chr3_random......0 candidate peaks.
+chr4......0 candidate peaks.
+chr4_random......0 candidate peaks.
+chr5......0 candidate peaks.
+chr5_random......0 candidate peaks.
+chr5_h2_hap1......0 candidate peaks.
+chr6......0 candidate peaks.
+chr6_random......0 candidate peaks.
+chr6_cox_hap1......0 candidate peaks.
+chr6_qbl_hap2......0 candidate peaks.
+chr7......0 candidate peaks.
+chr7_random......0 candidate peaks.
+chr8......0 candidate peaks.
+chr8_random......0 candidate peaks.
+chr9......0 candidate peaks.
+chr9_random......0 candidate peaks.
+chrM......0 candidate peaks.
+chrX......0 candidate peaks.
+chrX_random......0 candidate peaks.
+chrY......0 candidate peaks.
+peak-finding finished.
+Significance Analysis......
+estimating paramters......
+smoothing factor = 0.287387
+estimating local FDR.....
+FDR at the threshold 5.000000 is 0.999000. You may want to adjust the threshold by inspecting the output files.
+post-processing......
+chr1......finished.
+chr1_random......finished.
+chr10......finished.
+chr10_random......finished.
+chr11......finished.
+chr11_random......finished.
+chr12......finished.
+chr13......finished.
+chr13_random......finished.
+chr14......finished.
+chr15......finished.
+chr15_random......finished.
+chr16......finished.
+chr16_random......finished.
+chr17......finished.
+chr17_random......finished.
+chr18......finished.
+chr18_random......finished.
+chr19......finished.
+chr19_random......finished.
+chr2......finished.
+chr2_random......finished.
+chr20......finished.
+chr21......finished.
+chr21_random......finished.
+chr22......finished.
+chr22_random......finished.
+chr22_h2_hap1......finished.
+chr3......finished.
+chr3_random......finished.
+chr4......finished.
+chr4_random......finished.
+chr5......finished.
+chr5_random......finished.
+chr5_h2_hap1......finished.
+chr6......finished.
+chr6_random......finished.
+chr6_cox_hap1......finished.
+chr6_qbl_hap2......finished.
+chr7......finished.
+chr7_random......finished.
+chr8......finished.
+chr8_random......finished.
+chr9......finished.
+chr9_random......finished.
+chrM......finished.
+chrX......finished.
+chrX_random......finished.
+chrY......finished.
+post-processing finished.
+Significance analysis finished.
+saving results.......
+results saved.
+CCAT process completed!

@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<tool_dependency>
+  <package name="CCAT" version="3.0">
+      <repository changeset_revision="b65b1bab9226" name="package_ccat_3_0" owner="devteam" prior_installation_required="False" toolshed="http://toolshed.g2.bx.psu.edu" />
+    </package>
+</tool_dependency>
