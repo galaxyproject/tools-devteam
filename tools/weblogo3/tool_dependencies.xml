@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<tool_dependency>
+  <package name="ghostscript" version="9.10">
+      <repository changeset_revision="a285e78179bd" name="package_ghostscript_9_10" owner="devteam" prior_installation_required="False" toolshed="http://toolshed.g2.bx.psu.edu" />
+    </package>
+    <package name="weblogo" version="3.3">
+      <repository changeset_revision="648e4b32f15c" name="package_weblogo_3_3" owner="devteam" prior_installation_required="False" toolshed="http://toolshed.g2.bx.psu.edu" />
+    </package>
+</tool_dependency>
