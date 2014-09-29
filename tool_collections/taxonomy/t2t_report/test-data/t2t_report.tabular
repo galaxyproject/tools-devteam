@@ -1,0 +1,15 @@
+root	root	5
+superkingdom	Eukaryota	5
+kingdom	Metazoa	5
+phylum	Chordata	5
+subphylum	Craniata	5
+superclass	Gnathostomata	5
+class	Mammalia	5
+superorder	Euarchontoglires	4
+order	Primates	4
+suborder	Haplorrhini	3
+superfamily	Hominoidea	3
+family	Hominidae	3
+genus	Homo	2
+species	Homo sapiens	2
+subspecies	Homo sapiens neanderthalensis	1
