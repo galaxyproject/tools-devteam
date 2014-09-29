@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<tool_dependency>
+    <package name="bowtie" version="0.12.7">
+        <repository changeset_revision="9f9f38617a98" name="package_bowtie_0_12_7" owner="devteam" toolshed="http://toolshed.g2.bx.psu.edu" />
+    </package>
+</tool_dependency>
