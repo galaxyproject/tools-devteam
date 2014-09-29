@@ -1,0 +1,45 @@
+<tool id="dgidb_annotate" name="Annotate with DGI" version="0.1">
+    <description>database info</description>
+    
+    <command interpreter="python">
+        dgidb_annotator.py
+        #if $expert_curated_only:
+            -e
+        #end if
+        #if $print_all:
+            -a
+        #end if
+        -g $gene_name_col
+        $input &gt; $output
+    </command>
+    <inputs>
+        <param name="input" label="Input" type="data" format="tabular"/>
+        <param name="expert_curated_only" label="Use Only Expert Curated Results" type="boolean"/>
+        <param name="print_all" label="Print All Rows, including those without Annotation" type="boolean"/>
+        <param name="gene_name_col" label="Gene Name Column" type="data_column" data_ref="input"/>
+    </inputs>
+
+    <outputs>
+        <data name="output" format="tabular"/>
+    </outputs>
+
+    <stdio>
+        <regex match=".*" source="both" level="log" description="tool progress"/>
+    </stdio>
+
+    <tests>
+        <test>
+            <param name="input" value="in1.tabular"/>
+            <param name="expert_curated_only" value="True"/>
+            <param name="print_all" value="False"/>
+            <param name="gene_name_col" value="1"/>
+            <output name="output" file="out1.tabular"/>
+        </test>
+    </tests>
+
+    <help>
+Annotates a tabular dataset with information from the `Drug-Gene Interations database`__
+
+.. __: http://dgidb.genome.wustl.edu/
+    </help>
+</tool>

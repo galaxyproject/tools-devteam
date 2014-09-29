@@ -1,0 +1,46 @@
+RET	gene1	RET	ret proto-oncogene	TYROSINE KINASE,DRUGGABLE GENOME,KINASE,CLINICALLY ACTIONABLE	n/a	SUNITINIB	TEND
+RET	gene1	RET	ret proto-oncogene	TYROSINE KINASE,DRUGGABLE GENOME,KINASE,CLINICALLY ACTIONABLE	n/a	IMATINIB	TEND
+RET	gene1	RET	ret proto-oncogene	TYROSINE KINASE,DRUGGABLE GENOME,KINASE,CLINICALLY ACTIONABLE	inhibitor	MOTESANIB	MyCancerGenome
+RET	gene1	RET	ret proto-oncogene	TYROSINE KINASE,DRUGGABLE GENOME,KINASE,CLINICALLY ACTIONABLE	inhibitor	VANDETANIB	MyCancerGenome
+RET	gene1	RET	ret proto-oncogene	TYROSINE KINASE,DRUGGABLE GENOME,KINASE,CLINICALLY ACTIONABLE	inhibitor	SORAFENIB	MyCancerGenome
+RET	gene1	RET	ret proto-oncogene	TYROSINE KINASE,DRUGGABLE GENOME,KINASE,CLINICALLY ACTIONABLE	inhibitor	REGORAFENIB	MyCancerGenome
+RET	gene1	RET	ret proto-oncogene	TYROSINE KINASE,DRUGGABLE GENOME,KINASE,CLINICALLY ACTIONABLE	inhibitor	AMUVATINIB	MyCancerGenome
+RET	gene1	RET	ret proto-oncogene	TYROSINE KINASE,DRUGGABLE GENOME,KINASE,CLINICALLY ACTIONABLE	inhibitor	SUNITINIB	MyCancerGenome
+RET	gene1	RET	ret proto-oncogene	TYROSINE KINASE,DRUGGABLE GENOME,KINASE,CLINICALLY ACTIONABLE	inhibitor	CABOZANTINIB	MyCancerGenome
+RET	gene1	RET	ret proto-oncogene	TYROSINE KINASE,DRUGGABLE GENOME,KINASE,CLINICALLY ACTIONABLE	inhibitor	SUNITINIB	TALC
+RET	gene1	RET	ret proto-oncogene	TYROSINE KINASE,DRUGGABLE GENOME,KINASE,CLINICALLY ACTIONABLE	inhibitor	VANDETANIB	TALC
+RET	gene1	RET	ret proto-oncogene	TYROSINE KINASE,DRUGGABLE GENOME,KINASE,CLINICALLY ACTIONABLE	inhibitor	MOTESANIB	TALC
+RET	gene1	RET	ret proto-oncogene	TYROSINE KINASE,DRUGGABLE GENOME,KINASE,CLINICALLY ACTIONABLE	inhibitor	CABOZANTINIB	TALC
+RET	gene1	RET	ret proto-oncogene	TYROSINE KINASE,DRUGGABLE GENOME,KINASE,CLINICALLY ACTIONABLE	inhibitor	REGORAFENIB	TALC
+RET	gene1	RET	ret proto-oncogene	TYROSINE KINASE,DRUGGABLE GENOME,KINASE,CLINICALLY ACTIONABLE	inhibitor	LENVATINIB	TALC
+RET	gene1	RET	ret proto-oncogene	TYROSINE KINASE,DRUGGABLE GENOME,KINASE,CLINICALLY ACTIONABLE	inhibitor	AMUVATINIB	TALC
+RET	gene1	RET	ret proto-oncogene	TYROSINE KINASE,DRUGGABLE GENOME,KINASE,CLINICALLY ACTIONABLE	inhibitor	AT9283	TALC
+RET	gene1	RET	ret proto-oncogene	TYROSINE KINASE,DRUGGABLE GENOME,KINASE,CLINICALLY ACTIONABLE	n/a	VANDETANIB	ClearityFoundationClinicalTrial
+RET	gene1	RET	ret proto-oncogene	TYROSINE KINASE,DRUGGABLE GENOME,KINASE,CLINICALLY ACTIONABLE	n/a	DOVITINIB	ClearityFoundationClinicalTrial
+BIRC3	gene2	BIRC3	baculoviral IAP repeat containing 3		antagonist	AEG40826	TALC
+BIRC3	gene2	BIRC3	baculoviral IAP repeat containing 3		antagonist	TL 32711	TALC
+BIRC3	gene2	BIRC3	baculoviral IAP repeat containing 3		antagonist	AT-406	TALC
+BIRC3	gene2	BIRC3	baculoviral IAP repeat containing 3		antagonist	GDC0917	TALC
+BIRC3	gene2	BIRC3	baculoviral IAP repeat containing 3		antagonist	LCL161	TALC
+ATM	gene3	ATM	ataxia telangiectasia mutated	PHOSPHATIDYLINOSITOL 3 KINASE,DRUGGABLE GENOME,CLINICALLY ACTIONABLE,SERINE THREONINE KINASE,KINASE,TUMOR SUPPRESSOR,DNA REPAIR	n/a	E7449	ClearityFoundationBiomarkers
+ATM	gene3	ATM	ataxia telangiectasia mutated	PHOSPHATIDYLINOSITOL 3 KINASE,DRUGGABLE GENOME,CLINICALLY ACTIONABLE,SERINE THREONINE KINASE,KINASE,TUMOR SUPPRESSOR,DNA REPAIR	n/a	NIRAPARIB	ClearityFoundationBiomarkers
+ATM	gene3	ATM	ataxia telangiectasia mutated	PHOSPHATIDYLINOSITOL 3 KINASE,DRUGGABLE GENOME,CLINICALLY ACTIONABLE,SERINE THREONINE KINASE,KINASE,TUMOR SUPPRESSOR,DNA REPAIR	n/a	OLAPARIB	ClearityFoundationBiomarkers
+ATM	gene3	ATM	ataxia telangiectasia mutated	PHOSPHATIDYLINOSITOL 3 KINASE,DRUGGABLE GENOME,CLINICALLY ACTIONABLE,SERINE THREONINE KINASE,KINASE,TUMOR SUPPRESSOR,DNA REPAIR	n/a	BMN673	ClearityFoundationBiomarkers
+ATM	gene3	ATM	ataxia telangiectasia mutated	PHOSPHATIDYLINOSITOL 3 KINASE,DRUGGABLE GENOME,CLINICALLY ACTIONABLE,SERINE THREONINE KINASE,KINASE,TUMOR SUPPRESSOR,DNA REPAIR	n/a	RUCAPARIB	ClearityFoundationBiomarkers
+ATM	gene3	ATM	ataxia telangiectasia mutated	PHOSPHATIDYLINOSITOL 3 KINASE,DRUGGABLE GENOME,CLINICALLY ACTIONABLE,SERINE THREONINE KINASE,KINASE,TUMOR SUPPRESSOR,DNA REPAIR	n/a	VELIPARIB	ClearityFoundationBiomarkers
+KRAS	gene4	KRAS	v-Ki-ras2 Kirsten rat sarcoma viral oncogene homolog	CLINICALLY ACTIONABLE	n/a	VANDETANIB	ClearityFoundationBiomarkers
+KRAS	gene4	KRAS	v-Ki-ras2 Kirsten rat sarcoma viral oncogene homolog	CLINICALLY ACTIONABLE	n/a	EVEROLIMUS	ClearityFoundationBiomarkers
+KRAS	gene4	KRAS	v-Ki-ras2 Kirsten rat sarcoma viral oncogene homolog	CLINICALLY ACTIONABLE	n/a	TEMSIROLIMUS	ClearityFoundationBiomarkers
+KRAS	gene4	KRAS	v-Ki-ras2 Kirsten rat sarcoma viral oncogene homolog	CLINICALLY ACTIONABLE	n/a	GDC-0973	ClearityFoundationBiomarkers
+KRAS	gene4	KRAS	v-Ki-ras2 Kirsten rat sarcoma viral oncogene homolog	CLINICALLY ACTIONABLE	n/a	MEK162	ClearityFoundationBiomarkers
+KRAS	gene4	KRAS	v-Ki-ras2 Kirsten rat sarcoma viral oncogene homolog	CLINICALLY ACTIONABLE	n/a	PD-325901	ClearityFoundationBiomarkers
+KRAS	gene4	KRAS	v-Ki-ras2 Kirsten rat sarcoma viral oncogene homolog	CLINICALLY ACTIONABLE	n/a	RAFAMETINIB	ClearityFoundationBiomarkers
+KRAS	gene4	KRAS	v-Ki-ras2 Kirsten rat sarcoma viral oncogene homolog	CLINICALLY ACTIONABLE	n/a	SELUMETINIB	ClearityFoundationBiomarkers
+KRAS	gene4	KRAS	v-Ki-ras2 Kirsten rat sarcoma viral oncogene homolog	CLINICALLY ACTIONABLE	n/a	TRAMETINIB	ClearityFoundationBiomarkers
+KRAS	gene4	KRAS	v-Ki-ras2 Kirsten rat sarcoma viral oncogene homolog	CLINICALLY ACTIONABLE	n/a	CETUXIMAB	ClearityFoundationBiomarkers
+KRAS	gene4	KRAS	v-Ki-ras2 Kirsten rat sarcoma viral oncogene homolog	CLINICALLY ACTIONABLE	n/a	ERLOTINIB	ClearityFoundationBiomarkers
+KRAS	gene4	KRAS	v-Ki-ras2 Kirsten rat sarcoma viral oncogene homolog	CLINICALLY ACTIONABLE	n/a	GEFITINIB	ClearityFoundationBiomarkers
+KRAS	gene4	KRAS	v-Ki-ras2 Kirsten rat sarcoma viral oncogene homolog	CLINICALLY ACTIONABLE	n/a	PANITUMUMAB	ClearityFoundationBiomarkers
+KRAS	gene4	KRAS	v-Ki-ras2 Kirsten rat sarcoma viral oncogene homolog	CLINICALLY ACTIONABLE	n/a	PIMASERTIB	ClearityFoundationBiomarkers
+KRAS	gene4	KRAS	v-Ki-ras2 Kirsten rat sarcoma viral oncogene homolog	CLINICALLY ACTIONABLE	inhibitor	REOLYSIN	CancerCommons
+KRAS	gene4	KRAS	v-Ki-ras2 Kirsten rat sarcoma viral oncogene homolog	CLINICALLY ACTIONABLE	vaccine	RAS PEPTIDE CANCER VACCINE	TALC
