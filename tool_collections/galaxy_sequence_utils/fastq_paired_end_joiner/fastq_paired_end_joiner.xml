@@ -1,0 +1,90 @@
+<tool id="fastq_paired_end_joiner" name="FASTQ joiner" version="2.0.0">
+  <description>on paired end reads</description>
+  <requirements>
+    <requirement type="package" version="1.0.0">galaxy_sequence_utils</requirement>
+  </requirements>
+  <command interpreter="python">fastq_paired_end_joiner.py '$input1_file' '${input1_file.extension[len( 'fastq' ):]}' '$input2_file' '${input2_file.extension[len( 'fastq' ):]}' '$output_file' '$style'</command>
+  <inputs>
+    <param name="input1_file" type="data" format="fastqsanger,fastqcssanger" label="Left-hand Reads" />
+    <param name="input2_file" type="data" format="fastqsanger,fastqcssanger" label="Right-hand Reads" />
+    <param name="style" type="select" label="FASTQ Header Style">
+      <option value="old" selected="true">old</option>
+      <option value="new">new</option>
+    </param>
+  </inputs>
+  <outputs>
+    <data name="output_file" format="input" />
+  </outputs>
+  <tests>
+    <test>
+      <param name="input1_file" value="split_pair_reads_1.fastqsanger" ftype="fastqsanger" />
+      <param name="input2_file" value="split_pair_reads_2.fastqsanger" ftype="fastqsanger" />
+      <output name="output_file" file="3.fastqsanger" />
+    </test>
+  </tests>
+  <help>
+**What it does**
+
+This tool joins paired end FASTQ reads from two separate files into a
+single read in one file.  The join is performed using sequence
+identifiers, allowing the two files to contain differing ordering.  If
+a sequence identifier does not appear in both files, it is excluded
+from the output.
+
+-----
+
+**Input formats**
+
+Both old and new (from recent Illumina software) style FASTQ headers
+are supported.  The following example uses the "old" style.
+
+Left-hand Read::
+
+    @HWI-EAS91_1_30788AAXX:7:21:1542:1758/1
+    GTCAATTGTACTGGTCAATACTAAAAGAATAGGATC
+    +HWI-EAS91_1_30788AAXX:7:21:1542:1758/1
+    hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+
+Right-hand Read::
+
+    @HWI-EAS91_1_30788AAXX:7:21:1542:1758/2
+    GCTCCTAGCATCTGGAGTCTCTATCACCTGAGCCCA
+    +HWI-EAS91_1_30788AAXX:7:21:1542:1758/2
+    hhhhhhhhhhhhhhhhhhhhhhhh`hfhhVZSWehR
+
+-----
+
+**Output**
+
+A multiple-fastq file, for example::
+
+    @HWI-EAS91_1_30788AAXX:7:21:1542:1758
+    GTCAATTGTACTGGTCAATACTAAAAGAATAGGATCGCTCCTAGCATCTGGAGTCTCTATCACCTGAGCCCA
+    +HWI-EAS91_1_30788AAXX:7:21:1542:1758
+    hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh`hfhhVZSWehR
+
+------
+
+**The "new" style**
+
+Recent Illumina FASTQ headers are structured as follows::
+
+  @COORDS FLAGS
+  COORDS = INSTRUMENT:RUN_#:FLOWCELL_ID:LANE:TILE:X:Y
+  FLAGS = READ:IS_FILTERED:CONTROL_NUMBER:INDEX_SEQUENCE
+
+where the whitespace character between COORDS and FLAGS can be either
+a space or a tab.
+
+------
+
+**Credits**
+
+This is an extended version (adds support for "new" style FASTQ headers)
+of D. Blankenberg's fastq joiner:
+
+`Blankenberg D, Gordon A, Von Kuster G, Coraor N, Taylor J, Nekrutenko A; Galaxy Team. Manipulation of FASTQ data with Galaxy. Bioinformatics. 2010 Jul 15;26(14):1783-5. &lt;http://www.ncbi.nlm.nih.gov/pubmed/20562416&gt;`_
+
+New style header support added by Simone Leo &lt;simone.leo@crs4.it&gt;
+  </help>
+</tool>
