@@ -1,0 +1,12 @@
+
+	Two Sample t-test
+
+data:  sample1 and sample2 
+t = -0.9174, df = 4344, p-value = 0.3590
+alternative hypothesis: true difference in means is not equal to 0 
+95 percent confidence interval:
+ -0.010105104  0.003662398 
+sample estimates:
+ mean of x  mean of y 
+0.01196503 0.01518638 
+
