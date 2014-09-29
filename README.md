@@ -8,4 +8,4 @@ The repo's main goals are to:
   * simplify the maintenance of these tools
   * provide learning environment to Galaxy Tool developers
 
-If you want to contribute to this repository please see file `CONTRIBUTING.md`
+If you want to contribute to this repository please see file [CONTRIBUTING.md](CONTRIBUTING.md)
