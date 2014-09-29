@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<repositories>
+  <repository changeset_revision="de11e1a921c4" name="blast_datatypes" owner="devteam" toolshed="http://toolshed.g2.bx.psu.edu" />
+</repositories>
