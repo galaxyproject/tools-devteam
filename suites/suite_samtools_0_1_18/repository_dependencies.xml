@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<repositories>
+    <repository changeset_revision="d6b6db69d9bf" name="data_manager_sam_fasta_index_builder" owner="devteam" toolshed="http://toolshed.g2.bx.psu.edu" />
+    <repository changeset_revision="dc20f447c0e2" name="bam_to_sam" owner="devteam" toolshed="http://toolshed.g2.bx.psu.edu" />
+    <repository changeset_revision="a110f9d6ae24" name="pileup_interval" owner="devteam" toolshed="http://toolshed.g2.bx.psu.edu" />
+    <repository changeset_revision="ab4c4e07eb3c" name="sam_to_bam" owner="devteam" toolshed="http://toolshed.g2.bx.psu.edu" />
+    <repository changeset_revision="13c4ad597626" name="samtools_flagstat" owner="devteam" toolshed="http://toolshed.g2.bx.psu.edu" />
+    <repository changeset_revision="7e92b2a53aab" name="samtools_rmdup" owner="devteam" toolshed="http://toolshed.g2.bx.psu.edu" />
+    <repository changeset_revision="68ba55e96489" name="samtools_slice_bam" owner="devteam" toolshed="http://toolshed.g2.bx.psu.edu" />
+</repositories>
