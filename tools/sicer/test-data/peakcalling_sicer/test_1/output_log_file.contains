@@ -1,0 +1,190 @@
+#############################################
+######           SICER v1.1            ######
+#############################################
+Input library directory:
+ChIP library:
+Output directory:
+Species: mm8
+Threshold for redundancy allowed for reads: 1
+Window size: 200 bps
+Fragment size: 150 bps. The shift for reads is half of 150
+Effective genome size as a fraction of the reference genome of mm8: 0.740000
+Gap size: 600 bps
+Evalue for identification of significant islands: 0.01
+Preprocess the raw input_bed_file file to remove redundancy with threshold 1...
+chr1 	Plus reads: 4989 	Retained plus reads: 4935 ;	Minus reads: 5011 	Retained minus reads: 4963
+chr2 	Plus reads: 0 	Retained plus reads: 0 ;	Minus reads: 0 	Retained minus reads: 0
+chr3 	Plus reads: 0 	Retained plus reads: 0 ;	Minus reads: 0 	Retained minus reads: 0
+chr4 	Plus reads: 0 	Retained plus reads: 0 ;	Minus reads: 0 	Retained minus reads: 0
+chr5 	Plus reads: 0 	Retained plus reads: 0 ;	Minus reads: 0 	Retained minus reads: 0
+chr6 	Plus reads: 0 	Retained plus reads: 0 ;	Minus reads: 0 	Retained minus reads: 0
+chr7 	Plus reads: 0 	Retained plus reads: 0 ;	Minus reads: 0 	Retained minus reads: 0
+chr8 	Plus reads: 0 	Retained plus reads: 0 ;	Minus reads: 0 	Retained minus reads: 0
+chr9 	Plus reads: 0 	Retained plus reads: 0 ;	Minus reads: 0 	Retained minus reads: 0
+chr10 	Plus reads: 0 	Retained plus reads: 0 ;	Minus reads: 0 	Retained minus reads: 0
+chr11 	Plus reads: 0 	Retained plus reads: 0 ;	Minus reads: 0 	Retained minus reads: 0
+chr12 	Plus reads: 0 	Retained plus reads: 0 ;	Minus reads: 0 	Retained minus reads: 0
+chr13 	Plus reads: 0 	Retained plus reads: 0 ;	Minus reads: 0 	Retained minus reads: 0
+chr14 	Plus reads: 0 	Retained plus reads: 0 ;	Minus reads: 0 	Retained minus reads: 0
+chr15 	Plus reads: 0 	Retained plus reads: 0 ;	Minus reads: 0 	Retained minus reads: 0
+chr16 	Plus reads: 0 	Retained plus reads: 0 ;	Minus reads: 0 	Retained minus reads: 0
+chr17 	Plus reads: 0 	Retained plus reads: 0 ;	Minus reads: 0 	Retained minus reads: 0
+chr18 	Plus reads: 0 	Retained plus reads: 0 ;	Minus reads: 0 	Retained minus reads: 0
+chr19 	Plus reads: 0 	Retained plus reads: 0 ;	Minus reads: 0 	Retained minus reads: 0
+chrX 	Plus reads: 0 	Retained plus reads: 0 ;	Minus reads: 0 	Retained minus reads: 0
+chrY 	Plus reads: 0 	Retained plus reads: 0 ;	Minus reads: 0 	Retained minus reads: 0
+chrM 	Plus reads: 0 	Retained plus reads: 0 ;	Minus reads: 0 	Retained minus reads: 0
+Partion the genome in windows ...
+Generate summary files for input_bed_file...
+total tag count in chr1.bed is: 9898.0 = 4935.0+4963.0
+total tag count in chr2.bed is: 0.0 = 0.0+0.0
+total tag count in chr3.bed is: 0.0 = 0.0+0.0
+total tag count in chr4.bed is: 0.0 = 0.0+0.0
+total tag count in chr5.bed is: 0.0 = 0.0+0.0
+total tag count in chr6.bed is: 0.0 = 0.0+0.0
+total tag count in chr7.bed is: 0.0 = 0.0+0.0
+total tag count in chr8.bed is: 0.0 = 0.0+0.0
+total tag count in chr9.bed is: 0.0 = 0.0+0.0
+total tag count in chr10.bed is: 0.0 = 0.0+0.0
+total tag count in chr11.bed is: 0.0 = 0.0+0.0
+total tag count in chr12.bed is: 0.0 = 0.0+0.0
+total tag count in chr13.bed is: 0.0 = 0.0+0.0
+total tag count in chr14.bed is: 0.0 = 0.0+0.0
+total tag count in chr15.bed is: 0.0 = 0.0+0.0
+total tag count in chr16.bed is: 0.0 = 0.0+0.0
+total tag count in chr17.bed is: 0.0 = 0.0+0.0
+total tag count in chr18.bed is: 0.0 = 0.0+0.0
+total tag count in chr19.bed is: 0.0 = 0.0+0.0
+total tag count in chrX.bed is: 0.0 = 0.0+0.0
+total tag count in chrY.bed is: 0.0 = 0.0+0.0
+total tag count in chrM.bed is: 0.0 = 0.0+0.0
+Normalize summary graph by total redundancy-removed reads per million for input_bed_file ...
+Convert the normalized summary graph into wig vstep format...
+Find significant islands with E-value 0.01 for input_bed_file...
+Species:  mm8
+Window_size:  200
+Gap size:  600
+E value is: 0.01
+Total read count: 9898.0
+Genome Length:  2644093988
+Effective genome Length:  1956629551
+Window average: 0.0010117398048
+Window pvalue: 0.2
+Minimum num of tags in a qualified window:  1
+Generate the enriched probscore summary graph and filter the summary graph to get rid of ineligible windows 
+Determine the score threshold from random background
+The score threshold is:  21.384
+Make and write islands
+Total number of islands:  352
+Filter reads with identified significant islands for input_bed_file...
+Make summary graph with filtered reads for input_bed_file...
+total tag count in chr1.bed is: 9654.0 = 4808.0+4846.0
+total tag count in chr2.bed is: 0.0 = 0.0+0.0
+total tag count in chr3.bed is: 0.0 = 0.0+0.0
+total tag count in chr4.bed is: 0.0 = 0.0+0.0
+total tag count in chr5.bed is: 0.0 = 0.0+0.0
+total tag count in chr6.bed is: 0.0 = 0.0+0.0
+total tag count in chr7.bed is: 0.0 = 0.0+0.0
+total tag count in chr8.bed is: 0.0 = 0.0+0.0
+total tag count in chr9.bed is: 0.0 = 0.0+0.0
+total tag count in chr10.bed is: 0.0 = 0.0+0.0
+total tag count in chr11.bed is: 0.0 = 0.0+0.0
+total tag count in chr12.bed is: 0.0 = 0.0+0.0
+total tag count in chr13.bed is: 0.0 = 0.0+0.0
+total tag count in chr14.bed is: 0.0 = 0.0+0.0
+total tag count in chr15.bed is: 0.0 = 0.0+0.0
+total tag count in chr16.bed is: 0.0 = 0.0+0.0
+total tag count in chr17.bed is: 0.0 = 0.0+0.0
+total tag count in chr18.bed is: 0.0 = 0.0+0.0
+total tag count in chr19.bed is: 0.0 = 0.0+0.0
+total tag count in chrX.bed is: 0.0 = 0.0+0.0
+total tag count in chrY.bed is: 0.0 = 0.0+0.0
+total tag count in chrM.bed is: 0.0 = 0.0+0.0
+Normalize summary graph with filtered reads for input_bed_file by total island filtered reads per million...
+Convert the summary graph made with the filtered reads into wig vstep format and normalize by total island-filtered read count per million...
+Done!
+Additionally, these warnings were reported:
+Warning: chr2 reads do not exist in
+Warning: chr3 reads do not exist in
+Warning: chr4 reads do not exist in
+Warning: chr5 reads do not exist in
+Warning: chr6 reads do not exist in
+Warning: chr7 reads do not exist in
+Warning: chr8 reads do not exist in
+Warning: chr9 reads do not exist in
+Warning: chr10 reads do not exist in
+Warning: chr11 reads do not exist in
+Warning: chr12 reads do not exist in
+Warning: chr13 reads do not exist in
+Warning: chr14 reads do not exist in
+Warning: chr15 reads do not exist in
+Warning: chr16 reads do not exist in
+Warning: chr17 reads do not exist in
+Warning: chr18 reads do not exist in
+Warning: chr19 reads do not exist in
+Warning: chrX reads do not exist in
+Warning: chrY reads do not exist in
+Warning: chrM reads do not exist in
+Warning: chr2 reads do not exist in
+Warning: chr3 reads do not exist in
+Warning: chr4 reads do not exist in
+Warning: chr5 reads do not exist in
+Warning: chr6 reads do not exist in
+Warning: chr7 reads do not exist in
+Warning: chr8 reads do not exist in
+Warning: chr9 reads do not exist in
+Warning: chr10 reads do not exist in
+Warning: chr11 reads do not exist in
+Warning: chr12 reads do not exist in
+Warning: chr13 reads do not exist in
+Warning: chr14 reads do not exist in
+Warning: chr15 reads do not exist in
+Warning: chr16 reads do not exist in
+Warning: chr17 reads do not exist in
+Warning: chr18 reads do not exist in
+Warning: chr19 reads do not exist in
+Warning: chrX reads do not exist in
+Warning: chrY reads do not exist in
+Warning: chrM reads do not exist in
+Warning: chr2 reads do not exist in
+Warning: chr3 reads do not exist in
+Warning: chr4 reads do not exist in
+Warning: chr5 reads do not exist in
+Warning: chr6 reads do not exist in
+Warning: chr7 reads do not exist in
+Warning: chr8 reads do not exist in
+Warning: chr9 reads do not exist in
+Warning: chr10 reads do not exist in
+Warning: chr11 reads do not exist in
+Warning: chr12 reads do not exist in
+Warning: chr13 reads do not exist in
+Warning: chr14 reads do not exist in
+Warning: chr15 reads do not exist in
+Warning: chr16 reads do not exist in
+Warning: chr17 reads do not exist in
+Warning: chr18 reads do not exist in
+Warning: chr19 reads do not exist in
+Warning: chrX reads do not exist in
+Warning: chrY reads do not exist in
+Warning: chrM reads do not exist in
+Warning: chr2 reads do not exist in
+Warning: chr3 reads do not exist in
+Warning: chr4 reads do not exist in
+Warning: chr5 reads do not exist in
+Warning: chr6 reads do not exist in
+Warning: chr7 reads do not exist in
+Warning: chr8 reads do not exist in
+Warning: chr9 reads do not exist in
+Warning: chr10 reads do not exist in
+Warning: chr11 reads do not exist in
+Warning: chr12 reads do not exist in
+Warning: chr13 reads do not exist in
+Warning: chr14 reads do not exist in
+Warning: chr15 reads do not exist in
+Warning: chr16 reads do not exist in
+Warning: chr17 reads do not exist in
+Warning: chr18 reads do not exist in
+Warning: chr19 reads do not exist in
+Warning: chrX reads do not exist in
+Warning: chrY reads do not exist in
+Warning: chrM reads do not exist in
