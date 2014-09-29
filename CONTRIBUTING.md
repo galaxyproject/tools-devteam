@@ -9,9 +9,9 @@ inclusion.
 
 * New tools.
 
-  If one wishs to add new tools to the Galaxy tool shed - it is
+  If one wishes to add new tools to the Galaxy tool shed - it is
   probably best to at least start by publishing them under a personal
-  or orgaizational account. If the tools are of sufficient quality and
+  or organizational account. If the tools are of sufficient quality and
   broad appeal - it may be worth discussing inclusion of them in the
   [Galaxy IUC repository][iuc] and that can be but this repository is
   mostly for older, existing tools pre-dating the IUC.
