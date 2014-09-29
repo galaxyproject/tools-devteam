@@ -1,0 +1,6 @@
+##fileformat=VCFv4.1
+##source_20130524.1=vcf-isec(r797) 1.vcf.header.gz 2.vcf.header.gz
+##sourceFiles_20130524.1=0:1.vcf.header.gz,1:2.vcf.header.gz
+##INFO=<ID=SF,Number=.,Type=String,Description="Source File (index to sourceFiles, f when filtered)">
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO
+chr1	14907	.	A	G	.	PASS	ADP=18;HET=2;HOM=2;NC=1;WT=2;SF=0,1	GT:GQ:SDP:DP:RD:AD:FREQ:PVAL:RBQ:ABQ:RDF:RDR:ADF:ADR	0/1:0:19:19:5:8:61.54%:9.8E-1:37:18:5:0:5:3
