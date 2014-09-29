@@ -1,0 +1,13 @@
+#This is a sample file distributed with Galaxy that is used to define a
+#list of nucleotide BLAST databases for tophat-fusion-post, using fod columns tab separated
+#(longer whitespace are TAB characters):
+#
+#<unique_id>	<dbkey>	<name>	<path>
+#
+# For example:
+#
+# hg19	hg19	hg19-blast	/depot/data2/galaxy/hg19/blastdb/
+#
+#You can download the NCBI provided protein databases like NT from here:
+#ftp://ftp.ncbi.nlm.nih.gov/blast/db/
+#

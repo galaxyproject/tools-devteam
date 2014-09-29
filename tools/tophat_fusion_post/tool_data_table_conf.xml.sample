@@ -1,0 +1,10 @@
+<tables>
+    <table name="bowtie_indexes" comment_char="#">
+        <columns>value, dbkey, name, path</columns>
+	 	<file path="tool-data/bowtie_indices.loc" />
+    </table>
+    <table name="tophat_fusion_blastdb_indexes" comment_char="#">
+        <columns>value, dbkey, name, path</columns>
+	 	<file path="tool-data/tophat_fusion_blastdb.loc" />
+    </table>
+</tables>
