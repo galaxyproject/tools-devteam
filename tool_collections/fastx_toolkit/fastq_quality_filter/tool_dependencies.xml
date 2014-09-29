@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<tool_dependency>
+    <package name="fastx_toolkit" version="0.0.13">
+        <repository changeset_revision="ec66ae4c269b" name="package_fastx_toolkit_0_0_13" owner="devteam" toolshed="http://toolshed.g2.bx.psu.edu" />
+    </package>
+</tool_dependency>
