@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<tool_dependency>
+  <package name="libxml2" version="2.9.1">
+      <repository changeset_revision="3af7ad13a6fb" name="package_libxml2_2_9_1" owner="devteam" prior_installation_required="True" toolshed="http://toolshed.g2.bx.psu.edu" />
+    </package>
+    <package name="libxslt" version="1.1.28">
+      <install version="1.0">
+          <actions>
+              <action type="download_by_url">ftp://xmlsoft.org/libxml2/libxslt-1.1.28.tar.gz</action>
+                <action type="set_environment_for_install">
+                  <repository changeset_revision="3af7ad13a6fb" name="package_libxml2_2_9_1" owner="devteam" prior_installation_required="True" toolshed="http://toolshed.g2.bx.psu.edu">
+                    <package name="libxml2" version="2.9.1" />
+                  </repository>
+                </action>
+                <action type="shell_command">./configure --prefix=$INSTALL_DIR</action>
+                <action type="shell_command">make &amp;&amp; make install</action>
+                <action type="set_environment">
+                  <environment_variable action="prepend_to" name="PKG_CONFIG_PATH">$INSTALL_DIR/lib/pkgconfig</environment_variable>
+                    <environment_variable action="prepend_to" name="PATH">$INSTALL_DIR/bin</environment_variable>
+                </action>
+            </actions>
+        </install>
+        <readme />
+    </package>
+</tool_dependency>
