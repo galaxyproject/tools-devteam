@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<tool_dependency>
+  <package name="bx-python" version="0.7.1">
+      <repository changeset_revision="2d0c08728bca" name="package_bx_python_0_7" owner="devteam" toolshed="http://toolshed.g2.bx.psu.edu" />
+    </package>
+</tool_dependency>

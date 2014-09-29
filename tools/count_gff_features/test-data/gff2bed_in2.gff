@@ -1,0 +1,13 @@
+chr1	Cufflinks	exon	3204563	3207049	1000	-	.	gene_id "Xkr4"; transcript_id "Xkr4"; exon_number "1"; FPKM "0.3924207844"; frac "1.000000"; conf_lo "0.000000"; conf_hi "0.845549"; cov "0.022289";
+chr1	Cufflinks	exon	3411783	3411982	1000	-	.	gene_id "Xkr4"; transcript_id "Xkr4"; exon_number "2"; FPKM "0.3924207844"; frac "1.000000"; conf_lo "0.000000"; conf_hi "0.845549"; cov "0.022289";
+chr1	Cufflinks	exon	3660633	3661579	1000	-	.	gene_id "Xkr4"; transcript_id "Xkr4"; exon_number "3"; FPKM "0.3924207844"; frac "1.000000"; conf_lo "0.000000"; conf_hi "0.845549"; cov "0.022289";
+chr1	Cufflinks	exon	4481009	4482749	1000	-	.	gene_id "Sox17"; transcript_id "Sox17"; exon_number "1"; FPKM "1.5186976896"; frac "1.000000"; conf_lo "0.558189"; conf_hi "2.479206"; cov "0.086262";
+chr1	Cufflinks	exon	4483181	4483547	1000	-	.	gene_id "Sox17"; transcript_id "Sox17"; exon_number "2"; FPKM "1.5186976896"; frac "1.000000"; conf_lo "0.558189"; conf_hi "2.479206"; cov "0.086262";
+chr1	Cufflinks	exon	4483853	4483944	1000	-	.	gene_id "Sox17"; transcript_id "Sox17"; exon_number "3"; FPKM "1.5186976896"; frac "1.000000"; conf_lo "0.558189"; conf_hi "2.479206"; cov "0.086262";
+chr1	Cufflinks	exon	4485217	4486023	1000	-	.	gene_id "Sox17"; transcript_id "Sox17"; exon_number "4"; FPKM "1.5186976896"; frac "1.000000"; conf_lo "0.558189"; conf_hi "2.479206"; cov "0.086262";
+chr1	Cufflinks	exon	4486372	4486494	1000	-	.	gene_id "Sox17"; transcript_id "Sox17"; exon_number "5"; FPKM "1.5186976896"; frac "1.000000"; conf_lo "0.558189"; conf_hi "2.479206"; cov "0.086262";
+chr1	Cufflinks	exon	4763279	4766882	1000	-	.	gene_id "Mrpl15"; transcript_id "Mrpl15"; exon_number "1"; FPKM "9.1596238357"; frac "1.000000"; conf_lo "7.124003"; conf_hi "11.195245"; cov "0.520266";
+chr1	Cufflinks	exon	4767606	4767729	1000	-	.	gene_id "Mrpl15"; transcript_id "Mrpl15"; exon_number "2"; FPKM "9.1596238357"; frac "1.000000"; conf_lo "7.124003"; conf_hi "11.195245"; cov "0.520266";
+chr1	Cufflinks	exon	4772649	4772814	1000	-	.	gene_id "Mrpl15"; transcript_id "Mrpl15"; exon_number "3"; FPKM "9.1596238357"; frac "1.000000"; conf_lo "7.124003"; conf_hi "11.195245"; cov "0.520266";
+chr1	Cufflinks	exon	4774032	4774186	1000	-	.	gene_id "Mrpl15"; transcript_id "Mrpl15"; exon_number "4"; FPKM "9.1596238357"; frac "1.000000"; conf_lo "7.124003"; conf_hi "11.195245"; cov "0.520266";
+chr1	Cufflinks	exon	4775654	4775807	1000	-	.	gene_id "Mrpl15"; transcript_id "Mrpl15"; exon_number "5"; FPKM "9.1596238357"; frac "1.000000"; conf_lo "7.124003"; conf_hi "11.195245"; cov "0.520266";
