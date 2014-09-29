@@ -46,7 +46,7 @@ inclusion.
 
   * Related tools may be broken out into individual folders with
     duplicated wrapper scripts or macro files - these should be moved
-    to a common location in this repository and symolically linked to
+    to a common location in this repository and symbolically linked to
     the original locations prior to modification.
 * Make the desired modifications - consider using a [feature branch](https://github.com/Kunena/Kunena-Forum/wiki/Create-a-new-branch-with-git-and-manage-branches).
 * Make sure you have added the necessary tests for your changes and they pass.
