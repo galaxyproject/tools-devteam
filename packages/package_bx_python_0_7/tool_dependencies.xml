@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<tool_dependency>
+    <package name="bx-python" version="0.7.1">
+      <install version="1.0">
+          <actions>
+                <action type="setup_virtualenv">
+numpy==1.7.1
+bx-python==0.7.1
+                </action>
+                <action type="set_environment">
+                  <environment_variable action="set_to" name="BX_PYTHON_PATH">$INSTALL_DIR</environment_variable>
+                </action>
+            </actions>
+        </install>
+        <readme>
+            Installation of bx-python. The installation can be accessed via BX_PYTHON_PATH.
+        </readme>
+    </package>
+</tool_dependency>
