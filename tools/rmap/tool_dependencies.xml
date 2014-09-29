@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<tool_dependency>
+  <package name="rmap" version="2.05">
+    <repository changeset_revision="e0eed0cb34bf" name="package_rmap_2_05" owner="devteam" toolshed="http://toolshed.g2.bx.psu.edu" />
+  </package>
+</tool_dependency>
