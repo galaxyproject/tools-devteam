@@ -1,0 +1,14 @@
+10bp	20bp	40bp
+deletionHoptspot1	1	1	2
+deletionHoptspot2	1	1	1
+deletionHoptspot3	0	0	0
+dnaPolPauseFrameshift1	1	1	1
+dnaPolPauseFrameshift2	0	2	1
+dnaPolPauseFrameshift3	0	0	0
+dnaPolPauseFrameshift4	0	1	2
+indelHotspot1	0	0	0
+insertionHotspot1	0	0	1
+insertionHotspot2	1	1	1
+topoisomeraseCleavageSite1	1	1	1
+topoisomeraseCleavageSite2	1	2	1
+topoisomeraseCleavageSite3	0	0	2
