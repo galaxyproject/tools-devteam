@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<tool_dependency>
+    <package name="blast+" version="2.2.26+">
+        <repository changeset_revision="85e43fb3f363" name="package_blast_plus_2_2_26" owner="devteam" toolshed="http://toolshed.g2.bx.psu.edu" />
+    </package>
+    <package name="bx-python" version="0.7.1">
+        <repository changeset_revision="2d0c08728bca" name="package_bx_python_0_7" owner="devteam" toolshed="http://toolshed.g2.bx.psu.edu" />
+    </package>
+</tool_dependency>

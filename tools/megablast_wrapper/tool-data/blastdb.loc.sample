@@ -1,0 +1,31 @@
+#This is a sample file distributed with Galaxy that is used to define a
+#list of nucleotide BLAST databases, using three columns tab separated
+#(longer whitespace are TAB characters):
+#
+#<unique_id>      <database_caption>     <base_name_path>
+#
+#The captions typically contain spaces and might end with the release date.
+#It is important that the actual database name does not have a space in it.
+#
+#So, for example, if your database is nt and the path to your base name 
+#is /galaxy/data/blastdb/nt/DDmmmYYYY/nt, then the blastdb.loc entry 
+#could look like this:
+#
+#02dec2009     nt 02-Dec-2009    /galaxy/data/blastdb/nt/02dec2009/nt
+#
+#A /galaxy/data/blastdb/nt/02dec2009 directory would contain all of 
+#the "nt" blast indexes from ftp://ftp.ncbi.nlm.nih.gov/blast/db/nt* (e.g.):
+#
+#-rw-r--r--  1 wychung galaxy  23437408 2008-04-09 11:26 nt.chunk.00.nhr
+#-rw-r--r--  1 wychung galaxy   3689920 2008-04-09 11:26 nt.chunk.00.nin
+#-rw-r--r--  1 wychung galaxy 251215198 2008-04-09 11:26 nt.chunk.00.nsq
+#...etc...
+#
+#The blastdb.loc file should include one entry per line for each database. 
+#
+#See also blastdb_p.loc, used for protein BLAST database.
+#
+#Note that for backwards compatibility with workflows, the <unique_id> of
+#an entry must be the path that was in the original loc file.
+#The metadata <unique_id> is the value stored in workflows for "database".
+#
