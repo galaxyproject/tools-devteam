@@ -1,0 +1,24 @@
+ANNOVAR needs to be installed manually in the following way:
+
+1a)	If you already have ANNOVAR installed on your system, simply edit the tool-data/annovar.loc file to reflect locations of 
+	the perl scripts (annotate_variation.pl and convert2annovar.pl) and humandb directory (directory containing the annovar database files)
+
+1b)	If you do not have ANNOVAR installed, request annovar download and sign license here: 
+		http://www.openbioinformatics.org/annovar/annovar_download_form.php
+
+	i)	 Once downloaded, install annovar per the installation instructions and note the installation path.
+	
+	ii)	 Then download all desired databases for all desired builds as follows:
+			annotate_variation.pl -downdb -buildver <build> [-webfrom annovar] <database> <humandb>
+	
+		 where <humandb> is location where all database files should be stored
+		 and <database> is the database file to download, e.g. refGene (see bottom of document for all available database files at the time of writing this tool)
+		 and <build> can be hg18 or hg19 for humans, also other organisms available.
+	
+		 list of all available databases can be found here: http://www.openbioinformatics.org/annovar/annovar_db.html
+	
+	iii) edit the tool-data/annovar.loc file to reflect location of humandb folder
+
+2) add the annovar scripts convert2annovar.pl and table_annovar.pl to your Galaxy user's path
+
+3) restart galaxy instance for changes in .loc file to take effect
