@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<tool_dependency>
+    <package name="emboss" version="5.0.0">
+        <repository changeset_revision="cf998ddc0542" name="package_emboss_5_0_0" owner="devteam" toolshed="http://toolshed.g2.bx.psu.edu" />
+    </package>
+</tool_dependency>
