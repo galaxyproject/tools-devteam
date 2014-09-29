@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<tool_dependency>
+    <package name="cufflinks" version="2.1.1">
+        <repository changeset_revision="394b13717223" name="package_cufflinks_2_1_1" owner="devteam" toolshed="http://toolshed.g2.bx.psu.edu" />
+    </package>
+</tool_dependency>
