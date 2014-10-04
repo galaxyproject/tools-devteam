@@ -1,7 +1,7 @@
 # Galaxy Tools maintained by Galaxy Team
 
 This repo contains a subset of Galaxy tools used in the Tool Shed 
-(https://toolshed.g2.bx.psu.edu/) mostly created by the Galaxy Team (devteam).
+(https://toolshed.g2.bx.psu.edu/) mostly created by the Galaxy Team (devteam). 
 
 The repo's main goals are to:
 
@@ -9,3 +9,7 @@ The repo's main goals are to:
   * provide learning environment to Galaxy Tool developers
 
 If you want to contribute to this repository please see file [CONTRIBUTING.md](CONTRIBUTING.md)
+
+Other repositories with high quality tools:
+ * [IUC repo](https://github.com/galaxyproject/tools-iuc)
+ * [Björn Grüning repo](https://github.com/bgruening/galaxytools)
