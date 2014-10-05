@@ -12,4 +12,6 @@ If you want to contribute to this repository please see file [CONTRIBUTING.md](C
 
 Other repositories with high quality tools:
  * [IUC repo](https://github.com/galaxyproject/tools-iuc)
- * [Björn Grüning repo](https://github.com/bgruening/galaxytools)
+ * [Björn Grüning's repo](https://github.com/bgruening/galaxytools)
+ * [Peter Cock's blast repo](https://github.com/peterjc/galaxy_blast)
+ * [Peter Cock's pico_galaxy repo](https://github.com/peterjc/pico_galaxy)
