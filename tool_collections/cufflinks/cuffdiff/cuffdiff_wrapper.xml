@@ -1,9 +1,14 @@
-<tool id="cuffdiff" name="Cuffdiff" version="0.0.7">
-    <!-- Wrapper supports Cuffdiff versions 2.1.0-2.1.1 -->
+<tool id="cuffdiff" name="Cuffdiff" version="2.2.1.0">
     <description>find significant changes in transcript expression, splicing, and promoter use</description>
     <requirements>
-        <requirement type="package" version="2.1.1">cufflinks</requirement>
+        <requirement type="package" version="2.2.1">cufflinks</requirement>
     </requirements>
+    <stdio>
+        <exit_code range="1:" />
+        <exit_code range=":-1" />
+        <regex match="Error:" />
+        <regex match="Exception:" />
+    </stdio>
     <version_command>cuffdiff 2>&amp;1 | head -n 1</version_command>
     <command>
         cuffdiff
@@ -14,15 +19,15 @@
             --library-norm-method=$library_norm_method
             --dispersion-method=$dispersion_method
 
-            ## Set advanced data parameters?
+            ## Set advanced SE data parameters?
             #if $additional.sAdditional == "Yes":
                 -m $additional.frag_mean_len
                 -s $additional.frag_len_std_dev
             #end if
 
             ## Multi-read correct?
-            #if str($multiread_correct) == "Yes":
-            -u
+            #if $multiread_correct :
+                -u
             #end if
 
             ## Bias correction?
@@ -37,26 +42,63 @@
                 #end if
             #end if
 
-            #set labels = '\'' + '\',\''.join( [ str( $condition.name ) for $condition in $conditions ] ) + '\''
+            #set labels = '\'' + '\',\''.join( [ str( $condition.name ) for $condition in $in_type.conditions ] ) + '\''
             --labels $labels
 
+            $length_correction
+
+            ## Set advanced parameters for cufflinks
+             #if $advanced_settings.sAdvanced == "Yes":
+                #if str($advanced_settings.library_type) != 'auto':
+                        --library-type=$advanced_settings.library_type
+                #end if
+                #if $advanced_settings.mask_file:
+                        --mask-file=$advanced_settings.mask_file
+                    #end if
+                #if $advanced_settings.time_series:
+                        --time-series
+                #end if
+                --max-mle-iterations=$advanced_settings.max_mle_iterations
+                $advanced_settings.hits_norm
+                --max-bundle-frags=$advanced_settings.max_bundle_frags
+                --num-frag-count-draws=$advanced_settings.num_frag_count_draws
+                --num-frag-assign-draws=$advanced_settings.num_frag_assign_draws
+                --min-reps-for-js-test=$advanced_settings.min_reps_for_js_test
+            #end if
             ## Inputs.
             $gtf_input
-            #for $condition in $conditions:
+
+            #for $condition in $in_type.conditions:
                 #set samples = ','.join( [ str( $sample.sample ) for $sample in $condition.samples ] )
                 $samples
             #end for
     </command>
     <inputs>
         <param format="gtf,gff3" name="gtf_input" type="data" label="Transcripts" help="A transcript GFF3 or GTF file produced by cufflinks, cuffcompare, or other source."/>
-
-        <repeat name="conditions" title="Condition" min="2">
-            <param name="name" title="Condition name" type="text" label="Name"/>
-            <repeat name="samples" title="Replicate" min="1">
-                <param name="sample" label="Add replicate" type="data" format="sam,bam"/>
-            </repeat>
-        </repeat>
-
+        <!-- DEFAULT : use BAM/SAM files -->
+        <conditional name="in_type">
+            <param name="set_in_type" type="select" label="Input data type" 
+                help="CuffDiff supports either CXB (from cuffquant) or SAM/BAM input files. Mixing is not supported. Default: SAM/BAM">
+                <option value="BAM">SAM/BAM</option>
+                <option value="CXB">Cuffquant .cxb</option>
+            </param>
+            <when value="BAM">
+                <repeat name="conditions" title="Condition" min="2">
+                    <param name="name" title="Condition name" type="text" label="Name"/>
+                    <repeat name="samples" title="Replicate" min="1">
+                        <param name="sample" label="Add replicate" type="data" format="sam,bam"/>
+                    </repeat>
+                </repeat>
+            </when>
+            <when value="CXB">
+                <repeat name="conditions" title="Condition" min="2">
+                    <param name="name" title="Condition name" type="text" label="Name"/>
+                    <repeat name="samples" title="Replicate" min="1">
+                        <param name="sample" label="Add replicate" type="data" format="cxb"/>
+                    </repeat>
+                </repeat>
+            </when>
+        </conditional>
         <param name="library_norm_method" type="select" label="Library normalization method">
             <option value="geometric" selected="True">geometric</option>
             <option value="classic-fpkm">classic-fpkm</option>
@@ -67,19 +109,18 @@
             <option value="pooled" selected="True">pooled</option>
             <option value="per-condition">per-condition</option>
             <option value="blind">blind</option>
+            <option value="poisson">poisson</option>
         </param>
 
         <param name="fdr" type="float" value="0.05" label="False Discovery Rate" help="The allowed false discovery rate."/>
-
-        <param name="min_alignment_count" type="integer" value="10" label="Min Alignment Count" help="The minimum number of alignments in a locus for needed to conduct significance testing on changes in that locus observed between samples."/>
-
-        <param name="multiread_correct" type="select" label="Use multi-read correct" help="Tells Cufflinks to do an initial estimation procedure to more accurately weight reads mapping to multiple locations in the genome.">
-            <option value="No" selected="true">No</option>
-            <option value="Yes">Yes</option>
-        </param>
+        <param name="min_alignment_count" type="integer" value="10" label="Min Alignment Count" 
+            help="The minimum number of alignments in a locus for needed to conduct significance testing on changes in that locus observed between samples."/>
+        <param name="multiread_correct" type="boolean" label="Use multi-read correct" 
+            help="Tells Cufflinks to do an initial estimation procedure to more accurately weight reads mapping to multiple locations in the genome." />
 
         <conditional name="bias_correction">
-            <param name="do_bias_correction" type="select" label="Perform Bias Correction" help="Bias detection and correction can significantly improve accuracy of transcript abundance estimates.">
+            <param name="do_bias_correction" type="select" label="Perform Bias Correction" 
+                help="Bias detection and correction can significantly improve accuracy of transcript abundance estimates.">
                 <option value="No">No</option>
                 <option value="Yes">Yes</option>
             </param>
@@ -109,10 +150,22 @@
             <option value="No" selected="true">No</option>
             <option value="Yes">Yes</option>
         </param>
+        
+        <param name="include_count_files" type="select" label="Include Count Based output files" 
+            help="Cuffdiff estimates the number of fragments that originated from each transcript, primary transcript, and gene in each sample. Primary transcript and gene counts are computed by summing the counts of transcripts in each primary transcript group or gene group.">
+            <option value="No" selected="true">No</option>
+            <option value="Yes">Yes</option>
+        </param>
+
+        <param name="length_correction" type="select" label="apply length correction" help="mode of length normalization to transcript fpkm.">
+            <option value="" selected="true">cufflinks effective length correction</option>
+            <option value="--no-effective-length-correction">standard length correction</option>
+            <option value="--no-length-correction">no length correction at all (use raw counts)</option>
+        </param>
 
         <conditional name="additional">
-            <param name="sAdditional" type="select" label="Set Additional Parameters? (not recommended for paired-end reads)">
-                <option value="No">No</option>
+            <param name="sAdditional" type="select" label="Set Additional Parameters for single end reads? (not recommended for paired-end reads)">
+                <option value="No" selected="True">No</option>
                 <option value="Yes">Yes</option>
             </param>
             <when value="No"></when>
@@ -121,40 +174,85 @@
                 <param name="frag_len_std_dev" type="integer" value="80" label="Fragment Length Standard Deviation"/>
             </when>
         </conditional>
+
+        <conditional name="advanced_settings">
+            <param name="sAdvanced" type="select" label="Set Advanced Cuffdiff parameters? ">
+                <option value="No" selected="True">No</option>
+                <option value="Yes">Yes</option>
+            </param>
+            <when value="No"></when>
+            <when value="Yes">
+                <param type="select" name="library_type" label="Library prep used for input reads" help="">
+                    <option value="auto" selected="True">Auto Detect</option>
+                    <option value="ff-firststrand">ff-firststrand</option>
+                    <option value="ff-secondstrand">ff-secondstrand</option>
+                    <option value="ff-unstranded">ff-unstranded</option>
+                    <option value="fr-firststrand">fr-firststrand</option>
+                    <option value="fr-secondstrand">fr-secondstrand</option>
+                    <option value="fr-unstranded" >fr-unstranded</option>
+                    <option value="transfrags">transfrags</option>
+                </param>
+                <param name="mask_file" type="data" format="gtf,gff3" label="Mask File" help="Ignore all alignment within transcripts in this file" optional="True" />
+                <param name="time_series" type="boolean" label="Perform Time Series analysis" 
+                    help="Instructs Cuffdiff to analyze the provided samples as a time series, rather than testing for differences between all pairs of samples. Samples should be provided in increasing time order at the command line (e.g first time point SAM, second timepoint SAM, etc.)" />
+                <param name="max_mle_iterations" value="5000" type="integer" label="Max MLE iterations" help="Maximum iterations allowed for Maximal Likelyhood Estimation calculations" />
+                <param name="hits_norm" type="select" label="Hits included in normalization" help="All Hits: With this option, Cufflinks counts all fragments, including those not compatible with any reference transcript, towards the number of mapped fragments used in the FPKM denominator. Compatible Hits: With this option, Cufflinks counts only those fragments compatible with some reference transcript towards the number of mapped fragments used in the FPKM denominator. Using this mode is generally recommended in Cuffdiff to reduce certain types of bias caused by differential amounts of ribosomal reads which can create the impression of falsely differentially expressed genes. It is active by default." >
+                        <option value="--compatible-hits-norm" selected="True">Compatible Hits</option>
+                        <option value="--total-hits-norm">All Hits</option>
+                </param>
+                <param name="max_bundle_frags" type="integer" value="500000" label="Maximum number of fragments per locus" 
+                    help="Sets the maximum number of fragments a locus may have before being skipped. Skipped loci are listed in skipped.gtf. Default: 500,000" />
+                <param name="num_frag_count_draws" type="integer" value="100" label="Number of fragment generation samples" 
+                    help="Cuffdiff will make this many draws from each transcript's predicted negative binomial random numbder generator. Each draw is a number of fragments that will be probabilistically assigned to the transcripts in the transcriptome. Used to estimate the variance-covariance matrix on assigned fragment counts. Default: 100."/>
+                <param name="num_frag_assign_draws" type="integer" value="50" label="Number of fragment assignment samples per generation" help="For each fragment drawn from a transcript, Cuffdiff will assign it this many times (probabilistically), thus estimating the assignment uncertainty for each transcript. Used to estimate the variance-covariance matrix on assigned fragment counts. Default: 50."/>
+                <param name="min_reps_for_js_test" type="integer" value="3" label="Minimal Replicates for isoform shift testing" help="Cuffdiff won't test genes for differential regulation unless the conditions in question have at least this many replicates. Default: 3." />
+            </when>
+        </conditional>
     </inputs>
-
-    <stdio>
-        <regex match="Error" source="both" level="fatal" description="Error"/>
-        <regex match=".*" source="both" level="log" description="tool progress"/>
-    </stdio>
-
     <outputs>
         <!-- Optional read group datasets. -->
         <data format="tabular" name="isoforms_read_group" label="${tool.name} on ${on_string}: isoforms read group tracking" from_work_dir="isoforms.read_group_tracking" >
-            <filter>(params['include_read_group_files'] == 'Yes'</filter>
+            <filter>(include_read_group_files == 'Yes')</filter>
         </data>
         <data format="tabular" name="genes_read_group" label="${tool.name} on ${on_string}: genes read group tracking" from_work_dir="genes.read_group_tracking" >
-            <filter>(params['include_read_group_files'] == 'Yes'</filter>
+            <filter>(include_read_group_files == 'Yes')</filter>
         </data>
         <data format="tabular" name="cds_read_group" label="${tool.name} on ${on_string}: CDs read group tracking" from_work_dir="cds.read_group_tracking" >
-            <filter>(params['include_read_group_files'] == 'Yes'</filter>
+            <filter>(include_read_group_files == 'Yes')</filter>
         </data>
         <data format="tabular" name="tss_groups_read_group" label="${tool.name} on ${on_string}: TSS groups read group tracking" from_work_dir="tss_groups.read_group_tracking" >
-            <filter>(params['include_read_group_files'] == 'Yes'</filter>
+            <filter>(include_read_group_files == 'Yes')</filter>
         </data>
-
+         <data format="text" name="read_group_info" label="${tool.name} on ${on_string}: read group info" from_work_dir="read_groups.info" >
+            <filter>(include_read_group_files == 'Yes')</filter>
+        </data>
         <!-- Standard datasets. -->
         <data format="tabular" name="splicing_diff" label="${tool.name} on ${on_string}: splicing differential expression testing" from_work_dir="splicing.diff" />
         <data format="tabular" name="promoters_diff" label="${tool.name} on ${on_string}: promoters differential expression testing" from_work_dir="promoters.diff" />
         <data format="tabular" name="cds_diff" label="${tool.name} on ${on_string}: CDS overloading diffential expression testing" from_work_dir="cds.diff" />
         <data format="tabular" name="cds_exp_fpkm_tracking" label="${tool.name} on ${on_string}: CDS FPKM differential expression testing" from_work_dir="cds_exp.diff" />
         <data format="tabular" name="cds_fpkm_tracking" label="${tool.name} on ${on_string}: CDS FPKM tracking" from_work_dir="cds.fpkm_tracking" />
+        <data format="tabular" name="cds_count_tracking" label="${tool.name} on ${on_string}: CDS count tracking" from_work_dir="cds.count_tracking" >
+                <filter>(include_count_files == 'Yes')</filter>
+        </data>
+
         <data format="tabular" name="tss_groups_exp" label="${tool.name} on ${on_string}: TSS groups differential expression testing" from_work_dir="tss_group_exp.diff" />
         <data format="tabular" name="tss_groups_fpkm_tracking" label="${tool.name} on ${on_string}: TSS groups FPKM tracking" from_work_dir="tss_groups.fpkm_tracking" />
+        <data format="tabular" name="tss_groups_count_tracking" label="${tool.name} on ${on_string}: TSS count FPKM tracking" from_work_dir="tss_groups.count_tracking" >
+                <filter>(include_count_files == 'Yes')</filter>
+        </data>
+
         <data format="tabular" name="genes_exp" label="${tool.name} on ${on_string}: gene differential expression testing" from_work_dir="gene_exp.diff" />
         <data format="tabular" name="genes_fpkm_tracking" label="${tool.name} on ${on_string}: gene FPKM tracking" from_work_dir="genes.fpkm_tracking" />
+        <data format="tabular" name="genes_count_tracking" label="${tool.name} on ${on_string}: gene count tracking" from_work_dir="genes.count_tracking" >
+                <filter>(include_count_files == 'Yes')</filter>
+        </data>
+
         <data format="tabular" name="isoforms_exp" label="${tool.name} on ${on_string}: transcript differential expression testing" from_work_dir="isoform_exp.diff" />
         <data format="tabular" name="isoforms_fpkm_tracking" label="${tool.name} on ${on_string}: transcript FPKM tracking" from_work_dir="isoforms.fpkm_tracking" />
+        <data format="tabular" name="isoforms_count_tracking" label="${tool.name} on ${on_string}: transcript count tracking" from_work_dir="isoforms.count_tracking" >
+                <filter>(include_count_files == 'Yes')</filter>
+        </data>
     </outputs>
 
     <tests>
@@ -189,7 +287,6 @@
                 -->
         </test>
     </tests>
-
     <help>
 **Cuffdiff Overview**
 
@@ -219,10 +316,10 @@ Cuffdiff takes Cufflinks or Cuffcompare GTF files as input along with two SAM fi
 
 Cuffdiff produces many output files:
 
-1. Transcript FPKM expression tracking.
-2. Gene FPKM expression tracking; tracks the summed FPKM of transcripts sharing each gene_id
-3. Primary transcript FPKM tracking; tracks the summed FPKM of transcripts sharing each tss_id
-4. Coding sequence FPKM tracking; tracks the summed FPKM of transcripts sharing each p_id, independent of tss_id
+1. Transcript FPKM (+count) expression tracking.
+2. Gene FPKM (+count) expression tracking; tracks the summed FPKM of transcripts sharing each gene_id
+3. Primary transcript FPKM (+count) tracking; tracks the summed FPKM of transcripts sharing each tss_id
+4. Coding sequence FPKM (+count) tracking; tracks the summed FPKM of transcripts sharing each p_id, independent of tss_id
 5. Transcript differential FPKM.
 6. Gene differential FPKM. Tests difference sin the summed FPKM of transcripts sharing each gene_id
 7. Primary transcript differential FPKM. Tests difference sin the summed FPKM of transcripts sharing each tss_id
@@ -243,13 +340,29 @@ All of the options have a default value. You can change any of them. Most of the
 
 This is a list of implemented Cuffdiff options::
 
-  -m INT                         Average fragement length; default 200
-  -s INT                         Fragment legnth standard deviation; default 80
+  -m INT                         Average fragment length (SE reads); default 200
+  -s INT                         Fragment legnth standard deviation (SE reads); default 80
   -c INT                         The minimum number of alignments in a locus for needed to conduct significance testing on changes in that locus observed between samples. If no testing is performed, changes in the locus are deemed not significant, and the locus' observed changes don't contribute to correction for multiple testing. The default is 1,000 fragment alignments (up to 2,000 paired reads).
   --FDR FLOAT                    The allowed false discovery rate. The default is 0.05.
-  --num-importance-samples INT   Sets the number of importance samples generated for each locus during abundance estimation. Default: 1000
   --max-mle-iterations INT       Sets the number of iterations allowed during maximum likelihood estimation of abundances. Default: 5000
-  -N                             With this option, Cufflinks excludes the contribution of the top 25 percent most highly expressed genes from the number of mapped fragments used in the FPKM denominator. This can improve robustness of differential expression calls for less abundant genes and transcripts.
-  
+  --library-norm-method          Library Normalization method : Geometric (default), classic-fpkm, quartile
+  --dispersion-method            Dispersion estimation method : Pooled (default), per-condition, blind, poisson
+  -u                             Multi read correction tells Cufflinks to do an initial estimation procedure to more accurately weight reads mapping to multiple locations in the genome.
+  -b ref.fasta                         bias correction. Bias detection and correction can significantly improve accuracy of transcript abundance estimates.
+  --no-effective-length-correction  Use standard length correction
+  --no-length-correction         Disable all length correction.
+  --library-type                 ff-firststrand,ff-secondstrand,ff-unstranded,fr-firstrand,fr-secondstrand,fr-unstranded,transfrags
+  --mask-file (gff3/gtf)         Ignore all alignment within transcripts in this file
+  --time-series                  Treat provided sam files as time series
+  --compatible-hits-norm         With this option, Cufflinks counts only those fragments compatible with some reference transcript towards the number of mapped fragments used in the FPKM denominator. Using this mode is generally recommended in Cuffdiff to reduce certain types of bias caused by differential amounts of ribosomal reads which can create the impression of falsely differentially expressed genes.
+  --total-hits-norm              With this option, Cufflinks counts all fragments, including those not compatible with any reference transcript, towards the number of mapped fragments used in the FPKM denominator  
+  --max-bundle-frags             Sets the maximum number of fragments a locus may have before being skipped. Skipped loci are listed in skipped.gtf.
+  --num-frag-count-draws         Cuffdiff will make this many draws from each transcript's predicted negative binomial random numbder generator. Each draw is a number of fragments that will be probabilistically assigned to the transcripts in the transcriptome. Used to estimate the variance-covariance matrix on assigned fragment counts.
+  --num-frag-assign-draws        For each fragment drawn from a transcript, Cuffdiff will assign it this many times (probabilistically), thus estimating the assignment uncertainty for each transcript. Used to estimate the variance-covariance matrix on assigned fragment counts.
+  --min-reps-for-js-test         Cuffdiff won't test genes for differential regulation unless the conditions in question have at least this many replicates.
     </help>
+    <citations>
+        <citation type="doi">10.1038/nbt.1621</citation>
+        <yield />
+    </citations>
 </tool>
