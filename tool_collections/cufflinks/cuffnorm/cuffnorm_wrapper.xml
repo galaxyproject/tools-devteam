@@ -257,6 +257,5 @@ This is a list of implemented Cuffdiff options::
     </help>
     <citations>
         <citation type="doi">10.1038/nbt.1621</citation>
-        <yield />
     </citations>
 </tool>
