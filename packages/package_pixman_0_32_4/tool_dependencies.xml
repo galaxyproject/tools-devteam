@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <tool_dependency>
   <package name="libpng" version="1.6.7">
-      <repository changeset_revision="7c4a9189b712" name="package_libpng_1_6_7" owner="devteam" prior_installation_required="True" toolshed="http://toolshed.g2.bx.psu.edu" />
+      <repository name="package_libpng_1_6_7" owner="devteam" prior_installation_required="True" />
     </package>
     <package name="pixman" version="0.32.4">
       <install version="1.0">
           <actions>
               <action type="download_by_url">http://cairographics.org/releases/pixman-0.32.4.tar.gz</action>
                 <action type="set_environment_for_install">
-                  <repository changeset_revision="7c4a9189b712" name="package_libpng_1_6_7" owner="devteam" prior_installation_required="True" toolshed="http://toolshed.g2.bx.psu.edu">
+                  <repository name="package_libpng_1_6_7" owner="devteam" prior_installation_required="True">
                       <package name="libpng" version="1.6.7" />
                     </repository>
                 </action>

@@ -23,35 +23,35 @@
                 </actions>
                 <actions>
                     <package name="readline" version="6.2">
-                        <repository changeset_revision="16fc64dad9ca" name="package_readline_6_2" owner="devteam" prior_installation_required="True" toolshed="http://toolshed.g2.bx.psu.edu" />
+                        <repository name="package_readline_6_2" owner="devteam" prior_installation_required="True" />
                     </package>
                     <package name="libpng" version="1.6.7">
-                        <repository changeset_revision="7c4a9189b712" name="package_libpng_1_6_7" owner="devteam" prior_installation_required="True" toolshed="http://toolshed.g2.bx.psu.edu" />
+                        <repository name="package_libpng_1_6_7" owner="devteam" prior_installation_required="True" />
                     </package>
                     <package name="cairo" version="1.12.14">
-                        <repository changeset_revision="7f467a4010e0" name="package_cairo_1_12_14" owner="devteam" prior_installation_required="True" toolshed="http://toolshed.g2.bx.psu.edu" />
+                        <repository name="package_cairo_1_12_14" owner="devteam" prior_installation_required="True" />
                     </package>
                     <package name="pixman" version="0.32.4">
-                        <repository changeset_revision="3d44a209a6b9" name="package_pixman_0_32_4" owner="devteam" prior_installation_required="True" toolshed="http://toolshed.g2.bx.psu.edu" />
+                        <repository name="package_pixman_0_32_4" owner="devteam" prior_installation_required="True" />
                     </package>
                     <package name="freetype" version="2.5.2">
-                        <repository changeset_revision="92d1906a12e4" name="package_freetype_2_5_2" owner="devteam" prior_installation_required="True" toolshed="http://toolshed.g2.bx.psu.edu" />
+                        <repository name="package_freetype_2_5_2" owner="devteam" prior_installation_required="True" />
                     </package>
                     <action type="download_by_url">http://cran.rstudio.com/src/base/R-2/R-2.15.0.tar.gz</action>
                     <action type="set_environment_for_install">
-                        <repository changeset_revision="16fc64dad9ca" name="package_readline_6_2" owner="devteam" prior_installation_required="True" toolshed="http://toolshed.g2.bx.psu.edu">
+                        <repository name="package_readline_6_2" owner="devteam" prior_installation_required="True">
                             <package name="readline" version="6.2" />
                         </repository>
-                        <repository changeset_revision="7c4a9189b712" name="package_libpng_1_6_7" owner="devteam" prior_installation_required="True" toolshed="http://toolshed.g2.bx.psu.edu">
+                        <repository name="package_libpng_1_6_7" owner="devteam" prior_installation_required="True">
                             <package name="libpng" version="1.6.7" />
                         </repository>
-                        <repository changeset_revision="7f467a4010e0" name="package_cairo_1_12_14" owner="devteam" prior_installation_required="True" toolshed="http://toolshed.g2.bx.psu.edu">
+                        <repository name="package_cairo_1_12_14" owner="devteam" prior_installation_required="True">
                             <package name="cairo" version="1.12.14" />
                         </repository>
-                        <repository changeset_revision="3d44a209a6b9" name="package_pixman_0_32_4" owner="devteam" prior_installation_required="True" toolshed="http://toolshed.g2.bx.psu.edu">
+                        <repository name="package_pixman_0_32_4" owner="devteam" prior_installation_required="True">
                             <package name="pixman" version="0.32.4" />
                         </repository>
-                        <repository changeset_revision="92d1906a12e4" name="package_freetype_2_5_2" owner="devteam" prior_installation_required="True" toolshed="http://toolshed.g2.bx.psu.edu">
+                        <repository name="package_freetype_2_5_2" owner="devteam" prior_installation_required="True">
                             <package name="freetype" version="2.5.2" />
                         </repository>
                     </action>

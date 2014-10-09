@@ -1,20 +1,20 @@
 <?xml version="1.0"?>
 <tool_dependency>
     <package name="freetype" version="2.5.2">
-      <repository changeset_revision="58782940c411" name="package_freetype_2_5_2" owner="devteam" prior_installation_required="True" toolshed="http://toolshed.g2.bx.psu.edu" />
+      <repository name="package_freetype_2_5_2" owner="devteam" prior_installation_required="True" />
     </package>
     <package name="libxml2" version="2.9.1">
-      <repository changeset_revision="3af7ad13a6fb" name="package_libxml2_2_9_1" owner="devteam" prior_installation_required="True" toolshed="http://toolshed.g2.bx.psu.edu" />
+      <repository name="package_libxml2_2_9_1" owner="devteam" prior_installation_required="True" />
     </package>
   <package name="fontconfig" version="2.11.1">
     <install version="1.0">
           <actions>
               <action type="download_by_url">http://www.freedesktop.org/software/fontconfig/release/fontconfig-2.11.1.tar.gz</action>
                 <action type="set_environment_for_install">
-                  <repository changeset_revision="58782940c411" name="package_freetype_2_5_2" owner="devteam" prior_installation_required="True" toolshed="http://toolshed.g2.bx.psu.edu">
+                  <repository name="package_freetype_2_5_2" owner="devteam" prior_installation_required="True">
                     <package name="freetype" version="2.5.2" />
                   </repository>
-                  <repository changeset_revision="3af7ad13a6fb" name="package_libxml2_2_9_1" owner="devteam" prior_installation_required="True" toolshed="http://toolshed.g2.bx.psu.edu">
+                  <repository name="package_libxml2_2_9_1" owner="devteam" prior_installation_required="True">
                     <package name="libxml2" version="2.9.1" />
                   </repository>
                 </action>
