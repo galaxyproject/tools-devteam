@@ -4,6 +4,7 @@
   </requirements>
   <description></description>
   <parallelism method="basic"></parallelism>
+  <version_command>bwa 2&gt;&amp;1 | grep "Version: " | sed -e 's/Version: //'</version_command>
   <command interpreter="python">
     bwa_wrapper.py 
       --threads="\${GALAXY_SLOTS:-4}"
