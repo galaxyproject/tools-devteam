@@ -157,12 +157,12 @@ def __main__():
                     iautoB = '--noauto'
                 else:
                     iautoB = ''
-                if options. ipacked and options.ipacked == 'packed':
+                if options.ipacked and options.ipacked == 'packed':
                     ipacked = '--packed'
                 else:
                     ipacked = ''
                 if options.ibmax and int( options.ibmax ) >= 1:
-                    ibmax = '--bmax %s' % options.ibmax 
+                    ibmax = '--bmax %s' % options.ibmax
                 else:
                     ibmax = ''
                 if options.ibmaxdivn and int( options.ibmaxdivn ) >= 0:
@@ -198,8 +198,8 @@ def __main__():
                 else:
                     iseed = ''
                 indexing_cmds = '%s %s %s %s %s %s %s --offrate %s %s %s %s %s %s' % \
-                                ( iautoB, ipacked, ibmax, ibmaxdivn, idcv, inodc, 
-                                  inoref, options.ioffrate, iftab, intoa, iendian, 
+                                ( iautoB, ipacked, ibmax, ibmaxdivn, idcv, inodc,
+                                  inoref, options.ioffrate, iftab, intoa, iendian,
                                   iseed, colorspace )
             except ValueError, e:
                 # clean up temp dir
@@ -390,7 +390,7 @@ def __main__():
                             '%s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s ' % \
                             ( maxInsert, mateOrient, options.threads, suppressHeader,
                               colorspace, skip, alignLimit, trimH, trimL, maqSoapAlign,
-                              mismatchSeed, mismatchQual, seedLen, rounding, minInsert, 
+                              mismatchSeed, mismatchQual, seedLen, rounding, minInsert,
                               maxAlignAttempt, forwardAlign, reverseAlign, maxBacktracks,
                               tryHard, valAlign, allValAligns, suppressAlign, best,
                               strata, offrate, seed, snpphred, snpfrac, keepends,
@@ -460,4 +460,5 @@ def __main__():
     stdout += 'Sequence file aligned.\n'
     sys.stdout.write( stdout )
 
-if __name__=="__main__": __main__()
+if __name__ == "__main__":
+    __main__()
