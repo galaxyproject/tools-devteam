@@ -21,7 +21,6 @@
       #else:
         ##use precomputed indexes
         --ref="${genomeSource.indices.fields.path}"
-        --do_not_build_index
       #end if
 
       ## input file(s)
@@ -470,5 +469,3 @@ For specifying the read group in **samse** or **sampe**, use the following::
 
   </help>
 </tool>
-
-
