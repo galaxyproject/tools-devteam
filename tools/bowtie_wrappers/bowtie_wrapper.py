@@ -27,7 +27,7 @@ usage: bowtie_wrapper.py [options]
     -M, --mismatchQual=M: Maximum permitted total of quality values at mismatched read positions
     -l, --seedLen=l: Seed length
     -n, --rounding=n: Whether or not to round to the nearest 10 and saturating at 30
-    -P, --maqSoapAlign=P: Choose MAQ- or SOAP-like alignment policy
+    -P, --maqSoapAlign=P: Choose Maq- or SOAP-like alignment policy
     -w, --tryHard=: Whether or not to try as hard as possible to find valid alignments when they exist
     -v, --valAlign=v: Report up to n valid arguments per read
     -V, --allValAligns=V: Whether or not to report all valid alignments per read
@@ -100,7 +100,7 @@ def __main__():
     parser.add_option( '-M', '--mismatchQual', dest='mismatchQual', help='Maximum permitted total of quality values at mismatched read positions' )
     parser.add_option( '-l', '--seedLen', dest='seedLen', help='Seed length' )
     parser.add_option( '-n', '--rounding', dest='rounding', help='Whether or not to round to the nearest 10 and saturating at 30' )
-    parser.add_option( '-P', '--maqSoapAlign', dest='maqSoapAlign', help='Choose MAQ- or SOAP-like alignment policy' )
+    parser.add_option( '-P', '--maqSoapAlign', dest='maqSoapAlign', help='Choose Maq- or SOAP-like alignment policy' )
     parser.add_option( '-w', '--tryHard', dest='tryHard', help='Whether or not to try as hard as possible to find valid alignments when they exist' )
     parser.add_option( '-v', '--valAlign', dest='valAlign', help='Report up to n valid arguments per read' )
     parser.add_option( '-V', '--allValAligns', dest='allValAligns', help='Whether or not to report all valid alignments per read' )
@@ -169,7 +169,7 @@ def __main__():
                     ibmaxdivn = '--bmaxdivn %s' % options.ibmaxdivn
                 else:
                     ibmaxdivn = ''
-                if options.idcv and int( options.idcv ) > 0:
+                if options.idcv and int( options.idcv ) >= 3:
                     idcv = '--dcv %s' % options.idcv
                 else:
                     idcv = ''
@@ -181,7 +181,7 @@ def __main__():
                     inoref = '--noref'
                 else:
                     inoref = ''
-                if options.iftab and int( options.iftab ) >= 0:
+                if options.iftab and int( options.iftab ) >= 1:
                     iftab = '--ftabchars %s' % options.iftab
                 else:
                     iftab = ''

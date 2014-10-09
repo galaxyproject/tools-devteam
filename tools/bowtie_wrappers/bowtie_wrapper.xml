@@ -149,7 +149,7 @@
           <param name="indexSettings" type="select" label="Choose whether to use Default options for building indices or to Set your own" help="These settings are ignored when using a prebuilt index">
             <option value="indexPreSet">Default</option>
             <option value="indexFull">Set your own</option>
-          </param> 
+          </param>
           <when value="indexPreSet" />
           <when value="indexFull">
             <conditional name="autoBehavior">
@@ -159,13 +159,13 @@
               </param>
               <when value="auto" />
               <when value="set">
-                <param name="packed" type="select" label="Whether or not to use a packed representation for DNA strings (--packed)">
+                <param name="packed" type="select" label="Whether or not to use a packed representation for DNA strings (--packed)" help="Packed representation saves memory but makes indexing 2-3 times slower">
                   <option value="unpacked">Use regular representation</option>
                   <option value="packed">Use packed representation</option>
                 </param>
                 <param name="bmax" type="integer" value="-1" label="Maximum number of suffixes allowed in a block (--bmax)" help="-1 for not specified. Must be at least 1" />
                 <param name="bmaxdivn" type="integer" value="4" label="Maximum number of suffixes allowed in a block as a fraction of the length of the reference (--bmaxdivn)" />
-                <param name="dcv" type="integer" value="1024" label="The period for the difference-cover sample (--dcv)" />
+                <param name="dcv" type="integer" value="1024" min="3" label="The period for the difference-cover sample (--dcv)" help="A larger period yields less memory overhead, but may make suffix sorting slower, especially if repeats are present" />
               </when>
             </conditional>
             <param name="nodc" type="select" label="Whether or not to disable the use of the difference-cover sample (--nodc)" help="Suffix sorting becomes quadratic-time in the worst case (with a very repetitive reference)">
@@ -176,8 +176,8 @@
               <option value="ref">Build all index files</option>
               <option value="noref">Do not build paired-end alignment index files</option>
             </param>
-            <param name="offrate" type="integer" value="5" label="How many rows get marked during annotation of some or all of the Burrows-Wheeler rows (-o)" />
-            <param name="ftab" type="integer" value="10" label="The size of the lookup table used to calculate an initial Burrows-Wheeler range with respect to the first n characters of the query (-t)" help="ftab is 4^(n+1) bytes" />
+            <param name="offrate" type="integer" value="5" min="0" label="The indexer will mark every 2^n Burrows-Wheeler rows with their corresponding location on the genome (-o)" help="Marking more rows makes reference-position lookups faster, but requires more memory to hold the annotations at runtime" />
+            <param name="ftab" type="integer" value="10" min="1" label="The size of the ftab lookup table used to calculate an initial Burrows-Wheeler range with respect to the first n characters of the query (-t)" help="ftab size is 4^(n+1) bytes" />
             <param name="ntoa" type="select" label="Whether or not to convert Ns in the reference sequence to As (--ntoa)">
               <option value="no">Do not convert Ns</option>
               <option value="yes">Convert Ns to As</option>
@@ -216,7 +216,7 @@
               <option value="round">Round to nearest 10</option>
               <option value="noRound">Do not round to nearest 10</option>
             </param>
-            <param name="sMaqSoapAlign" type="integer" value="-1" label="Number of mismatches for SOAP-like alignment policy (-v)" help="-1 for default MAQ-like alignment policy" />
+            <param name="sMaqSoapAlign" type="integer" value="-1" label="Number of mismatches for SOAP-like alignment policy (-v)" help="-1 for default Maq-like alignment policy" />
             <param name="sTryHard" type="select" label="Whether or not to try as hard as possible to find valid alignments when they exist (-y)" help="Tryhard mode is much slower than regular mode">
               <option value="noTryHard">Do not try hard</option>
               <option value="doTryHard">Try hard</option>
@@ -283,7 +283,7 @@
               <option value="round">Round to nearest 10</option>
               <option value="noRound">Do not round to nearest 10</option>
             </param>
-            <param name="pMaqSoapAlign" type="integer" value="-1" label="Number of mismatches for SOAP-like alignment policy (-v)" help="-1 for default MAQ-like alignment policy" />
+            <param name="pMaqSoapAlign" type="integer" value="-1" label="Number of mismatches for SOAP-like alignment policy (-v)" help="-1 for default Maq-like alignment policy" />
             <param name="pMinInsert" type="integer" value="0" label="Minimum insert size for valid paired-end alignments (-I)" />
             <param name="pMaxAlignAttempt" type="integer" value="100" label="Maximum number of attempts Bowtie will make to match an alignment for one mate with an alignment for the opposite mate (--pairtries)" />
             <param name="pForwardAlign" type="select" label="Choose whether or not to attempt to align the forward reference strand (--nofw)">
@@ -328,7 +328,7 @@
         </conditional> <!-- pParams -->
       </when> <!-- paired -->
     </conditional> <!-- singlePaired -->
-    <param name="suppressHeader" type="boolean" truevalue="true" falsevalue="false" checked="False" label="Suppress the header in the output SAM file" help="Bowtie produces SAM with several lines of header information by default" />
+    <param name="suppressHeader" type="boolean" truevalue="true" falsevalue="false" checked="False" label="Suppress the header in the output SAM file (--sam-nohead)" help="Bowtie produces SAM with several lines of header information by default" />
   </inputs>
   <outputs>
     <data format="sam" name="output" label="${tool.name} on ${on_string}: mapped reads">
@@ -448,7 +448,7 @@
       Bowtie command:
       bowtie -q -p 4 -S +sam-nohead chrM_base test-data/bowtie_in2.fastqsanger > bowtie_out6_u.sam
       sort bowtie_out6_u.sam > bowtie_out6.sam
-      -p is the number of threads. You need to replace the + with 2 dashes. 
+      -p is the number of threads. You need to replace the + with 2 dashes.
       chrM_base needs to be the base location/name of the index files.
       -->
       <param name="genomeSource" value="indexed" />
@@ -758,8 +758,8 @@ For indexing (bowtie-build)::
   -o                 Offrate. How many Burrows-Wheeler rows get marked by the indexer. The 
                      indexer will mark every 2^INT rows. The marked rows correspond to rows on 
                      the genome. [5]
-  -t INT             Ftab. The lookup table used to calculate an initial Burrows-Wheeler range 
-                     with respect to the first INT characters of the query. Ftab is 4^INT+1 
+  -t INT             The ftab lookup table used to calculate an initial Burrows-Wheeler range 
+                     with respect to the first INT characters of the query. Ftab size is 4^(INT+1) 
                      bytes. [10]
   --ntoa             N conversion. Convert Ns to As before building the index. Otherwise, Ns are 
                      simply excluded from the index and Bowtie will not find alignments that 
@@ -783,10 +783,10 @@ For aligning (bowtie)::
                      at 30. [70]
   -l INT             Seed length. The number of bases on the high-quality end of the read to 
                      which the -n ceiling applies. Must be at least 5. [28]
-  --nomaqround       Suppress MAQ rounding. Values are internally rounded to the nearest 10 and 
+  --nomaqround       Suppress Maq rounding. Values are internally rounded to the nearest 10 and 
                      saturate at 30. This options turns off that rounding. [off] 
-  -v INT             MAQ- or SOAP-like alignment policy. This option turns off the default 
-                     MAQ-like alignment policy in favor of a SOAP-like one. End-to-end alignments 
+  -v INT             Maq- or SOAP-like alignment policy. This option turns off the default 
+                     Maq-like alignment policy in favor of a SOAP-like one. End-to-end alignments 
                      with at most INT mismatches. [off]
   -I INT             Minimum insert. The minimum insert size for valid paired-end alignments. 
                      Does checking on untrimmed reads if -5 or -3 is used. [0]
