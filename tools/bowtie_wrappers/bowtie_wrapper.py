@@ -59,7 +59,6 @@ usage: bowtie_wrapper.py [options]
     -X, --intoa=X: Whether or not to convert Ns in the reference sequence to As
     -N, --iendian=N: Endianness to use when serializing integers to the index file
     -Z, --iseed=Z: Seed for the pseudorandom number generator
-    -c, --icutoff=c: Number of first bases of the reference sequence to index
     -x, --indexSettings=x: Whether or not indexing options are to be set
     -H, --suppressHeader=H: Suppress header
     --do_not_build_index: Flag to specify that provided file is already indexed and to just use 'as is'
@@ -133,7 +132,6 @@ def __main__():
     parser.add_option( '-X', '--intoa', dest='intoa', help='Whether or not to convert Ns in the reference sequence to As' )
     parser.add_option( '-N', '--iendian', dest='iendian', help='Endianness to use when serializing integers to the index file' )
     parser.add_option( '-Z', '--iseed', dest='iseed', help='Seed for the pseudorandom number generator' )
-    parser.add_option( '-c', '--icutoff', dest='icutoff', help='Number of first bases of the reference sequence to index' )
     parser.add_option( '-x', '--indexSettings', dest='index_settings', help='Whether or not indexing options are to be set' )
     parser.add_option( '-H', '--suppressHeader', dest='suppressHeader', help='Suppress header' )
     parser.add_option( '--galaxy_input_format', dest='galaxy_input_format', default="fastqsanger", help='galaxy input format' )
@@ -199,14 +197,10 @@ def __main__():
                     iseed = '--seed %s' % options.iseed
                 else:
                     iseed = ''
-                if options.icutoff and int( options.icutoff ) > 0:
-                    icutoff = '--cutoff %s' % options.icutoff
-                else:
-                    icutoff = ''
-                indexing_cmds = '%s %s %s %s %s %s %s --offrate %s %s %s %s %s %s %s' % \
+                indexing_cmds = '%s %s %s %s %s %s %s --offrate %s %s %s %s %s %s' % \
                                 ( iautoB, ipacked, ibmax, ibmaxdivn, idcv, inodc, 
                                   inoref, options.ioffrate, iftab, intoa, iendian, 
-                                  iseed, icutoff, colorspace )
+                                  iseed, colorspace )
             except ValueError, e:
                 # clean up temp dir
                 if os.path.exists( tmp_index_dir ):

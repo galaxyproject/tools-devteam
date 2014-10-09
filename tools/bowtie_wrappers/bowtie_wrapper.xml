@@ -58,7 +58,6 @@
             --intoa="${refGenomeSource.indexParams.ntoa}"
             --iendian="${refGenomeSource.indexParams.endian}"
             --iseed="${refGenomeSource.indexParams.seed}"
-            --icutoff="${refGenomeSource.indexParams.cutoff}"
           #end if
         #end if
       #else
@@ -187,7 +186,6 @@
               <option value="big">Big</option>
             </param> 
             <param name="seed" type="integer" value="-1" label="Seed for the pseudorandom number generator (--seed)" help="Use -1 to use default" />
-            <param name="cutoff" type="integer" value="-1" label="Number of first bases of the reference sequence to index (--cutoff)" help="Use -1 to use default" />
           </when>  <!-- indexFull -->
         </conditional>  <!-- indexParams -->
       </when>  <!-- history -->
@@ -648,7 +646,6 @@
       <param name="ntoa" value="no" />
       <param name="endian" value="little" />
       <param name="seed" value="-1" />
-      <param name="cutoff" value="-1" />
       <param name="sPaired" value="paired" />
       <param name="pInput1" ftype="fastqsanger" value="bowtie_in5.fastqsanger" />
       <param name="pInput2" ftype="fastqsanger" value="bowtie_in6.fastqsanger" />
@@ -769,8 +766,6 @@ For indexing (bowtie-build)::
   --big              Endianness. Endianness to use when serializing integers to the index file. [off]
   --little           Endianness. [--little]
   --seed INT         Random seed. Use INT as the seed for the pseudo-random number generator. [off]
-  --cutoff INT       Cutoff. Index only the first INT bases of the reference sequences (cumulative 
-                     across sequences) and ignore the rest. [off]
 
 For aligning (bowtie)::
 
