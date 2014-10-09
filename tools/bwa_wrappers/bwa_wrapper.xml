@@ -111,8 +111,8 @@
       </param>
       <when value="pre_set" />
       <when value="full">
-        <param name="maxEditDist" type="integer" value="0" label="Maximum edit distance (aln -n)" help="Enter this value OR a fraction of missing alignments, not both" />
-        <param name="fracMissingAligns" type="float" value="0.04" label="Fraction of missing alignments given 2% uniform base error rate (aln -n)" help="Enter this value OR maximum edit distance, not both" />
+        <param name="maxEditDist" type="integer" value="0" label="Maximum edit distance (aln -n)" help="If 0, the maximum edit distance is automatically chosen for different read lengths" />
+        <param name="fracMissingAligns" type="float" value="0.04" label="Fraction of missing alignments given 2% uniform base error rate (aln -n)" help="If 'Maximum edit distance' parameter is not 0, this value is ignored" />
         <param name="maxGapOpens" type="integer" value="1" label="Maximum number of gap opens (aln -o)" />
         <param name="maxGapExtens" type="integer" value="-1" label="Maximum number of gap extensions (aln -e)" help="-1 for k-difference mode (disallowing long gaps)" />
         <param name="disallowLongDel" type="integer" value="16" label="Disallow long deletion within [value] bp towards the 3'-end (aln -d)" />
@@ -134,7 +134,7 @@
             <option value="no" selected="True">No</option>
           </param>
           <when value="yes">
-            <param name="rgid" type="text" size="25" label="Read group identiﬁer (ID). Each @RG line must have a unique ID. The value of ID is used in the RG 
+            <param name="rgid" type="text" size="25" label="Read group identifier (ID). Each @RG line must have a unique ID. The value of ID is used in the RG 
 tags of alignment records. Must be unique among all read groups in header section." help="Required if RG specified. Read group 
 IDs may be modiﬁed when merging SAM ﬁles in order to handle collisions." />
             <param name="rgcn" type="text" size="25" label="Sequencing center that produced the read (CN)" help="Optional" />
@@ -149,7 +149,7 @@ various other characters. Format : /\*|[ACMGRSVTWYHKDBN]+/" />
             <param name="rgpi" type="text" size="25" label="Predicted median insert size (PI)" help="Optional" />
             <param name="rgpl" type="text" size="25" label="Platform/technology used to produce the reads (PL)" help="Required if RG specified. Valid values : CAPILLARY, LS454, ILLUMINA, 
 SOLID, HELICOS, IONTORRENT and PACBIO" />
-            <param name="rgpu" type="text" size="25" label="Platform unit (PU)" help="Optional. Unique identiﬁer (e.g. ﬂowcell-barcode.lane for Illumina or slide for SOLiD)" />
+            <param name="rgpu" type="text" size="25" label="Platform unit (PU)" help="Optional. Unique identifier (e.g. ﬂowcell-barcode.lane for Illumina or slide for SOLiD)" />
             <param name="rgsm" type="text" size="25" label="Sample (SM)" help="Required if RG specified. Use pool name where a pool is being sequenced" />
           </when>
           <when value="no" />
