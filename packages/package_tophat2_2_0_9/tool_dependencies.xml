@@ -19,11 +19,11 @@
                 </actions>
                 <actions>
                   <package name="samtools" version="0.1.18">
-                      <repository changeset_revision="171cd8bc208d" name="package_samtools_0_1_18" owner="devteam" prior_installation_required="True" toolshed="http://toolshed.g2.bx.psu.edu" />
+                      <repository name="package_samtools_0_1_18" owner="devteam" prior_installation_required="True" />
                     </package>
                     <action type="download_by_url">http://tophat.cbcb.umd.edu/downloads/tophat-2.0.9.tar.gz</action>
                     <action type="set_environment_for_install">
-                      <repository changeset_revision="171cd8bc208d" name="package_samtools_0_1_18" owner="devteam" prior_installation_required="True" toolshed="http://toolshed.g2.bx.psu.edu" />
+                      <repository name="package_samtools_0_1_18" owner="devteam" prior_installation_required="True" />
                     </action>
                     <action type="shell_command">./configure --prefix=$INSTALL_DIR --with-bam=$BAM_ROOT</action>
                     <action type="shell_command">make &amp;&amp; make install</action>

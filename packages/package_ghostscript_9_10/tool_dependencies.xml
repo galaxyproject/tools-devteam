@@ -19,11 +19,11 @@
                 </actions>
                 <actions>
                   <package name="libx11" version="1.5.0">
-                      <repository changeset_revision="bfb1f66b1402" name="package_libx11_1_5_0" owner="devteam" prior_installation_required="True" toolshed="http://toolshed.g2.bx.psu.edu" />
+                      <repository name="package_libx11_1_5_0" owner="devteam" prior_installation_required="True" />
                     </package>
                     <action type="download_by_url">http://downloads.ghostscript.com/public/ghostscript-9.10.tar.gz</action>
                     <action type="set_environment_for_install">
-                      <repository changeset_revision="bfb1f66b1402" name="package_libx11_1_5_0" owner="devteam" prior_installation_required="True" toolshed="http://toolshed.g2.bx.psu.edu" />
+                      <repository name="package_libx11_1_5_0" owner="devteam" prior_installation_required="True" />
                     </action>
                     <action type="shell_command">./configure --prefix=$INSTALL_DIR</action>
                     <action type="shell_command">make &amp;&amp; make install</action>

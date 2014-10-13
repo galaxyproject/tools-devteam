@@ -73,7 +73,6 @@ def __main__():
     parser.add_option( '', '--rgpu', dest='rgpu', help='Platform unit (e.g. flowcell-barcode.lane for Illumina or slide for SOLiD)' )
     parser.add_option( '', '--rgsm', dest='rgsm', help='Sample' )
     parser.add_option( '-D', '--dbkey', dest='dbkey', help='Dbkey for reference genome' )
-    parser.add_option( '-X', '--do_not_build_index', dest='do_not_build_index', action='store_true', help="Don't build index" )
     parser.add_option( '-H', '--suppressHeader', dest='suppressHeader', help='Suppress header' )
     parser.add_option( '-I', '--illumina1.3', dest='illumina13qual', help='Input FASTQ files have Illuina 1.3 quality scores' )
     (options, args) = parser.parse_args()
@@ -107,7 +106,7 @@ def __main__():
 
     fastq = options.fastq
     if options.rfastq:
-         rfastq = options.rfastq
+        rfastq = options.rfastq
 
     # set color space variable
     if options.color_space:
@@ -119,7 +118,7 @@ def __main__():
     tmp_index_dir = tempfile.mkdtemp()
     tmp_dir = tempfile.mkdtemp()
     # index if necessary
-    if options.fileSource == 'history' and not options.do_not_build_index:
+    if options.fileSource == 'history':
         ref_file = tempfile.NamedTemporaryFile( dir=tmp_index_dir )
         ref_file_name = ref_file.name
         ref_file.close()
@@ -339,4 +338,5 @@ def __main__():
         if os.path.exists( tmp_dir ):
             shutil.rmtree( tmp_dir )
 
-if __name__=="__main__": __main__()
+if __name__ == "__main__":
+    __main__()

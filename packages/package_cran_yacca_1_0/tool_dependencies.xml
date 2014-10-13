@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <tool_dependency>
   <package name="R" version="2.11.0">
-      <repository changeset_revision="5824d2b3bc8b" name="package_r_2_11_0" owner="devteam" prior_installation_required="True" toolshed="http://toolshed.g2.bx.psu.edu" />
+      <repository name="package_r_2_11_0" owner="devteam" prior_installation_required="True" />
     </package>
     <package name="yacca" version="1.0">
       <install version="1.0">
           <actions>
               <action type="download_by_url">http://cran.r-project.org/src/contrib/Archive/yacca/yacca_1.0.tar.gz</action>
                 <action type="set_environment_for_install">
-                  <repository changeset_revision="5824d2b3bc8b" name="package_r_2_11_0" owner="devteam" prior_installation_required="True" toolshed="http://toolshed.g2.bx.psu.edu">
+                  <repository name="package_r_2_11_0" owner="devteam" prior_installation_required="True">
                       <package name="R" version="2.11.0" />
                     </repository>
                 </action>
