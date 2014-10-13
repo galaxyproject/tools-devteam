@@ -18,7 +18,7 @@
                 #if $annotation.ignore_nonoverlapping_reference:
                     -R
                 #end if
-                #if $annotation.ignore_nonoverlapping_reference:
+                #if $annotation.ignore_nonoverlapping_transfrags:
                     -Q
                 #end if
 
@@ -64,7 +64,7 @@
                 <option value="Yes">Yes</option>
             </param>
             <when value="Yes">
-                <param format="gff3,gtf" name="reference_annotation" type="data" label="Reference Annotation" help="Requires an annotation file in GFF3 or GTF format."/>    
+                <param format="gff3,gtf" name="reference_annotation" type="data" label="Reference Annotation" help="Requires an annotation file in GFF3 or GTF format."/>
                 <param name="ignore_nonoverlapping_reference" type="boolean" label="Ignore reference transcripts that are not overlapped by any input transfrags" help="consider only the reference transcripts that overlap any of the input transfrags (Sn correction)" />
                 <param name="ignore_nonoverlapping_transfrags" type="boolean" label="Ignore input transcripts that are not overlapped by any reference transcripts" help="consider only the input transcripts that overlap any of the reference transcripts (Sp correction). Warning: this will discard all 'novel' loci!" />
             </when>
