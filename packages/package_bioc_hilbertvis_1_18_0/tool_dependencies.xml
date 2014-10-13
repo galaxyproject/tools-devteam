@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <tool_dependency>
     <package name="R" version="2.11.0">
-        <repository changeset_revision="8d0a55bf7aaf" name="package_r_2_11_0" owner="devteam" prior_installation_required="True" toolshed="http://toolshed.g2.bx.psu.edu" />
+        <repository name="package_r_2_11_0" owner="devteam" prior_installation_required="True" />
     </package>
     <package name="bioc_hilbertvis" version="1.18.0">
         <install version="1.0">
             <actions>
                 <action type="download_file">http://bioconductor.org/packages/2.12/bioc/src/contrib/HilbertVis_1.18.0.tar.gz</action>
                 <action type="set_environment_for_install">
-                    <repository changeset_revision="8d0a55bf7aaf" name="package_r_2_11_0" owner="devteam" toolshed="http://toolshed.g2.bx.psu.edu">
+                    <repository name="package_r_2_11_0" owner="devteam">
                         <package name="R" version="2.11.0" />
                     </repository>
                 </action>

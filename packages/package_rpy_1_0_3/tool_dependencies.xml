@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <tool_dependency>
   <package name="R" version="2.11.0">
-      <repository changeset_revision="6e1b17857732" name="package_r_2_11_0" owner="devteam" prior_installation_required="True" toolshed="http://toolshed.g2.bx.psu.edu" />
+      <repository name="package_r_2_11_0" owner="devteam" prior_installation_required="True" />
     </package>
     <package name="rpy" version="1.0.3">
       <install version="1.0">
@@ -12,7 +12,7 @@
                 -->
                 <action type="download_by_url">http://depot.galaxyproject.org/package/source/rpy-1.0.3.tar.gz</action>
                 <action type="set_environment_for_install">
-                  <repository changeset_revision="6e1b17857732" name="package_r_2_11_0" owner="devteam" prior_installation_required="True" toolshed="http://toolshed.g2.bx.psu.edu">
+                  <repository name="package_r_2_11_0" owner="devteam" prior_installation_required="True">
                       <package name="R" version="2.11.0" />
                     </repository>
                 </action>

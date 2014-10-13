@@ -27,7 +27,7 @@ usage: bowtie_wrapper.py [options]
     -M, --mismatchQual=M: Maximum permitted total of quality values at mismatched read positions
     -l, --seedLen=l: Seed length
     -n, --rounding=n: Whether or not to round to the nearest 10 and saturating at 30
-    -P, --maqSoapAlign=P: Choose MAQ- or SOAP-like alignment policy
+    -P, --maqSoapAlign=P: Choose Maq- or SOAP-like alignment policy
     -w, --tryHard=: Whether or not to try as hard as possible to find valid alignments when they exist
     -v, --valAlign=v: Report up to n valid arguments per read
     -V, --allValAligns=V: Whether or not to report all valid alignments per read
@@ -59,7 +59,6 @@ usage: bowtie_wrapper.py [options]
     -X, --intoa=X: Whether or not to convert Ns in the reference sequence to As
     -N, --iendian=N: Endianness to use when serializing integers to the index file
     -Z, --iseed=Z: Seed for the pseudorandom number generator
-    -c, --icutoff=c: Number of first bases of the reference sequence to index
     -x, --indexSettings=x: Whether or not indexing options are to be set
     -H, --suppressHeader=H: Suppress header
     --do_not_build_index: Flag to specify that provided file is already indexed and to just use 'as is'
@@ -101,7 +100,7 @@ def __main__():
     parser.add_option( '-M', '--mismatchQual', dest='mismatchQual', help='Maximum permitted total of quality values at mismatched read positions' )
     parser.add_option( '-l', '--seedLen', dest='seedLen', help='Seed length' )
     parser.add_option( '-n', '--rounding', dest='rounding', help='Whether or not to round to the nearest 10 and saturating at 30' )
-    parser.add_option( '-P', '--maqSoapAlign', dest='maqSoapAlign', help='Choose MAQ- or SOAP-like alignment policy' )
+    parser.add_option( '-P', '--maqSoapAlign', dest='maqSoapAlign', help='Choose Maq- or SOAP-like alignment policy' )
     parser.add_option( '-w', '--tryHard', dest='tryHard', help='Whether or not to try as hard as possible to find valid alignments when they exist' )
     parser.add_option( '-v', '--valAlign', dest='valAlign', help='Report up to n valid arguments per read' )
     parser.add_option( '-V', '--allValAligns', dest='allValAligns', help='Whether or not to report all valid alignments per read' )
@@ -133,7 +132,6 @@ def __main__():
     parser.add_option( '-X', '--intoa', dest='intoa', help='Whether or not to convert Ns in the reference sequence to As' )
     parser.add_option( '-N', '--iendian', dest='iendian', help='Endianness to use when serializing integers to the index file' )
     parser.add_option( '-Z', '--iseed', dest='iseed', help='Seed for the pseudorandom number generator' )
-    parser.add_option( '-c', '--icutoff', dest='icutoff', help='Number of first bases of the reference sequence to index' )
     parser.add_option( '-x', '--indexSettings', dest='index_settings', help='Whether or not indexing options are to be set' )
     parser.add_option( '-H', '--suppressHeader', dest='suppressHeader', help='Suppress header' )
     parser.add_option( '--galaxy_input_format', dest='galaxy_input_format', default="fastqsanger", help='galaxy input format' )
@@ -159,19 +157,19 @@ def __main__():
                     iautoB = '--noauto'
                 else:
                     iautoB = ''
-                if options. ipacked and options.ipacked == 'packed':
+                if options.ipacked and options.ipacked == 'packed':
                     ipacked = '--packed'
                 else:
                     ipacked = ''
                 if options.ibmax and int( options.ibmax ) >= 1:
-                    ibmax = '--bmax %s' % options.ibmax 
+                    ibmax = '--bmax %s' % options.ibmax
                 else:
                     ibmax = ''
                 if options.ibmaxdivn and int( options.ibmaxdivn ) >= 0:
                     ibmaxdivn = '--bmaxdivn %s' % options.ibmaxdivn
                 else:
                     ibmaxdivn = ''
-                if options.idcv and int( options.idcv ) > 0:
+                if options.idcv and int( options.idcv ) >= 3:
                     idcv = '--dcv %s' % options.idcv
                 else:
                     idcv = ''
@@ -183,7 +181,7 @@ def __main__():
                     inoref = '--noref'
                 else:
                     inoref = ''
-                if options.iftab and int( options.iftab ) >= 0:
+                if options.iftab and int( options.iftab ) >= 1:
                     iftab = '--ftabchars %s' % options.iftab
                 else:
                     iftab = ''
@@ -199,14 +197,10 @@ def __main__():
                     iseed = '--seed %s' % options.iseed
                 else:
                     iseed = ''
-                if options.icutoff and int( options.icutoff ) > 0:
-                    icutoff = '--cutoff %s' % options.icutoff
-                else:
-                    icutoff = ''
-                indexing_cmds = '%s %s %s %s %s %s %s --offrate %s %s %s %s %s %s %s' % \
-                                ( iautoB, ipacked, ibmax, ibmaxdivn, idcv, inodc, 
-                                  inoref, options.ioffrate, iftab, intoa, iendian, 
-                                  iseed, icutoff, colorspace )
+                indexing_cmds = '%s %s %s %s %s %s %s --offrate %s %s %s %s %s %s' % \
+                                ( iautoB, ipacked, ibmax, ibmaxdivn, idcv, inodc,
+                                  inoref, options.ioffrate, iftab, intoa, iendian,
+                                  iseed, colorspace )
             except ValueError, e:
                 # clean up temp dir
                 if os.path.exists( tmp_index_dir ):
@@ -396,7 +390,7 @@ def __main__():
                             '%s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s ' % \
                             ( maxInsert, mateOrient, options.threads, suppressHeader,
                               colorspace, skip, alignLimit, trimH, trimL, maqSoapAlign,
-                              mismatchSeed, mismatchQual, seedLen, rounding, minInsert, 
+                              mismatchSeed, mismatchQual, seedLen, rounding, minInsert,
                               maxAlignAttempt, forwardAlign, reverseAlign, maxBacktracks,
                               tryHard, valAlign, allValAligns, suppressAlign, best,
                               strata, offrate, seed, snpphred, snpfrac, keepends,
@@ -466,4 +460,5 @@ def __main__():
     stdout += 'Sequence file aligned.\n'
     sys.stdout.write( stdout )
 
-if __name__=="__main__": __main__()
+if __name__ == "__main__":
+    __main__()
