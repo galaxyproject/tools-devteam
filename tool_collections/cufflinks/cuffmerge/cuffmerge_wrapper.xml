@@ -29,17 +29,10 @@
             ## Outputs.
             --merged-transcripts="${merged_transcripts}"
 
-            ## Inputs.
-            "${first_input}"
-            #for $input_file in $input_files:
-                "${input_file.additional_input}"
-            #end for
+            @CUFFLINKS_GTF_INPUTS@
     </command>
     <inputs>
-        <param format="gtf" name="first_input" type="data" label="GTF file produced by Cufflinks" help=""/>
-        <repeat name="input_files" title="Additional GTF Input Files">
-            <param format="gtf" name="additional_input" type="data" label="GTF file produced by Cufflinks" help=""/>
-        </repeat>
+        <expand macro="cufflinks_gtf_inputs" />
         <conditional name="annotation">
             <param name="use_ref_annotation" type="select" label="Use Reference Annotation">
                 <option value="No">No</option>

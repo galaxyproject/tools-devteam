@@ -50,4 +50,17 @@
             #set labels = '\'' + '\',\''.join( [ str( $condition.name ) for $condition in $in_type.conditions ] ) + '\''
             --labels $labels
   </token>
+  <xml name="cufflinks_gtf_inputs">
+    <param format="gtf" name="first_input" type="data" label="GTF file produced by Cufflinks" help=""/>
+    <repeat name="input_files" title="Additional GTF Input Files">
+        <param format="gtf" name="additional_input" type="data" label="GTF file produced by Cufflinks" help=""/>
+    </repeat>
+  </xml>
+  <token name="@CUFFLINKS_GTF_INPUTS@">
+            ## Inputs.
+            "${first_input}"
+            #for $input_file in $input_files:
+                "${input_file.additional_input}"
+            #end for
+  </token>
 </macros>
