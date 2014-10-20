@@ -19,6 +19,7 @@ def __main__():
     
     # Outputs.
     parser.add_option( '', '--merged-transcripts', dest='merged_transcripts' )
+    parser.add_option( '--min-isoform-fraction', dest='min_isoform_fraction' )
     
     (options, args) = parser.parse_args()
     
@@ -65,7 +66,8 @@ def __main__():
         cmd += " -g %s " % options.ref_annotation
     if options.use_seq_data:
         cmd += " -s %s " % seq_path
-        
+    if options.min_isoform_fraction:
+        cmd += " --min-isoform-fraction %s " % (options.min_isoform_fraction)
     # Add input files to a file.
     inputs_file_name = tempfile.NamedTemporaryFile( dir="." ).name
     inputs_file = open( inputs_file_name, 'w' )
