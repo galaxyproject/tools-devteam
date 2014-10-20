@@ -203,7 +203,7 @@
             <param name="use_ref" value="No"/>
             <param name="do_bias_correction" value="No"/>
             <param name="multiread_correct" value="No"/>
-            <param name="length_correction" value="Cufflinks Effective Length Correction"/>
+            <param name="length_correction" value=""/>
             <param name="use_advanced_settings" value="No" />
             <output name="genes_expression" format="tabular" lines_diff="2" file="cufflinks_out3.fpkm_tracking"/>
             <output name="transcripts_expression" format="tabular" lines_diff="2" file="cufflinks_out2.fpkm_tracking"/>
