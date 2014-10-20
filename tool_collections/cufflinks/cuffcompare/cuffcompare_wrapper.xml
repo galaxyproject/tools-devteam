@@ -153,7 +153,7 @@
             <param name="discard_intron_redundant_transfrags" value="No" />
             <!-- Line diffs are the result of different locations for input files; this cannot be fixed as cuffcompare outputs
                 full input path for each input. -->
-            <output name="transcripts_accuracy" file="cuffcompare_out7.txt" lines_diff="16"/>
+            <output name="transcripts_accuracy" file="cuffcompare_out7.txt" lines_diff="2"/>
             <output name="input1_tmap" file="cuffcompare_out1.tmap"/>
             <output name="input1_refmap" file="cuffcompare_out2.refmap"/>
             <output name="input2_tmap" file="cuffcompare_out3.tmap"/>
