@@ -13,8 +13,7 @@
             --library-norm-method=$library_norm_method
             --output-format=$output_format
 
-            #set labels = '\'' + '\',\''.join( [ str( $condition.name ) for $condition in $in_type.conditions ] ) + '\''
-            --labels $labels
+            @CONDITION_LABELS@
 
             ## Set advanced parameters for cufflinks
             #if $advanced_settings.sAdvanced == "Yes":
@@ -26,37 +25,11 @@
             ## Inputs.
             $gtf_input
 
-            #for $condition in $in_type.conditions:
-                #set samples = ','.join( [ str( $sample.sample ) for $sample in $condition.samples ] )
-                $samples
-            #end for
+            @CONDITION_SAMPLES@
     </command>
     <inputs>
         <param format="gtf,gff3" name="gtf_input" type="data" label="Transcripts" help="A transcript GFF3 or GTF file produced by cufflinks, cuffcompare, or other source."/>
-        <!-- DEFAULT : use BAM/SAM files -->
-        <conditional name="in_type">
-            <param name="set_in_type" type="select" label="Input data type"
-                help="CuffNorm supports either CXB (from cuffquant) or SAM/BAM input files. Mixing is not supported. Default: SAM/BAM">
-                <option value="BAM">SAM/BAM</option>
-                <option value="CXB">Cuffquant (CXB)</option>
-            </param>
-            <when value="BAM">
-                <repeat name="conditions" title="Condition" min="2">
-                    <param name="name" title="Condition name" type="text" label="Name"/>
-                    <repeat name="samples" title="Replicate" min="1">
-                        <param name="sample" label="Add replicate" type="data" format="sam,bam"/>
-                    </repeat>
-                </repeat>
-            </when>
-            <when value="CXB">
-                <repeat name="conditions" title="Condition" min="2">
-                    <param name="name" title="Condition name" type="text" label="Name"/>
-                    <repeat name="samples" title="Replicate" min="1">
-                        <param name="sample" label="Add replicate" type="data" format="cxb"/>
-                    </repeat>
-                </repeat>
-            </when>
-        </conditional>
+        <expand macro="condition_inputs" />
         <param name="library_norm_method" type="select" label="Library normalization method">
             <option value="geometric" selected="True">geometric</option>
             <option value="classic-fpkm">classic-fpkm</option>
