@@ -147,14 +147,18 @@
                 cuffquant cuffcompare_out5.gtf cuffdiff_in1.sam,cuffdiff_in2.sam 
             -->
             <param name="gtf_input" value="cuffquant_in.gtf" ftype="gtf" />
-            <param name="sample1" value="cuffquant_in1.sam" ftype="sam" />
-            <param name="sample2" value="cuffquant_in2.sam" ftype="sam" />
-            <param name="length_correction" value="cufflinks effective length correction" />
+            <repeat name="samples">
+                <param name="sample" value="cuffquant_in1.sam" ftype="sam" />
+            </repeat>
+            <repeat name="samples">
+                <param name="sample" value="cuffquant_in2.sam" ftype="sam" />
+            </repeat>
+            <param name="length_correction" value="" />
             <param name="do_bias_correction" value="No" />
             <param name="multiread_correct" value="No"/>
             <param name="sAdditional" value="No"/>
             <param name="sAdvanced" value="No" />
-            <output name="out_file" file="cuffquant_out1.cxb"/>
+            <output name="out_file" file="cuffquant_out1.cxb" compare="sim_size" />
         </test>
     </tests>
 
