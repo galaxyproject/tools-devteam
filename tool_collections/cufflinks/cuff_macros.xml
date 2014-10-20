@@ -51,16 +51,13 @@
             --labels $labels
   </token>
   <xml name="cufflinks_gtf_inputs">
-    <param format="gtf" name="first_input" type="data" label="GTF file produced by Cufflinks" help=""/>
-    <repeat name="input_files" title="Additional GTF Input Files">
-        <param format="gtf" name="additional_input" type="data" label="GTF file produced by Cufflinks" help=""/>
-    </repeat>
+    <param format="gtf" name="inputs" type="data" label="GTF file(s) produced by Cufflinks" help="" multiple="true" />
   </xml>
   <token name="@CUFFLINKS_GTF_INPUTS@">
             ## Inputs.
-            "${first_input}"
-            #for $input_file in $input_files:
-                "${input_file.additional_input}"
+            #for $input_file in $inputs:
+                "${input_file}"
             #end for
   </token>
+  <token name="@HAS_MULTIPLE_INPUTS@">getattr(inputs, "__len__", [].__len__)() >= 2</token>
 </macros>

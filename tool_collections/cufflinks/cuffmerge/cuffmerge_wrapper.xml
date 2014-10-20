@@ -59,7 +59,7 @@
                   <when value="cached">
                     <param name="index" type="select" label="Using reference genome">
                       <options from_data_table="fasta_indexes">
-                        <filter type="data_meta" ref="first_input" key="dbkey" column="1" />
+                        <filter type="data_meta" ref="inputs" key="dbkey" column="1" />
                         <validator type="no_options" message="No reference genome is available for the build associated with the selected input dataset" />
                       </options>
                     </param>
@@ -82,8 +82,7 @@
             cuffmerge -g cuffcompare_in3.gtf cuffcompare_in1.gtf cuffcompare_in2.gtf
         -->
         <test>
-            <param name="first_input" value="cuffcompare_in1.gtf" ftype="gtf"/>
-            <param name="additional_input" value="cuffcompare_in2.gtf" ftype="gtf"/>
+            <param name="inputs" value="cuffcompare_in1.gtf,cuffcompare_in2.gtf" ftype="gtf"/>
             <param name="use_ref_annotation" value="Yes"/>
             <param name="reference_annotation" value="cuffcompare_in3.gtf" ftype="gtf"/>
             <param name="min_isoform_fraction" value="0.08" />
