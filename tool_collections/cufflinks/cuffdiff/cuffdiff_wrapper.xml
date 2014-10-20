@@ -260,13 +260,22 @@
                 <!--
                     cuffdiff cuffcompare_out5.gtf cuffdiff_in1.sam cuffdiff_in2.sam 
                 -->
-                <!-- 
-                    NOTE: as of version 0.0.6 of the wrapper, tests cannot be run because multiple inputs to a repeat
-                    element are not supported.
                 <param name="gtf_input" value="cuffcompare_out5.gtf" ftype="gtf" />
-                <param name="do_groups" value="No" />
-                <param name="aligned_reads1" value="cuffdiff_in1.sam" ftype="sam" />
-                <param name="aligned_reads2" value="cuffdiff_in2.sam" ftype="sam" />
+                <conditional name="in_type">
+                    <param name="set_in_type" value="BAM" />
+                    <repeat name="conditions">
+                        <param name="name" value="q1" />
+                        <repeat name="samples">
+                            <param name="sample" value="cuffdiff_in1.sam" ftype="sam" />
+                        </repeat>
+                    </repeat>
+                    <repeat name="conditions">
+                        <param name="name" value="q2" />
+                        <repeat name="samples">
+                            <param name="sample" value="cuffdiff_in2.sam" ftype="sam" />
+                        </repeat>
+                    </repeat>
+                </conditional>
                 <param name="fdr" value="0.05" />
                 <param name="min_alignment_count" value="0" />
                 <param name="do_bias_correction" value="No" />
@@ -284,7 +293,6 @@
                 <output name="genes_fpkm_tracking" file="cuffdiff_out6.txt" lines_diff="200"/>
                 <output name="isoforms_exp" file="cuffdiff_out1.txt" lines_diff="200"/>
                 <output name="isoforms_fpkm_tracking" file="cuffdiff_out5.txt" lines_diff="200"/>
-                -->
         </test>
     </tests>
     <help>
