@@ -1,14 +1,14 @@
 # Cuffcompare v2.2.1 | Command line was:
-#cuffcompare -o cc_output -r /home/gvandeweyer/galaxy-dist/galaxy-dist/database/files/000/dataset_193.dat -e 100 -d 100 ./input1 ./input2
+#cuffcompare -o cc_output -r /tmp/tmpZ9KXPVfiles/000/dataset_3.dat -R -e 100 -d 100 ./input1 ./input2
 #
 
 #= Summary for dataset: ./input1 :
 #     Query mRNAs :      50 in      50 loci  (0 multi-exon transcripts)
 #            (0 multi-transcript loci, ~1.0 transcripts per locus)
-# Reference mRNAs :       9 in       6 loci  (9 multi-exon)
+# Reference mRNAs :       1 in       1 loci  (1 multi-exon)
 # Super-loci w/ reference transcripts:        1
 #--------------------|   Sn   |  Sp   |  fSn |  fSp  
-        Base level: 	  0.3	  2.3	  - 	  - 
+        Base level: 	  2.2	  2.3	  - 	  - 
         Exon level: 	  0.0	  0.0	  0.0	  0.0
       Intron level: 	  0.0	 -nan	  0.0	 -nan
 Intron chain level: 	  0.0	 -nan	  0.0	 -nan
@@ -18,33 +18,16 @@ Intron chain level: 	  0.0	 -nan	  0.0	 -nan
      Matching intron chains:       0
               Matching loci:       0
 
-          Missed exons:      36/37	( 97.3%)
+          Missed exons:       2/3	( 66.7%)
            Novel exons:      49/50	( 98.0%)
-        Missed introns:      32/32	(100.0%)
-           Missed loci:       5/6	( 83.3%)
+        Missed introns:       2/2	(100.0%)
+           Missed loci:       0/1	(  0.0%)
             Novel loci:      49/50	( 98.0%)
 
 #= Summary for dataset: ./input2 :
 #     Query mRNAs :      50 in      50 loci  (0 multi-exon transcripts)
 #            (0 multi-transcript loci, ~1.0 transcripts per locus)
-# Reference mRNAs :       8 in       5 loci  (8 multi-exon)
-# Super-loci w/ reference transcripts:        0
-#--------------------|   Sn   |  Sp   |  fSn |  fSp  
-        Base level: 	  0.0	  0.0	  - 	  - 
-        Exon level: 	  0.0	  0.0	  0.0	  0.0
-      Intron level: 	  0.0	 -nan	  0.0	 -nan
-Intron chain level: 	  0.0	 -nan	  0.0	 -nan
-  Transcript level: 	  0.0	  0.0	  0.0	  0.0
-       Locus level: 	  0.0	  0.0	  0.0	  0.0
-
-     Matching intron chains:       0
-              Matching loci:       0
-
-          Missed exons:      34/34	(100.0%)
-           Novel exons:      50/50	(100.0%)
-        Missed introns:      30/30	(100.0%)
-           Missed loci:       5/5	(100.0%)
-            Novel loci:      50/50	(100.0%)
+# Reference mRNAs :       0 in       0 loci  (0 multi-exon)
 
  Total union super-loci across all input datasets: 87 
   (0 multi-transcript, ~1.1 transcripts per locus)
