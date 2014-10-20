@@ -1,14 +1,10 @@
 <tool id="cuffmerge" name="Cuffmerge" version="2.2.1.0">
     <description>merge together several Cufflinks assemblies</description>
-    <requirements>
-        <requirement type="package" version="2.2.1">cufflinks</requirement>
-    </requirements>
-    <stdio>
-        <exit_code range="1:" />
-        <exit_code range=":-1" />
-        <regex match="Error:" />
-        <regex match="Exception:" />
-    </stdio>
+    <expand macro="requirements" />
+    <expand macro="stdio" />
+    <macros>
+      <import>cuff_macros.xml</import>
+    </macros>
     <command interpreter="python">
         cuffmerge_wrapper.py
             --num-threads="\${GALAXY_SLOTS:-4}"

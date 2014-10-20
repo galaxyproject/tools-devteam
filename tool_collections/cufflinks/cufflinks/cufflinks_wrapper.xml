@@ -1,14 +1,10 @@
 <tool id="cufflinks" name="Cufflinks" version="2.2.1.0">
     <description>transcript assembly and FPKM (RPKM) estimates for RNA-Seq data</description>
-    <requirements>
-        <requirement type="package" version="2.2.1">cufflinks</requirement>
-    </requirements>
-    <stdio>
-        <exit_code range="1:" />
-        <exit_code range=":-1" />
-        <regex match="Error:" />
-        <regex match="Exception:" />
-    </stdio>
+    <expand macro="requirements" />
+    <expand macro="stdio" />
+    <macros>
+      <import>cuff_macros.xml</import>
+    </macros>
     <version_command>cufflinks 2>&amp;1 | head -n 1</version_command>
     <command interpreter="python">
         cufflinks_wrapper.py 
