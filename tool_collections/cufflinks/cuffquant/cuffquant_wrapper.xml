@@ -1,4 +1,4 @@
-<tool id="cuffquant" name="Cuffquant" version="2.2.1.0">
+<tool id="cuffquant" name="Cuffquant" version="@VERSION@.0">
     <!-- Wrapper supports Cuffdiff versions 2.2.1 -->
     <description>Precompute gene expression levels</description>
     <expand macro="requirements" />

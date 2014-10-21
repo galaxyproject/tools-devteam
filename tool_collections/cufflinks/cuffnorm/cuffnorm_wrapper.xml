@@ -1,5 +1,4 @@
-<tool id="cuffnorm" name="Cuffnorm" version="2.2.1.0">
-    <!-- Wrapper supports Cuffdiff versions 2.2.1 -->
+<tool id="cuffnorm" name="Cuffnorm" version="@VERSION@.0">
     <description>Create normalized expression levels</description>
     <expand macro="requirements" />
     <expand macro="stdio" />
