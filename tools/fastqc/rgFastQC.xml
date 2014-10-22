@@ -1,13 +1,17 @@
-<tool name="FastQC:Read QC" id="fastqc" version="0.52">
+<tool name="FastQC:Read QC" id="fastqc" version="0.61">
   <description>reports using FastQC</description>
   <command interpreter="python">
     rgFastQC.py -i "$input_file" -d "$html_file.files_path" -o "$html_file" -n "$out_prefix" -f "$input_file.ext" -j "$input_file.name" -e "\$JAVA_JAR_PATH/fastqc"
 #if $contaminants.dataset and str($contaminants) > ''
 -c "$contaminants"
 #end if
+#if $limits.dataset and str($limits) > ''
+-l "$limits"
+#end if
+-e fastqc
   </command>
   <requirements>
-    <requirement type="package" version="0.10.1">FastQC</requirement>
+    <requirement type="package" version="0.11.2">fastqc_dist_0_11_2</requirement>
   </requirements>
   <inputs>
     <param format="fastqsanger,fastq,bam,sam" name="input_file" type="data" label="Short read data from your current history" />
@@ -18,7 +22,9 @@
     </sanitizer>
     </param>
     <param name="contaminants" type="data" format="tabular" optional="true" label="Contaminant list" 
-           help="tab delimited file with 2 columns: name and sequence.  For example: Illumina Small RNA RT Primer	CAAGCAGAAGACGGCATACGA"/>
+           help="tab delimited file with 2 columns: name and sequence.  For example: Illumina Small RNA RT Primer   CAAGCAGAAGACGGCATACGA"/>
+    <param name="limits" type="data" format="txt" optional="true" label="Submodule and Limit specifing file"
+	   help="a file that specifies which submodules are to be executed (default=all) and also specifies the thresholds for the each submodules warning parameter" />
   </inputs>
   <outputs>
     <data format="html" name="html_file"  label="${out_prefix}_${input_file.name}.html" />
