@@ -1,7 +1,7 @@
-<tool name="FastQC:Read QC" id="fastqc" version="0.61">
+<tool name="FastQC:Read QC" id="fastqc" version="0.62">
   <description>reports using FastQC</description>
   <command interpreter="python">
-    rgFastQC.py -i "$input_file" -d "$html_file.files_path" -o "$html_file" -n "$out_prefix" -f "$input_file.ext" -j "$input_file.name" -e "\$JAVA_JAR_PATH/fastqc"
+    rgFastQC.py -i "$input_file" -d "$html_file.files_path" -o "$html_file" -t "$text_file" -n "$out_prefix" -f "$input_file.ext" -j "$input_file.name" -e "\$JAVA_JAR_PATH/fastqc"
 #if $contaminants.dataset and str($contaminants) > ''
 -c "$contaminants"
 #end if
@@ -28,6 +28,7 @@
   </inputs>
   <outputs>
     <data format="html" name="html_file"  label="${out_prefix}_${input_file.name}.html" />
+    <data format="txt" name="text_file"  label="${out_prefix}_${input_file.name}.txt" />
   </outputs>
   <tests>
     <test>
@@ -71,6 +72,7 @@ FastQC incorporates the Picard-tools_ libraries for sam/bam processing.
 
 The contaminants file parameter was borrowed from the independently developed
 fastqcwrapper contributed to the Galaxy Community Tool Shed by J. Johnson.
+Adaption to version 0.11.2 by T. McGowan.
 
 -----
 
@@ -83,9 +85,11 @@ A summary follows below for those in a tearing hurry.
 
 This wrapper will accept a Galaxy fastq, sam or bam as the input read file to check.
 It will also take an optional file containing a list of contaminants information, in the form of
-a tab-delimited file with 2 columns, name and sequence.
+a tab-delimited file with 2 columns, name and sequence. As another option the tool takes a custom
+limits.txt file that allows setting the warning thresholds for the different modules and also specifies
+which modules to include in the output.
 
-The tool produces a single HTML output file that contains all of the results, including the following:
+The tool produces a basic text and a HTML output file that contain all of the results, including the following:
 
 - Basic Statistics
 - Per base sequence quality

@@ -86,16 +86,22 @@ class FastQCRunner(object):
         if opts.limits != None:
 	    command_line.append('--limits %s' % opts.limits)
         command_line.append('--quiet')
+        command_line.append('--extract') # to access the output text file
         command_line.append(self.fastqinfilename)
         self.command_line = ' '.join(command_line)
 
     def copy_output_file_to_dataset(self):
         '''
-        Retrieves the output html file from the output directory and copies it to the Galaxy output file
+        Retrieves the output html and text files from the output directory and copies them to the Galaxy output files
         '''
         
+        # retrieve html file
         result_file = glob.glob(opts.outputdir + '/*html')
         os.system('cp %s %s' % (result_file[0], self.opts.htmloutput))
+        
+        # retrieve text file
+        text_file = glob.glob(opts.outputdir + '/*/fastqc_data.txt')
+        os.system('cp %s %s' % (text_file[0], self.opts.textoutput))
 
     def run_fastqc(self):
         '''
@@ -123,6 +129,7 @@ if __name__ == '__main__':
     op.add_option('-i', '--input', default=None)
     op.add_option('-j', '--inputfilename', default=None)
     op.add_option('-o', '--htmloutput', default=None)
+    op.add_option('-t', '--textoutput', default=None)
     op.add_option('-d', '--outputdir', default="/tmp/shortread")
     op.add_option('-f', '--informat', default='fastq')
     op.add_option('-n', '--namejob', default='rgFastQC')
