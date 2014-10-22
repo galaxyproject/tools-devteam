@@ -1,4 +1,4 @@
-<tool id="bowtie_wrapper" name="Map with Bowtie for Illumina" version="1.1.2">
+<tool id="bowtie_wrapper" name="Map with Bowtie for Illumina" version="1.1.3">
   <requirements>
     <requirement type='package' version="0.12.7">bowtie</requirement>
   </requirements>
@@ -79,6 +79,8 @@
           --seedLen="${singlePaired.sParams.sSeedLen}"
           --rounding="${singlePaired.sParams.sRounding}"
           --maqSoapAlign="${singlePaired.sParams.sMaqSoapAlign}"
+          --forwardAlign="${singlePaired.sParams.sForwardAlign}"
+          --reverseAlign="${singlePaired.sParams.sReverseAlign}"
           --tryHard="${singlePaired.sParams.sTryHard}"
           --valAlign="${singlePaired.sParams.sValAlign}"
           --allValAligns="${singlePaired.sParams.sAllValAligns}"
@@ -217,6 +219,14 @@
               <option value="noRound">Do not round to nearest 10</option>
             </param>
             <param name="sMaqSoapAlign" type="integer" value="-1" label="Number of mismatches for SOAP-like alignment policy (-v)" help="-1 for default Maq-like alignment policy" />
+            <param name="sForwardAlign" type="select" label="Choose whether or not to attempt to align against the forward reference strand (--nofw)">
+              <option value="forward">Align against the forward reference strand</option>
+              <option value="noForward">Do not align against the forward reference strand</option>
+            </param>
+            <param name="sReverseAlign" type="select" label="Choose whether or not to attempt to align against the reverse-complement reference strand (--norc)">
+              <option value="reverse">Align against the reverse-complement reference strand</option>
+              <option value="noReverse">Do not align against the reverse-complement reference strand</option>
+            </param>
             <param name="sTryHard" type="select" label="Whether or not to try as hard as possible to find valid alignments when they exist (-y)" help="Tryhard mode is much slower than regular mode">
               <option value="noTryHard">Do not try hard</option>
               <option value="doTryHard">Try hard</option>
@@ -286,11 +296,11 @@
             <param name="pMaqSoapAlign" type="integer" value="-1" label="Number of mismatches for SOAP-like alignment policy (-v)" help="-1 for default Maq-like alignment policy" />
             <param name="pMinInsert" type="integer" value="0" label="Minimum insert size for valid paired-end alignments (-I)" />
             <param name="pMaxAlignAttempt" type="integer" value="100" label="Maximum number of attempts Bowtie will make to match an alignment for one mate with an alignment for the opposite mate (--pairtries)" />
-            <param name="pForwardAlign" type="select" label="Choose whether or not to attempt to align the forward reference strand (--nofw)">
+            <param name="pForwardAlign" type="select" label="Choose whether or not to attempt to align against the forward reference strand (--nofw)">
               <option value="forward">Align against the forward reference strand</option>
               <option value="noForward">Do not align against the forward reference strand</option>
             </param>
-            <param name="pReverseAlign" type="select" label="Choose whether or not to align against the reverse-complement reference strand (--norc)">
+            <param name="pReverseAlign" type="select" label="Choose whether or not to attempt to align against the reverse-complement reference strand (--norc)">
               <option value="reverse">Align against the reverse-complement reference strand</option>
               <option value="noReverse">Do not align against the reverse-complement reference strand</option>
             </param>
@@ -614,6 +624,8 @@
       <param name="sSeedLen" value="28" />
       <param name="sRounding" value="round" />
       <param name="sMaqSoapAlign" value="-1" />
+      <param name="sForwardAlign" value="forward" />
+      <param name="sReverseAlign" value="reverse" />
       <param name="sTryHard" value="doTryHard" />
       <param name="sValAlign" value="1" />
       <param name="sAllValAligns" value="noAllValAligns" />
