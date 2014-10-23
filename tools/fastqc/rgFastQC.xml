@@ -36,6 +36,7 @@
       <param name="out_prefix" value="fastqc_out" />
       <param name="contaminants" value="fastqc_contaminants.txt" ftype="tabular" />
       <output name="html_file" file="fastqc_report.html" ftype="html" lines_diff="100"/>
+      <output name="text_file" file="fastqc_data.txt" ftype="txt" lines_diff="100"/>
     </test>
   </tests>
   <help>
