@@ -52,11 +52,19 @@
   </token>
   <xml name="cufflinks_gtf_inputs">
     <param format="gtf" name="inputs" type="data" label="GTF file(s) produced by Cufflinks" help="" multiple="true" />
+    <repeat name="additional_inputs" title="Additional GTF Inputs (Lists)">
+      <param format="gtf" name="additional_inputs" type="data_collection" label="GTF file(s) produced by Cufflinks" help="" />
+    </repeat>
   </xml>
   <token name="@CUFFLINKS_GTF_INPUTS@">
             ## Inputs.
             #for $input_file in $inputs:
                 "${input_file}"
+            #end for
+            #for $additional_input in $additional_inputs:
+                #for $input_file in $additional_input.additional_inputs:
+                  "${input_file}"
+                #end for
             #end for
   </token>
   <token name="@HAS_MULTIPLE_INPUTS@">getattr(inputs, "__len__", [].__len__)() >= 2</token>
