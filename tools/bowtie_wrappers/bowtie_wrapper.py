@@ -29,8 +29,8 @@ usage: bowtie_wrapper.py [options]
     -n, --rounding=n: Whether or not to round to the nearest 10 and saturating at 30
     -P, --maqSoapAlign=P: Choose Maq- or SOAP-like alignment policy
     -w, --tryHard=: Whether or not to try as hard as possible to find valid alignments when they exist
-    -v, --valAlign=v: Report up to n valid arguments per read
-    -V, --allValAligns=V: Whether or not to report all valid alignments per read
+    -V, --allValAligns=V: Whether or not to report all valid alignments per read or pair
+    -v, --valAlign=v: Report up to n valid alignments per read or pair
     -G, --suppressAlign=G: Suppress all alignments for a read if more than n reportable alignments exist
     -b, --best=b: Whether or not to make Bowtie guarantee that reported singleton alignments are 'best' in terms of stratum and in terms of the quality values at the mismatched positions
     -B, --maxBacktracks=B: Maximum number of backtracks permitted when aligning a read
@@ -102,8 +102,8 @@ def __main__():
     parser.add_option( '-n', '--rounding', dest='rounding', help='Whether or not to round to the nearest 10 and saturating at 30' )
     parser.add_option( '-P', '--maqSoapAlign', dest='maqSoapAlign', help='Choose Maq- or SOAP-like alignment policy' )
     parser.add_option( '-w', '--tryHard', dest='tryHard', help='Whether or not to try as hard as possible to find valid alignments when they exist' )
-    parser.add_option( '-v', '--valAlign', dest='valAlign', help='Report up to n valid arguments per read' )
-    parser.add_option( '-V', '--allValAligns', dest='allValAligns', help='Whether or not to report all valid alignments per read' )
+    parser.add_option( '-V', '--allValAligns', dest='allValAligns', help='Whether or not to report all valid alignments per read or pair' )
+    parser.add_option( '-v', '--valAlign', dest='valAlign', help='Report up to n valid alignments per read or pair' )
     parser.add_option( '-G', '--suppressAlign', dest='suppressAlign', help='Suppress all alignments for a read if more than n reportable alignments exist' )
     parser.add_option( '-b', '--best', dest='best', help="Whether or not to make Bowtie guarantee that reported singleton alignments are 'best' in terms of stratum and in terms of the quality values at the mismatched positions" )
     parser.add_option( '-B', '--maxBacktracks', dest='maxBacktracks', help='Maximum number of backtracks permitted when aligning a read' )
