@@ -1,7 +1,7 @@
 <tool name="FastQC:Read QC" id="fastqc" version="0.62">
   <description>reports using FastQC</description>
   <command interpreter="python">
-    rgFastQC.py -i "$input_file" -d "$html_file.files_path" -o "$html_file" -t "$text_file" -n "$out_prefix" -f "$input_file.ext" -j "$input_file.name" -e "\$JAVA_JAR_PATH/fastqc"
+    rgFastQC.py -i "$input_file" -d "$html_file.files_path" -o "$html_file" -t "$text_file" -n "$out_prefix" -f "$input_file.ext" -j "$input_file.name" -e "\$FASTQC_JAR_PATH/fastqc"
 #if $contaminants.dataset and str($contaminants) > ''
 -c "$contaminants"
 #end if
@@ -11,7 +11,7 @@
 -e fastqc
   </command>
   <requirements>
-    <requirement type="package" version="0.11.2">fastqc_dist_0_11_2</requirement>
+    <requirement type="package" version="0.11.2">FastQC</requirement>
   </requirements>
   <inputs>
     <param format="fastqsanger,fastq,bam,sam" name="input_file" type="data" label="Short read data from your current history" />
@@ -27,8 +27,8 @@
 	   help="a file that specifies which submodules are to be executed (default=all) and also specifies the thresholds for the each submodules warning parameter" />
   </inputs>
   <outputs>
-    <data format="html" name="html_file"  label="${out_prefix}_${input_file.name}.html" />
-    <data format="txt" name="text_file"  label="${out_prefix}_${input_file.name}.txt" />
+    <data format="html" name="html_file"  label="${out_prefix}_${input_file.name}_Webpage.html" />
+    <data format="txt" name="text_file"  label="${out_prefix}_${input_file.name}_RawData.txt" />
   </outputs>
   <tests>
     <test>
