@@ -98,11 +98,15 @@ class FastQCRunner(object):
         
         # retrieve html file
         result_file = glob.glob(opts.outputdir + '/*html')
-        shutil.copyfileobj(result_file[0], self.opts.htmloutput)
+        with open(result_file[0], 'rb') as fsrc:
+            with open(self.opts.htmloutput, 'wb') as fdest:
+                shutil.copyfileobj(fsrc, fdest)
         
         # retrieve text file
         text_file = glob.glob(opts.outputdir + '/*/fastqc_data.txt')
-        shutil.copyfileobj(text_file[0], self.opts.textoutput)
+        with open(text_file[0], 'rb') as fsrc:
+            with open(self.opts.textoutput, 'wb') as fdest:
+                shutil.copyfileobj(fsrc, fdest)
 
     def run_fastqc(self):
         '''

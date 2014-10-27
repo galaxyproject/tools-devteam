@@ -8,7 +8,6 @@
 #if $limits.dataset and str($limits) > ''
 -l "$limits"
 #end if
--e fastqc
   </command>
   <requirements>
     <requirement type="package" version="0.11.2">FastQC</requirement>
