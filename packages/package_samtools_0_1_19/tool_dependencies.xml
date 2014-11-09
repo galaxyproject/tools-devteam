@@ -26,6 +26,14 @@
                         <destination>$INSTALL_DIR/bin</destination>
                     </action>
                     <action type="move_file">
+                        <source>bcftools/bcftools</source>
+                        <destination>$INSTALL_DIR/bin</destination>
+                    </action>
+                    <action type="move_file">
+                        <source>bcftools/vcfutils.pl</source>
+                        <destination>$INSTALL_DIR/bin</destination>
+                    </action>
+                    <action type="move_file">
                         <source>libbam.a</source>
                         <destination>$INSTALL_DIR/lib</destination>
                     </action>
