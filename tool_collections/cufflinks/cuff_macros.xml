@@ -1,0 +1,66 @@
+<macros>
+  <token name="@VERSION@">2.2.1</token>
+  <xml name="requirements">
+    <requirements>
+      <requirement type="package" version="2.2.1">cufflinks</requirement>
+      <yield />
+    </requirements>
+  </xml>
+  <xml name="stdio">
+    <stdio>
+        <exit_code range="1:" />
+        <exit_code range=":-1" />
+        <regex match="Error:" />
+        <regex match="Exception:" />
+    </stdio>
+  </xml>
+  <xml name="condition_inputs">
+    <!-- DEFAULT : use BAM/SAM files -->
+    <conditional name="in_type">
+        <param name="set_in_type" type="select" label="Input data type"
+            help="CuffNorm supports either CXB (from cuffquant) or SAM/BAM input files. Mixing is not supported. Default: SAM/BAM">
+            <option value="BAM">SAM/BAM</option>
+            <option value="CXB">Cuffquant (CXB)</option>
+        </param>
+        <when value="BAM">
+            <repeat name="conditions" title="Condition" min="2">
+                <param name="name" title="Condition name" type="text" label="Name"/>
+                <repeat name="samples" title="Replicate" min="1">
+                    <param name="sample" label="Add replicate" type="data" format="sam,bam"/>
+                </repeat>
+            </repeat>
+        </when>
+        <when value="CXB">
+            <repeat name="conditions" title="Condition" min="2">
+                <param name="name" title="Condition name" type="text" label="Name"/>
+                <repeat name="samples" title="Replicate" min="1">
+                    <param name="sample" label="Add replicate" type="data" format="cxb"/>
+                </repeat>
+            </repeat>
+        </when>
+    </conditional>
+  </xml>
+  <token name="@CONDITION_SAMPLES@">
+            #for $condition in $in_type.conditions:
+                #set samples = ','.join( [ str( $sample.sample ) for $sample in $condition.samples ] )
+                $samples
+            #end for
+  </token>
+  <token name="@CONDITION_LABELS@">
+            #set labels = '\'' + '\',\''.join( [ str( $condition.name ) for $condition in $in_type.conditions ] ) + '\''
+            --labels $labels
+  </token>
+  <xml name="cufflinks_gtf_inputs">
+    <param format="gtf" name="first_input" type="data" label="GTF file produced by Cufflinks" help=""/>
+    <repeat name="input_files" title="Additional GTF Input Files">
+        <param format="gtf" name="additional_input" type="data" label="GTF file produced by Cufflinks" help=""/>
+    </repeat>
+  </xml>
+  <token name="@CUFFLINKS_GTF_INPUTS@">
+            ## Inputs.
+            "${first_input}"
+            #for $input_file in $input_files:
+                "${input_file.additional_input}"
+            #end for
+  </token>
+</macros>
