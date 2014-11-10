@@ -263,7 +263,7 @@
             <param name="source" value="history" />
             <param name="input_1" value="bowtie2/phix_reads.fastq" ftype="fastqsanger"/>
             <param name="own_file" value="bowtie2/phix_genome.fasta" />
-            <output name="output" file="bowtie2/phix_mapped.bam" ftype="bam" />
+            <output name="output" file="bowtie2/phix_mapped.bam" ftype="bam" lines_diff="2" />
         </test>
     </tests>
 
