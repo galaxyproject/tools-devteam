@@ -123,4 +123,15 @@ All except Basic Statistics and Overrepresented sequences are plots.
  .. _Picard-tools: http://picard.sourceforge.net/index.shtml
 
     </help>
+    <citations>
+        <citation type="bibtex">
+        @ARTICLE{andrews_s,
+            author = {Andrews, S.},
+            keywords = {bioinformatics, ngs, qc},
+            priority = {2},
+            title = {{FastQC A Quality Control tool for High Throughput Sequence Data}},
+            url = {http://www.bioinformatics.babraham.ac.uk/projects/fastqc/}
+        }
+        </citation>
+    </citations>
 </tool>
