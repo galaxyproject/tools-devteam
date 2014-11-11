@@ -30,7 +30,7 @@
                     $bias_correction.seq_source.ref_file
                 #else:
                     ## Built-in genome.
-                    ${__get_data_table_entry__('fasta_indexes', 'value', $gtf_input.dbkey, 'path')}
+                    ${__get_data_table_entry__('fasta_indexes', 'dbkey', $gtf_input.dbkey, 'path')}
                 #end if
             #end if
 
