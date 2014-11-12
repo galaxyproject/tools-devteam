@@ -1,13 +1,21 @@
 <tool name="FastQC:Read QC" id="fastqc" version="0.62">
   <description>reports using FastQC</description>
   <command interpreter="python">
-    rgFastQC.py -i "$input_file" -d "$html_file.files_path" -o "$html_file" -t "$text_file" -n "$out_prefix" -f "$input_file.ext" -j "$input_file.name" -e "\$FASTQC_JAR_PATH/fastqc"
-#if $contaminants.dataset and str($contaminants) > ''
--c "$contaminants"
-#end if
-#if $limits.dataset and str($limits) > ''
--l "$limits"
-#end if
+    rgFastQC.py 
+        -i "$input_file"
+        -d "$html_file.files_path"
+        -o "$html_file"
+        -t "$text_file"
+        -n "$out_prefix"
+        -f "$input_file.ext"
+        -j "$input_file.name"
+        -e "\$FASTQC_JAR_PATH/fastqc"
+        #if $contaminants.dataset and str($contaminants) > ''
+            -c "$contaminants"
+        #end if
+        #if $limits.dataset and str($limits) > ''
+            -l "$limits"
+        #end if
   </command>
   <requirements>
     <requirement type="package" version="0.11.2">FastQC</requirement>
@@ -23,7 +31,7 @@
     <param name="contaminants" type="data" format="tabular" optional="true" label="Contaminant list" 
            help="tab delimited file with 2 columns: name and sequence.  For example: Illumina Small RNA RT Primer   CAAGCAGAAGACGGCATACGA"/>
     <param name="limits" type="data" format="txt" optional="true" label="Submodule and Limit specifing file"
-	   help="a file that specifies which submodules are to be executed (default=all) and also specifies the thresholds for the each submodules warning parameter" />
+       help="a file that specifies which submodules are to be executed (default=all) and also specifies the thresholds for the each submodules warning parameter" />
   </inputs>
   <outputs>
     <data format="html" name="html_file"  label="${out_prefix}_${input_file.name}_Webpage.html" />
@@ -114,5 +122,16 @@ All except Basic Statistics and Overrepresented sequences are plots.
  .. _FastQC: http://www.bioinformatics.bbsrc.ac.uk/projects/fastqc/
  .. _Picard-tools: http://picard.sourceforge.net/index.shtml
 
-</help>
+    </help>
+    <citations>
+        <citation type="bibtex">
+        @ARTICLE{andrews_s,
+            author = {Andrews, S.},
+            keywords = {bioinformatics, ngs, qc},
+            priority = {2},
+            title = {{FastQC A Quality Control tool for High Throughput Sequence Data}},
+            url = {http://www.bioinformatics.babraham.ac.uk/projects/fastqc/}
+        }
+        </citation>
+    </citations>
 </tool>
