@@ -34,7 +34,7 @@
                     $bias_correction.seq_source.ref_file
                 #else:
                     ## Built-in genome.
-                     "${ bias_correction.seq_source.index.path }"
+                     "${ bias_correction.seq_source.index.fields.path }"
                 #end if
             #end if
 
