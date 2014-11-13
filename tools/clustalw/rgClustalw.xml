@@ -125,7 +125,9 @@ This wrapper is released licensed under the LGPL_
 
 .. _LGPL: http://www.gnu.org/copyleft/lesser.html
 
-  </help>
-
+    </help>
+    <citations>
+        <citation type="doi">10.1093/bioinformatics/btm404</citation>
+    </citations>
 </tool>
 

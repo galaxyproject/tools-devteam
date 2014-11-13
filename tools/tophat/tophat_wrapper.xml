@@ -560,4 +560,7 @@ This is a list of implemented Tophat options::
   --min-segment-intron              The minimum intron length that may be found during split-segment search. The default is 50.
   --max-segment-intron              The maximum intron length that may be found during split-segment search. The default is 500000.
     </help>
+    <citations>
+        <citation type="doi">10.1093/bioinformatics/btp120</citation>
+    </citations>
 </tool>

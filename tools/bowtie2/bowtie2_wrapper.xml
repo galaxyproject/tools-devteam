@@ -6,7 +6,6 @@
         <requirement type="package" version="2.1.0">bowtie2</requirement>
         <requirement type="package" version="0.1.18">samtools</requirement>
     </requirements>
-    
     <command>
         ## prepare bowtie2 index
         #set index_path = ''
@@ -211,7 +210,6 @@
             </when>
             <when value="no" />
         </conditional>
-        
     </inputs>
 
     <!-- define outputs -->
@@ -380,4 +378,7 @@ Write reads that fail to align concordantly to file(s). These reads correspond t
 Print the wall-clock time required to load the index files and align the reads. This is printed to the "standard error" ("stderr") filehandle.
 
     </help>
+    <citations>
+        <citation type="doi">10.1038/nmeth.1923</citation>
+    </citations>
 </tool>

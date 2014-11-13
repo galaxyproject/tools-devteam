@@ -480,6 +480,9 @@ For specifying the read group in **samse** or **sampe**, use the following::
   SM    Sample. Use pool name where a pool is being sequenced. 
 
   </help>
+    <citations>
+        <citation type="doi">10.1093/bioinformatics/btp324</citation>
+    </citations>
 </tool>
 
 
