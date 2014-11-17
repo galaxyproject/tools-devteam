@@ -3,7 +3,6 @@
 Provides wrappers and utilities for working with MAF files and alignments.
 """
 #Dan Blankenberg
-import pkg_resources; pkg_resources.require( "bx-python" )
 import bx.align.maf
 import bx.intervals
 import bx.interval_index_file
