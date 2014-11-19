@@ -185,7 +185,7 @@
             <param name="endian" type="select" label="Endianness to use when serializing integers to the index file (--big/--little)" help="Little is most appropriate for Intel- and AMD-based architecture">
               <option value="little">Little</option>
               <option value="big">Big</option>
-            </param> 
+            </param>
             <param name="seed" type="integer" value="-1" label="Seed for the pseudorandom number generator (--seed)" help="Use -1 to use default" />
           </when>  <!-- indexFull -->
         </conditional>  <!-- indexParams -->
@@ -202,11 +202,11 @@
           <param name="sSettingsType" type="select" label="Bowtie settings to use" help="For most mapping needs use Commonly used settings. If you want full control use Full parameter list">
             <option value="preSet">Commonly used</option>
             <option value="full">Full parameter list</option>
-            </param>
+          </param>
           <when value="preSet" />
           <when value="full">
-            <param name="sSkip" type="integer" value="0" label="Skip the first n reads (-s)" />  
-            <param name="sAlignLimit" type="integer" value="-1" label="Only align the first n reads (-u)" help="-1 for off" />  
+            <param name="sSkip" type="integer" value="0" label="Skip the first n reads (-s)" />
+            <param name="sAlignLimit" type="integer" value="-1" label="Only align the first n reads (-u)" help="-1 for off" />
             <param name="sTrimH" type="integer" value="0" label="Trim n bases from high-quality (left) end of each read before alignment (-5)" />
             <param name="sTrimL" type="integer" value="0" label="Trim n bases from low-quality (right) end of each read before alignment (-3)" />
             <param name="sMismatchSeed" type="integer" value="2" label="Maximum number of mismatches permitted in the seed (-n)" help="May be 0, 1, 2, or 3" />
@@ -256,7 +256,7 @@
             <options options_filter_attribute="ext" from_parameter="tool.app.datatypes_registry.datatypes_by_extension" transform_lines="obj.keys()">>
                <column name="name" index="0"/>
                <column name="value" index="0"/>
-               <filter type="param_value" ref="pInput1" ref_attribute="ext" column="0"/> 
+               <filter type="param_value" ref="pInput1" ref_attribute="ext" column="0"/>
            </options>
         </param>
         <param name="pMaxInsert" type="integer" value="1000" label="Maximum insert size for valid paired-end alignments (-X)" />
@@ -272,8 +272,8 @@
           </param>
           <when value="preSet" />
           <when value="full">
-            <param name="pSkip" type="integer" value="0" label="Skip the first n pairs (-s)" />  
-            <param name="pAlignLimit" type="integer" value="-1" label="Only align the first n pairs (-u)" help="-1 for off" />  
+            <param name="pSkip" type="integer" value="0" label="Skip the first n pairs (-s)" />
+            <param name="pAlignLimit" type="integer" value="-1" label="Only align the first n pairs (-u)" help="-1 for off" />
             <param name="pTrimH" type="integer" value="0" label="Trim n bases from high-quality (left) end of each read before alignment (-5)" />
             <param name="pTrimL" type="integer" value="0" label="Trim n bases from low-quality (right) end of each read before alignment (-3)" />
             <param name="pMismatchSeed" type="integer" value="2" label="Maximum number of mismatches permitted in the seed (-n)" help="May be 0, 1, 2, or 3" />
@@ -471,7 +471,7 @@
       Then also need to modify bowtie_out8_1.sam and bowtie_out8_2.sam so that all @ lines come before sequence lines.
       -p is the number of threads. You need to replace the + with 2 dashes.
       The two unmapped output files will be named bowtie_out8_1.fastq and bowtie_out8_2.fastq.
-      chrM_base is the index files' location/base name. 
+      chrM_base is the index files' location/base name.
       -->
       <param name="genomeSource" value="history" />
       <param name="ownFile" value="phiX.fasta" />
@@ -590,14 +590,14 @@
       <output name="output_unmapped_reads_l" ftype="fastqsolexa" file="bowtie_out8_1.fastqsolexa.sorted" sort="True" />
       <output name="output_unmapped_reads_r" ftype="fastqsolexa" file="bowtie_out8_2.fastqsolexa.sorted" sort="True" />
     </test>
-    <!-- end testing of non-sanger variant fastq reads -->    
+    <!-- end testing of non-sanger variant fastq reads -->
     <test>
       <!--
       Bowtie command:
       bowtie -q -p 4 -S +sam-nohead -n 2 -e 70 -l 28 +maxbts 125 -y -k 1 chrM_base test-data/bowtie_in2.fastqsanger > bowtie_out9_u.sam
       sort bowtie_out9_u.sam > bowtie_out9.sam
       -p is the number of threads. You need to replace the + with 2 dashes.
-      chrM_base is the index files' location/base name. 
+      chrM_base is the index files' location/base name.
       -->
       <param name="genomeSource" value="indexed" />
       <!-- this is the backwards-compatible "unique value" for this index, not an actual path -->
@@ -634,7 +634,7 @@
       bowtie -q -X 1000 +ff -p 4 -S +sam-nohead phiX_base -1 test-data/bowtie_in5.fastqsanger -2 test-data/bowtie_in6.fastqsanger > bowtie_out10_u.sam
       sort bowtie_out10_u.sam > bowtie_out10.sam
       -p is the number of threads. You need to replace the + with 2 dashes.
-      chrM_base is the index files' location/base name. 
+      chrM_base is the index files' location/base name.
       -->
       <param name="genomeSource" value="history" />
       <param name="ownFile" value="phiX.fasta" />
@@ -695,7 +695,7 @@ The default variant for all genomes is "Full", defined as all primary chromosome
 The output is in SAM format, and has the following columns::
 
     Column  Description
-  --------  --------------------------------------------------------   
+  --------  --------------------------------------------------------
    1 QNAME  Query (pair) NAME
    2 FLAG   bitwise FLAG
    3 RNAME  Reference sequence NAME
@@ -708,7 +708,7 @@ The output is in SAM format, and has the following columns::
   10 SEQ    query SEQuence on the same strand as the reference
   11 QUAL   query QUALity (ASCII-33 gives the Phred base quality)
   12 OPT    variable OPTional fields in the format TAG:VTYPE:VALUE
-  
+
 The flags are as follows::
 
     Flag  Description
