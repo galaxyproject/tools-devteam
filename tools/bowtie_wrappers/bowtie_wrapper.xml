@@ -81,7 +81,7 @@
           --maqSoapAlign="${singlePaired.sParams.sMaqSoapAlign}"
           --forwardAlign="${singlePaired.sParams.sForwardAlign}"
           --reverseAlign="${singlePaired.sParams.sReverseAlign}"
-          --tryHard="${singlePaired.sParams.sTryHard}"
+          --tryHard="${singlePaired.sParams.sBestOption.sTryHardOption.sTryHard}"
           --allValAligns="${singlePaired.sParams.sAllValAlignsOption.sAllValAligns}"
           #if $singlePaired.sParams.sAllValAlignsOption.sAllValAligns == "noAllValAligns"
             --valAlign="${singlePaired.sParams.sAllValAlignsOption.sValAlign}"
@@ -89,10 +89,14 @@
           --suppressAlign="${singlePaired.sParams.sSuppressAlign}"
           --best="${singlePaired.sParams.sBestOption.sBest}"
           #if $singlePaired.sParams.sBestOption.sBest == "doBest":
-            --maxBacktracks="${singlePaired.sParams.sBestOption.sdMaxBacktracks}"
             --strata="${singlePaired.sParams.sBestOption.sdStrata}"
+            #if $singlePaired.sParams.sBestOption.sTryHardOption.sTryHard == "noTryHard"
+              --maxBacktracks="${singlePaired.sParams.sBestOption.sTryHardOption.sdMaxBacktracks}"
+            #end if
           #else:
-            --maxBacktracks="${singlePaired.sParams.sBestOption.snMaxBacktracks}"
+            #if $singlePaired.sParams.sBestOption.sTryHardOption.sTryHard == "noTryHard"
+              --maxBacktracks="${singlePaired.sParams.sBestOption.sTryHardOption.snMaxBacktracks}"
+            #end if
           #end if
           --offrate="${singlePaired.sParams.sOffrate}"
           --seed="${singlePaired.sParams.sSeed}"
@@ -114,10 +118,9 @@
           --rounding="${singlePaired.pParams.pRounding}"
           --maqSoapAlign="${singlePaired.pParams.pMaqSoapAlign}"
           --minInsert="${singlePaired.pParams.pMinInsert}"
-          --maxAlignAttempt="${singlePaired.pParams.pMaxAlignAttempt}"
           --forwardAlign="${singlePaired.pParams.pForwardAlign}"
           --reverseAlign="${singlePaired.pParams.pReverseAlign}"
-          --tryHard="${singlePaired.pParams.pTryHard}"
+          --tryHard="${singlePaired.pParams.pBestOption.pTryHardOption.pTryHard}"
           --allValAligns="${singlePaired.pParams.pAllValAlignsOption.pAllValAligns}"
           #if $singlePaired.pParams.pAllValAlignsOption.pAllValAligns == "noAllValAligns"
             --valAlign="${singlePaired.pParams.pAllValAlignsOption.pValAlign}"
@@ -125,10 +128,16 @@
           --suppressAlign="${singlePaired.pParams.pSuppressAlign}"
           --best="${singlePaired.pParams.pBestOption.pBest}"
           #if $singlePaired.pParams.pBestOption.pBest == "doBest":
-            --maxBacktracks="${singlePaired.pParams.pBestOption.pdMaxBacktracks}"
             --strata="${singlePaired.pParams.pBestOption.pdStrata}"
+            #if $singlePaired.pParams.pBestOption.pTryHardOption.pTryHard == "noTryHard"
+              --maxAlignAttempt="${singlePaired.pParams.pBestOption.pTryHardOption.pMaxAlignAttempt}"
+              --maxBacktracks="${singlePaired.pParams.pBestOption.pTryHardOption.pdMaxBacktracks}"
+            #end if
           #else:
-            --maxBacktracks="${singlePaired.pParams.pBestOption.pnMaxBacktracks}"
+            #if $singlePaired.pParams.pBestOption.pTryHardOption.pTryHard == "noTryHard"
+              --maxAlignAttempt="${singlePaired.pParams.pBestOption.pTryHardOption.pMaxAlignAttempt}"
+              --maxBacktracks="${singlePaired.pParams.pBestOption.pTryHardOption.pnMaxBacktracks}"
+            #end if
           #end if
           --offrate="${singlePaired.pParams.pOffrate}"
           --seed="${singlePaired.pParams.pSeed}"
@@ -231,10 +240,40 @@
               <option value="reverse">Align against the reverse-complement reference strand</option>
               <option value="noReverse">Do not align against the reverse-complement reference strand</option>
             </param>
-            <param name="sTryHard" type="select" label="Whether or not to try as hard as possible to find valid alignments when they exist (-y)" help="Tryhard mode is much slower than regular mode">
-              <option value="noTryHard">Do not try hard</option>
-              <option value="doTryHard">Try hard</option>
-            </param>
+            <conditional name="sBestOption">
+              <param name="sBest" type="select" label="Whether or not to make Bowtie guarantee that reported singleton alignments are 'best' in terms of stratum and in terms of the quality values at the mismatched positions (--best)" help="Removes all strand bias. Only affects which alignments are reported by Bowtie. Runs slower with best option">
+                <option value="noBest">Do not use best</option>
+                <option value="doBest">Use best</option>
+              </param>
+              <when value="noBest">
+                <conditional name="sTryHardOption">
+                  <param name="sTryHard" type="select" label="Whether or not to try as hard as possible to find valid alignments when they exist (-y)" help="Tryhard mode is much slower than regular mode">
+                    <option value="noTryHard">Do not try hard</option>
+                    <option value="doTryHard">Try hard</option>
+                  </param>
+                  <when value="noTryHard">
+                    <param name="snMaxBacktracks" type="integer" value="125" min="0" label="Maximum number of backtracks permitted when aligning a read (--maxbts)" />
+                  </when>
+                  <when value="doTryHard" />
+                </conditional>
+              </when>
+              <when value="doBest">
+                <param name="sdStrata" type="select" label="Whether or not to report only those alignments that fall in the best stratum if many valid alignments exist and are reportable (--strata)">
+                  <option value="noStrata">Do not use strata option</option>
+                  <option value="doStrata">Use strata option</option>
+                </param>
+                <conditional name="sTryHardOption">
+                  <param name="sTryHard" type="select" label="Whether or not to try as hard as possible to find valid alignments when they exist (-y)" help="Tryhard mode is much slower than regular mode">
+                    <option value="noTryHard">Do not try hard</option>
+                    <option value="doTryHard">Try hard</option>
+                  </param>
+                  <when value="noTryHard">
+                    <param name="sdMaxBacktracks" type="integer" value="800" min="0" label="Maximum number of backtracks permitted when aligning a read (--maxbts)" />
+                  </when>
+                  <when value="doTryHard" />
+                </conditional>
+              </when>
+            </conditional> <!-- bestOption -->
             <conditional name="sAllValAlignsOption">
               <param name="sAllValAligns" type="select" label="Whether or not to report all valid alignments per read (-a)">
                 <option value="noAllValAligns">Do not report all valid alignments</option>
@@ -248,22 +287,6 @@
             <param name="sSuppressAlign" type="integer" value="-1" label="Suppress all alignments for a read if more than n reportable alignments exist (-m)" help="-1 for no limit" />
             <param name="sMaxFile" type="boolean" truevalue="true" falsevalue="false" checked="False" label="Write all reads with a number of valid alignments exceeding the limit set with the -m option to a file (--max)" />
             <param name="sUnmappedFile" type="boolean" truevalue="true" falsevalue="false" checked="False" label="Write all reads that could not be aligned to a file (--un)" />
-            <conditional name="sBestOption">
-              <param name="sBest" type="select" label="Whether or not to make Bowtie guarantee that reported singleton alignments are 'best' in terms of stratum and in terms of the quality values at the mismatched positions (--best)" help="Removes all strand bias. Only affects which alignments are reported by Bowtie. Runs slower with best option">
-                <option value="noBest">Do not use best</option>
-                <option value="doBest">Use best</option>
-              </param>
-              <when value="noBest">
-                <param name="snMaxBacktracks" type="integer" value="125" label="Maximum number of backtracks permitted when aligning a read (--maxbts)" />
-              </when>
-              <when value="doBest">
-                <param name="sdMaxBacktracks" type="integer" value="800" label="Maximum number of backtracks permitted when aligning a read (--maxbts)" />
-                <param name="sdStrata" type="select" label="Whether or not to report only those alignments that fall in the best stratum if many valid alignments exist and are reportable (--strata)">
-                  <option value="noStrata">Do not use strata option</option>
-                  <option value="doStrata">Use strata option</option>
-                </param>
-              </when>
-            </conditional> <!-- bestOption -->
             <param name="sOffrate" type="integer" value="-1" label="Override the offrate of the index to n (-o)" help="-1 for default" />
             <param name="sSeed" type="integer" value="-1" label="Seed for pseudo-random number generator (--seed)" help="-1 for default" />
           </when> <!-- full -->
@@ -304,7 +327,6 @@
             </param>
             <param name="pMaqSoapAlign" type="integer" value="-1" label="Number of mismatches for SOAP-like alignment policy (-v)" help="-1 for default Maq-like alignment policy" />
             <param name="pMinInsert" type="integer" value="0" label="Minimum insert size for valid paired-end alignments (-I)" />
-            <param name="pMaxAlignAttempt" type="integer" value="100" label="Maximum number of attempts Bowtie will make to match an alignment for one mate with an alignment for the opposite mate (--pairtries)" />
             <param name="pForwardAlign" type="select" label="Choose whether or not to attempt to align against the forward reference strand (--nofw)">
               <option value="forward">Align against the forward reference strand</option>
               <option value="noForward">Do not align against the forward reference strand</option>
@@ -313,10 +335,42 @@
               <option value="reverse">Align against the reverse-complement reference strand</option>
               <option value="noReverse">Do not align against the reverse-complement reference strand</option>
             </param>
-            <param name="pTryHard" type="select" label="Whether or not to try as hard as possible to find valid alignments when they exist (-y)" help="Tryhard mode is much slower than regular mode">
-              <option value="noTryHard">Do not try hard</option>
-              <option value="doTryHard">Try hard</option>
-            </param>
+            <conditional name="pBestOption">
+              <param name="pBest" type="select" label="Whether or not to make Bowtie guarantee that reported singleton alignments are 'best' in terms of stratum and in terms of the quality values at the mismatched positions (--best)" help="Removes all strand bias. Only affects which alignments are reported by Bowtie. Runs slower with best option">
+                <option value="noBest">Do not use best</option>
+                <option value="doBest">Use best</option>
+              </param>
+              <when value="noBest">
+                <conditional name="pTryHardOption">
+                  <param name="pTryHard" type="select" label="Whether or not to try as hard as possible to find valid alignments when they exist (-y)" help="Tryhard mode is much slower than regular mode">
+                    <option value="noTryHard">Do not try hard</option>
+                    <option value="doTryHard">Try hard</option>
+                  </param>
+                  <when value="noTryHard">
+                    <param name="pMaxAlignAttempt" type="integer" value="100" min="1" label="Maximum number of attempts Bowtie will make to match an alignment for one mate with an alignment for the opposite mate (--pairtries)" />
+                    <param name="pnMaxBacktracks" type="integer" value="125" min="0" label="Maximum number of backtracks permitted when aligning a read (--maxbts)" />
+                  </when>
+                  <when value="doTryHard" />
+                </conditional>
+              </when>
+              <when value="doBest">
+                <param name="pdStrata" type="select" label="Whether or not to report only those alignments that fall in the best stratum if many valid alignments exist and are reportable (--strata)">
+                  <option value="noStrata">Do not use strata option</option>
+                  <option value="doStrata">Use strata option</option>
+                </param>
+                <conditional name="pTryHardOption">
+                  <param name="pTryHard" type="select" label="Whether or not to try as hard as possible to find valid alignments when they exist (-y)" help="Tryhard mode is much slower than regular mode">
+                    <option value="noTryHard">Do not try hard</option>
+                    <option value="doTryHard">Try hard</option>
+                  </param>
+                  <when value="noTryHard">
+                    <param name="pMaxAlignAttempt" type="integer" value="100" min="1" label="Maximum number of attempts Bowtie will make to match an alignment for one mate with an alignment for the opposite mate (--pairtries)" />
+                    <param name="pdMaxBacktracks" type="integer" value="800" min="0" label="Maximum number of backtracks permitted when aligning a read (--maxbts)" />
+                  </when>
+                  <when value="doTryHard" />
+                </conditional>
+              </when>
+            </conditional>
             <conditional name="pAllValAlignsOption">
               <param name="pAllValAligns" type="select" label="Whether or not to report all valid alignments per pair (-a)">
                 <option value="noAllValAligns">Do not report all valid alignments</option>
@@ -330,22 +384,6 @@
             <param name="pSuppressAlign" type="integer" value="-1" label="Suppress all alignments for a pair if more than n reportable alignments exist (-m)" help="-1 for no limit" />
             <param name="pMaxFile" type="boolean" truevalue="true" falsevalue="false" checked="False" label="Write all reads with a number of valid alignments exceeding the limit set with the -m option to a file (--max)" />
             <param name="pUnmappedFile" type="boolean" truevalue="true" falsevalue="false" checked="False" label="Write all reads that could not be aligned to a file (--un)" />
-            <conditional name="pBestOption">
-              <param name="pBest" type="select" label="Whether or not to make Bowtie guarantee that reported singleton alignments are 'best' in terms of stratum and in terms of the quality values at the mismatched positions (--best)" help="Removes all strand bias. Only affects which alignments are reported by Bowtie. Runs slower with best option">
-                <option value="noBest">Do not use best</option>
-                <option value="doBest">Use best</option>
-              </param>
-              <when value="noBest">
-                <param name="pnMaxBacktracks" type="integer" value="125" label="Maximum number of backtracks permitted when aligning a read (--maxbts)" />
-              </when>
-              <when value="doBest">
-                <param name="pdMaxBacktracks" type="integer" value="800" label="Maximum number of backtracks permitted when aligning a read (--maxbts)" />
-                <param name="pdStrata" type="select" label="Whether or not to report only those alignments that fall in the best stratum if many valid alignments exist and are reportable (--strata)">
-                  <option value="noStrata">Do not use strata option</option>
-                  <option value="doStrata">Use strata option</option>
-                </param>
-              </when>
-            </conditional>
             <param name="pOffrate" type="integer" value="-1" label="Override the offrate of the index to n (-o)" help="-1 for default" />
             <param name="pSeed" type="integer" value="-1" label="Seed for pseudo-random number generator (--seed)" help="-1 for default" />
           </when> <!-- full -->
@@ -618,7 +656,7 @@
     <test>
       <!--
       Bowtie command:
-      bowtie -q -p 4 -S +sam-nohead -n 2 -e 70 -l 28 +maxbts 125 -y -k 1 chrM_base test-data/bowtie_in2.fastqsanger > bowtie_out9_u.sam
+      bowtie -q -p 4 -S +sam-nohead -n 2 -e 70 -l 28 -y -k 1 chrM_base test-data/bowtie_in2.fastqsanger > bowtie_out9_u.sam
       sort bowtie_out9_u.sam > bowtie_out9.sam
       -p is the number of threads. You need to replace the + with 2 dashes.
       chrM_base is the index files' location/base name.
@@ -647,7 +685,6 @@
       <param name="sUnmappedFile" value="false" />
       <param name="sMaxFile" value="false" />
       <param name="sBest" value="noBest" />
-      <param name="snMaxBacktracks" value="125" />
       <param name="sOffrate" value="-1" />
       <param name="sSeed" value="-1" />
       <param name="suppressHeader" value="true" />
