@@ -3,7 +3,6 @@
     <requirement type="package" version="0.12.7">bowtie</requirement>
   </requirements>
   <description></description>
-  <parallelism method="basic"></parallelism>
   <version_command>bowtie --version</version_command>
   <command interpreter="python">
     bowtie_wrapper.py
