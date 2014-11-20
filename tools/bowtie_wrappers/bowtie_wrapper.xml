@@ -610,8 +610,8 @@
       <param name="pSeed" value="-1" />
       <param name="suppressHeader" value="true" />
       <output name="output" ftype="sam" file="bowtie_out7.sam" sort="True" />
-      <output name="output_unmapped_reads_l" ftype="fastqillumna" file="bowtie_out8_1.fastqillumina.sorted" sort="True" />
-      <output name="output_unmapped_reads_r" ftype="fastqillumna" file="bowtie_out8_2.fastqillumina.sorted" sort="True" />
+      <output name="output_unmapped_reads_l" ftype="fastqillumina" file="bowtie_out8_1.fastqillumina.sorted" sort="True" />
+      <output name="output_unmapped_reads_r" ftype="fastqillumina" file="bowtie_out8_2.fastqillumina.sorted" sort="True" />
     </test>
     <test>
       <param name="genomeSource" value="history" />
