@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tables>
+    <table comment_char="#" name="fasta_indexes">
+        <columns>value, dbkey, name, path</columns>
+        <file path="/afs/bx.psu.edu/user/d/dave/workspace/CleanGalaxy/tool-data/gaius.bx.psu.edu/repos/devteam/sam_to_bam/e400768b0a91/fasta_indexes.loc" />
+    <tool_shed_repository><tool_shed>gaius.bx.psu.edu:9009</tool_shed><repository_name>sam_to_bam</repository_name><repository_owner>devteam</repository_owner><installed_changeset_revision>e400768b0a91</installed_changeset_revision></tool_shed_repository></table>
+
+<table comment_char="#" name="fasta_indexes">
+        <columns>value, dbkey, name, path</columns>
+        <file path="/afs/bx.psu.edu/user/d/dave/workspace/CleanGalaxy/tool-data/gaius.bx.psu.edu/repos/devteam/sam_to_bam/e400768b0a91/fasta_indexes.loc" />
+    <tool_shed_repository><tool_shed>gaius.bx.psu.edu:9009</tool_shed><repository_name>sam_to_bam</repository_name><repository_owner>devteam</repository_owner><installed_changeset_revision>e400768b0a91</installed_changeset_revision></tool_shed_repository></table>
+
+<table comment_char="#" name="fasta_indexes">
+        <columns>value, dbkey, name, path</columns>
+        <file path="/afs/bx.psu.edu/user/d/dave/workspace/CleanGalaxy/tool-data/gaius.bx.psu.edu/repos/devteam/sam_to_bam/e400768b0a91/fasta_indexes.loc" />
+    <tool_shed_repository><tool_shed>gaius.bx.psu.edu:9009</tool_shed><repository_name>sam_to_bam</repository_name><repository_owner>devteam</repository_owner><installed_changeset_revision>e400768b0a91</installed_changeset_revision></tool_shed_repository></table>
+
+<table comment_char="#" name="fasta_indexes">
+        <columns>value, dbkey, name, path</columns>
+        <file path="/afs/bx.psu.edu/user/d/dave/workspace/CleanGalaxy/tool-data/gaius.bx.psu.edu/repos/devteam/sam_to_bam/e400768b0a91/fasta_indexes.loc" />
+    <tool_shed_repository><tool_shed>gaius.bx.psu.edu:9009</tool_shed><repository_name>sam_to_bam</repository_name><repository_owner>devteam</repository_owner><installed_changeset_revision>e400768b0a91</installed_changeset_revision></tool_shed_repository></table>
+</tables>

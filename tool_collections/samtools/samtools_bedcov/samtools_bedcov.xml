@@ -1,0 +1,62 @@
+<tool id="samtools_bedcov" name="Calculate read depth" version="1.0.0">
+    <description>on BAM files</description>
+    <requirements>
+        <requirement type="package" version="1.1">samtools</requirement>
+    </requirements>
+    <version_command>samtools --version | head -n 1 | awk '{ print $2 }'</version_command>
+    <command><![CDATA[
+        for bamfile in 
+        #for dataset in $input_bams:
+            "${dataset}"
+        #end for
+        ; do
+            if [ ! -f \$bamfile.bai ] ; then
+                ln -s \$bamfile && samtools index `basename \$bamfile` ;
+            else
+                ln -s \$bamfile && ln -s \$bamfile.bai ;
+            fi ;
+        done ;
+        samtools bedcov "${input_bed}"
+        #for dataset in $input_bams:
+            `basename "${dataset}"`
+        #end for
+        > "${output}"
+        ]]></command>
+    <stdio>
+        <exit_code range="1:" level="fatal" description="Error" />
+    </stdio>
+    <inputs>
+        <param name="input_bed" type="data" format="bed" label="BED file" />
+        <param name="input_bams" type="data" format="bam" label="BAM file" multiple="true" />
+    </inputs>
+    <outputs>
+        <data format="tabular" name="output" label="${tool.name} on ${on_string}" />
+    </outputs>
+    <tests>
+        <test>
+            <param name="input_bed" value="eboVir3.1.bed" ftype="bed" />
+            <param name="input_bams" value="eboVir3.bam" ftype="bam" />
+            <output name="output" file="samtools_bedcov_out1.tab" />
+        </test>
+        <test>
+            <param name="input_bed" value="eboVir3.1.bed" ftype="bed" />
+            <param name="input_bams" value="eboVir3.bam,eboVir3.2.bam" ftype="bam" />
+            <output name="output" file="samtools_bedcov_out2.tab" />
+        </test>
+    </tests>
+    <help>
+**What it does**
+
+This tool runs the ``samtools bedcov`` command in the SAMtools toolkit.
+
+Show read depth per BED region.
+
+**Citation**
+
+For the underlying tool, please cite `Li H, Handsaker B, Wysoker A, Fennell T, Ruan J, Homer N, Marth G, Abecasis G, Durbin R; 1000 Genome Project Data Processing Subgroup. The Sequence Alignment/Map format and SAMtools. Bioinformatics. 2009 Aug 15;25(16):2078-9. &lt;http://www.ncbi.nlm.nih.gov/pubmed/19505943&gt;`_
+
+
+If you use this tool in Galaxy, please cite Blankenberg D, et al. *In preparation.*
+    </help>
+</tool>
+
