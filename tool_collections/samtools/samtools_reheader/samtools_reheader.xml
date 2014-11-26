@@ -9,8 +9,8 @@
         <exit_code range="1:" level="fatal" description="Error" />
     </stdio>
     <inputs>
-        <param name="input_header" type="data" format="sam" label="SAM file or header" />
-        <param name="input_file" type="data" format="sam,bam" label="File to reheader" />
+        <param name="input_header" type="data" format="sam" label="Replacement header" />
+        <param name="input_file" type="data" format="sam,bam" label="Input SAM or BAM file" />
     </inputs>
     <outputs>
         <data format="bam" name="output" label="${tool.name} on ${on_string}" />
@@ -26,7 +26,9 @@ Replace the header for a SAM or BAM file with a different header.
 
 **Citation**
 
-For the underlying tool, please cite `Li H, Handsaker B, Wysoker A, Fennell T, Ruan J, Homer N, Marth G, Abecasis G, Durbin R; 1000 Genome Project Data Processing Subgroup. The Sequence Alignment/Map format and SAMtools. Bioinformatics. 2009 Aug 15;25(16):2078-9. &lt;http://www.ncbi.nlm.nih.gov/pubmed/19505943&gt;`_
+    <citations>
+        <citation type="doi">10.1093/bioinformatics/btp352</citation>
+    </citations>
 
 
 If you use this tool in Galaxy, please cite Blankenberg D, et al. *In preparation.*

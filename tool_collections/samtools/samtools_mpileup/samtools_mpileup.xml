@@ -244,14 +244,10 @@
     <configfiles>
         <configfile name="excluded_read_groups">
 <![CDATA[
-<% 
-import re
-%>
 #set pasted_data = ''
 #if str( $advanced_options.advanced_options_selector ) == "advanced":
     #if str( $advanced_options.exclude_read_group.exclude_read_groups ) == "paste":
-        #set regex=re.compile("\\s+")
-        #set pasted_data = '\t'.join( regex.split( str( $advanced_options.exclude_read_group['read_groups'] ) ) )
+        #set pasted_data = '\t'.join( str( $advanced_options.exclude_read_group['read_groups'] ).split() )
     #end if
 #end if
 ${pasted_data}
@@ -259,14 +255,10 @@ ${pasted_data}
         </configfile>
         <configfile name="pasted_regions">
 <![CDATA[
-<% 
-import re
-%>
 #set pasted_data = ''
 #if str( $advanced_options.advanced_options_selector ) == "advanced":
     #if str( $advanced_options.limit_by_region.limit_by_regions ) == "paste":
-        #set regex=re.compile("\\s+")
-        #set pasted_data = '\t'.join( regex.split( str( $advanced_options.limit_by_region['region_paste'] ) ) )
+        #set pasted_data = '\t'.join( str( $advanced_options.limit_by_region['region_paste'] ).split() )
     #end if
 #end if
 ${pasted_data}
@@ -277,6 +269,7 @@ ${pasted_data}
         <data format="vcf" name="output_mpileup" label="${tool.name} on ${on_string}">
             <change_format>
                 <when input="output_format.output_format_selector" value="--BCF" format="bcf" />
+                <when input="output_format.output_format_selector" value="pileup" format="pileup" />
             </change_format>
         </data>
         <data format="txt" name="output_log" label="${tool.name} on ${on_string} (log)" />
@@ -517,7 +510,9 @@ ${pasted_data}
 
 **Citation**
 
-For the underlying tool, please cite `Li H, Handsaker B, Wysoker A, Fennell T, Ruan J, Homer N, Marth G, Abecasis G, Durbin R; 1000 Genome Project Data Processing Subgroup. The Sequence Alignment/Map format and SAMtools. Bioinformatics. 2009 Aug 15;25(16):2078-9. &lt;http://www.ncbi.nlm.nih.gov/pubmed/19505943&gt;`_
+    <citations>
+        <citation type="doi">10.1093/bioinformatics/btp352</citation>
+    </citations>
 
 
 If you use this tool in Galaxy, please cite Blankenberg D, et al. *In preparation.*
