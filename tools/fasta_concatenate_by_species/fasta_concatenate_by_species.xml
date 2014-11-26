@@ -1,5 +1,8 @@
 <tool id="fasta_concatenate0" name="Concatenate" version="0.0.0">
   <description>FASTA alignment by species</description>
+  <requirements>
+    <requirement type="package" version="0.7.1">bx-python</requirement>
+  </requirements>
   <command interpreter="python">fasta_concatenate_by_species.py $input1 $out_file1</command>
   <inputs>
     <param name="input1" type="data" format="fasta" label="FASTA alignment"/>

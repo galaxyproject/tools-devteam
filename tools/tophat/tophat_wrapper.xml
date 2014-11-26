@@ -485,7 +485,7 @@ alignments (number of reads divided by average depth of coverage)" help="0.0 to 
 
 TopHat_ is a fast splice junction mapper for RNA-Seq reads. It aligns RNA-Seq reads to mammalian-sized genomes using the ultra high-throughput short read aligner Bowtie, and then analyzes the mapping results to identify splice junctions between exons. Please cite: Trapnell, C., Pachter, L. and Salzberg, S.L. TopHat: discovering splice junctions with RNA-Seq. Bioinformatics 25, 1105-1111 (2009).        
 
-.. _Tophat: http://tophat.cbcb.umd.edu/
+.. _Tophat: http://ccb.jhu.edu/software/tophat/
         
 ------
 
@@ -495,7 +495,7 @@ TopHat_ is a fast splice junction mapper for RNA-Seq reads. It aligns RNA-Seq re
 
 There is no such thing (yet) as an automated gearshift in splice junction identification. It is all like stick-shift driving in San Francisco. In other words, running this tool with default parameters will probably not give you meaningful results. A way to deal with this is to **understand** the parameters by carefully reading the `documentation`__ and experimenting. Fortunately, Galaxy makes experimenting easy.
 
-.. __: http://tophat.cbcb.umd.edu/manual.html
+.. __: http://ccb.jhu.edu/software/tophat/manual.shtml
 
 ------
 
@@ -560,4 +560,7 @@ This is a list of implemented Tophat options::
   --min-segment-intron              The minimum intron length that may be found during split-segment search. The default is 50.
   --max-segment-intron              The maximum intron length that may be found during split-segment search. The default is 500000.
     </help>
+    <citations>
+        <citation type="doi">10.1093/bioinformatics/btp120</citation>
+    </citations>
 </tool>

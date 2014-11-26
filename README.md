@@ -15,3 +15,4 @@ Other repositories with high quality tools:
  * [Björn Grüning's repo](https://github.com/bgruening/galaxytools)
  * [Peter Cock's blast repo](https://github.com/peterjc/galaxy_blast)
  * [Peter Cock's pico_galaxy repo](https://github.com/peterjc/pico_galaxy)
+ * [ENCODE tools](https://github.com/modENCODE-DCC/Galaxy)

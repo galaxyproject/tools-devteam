@@ -235,5 +235,8 @@ For the underlying tool, please cite `Zhang Y, Liu T, Meyer CA, Eeckhoute J, Joh
 
 If you use this tool in Galaxy, please cite Blankenberg D, et al. *In preparation.*
 
-  </help>
+    </help>
+    <citations>
+        <citation type="doi">10.1186/gb-2008-9-9-r137</citation>
+    </citations>
 </tool>
