@@ -1,4 +1,4 @@
-<tool id="bowtie2" name="Bowtie2" version="tool_2.2.4_galaxy_wrapper_0.1">
+<tool id="bowtie2" name="Bowtie2" version="0.3">
     <!-- Wrapper compatible with Bowtie version 2.2.4 -->
     <description>- map reads against reference genome</description>
     <version_command>bowtie2 --version</version_command>
