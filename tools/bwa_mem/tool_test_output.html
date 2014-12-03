@@ -1,0 +1,85 @@
+
+<html>
+<head>
+<style>
+
+body
+{
+  font: 12px verdana, "Bitstream Vera Sans", geneva, arial, helvetica, helve, sans-serif;
+  line-height: 160%;
+}
+
+div.test
+{
+  margin: 5px;
+  padding: 5px;
+  border: solid black 1px;
+  background: lightgray;
+}
+
+div.success
+{
+  background: #CCFFCC;
+  border: solid #66AA66 1px;
+}
+
+div.error, div.failure
+{
+  background: #FFCCCC;
+  border: solid #AA6666 1px;
+}
+
+span.label
+{
+  font-weight: bold;
+}
+
+pre
+{
+  background: white;
+  padding: 5px;
+  border:  solid black 1px;
+  display: block;
+  overflow: auto;
+}
+</style>
+
+<script>
+function toggle(name){
+	var elem = document.getElementById(name)
+	if (elem) {
+		if (elem.style.display=="none"){
+			elem.style.display="block"
+		} else {
+			elem.style.display="none"
+		}
+	}
+}
+</script>
+</head>
+<body>
+
+<div class='test success'>
+<div><span class='label'>ID:</span> functional.test_toolbox.TestForTool_bwa_aln_0_7_10.test_tool_000000</div>
+<div><span class='label'>Description:</span> BWA ( bwa_aln_0_7_10 ) > Test-1</div>
+<div><span class='label'>Status:</span> success</div>
+</div>
+<div class='test success'>
+<div><span class='label'>ID:</span> functional.test_toolbox.TestForTool_bwa_aln_0_7_10.test_tool_000001</div>
+<div><span class='label'>Description:</span> BWA ( bwa_aln_0_7_10 ) > Test-2</div>
+<div><span class='label'>Status:</span> success</div>
+</div>
+<div class='test success'>
+<div><span class='label'>ID:</span> functional.test_toolbox.TestForTool_bwa_mem_0_7_10.test_tool_000000</div>
+<div><span class='label'>Description:</span> BWA-MEM ( bwa_mem_0_7_10 ) > Test-1</div>
+<div><span class='label'>Status:</span> success</div>
+</div>
+<div class='test success'>
+<div><span class='label'>ID:</span> functional.test_toolbox.build_tests</div>
+<div><span class='label'>Description:</span> If the module level variable `toolbox` is set, generate `ToolTestCase`</div>
+<div><span class='label'>Status:</span> success</div>
+</div>
+
+</body>
+</html>
+
