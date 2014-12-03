@@ -1,0 +1,46 @@
+<tool id="samtools_sort" name="sort" version="1.0.3">
+    <requirements>
+        <requirement type="package" version="1.1">samtools</requirement>
+    </requirements>
+    <description>a BAM file</description>
+    <version_command>samtools --version | head -n 1 | awk '{ print $2 }'</version_command>
+    <command>samtools sort $sort_mode "${input1}" -o "${output1}" -O bam -T dataset</command>
+    <stdio>
+        <exit_code range="1:" level="fatal" description="Error" />
+    </stdio>
+    <inputs>
+        <param name="input1" type="data" format="bam" label="BAM File" />
+        <param name="sort_mode" type="select" label="Sort by ">
+            <option value="" selected="True">Chromosomal coordinates</option>
+            <option value="-n">Read names</option>
+        </param>
+    </inputs>
+    <outputs>
+        <data name="output1" format="bam" />
+    </outputs>
+    <tests>
+        <test>
+            <param name="input1" value="1.bam" ftype="bam" />
+            <output name="output1" file="1_sort.bam" ftype="bam" sort="True"/>
+        </test>
+    </tests>
+    <help>
+
+**What it does**
+
+This tool uses the SAMTools_ toolkit to sort alignments by leftmost coordinates or read names.
+
+.. _SAMTools: http://samtools.sourceforge.net/samtools.shtml
+
+------
+
+**Citation**
+
+    <citations>
+        <citation type="doi">10.1093/bioinformatics/btp352</citation>
+    </citations>
+
+If you use this tool in Galaxy, please cite Blankenberg D, et al. *In preparation.*
+
+    </help>
+</tool>

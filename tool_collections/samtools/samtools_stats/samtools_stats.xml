@@ -1,0 +1,229 @@
+<tool id="samtools_stats" name="Generate statistics" version="1.0.0">
+    <description>for a BAM or SAM file</description>
+    <requirements>
+        <requirement type="package" version="1.1">samtools</requirement>
+    </requirements>
+    <version_command>samtools --version | head -n 1 | awk '{ print $2 }'</version_command>
+    <command><![CDATA[
+        #if $use_reference.use_ref_selector == "yes":
+            #if $use_reference.reference_source.reference_source_selector == "history":
+               ln -s "${use_reference.reference_source.ref_file}" && samtools faidx `basename "${use_reference.reference_source.ref_file}"` && samtools stats
+            #else:
+                samtools stats
+            #end if
+        #else:
+            samtools stats
+        #end if
+        "${input_file}"
+        --coverage ${coverage_min},${coverage_max},${coverage_step}
+        ${remove_dups}
+        #if str( $filter_by_flags.filter_flags ) == "filter":
+            #if $filter_by_flags.require_flags:
+                --required-flag ${sum([int(flag) for flag in str($filter_by_flags.require_flags).split(',')])}
+            #end if
+            #if $filter_by_flags.exclude_flags:
+                --filtering-flag ${sum([int(flag) for flag in str($filter_by_flags.exclude_flags).split(',')])}
+            #end if
+        #end if
+        --GC-depth ${gc_depth}
+        --insert-size ${insert_size}
+        #if str($read_length) != "0":
+            --read-length "${read_length}"
+        #end if
+        --most-inserts ${most_inserts}
+        --trim-quality ${trim_quality}
+        #if $use_reference.use_ref_selector == "yes":
+            #if $use_reference.reference_source.reference_source_selector != "history":
+                --ref-seq "${use_reference.reference_source.ref_file.fields.path}"
+            #else:
+                --ref-seq "${use_reference.reference_source.ref_file}"
+            #end if
+        #end if
+        > "${output}"
+        #if $split_output.split_output_selector == "yes":
+            #set outputs_to_split = str($split_output.generate_tables).split(',')
+            && mkdir split && echo ${split_output.generate_tables} &&
+            #if 'sn' in $outputs_to_split:
+                grep -q ^SN  "${output}" ; if [ $? = 0 ] ; then grep ^SN  "${output}" | cut -f 2- > "split/Summary numbers.tab"  ; fi &&
+            #end if
+            #if 'ffq' in $outputs_to_split:
+                grep -q ^FFQ "${output}" ; if [ $? = 0 ] ; then grep ^FFQ "${output}" | cut -f 2- > "split/First Fragment Qualities.tab" ; fi &&
+            #end if
+            #if 'lfq' in $outputs_to_split:
+                grep -q ^LFQ "${output}" ; if [ $? = 0 ] ; then grep ^LFQ "${output}" | cut -f 2- > "split/Last Fragment Qualities.tab" ; fi &&
+            #end if
+            #if 'mpc' in $outputs_to_split:
+                grep -q ^MPC "${output}" ; if [ $? = 0 ] ; then grep ^MPC "${output}" | cut -f 2- > "split/Mismatches per cycle.tab" ; fi &&
+            #end if
+            #if 'gcf' in $outputs_to_split:
+                grep -q ^GCF "${output}" ; if [ $? = 0 ] ; then grep ^GCF "${output}" | cut -f 2- > "split/GC Content of first fragments.tab" ; fi &&
+            #end if
+            #if 'gcl' in $outputs_to_split:
+                grep -q ^GCL "${output}" ; if [ $? = 0 ] ; then grep ^GCL "${output}" | cut -f 2- > "split/GC Content of last fragments.tab" ; fi &&
+            #end if
+            #if 'gcc' in $outputs_to_split:
+                grep -q ^GCC "${output}" ; if [ $? = 0 ] ; then grep ^GCC "${output}" | cut -f 2- > "split/ACGT content per cycle.tab" ; fi &&
+            #end if
+            #if 'is' in $outputs_to_split:
+                grep -q ^IS  "${output}" ; if [ $? = 0 ] ; then grep ^IS  "${output}" | cut -f 2- > "split/Insert sizes.tab"  ; fi &&
+            #end if
+            #if 'rl' in $outputs_to_split:
+                grep -q ^RL  "${output}" ; if [ $? = 0 ] ; then grep ^RL  "${output}" | cut -f 2- > "split/Read lengths.tab"  ; fi &&
+            #end if
+            #if 'id' in $outputs_to_split:
+                grep -q ^ID  "${output}" ; if [ $? = 0 ] ; then grep ^ID  "${output}" | cut -f 2- > "split/Indel distribution.tab"  ; fi &&
+            #end if
+            #if 'ic' in $outputs_to_split:
+                grep -q ^IC  "${output}" ; if [ $? = 0 ] ; then grep ^IC  "${output}" | cut -f 2- > "split/Indels per cycle.tab"  ; fi &&
+            #end if
+            #if 'cov' in $outputs_to_split:
+                grep -q ^COV "${output}" ; if [ $? = 0 ] ; then grep ^COV "${output}" | cut -f 2- > "split/Coverage distribution.tab" ; fi &&
+            #end if
+            #if 'gcd' in $outputs_to_split:
+                grep -q ^GCD "${output}" ; if [ $? = 0 ] ; then grep ^GCD "${output}" | cut -f 2- > "split/GC depth.tab" ; fi
+            #end if
+        #end if
+        ]]></command>
+    <stdio>
+        <exit_code range="1:" level="fatal" description="Error" />
+    </stdio>
+    <inputs>
+        <param name="input_file" type="data" format="sam,bam" label="BAM file" />
+        <param name="coverage_min" type="integer" value="1" label="Minimum coverage" />
+        <param name="coverage_max" type="integer" value="1000" label="Maximum coverage" />
+        <param name="coverage_step" type="integer" value="1" label="Coverage step" />
+        <param name="remove_dups" type="boolean" truevalue="--remove-dups" falsevalue="" checked="False" label="Exclude reads marked as duplicates" />
+        <conditional name="split_output">
+            <param name="split_output_selector" type="select" label="Output">
+                <option value="no" selected="True">Output to a summary file</option>
+                <option value="yes">Extract separate statistics</option>
+            </param>
+            <when value="no" />
+            <when value="yes">
+                <param name="generate_tables" type="select" display="checkboxes" multiple="True" label="Statistics to extract">
+                    <option value="sn">Summary numbers</option>
+                    <option value="ffq">First Fragment Qualities</option>
+                    <option value="lfq">Last Fragment Qualities</option>
+                    <option value="mpc">Mismatches per cycle</option>
+                    <option value="gcf">GC Content of first fragments</option>
+                    <option value="gcl">GC Content of last fragments</option>
+                    <option value="gcc">ACGT content per cycle</option>
+                    <option value="is">Insert sizes</option>
+                    <option value="rl">Read lengths</option>
+                    <option value="id">Indel distribution</option>
+                    <option value="ic">Indels per cycle</option>
+                    <option value="cov">Coverage distribution</option>
+                    <option value="gcd">GC depth</option>
+                </param>
+            </when>
+        </conditional>
+        <conditional name="filter_by_flags">
+            <param name="filter_flags" type="select" label="Set filter by flags">
+                <option value="nofilter" selected="True">Do not filter</option>
+                <option value="filter">Filter by flags to exclude or require</option>
+            </param>
+            <when value="filter">
+                <param name="require_flags" type="select" display="checkboxes" multiple="True" label="Require">
+                    <option value="1">Read is paired</option>
+                    <option value="2">Read is mapped in a proper pair</option>
+                    <option value="4">The read is unmapped</option>
+                    <option value="8">The mate is unmapped</option>
+                    <option value="16">Read strand</option>
+                    <option value="32">Mate strand</option>
+                    <option value="64">Read is the first in a pair</option>
+                    <option value="128">Read is the second in a pair</option>
+                    <option value="256">The alignment or this read is not primary</option>
+                    <option value="512">The read fails platform/vendor quality checks</option>
+                    <option value="1024">The read is a PCR or optical duplicate</option>
+                </param>
+                <param name="exclude_flags" type="select" display="checkboxes" multiple="True" label="Exclude">
+                    <option value="1">Read is paired</option>
+                    <option value="2">Read is mapped in a proper pair</option>
+                    <option value="4">The read is unmapped</option>
+                    <option value="8">The mate is unmapped</option>
+                    <option value="16">Read strand</option>
+                    <option value="32">Mate strand</option>
+                    <option value="64">Read is the first in a pair</option>
+                    <option value="128">Read is the second in a pair</option>
+                    <option value="256">The alignment or this read is not primary</option>
+                    <option value="512">The read fails platform/vendor quality checks</option>
+                    <option value="1024">The read is a PCR or optical duplicate</option>
+                </param>
+            </when>
+            <when value="nofilter" />
+        </conditional>
+        <param name="gc_depth" type="float" value="2000" label="GC-depth bin size" />
+        <param name="insert_size" type="integer" value="8000" label="Maximum insert size" />
+        <param name="read_group" type="text" optional="true" label="Limit to a specific read group name" />
+        <param name="read_length" type="integer" value="0" optional="true" label="Minimum read length to generate statistics for" />
+        <param name="most_inserts" type="float" value="0.99" label="Report only the main part of inserts" />
+        <param name="trim_quality" type="integer" value="0" label="BWA trim parameter" />
+        <conditional name="use_reference">
+            <param name="use_ref_selector" type="select" label="Use reference sequence">
+                <option value="yes">Use reference</option>
+                <option value="no">Do not use reference</option>
+            </param>
+            <when value="yes">
+                <conditional name="reference_source">
+                    <param name="reference_source_selector" type="select" label="Choose a reference sequence for GC depth">
+                        <option value="cached">Locally cached</option>
+                        <option value="history">History</option>
+                    </param>
+                    <when value="cached">
+                        <param name="ref_file" type="select" label="Using genome">
+                            <options from_data_table="fasta_indexes" />
+                            <filter type="data_meta" ref="input_file" key="dbkey" column="1" />
+                        </param>
+                    </when>
+                    <when value="history">
+                        <param name="ref_file" type="data" format="fasta" label="Using file" />
+                    </when>
+                </conditional>
+            </when>
+            <when value="no" />
+        </conditional>
+    </inputs>
+    <outputs>
+        <data format="tabular" name="output" label="${tool.name} on ${on_string}">
+            <discover_datasets pattern="(?P&lt;designation&gt;.+)\.tab" ext="tabular" visible="true" directory="split" />
+        </data>
+    </outputs>
+    <tests>
+        <test>
+            <param name="input_file" value="phiX.bam" ftype="bam" />
+            <param name="use_ref_selector" value="no" />
+            <output name="output" file="samtools_stats_out1.tab" ftype="tabular" lines_diff="2" />
+        </test>
+        <test>
+            <param name="input_file" value="phiX.bam" ftype="bam" />
+            <param name="use_ref_selector" value="no" />
+            <param name="split_output_selector" value="yes" />
+            <param name="generate_tables" value="sn,gcf,gcl,gcc,cov,gcd" />
+            <output name="output" file="samtools_stats_out2.tab" lines_diff="2">
+                <discovered_dataset designation="Summary numbers" ftype="tabular" file="samtools_stats_out2/sn.tab" />
+                <discovered_dataset designation="GC Content of first fragments" ftype="tabular" file="samtools_stats_out2/gcf.tab" />
+                <discovered_dataset designation="GC Content of last fragments" ftype="tabular" file="samtools_stats_out2/gcl.tab" />
+                <discovered_dataset designation="ACGT content per cycle" ftype="tabular" file="samtools_stats_out2/gcc.tab" />
+                <discovered_dataset designation="Coverage distribution" ftype="tabular" file="samtools_stats_out2/cov.tab" />
+                <discovered_dataset designation="GC depth" ftype="tabular" file="samtools_stats_out2/gcd.tab" />
+            </output>
+        </test>
+    </tests>
+    <help>
+**What it does**
+
+This tool runs the ``samtools stats`` command in the SAMtools toolkit.
+
+Collects statistics from BAM files. The output can be visualized using plot-bamstats.
+
+**Citation**
+
+    <citations>
+        <citation type="doi">10.1093/bioinformatics/btp352</citation>
+    </citations>
+
+
+If you use this tool in Galaxy, please cite Blankenberg D, et al. *In preparation.*
+    </help>
+</tool>
+
