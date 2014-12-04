@@ -1,0 +1,79 @@
+<tool name="AddCommentsToBam" id="picard_AddCommentsToBam" version="1.126.0">
+  <description>add comments to BAM dataset</description>
+  <requirements><requirement type="package" version="1.126.0">picard</requirement></requirements>
+  
+  <macros>
+    <import>picard_macros.xml</import>
+  </macros>
+  
+  <command>
+    @java_options@
+    java -jar \$JAVA_JAR_PATH/picard.jar
+      AddCommentsToBam
+      INPUT="${inputFile}"
+      OUTPUT="${outFile}"
+      #for $element in $comments:
+        COMMENT="${element.comment}"
+      #end for
+      QUIET=true
+      VERBOSITY=ERROR
+      VALIDATION_STRINGENCY=${validation_stringency}
+  </command>
+  
+  <inputs>
+    <param format="bam" name="inputFile" type="data" label="Select SAM/BAM dataset or dataset collection" help="If empty, upload or import a SAM/BAM dataset" />
+    <repeat name="comments" title="Comment" min="1" help="You can provide multiple comments">
+          <param name="comment" type="text" size="50" label="Add this comment to BAM dataset" help="COMMENT"/>
+    </repeat>
+
+    <expand macro="VS" />
+
+  </inputs>
+
+  <outputs>
+    <data name="outFile" format="bam" label="${tool.name} on ${on_string}: BAM with comments"/>
+  </outputs>
+  
+  <stdio>
+    <exit_code range="1:"  level="fatal"/>
+  </stdio>
+  
+  <tests>
+  <test>
+      <param name="inputFile" value="picard_AddCommentsToBam.bam" />
+      <param name="comment" value="test1" />
+      <param name="validation_stringency" value="LENIENT" />
+      <output name="outFile" file="picard_AddCommentsToBam_test1.bam" ftype="bam" />
+    </test>
+  </tests>
+  <help>
+
+.. class:: infomark
+
+**Purpose**
+
+Adds one or more comments (@CO) to the header of a specified BAM dataset.
+
+@dataset_collections@
+
+@description@
+
+  COMMENT=String
+  C=String          Comments to add to the BAM file  This option may be specified 0 or more times. 
+
+@more_info@
+  </help>
+</tool>
+
+
+
+
+
+
+
+
+
+
+
+
+
