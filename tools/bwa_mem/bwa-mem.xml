@@ -1,0 +1,438 @@
+<?xml version="1.0"?>
+<tool id="bwa_mem_0_7_10" name="BWA-MEM" version="bwa-0.7.10-r837-dirty_galaxy_0.2">
+  
+  <macros>
+    <import>bwa_macros.xml</import>
+  </macros>
+  
+  <requirements>
+    <requirement type="package" version="0.7.10.039ea20639">bwa</requirement>
+    <requirement type="package" version="1.1">samtools</requirement>
+  </requirements>
+  <description>- map medium and long reads (&gt; 100 bp) against reference genome</description>
+  <command>
+ 
+    #set $reference_fasta_filename = "localref.fa"
+       
+    #if str( $reference_source.reference_source_selector ) == "history":
+    
+        ln -s "${reference_source.ref_file}" "${reference_fasta_filename}" &amp;&amp;
+        
+        ## The following shell commands decide with of the BWA indexing algorithms (IS or BWTSW) will be run
+        ## depending ob the size of the input FASTA dataset
+        
+           (
+            size=`stat -c %s "${reference_fasta_filename}" 2&gt;/dev/null`;                  ## Linux
+            if [ $? -eq 0 ]; 
+            then
+              if [ \$size -lt 2000000000 ]; 
+              then
+                bwa index -a is "${reference_fasta_filename}";
+                echo "Generating BWA index with is algorithm";
+              else
+                bwa index -a bwtsw "${reference_fasta_filename}";
+                echo "Generating BWA index with bwtsw algorithm";
+              fi;
+            fi;
+
+            eval \$(stat -s "${reference_fasta_filename}");                                  ## OSX
+            if [ $? -eq 0 ];
+            then
+              if [ \$st_size -lt 2000000000 ];
+              then
+                bwa index -a is "${reference_fasta_filename}";
+                echo "Generating BWA index with is algorithm";
+              else
+                bwa index -a bwtsw "${reference_fasta_filename}";
+                echo "Generating BWA index with bwtsw algorithm";
+              fi;
+            fi;
+            ) &amp;&amp;
+             
+    #else:
+        #set $reference_fasta_filename = str( $reference_source.ref_file.fields.path )
+    #end if
+    
+    ## Begin BWA-MEM command line
+    
+    bwa mem
+    -t "\${GALAXY_SLOTS:-1}"
+    -v 1                                                                                      ## Verbosity is set to 1 (errors only)   
+    
+    #if str( $fastq_input.fastq_input_selector ) == "paired_iv":                              ## For interleaved fastq files set -p option
+      -p
+      #if str( $fastq_input.iset_stats ):                                                     ## check that insert statistics is used
+        -I "${fastq_input.iset_stats}"
+      #end if
+    #end if
+    
+    #if str( $analysis_type.analysis_type_selector ) == "pacbio":
+      -x
+                                                                                              
+    #elif str( $analysis_type.analysis_type_selector ) == "full":
+    
+      #if str( $analysis_type.algorithmic_options.algorithmic_options_selector ) == "True":    ## Algorithmic options
+      
+        -k "${analysis_type.algorithmic_options.k}"
+        -w "${analysis_type.algorithmic_options.w}"
+        -d "${analysis_type.algorithmic_options.d}"
+        -r "${analysis_type.algorithmic_options.r}"
+        -y "${analysis_type.algorithmic_options.y}"
+        -c "${analysis_type.algorithmic_options.c}"
+        -D "${analysis_type.algorithmic_options.D}"
+        -W "${analysis_type.algorithmic_options.W}"
+        -m "${analysis_type.algorithmic_options.m}"
+        ${analysis_type.algorithmic_options.S}
+        ${analysis_type.algorithmic_options.P}
+        ${analysis_type.algorithmic_options.e}
+      
+      #end if
+    
+      #if str( $analysis_type.scoring_options.scoring_options_selector ) == "True":             ## Scoring options
+    
+        -A "${analysis_type.scoring_options.A}"
+        -B "${analysis_type.scoring_options.B}"
+        -O "${analysis_type.scoring_options.O}"
+        -E "${analysis_type.scoring_options.E}"
+        -L "${analysis_type.scoring_options.L}"
+        -U "${analysis_type.scoring_options.U}"
+    
+      #end if
+    
+      #if str( $analysis_type.io_options.io_options_selector ) == "True":                       ## IO options
+      
+        -T "${analysis_type.io_options.T}"
+        -h "${analysis_type.io_options.h}"
+        ${analysis_type.io_options.a}
+        ${analysis_type.io_options.C}
+        ${analysis_type.io_options.V}
+        ${analysis_type.io_options.Y}
+        ${analysis_type.io_options.M}
+    
+      #end if
+    
+    #end if
+    
+    #if str( $rg.rg_selector ) == "True":
+      -R "@RG\tID:$rg.ID\tSM:$rg.SM"
+    #end if 
+    
+    #if str( $fastq_input.fastq_input_selector ) == "paired":
+      
+      #if str( $fastq_input.iset_stats ):                   ## check that insert statistics is used
+        -I "${fastq_input.iset_stats}"
+      #end if
+      
+      "${reference_fasta_filename}"
+      
+      "${fastq_input.fastq_input1}" "${fastq_input.fastq_input2}"
+      
+    #elif str( $fastq_input.fastq_input_selector ) == "paired_collection":
+      
+      #if str( $fastq_input.iset_stats ):                   ## check that insert statistics is used
+        -I "${fastq_input.iset_stats}"
+      #end if
+
+      
+      "${reference_fasta_filename}"
+      
+      "${fastq_input.fastq_input1.forward}" "${fastq_input.fastq_input1.reverse}"
+      
+    #else:
+      
+      
+      "${reference_fasta_filename}"
+    
+      "${fastq_input.fastq_input1}"
+    
+    #end if
+    
+    | samtools view -Sb - > temporary_bam_file.bam &amp;&amp;
+    
+    samtools sort -f temporary_bam_file.bam ${bam_output}
+      
+  </command>
+  
+  <inputs>
+
+    <conditional name="reference_source">
+      <param name="reference_source_selector" type="select" label="Load reference genome from">
+        <option value="cached">Local cache</option>
+        <option value="history">History</option>
+      </param>
+      <when value="cached">
+        <param name="ref_file" type="select" label="Using reference genome" help="Select genome from the list">
+          <options from_data_table="bwa_mem_indexes">
+            <filter type="sort_by" column="2" />
+            <validator type="no_options" message="No indexes are available" />
+          </options>
+          <validator type="no_options" message="A built-in reference genome is not available for the build associated with the selected input file"/>
+        </param>
+      </when>
+      <when value="history"> 
+        <param name="ref_file" type="data" format="fasta" label="Use the following dataset as the reference sequence" help="You can upload a FASTA sequence to the history and use it as reference" />
+      </when>
+    </conditional>
+    <conditional name="fastq_input">
+      <param name="fastq_input_selector" type="select" label="Single or Paired-end reads" help="Select between paired and single end data">
+        <option value="paired">Paired</option>
+        <option value="single">Single</option>
+        <option value="paired_collection">Paired Collection</option>
+        <option value="paired_iv">Paired Interleaved</option>
+      </param>
+      <when value="paired">
+        <param name="fastq_input1" type="data" format="fastqsanger" label="Select first set of reads" help="Specify dataset with forward reads"/>
+        <param name="fastq_input2" type="data" format="fastqsanger" label="Select second set of reads" help="Specify dataset with reverse reads"/>
+        <param name="iset_stats" type="text" optional="True" size="10" label="Enter mean, standerd deviation, max, and min for insert lengths." help="-I; This parameter is only used for paired reads. Only mean is required while sd, max, and min will be inferred. Examples: both &quot;250&quot; and &quot;250,25&quot; will work while &quot;250,,10&quot; will not. See below for details.">
+          <sanitizer invalid_char="">
+            <valid initial="string.digits"><add value=","/> </valid>
+          </sanitizer>
+        </param>
+      </when>     
+      <when value="single">
+        <param name="fastq_input1" type="data" format="fastqsanger" label="Select fastq dataset" help="Specify dataset with single reads"/>
+      </when>
+      <when value="paired_collection">
+        <param name="fastq_input1" format="fastqsanger" type="data_collection" collection_type="paired" label="Select a paired collection" help="See help section for an explanation of dataset collections"/>
+        <param name="iset_stats" type="text" optional="True" size="10" label="Enter mean, standerd deviation, max, and min for insert lengths." help="-I; This parameter is only used for paired reads. Only mean is required while sd, max, and min will be inferred. Examples: both &quot;250&quot; and &quot;250,25&quot; will work while &quot;250,,10&quot; will not. See below for details.">
+          <sanitizer invalid_char="">
+            <valid initial="string.digits"><add value=","/> </valid>
+          </sanitizer>
+        </param>
+      </when>
+      <when value="paired_iv">
+        <param name="fastq_input1" type="data" format="fastqsanger" label="Select fastq dataset" help="Specify dataset with interleaved reads"/>    
+        <param name="iset_stats" type="text" optional="True" size="10" label="Enter mean, standerd deviation, max, and min for insert lengths." help="-I; This parameter is only used for paired reads. Only mean is required while sd, max, and min will be inferred. Examples: both &quot;250&quot; and &quot;250,25&quot; will work while &quot;250,,10&quot; will not. See below for details.">
+          <sanitizer invalid_char="">
+            <valid initial="string.digits"><add value=","/> </valid>
+          </sanitizer>
+        </param>    
+      </when>
+    </conditional>
+  
+    
+    <conditional name="rg">
+      <param name="rg_selector" type="select" label="Set read groups information?" help="Specifying readgroup information can greatly simplify your downstream analyses by allowing combining multiple datasets. See help below for more details">
+        <option value="set">Set</option>
+        <option value="do_not_set" selected="True">Do not set</option>
+      </param>
+      <when value="set">
+        <param name="ID" type="text" value="readgroup1" size="20" label="Specify readgroup ID" help="This value must be unique among multiple samples in your experiment">
+          <sanitizer invalid_char="">
+            <valid initial="string.printable"/>
+          </sanitizer>
+        </param>
+        <param name="SM" type="text" value="blood" size="20" label="Specify readgroup sample name (SM)" help="This value should be descriptive">
+          <sanitizer invalid_char="">
+            <valid initial="string.printable"/>
+          </sanitizer>
+        </param>
+      </when>
+      <when value="do_not_set">
+        <!-- do nothing -->
+      </when>
+    </conditional>
+      
+    <conditional name="analysis_type">
+      <param name="analysis_type_selector" type="select" label="Select analysis mode">
+        <option value="illumina">1.Simple Illumina mode</option>
+        <option value="pacbio">2.PacBio mode</option>
+        <option value="full">3.Full list of options</option>
+      </param>
+      <when value="illumina">
+        <!-- do nothing -->
+      </when>
+      <when value="pacbio">
+        <!-- do nothing. all magic happens within <command> tag -->
+      </when>
+      <when value="full">
+        <conditional name="algorithmic_options">
+          <param name="algorithmic_options_selector" type="select" label="Set algorithmic options?" help="Sets -k, -w, -d, -r, -y, -c, -D, -W, -m, -S, -P, and -e options.">
+            <option value="set">Set</option>
+            <option value="do_not_set" selected="True">Do not set</option>
+          </param>
+          <when value="set">
+            <param name="k" type="integer" value="19" label="minimum seed length" help="-k; default=19"/>
+            <param name="w" type="integer" value="100" label="band width for banded alignment" help="-w; default=100"/>
+            <param name="d" type="integer" value="100" label="off-diagonal X-dropoff" help="-d; default=100"/>
+            <param name="r" type="float" value="1.5" label="look for internal seeds inside a seed longer than -k * THIS VALUE" help="-r; default=1.5"/>
+            <param name="y" type="integer" value="0" label="find maximum exact matches (MEMs) longer than -k * -r with size less than THIS VALUE" help="-y;  default=0"/>
+            <param name="c" type="integer" value="500" label="skip seeds with more than that many occurrences" help="-c; default=500"/>
+            <param name="D" type="float" value="0.5" label="drop chains shorter than this fraction of the longest overlapping chain" help="-D; default=0.5"/>
+            <param name="W" type="integer" value="0" label="discard a chain if seeded bases shorter than" help="-W; default=0"/>
+            <param name="m" type="integer" value="50" label="perform at most this many rounds of mate rescues for each read" help="-m; default=50"/>
+            <param name="S" type="boolean" truevalue="-S" falsevalue="" label="skip mate rescue" help="-S"/>
+            <param name="P" type="boolean" truevalue="-P" falsevalue="" label="skip pairing; mate rescue performed unless -S also in use" help="-P"/>
+            <param name="e" type="boolean" truevalue="-e" falsevalue="" label="discard full-length exact matches" help="-e"/>
+          </when>
+          <when value="do_not_set">
+            <!-- do nothing -->
+          </when>
+        </conditional>
+        
+        <conditional name="scoring_options">
+          <param name="scoring_options_selector" type="select" label="Set scoring options?" help="Sets -A, -B, -O, -E, -L, and -U options.">
+            <option value="set">Set</option>
+            <option value="do_not_set" selected="True">Do not set</option>
+          </param>
+          <when value="set">
+            <param name="A" type="integer" value="1" label="score for a sequence match" help="-A; scales options -T, -d, -B, -O, -E, -L, and -U; default=1"/>
+            <param name="B" type="integer" value="4" label="penalty for mismatch" help="-B; default=4"/>
+            <param name="O" type="text" value="6,6" label="gap open penalty for deletions and insertions" help="-O; default=6,6">
+              <sanitizer invalid_char="">
+                <valid initial="string.digits"><add value=","/> </valid>
+              </sanitizer>
+            </param>
+            <param name="E" type="text" value="1,1" label="gap extension penalty; a gap of size k cost &#39;-O + -E*k&#39; " help="-E; default=1,1">
+              <sanitizer invalid_char="">
+                <valid initial="string.digits"><add value=","/> </valid>
+              </sanitizer>
+            </param>
+            <param name="L" type="text" value="5,5" label="penalty for 5&#39;-end and 3&#39;-end clipping" help="-L; default=5,5">
+              <sanitizer invalid_char="">
+                <valid initial="string.digits"><add value=","/> </valid>
+              </sanitizer>
+            </param>
+            <param name="U" type="integer" value="17" label="penalty for an unpaired read pair" help="-U; default=17"/>
+          </when>
+          <when value="do_not_set">
+            <!-- do nothing -->
+          </when>
+        </conditional>
+        
+        <conditional name="io_options">
+          <param name="io_options_selector" type="select" label="Set input/output options" help="Sets -T, -h, -a, -C, -V, -Y, and -M options.">
+            <option value="set">Set</option>
+            <option value="do_not_set" selected="True">Do not set</option>
+          </param>
+          <when value="set">
+            <param name="T" type="integer" value="30" label="minimum score to output" help="-T; default=30"/>
+            <param name="h" type="integer" value="5" label="if there are this many hits with score >80% of the max score, output all in XA tag" help="-h; default=5"/>
+            <param name="a" type="boolean" truevalue="-a" falsevalue="" label="output all alignments for single-ends or unpaired paired-ends" help="-a"/>
+            <param name="C" type="boolean" truevalue="-C" falsevalue="" label="append FASTA/FASTQ comment to BAM output" help="-C"/>
+            <param name="V" type="boolean" truevalue="-V" falsevalue="" label="output the reference FASTA header in the XR tag" help="-C"/>
+            <param name="Y" type="boolean" truevalue="-Y" falsevalue="" label="use soft clipping for supplementary alignments" help="-Y"/>
+            <param name="M" type="boolean" truevalue="-M" falsevalue="" label="mark shorter split hits as secondary" help="-M"/>
+          </when>
+          <when value="do_not_set">
+            <!-- do nothing -->
+          </when>
+        </conditional>
+      </when>
+    </conditional>
+  </inputs>
+  
+  <outputs>
+    <data format="bam" name="bam_output" label="${tool.name} on ${on_string} (mapped reads in BAM format)"/>
+  </outputs>
+  
+  <tests>
+    <test>
+      <param name="reference_source_selector" value="history" />
+      <param name="ref_file" ftype="fasta" value="bwa-mem-mt-genome.fa"/>
+      <param name="fastq_input_selector" value="paired"/>
+      <param name="fastq_input1" ftype="fastqsanger" value="bwa-mem-fastq1.fq"/>
+      <param name="fastq_input2" ftype="fastqsanger" value="bwa-mem-fastq2.fq"/>
+      <param name="analysis_type_selector" value="illumina"/>
+      <output name="bam_output" ftype="bam" file="bwa-mem-test1.bam" lines_diff="2" />
+    </test>
+  </tests>
+  <stdio>
+    <exit_code range="1:" />
+  </stdio>
+  <help>
+    
+**What is does**
+
+From http://arxiv.org/abs/1303.3997:
+
+BWA-MEM is a new alignment algorithm for aligning sequence reads or long query sequences against a large reference genome such as human.
+It automatically chooses between local and end-to-end alignments, supports paired-end reads and performs chimeric alignment.
+The algorithm is robust to sequencing errors and applicable to a wide range of sequence lengths from 70bp to a few megabases.
+For mapping 100bp sequences, BWA-MEM shows better performance than several state-of-art read aligners to date.
+
+It is best suited for mapping long (>70 nt) reads against large reference genomes.
+
+This Galaxy tool wraps bwa-mem module of bwa read mapping tool. Galaxy implementation takes fastq files as input and produces output in BAM (not SAM) format, which can be further processed using various BAM utilities exiting in Galaxy (BAMTools, SAMTools, Picard).
+
+-----
+
+**Galaxy-specific option**
+
+Galaxy allows four levels of control over bwa-mem options provided by **Select analysis mode** menu option. These are:
+
+  1. *Simple Illumina mode*: The simplest possible bwa mem application in which it alignes single or paired-end data to reference using default parameters. It is equivalent to the following command: bwa mem &lt;reference index&gt; &lt;fastq dataset1&gt; [fastq dataset2]
+  2. *PacBio mode*: The mode adjusted specifically for mapping of long PacBio subreads. Equivalent to the following command: bwa mem -k17 -W40 -r10 -A1 -B1 -O1 -E1 -L0  &lt;reference index&gt; &lt;PacBio dataset in fastq format&gt;
+  3. *Full list of options*: Allows access to all options through Galaxy interface.
+  
+------
+
+**BWA MEM options**
+
+Each Galaxy parameter widget corresponds to command line flags listed below:
+
+Algorithm options::
+
+       -k INT        minimum seed length [19]
+       -w INT        band width for banded alignment [100]
+       -d INT        off-diagonal X-dropoff [100]
+       -r FLOAT      look for internal seeds inside a seed longer than {-k} * FLOAT [1.5]
+       -y INT        find MEMs longer than {-k} * {-r} with size less than INT [0]
+       -c INT        skip seeds with more than INT occurrences [500]
+       -D FLOAT      drop chains shorter than FLOAT fraction of the longest overlapping chain [0.50]
+       -W INT        discard a chain if seeded bases shorter than INT [0]
+       -m INT        perform at most INT rounds of mate rescues for each read [50]
+       -S            skip mate rescue
+       -P            skip pairing; mate rescue performed unless -S also in use
+       -e            discard full-length exact matches
+
+Scoring options::
+
+       -A INT        score for a sequence match, which scales options -TdBOELU unless overridden [1]
+       -B INT        penalty for a mismatch [4]
+       -O INT[,INT]  gap open penalties for deletions and insertions [6,6]
+       -E INT[,INT]  gap extension penalty; a gap of size k cost '{-O} + {-E}*k' [1,1]
+       -L INT[,INT]  penalty for 5'- and 3'-end clipping [5,5]
+       -U INT        penalty for an unpaired read pair [17]
+
+Input/output options::
+
+       -p            first query file consists of interleaved paired-end sequences
+       -R STR        read group header line such as '@RG\tID:foo\tSM:bar' [null]
+
+       -v INT        verbose level: 1=error, 2=warning, 3=message, 4+=debugging [3]
+       -T INT        minimum score to output [30]
+       -h INT        if there are &lt;INT hits with score &gt;80% of the max score, output all in XA [5]
+       -a            output all alignments for SE or unpaired PE
+       -C            append FASTA/FASTQ comment to SAM output
+       -V            output the reference FASTA header in the XR tag
+       -Y            use soft clipping for supplementary alignments
+       -M            mark shorter split hits as secondary
+
+       -I FLOAT[,FLOAT[,INT[,INT]]]
+                     specify the mean, standard deviation (10% of the mean if absent), max
+                     (4 sigma from the mean if absent) and min of the insert size distribution.
+                     FR orientation only. [inferred]
+                     
+
+@dataset_collections@
+
+@RG@
+
+@info@
+
+  
+    
+  </help>
+  <citations>
+    <citation type="doi">10.1093/bioinformatics/btp324</citation>
+    <citation type="doi">10.1093/bioinformatics/btp698</citation>
+    <citation type="bibtex">@misc{1303.3997,
+Author = {Heng Li},
+Title = {Aligning sequence reads, clone sequences and assembly contigs with BWA-MEM},
+Year = {2013},
+Eprint = {arXiv:1303.3997},
+url = {http://arxiv.org/abs/1303.3997},
+}</citation>
+  </citations>
+</tool>
