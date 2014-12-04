@@ -8,7 +8,9 @@ The repo's main goals are to:
   * simplify the maintenance of these tools
   * provide learning environment to Galaxy Tool developers
 
-If you want to contribute to this repository please see file [CONTRIBUTING.md](CONTRIBUTING.md)
+If you want to contribute to this repository please see file [CONTRIBUTING.md](CONTRIBUTING.md).
+
+Wraping tools for use in Galaxy is easy! If you want to start please see [our wiki](https://wiki.galaxyproject.org/Admin/Tools/AddToolTutorial).
 
 Other repositories with high quality tools:
  * [IUC repo](https://github.com/galaxyproject/tools-iuc)
