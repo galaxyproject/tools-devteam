@@ -1,5 +1,5 @@
-<tool name="FastQC:Read QC" id="fastqc" version="0.62">
-    <description>reports using FastQC</description>
+<tool id="fastqc" name="FastQC" version="0.11.2-galaxy-1">
+    <description>Read Quality reports</description>
     <requirements>
         <requirement type="package" version="0.11.2">FastQC</requirement>
     </requirements>
@@ -15,7 +15,6 @@
         -d "$html_file.files_path"
         -o "$html_file"
         -t "$text_file"
-        -n "$out_prefix"
         -f "$input_file.ext"
         -j "$input_file.name"
         -e "\$FASTQC_JAR_PATH/fastqc"
@@ -28,32 +27,24 @@
     </command>
     <inputs>
         <param format="fastqsanger,fastq,bam,sam" name="input_file" type="data" label="Short read data from your current history" />
-        <param name="out_prefix" value="FastQC" type="text" label="Title for the output file - to remind you what the job was for" size="80"
-          help="Letters and numbers only please - other characters will be removed">
-        <sanitizer invalid_char="">
-            <valid initial="string.letters,string.digits"/>
-        </sanitizer>
-        </param>
         <param name="contaminants" type="data" format="tabular" optional="true" label="Contaminant list" 
             help="tab delimited file with 2 columns: name and sequence.  For example: Illumina Small RNA RT Primer CAAGCAGAAGACGGCATACGA"/>
         <param name="limits" type="data" format="txt" optional="true" label="Submodule and Limit specifing file"
             help="a file that specifies which submodules are to be executed (default=all) and also specifies the thresholds for the each submodules warning parameter" />
     </inputs>
     <outputs>
-        <data format="html" name="html_file"  label="${out_prefix}_${input_file.name}_Webpage.html" />
-        <data format="txt" name="text_file"  label="${out_prefix}_${input_file.name}_RawData.txt" />
+        <data format="html" name="html_file" label="${tool.name} on ${on_string} Webpage" />
+        <data format="txt" name="text_file"  label="${tool.name} on ${on_string} RawData" />
     </outputs>
     <tests>
         <test>
             <param name="input_file" value="1000gsample.fastq" />
-            <param name="out_prefix" value="fastqc_out" />
             <param name="contaminants" value="fastqc_contaminants.txt" ftype="tabular" />
             <output name="html_file" file="fastqc_report.html" ftype="html" lines_diff="100"/>
             <output name="text_file" file="fastqc_data.txt" ftype="txt" lines_diff="100"/>
         </test>
         <test>
             <param name="input_file" value="1000gsample.fastq" />
-            <param name="out_prefix" value="fastqc_out" />
             <param name="limits" value="fastqc_customlimits.txt" ftype="txt" />
             <output name="html_file" file="fastqc_report2.html" ftype="html" lines_diff="100"/>
             <output name="text_file" file="fastqc_data2.txt" ftype="txt" lines_diff="100"/>
