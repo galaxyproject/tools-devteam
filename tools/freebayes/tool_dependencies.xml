@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<tool_dependency>
+    <package name="freebayes" version="ffreebayes-0.9.18_0059bdf">
+        <repository changeset_revision="NEED TO BE UPDATED" name="freebayes-0.9.18_0059bdf" owner="devteam" toolshed="http://toolshed.g2.bx.psu.edu" />
+    </package>
+    <package name="samtools" version="0.1.18">
+        <repository changeset_revision="171cd8bc208d" name="package_samtools_0_1_18" owner="devteam" toolshed="http://toolshed.g2.bx.psu.edu" />
+    </package>
+</tool_dependency>
