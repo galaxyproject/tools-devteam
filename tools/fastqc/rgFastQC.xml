@@ -33,8 +33,8 @@
             help="a file that specifies which submodules are to be executed (default=all) and also specifies the thresholds for the each submodules warning parameter" />
     </inputs>
     <outputs>
-        <data format="html" name="html_file" label="${tool.name} on ${on_string} Webpage" />
-        <data format="txt" name="text_file"  label="${tool.name} on ${on_string} RawData" />
+        <data format="html" name="html_file" label="${tool.name} on ${on_string}: Webpage" />
+        <data format="txt" name="text_file"  label="${tool.name} on ${on_string}: RawData" />
     </outputs>
     <tests>
         <test>
