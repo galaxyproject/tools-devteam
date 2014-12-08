@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <tool id="freebayes" name="FreeBayes" version="freebayes-0.3">
   <requirements>
-    <requirement type="package" version="freebayes-0.9.18_0059bdf">freebayes</requirement>
+    <requirement type="package" version="0.9.18_0059bdf">freebayes</requirement>
     <requirement type="package" version="0.1.18">samtools</requirement>
   </requirements>
   <description> - bayesian genetic variant detector</description>
@@ -298,7 +298,7 @@
         <repeat name="input_bams" title="Sample BAM file" min="1">
           <param name="input_bam" type="data" format="bam" label="BAM file" />
         </repeat>
-        <param name="ref_file" type="data" format="fasta" label="Use the folloing dataset as the reference sequence" help="You can upload a FASTA sequence to the history and use it as reference" />
+        <param name="ref_file" type="data" format="fasta" label="Use the following dataset as the reference sequence" help="You can upload a FASTA sequence to the history and use it as reference" />
       </when>
     </conditional>
     
