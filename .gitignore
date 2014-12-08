@@ -49,3 +49,6 @@ nosetests.xml
 *.bz2
 .hg
 *.swp
+
+# Tool test outputs.
+*tool_test_output*
