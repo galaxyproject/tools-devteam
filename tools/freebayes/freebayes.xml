@@ -284,13 +284,12 @@
         <repeat name="input_bams" title="Sample BAM file" min="1">
             <param name="input_bam" type="data" format="bam" label="BAM file">
               <validator type="unspecified_build" />
-              <validator type="dataset_metadata_in_data_table" table_name="sam_fa_indexes" metadata_name="dbkey" metadata_column="1" message="Sequences are not currently available for the specified build." />
+              <validator type="dataset_metadata_in_data_table" table_name="fasta_indexes" metadata_name="dbkey" metadata_column="1" message="Sequences are not currently available for the specified build." />
             </param>
         </repeat>
+        
         <param name="ref_file" type="select" label="Using reference genome">
-          <options from_data_table="sam_fa_indexes">
-            <!-- <filter type="sam_fa_indexes" key="dbkey" ref="input_bam" column="value"/> does not yet work in a repeat...--> 
-          </options>
+          <options from_data_table="fasta_indexes"></options>
           <validator type="no_options" message="A built-in reference genome is not available for the build associated with the selected input file"/>
         </param>
       </when>
