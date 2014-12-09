@@ -1,4 +1,4 @@
-<tool id="fastqc" name="FastQC" version="0.11.2-galaxy-1">
+<tool id="fastqc" name="FastQC" version="0.63">
     <description>Read Quality reports</description>
     <requirements>
         <requirement type="package" version="0.11.2">FastQC</requirement>
