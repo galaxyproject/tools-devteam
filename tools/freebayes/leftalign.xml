@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<tool id="bamleftalign" name="BamLeftAlign" version="0.0.2">
+<tool id="bamleftalign" name="BamLeftAlign" version="0.3">
   <requirements>
-    <requirement type="package" version="freebayes-0.9.14_8a407cf5f4">freebayes</requirement>
+    <requirement type="package" version="0.9.18_0059bdf">freebayes</requirement>
     <requirement type="package" version="0.1.18">samtools</requirement>
   </requirements>
   <description> indels in BAM datasets</description>
@@ -34,16 +34,14 @@
       <when value="cached">
             <param name="input_bam" type="data" format="bam" label="Select BAM dataset to leftalign">
               <validator type="unspecified_build" />
-              <validator type="dataset_metadata_in_data_table" table_name="sam_fa_indexes" metadata_name="dbkey" metadata_column="1" message="Sequences are not currently available for the specified build." />
+              <validator type="dataset_metadata_in_data_table" table_name="fasta_indexes" metadata_name="dbkey" metadata_column="1" message="Sequences are not currently available for the specified build." />
             </param>
         <param name="ref_file" type="select" label="Using reference genome">
-          <options from_data_table="sam_fa_indexes">
-            <!--<filter type="data_meta" key="dbkey" ref="input_bam" column="value"/>-->
-          </options>
+          <options from_data_table="fasta_indexes"></options>
           <validator type="no_options" message="A built-in reference genome is not available for the build associated with the selected input file"/>
         </param>
       </when>
-      <when value="history"> <!-- FIX ME!!!! -->
+      <when value="history"> 
             <param name="input_bam" type="data" format="bam" label="BAM dataset to re-align" />
         <param name="ref_file" type="data" format="fasta" label="Using reference file" />
       </when>
@@ -70,6 +68,16 @@
 When calling indels, it is important to homogenize the positional distribution of insertions and deletions in the input by using left realignment. Left realignment will place all indels in homopolymer and microsatellite repeats at the same position, provided that doing so does not introduce mismatches between the read and reference other than the indel. This method is computationally inexpensive and handles the most common classes of alignment inconsistency.
 
 This is leftalign utility from FreeBayes package developed and maintained by Erik Garrison (https://github.com/ekg/freebayes).
+
+  <citations>
+    <citation type="bibtex">@misc{1207.3907,
+Author = {Erik Garrison},
+Title = {Haplotype-based variant detection from short-read sequencing},
+Year = {2012},
+Eprint = {arXiv:1207.3907},
+url = {http://arxiv.org/abs/1207.3907},
+}</citation>
+  </citations>
 
   </help>
 </tool>

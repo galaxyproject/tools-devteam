@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <tool_dependency>
-    <package name="freebayes" version="freebayes-0.9.14_8a407cf5f4">
-        <repository name="freebayes_0_9_14_8a407cf5f4" owner="devteam" />
+    <package name="freebayes" version="0.9.18_0059bdf">
+        <repository name="freebayes-0.9.18_0059bdf" owner="devteam" />
     </package>
     <package name="samtools" version="0.1.18">
         <repository name="package_samtools_0_1_18" owner="devteam" />
