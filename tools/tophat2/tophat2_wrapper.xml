@@ -356,44 +356,56 @@
             Replace the + with double-dash
             Rename the files in tmp_dir appropriately
             -->
-            <param name="sPaired" value="single"/>
-            <param name="input1" ftype="fastqsanger" value="tophat_in2.fastqsanger"/>
+            <conditional name="singlePaired">
+              <param name="sPaired" value="single"/>
+              <param name="input1" ftype="fastqsanger" value="tophat_in2.fastqsanger"/>
+            </conditional>
             <param name="genomeSource" value="history"/>
             <param name="ownFile" value="tophat_in1.fasta"/>
-            <param name="settingsType" value="full"/>
-            <param name="library_type" value="FR Unstranded"/>
-            <param name="read_mismatches" value="2"/>
-            <param name="bowtie_n" value="No"/>
-            <param name="anchor_length" value="8"/>
-            <param name="splice_mismatches" value="0"/>
-            <param name="min_intron_length" value="70"/>
-            <param name="max_intron_length" value="500000"/>
-            <param name="max_multihits" value="40"/>
-            <param name="min_segment_intron" value="50" />
-            <param name="max_segment_intron" value="500000" />
-            <param name="seg_mismatches" value="2"/>
-            <param name="seg_length" value="25"/>
-            <param name="allow_indel_search" value="Yes"/>
-            <param name="max_insertion_length" value="3"/>
-            <param name="max_deletion_length" value="3"/>
-            <param name="use_junctions" value="Yes" />
-            <param name="use_annotations" value="No" />
-            <param name="use_juncs" value="No" />
-            <param name="no_novel_juncs" value="No" />
-            <param name="use_search" value="Yes" />
-            <param name="min_coverage_intron" value="50" />
-            <param name="max_coverage_intron" value="20000" />
-            <param name="microexon_search" value="Yes" />
-            <param name="b2_settings" value="No" />
-            <!-- Fusion search params -->
-            <param name="do_search" value="Yes" />            
-            <param name="anchor_len" value="21" />
-            <param name="min_dist" value="10000021" />
-            <param name="read_mismatches" value="3" />
-            <param name="multireads" value="4" />
-            <param name="multipairs" value="5" />
-            <param name="ignore_chromosomes" value="chrM"/>
-            <param name="specReadGroup" value="No" />
+            <conditional name="params">
+              <param name="settingsType" value="full"/>
+              <param name="library_type" value="FR Unstranded"/>
+              <param name="read_mismatches" value="2"/>
+              <param name="bowtie_n" value="No"/>
+              <param name="anchor_length" value="8"/>
+              <param name="splice_mismatches" value="0"/>
+              <param name="min_intron_length" value="70"/>
+              <param name="max_intron_length" value="500000"/>
+              <param name="max_multihits" value="40"/>
+              <param name="min_segment_intron" value="50" />
+              <param name="max_segment_intron" value="500000" />
+              <param name="seg_mismatches" value="2"/>
+              <param name="seg_length" value="25"/>
+              <param name="allow_indel_search" value="Yes"/>
+              <param name="max_insertion_length" value="3"/>
+              <param name="max_deletion_length" value="3"/>
+              <param name="use_junctions" value="Yes" />
+              <param name="use_annotations" value="No" />
+              <param name="use_juncs" value="No" />
+              <param name="no_novel_juncs" value="No" />
+              <conditional name="coverage_search">
+                <param name="use_search" value="Yes" />
+                <param name="min_coverage_intron" value="50" />
+                <param name="max_coverage_intron" value="20000" />
+              </conditional>
+              <param name="microexon_search" value="Yes" />
+              <conditional name="bowtie2_settings">
+                <param name="b2_settings" value="No" />
+              </conditional>
+              <!-- Fusion search params -->
+              <conditional name="fusion_search">
+                <param name="do_search" value="Yes" />
+                <param name="anchor_len" value="21" />
+                <param name="min_dist" value="10000021" />
+                <param name="read_mismatches" value="3" />
+                <param name="multireads" value="4" />
+                <param name="multipairs" value="5" />
+                <param name="ignore_chromosomes" value="chrM"/>
+              </conditional>
+            </conditional>
+            <conditional name="readGroup">
+              <param name="specReadGroup" value="No" />
+            </conditional>
             <output name="insertions" file="tophat_out3i.bed" />
             <output name="deletions" file="tophat_out3d.bed" />
             <output name="junctions" file="tophat2_out3j.bed" />
@@ -406,49 +418,62 @@
             Replace the + with double-dash
             Rename the files in tmp_dir appropriately
             -->
-            <param name="sPaired" value="paired"/>
-            <param name="input1" ftype="fastqsanger" value="tophat_in2.fastqsanger"/>
-            <param name="input2" ftype="fastqsanger" value="tophat_in3.fastqsanger"/>
+            <conditional name="singlePaired">            
+              <param name="sPaired" value="paired"/>
+              <param name="input1" ftype="fastqsanger" value="tophat_in2.fastqsanger"/>
+              <param name="input2" ftype="fastqsanger" value="tophat_in3.fastqsanger"/>
+              <param name="mate_inner_distance" value="20"/>
+              <param name="report_discordant_pairs" value="Yes" />
+            </conditional>
             <param name="genomeSource" value="indexed"/>
             <param name="index" value="tophat_test"/>
-            <param name="mate_inner_distance" value="20"/>
-            <param name="settingsType" value="full"/>
-            <param name="library_type" value="FR Unstranded"/>
-            <param name="read_mismatches" value="5"/>
-            <param name="bowtie_n" value="Yes"/>
-            <param name="mate_std_dev" value="20"/>
-            <param name="anchor_length" value="8"/>
-            <param name="splice_mismatches" value="0"/>
-            <param name="min_intron_length" value="70"/>
-            <param name="max_intron_length" value="500000"/>
-            <param name="max_multihits" value="40"/>
-            <param name="min_segment_intron" value="50" />
-            <param name="max_segment_intron" value="500000" />
-            <param name="seg_mismatches" value="2"/>
-            <param name="seg_length" value="25"/>
-            <param name="allow_indel_search" value="No"/>
-            <param name="use_junctions" value="Yes" />
-            <param name="use_annotations" value="No" />
-            <param name="use_juncs" value="No" />
-            <param name="no_novel_juncs" value="No" />
-            <param name="report_discordant_pairs" value="Yes" />
-            <param name="use_search" value="No" />
-            <param name="microexon_search" value="Yes" />
-            <param name="b2_settings" value="No" />
-            <!-- Fusion search params -->
-            <param name="do_search" value="Yes" />            
-            <param name="anchor_len" value="21" />
-            <param name="min_dist" value="10000021" />
-            <param name="read_mismatches" value="3" />
-            <param name="multireads" value="4" />
-            <param name="multipairs" value="5" />
-            <param name="ignore_chromosomes" value="chrM"/>
-            <param name="specReadGroup" value="No" />
+            <conditional name="params">
+              <param name="settingsType" value="full"/>
+              <param name="library_type" value="FR Unstranded"/>
+              <param name="read_mismatches" value="5"/>
+              <!-- Error: the read mismatches (5) and the read gap length (2) should be less than or equal to the read edit dist (2) -->
+              <param name="read_edit_dist" value="5" />
+              <param name="bowtie_n" value="Yes"/>
+              <param name="mate_std_dev" value="20"/>
+              <param name="anchor_length" value="8"/>
+              <param name="splice_mismatches" value="0"/>
+              <param name="min_intron_length" value="70"/>
+              <param name="max_intron_length" value="500000"/>
+              <param name="max_multihits" value="40"/>
+              <param name="min_segment_intron" value="50" />
+              <param name="max_segment_intron" value="500000" />
+              <param name="seg_mismatches" value="2"/>
+              <param name="seg_length" value="25"/>
+              <param name="allow_indel_search" value="No"/>
+              <param name="use_junctions" value="Yes" />
+              <param name="use_annotations" value="No" />
+              <param name="use_juncs" value="No" />
+              <param name="no_novel_juncs" value="No" />
+              <conditional name="coverage_search">
+                <param name="use_search" value="No" />
+              </conditional>
+              <param name="microexon_search" value="Yes" />
+              <conditional name="bowtie2_settings">
+                <param name="b2_settings" value="No" />
+              </conditional>
+              <!-- Fusion search params -->
+              <conditional name="fusion_search">
+                <param name="do_search" value="Yes" />            
+                <param name="anchor_len" value="21" />
+                <param name="min_dist" value="10000021" />
+                <param name="read_mismatches" value="3" />
+                <param name="multireads" value="4" />
+                <param name="multipairs" value="5" />
+                <param name="ignore_chromosomes" value="chrM"/>
+              </conditional>
+            </conditional>
+            <conditional name="readGroup">
+              <param name="specReadGroup" value="No" />
+            </conditional>
             <output name="junctions" file="tophat2_out4j.bed" />
             <output name="accepted_hits" file="tophat_out4h.bam" compare="sim_size" />
         </test>
     </tests>
-
     <help>
 **Tophat Overview**
 
