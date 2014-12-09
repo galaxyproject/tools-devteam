@@ -376,13 +376,23 @@
               <param name="max_segment_intron" value="500000" />
               <param name="seg_mismatches" value="2"/>
               <param name="seg_length" value="25"/>
-              <param name="allow_indel_search" value="Yes"/>
-              <param name="max_insertion_length" value="3"/>
-              <param name="max_deletion_length" value="3"/>
-              <param name="use_junctions" value="Yes" />
-              <param name="use_annotations" value="No" />
-              <param name="use_juncs" value="No" />
-              <param name="no_novel_juncs" value="No" />
+              <conditional name="indel_search">
+                <param name="allow_indel_search" value="Yes"/>
+                <param name="max_insertion_length" value="3"/>
+                <param name="max_deletion_length" value="3"/>
+              </conditional>
+              <conditional name="own_junctions">
+                <param name="use_junctions" value="Yes" />
+                <conditional name="gene_model_ann">
+                  <param name="use_annotations" value="No" />
+                </conditional>
+                <conditional name="raw_juncs">
+                  <param name="use_juncs" value="No" />
+                </conditional>
+                <conditional name="no_novel_juncs">
+                  <param name="no_novel_juncs" value="No" />
+                </conditional>
+              </conditional>
               <conditional name="coverage_search">
                 <param name="use_search" value="Yes" />
                 <param name="min_coverage_intron" value="50" />
@@ -444,11 +454,21 @@
               <param name="max_segment_intron" value="500000" />
               <param name="seg_mismatches" value="2"/>
               <param name="seg_length" value="25"/>
-              <param name="allow_indel_search" value="No"/>
-              <param name="use_junctions" value="Yes" />
-              <param name="use_annotations" value="No" />
-              <param name="use_juncs" value="No" />
-              <param name="no_novel_juncs" value="No" />
+              <conditional name="indel_search">
+                <param name="allow_indel_search" value="No"/>
+              </conditional>
+              <conditional name="own_junctions">
+                <param name="use_junctions" value="Yes" />
+                <conditional name="gene_model_ann">
+                  <param name="use_annotations" value="No" />
+                </conditional>
+                <conditional name="raw_juncs">
+                  <param name="use_juncs" value="No" />
+                </conditional>
+                <conditional name="no_novel_juncs">
+                  <param name="no_novel_juncs" value="No" />
+                </conditional>
+              </conditional>
               <conditional name="coverage_search">
                 <param name="use_search" value="No" />
               </conditional>
