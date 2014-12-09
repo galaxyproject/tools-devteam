@@ -1,4 +1,4 @@
-<tool id="tophat2" name="Tophat2" version="0.6">
+<tool id="tophat2" name="Tophat2" version="0.7">
     <!-- Wrapper compatible with Tophat version 2.0.0+ -->
     <description>Gapped-read mapper for RNA-seq data</description>
     <version_command>tophat2 --version</version_command>
@@ -111,7 +111,7 @@
         #end if
 
         ## Set index path, inputs and parameters specific to paired data.
-        #if $singlePaired.sPaired == "paired"
+        #if $singlePaired.sPaired != "single"
             -r $singlePaired.mate_inner_distance
             --mate-std-dev=$singlePaired.mate_std_dev
             
@@ -119,9 +119,13 @@
                 --no-discordant
             #end if
 
-            ${index_path} $singlePaired.input1 $singlePaired.input2
+            #if $singlePaired.sPaired == "paired"
+              ${index_path} "$singlePaired.input1" "$singlePaired.input2"
+            #else
+              ${index_path} "$singlePaired.input.forward" "$singlePaired.input.reverse"
+            #end if
         #else
-            ${index_path} $singlePaired.input1
+            ${index_path} "$singlePaired.input1"
         #end if
     </command>
     
@@ -129,7 +133,8 @@
         <conditional name="singlePaired">
             <param name="sPaired" type="select" label="Is this library mate-paired?">
               <option value="single">Single-end</option>
-              <option value="paired">Paired-end</option>
+              <option value="paired">Paired-end (as individual datasets)</option>
+              <option value="paired_collection">Paired-end (as collection)</option>
             </param>
             <when value="single">
                 <param format="fastqsanger" name="input1" type="data" label="RNA-Seq FASTQ file" help="Nucleotide-space: Must have Sanger-scaled quality values with ASCII offset 33"/>
@@ -137,13 +142,11 @@
             <when value="paired">
                 <param format="fastqsanger" name="input1" type="data" label="RNA-Seq FASTQ file, forward reads" help="Nucleotide-space: Must have Sanger-scaled quality values with ASCII offset 33" />
                 <param format="fastqsanger" name="input2" type="data" label="RNA-Seq FASTQ file, reverse reads" help="Nucleotide-space: Must have Sanger-scaled quality values with ASCII offset 33" />
-                <param name="mate_inner_distance" type="integer" value="300" label="Mean Inner Distance between Mate Pairs" />
-                <param name="mate_std_dev" type="integer" value="20" label="Std. Dev for Distance between Mate Pairs"  help="The standard deviation for the distribution on inner distances between mate pairs."/>
-                <!-- Discordant pairs. -->
-                <param name="report_discordant_pairs" type="select" label="Report discordant pair alignments?">
-                    <option value="No">No</option>
-                    <option selected="True" value="Yes">Yes</option>
-                </param>
+                <expand macro="paired_parameters" />
+            </when>
+            <when value="paired_collection">
+                <param format="fastqsanger" name="input" type="data_collection" collection_type="paired" label="RNA-Seq FASTQ paired reads" help="Nucleotide-space: Must have Sanger-scaled quality values with ASCII offset 33" />
+                <expand macro="paired_parameters" />
             </when>
         </conditional>
         <expand macro="refGenomeSourceConditional">
@@ -293,6 +296,15 @@
 
     <macros>
       <import>tophat_macros.xml</import>
+      <xml name="paired_parameters">
+        <param name="mate_inner_distance" type="integer" value="300" label="Mean Inner Distance between Mate Pairs" />
+        <param name="mate_std_dev" type="integer" value="20" label="Std. Dev for Distance between Mate Pairs"  help="The standard deviation for the distribution on inner distances between mate pairs."/>
+        <!-- Discordant pairs. -->
+        <param name="report_discordant_pairs" type="select" label="Report discordant pair alignments?">
+            <option value="No">No</option>
+            <option selected="True" value="Yes">Yes</option>
+        </param>
+      </xml>
       <macro name="dbKeyActions">
         <actions>
           <conditional name="refGenomeSource.genomeSource">
@@ -340,6 +352,23 @@
             <param name="sPaired" value="paired" />
             <param name="input1" ftype="fastqsanger" value="tophat_in2.fastqsanger" />
             <param name="input2" ftype="fastqsanger" value="tophat_in3.fastqsanger" />
+            <param name="genomeSource" value="history" />
+            <param name="ownFile" ftype="fasta" value="tophat_in1.fasta" />
+            <param name="mate_inner_distance" value="20" />
+            <param name="settingsType" value="preSet" />
+            <param name="specReadGroup" value="No" />
+            <output name="junctions" file="tophat2_out2j.bed" />
+            <output name="accepted_hits" file="tophat_out2h.bam" compare="sim_size" />
+        </test>
+        <test>
+            <!-- Same test as above but with a collection. -->
+            <param name="sPaired" value="paired_collection" />
+            <param name="input">
+              <collection type="paired">
+                <element name="forward" value="tophat_in2.fastqsanger" ftype="fastqsanger" />
+                <element name="reverse" value="tophat_in3.fastqsanger" ftype="fastqsanger" />
+              </collection>
+            </param>
             <param name="genomeSource" value="history" />
             <param name="ownFile" ftype="fasta" value="tophat_in1.fasta" />
             <param name="mate_inner_distance" value="20" />
