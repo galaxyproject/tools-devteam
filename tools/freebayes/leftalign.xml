@@ -68,16 +68,18 @@
 When calling indels, it is important to homogenize the positional distribution of insertions and deletions in the input by using left realignment. Left realignment will place all indels in homopolymer and microsatellite repeats at the same position, provided that doing so does not introduce mismatches between the read and reference other than the indel. This method is computationally inexpensive and handles the most common classes of alignment inconsistency.
 
 This is leftalign utility from FreeBayes package developed and maintained by Erik Garrison (https://github.com/ekg/freebayes).
+  </help>
 
   <citations>
-    <citation type="bibtex">@misc{1207.3907,
-Author = {Erik Garrison},
-Title = {Haplotype-based variant detection from short-read sequencing},
-Year = {2012},
-Eprint = {arXiv:1207.3907},
-url = {http://arxiv.org/abs/1207.3907},
-}</citation>
+    <citation type="bibtex">
+      @misc{1207.3907,
+      Author = {Erik Garrison},
+      Title = {Haplotype-based variant detection from short-read sequencing},
+      Year = {2012},
+      Eprint = {arXiv:1207.3907},
+      url = {http://arxiv.org/abs/1207.3907}
+      }
+    </citation>
   </citations>
 
-  </help>
 </tool>
