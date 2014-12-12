@@ -1,0 +1,75 @@
+<tool id="samtools_idxstats" name="Mapping statistics" version="1.0.0">
+    <description>for a BAM file</description>
+    <requirements>
+        <requirement type="package" version="1.1">samtools</requirement>
+    </requirements>
+    <version_command>samtools --version | head -n 1 | awk '{ print $2 }'</version_command>
+    <command><![CDATA[
+if [ ! -f "${input}.bai" ] ; then
+    ln -s "${input}" input.bam ;
+    samtools sort -o sorted.bam -O bam -T sts "${input}" ;
+    samtools index sorted.bam ;
+    samtools idxstats sorted.bam > "${output}" ;
+else
+    samtools idxstats "${input}" > "${output}" ;
+fi]]></command>
+    <stdio>
+        <exit_code range="1:" level="fatal" description="Error" />
+    </stdio>
+    <inputs>
+        <param name="input" type="data" format="bam" label="BAM file" />
+    </inputs>
+    <outputs>
+        <data format="tabular" name="output" label="${tool.name} on ${on_string}" />
+    </outputs>
+    <tests>
+        <test>
+            <param name="input" value="phiX.bam" ftype="bam" />
+            <output name="output" file="samtools_idxstats_out.tabular" compare="diff" ftype="tabular" />
+        </test>
+    </tests>
+    <help>
+**What it does**
+
+This tool runs the ``samtools idxstats`` command in the SAMtools toolkit.
+
+Input is a sorted and indexed BAM file, the output is tabular with
+four columns (one row per reference sequence plus a final line for
+unmapped reads):
+
+====== =================================================================================
+Column Description
+------ ---------------------------------------------------------------------------------
+     1 Reference sequence identifier
+     2 Reference sequence length
+     3 Number of mapped reads
+     4 Number of placed but unmapped reads (typically unmapped partners of mapped reads)
+====== =================================================================================
+
+
+Example output from a *de novo* assembly:
+
+========== ====== ====== =====
+contig_1   170035  98397     0
+contig_2   403835 199564     0
+contig_3   553102 288189     0
+...           ...    ...   ...
+contig_603    653     50     0
+contig_604    214      6     0
+\*              0      0 50320
+========== ====== ====== =====
+
+In this example there were 604 contigs, each with one line in the output table,
+plus the final row (labelled with an asterisk) representing 50320 unmapped reads.
+In this BAM file, the final column was otherwise zero.
+
+------
+
+**Citation**
+
+For the underlying tool, please cite `Li H, Handsaker B, Wysoker A, Fennell T, Ruan J, Homer N, Marth G, Abecasis G, Durbin R; 1000 Genome Project Data Processing Subgroup. The Sequence Alignment/Map format and SAMtools. Bioinformatics. 2009 Aug 15;25(16):2078-9. &lt;http://www.ncbi.nlm.nih.gov/pubmed/19505943&gt;`_
+
+
+If you use this tool in Galaxy, please cite Blankenberg D, et al. *In preparation.*
+    </help>
+</tool>
