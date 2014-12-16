@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <tool_dependency>
-    <package name="freebayes" version="freebayes-0.9.18_0059bdf">
+    <package name="freebayes" version="0.9.18_0059bdf">
         <install version="1.0">
             <actions_group>
                 <actions architecture="x86_64" os="linux">
