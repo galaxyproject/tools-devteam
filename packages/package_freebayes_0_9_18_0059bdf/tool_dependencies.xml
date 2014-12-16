@@ -7,7 +7,7 @@
                     <action type="download_by_url">http://depot.galaxyproject.org/package/linux/x86_64/freebayes/freebayes-0.9.18_0059bdf.tar.gz</action>
                     <action type="move_directory_files">
                         <source_directory>.</source_directory>
-                        <destination_directory>$INSTALL_DIR</destination_directory>
+                        <destination_directory>$INSTALL_DIR/bin</destination_directory>
                     </action>       
                 </actions>                
                 <action type="set_environment">
