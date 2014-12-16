@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <tool_dependency>
-    <package name="picard" version="1.56.0">
-        <repository name="package_picard_1_56_0" owner="devteam" />
+    <package name="picard" version="1.126.0">
+        <repository name="package_picard_126" owner="devteam" />
     </package>
 </tool_dependency>
