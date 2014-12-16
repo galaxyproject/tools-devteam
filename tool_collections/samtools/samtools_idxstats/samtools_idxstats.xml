@@ -29,6 +29,7 @@ fi]]></command>
         </test>
     </tests>
     <help>
+<![CDATA[
 **What it does**
 
 This tool runs the ``samtools idxstats`` command in the SAMtools toolkit.
@@ -70,9 +71,7 @@ In this BAM file, the final column was otherwise zero.
 If you use this tool in Galaxy, please cite:
 
 Peter J.A. Cock (2013), `Galaxy wrapper <https://github.com/peterjc/pico_galaxy/tree/master/tools/samtools_idxstats>`_ for the samtools idxstats command
-
-Blankenberg D, et al. *In preparation.*
-
+]]>
     </help>
     <citations>
         <citation type="doi">10.1093/bioinformatics/btp352</citation>
