@@ -97,8 +97,8 @@
 
 Cuffmerge is part of Cufflinks_. Please cite: Trapnell C, Williams BA, Pertea G, Mortazavi AM, Kwan G, van Baren MJ, Salzberg SL, Wold B, Pachter L. Transcript assembly and abundance estimation from RNA-Seq reveals thousands of new transcripts and switching among isoforms. Nature Biotechnology doi:10.1038/nbt.1621
 
-.. _Cufflinks: http://cufflinks.cbcb.umd.edu/
-        
+.. _Cufflinks: http://cole-trapnell-lab.github.io/cufflinks/
+
 ------
 
 **Know what you are doing**
@@ -107,7 +107,7 @@ Cuffmerge is part of Cufflinks_. Please cite: Trapnell C, Williams BA, Pertea G,
 
 There is no such thing (yet) as an automated gearshift in expression analysis. It is all like stick-shift driving in San Francisco. In other words, running this tool with default parameters will probably not give you meaningful results. A way to deal with this is to **understand** the parameters by carefully reading the `documentation`__ and experimenting. Fortunately, Galaxy makes experimenting easy.
 
-.. __: http://cufflinks.cbcb.umd.edu/manual.html#cuffmerge
+.. __: http://cole-trapnell-lab.github.io/cufflinks/cuffmerge/
 
 ------
 

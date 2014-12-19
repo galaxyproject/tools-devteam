@@ -214,8 +214,8 @@
 
 Cufflinks_ assembles transcripts, estimates their abundances, and tests for differential expression and regulation in RNA-Seq samples. It accepts aligned RNA-Seq reads and assembles the alignments into a parsimonious set of transcripts. Cufflinks then estimates the relative abundances of these transcripts based on how many reads support each one.  Please cite: Trapnell C, Williams BA, Pertea G, Mortazavi AM, Kwan G, van Baren MJ, Salzberg SL, Wold B, Pachter L. Transcript assembly and abundance estimation from RNA-Seq reveals thousands of new transcripts and switching among isoforms. Nature Biotechnology doi:10.1038/nbt.1621
 
-.. _Cufflinks: http://cufflinks.cbcb.umd.edu/
-        
+.. _Cufflinks: http://cole-trapnell-lab.github.io/cufflinks/
+
 ------
 
 **Know what you are doing**
@@ -224,7 +224,7 @@ Cufflinks_ assembles transcripts, estimates their abundances, and tests for diff
 
 There is no such thing (yet) as an automated gearshift in expression analysis. It is all like stick-shift driving in San Francisco. In other words, running this tool with default parameters will probably not give you meaningful results. A way to deal with this is to **understand** the parameters by carefully reading the `documentation`__ and experimenting. Fortunately, Galaxy makes experimenting easy.
 
-.. __: http://cufflinks.cbcb.umd.edu/manual.html
+.. __: http://cole-trapnell-lab.github.io/cufflinks/cufflinks/
 
 ------
 
