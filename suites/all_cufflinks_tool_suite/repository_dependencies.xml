@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<repositories description="This is a metapackage that includes the cufflinks tool suite (cufflinks, cuffcompare, cuffmerge, and cuffdiff) wrappers and dependencies.">
+<repositories description="This is a metapackage that includes the cufflinks tool suite (cufflinks, cuffcompare, cuffmerge, cuffdiff, cuffnorm, and cuffquant) wrappers and dependencies.">
     <repository name="cuffcompare" owner="devteam" />
     <repository name="cuffdiff" owner="devteam" />
     <repository name="cufflinks" owner="devteam" />
