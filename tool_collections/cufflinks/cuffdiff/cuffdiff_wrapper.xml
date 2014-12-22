@@ -225,7 +225,7 @@
 Cuffdiff is part of Cufflinks_. Cuffdiff find significant changes in transcript expression, splicing, and promoter use. Please cite: Trapnell C, Williams BA, Pertea G, Mortazavi AM, Kwan G, van Baren MJ, Salzberg SL, Wold B, Pachter L. Transcript assembly and abundance estimation from RNA-Seq reveals thousands of new transcripts and switching among isoforms. Nature Biotechnology doi:10.1038/nbt.1621
 
 .. _Cufflinks: http://cole-trapnell-lab.github.io/cufflinks/
-        
+
 ------
 
 **Know what you are doing**

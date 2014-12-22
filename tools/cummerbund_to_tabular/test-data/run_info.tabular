@@ -1,0 +1,5 @@
+param	value
+cmd_line	cuffdiff --no-update-check --FDR=0.05 --num-threads=1 --min-alignment-count=0 --library-norm-method=geometric --dispersion-method=pooled --labels q1,q2 /tmp/tmpP3BAPq/tmpDkU5ls/database/files/000/dataset_25.dat /tmp/tmpP3BAPq/tmpDkU5ls/database/files/000/dataset_26.dat /tmp/tmpP3BAPq/tmpDkU5ls/database/files/000/dataset_27.dat 
+version	2.2.1
+SVN_revision	4237
+boost_version	104700

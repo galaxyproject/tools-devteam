@@ -19,9 +19,10 @@ class CummerbundParser(object):
         self.cummerbund_db = opts.filename
         self.__connect_database()
 
-    def generate_file( self, table, output ):
-        if hasattr(self, table):
-            with open( output, 'w' ) as self.fh:
+    def generate_file( self, table ):
+        if hasattr( self, table ):
+            print 'Writing %s to %s.tabular' % ( table, os.path.abspath( table ) )
+            with open( '%s.tabular' % table, 'w' ) as self.fh:
                 getattr( self, table )()
         else:
             print 'Not found.'
@@ -276,4 +277,4 @@ if __name__ == '__main__':
     opts = parser.parse_args()
     cb = CummerbundParser( opts )
     for table in opts.tables:
-        cb.generate_file( table, '%s.tabular' % table )
+        cb.generate_file( table )

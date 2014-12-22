@@ -35,70 +35,70 @@
         <param type="boolean" name="var_model" truevalue="--tables var_model" falsevalue="" label="var_model.info" />
     </inputs>
     <outputs>
-        <data format="tabular" name="cds_count_output" from_work_dir="cds_count.tabular"  label="${tool.name} on ${on_string}: CDS count tracking">
+        <data format="tabular" name="cds_count_output" from_work_dir="cds_count.tabular" label="${tool.name} on ${on_string}: CDS count tracking">
             <filter>(cds_count is True)</filter>
         </data>
-        <data format="tabular" name="cds_diff_output" from_work_dir="cds_diff.tabular"  label="${tool.name} on ${on_string}: CDS overloading diffential expression testing">
+        <data format="tabular" name="cds_diff_output" from_work_dir="cds_diff.tabular" label="${tool.name} on ${on_string}: CDS overloading diffential expression testing">
             <filter>(cds_diff is True)</filter>
         </data>
-        <data format="tabular" name="cds_exp_diff_output" from_work_dir="cds_exp_diff.tabular"  label="${tool.name} on ${on_string}: CDS FPKM differential expression testing">
+        <data format="tabular" name="cds_exp_diff_output" from_work_dir="cds_exp_diff.tabular" label="${tool.name} on ${on_string}: CDS FPKM differential expression testing">
             <filter>(cds_exp_diff is True)</filter>
         </data>
-        <data format="tabular" name="cds_fpkm_output" from_work_dir="cds_fpkm.tabular"  label="${tool.name} on ${on_string}: CDS FPKM tracking">
+        <data format="tabular" name="cds_fpkm_output" from_work_dir="cds_fpkm.tabular" label="${tool.name} on ${on_string}: CDS FPKM tracking">
             <filter>(cds_fpkm is True)</filter>
         </data>
-        <data format="tabular" name="cds_rg_output" from_work_dir="cds_rg.tabular"  label="${tool.name} on ${on_string}: CDS read groups">
+        <data format="tabular" name="cds_rg_output" from_work_dir="cds_rg.tabular" label="${tool.name} on ${on_string}: CDS read groups">
             <filter>(cds_rg is True)</filter>
         </data>
-        <data format="tabular" name="gene_exp_diff_output" from_work_dir="gene_exp_diff.tabular"  label="${tool.name} on ${on_string}: gene differential expression testing">
+        <data format="tabular" name="gene_exp_diff_output" from_work_dir="gene_exp_diff.tabular" label="${tool.name} on ${on_string}: gene differential expression testing">
             <filter>(gene_exp_diff is True)</filter>
         </data>
-        <data format="tabular" name="genes_count_output" from_work_dir="genes_count.tabular"  label="${tool.name} on ${on_string}: gene count tracking">
+        <data format="tabular" name="genes_count_output" from_work_dir="genes_count.tabular" label="${tool.name} on ${on_string}: gene count tracking">
             <filter>(genes_count is True)</filter>
         </data>
-        <data format="tabular" name="genes_fpkm_output" from_work_dir="genes_fpkm.tabular"  label="${tool.name} on ${on_string}: gene FPKM tracking">
+        <data format="tabular" name="genes_fpkm_output" from_work_dir="genes_fpkm.tabular" label="${tool.name} on ${on_string}: gene FPKM tracking">
             <filter>(genes_fpkm is True)</filter>
         </data>
-        <data format="tabular" name="gene_rg_output" from_work_dir="gene_rg.tabular"  label="${tool.name} on ${on_string}: gene read groups">
+        <data format="tabular" name="gene_rg_output" from_work_dir="gene_rg.tabular" label="${tool.name} on ${on_string}: gene read groups">
             <filter>(gene_rg is True)</filter>
         </data>
-        <data format="tabular" name="isoform_exp_diff_output" from_work_dir="isoform_exp_diff.tabular"  label="${tool.name} on ${on_string}: transcript differential expression testing">
+        <data format="tabular" name="isoform_exp_diff_output" from_work_dir="isoform_exp_diff.tabular" label="${tool.name} on ${on_string}: transcript differential expression testing">
             <filter>(isoform_exp_diff is True)</filter>
         </data>
-        <data format="tabular" name="isoform_count_output" from_work_dir="isoform_count.tabular"  label="${tool.name} on ${on_string}: transcript count tracking">
+        <data format="tabular" name="isoform_count_output" from_work_dir="isoform_count.tabular" label="${tool.name} on ${on_string}: transcript count tracking">
             <filter>(isoform_count is True)</filter>
         </data>
-        <data format="tabular" name="isoform_fpkm_output" from_work_dir="isoform_fpkm.tabular"  label="${tool.name} on ${on_string}: transcript FPKM tracking">
+        <data format="tabular" name="isoform_fpkm_output" from_work_dir="isoform_fpkm.tabular" label="${tool.name} on ${on_string}: transcript FPKM tracking">
             <filter>(isoform_fpkm is True)</filter>
         </data>
-        <data format="tabular" name="isoform_rg_output" from_work_dir="isoform_rg.tabular"  label="${tool.name} on ${on_string}: transcript read groups">
+        <data format="tabular" name="isoform_rg_output" from_work_dir="isoform_rg.tabular" label="${tool.name} on ${on_string}: transcript read groups">
             <filter>(isoform_rg is True)</filter>
         </data>
-        <data format="tabular" name="promoters_diff_output" from_work_dir="promoters_diff.tabular"  label="${tool.name} on ${on_string}: promoter differential testing">
+        <data format="tabular" name="promoters_diff_output" from_work_dir="promoters_diff.tabular" label="${tool.name} on ${on_string}: promoter differential testing">
             <filter>(promoters_diff is True)</filter>
         </data>
-        <data format="tabular" name="read_groups_output" from_work_dir="read_groups.tabular"  label="${tool.name} on ${on_string}: Read Groups">
+        <data format="tabular" name="read_groups_output" from_work_dir="read_groups.tabular" label="${tool.name} on ${on_string}: Read Groups">
             <filter>(read_groups is True)</filter>
         </data>
-        <data format="tabular" name="run_info_output" from_work_dir="run_info.tabular"  label="${tool.name} on ${on_string}: Run details">
+        <data format="tabular" name="run_info_output" from_work_dir="run_info.tabular" label="${tool.name} on ${on_string}: Run details">
             <filter>(run_info is True)</filter>
         </data>
-        <data format="tabular" name="splicing_diff_output" from_work_dir="splicing_diff.tabular"  label="${tool.name} on ${on_string}: splicing differential expression testing">
+        <data format="tabular" name="splicing_diff_output" from_work_dir="splicing_diff.tabular" label="${tool.name} on ${on_string}: splicing differential expression testing">
             <filter>(splicing_diff is True)</filter>
         </data>
-        <data format="tabular" name="tss_group_exp_output" from_work_dir="tss_group_exp.tabular"  label="${tool.name} on ${on_string}: TSS groups differential expression testing">
+        <data format="tabular" name="tss_group_exp_output" from_work_dir="tss_group_exp.tabular" label="${tool.name} on ${on_string}: TSS groups differential expression testing">
             <filter>(tss_group_exp is True)</filter>
         </data>
-        <data format="tabular" name="tss_count_tracking_output" from_work_dir="tss_count_tracking.tabular"  label="${tool.name} on ${on_string}: TSS count FPKM tracking">
+        <data format="tabular" name="tss_count_tracking_output" from_work_dir="tss_count_tracking.tabular" label="${tool.name} on ${on_string}: TSS count FPKM tracking">
             <filter>(tss_count_tracking is True)</filter>
         </data>
-        <data format="tabular" name="tss_fpkm_output" from_work_dir="tss_fpkm.tabular"  label="${tool.name} on ${on_string}: TSS groups FPKM tracking">
+        <data format="tabular" name="tss_fpkm_output" from_work_dir="tss_fpkm.tabular" label="${tool.name} on ${on_string}: TSS groups FPKM tracking">
             <filter>(tss_fpkm is True)</filter>
         </data>
-        <data format="tabular" name="tss_rg_output" from_work_dir="tss_rg.tabular"  label="${tool.name} on ${on_string}: TSS read groups">
+        <data format="tabular" name="tss_rg_output" from_work_dir="tss_rg.tabular" label="${tool.name} on ${on_string}: TSS read groups">
             <filter>(tss_rg is True)</filter>
         </data>
-        <data format="tabular" name="var_model_output" from_work_dir="var_model.tabular"  label="${tool.name} on ${on_string}: var_model.info">
+        <data format="tabular" name="var_model_output" from_work_dir="var_model.tabular" label="${tool.name} on ${on_string}: var_model.info">
             <filter>(var_model is True)</filter>
         </data>
     </outputs>
@@ -107,5 +107,162 @@
     </citations>
     <help>This tool extracts cuffdiff tabular files from a cummeRbund SQLite database.</help>
     <tests>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <param name="cds_count" value="True" />
+            <param name="cds_diff" value="True" />
+            <param name="cds_exp_diff" value="True" />
+            <param name="cds_fpkm" value="True" />
+            <param name="cds_rg" value="True" />
+            <param name="gene_exp_diff" value="True" />
+            <param name="genes_count" value="True" />
+            <param name="genes_fpkm" value="True" />
+            <param name="gene_rg" value="True" />
+            <param name="isoform_exp_diff" value="True" />
+            <param name="isoform_count" value="True" />
+            <param name="isoform_fpkm" value="True" />
+            <param name="isoform_rg" value="True" />
+            <param name="promoters_diff" value="True" />
+            <param name="read_groups" value="True" />
+            <param name="run_info" value="True" />
+            <param name="splicing_diff" value="True" />
+            <param name="tss_group_exp" value="True" />
+            <param name="tss_count_tracking" value="True" />
+            <param name="tss_fpkm" value="True" />
+            <param name="tss_rg" value="True" />
+            <param name="var_model" value="True" />
+            <output name="cds_count_output" ftype="tabular" file="cds_count.tabular" />
+            <output name="cds_diff_output" ftype="tabular" file="cds_diff.tabular" />
+            <output name="cds_exp_diff_output" ftype="tabular" file="cds_exp_diff.tabular" />
+            <output name="cds_fpkm_output" ftype="tabular" file="cds_fpkm.tabular" />
+            <output name="cds_rg_output" ftype="tabular" file="cds_rg.tabular" />
+            <output name="gene_exp_diff_output" ftype="tabular" file="gene_exp_diff.tabular" />
+            <output name="genes_count_output" ftype="tabular" file="genes_count.tabular" />
+            <output name="genes_fpkm_output" ftype="tabular" file="genes_fpkm.tabular" />
+            <output name="gene_rg_output" ftype="tabular" file="gene_rg.tabular" />
+            <output name="isoform_exp_diff_output" ftype="tabular" file="isoform_exp_diff.tabular" />
+            <output name="isoform_count_output" ftype="tabular" file="isoform_count.tabular" />
+            <output name="isoform_fpkm_output" ftype="tabular" file="isoform_fpkm.tabular" />
+            <output name="isoform_rg_output" ftype="tabular" file="isoform_rg.tabular" />
+            <output name="promoters_diff_output" ftype="tabular" file="promoters_diff.tabular" />
+            <output name="read_groups_output" ftype="tabular" file="read_groups.tabular" />
+            <output name="run_info_output" ftype="tabular" file="run_info.tabular" />
+            <output name="splicing_diff_output" ftype="tabular" file="splicing_diff.tabular" />
+            <output name="tss_group_exp_output" ftype="tabular" file="tss_group_exp.tabular" />
+            <output name="tss_count_tracking_output" ftype="tabular" file="tss_count_tracking.tabular" />
+            <output name="tss_fpkm_output" ftype="tabular" file="tss_fpkm.tabular" />
+            <output name="tss_rg_output" ftype="tabular" file="tss_rg.tabular" />
+            <output name="var_model_output" ftype="tabular" file="var_model.tabular" />
+        </test>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <param name="cds_count" value="True" />
+            <output name="cds_count_output" ftype="tabular" file="cds_count.tabular" />
+        </test>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <param name="cds_diff" value="True" />
+            <output name="cds_diff_output" ftype="tabular" file="cds_diff.tabular" />
+        </test>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <param name="cds_exp_diff" value="True" />
+            <output name="cds_exp_diff_output" ftype="tabular" file="cds_exp_diff.tabular" />
+        </test>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <param name="cds_fpkm" value="True" />
+            <output name="cds_fpkm_output" ftype="tabular" file="cds_fpkm.tabular" />
+        </test>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <param name="cds_rg" value="True" />
+            <output name="cds_rg_output" ftype="tabular" file="cds_rg.tabular" />
+        </test>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <param name="gene_exp_diff" value="True" />
+            <output name="gene_exp_diff_output" ftype="tabular" file="gene_exp_diff.tabular" />
+        </test>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <param name="genes_count" value="True" />
+            <output name="genes_count_output" ftype="tabular" file="genes_count.tabular" />
+        </test>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <param name="genes_fpkm" value="True" />
+            <output name="genes_fpkm_output" ftype="tabular" file="genes_fpkm.tabular" />
+        </test>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <param name="gene_rg" value="True" />
+            <output name="gene_rg_output" ftype="tabular" file="gene_rg.tabular" />
+        </test>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <param name="isoform_exp_diff" value="True" />
+            <output name="isoform_exp_diff_output" ftype="tabular" file="isoform_exp_diff.tabular" />
+        </test>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <param name="isoform_count" value="True" />
+            <output name="isoform_count_output" ftype="tabular" file="isoform_count.tabular" />
+        </test>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <param name="isoform_fpkm" value="True" />
+            <output name="isoform_fpkm_output" ftype="tabular" file="isoform_fpkm.tabular" />
+        </test>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <param name="isoform_rg" value="True" />
+            <output name="isoform_rg_output" ftype="tabular" file="isoform_rg.tabular" />
+        </test>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <param name="promoters_diff" value="True" />
+            <output name="promoters_diff_output" ftype="tabular" file="promoters_diff.tabular" />
+        </test>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <param name="read_groups" value="True" />
+            <output name="read_groups_output" ftype="tabular" file="read_groups.tabular" />
+        </test>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <param name="run_info" value="True" />
+            <output name="run_info_output" ftype="tabular" file="run_info.tabular" />
+        </test>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <param name="splicing_diff" value="True" />
+            <output name="splicing_diff_output" ftype="tabular" file="splicing_diff.tabular" />
+        </test>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <param name="tss_group_exp" value="True" />
+            <output name="tss_group_exp_output" ftype="tabular" file="tss_group_exp.tabular" />
+        </test>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <param name="tss_count_tracking" value="True" />
+            <output name="tss_count_tracking_output" ftype="tabular" file="tss_count_tracking.tabular" />
+        </test>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <param name="tss_fpkm" value="True" />
+            <output name="tss_fpkm_output" ftype="tabular" file="tss_fpkm.tabular" />
+        </test>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <param name="tss_rg" value="True" />
+            <output name="tss_rg_output" ftype="tabular" file="tss_rg.tabular" />
+        </test>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <param name="var_model" value="True" />
+            <output name="var_model_output" ftype="tabular" file="var_model.tabular" />
+        </test>
     </tests>
 </tool>
