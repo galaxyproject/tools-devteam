@@ -299,18 +299,18 @@
             <option value="do_not_set" selected="True">Do not set</option>
           </param>
           <when value="set">
-            <param name="k" type="integer" value="19" label="minimum seed length" help="-k; default=19"/>
-            <param name="w" type="integer" value="100" label="band width for banded alignment" help="-w; default=100"/>
-            <param name="d" type="integer" value="100" label="off-diagonal X-dropoff" help="-d; default=100"/>
-            <param name="r" type="float" value="1.5" label="look for internal seeds inside a seed longer than -k * THIS VALUE" help="-r; default=1.5"/>
-            <param name="y" type="integer" value="20" label="Seed occurrence for the 3rd round seeding" help="-y;  default=20" />
-            <param name="c" type="integer" value="500" label="skip seeds with more than that many occurrences" help="-c; default=500"/>
-            <param name="D" type="float" value="0.5" label="drop chains shorter than this fraction of the longest overlapping chain" help="-D; default=0.5"/>
-            <param name="W" type="integer" value="0" label="discard a chain if seeded bases shorter than" help="-W; default=0"/>
-            <param name="m" type="integer" value="50" label="perform at most this many rounds of mate rescues for each read" help="-m; default=50"/>
-            <param name="S" type="boolean" truevalue="-S" falsevalue="" label="skip mate rescue" help="-S"/>
-            <param name="P" type="boolean" truevalue="-P" falsevalue="" label="skip pairing; mate rescue performed unless -S also in use" help="-P"/>
-            <param name="e" type="boolean" truevalue="-e" falsevalue="" label="discard full-length exact matches" help="-e"/>
+            <param name="k" type="integer" value="19" label="Minimum seed length" help="-k; default=19"/>
+            <param name="w" type="integer" value="100" label="Band width for banded alignment" help="-w; default=100"/>
+            <param name="d" type="integer" value="100" label="Off-diagonal X-dropoff" help="-d; default=100"/>
+            <param name="r" type="float" value="1.5" label="Look for internal seeds inside a seed longer than -k * THIS VALUE" help="-r; default=1.5; This is a key heuristic parameter for tuning the performance. Larger value yields fewer seeds, which leads to faster alignment speed but lower accuracy" />
+            <param name="y" type="integer" value="20" label="Seed occurrence for the 3rd round seeding" help="-y; default=20" />
+            <param name="c" type="integer" value="500" label="Skip seeds with more than that many occurrences" help="-c; default=500"/>
+            <param name="D" type="float" value="0.5" label="Drop chains shorter than this fraction of the longest overlapping chain" help="-D; default=0.5"/>
+            <param name="W" type="integer" value="0" label="Discard a chain if seeded bases shorter than THIS VALUE" help="-W; default=0"/>
+            <param name="m" type="integer" value="50" label="Perform at most this many rounds of mate rescues for each read" help="-m; default=50"/>
+            <param name="S" type="boolean" truevalue="-S" falsevalue="" label="Skip mate rescue" help="-S"/>
+            <param name="P" type="boolean" truevalue="-P" falsevalue="" label="Skip pairing; mate rescue performed unless -S also in use" help="-P"/>
+            <param name="e" type="boolean" truevalue="-e" falsevalue="" label="Discard full-length exact matches" help="-e"/>
           </when>
           <when value="do_not_set">
             <!-- do nothing -->
@@ -323,24 +323,24 @@
             <option value="do_not_set" selected="True">Do not set</option>
           </param>
           <when value="set">
-            <param name="A" type="integer" value="1" label="score for a sequence match" help="-A; scales options -T, -d, -B, -O, -E, -L, and -U; default=1"/>
-            <param name="B" type="integer" value="4" label="penalty for mismatch" help="-B; default=4"/>
-            <param name="O" type="text" value="6,6" label="gap open penalty for deletions and insertions" help="-O; default=6,6">
+            <param name="A" type="integer" value="1" label="Score for a sequence match" help="-A; scales options -T, -d, -B, -O, -E, -L, and -U unless overridden; default=1"/>
+            <param name="B" type="integer" value="4" label="Penalty for a mismatch" help="-B; default=4"/>
+            <param name="O" type="text" value="6,6" label="Gap open penalties for deletions and insertions" help="-O; default=6,6">
               <sanitizer invalid_char="">
                 <valid initial="string.digits"><add value=","/> </valid>
               </sanitizer>
             </param>
-            <param name="E" type="text" value="1,1" label="gap extension penalty; a gap of size k cost &#39;-O + -E*k&#39; " help="-E; default=1,1">
+            <param name="E" type="text" value="1,1" label="Gap extension penalties; a gap of size k cost &#39;-O + -E*k&#39;. If two numbers are specified, the first is the penalty of extending a deletion and the second for extending an insertion" help="-E; default=1,1">
               <sanitizer invalid_char="">
                 <valid initial="string.digits"><add value=","/> </valid>
               </sanitizer>
             </param>
-            <param name="L" type="text" value="5,5" label="penalty for 5&#39;-end and 3&#39;-end clipping" help="-L; default=5,5">
+            <param name="L" type="text" value="5,5" label="Penalties for 5&#39;-end and 3&#39;-end clipping" help="-L; default=5,5; When performing Smith-Waterman extension, BWA-MEM keeps track of the best score reaching the end of query. If this score is larger than the best Smith-Waterman score minus the clipping penalty, clipping will not be applied. Note that in this case, the SAM AS tag reports the best Smith-Waterman score; clipping penalty is not deduced">
               <sanitizer invalid_char="">
                 <valid initial="string.digits"><add value=","/> </valid>
               </sanitizer>
             </param>
-            <param name="U" type="integer" value="17" label="penalty for an unpaired read pair" help="-U; default=17"/>
+            <param name="U" type="integer" value="17" label="Penalty for an unpaired read pair" help="-U; default=17"/>
           </when>
           <when value="do_not_set">
             <!-- do nothing -->
@@ -353,13 +353,13 @@
             <option value="do_not_set" selected="True">Do not set</option>
           </param>
           <when value="set">
-            <param name="T" type="integer" value="30" label="minimum score to output" help="-T; default=30"/>
-            <param name="h" type="integer" value="5" label="if there are this many hits with score >80% of the max score, output all in XA tag" help="-h; default=5"/>
-            <param name="a" type="boolean" truevalue="-a" falsevalue="" label="output all alignments for single-ends or unpaired paired-ends" help="-a"/>
-            <param name="C" type="boolean" truevalue="-C" falsevalue="" label="append FASTA/FASTQ comment to BAM output" help="-C"/>
-            <param name="V" type="boolean" truevalue="-V" falsevalue="" label="output the reference FASTA header in the XR tag" help="-C"/>
-            <param name="Y" type="boolean" truevalue="-Y" falsevalue="" label="use soft clipping for supplementary alignments" help="-Y"/>
-            <param name="M" type="boolean" truevalue="-M" falsevalue="" label="mark shorter split hits as secondary" help="-M"/>
+            <param name="T" type="integer" value="30" label="Minimum score to output" help="-T; default=30"/>
+            <param name="h" type="integer" value="5" label="If there are less than THIS VALUE hits with score &gt;80% of the max score, output them all in the XA tag" help="-h; default=5" />
+            <param name="a" type="boolean" truevalue="-a" falsevalue="" label="Output all alignments for single-ends or unpaired paired-ends" help="-a; These alignments will be flagged as secondary alignments"/>
+            <param name="C" type="boolean" truevalue="-C" falsevalue="" label="Append FASTA/FASTQ comment to BAM output" help="-C"/>
+            <param name="V" type="boolean" truevalue="-V" falsevalue="" label="Output the reference FASTA header in the XR tag" help="-C"/>
+            <param name="Y" type="boolean" truevalue="-Y" falsevalue="" label="Use soft clipping for supplementary alignments" help="-Y; By default, BWA-MEM uses soft clipping for the primary alignment and hard clipping for supplementary alignments" />
+            <param name="M" type="boolean" truevalue="-M" falsevalue="" label="Mark shorter split hits of a chimeric alignment in the FLAG field as 'secondary alignment' instead of 'supplementary alignment'" help="-M; For Picard&lt;1.96 compatibility" />
           </when>
           <when value="do_not_set">
             <!-- do nothing -->
