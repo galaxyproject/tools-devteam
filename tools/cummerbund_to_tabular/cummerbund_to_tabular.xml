@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+<tool id="cummerbund_to_cuffdiff" name="Extract CuffDiff" version="1.0.0">
+    <description>tabular files from a cummeRbund database</description>
+    <command interpreter="python"><![CDATA[
+        cummerbund_to_tabular.py --file ${input_database}
+        ${cds_count} ${cds_diff} ${cds_exp_diff} ${cds_fpkm} ${cds_rg}
+        ${gene_exp_diff} ${genes_count} ${genes_fpkm} ${gene_rg} ${isoform_exp_diff}
+        ${isoform_count} ${isoform_fpkm} ${isoform_rg} ${promoters_diff} ${read_groups}
+        ${run_info} ${splicing_diff} ${tss_group_exp} ${tss_count_tracking} ${tss_fpkm}
+        ${tss_rg} ${var_model}
+        ]]></command>
+    <inputs>
+        <param name="input_database" type="data" format="sqlite" label="Select backend database (sqlite)" />
+        <param type="boolean" name="cds_count" truevalue="--tables cds_count" falsevalue="" label="CDS count tracking" />
+        <param type="boolean" name="cds_diff" truevalue="--tables cds_diff" falsevalue="" label="CDS overloading diffential expression testing" />
+        <param type="boolean" name="cds_exp_diff" truevalue="--tables cds_exp_diff" falsevalue="" label="CDS FPKM differential expression testing" />
+        <param type="boolean" name="cds_fpkm" truevalue="--tables cds_fpkm" falsevalue="" label="CDS FPKM tracking" />
+        <param type="boolean" name="cds_rg" truevalue="--tables cds_rg" falsevalue="" label="CDS read groups" />
+        <param type="boolean" name="gene_exp_diff" truevalue="--tables gene_exp_diff" falsevalue="" label="gene differential expression testing" />
+        <param type="boolean" name="genes_count" truevalue="--tables genes_count" falsevalue="" label="gene count tracking" />
+        <param type="boolean" name="genes_fpkm" truevalue="--tables genes_fpkm" falsevalue="" label="gene FPKM tracking" />
+        <param type="boolean" name="gene_rg" truevalue="--tables gene_rg" falsevalue="" label="gene read groups" />
+        <param type="boolean" name="isoform_exp_diff" truevalue="--tables isoform_exp_diff" falsevalue="" label="transcript differential expression testing" />
+        <param type="boolean" name="isoform_count" truevalue="--tables isoform_count" falsevalue="" label="transcript count tracking" />
+        <param type="boolean" name="isoform_fpkm" truevalue="--tables isoform_fpkm" falsevalue="" label="transcript FPKM tracking" />
+        <param type="boolean" name="isoform_rg" truevalue="--tables isoform_rg" falsevalue="" label="transcript read groups" />
+        <param type="boolean" name="promoters_diff" truevalue="--tables promoters_diff" falsevalue="" label="promoter differential testing" />
+        <param type="boolean" name="read_groups" truevalue="--tables read_groups" falsevalue="" label="Read Groups" />
+        <param type="boolean" name="run_info" truevalue="--tables run_info" falsevalue="" label="Run details" />
+        <param type="boolean" name="splicing_diff" truevalue="--tables splicing_diff" falsevalue="" label="splicing differential expression testing" />
+        <param type="boolean" name="tss_group_exp" truevalue="--tables tss_group_exp" falsevalue="" label="TSS groups differential expression testing" />
+        <param type="boolean" name="tss_count_tracking" truevalue="--tables tss_count_tracking" falsevalue="" label="TSS count FPKM tracking" />
+        <param type="boolean" name="tss_fpkm" truevalue="--tables tss_fpkm" falsevalue="" label="TSS groups FPKM tracking" />
+        <param type="boolean" name="tss_rg" truevalue="--tables tss_rg" falsevalue="" label="TSS read groups" />
+        <param type="boolean" name="var_model" truevalue="--tables var_model" falsevalue="" label="var_model.info" />
+    </inputs>
+    <outputs>
+        <data format="tabular" name="cds_count_output" from_work_dir="cds_count.tabular"  label="${tool.name} on ${on_string}: CDS count tracking">
+            <filter>(cds_count is True)</filter>
+        </data>
+        <data format="tabular" name="cds_diff_output" from_work_dir="cds_diff.tabular"  label="${tool.name} on ${on_string}: CDS overloading diffential expression testing">
+            <filter>(cds_diff is True)</filter>
+        </data>
+        <data format="tabular" name="cds_exp_diff_output" from_work_dir="cds_exp_diff.tabular"  label="${tool.name} on ${on_string}: CDS FPKM differential expression testing">
+            <filter>(cds_exp_diff is True)</filter>
+        </data>
+        <data format="tabular" name="cds_fpkm_output" from_work_dir="cds_fpkm.tabular"  label="${tool.name} on ${on_string}: CDS FPKM tracking">
+            <filter>(cds_fpkm is True)</filter>
+        </data>
+        <data format="tabular" name="cds_rg_output" from_work_dir="cds_rg.tabular"  label="${tool.name} on ${on_string}: CDS read groups">
+            <filter>(cds_rg is True)</filter>
+        </data>
+        <data format="tabular" name="gene_exp_diff_output" from_work_dir="gene_exp_diff.tabular"  label="${tool.name} on ${on_string}: gene differential expression testing">
+            <filter>(gene_exp_diff is True)</filter>
+        </data>
+        <data format="tabular" name="genes_count_output" from_work_dir="genes_count.tabular"  label="${tool.name} on ${on_string}: gene count tracking">
+            <filter>(genes_count is True)</filter>
+        </data>
+        <data format="tabular" name="genes_fpkm_output" from_work_dir="genes_fpkm.tabular"  label="${tool.name} on ${on_string}: gene FPKM tracking">
+            <filter>(genes_fpkm is True)</filter>
+        </data>
+        <data format="tabular" name="gene_rg_output" from_work_dir="gene_rg.tabular"  label="${tool.name} on ${on_string}: gene read groups">
+            <filter>(gene_rg is True)</filter>
+        </data>
+        <data format="tabular" name="isoform_exp_diff_output" from_work_dir="isoform_exp_diff.tabular"  label="${tool.name} on ${on_string}: transcript differential expression testing">
+            <filter>(isoform_exp_diff is True)</filter>
+        </data>
+        <data format="tabular" name="isoform_count_output" from_work_dir="isoform_count.tabular"  label="${tool.name} on ${on_string}: transcript count tracking">
+            <filter>(isoform_count is True)</filter>
+        </data>
+        <data format="tabular" name="isoform_fpkm_output" from_work_dir="isoform_fpkm.tabular"  label="${tool.name} on ${on_string}: transcript FPKM tracking">
+            <filter>(isoform_fpkm is True)</filter>
+        </data>
+        <data format="tabular" name="isoform_rg_output" from_work_dir="isoform_rg.tabular"  label="${tool.name} on ${on_string}: transcript read groups">
+            <filter>(isoform_rg is True)</filter>
+        </data>
+        <data format="tabular" name="promoters_diff_output" from_work_dir="promoters_diff.tabular"  label="${tool.name} on ${on_string}: promoter differential testing">
+            <filter>(promoters_diff is True)</filter>
+        </data>
+        <data format="tabular" name="read_groups_output" from_work_dir="read_groups.tabular"  label="${tool.name} on ${on_string}: Read Groups">
+            <filter>(read_groups is True)</filter>
+        </data>
+        <data format="tabular" name="run_info_output" from_work_dir="run_info.tabular"  label="${tool.name} on ${on_string}: Run details">
+            <filter>(run_info is True)</filter>
+        </data>
+        <data format="tabular" name="splicing_diff_output" from_work_dir="splicing_diff.tabular"  label="${tool.name} on ${on_string}: splicing differential expression testing">
+            <filter>(splicing_diff is True)</filter>
+        </data>
+        <data format="tabular" name="tss_group_exp_output" from_work_dir="tss_group_exp.tabular"  label="${tool.name} on ${on_string}: TSS groups differential expression testing">
+            <filter>(tss_group_exp is True)</filter>
+        </data>
+        <data format="tabular" name="tss_count_tracking_output" from_work_dir="tss_count_tracking.tabular"  label="${tool.name} on ${on_string}: TSS count FPKM tracking">
+            <filter>(tss_count_tracking is True)</filter>
+        </data>
+        <data format="tabular" name="tss_fpkm_output" from_work_dir="tss_fpkm.tabular"  label="${tool.name} on ${on_string}: TSS groups FPKM tracking">
+            <filter>(tss_fpkm is True)</filter>
+        </data>
+        <data format="tabular" name="tss_rg_output" from_work_dir="tss_rg.tabular"  label="${tool.name} on ${on_string}: TSS read groups">
+            <filter>(tss_rg is True)</filter>
+        </data>
+        <data format="tabular" name="var_model_output" from_work_dir="var_model.tabular"  label="${tool.name} on ${on_string}: var_model.info">
+            <filter>(var_model is True)</filter>
+        </data>
+    </outputs>
+    <citations>
+        <citation type="doi">doi:10.1038/nprot.2012.016</citation>
+    </citations>
+    <help>This tool extracts cuffdiff tabular files from a cummeRbund SQLite database.</help>
+    <tests>
+    </tests>
+</tool>

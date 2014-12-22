@@ -1,9 +1,9 @@
 <tool id="cuffdiff" name="Cuffdiff" version="@VERSION@.0">
     <description>find significant changes in transcript expression, splicing, and promoter use</description>
     <requirements>
-        <requirement type="set_environment">CUFFDIFF_SCRIPT_PATH</requirement>
         <requirement type="package" version="2.2.1">cufflinks</requirement>
         <requirement type="package" version="2.8.2">cummeRbund</requirement>
+        <requirement type="set_environment">CUFFDIFF_SCRIPT_PATH</requirement>
     </requirements>
     <expand macro="stdio" />
     <macros>
@@ -186,7 +186,8 @@
         </conditional>
     </inputs>
     <outputs>
-        <data format="sqlite" name="output_cummerbund" label="${tool.name} on ${on_string}: cummeRbund SQLite database" />
+        <!-- Optional read group datasets. -->
+        <output format="sqlite" name="output_cummerbund" label="${tool.name} on ${on_string}: cummeRbund SQLite database" />
     </outputs>
 
     <tests>
