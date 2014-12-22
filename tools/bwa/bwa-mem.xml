@@ -113,7 +113,35 @@
     #end if
     
     #if str( $rg.rg_selector ) == "True":
-      -R "@RG\tID:$rg.ID\tSM:$rg.SM"
+      #set $rg_string = "@RG\tID:$rg.ID\tSM:$rg.SM\tPL:$rg.PL"
+      #if $rg.LB
+        #set $rg_string += "\tLB:$rg.LB"
+      #end if
+      #if $rg.CN
+        #set $rg_string += "\tCN:$rg.CN"
+      #end if
+      #if $rg.DS
+        #set $rg_string += "\tDS:$rg.DS"
+      #end if
+      #if $rg.DT
+        #set $rg_string += "\tDT:$rg.DT"
+      #end if
+      #if $rg.FO
+        #set $rg_string += "\tFO:$rg.FO"
+      #end if
+      #if $rg.KS
+        #set $rg_string += "\tKS:$rg.KS"
+      #end if
+      #if $rg.PG
+        #set $rg_string += "\tPG:$rg.PG"
+      #end if
+      #if str($rg.PI)
+        #set $rg_string += "\tPI:$rg.PI"
+      #end if
+      #if $rg.PU
+        #set $rg_string += "\tPU:$rg.PU"
+      #end if
+      -R $rg_string
     #end if 
     
     #if str( $fastq_input.fastq_input_selector ) == "paired":
@@ -211,21 +239,41 @@
   
     
     <conditional name="rg">
-      <param name="rg_selector" type="select" label="Set read groups information?" help="Specifying readgroup information can greatly simplify your downstream analyses by allowing combining multiple datasets. See help below for more details">
+      <param name="rg_selector" type="select" label="Set read groups information?" help="-R; Specifying readgroup information can greatly simplify your downstream analyses by allowing combining multiple datasets. See help below for more details">
         <option value="set">Set</option>
         <option value="do_not_set" selected="True">Do not set</option>
       </param>
       <when value="set">
-        <param name="ID" type="text" value="readgroup1" size="20" label="Specify readgroup ID" help="This value must be unique among multiple samples in your experiment">
+        <param name="ID" type="text" value="readgroup1" size="20" label="Read group identifier (ID)" help="This value must be unique among multiple samples in your experiment">
           <sanitizer invalid_char="">
             <valid initial="string.printable"/>
           </sanitizer>
         </param>
-        <param name="SM" type="text" value="blood" size="20" label="Specify readgroup sample name (SM)" help="This value should be descriptive">
+        <param name="SM" type="text" value="blood" size="20" label="Read group sample name (SM)" help="This value should be descriptive. Use pool name where a pool is being sequenced">
           <sanitizer invalid_char="">
             <valid initial="string.printable"/>
           </sanitizer>
         </param>
+        <param name="PL" type="select" label="Platform/technology used to produce the reads (PL)">
+          <option value="CAPILLARY">CAPILLARY</option>
+          <option value="LS454">LS454</option>
+          <option value="ILLUMINA">ILLUMINA</option>
+          <option value="SOLID">SOLID</option>
+          <option value="HELICOS">HELICOS</option>
+          <option value="IONTORRENT">IONTORRENT</option>
+          <option value="PACBIO">PACBIO</option>
+        </param>
+        <param name="LB" type="text" size="25" label="Library name (LB)" />
+        <param name="CN" type="text" size="25" label="Sequencing center that produced the read (CN)" />
+        <param name="DS" type="text" size="25" label="Description (DS)" />
+        <param name="DT" type="text" size="25" label="Date that run was produced (DT)" help="ISO8601 format date or date/time, like YYYY-MM-DD" />
+        <param name="FO" type="text" size="25" optional="true" label="Flow order (FO)" help="The array of nucleotide bases that correspond to the nucleotides used for each flow of each read. Multi-base flows are encoded in IUPAC format, and non-nucleotide flows by various other characters. Format: /\*|[ACMGRSVTWYHKDBN]+/">
+          <validator type="regex" message="Invalid flow order">\*|[ACMGRSVTWYHKDBN]+$</validator>
+        </param>
+        <param name="KS" type="text" size="25" label="The array of nucleotide bases that correspond to the key sequence of each read (KS)" />
+        <param name="PG" type="text" size="25" label="Programs used for processing the read group (PG)" />
+        <param name="PI" type="integer" optional="true" label="Predicted median insert size (PI)" />
+        <param name="PU" type="text" size="25" label="Platform unit (PU)" help="Unique identifier (e.g. flowcell-barcode.lane for Illumina or slide for SOLiD)" />
       </when>
       <when value="do_not_set">
         <!-- do nothing -->
