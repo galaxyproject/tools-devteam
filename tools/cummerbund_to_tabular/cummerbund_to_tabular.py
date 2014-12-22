@@ -2,9 +2,6 @@ import os
 import argparse
 import sys
 import string
-# new_path = [ os.path.join( '/var/galaxy/workspace/CleanGalaxy', 'lib' ), os.path.join( '/var/galaxy/workspace/CleanGalaxy', 'eggs' ) ]
-# new_path.extend( sys.path )
-# sys.path = new_path
 
 from galaxy.model.orm import *
 import logging
