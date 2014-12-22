@@ -255,7 +255,7 @@
             <param name="w" type="integer" value="100" label="band width for banded alignment" help="-w; default=100"/>
             <param name="d" type="integer" value="100" label="off-diagonal X-dropoff" help="-d; default=100"/>
             <param name="r" type="float" value="1.5" label="look for internal seeds inside a seed longer than -k * THIS VALUE" help="-r; default=1.5"/>
-            <param name="y" type="integer" value="0" label="find maximum exact matches (MEMs) longer than -k * -r with size less than THIS VALUE" help="-y;  default=0"/>
+            <param name="y" type="integer" value="20" label="Seed occurrence for the 3rd round seeding" help="-y;  default=20" />
             <param name="c" type="integer" value="500" label="skip seeds with more than that many occurrences" help="-c; default=500"/>
             <param name="D" type="float" value="0.5" label="drop chains shorter than this fraction of the longest overlapping chain" help="-D; default=0.5"/>
             <param name="W" type="integer" value="0" label="discard a chain if seeded bases shorter than" help="-W; default=0"/>
