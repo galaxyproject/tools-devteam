@@ -1,4 +1,4 @@
-<tool id="cuffdiff" name="Cuffdiff" version="@VERSION@.0">
+<tool id="cuffdiff" name="Cuffdiff" version="@VERSION@.1">
     <description>find significant changes in transcript expression, splicing, and promoter use</description>
     <requirements>
         <requirement type="set_environment">CUFFDIFF_SCRIPT_PATH</requirement>

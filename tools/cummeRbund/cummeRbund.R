@@ -41,10 +41,6 @@ parser$add_argument('--y', dest='y', action="store")
 
 args <- parser$parse_args()
 
-print(args)
-
-#q()
-
 ## Load cummeRbund library
 library("cummeRbund")
 
@@ -148,5 +144,3 @@ tryCatch({
     q("no", 1, TRUE)
 })
 devname = dev.off()
-
-#end for
