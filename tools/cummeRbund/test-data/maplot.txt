@@ -1,0 +1,310 @@
+
+R version 3.1.2 (2014-10-31) -- "Pumpkin Helmet"
+Copyright (C) 2014 The R Foundation for Statistical Computing
+Platform: x86_64-unknown-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> ## Feature Selection ##
+> get_features <- function(myGenes, f="gene") {
++     if (f == "isoforms")
++         return(isoforms(myGenes))
++     else if (f == "tss")
++         return(TSS(myGenes))
++     else if (f == "cds")
++         return(CDS(myGenes))
++     else
++         return(myGenes)
++ }
+> 
+> ## Main Function ##
+> 
+> library(argparse)
+Loading required package: proto
+> 
+> parser <- ArgumentParser(description='Create a plot with cummeRbund')
+> 
+> parser$add_argument('--type', dest='plotType', default='Density', required=TRUE)
+> parser$add_argument('--height', dest='height', type='integer', default=960, required=TRUE)
+> parser$add_argument('--width', dest='width', type='integer', default=1280, required=TRUE)
+> parser$add_argument('--outfile', dest='filename', default="plot-unknown-0.png", required=TRUE)
+> parser$add_argument('--input', dest='input_database', default="cuffData.db", required=TRUE)
+> parser$add_argument('--smooth', dest='smooth', action="store_true", default=FALSE)
+> parser$add_argument('--gene_selector', dest='gene_selector', action="store_true", default=FALSE)
+> parser$add_argument('--replicates', dest='replicates', action="store_true", default=FALSE)
+> parser$add_argument('--labcol', dest='labcol', action="store_true", default=FALSE)
+> parser$add_argument('--labrow', dest='labrow', action="store_true", default=FALSE)
+> parser$add_argument('--border', dest='border', action="store_true", default=FALSE)
+> parser$add_argument('--summary', dest='summary', action="store_true", default=FALSE)
+> parser$add_argument('--count', dest='count', action="store_true", default=FALSE)
+> parser$add_argument('--error_bars', dest='error_bars', action="store_true", default=FALSE)
+> parser$add_argument('--log10', dest='log10', action="store_true", default=FALSE)
+> parser$add_argument('--features', dest='features', action="store", default="genes")
+> parser$add_argument('--clustering', dest='clustering', action="store", default="both")
+> parser$add_argument('--iter_max', dest='iter_max', action="store")
+> parser$add_argument('--genes', dest='genes', action="append")
+> parser$add_argument('--k', dest='k', action="store")
+> parser$add_argument('--x', dest='x', action="store")
+> parser$add_argument('--y', dest='y', action="store")
+> 
+> args <- parser$parse_args()
+> 
+> print(args)
+$border
+[1] FALSE
+
+$clustering
+[1] "both"
+
+$count
+[1] FALSE
+
+$error_bars
+[1] FALSE
+
+$features
+[1] "genes"
+
+$filename
+[1] "plot-maplot-0.png"
+
+$gene_selector
+[1] FALSE
+
+$genes
+NULL
+
+$height
+[1] 960
+
+$input_database
+[1] "/tmp/tmpk0xwrM/tmpNNuxXE/database/files/000/dataset_1.dat"
+
+$iter_max
+NULL
+
+$k
+NULL
+
+$labcol
+[1] FALSE
+
+$labrow
+[1] FALSE
+
+$log10
+[1] FALSE
+
+$plotType
+[1] "maplot"
+
+$replicates
+[1] FALSE
+
+$smooth
+[1] FALSE
+
+$summary
+[1] FALSE
+
+$width
+[1] 1280
+
+$x
+[1] "q1"
+
+$y
+[1] "q2"
+
+> 
+> #q()
+> 
+> ## Load cummeRbund library
+> library("cummeRbund")
+Loading required package: BiocGenerics
+Loading required package: parallel
+
+Attaching package: ‘BiocGenerics’
+
+The following objects are masked from ‘package:parallel’:
+
+    clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
+    clusterExport, clusterMap, parApply, parCapply, parLapply,
+    parLapplyLB, parRapply, parSapply, parSapplyLB
+
+The following object is masked from ‘package:stats’:
+
+    xtabs
+
+The following objects are masked from ‘package:base’:
+
+    anyDuplicated, append, as.data.frame, as.vector, cbind, colnames,
+    do.call, duplicated, eval, evalq, Filter, Find, get, intersect,
+    is.unsorted, lapply, Map, mapply, match, mget, order, paste, pmax,
+    pmax.int, pmin, pmin.int, Position, rank, rbind, Reduce, rep.int,
+    rownames, sapply, setdiff, sort, table, tapply, union, unique,
+    unlist, unsplit
+
+Loading required package: RSQLite
+Loading required package: DBI
+Loading required package: ggplot2
+Loading required package: reshape2
+Loading required package: fastcluster
+
+Attaching package: ‘fastcluster’
+
+The following object is masked from ‘package:stats’:
+
+    hclust
+
+Loading required package: rtracklayer
+Loading required package: GenomicRanges
+Loading required package: S4Vectors
+Loading required package: stats4
+Loading required package: IRanges
+Loading required package: GenomeInfoDb
+Loading required package: Gviz
+Loading required package: grid
+
+Attaching package: ‘cummeRbund’
+
+The following object is masked from ‘package:GenomicRanges’:
+
+    promoters
+
+The following object is masked from ‘package:IRanges’:
+
+    promoters
+
+The following object is masked from ‘package:BiocGenerics’:
+
+    conditions
+
+> 
+> ## Initialize cuff object
+> cuff <- readCufflinks(dir = "", dbFile = args$input_database, rebuild = FALSE)
+> 
+> ## Print out info
+> print(cuff)
+CuffSet instance with:
+	 2 samples
+	 87 genes
+	 90 isoforms
+	 88 TSS
+	 0 CDS
+	 87 promoters
+	 88 splicing
+	 0 relCDS
+> sink("cuffdb_info.txt")
+> print(cuff)
+> print("SAMPLES:")
+> samples(cuff)
+> print("REPLICATES:")
+> replicates(cuff)
+> print("FEATURES:")
+> print(annotation(genes(cuff)))
+> cat(annotation(genes(cuff))[[1]],sep=",")
+> sink()
+> 
+> png(filename = args$filename, width = args$width, height = args$height, type=c('cairo-png'))
+> tryCatch({
++     if (args$plotType == 'density') {
++         csDensity(genes(cuff), replicates=args$replicates, logMode=args$log10)
++     }
++     else if (args$plotType == 'boxplot') {
++         csBoxplot(genes(cuff), replicates=args$replicates, logMode=args$log10)
++     }
++     else if (args$plotType == 'mds') {
++         MDSplot(genes(cuff), replicates=args$replicates)
++     }
++     else if (args$plotType == 'pca') {
++         PCAplot(genes(cuff), "PC1", "PC2", replicates=args$replicates)
++     }
++     else if (args$plotType == 'dendrogram') {
++         csDendro(genes(cuff), replicates=args$replicates)
++     }
++     else if (args$plotType == 'scatter') {
++         if (args$gene_selector) {
++             myGenes <- getGenes(cuff, args$genes)
++             csScatter(get_features(myGenes, args$features), args$x, args$y, smooth=args$smooth, logMode=args$log10)
++         }
++         else {
++             csScatter(genes(cuff), args$x, args$y, smooth=args$smooth, logMode=args$log10)
++         }
++     }
++     else if (args$plotType == 'volcano') {
++         if (args$gene_selector) {
++             myGenes <- get_features(getGenes(cuff, args$genes), args$features)
++         }
++         else {
++             myGenes <- genes(cuff)
++         }
++         csVolcano(myGenes, args$x, args$y)
++     }
++     else if (args$plotType == 'heatmap') {
++         if (args$gene_selector) {
++             myGenes <- getGenes(cuff, args$genes)
++         }
++         else {
++             myGenes <- getGenes(cuff,annotation(genes(cuff))[[1]])
++         }
++         csHeatmap(get_features(myGenes, args$features), clustering=args$clustering, labCol=args$labcol, labRow=args$labrow, border=args$border, logMode=args$log10)
++     }
++     else if (args$plotType == 'cluster') {
++         myGenes <- getGenes(cuff, args$genes)
++         csCluster(get_features(myGenes, args$features), k=args$k)
++     }
++     else if (args$plotType == 'dispersion') {
++         dispersionPlot(genes(cuff))
++     }
++     else if (args$plotType == 'fpkmSCV') {
++         fpkmSCVPlot(genes(cuff))
++     }
++     else if (args$plotType == 'scatterMatrix') {
++         csScatterMatrix(genes(cuff))
++     }
++     else if (args$plotType == 'expressionplot') {
++         myGenes <- getGenes(cuff, args$genes)
++         expressionPlot(get_features(myGenes, args$features), drawSummary=args$summary, showErrorbars=args$error_bars, replicates=args$replicates)
++     }
++     else if (args$plotType == 'expressionbarplot') {
++         myGeneId <- args$genes
++         myGenes <- getGenes(cuff, myGeneId)
++         expressionBarplot(get_features(myGenes, args$features), showErrorbars=args$error_bars, replicates=args$replicates)
++     }
++     else if (args$plotType == 'mds') {
++         MDSplot(genes(cuff),replicates=args$replicates)
++     }
++     else if (args$plotType == 'pca') {
++         PCAplot(genes(cuff),"PC1","PC2", replicates=args$replicates)
++     }
++     else if (args$plotType == 'maplot') {
++         MAplot(genes(cuff), args$x, args$y, useCount=args$count)
++     }
++     else if (args$plotType == 'genetrack') {
++         myGene <- getGene(cuff, args$genes)
++         plotTracks(makeGeneRegionTrack(myGene))
++     }
++ },error = function(e) {
++     write(paste("Failed:", e, sep=" "), stderr())
++     q("no", 1, TRUE)
++ })
+Fontconfig error: Cannot load default config file
+Warning message:
+Removed 52 rows containing missing values (geom_point). 
+> devname = dev.off()
+> 
+> #end for
+> 

@@ -144,16 +144,17 @@
                 <when value="expressionplot">
                     <expand macro="features_selector" />
                     <param name="gene_id" type="select" label="Gene ID" dynamic_options="get_genes(input_database.dataset.file_name)" />
-                    <param name="draw_summary" type="boolean" truevalue="--summary" falsevalue="" checked="False" label="Draw a 'summary' line with mean FPKM
-          values for each condition?"/>
+                    <param name="draw_summary" type="boolean" truevalue="--summary" falsevalue="" checked="False" label="Draw a 'summary' line with mean FPKM values for each condition?"/>
                     <param name="error_bars" type="boolean" truevalue="--error_bars" falsevalue="" checked="True" label="Draw error bars?"/>
                     <expand macro="replicates_checkbox" />
+                    <expand macro="log10_checkbox" />
                 </when>
                 <when value="expressionbarplot">
                     <expand macro="features_selector" />
                     <param name="gene_id" type="select" label="Gene ID" dynamic_options="get_genes(input_database.dataset.file_name)" />
                     <param name="error_bars" type="boolean" truevalue="--error_bars" falsevalue="" checked="True" label="Draw error bars?"/>
                     <expand macro="replicates_checkbox" />
+                    <expand macro="log10_checkbox" />
                 </when>
             </conditional>
         </repeat>
@@ -173,8 +174,186 @@ Based on the `cummeRbund wrapper <http://toolshed.bx.psu.edu/view/jjohnson/cumme
     ]]></help>
     <tests>
         <test>
-            <param name="" value=""/>
-            <output name="" file=""/>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <repeat name="plots">
+                <param name="width" value="1280" />
+                <param name="height" value="960" />
+                <conditional name="plot">
+                    <param name="type" value="maplot" />
+                    <param name="x" value="q1" />
+                    <param name="y" value="q2" />
+                </conditional>
+            </repeat>
+            <output name="output" ftype="txt" file="maplot.txt" lines_diff="2">
+                <discovered_dataset designation="maplot-0" ftype="png" file="maplot.png" />
+            </output>
+        </test>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <repeat name="plots">
+                <param name="width" value="1280" />
+                <param name="height" value="960" />
+                <conditional name="plot">
+                    <param name="type" value="scatter" />
+                    <param name="x" value="q1" />
+                    <param name="y" value="q2" />
+                </conditional>
+            </repeat>
+            <output name="output" ftype="txt" file="scatter.txt" lines_diff="2">
+                <discovered_dataset designation="scatter-0" ftype="png" file="scatter.png" />
+            </output>
+        </test>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <repeat name="plots">
+                <param name="width" value="1280" />
+                <param name="height" value="960" />
+                <conditional name="plot">
+                    <param name="type" value="dispersion" />
+                </conditional>
+            </repeat>
+            <output name="output" ftype="txt" file="dispersion.txt" lines_diff="2">
+                <discovered_dataset designation="dispersion-0" ftype="png" file="dispersion.png" />
+            </output>
+        </test>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <repeat name="plots">
+                <param name="width" value="1280" />
+                <param name="height" value="960" />
+                <conditional name="plot">
+                    <param name="type" value="scatterMatrix" />
+                </conditional>
+            </repeat>
+            <output name="output" ftype="txt" file="scatterMatrix.txt" lines_diff="2">
+                <discovered_dataset designation="scatterMatrix-0" ftype="png" file="scatterMatrix.png" />
+            </output>
+        </test>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <repeat name="plots">
+                <param name="width" value="1280" />
+                <param name="height" value="960" />
+                <conditional name="plot">
+                    <param name="type" value="pca" />
+                </conditional>
+            </repeat>
+            <output name="output" ftype="txt" file="pca.txt" lines_diff="2">
+                <discovered_dataset designation="pca-0" ftype="png" file="pca.png" />
+            </output>
+        </test>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <repeat name="plots">
+                <param name="width" value="1280" />
+                <param name="height" value="960" />
+                <conditional name="plot">
+                    <param name="type" value="expressionplot" />
+                    <param name="features" value="gene" />
+                    <param name="gene_id" value="XLOC_000059" />
+                </conditional>
+            </repeat>
+            <output name="output" ftype="txt" file="expressionplot.txt" lines_diff="2">
+                <discovered_dataset designation="expressionplot-0" ftype="png" file="expressionplot.png" />
+            </output>
+        </test>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <repeat name="plots">
+                <param name="width" value="1280" />
+                <param name="height" value="960" />
+                <conditional name="plot">
+                    <param name="features" value="gene" />
+                    <param name="type" value="expressionbarplot" />
+                    <param name="gene_id" value="XLOC_000039" />
+                </conditional>
+            </repeat>
+            <output name="output" ftype="txt" file="expressionbarplot.txt" lines_diff="2">
+                <discovered_dataset designation="expressionbarplot-0" ftype="png" file="expressionbarplot.png" />
+            </output>
+        </test>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <repeat name="plots">
+                <param name="width" value="1280" />
+                <param name="height" value="960" />
+                <conditional name="plot">
+                    <param name="type" value="heatmap" />
+                    <repeat name="genes">
+                        <param name="gene_id" value="XLOC_000078" />
+                    </repeat>
+                </conditional>
+            </repeat>
+            <output name="output" ftype="txt" file="heatmap.txt" lines_diff="2">
+                <discovered_dataset designation="heatmap-0" ftype="png" file="heatmap.png" />
+            </output>
+        </test>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <repeat name="plots">
+                <param name="width" value="1280" />
+                <param name="height" value="960" />
+                <conditional name="plot">
+                    <param name="type" value="density" />
+                </conditional>
+            </repeat>
+            <output name="output" ftype="txt" file="density.txt" lines_diff="2">
+                <discovered_dataset designation="density-0" ftype="png" file="density.png" />
+            </output>
+        </test>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <repeat name="plots">
+                <param name="width" value="1280" />
+                <param name="height" value="960" />
+                <conditional name="plot">
+                    <param name="type" value="dendrogram" />
+                </conditional>
+            </repeat>
+            <output name="output" ftype="txt" file="dendrogram.txt" lines_diff="2">
+                <discovered_dataset designation="dendrogram-0" ftype="png" file="dendrogram.png" />
+            </output>
+        </test>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <repeat name="plots">
+                <param name="width" value="1280" />
+                <param name="height" value="960" />
+                <conditional name="plot">
+                    <param name="type" value="volcano" />
+                    <param name="x" value="q1" />
+                    <param name="y" value="q2" />
+                </conditional>
+            </repeat>
+            <output name="output" ftype="txt" file="volcano.txt" lines_diff="2">
+                <discovered_dataset designation="volcano-0" ftype="png" file="volcano.png" />
+            </output>
+        </test>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <repeat name="plots">
+                <param name="width" value="1280" />
+                <param name="height" value="960" />
+                <conditional name="plot">
+                    <param name="type" value="boxplot" />
+                </conditional>
+            </repeat>
+            <output name="output" ftype="txt" file="boxplot.txt" lines_diff="2">
+                <discovered_dataset designation="boxplot-0" ftype="png" file="boxplot.png" />
+            </output>
+        </test>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <repeat name="plots">
+                <param name="width" value="1280" />
+                <param name="height" value="960" />
+                <conditional name="plot">
+                    <param name="type" value="fpkmSCV" />
+                </conditional>
+            </repeat>
+            <output name="output" ftype="txt" file="fpkmSCV.txt" lines_diff="2">
+                <discovered_dataset designation="fpkmSCV-0" ftype="png" file="fpkmSCV.png" />
+            </output>
         </test>
     </tests>
 </tool>

@@ -18,12 +18,10 @@ class CummerbundParser(object):
 
     def generate_file( self, table ):
         if hasattr( self, table ):
-            print 'Writing %s to %s.tabular' % ( table, os.path.abspath( table ) )
             with open( '%s.tabular' % table, 'w' ) as self.fh:
                 getattr( self, table )()
         else:
-            print 'Not found.'
-            exit(1)
+            print 'Table %s is not supported or does not exist.' % table
 
     def __connect_database( self ):
         database_connection = 'sqlite:///%s' % os.path.abspath( self.cummerbund_db )
@@ -92,7 +90,7 @@ class CummerbundParser(object):
     def __get_per_sample_fpkm( self, identifiers, table, column ):
         columns = []
         for identifier in identifiers:
-            samples = self.session.execute( 'SELECT sample_name FROM %s WHERE %s = \'%s\' ORDER BY sample_name ASC' % ( table, column, identifier[0] ) )
+            samples = self.session.execute( "SELECT sample_name FROM %s WHERE %s = '%s' ORDER BY sample_name ASC" % ( table, column, identifier[0] ) )
             for sample in samples:
                 sample_name = sample[0]
                 columns.extend( [ '%s_FPKM' % sample_name, 
@@ -112,7 +110,7 @@ class CummerbundParser(object):
         tss_groups = self.session.execute( 'SELECT %s FROM %s' % ( ', '.join( tss_columns ), table ) )
         for tss_group in tss_groups:
             out_data = list( tss_group )
-            samples = self.session.execute( 'SELECT fpkm, conf_hi, conf_lo, quant_status FROM %s WHERE %s = \'%s\' ORDER BY sample_name ASC' % ( data_table, column, tss_group[0] ) )
+            samples = self.session.execute( "SELECT fpkm, conf_hi, conf_lo, quant_status FROM %s WHERE %s = '%s' ORDER BY sample_name ASC" % ( data_table, column, tss_group[0] ) )
             for sample in samples:
                 out_data.extend( list( sample ) )
             self.__write_line( out_data )
@@ -129,7 +127,7 @@ class CummerbundParser(object):
         for row in result:
             isoform_id = row[0]
             output_data = [ isoform_id ]
-            per_sample = self.session.execute( 'SELECT count, variance, uncertainty, dispersion, status FROM %s WHERE %s = \'%s\' ORDER BY sample_name ASC' % ( table, column, isoform_id ) )
+            per_sample = self.session.execute( "SELECT count, variance, uncertainty, dispersion, status FROM %s WHERE %s = '%s' ORDER BY sample_name ASC" % ( table, column, isoform_id ) )
             for samplerow in per_sample:
                 output_data.extend( list( samplerow ) )
             self.__write_line( output_data )
@@ -137,7 +135,7 @@ class CummerbundParser(object):
     def __get_per_sample_count_cols( self, identifiers, table, column ):
         columns = []
         for identifier in identifiers:
-            samples = self.session.execute( 'SELECT sample_name FROM %s WHERE %s = \'%s\' ORDER BY sample_name ASC' % ( table, column, identifier[0] ) )
+            samples = self.session.execute( "SELECT sample_name FROM %s WHERE %s = '%s' ORDER BY sample_name ASC" % ( table, column, identifier[0] ) )
             for sample in samples:
                 sample_name = sample[0]
                 columns.extend( [ '%s_count' % sample_name, 
@@ -181,7 +179,7 @@ class CummerbundParser(object):
         for row in result:
             gene_id = row[0]
             output_data = list( row )
-            per_sample = self.session.execute( 'SELECT fpkm, conf_lo, conf_hi, quant_status FROM geneData WHERE gene_id = \'%s\' ORDER BY sample_name ASC' % gene_id )
+            per_sample = self.session.execute( "SELECT fpkm, conf_lo, conf_hi, quant_status FROM geneData WHERE gene_id = '%s' ORDER BY sample_name ASC" % gene_id )
             for samplerow in per_sample:
                 output_data.extend( list( samplerow ) )
             self.__write_line( output_data )
@@ -199,7 +197,7 @@ class CummerbundParser(object):
         for row in result:
             CDS_id = row[0]
             output_data = list( row )
-            per_sample = self.session.execute( 'SELECT fpkm, conf_lo, conf_hi, quant_status FROM CDSData WHERE CDS_id = \'%s\' ORDER BY sample_name ASC' % CDS_id )
+            per_sample = self.session.execute( "SELECT fpkm, conf_lo, conf_hi, quant_status FROM CDSData WHERE CDS_id = '%s' ORDER BY sample_name ASC" % CDS_id )
             for samplerow in per_sample:
                 output_data.extend( list( samplerow ) )
             self.__write_line( output_data )
