@@ -164,14 +164,6 @@
             <discover_datasets pattern="plot-(?P&lt;designation&gt;.+)\.png" ext="png" visible="true" />
         </data>
     </outputs>
-    <citations>
-        <citation type="doi">doi:10.1038/nprot.2012.016</citation>
-    </citations>
-    <help><![CDATA[
-This tool allows for persistent storage, access, exploration, and manipulation of Cufflinks high-throughput sequencing data. In addition, provides numerous plotting functions for commonly used visualizations.
-------
-Based on the `cummeRbund wrapper <http://toolshed.bx.psu.edu/view/jjohnson/cummerbund>`_ written by James E. Johnson of the Minnesota Supercomputing Institute.
-    ]]></help>
     <tests>
         <test>
             <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
@@ -356,4 +348,12 @@ Based on the `cummeRbund wrapper <http://toolshed.bx.psu.edu/view/jjohnson/cumme
             </output>
         </test>
     </tests>
+    <help><![CDATA[
+This tool allows for persistent storage, access, exploration, and manipulation of Cufflinks high-throughput sequencing data. In addition, provides numerous plotting functions for commonly used visualizations.
+------
+Based on the `cummeRbund wrapper <http://toolshed.bx.psu.edu/view/jjohnson/cummerbund>`_ written by James E. Johnson of the Minnesota Supercomputing Institute.
+    ]]></help>
+    <citations>
+        <citation type="doi">doi:10.1038/nprot.2012.016</citation>
+    </citations>
 </tool>
