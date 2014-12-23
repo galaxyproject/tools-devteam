@@ -1,0 +1,359 @@
+<?xml version="1.0"?>
+<tool id="cummeRbund" name="Plot CuffDiff" version="1.0.0">
+    <description>data with cummeRbund</description>
+    <requirements>
+        <requirement type="set_environment">CUMMERBUND_SCRIPT_PATH</requirement>
+        <requirement type="package" version="3.1.2">R</requirement>
+        <requirement type="package" version="2.8.2">cummeRbund</requirement>
+    </requirements>
+    <expand macro="stdio" />
+    <macros>
+        <import>cummeRbund_macros.xml</import>
+    </macros>
+    <code file="cummeRbund_options.py"/>
+    <command>
+<![CDATA[
+#for i, p in enumerate($plots):
+    R --vanilla --no-save -f \$CUMMERBUND_SCRIPT_PATH/cummeRbund.R --args
+    --input "${input_database}" --width $p.width --height $p.height --type "${p.plot.type}"
+    --outfile plot-${p.plot.type}-${i}.png
+    #if $p.plot.type in ["density", "boxplot", "mds", "pca", "dendrogram"]:
+        $p.plot.replicates
+    #elif $p.plot.type == "scatter":
+        $p.plot.smooth --x "$p.plot.x" --y "$p.plot.y" $p.plot.log10
+        #if $p.plot.multiple_genes.multiple_genes_selector == "yes":
+            --features $p.plot.multiple_genes.features --gene_selector
+            #for gene in $p.plot.multiple_genes.genes:
+                --genes ${gene.gene_id}
+            #end for
+        #end if
+    #elif $p.plot.type == "maplot":
+        --x "$p.plot.x" --y "$p.plot.y" $p.plot.count
+    #elif $p.plot.type == "volcano":
+        --x "$p.plot.x" --y "$p.plot.y"
+        #if $p.plot.multiple_genes.multiple_genes_selector == "yes":
+            --features $p.plot.multiple_genes.features --gene_selector
+            #for gene in $p.plot.multiple_genes.genes:
+                --genes ${gene.gene_id}
+            #end for
+        #end if
+    #elif $p.plot.type == "heatmap":
+        --clustering "$p.plot.clustering" $p.plot.labcol $p.plot.labrow $p.plot.border --features $p.plot.features $p.plot.log10
+        #if len($p.plot.genes) > 0:
+            #for gene in $p.plot.genes:
+                --genes ${gene.gene_id}
+            #end for
+        #end if
+    #elif $p.plot.type == "cluster":
+        --features $p.plot.features --k $p.plot.k --iter_max $p.plot.iter_max
+        #if len($p.plot.genes) > 0:
+            #for gene in $p.plot.genes:
+                --genes ${gene.gene_id}
+            #end for
+        #end if
+    #elif $p.plot.type in [ "expressionplot", "expressionbarplot" ]:
+        #if $p.plot.type == "expressionplot":
+            $p.plot.draw_summary
+        #end if
+        --features $p.plot.features $p.plot.error_bars --genes ${p.plot.gene_id} $p.plot.replicates $p.plot.log10
+    #end if
+    #if $p.plot.type == "density":
+        $p.plot.log10
+    #end if
+    > "${output}" 2>&1 ;
+#end for
+]]></command>
+    <inputs>
+        <param name="input_database" type="data" format="sqlite" label="Select backend database (sqlite)" />
+        <repeat name="plots" title="Plots">
+            <param name="width" type="integer" value="1280" label="The width of the image"/>
+            <param name="height" type="integer" value="960" label="The height of the image"/>
+            <conditional name="plot">
+                <param name="type" type="select" label="Plot type">
+                    <option value="density" selected="true">Density</option>
+                    <option value="boxplot">Boxplot</option>
+                    <option value="mds">MultiDimentional Scaling (MDS) Plot</option>
+                    <option value="pca">Principal Component Analysis (PCA) Plot</option>
+                    <option value="dendrogram">Dendrogram</option>
+                    <option value="scatter">Scatter</option>
+                    <option value="volcano">Volcano</option>
+                    <option value="heatmap">Heatmap</option>
+                    <option value="dispersion">Dispersion</option>
+                    <option value="fpkmSCV">Squared Coefficient of Variation</option>
+                    <option value="scatterMatrix">Scatter Matrix</option>
+                    <option value="cluster">Cluster</option>
+                    <option value="expressionplot">Expression Plot</option>
+                    <option value="expressionbarplot">Expression Bar Plot</option>
+                    <option value="maplot">Intensity vs Fold-change (MvaA) Plot</option>
+                </param>
+                <when value="density">
+                    <expand macro="replicates_checkbox" />
+                    <expand macro="log10_checkbox" />
+                </when>
+                <when value="mds">
+                    <expand macro="replicates_checkbox" />
+                </when>
+                <when value="pca">
+                    <expand macro="replicates_checkbox" />
+                </when>
+                <when value="boxplot">
+                    <expand macro="replicates_checkbox" />
+                    <expand macro="log10_checkbox" />
+                </when>
+                <when value="dendrogram">
+                    <expand macro="replicates_checkbox" />
+                </when>
+                <when value="scatter">
+                    <expand macro="xy_selector" />
+                    <expand macro="log10_checkbox" />
+                    <param name="smooth" type="boolean" truevalue="--smooth" falsevalue="" checked="True" label="Add a smooth-fit regression line"/>
+                    <expand macro="multiple_genes_conditional" />
+                </when>
+                <when value="volcano">
+                    <param name="x" type="select" label="First sample name for comparison" dynamic_options="get_samples(input_database.dataset.file_name)" />
+                    <param name="y" type="select" label="Second sample name for comparison" dynamic_options="get_samples(input_database.dataset.file_name)" />
+                    <expand macro="multiple_genes_conditional" />
+                </when>
+                <when value="heatmap">
+                    <expand macro="features_selector" />
+                    <expand macro="genes_selector" />
+                    <param name="clustering" type="select" label="Cluster by">
+                        <option value="row">Row</option>
+                        <option value="column">Column</option>
+                        <option value="both" selected="true">Both</option>
+                        <option value="none">None</option>
+                    </param>
+                    <param name="labcol" type="boolean" truevalue="--labcol" falsevalue="" checked="True" label="Display column labels?"/>
+                    <param name="labrow" type="boolean" truevalue="--labrow" falsevalue="" checked="True" label="Display column labels?"/>
+                    <param name="border" type="boolean" truevalue="--border" falsevalue="" checked="False" label="Draw border around plot?"/>
+                    <expand macro="log10_checkbox" />
+                </when>
+                <when value="cluster">
+                    <expand macro="features_selector" />
+                    <expand macro="genes_selector" />
+                    <param name="k" type="integer" value="1" label="Number of pre-defined clusters to attempt to find."/>
+                    <param name="iter_max" type="integer" value="100" label="Max iterations"/>
+                </when>
+                <when value="maplot">
+                    <expand macro="xy_selector" />
+                    <param name="count" type="boolean" truevalue="--count" falsevalue="" checked="False" label="Use Count?"/>
+                </when>
+                <when value="dispersion" />
+                <when value="fpkmSCV" />
+                <when value="scatterMatrix" />
+                <when value="expressionplot">
+                    <expand macro="features_selector" />
+                    <param name="gene_id" type="select" label="Gene ID" dynamic_options="get_genes(input_database.dataset.file_name)" />
+                    <param name="draw_summary" type="boolean" truevalue="--summary" falsevalue="" checked="False" label="Draw a 'summary' line with mean FPKM values for each condition?"/>
+                    <param name="error_bars" type="boolean" truevalue="--error_bars" falsevalue="" checked="True" label="Draw error bars?"/>
+                    <expand macro="replicates_checkbox" />
+                    <expand macro="log10_checkbox" />
+                </when>
+                <when value="expressionbarplot">
+                    <expand macro="features_selector" />
+                    <param name="gene_id" type="select" label="Gene ID" dynamic_options="get_genes(input_database.dataset.file_name)" />
+                    <param name="error_bars" type="boolean" truevalue="--error_bars" falsevalue="" checked="True" label="Draw error bars?"/>
+                    <expand macro="replicates_checkbox" />
+                    <expand macro="log10_checkbox" />
+                </when>
+            </conditional>
+        </repeat>
+    </inputs>
+    <outputs>
+        <data format="txt" name="output" label="${tool.name} on ${on_string}">
+            <discover_datasets pattern="plot-(?P&lt;designation&gt;.+)\.png" ext="png" visible="true" />
+        </data>
+    </outputs>
+    <tests>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <repeat name="plots">
+                <param name="width" value="1280" />
+                <param name="height" value="960" />
+                <conditional name="plot">
+                    <param name="type" value="maplot" />
+                    <param name="x" value="q1" />
+                    <param name="y" value="q2" />
+                </conditional>
+            </repeat>
+            <output name="output" ftype="txt" file="maplot.txt" lines_diff="2">
+                <discovered_dataset designation="maplot-0" ftype="png" file="maplot.png" />
+            </output>
+        </test>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <repeat name="plots">
+                <param name="width" value="1280" />
+                <param name="height" value="960" />
+                <conditional name="plot">
+                    <param name="type" value="scatter" />
+                    <param name="x" value="q1" />
+                    <param name="y" value="q2" />
+                </conditional>
+            </repeat>
+            <output name="output" ftype="txt" file="scatter.txt" lines_diff="2">
+                <discovered_dataset designation="scatter-0" ftype="png" file="scatter.png" />
+            </output>
+        </test>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <repeat name="plots">
+                <param name="width" value="1280" />
+                <param name="height" value="960" />
+                <conditional name="plot">
+                    <param name="type" value="dispersion" />
+                </conditional>
+            </repeat>
+            <output name="output" ftype="txt" file="dispersion.txt" lines_diff="2">
+                <discovered_dataset designation="dispersion-0" ftype="png" file="dispersion.png" />
+            </output>
+        </test>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <repeat name="plots">
+                <param name="width" value="1280" />
+                <param name="height" value="960" />
+                <conditional name="plot">
+                    <param name="type" value="scatterMatrix" />
+                </conditional>
+            </repeat>
+            <output name="output" ftype="txt" file="scatterMatrix.txt" lines_diff="2">
+                <discovered_dataset designation="scatterMatrix-0" ftype="png" file="scatterMatrix.png" />
+            </output>
+        </test>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <repeat name="plots">
+                <param name="width" value="1280" />
+                <param name="height" value="960" />
+                <conditional name="plot">
+                    <param name="type" value="pca" />
+                </conditional>
+            </repeat>
+            <output name="output" ftype="txt" file="pca.txt" lines_diff="2">
+                <discovered_dataset designation="pca-0" ftype="png" file="pca.png" />
+            </output>
+        </test>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <repeat name="plots">
+                <param name="width" value="1280" />
+                <param name="height" value="960" />
+                <conditional name="plot">
+                    <param name="type" value="expressionplot" />
+                    <param name="features" value="gene" />
+                    <param name="gene_id" value="XLOC_000059" />
+                </conditional>
+            </repeat>
+            <output name="output" ftype="txt" file="expressionplot.txt" lines_diff="2">
+                <discovered_dataset designation="expressionplot-0" ftype="png" file="expressionplot.png" />
+            </output>
+        </test>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <repeat name="plots">
+                <param name="width" value="1280" />
+                <param name="height" value="960" />
+                <conditional name="plot">
+                    <param name="features" value="gene" />
+                    <param name="type" value="expressionbarplot" />
+                    <param name="gene_id" value="XLOC_000039" />
+                </conditional>
+            </repeat>
+            <output name="output" ftype="txt" file="expressionbarplot.txt" lines_diff="2">
+                <discovered_dataset designation="expressionbarplot-0" ftype="png" file="expressionbarplot.png" />
+            </output>
+        </test>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <repeat name="plots">
+                <param name="width" value="1280" />
+                <param name="height" value="960" />
+                <conditional name="plot">
+                    <param name="type" value="heatmap" />
+                    <repeat name="genes">
+                        <param name="gene_id" value="XLOC_000078" />
+                    </repeat>
+                </conditional>
+            </repeat>
+            <output name="output" ftype="txt" file="heatmap.txt" lines_diff="2">
+                <discovered_dataset designation="heatmap-0" ftype="png" file="heatmap.png" />
+            </output>
+        </test>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <repeat name="plots">
+                <param name="width" value="1280" />
+                <param name="height" value="960" />
+                <conditional name="plot">
+                    <param name="type" value="density" />
+                </conditional>
+            </repeat>
+            <output name="output" ftype="txt" file="density.txt" lines_diff="2">
+                <discovered_dataset designation="density-0" ftype="png" file="density.png" />
+            </output>
+        </test>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <repeat name="plots">
+                <param name="width" value="1280" />
+                <param name="height" value="960" />
+                <conditional name="plot">
+                    <param name="type" value="dendrogram" />
+                </conditional>
+            </repeat>
+            <output name="output" ftype="txt" file="dendrogram.txt" lines_diff="2">
+                <discovered_dataset designation="dendrogram-0" ftype="png" file="dendrogram.png" />
+            </output>
+        </test>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <repeat name="plots">
+                <param name="width" value="1280" />
+                <param name="height" value="960" />
+                <conditional name="plot">
+                    <param name="type" value="volcano" />
+                    <param name="x" value="q1" />
+                    <param name="y" value="q2" />
+                </conditional>
+            </repeat>
+            <output name="output" ftype="txt" file="volcano.txt" lines_diff="2">
+                <discovered_dataset designation="volcano-0" ftype="png" file="volcano.png" />
+            </output>
+        </test>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <repeat name="plots">
+                <param name="width" value="1280" />
+                <param name="height" value="960" />
+                <conditional name="plot">
+                    <param name="type" value="boxplot" />
+                </conditional>
+            </repeat>
+            <output name="output" ftype="txt" file="boxplot.txt" lines_diff="2">
+                <discovered_dataset designation="boxplot-0" ftype="png" file="boxplot.png" />
+            </output>
+        </test>
+        <test>
+            <param name="input_database" value="cuffdiff_out.sqlite" ftype="sqlite" />
+            <repeat name="plots">
+                <param name="width" value="1280" />
+                <param name="height" value="960" />
+                <conditional name="plot">
+                    <param name="type" value="fpkmSCV" />
+                </conditional>
+            </repeat>
+            <output name="output" ftype="txt" file="fpkmSCV.txt" lines_diff="2">
+                <discovered_dataset designation="fpkmSCV-0" ftype="png" file="fpkmSCV.png" />
+            </output>
+        </test>
+    </tests>
+    <help><![CDATA[
+This tool allows for persistent storage, access, exploration, and manipulation of Cufflinks high-throughput sequencing data. In addition, provides numerous plotting functions for commonly used visualizations.
+------
+Based on the `cummeRbund wrapper <http://toolshed.bx.psu.edu/view/jjohnson/cummerbund>`_ written by James E. Johnson of the Minnesota Supercomputing Institute.
+    ]]></help>
+    <citations>
+        <citation type="doi">doi:10.1038/nprot.2012.016</citation>
+    </citations>
+</tool>
