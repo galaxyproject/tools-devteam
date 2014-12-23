@@ -27,7 +27,7 @@ usage: bowtie_wrapper.py [options]
     -M, --mismatchQual=M: Maximum permitted total of quality values at mismatched read positions
     -l, --seedLen=l: Seed length
     -n, --rounding=n: Whether or not to round to the nearest 10 and saturating at 30
-    -P, --maqSoapAlign=P: Choose Maq- or SOAP-like alignment policy
+    -P, --maxMismatches=P: Maximum number of mismatches for -v alignment mode
     -w, --tryHard=: Whether or not to try as hard as possible to find valid alignments when they exist
     -V, --allValAligns=V: Whether or not to report all valid alignments per read or pair
     -v, --valAlign=v: Report up to n valid alignments per read or pair
@@ -100,7 +100,7 @@ def __main__():
     parser.add_option( '-M', '--mismatchQual', dest='mismatchQual', help='Maximum permitted total of quality values at mismatched read positions' )
     parser.add_option( '-l', '--seedLen', dest='seedLen', help='Seed length' )
     parser.add_option( '-n', '--rounding', dest='rounding', help='Whether or not to round to the nearest 10 and saturating at 30' )
-    parser.add_option( '-P', '--maqSoapAlign', dest='maqSoapAlign', help='Choose Maq- or SOAP-like alignment policy' )
+    parser.add_option( '-P', '--maxMismatches', dest='maxMismatches', help='Maximum number of mismatches for -v alignment mode' )
     parser.add_option( '-w', '--tryHard', dest='tryHard', help='Whether or not to try as hard as possible to find valid alignments when they exist' )
     parser.add_option( '-V', '--allValAligns', dest='allValAligns', help='Whether or not to report all valid alignments per read or pair' )
     parser.add_option( '-v', '--valAlign', dest='valAlign', help='Report up to n valid alignments per read or pair' )
@@ -137,6 +137,8 @@ def __main__():
     parser.add_option( '--galaxy_input_format', dest='galaxy_input_format', default="fastqsanger", help='galaxy input format' )
     parser.add_option( '--do_not_build_index', dest='do_not_build_index', action="store_true", default=False, help='Flag to specify that provided file is already indexed, use as is' )
     (options, args) = parser.parse_args()
+    if options.mismatchSeed and options.maxMismatches:
+        parser.error("options --mismatchSeed and --maxMismatches are mutually exclusive")
     stdout = ''
 
     # make temp directory for placement of indices and copy reference file there if necessary
@@ -277,16 +279,17 @@ def __main__():
                 trimL = '-3 %s' % options.trimL
             else:
                 trimL = ''
-            if options.maqSoapAlign != '-1' and int( options.maqSoapAlign ) >= 0:
-                maqSoapAlign = '-v %s' % options.maqSoapAlign
+            if options.maxMismatches and (options.maxMismatches == '0' or options.maxMismatches == '1' \
+                        or options.maxMismatches == '2' or options.maxMismatches == '3'):
+                maxMismatches = '-v %s' % options.maxMismatches
             else:
-                maqSoapAlign = ''
+                maxMismatches = ''
             if options.mismatchSeed and (options.mismatchSeed == '0' or options.mismatchSeed == '1' \
                         or options.mismatchSeed == '2' or options.mismatchSeed == '3'):
                 mismatchSeed = '-n %s' % options.mismatchSeed
             else:
                 mismatchSeed = ''
-            if options.mismatchQual and int( options.mismatchQual ) >= 0:
+            if options.mismatchQual and int( options.mismatchQual ) >= 1:
                 mismatchQual = '-e %s' % options.mismatchQual
             else:
                 mismatchQual = ''
@@ -389,7 +392,7 @@ def __main__():
             aligning_cmds = '-q %s %s -p %s -S %s %s %s %s %s %s %s %s %s %s %s %s ' \
                             '%s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s ' % \
                             ( maxInsert, mateOrient, options.threads, suppressHeader,
-                              colorspace, skip, alignLimit, trimH, trimL, maqSoapAlign,
+                              colorspace, skip, alignLimit, trimH, trimL, maxMismatches,
                               mismatchSeed, mismatchQual, seedLen, rounding, minInsert,
                               maxAlignAttempt, forwardAlign, reverseAlign, maxBacktracks,
                               tryHard, valAlign, allValAligns, suppressAlign, best,

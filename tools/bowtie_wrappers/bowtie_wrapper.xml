@@ -73,11 +73,14 @@
           --alignLimit="${singlePaired.sParams.sAlignLimit}"
           --trimH="${singlePaired.sParams.sTrimH}"
           --trimL="${singlePaired.sParams.sTrimL}"
-          --mismatchSeed="${singlePaired.sParams.sMismatchSeed}"
-          --mismatchQual="${singlePaired.sParams.sMismatchQual}"
-          --seedLen="${singlePaired.sParams.sSeedLen}"
-          --rounding="${singlePaired.sParams.sRounding}"
-          --maqSoapAlign="${singlePaired.sParams.sMaqSoapAlign}"
+          #if $singlePaired.sParams.alignModeOption.alignMode == 'nMode'
+            --mismatchSeed="${singlePaired.sParams.alignModeOption.sMismatchSeed}"
+            --mismatchQual="${singlePaired.sParams.alignModeOption.sMismatchQual}"
+            --seedLen="${singlePaired.sParams.alignModeOption.sSeedLen}"
+            --rounding="${singlePaired.sParams.alignModeOption.sRounding}"
+          #else
+            --maxMismatches="${singlePaired.sParams.alignModeOption.maxMismatches}"
+          #end if
           --forwardAlign="${singlePaired.sParams.sForwardAlign}"
           --reverseAlign="${singlePaired.sParams.sReverseAlign}"
           --tryHard="${singlePaired.sParams.sBestOption.sTryHardOption.sTryHard}"
@@ -111,11 +114,14 @@
           --alignLimit="${singlePaired.pParams.pAlignLimit}"
           --trimH="${singlePaired.pParams.pTrimH}"
           --trimL="${singlePaired.pParams.pTrimL}"
-          --mismatchSeed="${singlePaired.pParams.pMismatchSeed}"
-          --mismatchQual="${singlePaired.pParams.pMismatchQual}"
-          --seedLen="${singlePaired.pParams.pSeedLen}"
-          --rounding="${singlePaired.pParams.pRounding}"
-          --maqSoapAlign="${singlePaired.pParams.pMaqSoapAlign}"
+          #if $singlePaired.pParams.alignModeOption.alignMode == 'nMode'
+            --mismatchSeed="${singlePaired.pParams.alignModeOption.pMismatchSeed}"
+            --mismatchQual="${singlePaired.pParams.alignModeOption.pMismatchQual}"
+            --seedLen="${singlePaired.pParams.alignModeOption.pSeedLen}"
+            --rounding="${singlePaired.pParams.alignModeOption.pRounding}"
+          #else
+            --maxMismatches="${singlePaired.pParams.alignModeOption.maxMismatches}"
+          #end if
           --minInsert="${singlePaired.pParams.pMinInsert}"
           --forwardAlign="${singlePaired.pParams.pForwardAlign}"
           --reverseAlign="${singlePaired.pParams.pReverseAlign}"
@@ -223,14 +229,24 @@
             <param name="sAlignLimit" type="integer" value="-1" label="Only align the first n reads (-u)" help="-1 for off" />
             <param name="sTrimH" type="integer" value="0" label="Trim n bases from high-quality (left) end of each read before alignment (-5)" />
             <param name="sTrimL" type="integer" value="0" label="Trim n bases from low-quality (right) end of each read before alignment (-3)" />
-            <param name="sMismatchSeed" type="integer" value="2" label="Maximum number of mismatches permitted in the seed (-n)" help="May be 0, 1, 2, or 3" />
-            <param name="sMismatchQual" type="integer" value="70" label="Maximum permitted total of quality values at mismatched read positions (-e)" />
-            <param name="sSeedLen" type="integer" value="28" label="Seed length (-l)" help="Minimum value is 5" />
-            <param name="sRounding" type="select" label="Whether or not to round to the nearest 10 and saturating at 30 (--nomaqround)">
-              <option value="round">Round to nearest 10</option>
-              <option value="noRound">Do not round to nearest 10</option>
-            </param>
-            <param name="sMaqSoapAlign" type="integer" value="-1" label="Number of mismatches for SOAP-like alignment policy (-v)" help="-1 for default Maq-like alignment policy" />
+            <conditional name="alignModeOption">
+              <param name="alignMode" type="select" label="Alignment mode">
+                <option value="nMode">Maq-like: quality-aware, limit mismatches in seed (-n)</option>
+                <option value="vMode">ignore qualities, limit end-to-end mismatches (-v)</option>
+              </param>
+              <when value="nMode">
+                <param name="sMismatchSeed" type="integer" value="2" min="0" max="3" label="Maximum number of mismatches permitted in the seed (-n)" help="May be 0, 1, 2, or 3" />
+                <param name="sMismatchQual" type="integer" value="70" min="1" label="Maximum permitted total of quality values at all mismatched read positions (-e)" />
+                <param name="sSeedLen" type="integer" value="28" min="5" label="Seed length (-l)" help="Minimum value is 5" />
+                <param name="sRounding" type="select" label="Whether or not to round to the nearest 10 and saturating at 30 (--nomaqround)" help="Maq accepts quality values in the Phred quality scale, but internally rounds values to the nearest 10, with a maximum of 30. By default, bowtie also rounds this way">
+                  <option value="round">Round to nearest 10</option>
+                  <option value="noRound">Do not round to nearest 10</option>
+                </param>
+              </when>
+              <when value="vMode">
+                <param name="maxMismatches" type="integer" value="" min="0" max="3" label="Maximum number of mismatches (-v)" help="May be 0, 1, 2, or 3" />
+              </when>
+            </conditional>
             <param name="sForwardAlign" type="select" label="Choose whether or not to attempt to align against the forward reference strand (--nofw)">
               <option value="forward">Align against the forward reference strand</option>
               <option value="noForward">Do not align against the forward reference strand</option>
@@ -317,14 +333,24 @@
             <param name="pAlignLimit" type="integer" value="-1" label="Only align the first n pairs (-u)" help="-1 for off" />
             <param name="pTrimH" type="integer" value="0" label="Trim n bases from high-quality (left) end of each read before alignment (-5)" />
             <param name="pTrimL" type="integer" value="0" label="Trim n bases from low-quality (right) end of each read before alignment (-3)" />
-            <param name="pMismatchSeed" type="integer" value="2" label="Maximum number of mismatches permitted in the seed (-n)" help="May be 0, 1, 2, or 3" />
-            <param name="pMismatchQual" type="integer" value="70" label="Maximum permitted total of quality values at mismatched read positions (-e)" />
-            <param name="pSeedLen" type="integer" value="28" label="Seed length (-l)" help="Minimum value is 5" />
-            <param name="pRounding" type="select" label="Whether or not to round to the nearest 10 and saturating at 30 (--nomaqround)">
-              <option value="round">Round to nearest 10</option>
-              <option value="noRound">Do not round to nearest 10</option>
-            </param>
-            <param name="pMaqSoapAlign" type="integer" value="-1" label="Number of mismatches for SOAP-like alignment policy (-v)" help="-1 for default Maq-like alignment policy" />
+            <conditional name="alignModeOption">
+              <param name="alignMode" type="select" label="Alignment mode">
+                <option value="nMode">Maq-like: quality-aware, limit mismatches in seed (-n)</option>
+                <option value="vMode">ignore qualities, limit end-to-end mismatches (-v)</option>
+              </param>
+              <when value="nMode">
+                <param name="pMismatchSeed" type="integer" value="2" min="0" max="3" label="Maximum number of mismatches permitted in the seed (-n)" help="May be 0, 1, 2, or 3" />
+                <param name="pMismatchQual" type="integer" value="70" min="1" label="Maximum permitted total of quality values at all mismatched read positions (-e)" />
+                <param name="pSeedLen" type="integer" value="28" min="5" label="Seed length (-l)" help="Minimum value is 5" />
+                <param name="pRounding" type="select" label="Whether or not to round to the nearest 10 and saturating at 30 (--nomaqround)" help="Maq accepts quality values in the Phred quality scale, but internally rounds values to the nearest 10, with a maximum of 30. By default, bowtie also rounds this way">
+                  <option value="round">Round to nearest 10</option>
+                  <option value="noRound">Do not round to nearest 10</option>
+                </param>
+              </when>
+              <when value="vMode">
+                <param name="maxMismatches" type="integer" value="" min="0" max="3" label="Maximum number of mismatches (-v)" help="May be 0, 1, 2, or 3" />
+              </when>
+            </conditional>
             <param name="pMinInsert" type="integer" value="0" label="Minimum insert size for valid paired-end alignments (-I)" />
             <param name="pForwardAlign" type="select" label="Choose whether or not to attempt to align against the forward reference strand (--nofw)">
               <option value="forward">Align against the forward reference strand</option>
@@ -547,11 +573,11 @@
       <param name="pAlignLimit" value="-1" />
       <param name="pTrimH" value="0" />
       <param name="pTrimL" value="0" />
+      <param name="alignMode" value="nMode" />
       <param name="pMismatchSeed" value="2" />
       <param name="pMismatchQual" value="70" />
       <param name="pSeedLen" value="28" />
       <param name="pRounding" value="round" />
-      <param name="pMaqSoapAlign" value="-1" />
       <param name="pMinInsert" value="0" />
       <param name="pMaxAlignAttempt" value="100" />
       <param name="pForwardAlign" value="forward" />
@@ -587,11 +613,11 @@
       <param name="pAlignLimit" value="-1" />
       <param name="pTrimH" value="0" />
       <param name="pTrimL" value="0" />
+      <param name="alignMode" value="nMode" />
       <param name="pMismatchSeed" value="2" />
       <param name="pMismatchQual" value="70" />
       <param name="pSeedLen" value="28" />
       <param name="pRounding" value="round" />
-      <param name="pMaqSoapAlign" value="-1" />
       <param name="pMinInsert" value="0" />
       <param name="pMaxAlignAttempt" value="100" />
       <param name="pForwardAlign" value="forward" />
@@ -626,11 +652,11 @@
       <param name="pAlignLimit" value="-1" />
       <param name="pTrimH" value="0" />
       <param name="pTrimL" value="0" />
+      <param name="alignMode" value="nMode" />
       <param name="pMismatchSeed" value="2" />
       <param name="pMismatchQual" value="70" />
       <param name="pSeedLen" value="28" />
       <param name="pRounding" value="round" />
-      <param name="pMaqSoapAlign" value="-1" />
       <param name="pMinInsert" value="0" />
       <param name="pMaxAlignAttempt" value="100" />
       <param name="pForwardAlign" value="forward" />
@@ -670,11 +696,11 @@
       <param name="sAlignLimit" value="-1" />
       <param name="sTrimH" value="0" />
       <param name="sTrimL" value="0" />
+      <param name="alignMode" value="nMode" />
       <param name="sMismatchSeed" value="2" />
       <param name="sMismatchQual" value="70" />
       <param name="sSeedLen" value="28" />
       <param name="sRounding" value="round" />
-      <param name="sMaqSoapAlign" value="-1" />
       <param name="sForwardAlign" value="forward" />
       <param name="sReverseAlign" value="reverse" />
       <param name="sTryHard" value="doTryHard" />
