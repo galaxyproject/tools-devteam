@@ -105,10 +105,10 @@
                 ${analysis_type.alignment_options.no_1mm_upfront}
                 #if str( $analysis_type.alignment_options.align_mode.align_mode_selector ) == "end-to-end":
                     --end-to-end
-                    --score-min "${$analysis_type.alignment_options.align_mode.core-min}"
+                    --score-min "${$analysis_type.alignment_options.align_mode.score-min}"
                 #elif str( $analysis_type.alignment_options.align_mode.align_mode_selector ) == "local":
                     --local
-                    --score-min "${$analysis_type.alignment_options.align_mode.core-min}"
+                    --score-min "${$analysis_type.alignment_options.align_mode.score-min}"
                 #end if
             #end if
             
