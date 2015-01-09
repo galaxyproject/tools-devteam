@@ -112,7 +112,7 @@
     #end if
     
     #if str( $rg.rg_selector ) == "set":
-      #set $rg_string = "@RG\tID:$rg.ID\tSM:$rg.SM\tPL:$rg.PL"
+      #set $rg_string = "@RG\tID:" + str($rg.ID) + "\tSM:" + str($rg.SM) + "\tPL:" + str($rg.PL)
       #if $rg.LB
         #set $rg_string += "\tLB:$rg.LB"
       #end if
@@ -140,7 +140,7 @@
       #if $rg.PU
         #set $rg_string += "\tPU:$rg.PU"
       #end if
-      -R $rg_string
+      -R '$rg_string'
     #end if 
     
     #if str( $fastq_input.fastq_input_selector ) == "paired":
