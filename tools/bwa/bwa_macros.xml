@@ -77,6 +77,17 @@ This will be added shortly
 
 
     </token>
-    
+    <xml name="readgroup_params">
+        <param name="ID" type="text" value="readgroup1" size="20" label="Read group identifier (ID)" help="This value must be unique among multiple samples in your experiment">
+          <sanitizer invalid_char="">
+            <valid initial="string.printable"/>
+          </sanitizer>
+        </param>
+        <param name="SM" type="text" value="blood" size="20" label="Read group sample name (SM)" help="This value should be descriptive. Use pool name where a pool is being sequenced">
+          <sanitizer invalid_char="">
+            <valid initial="string.printable"/>
+          </sanitizer>
+        </param>
+    </xml>
 
 </macros>

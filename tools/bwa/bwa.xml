@@ -362,16 +362,7 @@
         <option value="do_not_set" selected="True">Do not set</option>
       </param>
       <when value="set">
-        <param name="ID" type="text" value="readgroup1" size="20" label="Specify readgroup ID" help="This value must be unique among multiple samples in your experiment">
-          <sanitizer invalid_char="">
-            <valid initial="string.printable"/>
-          </sanitizer>
-        </param>
-        <param name="SM" type="text" value="blood" size="20" label="Specify readgroup sample name (SM)" help="This value should be descriptive">
-          <sanitizer invalid_char="">
-            <valid initial="string.printable"/>
-          </sanitizer>
-        </param>
+        <expand macro="readgroup_params" />
       </when>
       <when value="do_not_set">
         <!-- do nothing -->
