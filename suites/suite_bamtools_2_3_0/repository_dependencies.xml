@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<repositories>
+    <repository name="bamtools" owner="devteam" />
+    <repository name="bamtools_split" owner="devteam" />
+    <repository name="bamtools_filter" owner="devteam" />
+</repositories>
