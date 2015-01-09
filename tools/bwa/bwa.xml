@@ -240,7 +240,7 @@
     </token>
     <token name="@read_group_options@">
       
-      #if str( $rg.rg_selector ) == "True":
+      #if str( $rg.rg_selector ) == "set":
       
         -r "@RG\tID:$rg.ID\tSM:$rg.SM"
         

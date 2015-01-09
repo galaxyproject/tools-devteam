@@ -111,7 +111,7 @@
     
     #end if
     
-    #if str( $rg.rg_selector ) == "True":
+    #if str( $rg.rg_selector ) == "set":
       #set $rg_string = "@RG\tID:$rg.ID\tSM:$rg.SM\tPL:$rg.PL"
       #if $rg.LB
         #set $rg_string += "\tLB:$rg.LB"
