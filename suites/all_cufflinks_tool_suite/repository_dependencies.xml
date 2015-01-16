@@ -6,4 +6,5 @@
     <repository name="cuffmerge" owner="devteam" />
     <repository name="cuffnorm" owner="devteam" />
     <repository name="cuffquant" owner="devteam" />
+    <repository name="cuffread" owner="devteam" />
 </repositories>
