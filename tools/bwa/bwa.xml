@@ -239,11 +239,9 @@
     #end if    
     </token>
     <token name="@read_group_options@">
-      
       #if str( $rg.rg_selector ) == "set":
-      
-        -r "@RG\tID:$rg.ID\tSM:$rg.SM"
-        
+        @set_rg_string@
+        -r '$rg_string'
       #end if
     </token>
       
@@ -355,20 +353,9 @@
       </when>
  
     </conditional>
-    
-    <conditional name="rg">
-      <param name="rg_selector" type="select" label="Set readgroups information?" help="Specifying readgroup information can greatly simplify your downstream analyses by allowing combining multiple datasets. See help below for more details">
-        <option value="set">Set</option>
-        <option value="do_not_set" selected="True">Do not set</option>
-      </param>
-      <when value="set">
-        <expand macro="readgroup_params" />
-      </when>
-      <when value="do_not_set">
-        <!-- do nothing -->
-      </when>
-    </conditional>
-      
+
+    <expand macro="readgroup_params" />
+
     <conditional name="analysis_type">
       <param name="analysis_type_selector" type="select" label="Select analysis mode">
         <option value="illumina">1.Simple Illumina mode</option>
@@ -418,6 +405,17 @@
       <param name="bam_input" ftype="bam" value="bwa-aln-bam-input.bam"/>
       <param name="analysis_type_selector" value="illumina"/>
       <output name="bam_output" ftype="bam" file="bwa-aln-test2.bam" lines_diff="2" />
+    </test>
+    <test>
+      <param name="reference_source_selector" value="history" />
+      <param name="ref_file" ftype="fasta" value="bwa-mem-mt-genome.fa"/>
+      <param name="input_type_selector" value="paired"/>
+      <param name="fastq_input1" ftype="fastqsanger" value="bwa-mem-fastq1.fq"/>
+      <param name="fastq_input2" ftype="fastqsanger" value="bwa-mem-fastq2.fq"/>
+      <param name="rg_selector" value="set"/>
+      <param name="ID" value="rg1"/>
+      <param name="analysis_type_selector" value="illumina"/>
+      <output name="bam_output" ftype="bam" file="bwa-aln-test3.bam" lines_diff="2" />
     </test>
   </tests>
   <stdio>
