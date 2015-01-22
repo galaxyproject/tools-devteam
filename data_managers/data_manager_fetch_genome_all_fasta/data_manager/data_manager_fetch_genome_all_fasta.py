@@ -48,7 +48,7 @@ def _get_files_in_ftp_path( ftp, path ):
 
 def _get_stream_readers_for_tar( file_obj, tmp_dir ):
     fasta_tar = tarfile.open( fileobj=file_obj, mode='r:*' )
-    return [ fasta_tar.extractfile( member ) for member in fasta_tar.getmembers() ]
+    return filter( lambda x: x is not None, [ fasta_tar.extractfile( member ) for member in fasta_tar.getmembers() ] )
 
 def _get_stream_readers_for_zip( file_obj, tmp_dir ):
     fasta_zip = zipfile.ZipFile( file_obj, 'r' )
@@ -170,7 +170,6 @@ def _sort_fasta_custom( fasta_filename, params ):
 
 def download_from_ucsc( data_manager_dict, params, target_directory, dbkey, sequence_id, sequence_name ):
     UCSC_FTP_SERVER = 'hgdownload.cse.ucsc.edu'
-    UCSC_CHROM_FA_FILENAME = 'chromFa'
     UCSC_DOWNLOAD_PATH = '/goldenPath/%s/bigZips/'
     COMPRESSED_EXTENSIONS = [ ( '.tar.gz', _get_stream_readers_for_tar ), ( '.tar.bz2', _get_stream_readers_for_tar ), ( '.zip', _get_stream_readers_for_zip ), ( '.fa.gz', _get_stream_readers_for_gzip ), ( '.fa.bz2', _get_stream_readers_for_bz2 ) ]
     
@@ -179,6 +178,8 @@ def download_from_ucsc( data_manager_dict, params, target_directory, dbkey, sequ
         email = 'anonymous@example.com'
 
     ucsc_dbkey = params['param_dict']['reference_source']['requested_dbkey'] or dbkey
+    UCSC_CHROM_FA_FILENAMES = [ '%s.chromFa' % ucsc_dbkey, 'chromFa' ]
+    
     ftp = FTP( UCSC_FTP_SERVER )
     ftp.login( 'anonymous', email )
     
@@ -188,9 +189,13 @@ def download_from_ucsc( data_manager_dict, params, target_directory, dbkey, sequ
     ucsc_file_name = None
     get_stream_reader = None
     ext = None
-    for ext, get_stream_reader in COMPRESSED_EXTENSIONS:
-        if "%s%s" % ( UCSC_CHROM_FA_FILENAME, ext ) in path_contents:
-            ucsc_file_name = "%s%s%s" % ( ucsc_path, UCSC_CHROM_FA_FILENAME, ext )
+    ucsc_chrom_fa_filename = None
+    for ucsc_chrom_fa_filename in UCSC_CHROM_FA_FILENAMES:
+        for ext, get_stream_reader in COMPRESSED_EXTENSIONS:
+            if "%s%s" % ( ucsc_chrom_fa_filename, ext ) in path_contents:
+                ucsc_file_name = "%s%s%s" % ( ucsc_path, ucsc_chrom_fa_filename, ext )
+                break
+        if ucsc_file_name:
             break
     
     if not ucsc_file_name:
@@ -198,7 +203,7 @@ def download_from_ucsc( data_manager_dict, params, target_directory, dbkey, sequ
     
     
     tmp_dir = tempfile.mkdtemp( prefix='tmp-data-manager-ucsc-' )
-    ucsc_fasta_filename = os.path.join( tmp_dir, "%s%s" % ( UCSC_CHROM_FA_FILENAME, ext ) )
+    ucsc_fasta_filename = os.path.join( tmp_dir, "%s%s" % ( ucsc_chrom_fa_filename, ext ) )
     
     fasta_base_filename = "%s.fa" % sequence_id
     fasta_filename = os.path.join( target_directory, fasta_base_filename )
