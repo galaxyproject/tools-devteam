@@ -1,6 +1,37 @@
 <macros>
+
+  <token name="@set_rg_string@">
+      #set $rg_string = "@RG\tID:" + str($rg.ID) + "\tSM:" + str($rg.SM) + "\tPL:" + str($rg.PL)
+      #if $rg.LB
+        #set $rg_string += "\tLB:$rg.LB"
+      #end if
+      #if $rg.CN
+        #set $rg_string += "\tCN:$rg.CN"
+      #end if
+      #if $rg.DS
+        #set $rg_string += "\tDS:$rg.DS"
+      #end if
+      #if $rg.DT
+        #set $rg_string += "\tDT:$rg.DT"
+      #end if
+      #if $rg.FO
+        #set $rg_string += "\tFO:$rg.FO"
+      #end if
+      #if $rg.KS
+        #set $rg_string += "\tKS:$rg.KS"
+      #end if
+      #if $rg.PG
+        #set $rg_string += "\tPG:$rg.PG"
+      #end if
+      #if str($rg.PI)
+        #set $rg_string += "\tPI:$rg.PI"
+      #end if
+      #if $rg.PU
+        #set $rg_string += "\tPU:$rg.PU"
+      #end if
+  </token>
     
-    <token name="@RG@">
+  <token name="@RG@">
 -----
 
 .. class:: warningmark
@@ -8,9 +39,9 @@
 **Read Groups are Important!**
 
 One of the recommended best practices in NGS analysis is adding read group information to BAM files. You can do thid directly in BWA interface using the
-**Specify readgroup information?** widget. If you are not familiar with readgroups you shold know that this is effectively a way to tag reads with an additional ID.
+**Specify read group information?** widget. If you are not familiar with read groups you shold know that this is effectively a way to tag reads with an additional ID.
 This allows you to combine BAM files from, for example, multiple BWA runs into a single dataset. This significantly simplifies downstream processing as
-instead of dealing with multiple datasets you only have to handle only one. This is possible because the readgroup information allows you to identify
+instead of dealing with multiple datasets you only have to handle only one. This is possible because the read group information allows you to identify
 data from different experiments even if they are combined in one file. Many downstream analysis tools such as varinat callers (e.g., FreeBayes or Naive Varinat Caller
 present in Galaxy) are aware of readgtroups and will automatically generate calls for each individual sample even if they are combined within a single file.
 
@@ -51,8 +82,8 @@ Suppose we have a trio of samples: MOM, DAD, and KID.  Each has two DNA librarie
  @RG     ID:FLOWCELL2.LANE4      PL:illumina     LB:LIB-KID-2 SM:KID      PI:400
 
 Note the hierarchical relationship between read groups (unique for each lane) to libraries (sequenced on two lanes) and samples (across four lanes, two lanes for each library).
-    </token>
-    <token name="@info@">    
+  </token>
+  <token name="@info@">    
 -----
 
 .. class:: infomark
@@ -66,9 +97,9 @@ To obtain more information about BWA and ask questions use these resources:
   3. https://github.com/lh3/bwa
   4. http://bio-bwa.sourceforge.net/
   
-    </token>
+  </token>
     
-    <token name="@dataset_collections@">
+  <token name="@dataset_collections@">
 ------
 
 **Dataset collections - processing large numbers of datasets at once**
@@ -76,12 +107,43 @@ To obtain more information about BWA and ask questions use these resources:
 This will be added shortly
 
 
-    </token>
-    <xml name="readgroup_params">
-        <param name="ID" type="text" value="readgroup1" size="20" label="Read group identifier (ID)" help="This value must be unique among multiple samples in your experiment">
+  </token>
+  <xml name="readgroup_params">
+    <conditional name="rg">
+      <param name="rg_selector" type="select" label="Set read groups information?" help="-R; Specifying read group information can greatly simplify your downstream analyses by allowing combining multiple datasets. See help below for more details">
+        <option value="set">Set</option>
+        <option value="do_not_set" selected="True">Do not set</option>
+      </param>
+      <when value="set">
+        <param name="ID" type="text" value="" size="20" label="Read group identifier (ID)" help="This value must be unique among multiple samples in your experiment">
+          <validator type="empty_field" />
         </param>
-        <param name="SM" type="text" value="blood" size="20" label="Read group sample name (SM)" help="This value should be descriptive. Use pool name where a pool is being sequenced">
+        <param name="SM" type="text" value="" size="20" label="Read group sample name (SM)" help="This value should be descriptive. Use pool name where a pool is being sequenced" />
+        <param name="PL" type="select" label="Platform/technology used to produce the reads (PL)">
+          <option value="CAPILLARY">CAPILLARY</option>
+          <option value="LS454">LS454</option>
+          <option value="ILLUMINA">ILLUMINA</option>
+          <option value="SOLID">SOLID</option>
+          <option value="HELICOS">HELICOS</option>
+          <option value="IONTORRENT">IONTORRENT</option>
+          <option value="PACBIO">PACBIO</option>
         </param>
-    </xml>
+        <param name="LB" type="text" size="25" label="Library name (LB)" />
+        <param name="CN" type="text" size="25" label="Sequencing center that produced the read (CN)" />
+        <param name="DS" type="text" size="25" label="Description (DS)" />
+        <param name="DT" type="text" size="25" label="Date that run was produced (DT)" help="ISO8601 format date or date/time, like YYYY-MM-DD" />
+        <param name="FO" type="text" size="25" optional="true" label="Flow order (FO)" help="The array of nucleotide bases that correspond to the nucleotides used for each flow of each read. Multi-base flows are encoded in IUPAC format, and non-nucleotide flows by various other characters. Format: /\*|[ACMGRSVTWYHKDBN]+/">
+          <validator type="regex" message="Invalid flow order">\*|[ACMGRSVTWYHKDBN]+$</validator>
+        </param>
+        <param name="KS" type="text" size="25" label="The array of nucleotide bases that correspond to the key sequence of each read (KS)" />
+        <param name="PG" type="text" size="25" label="Programs used for processing the read group (PG)" />
+        <param name="PI" type="integer" optional="true" label="Predicted median insert size (PI)" />
+        <param name="PU" type="text" size="25" label="Platform unit (PU)" help="Unique identifier (e.g. flowcell-barcode.lane for Illumina or slide for SOLiD)" />
+      </when>
+      <when value="do_not_set">
+        <!-- do nothing -->
+      </when>
+    </conditional>
+  </xml>
 
 </macros>
