@@ -14,7 +14,7 @@ import zipfile
 import gzip
 import bz2
 
-from galaxy.util.json import from_json_string, to_json_string
+from json import loads, dumps
 
 
 CHUNK_SIZE = 2**20 #1mb
@@ -336,7 +336,7 @@ def main():
     
     filename = args[0]
     
-    params = from_json_string( open( filename ).read() )
+    params = loads( open( filename ).read() )
     target_directory = params[ 'output_data' ][0]['extra_files_path']
     os.mkdir( target_directory )
     data_manager_dict = {}
@@ -350,6 +350,6 @@ def main():
     REFERENCE_SOURCE_TO_DOWNLOAD[ params['param_dict']['reference_source']['reference_source_selector'] ]( data_manager_dict, params, target_directory, dbkey, sequence_id, sequence_name )
     
     #save info to json file
-    open( filename, 'wb' ).write( to_json_string( data_manager_dict ) )
+    open( filename, 'wb' ).write( dumps( data_manager_dict ) )
         
 if __name__ == "__main__": main()

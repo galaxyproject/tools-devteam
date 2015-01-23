@@ -7,7 +7,7 @@ import tempfile
 import optparse
 import subprocess
 
-from galaxy.util.json import from_json_string, to_json_string
+from json import loads, dumps
 
 
 CHUNK_SIZE = 2**20
@@ -81,7 +81,7 @@ def main():
     
     filename = args[0]
     
-    params = from_json_string( open( filename ).read() )
+    params = loads( open( filename ).read() )
     target_directory = params[ 'output_data' ][0]['extra_files_path']
     os.mkdir( target_directory )
     data_manager_dict = {}
@@ -97,6 +97,6 @@ def main():
     build_bwa_index( data_manager_dict, options.fasta_filename, params, target_directory, dbkey, sequence_id, sequence_name, data_table_name=options.data_table_name or DEFAULT_DATA_TABLE_NAME, color_space=options.color_space )
     
     #save info to json file
-    open( filename, 'wb' ).write( to_json_string( data_manager_dict ) )
+    open( filename, 'wb' ).write( dumps( data_manager_dict ) )
         
 if __name__ == "__main__": main()
