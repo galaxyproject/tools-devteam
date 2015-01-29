@@ -1,7 +1,7 @@
-<tool name="ValidateSamFile" id="picard_ValidateSamFile" version="1.122.0">
+<tool name="ValidateSamFile" id="picard_ValidateSamFile" version="1.126.0">
   <description>assess validity of SAM/BAM dataset</description>
   <requirements>
-    <requirement type="package" version="1.122.0">picard</requirement>
+    <requirement type="package" version="1.126.0">picard</requirement>
   </requirements>
   
   <macros>
