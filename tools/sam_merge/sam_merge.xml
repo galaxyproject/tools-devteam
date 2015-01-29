@@ -23,10 +23,10 @@
 ]]>
     </command>
     <inputs>
-        <param name="mergeSD" value="true" type="boolean" label="Merge all component bam file headers into the merged bam file"
+        <param name="inputs" type="data" format="bam,sam" multiple="True" label="Files to merge" />
+        <param name="mergeSD" type="boolean" label="Merge all component bam file headers into the merged bam file"
             truevalue="true" falsevalue="false" checked="yes" 
             help="Control the MERGE_SEQUENCE_DICTIONARIES flag for Picard MergeSamFiles. Default (true) correctly propagates read groups and other important metadata" />
-        <param name="inputs" type="data" format="bam,sam" multiple="True" label="Add files to merge" />
     </inputs>
     <outputs>
         <data format="bam" name="output1" />
