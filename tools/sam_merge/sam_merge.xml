@@ -5,12 +5,19 @@
     </requirements>
     <command>
 <![CDATA[
-        java -Xmx2G -jar \$JAVA_JAR_PATH/MergeSamFiles.jar MSD=$mergeSD VALIDATION_STRINGENCY=LENIENT O=$output1 I=$input1 I=$input2 TMP_DIR=$__new_file_path__
+        java -Xmx2G 
+            -jar \$JAVA_JAR_PATH/MergeSamFiles.jar
+            MSD=$mergeSD
+            VALIDATION_STRINGENCY=LENIENT
+            O=$output1
+            I=$input1
+            I=$input2
+            TMP_DIR=$__new_file_path__
             #for $i in $inputs
                 I=${i.input}
             #end for
-        2&gt; $outlog
-        || echo "Error running Picard MergeSamFiles" >&amp;2
+        2> $outlog
+        || echo "Error running Picard MergeSamFiles" >&2
 ]]>
     </command>
     <inputs>
