@@ -139,7 +139,6 @@
             #end if
             
             #if str( $analysis_type.other_options.other_options_selector ) == "yes":
-                ${analysis_type.other_options.reorder}
                 ${analysis_type.other_options.non_deterministic}
                 --seed "${analysis_type.other_options.seed}"
             #end if
@@ -149,11 +148,7 @@
         #end if    
         
         ## view/sort and output BAM file
-        #if ( str( $analysis_type.analysis_type_selector ) != "full" or str( $analysis_type.sam_opt ) != "true" ):
-          | samtools view -Su - | samtools sort -o - - > $output_1
-        #else
-          > $output_2
-        #end if
+        | samtools view -Su - | samtools sort -o - - > $output
 
         ## rename unaligned sequence files
         #if $library.type == "paired" and $output_unaligned_reads_l and $output_unaligned_reads_r:
@@ -195,7 +190,7 @@
                     </param>
                     <when value="yes">
                         <param name="I" type="integer" value="0" min="0" label="Set the minimum fragment length for valid paired-end alignments" help="-I/--minins;  E.g. if `-I 60` is specified and a paired-end alignment consists of two 20-bp alignments in the appropriate orientation with a 20-bp gap between them, that alignment is considered valid (as long as `-X` is also satisfied).  A 19-bp gap would not be valid in that case.  If trimming options `-3` or `-5` are also used, the `-I` constraint is applied with respect to the untrimmed mates. The larger the difference between `-I` and `-X`, the slower Bowtie 2 will run.  This is because larger differences bewteen `-I` and `-X` require that Bowtie 2 scan a larger window to determine if a concordant alignment exists. For typical fragment length ranges (200 to 400 nucleotides), Bowtie 2 is very efficient. Default=0"/>
-                        <param name="X" type="integer" value="500" min="0" label="Set the maximum fragment length for valid paired-end alignments" help="-X/--maxins; E.g. if `-X 100` is specified and a paired-end alignment consists of two 20-bp alignments in the proper orientation with a 60-bp gap between them, that alignment is considered valid (as long as `-I` is also satisfied).  A 61-bp gap would not be valid in that case.  If trimming options `-3` or `-5` are also used, the `-X` constraint is applied with respect to the untrimmed mates, not the trimmed mates; Deafult=500"/>
+                        <param name="X" type="integer" value="500" min="0" label="Set the maximum fragment length for valid paired-end alignments" help="-X/--maxins; E.g. if `-X 100` is specified and a paired-end alignment consists of two 20-bp alignments in the proper orientation with a 60-bp gap between them, that alignment is considered valid (as long as `-I` is also satisfied).  A 61-bp gap would not be valid in that case.  If trimming options `-3` or `-5` are also used, the `-X` constraint is applied with respect to the untrimmed mates, not the trimmed mates; Default=500"/>
                         <param name="fr_rf_ff" type="select" display="radio" label="Select the upstream/downstream mate orientations for a valid paired-end alignment against the forward reference strand" help="--fr, --rf, or --ff; E.g., if `--fr` is specified and there is a candidate paired-end alignment where mate 1 appears upstream of the reverse complement of mate 2 and the fragment length constraints (`-I` and `-X`) are met, that alignment is valid.  Also, if mate 2 appears upstream of the reverse complement of mate 1 and all other constraints are met, that too is valid. `--rf` likewise requires that an upstream mate1 be reverse-complemented and a downstream mate2 be forward-oriented. `--ff` requires both an upstream mate 1 and a downstream mate 2 to be forward-oriented; Default=--fr (appropriate for Illumina's Paired-end Sequencing Assay)">
                             <option value="--fr" selected="True">--fr</option>
                             <option value="--rf">--rf</option>
@@ -415,7 +410,6 @@
                         <option value="no" selected="true">No</option>
                     </param>
                     <when value="yes">
-                        <param name="reorder" type="boolean" truevalue="--reorder" falsevalue="" label="Guarantee that output SAM records are printed in an order corresponding to the order of the reads in the original input file" help="--reorder; Default=False"/>
                         <param name="seed" type="integer" value="0" min="0" label="Use this number as the seed for pseudo-random number generator" help="--seed; Default=0"/>
                         <param name="non_deterministic" type="boolean" truevalue="--non-deterministic" falsevalue="" label="Re-initialize the pseudo-random generator for each read using the current time" help="--non-deterministic; see Help below for explanation of this option; default=False"/>
                     </when>
@@ -423,7 +417,6 @@
                         <!-- do nothing -->
                     </when>
                 </conditional>
-                <param name="sam_opt" type="boolean" truevalue="true" falsevalue="false" label="Check if you would like the output to be a SAM file" help="By default, the output from this Bowtie2 wrapper is a sorted BAM file."/>
             </when>
         </conditional>
     </inputs>
@@ -449,8 +442,7 @@
             </actions>
         </data>
         
-        <data format="bam" name="output_1" label="${tool.name} on ${on_string}: aligned reads (sorted BAM)">
-          <filter>analysis_type['analysis_type_selector'] == "simple" or analysis_type['sam_opt'] is False</filter>
+        <data format="bam" name="output" label="${tool.name} on ${on_string}: aligned reads (sorted BAM)">
           <actions>
             <conditional name="reference_genome.source">
               <when value="indexed">
@@ -470,26 +462,6 @@
           </actions>
         </data>
 
-        <data format="sam" name="output_2" label="${tool.name} on ${on_string}: aligned reads (SAM)">
-          <filter>analysis_type['analysis_type_selector'] == "full" and analysis_type['sam_opt'] is True</filter>
-          <actions>
-            <conditional name="reference_genome.source">
-              <when value="indexed">
-                <action type="metadata" name="dbkey">
-                  <option type="from_data_table" name="bowtie2_indexes" column="1" offset="0">
-                    <filter type="param_value" column="0" value="#" compare="startswith" keep="False"/>
-                    <filter type="param_value" ref="reference_genome.index" column="0"/>
-                  </option>
-                </action>
-              </when>
-              <when value="history">
-                <action type="metadata" name="dbkey">
-                  <option type="from_param" name="reference_genome.own_file" param_attribute="dbkey" />
-                </action>
-              </when>
-            </conditional>
-          </actions>
-        </data>
     </outputs>
 
     <tests>
@@ -504,7 +476,7 @@
             <param name="input_1" value="bowtie2-fq1.fq" ftype="fastqsanger"/>
             <param name="input_2" value="bowtie2-fq2.fq" ftype="fastqsanger"/>
             <param name="own_file" value="bowtie2-ref.fasta" />
-            <output name="output_1" file="bowtie2-test1.bam" ftype="bam" lines_diff="2"/>
+            <output name="output" file="bowtie2-test1.bam" ftype="bam" lines_diff="2"/>
         </test>
     </tests>
 
