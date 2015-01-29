@@ -19,27 +19,23 @@
 ]]>
     </command>
     <inputs>
-        <param name="title" label="Name for the output merged bam file" type="text" default="Merged.bam"
-            help="This name will appear in your history so use it to remember what the new file in your history contains" />
         <param name="mergeSD" value="true" type="boolean" label="Merge all component bam file headers into the merged bam file"
             truevalue="true" falsevalue="false" checked="yes" 
             help="Control the MERGE_SEQUENCE_DICTIONARIES flag for Picard MergeSamFiles. Default (true) correctly propagates read groups and other important metadata" />
         <param name="inputs" type="data" format="bam,sam" multiple="True" label="Add files to merge" />
     </inputs>
     <outputs>
-        <data format="bam" name="output1" label="${title}.bam" />
-        <data format="txt" name="outlog" label="${title}_${tool.name}.log" />
+        <data format="bam" name="output1" />
+        <data format="txt" name="outlog" />
     </outputs>
     <tests>
         <test>
-            <param name="title" value="test1" />
             <param name="mergeSD" value="true" />
             <param name="inputs" value="sam_merge_in1.bam,sam_merge_in2.bam" ftype="bam" /> 
             <output name="output1" file="sam_merge_out1.bam" ftype="bam" />
             <output name="outlog" file="sam_merge_out1.log" ftype="txt" lines_diff="11"/>
         </test>
         <test>
-            <param name="title" value="test2" />
             <param name="mergeSD" value="true" />
             <param name="input1" value="sam_merge_in1.bam,sam_merge_in2.bam,sam_merge_in3.bam" ftype="bam" /> 
             <output name="output1" file="sam_merge_out2.bam" ftype="bam" />
