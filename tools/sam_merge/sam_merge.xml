@@ -3,6 +3,12 @@
     <requirements>
         <requirement type="package" version="1.56.0">picard</requirement>
     </requirements>
+    <stdio>
+        <exit_code range="1:" />
+        <exit_code range=":-1" />
+        <regex match="Error:" />
+        <regex match="Exception:" />
+    </stdio>
     <command>
 <![CDATA[
         java -Xmx2G
@@ -14,8 +20,6 @@
             #for $input in $inputs
                 I="${input}"
             #end for
-        2> $outlog
-        || echo "Error running Picard MergeSamFiles" >&2
 ]]>
     </command>
     <inputs>
@@ -26,20 +30,17 @@
     </inputs>
     <outputs>
         <data format="bam" name="output1" />
-        <data format="txt" name="outlog" />
     </outputs>
     <tests>
         <test>
             <param name="mergeSD" value="true" />
             <param name="inputs" value="sam_merge_in1.bam,sam_merge_in2.bam" ftype="bam" /> 
             <output name="output1" file="sam_merge_out1.bam" ftype="bam" />
-            <output name="outlog" file="sam_merge_out1.log" ftype="txt" lines_diff="11"/>
         </test>
         <test>
             <param name="mergeSD" value="true" />
             <param name="input1" value="sam_merge_in1.bam,sam_merge_in2.bam,sam_merge_in3.bam" ftype="bam" /> 
             <output name="output1" file="sam_merge_out2.bam" ftype="bam" />
-            <output name="outlog" file="sam_merge_out2.log" ftype="txt" lines_diff="11"/>
         </test>
   </tests>
   <help>
