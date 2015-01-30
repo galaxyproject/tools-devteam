@@ -198,9 +198,9 @@
                         </param>
                         <param name="no_mixed" type="boolean" truevalue="--no-mixed" falsevalue="" checked="False" label="Disable no-mixed behavior" help="--no-mixed; By default, when `bowtie2` cannot find a concordant or discordant alignment for a pair, it then tries to find alignments for the individual mates; default=False"/>
                         <param name="no_discordant" type="boolean" truevalue="--no-discordant" falsevalue="" checked="False" label="Disable no-discordant behavior" help="--no-discordant; By default, `bowtie2` looks for discordant alignments if it cannot find any concordant alignments. A discordant alignment is an alignment where both mates align uniquely, but that does not satisfy the paired-end constraints (`--fr`/`--rf`/`--ff`, `-I`, `-X`); default=False"/>
-                        <param name="dovetail" type="boolean" truevalue="--dovetail" falsevalue="" checked="False" label="Allow mate dovetailing" help="--dovetail; If the mates `dovetail`, that is if one mate alignment extends past the beginning of the other such that the wrong mate begins upstream, consider that to be concordant.  See also: `Mates can overlap, contain or dovetail each other` in help section below; default=False"/>
-                        <param name="no_contain" type="boolean" truevalue="--no-contain" falsevalue="" checked="False" label="Allow one mate alignment to contain another" help="--no-contain; If one mate alignment contains the other, consider that to be non-concordant. See also: `Mates can overlap, contain or dovetail each other` in help section; default=False"/>
-                        <param name="no_overlap" type="boolean" truevalue="--no-overlap" falsevalue="" checked="False" label="Allow mate alignments to overlap" help="--no-overlap; If one mate alignment overlaps the other at all, consider that to be non-concordant.  See also: `Mates can overlap, contain or dovetail each other` in help section; default=False"/>
+                        <param name="dovetail" type="boolean" truevalue="--dovetail" falsevalue="" checked="False" label="Allow mate dovetailing" help="--dovetail; If the mates `dovetail`, that is if one mate alignment extends past the beginning of the other such that the wrong mate begins upstream, consider that to be concordant. Default=False"/>
+                        <param name="no_contain" type="boolean" truevalue="--no-contain" falsevalue="" checked="False" label="Allow one mate alignment to contain another" help="--no-contain; If one mate alignment contains the other, consider that to be non-concordant. Default=False"/>
+                        <param name="no_overlap" type="boolean" truevalue="--no-overlap" falsevalue="" checked="False" label="Allow mate alignments to overlap" help="--no-overlap; If one mate alignment overlaps the other at all, consider that to be non-concordant. Default=False"/>
                     </when>
                     <when value="no">
                         <!-- do nothing -->
@@ -225,9 +225,9 @@
                         </param>
                         <param name="no_mixed" type="boolean" truevalue="--no-mixed" falsevalue="" checked="False" label="Disable no-mixed behavior" help="--no-mixed; By default, when `bowtie2` cannot find a concordant or discordant alignment for a pair, it then tries to find alignments for the individual mates; default=False"/>
                         <param name="no_discordant" type="boolean" truevalue="--no-discordant" falsevalue="" checked="False" label="Disable no-discordant behavior" help="--no-discordant; By default, `bowtie2` looks for discordant alignments if it cannot find any concordant alignments. A discordant alignment is an alignment where both mates align uniquely, but that does not satisfy the paired-end constraints (`--fr`/`--rf`/`--ff`, `-I`, `-X`); default=False"/>
-                        <param name="dovetail" type="boolean" truevalue="--dovetail" falsevalue="" checked="False" label="Allow mate dovetailing" help="--dovetail; If the mates `dovetail`, that is if one mate alignment extends past the beginning of the other such that the wrong mate begins upstream, consider that to be concordant.  See also: `Mates can overlap, contain or dovetail each other` in help section below; default=False"/>
-                        <param name="no_contain" type="boolean" truevalue="--no-contain" falsevalue="" checked="False" label="Allow one mate alignment to contain another" help="--no-contain; If one mate alignment contains the other, consider that to be non-concordant. See also: `Mates can overlap, contain or dovetail each other` in help section; default=False"/>
-                        <param name="no_overlap" type="boolean" truevalue="--no-overlap" falsevalue="" checked="False" label="Allow mate alignments to overlap" help="--no-overlap; If one mate alignment overlaps the other at all, consider that to be non-concordant.  See also: `Mates can overlap, contain or dovetail each other` in help section; default=False"/>
+                        <param name="dovetail" type="boolean" truevalue="--dovetail" falsevalue="" checked="False" label="Allow mate dovetailing" help="--dovetail; If the mates `dovetail`, that is if one mate alignment extends past the beginning of the other such that the wrong mate begins upstream, consider that to be concordant. Default=False"/>
+                        <param name="no_contain" type="boolean" truevalue="--no-contain" falsevalue="" checked="False" label="Allow one mate alignment to contain another" help="--no-contain; If one mate alignment contains the other, consider that to be non-concordant. Default=False"/>
+                        <param name="no_overlap" type="boolean" truevalue="--no-overlap" falsevalue="" checked="False" label="Allow mate alignments to overlap" help="--no-overlap; If one mate alignment overlaps the other at all, consider that to be non-concordant. Default=False"/>
                     </when>
                     <when value="no">
                         <!-- do nothing -->
@@ -317,9 +317,9 @@
                     </param>
                     <when value="yes">
                         <param name="N" type="integer" min="0" max="1" value="0" label="Set the number of mismatches to be allowed in a seed alignment during multiseed alignment (see `Multiseed alignment` section of help below)" help="-N; Can be set to 0 or 1. Setting this higher makes alignment slower (often much slower) but increases sensitivity; default=0"/>
-                        <param name="L" type="integer" min="0" value="20" label="Sets the length of the seed substrings to align during multiseed alignment (see `Multiseed alignment` section of help below)" help="-L; Smaller values make alignment slower but more senstive. Default=20"/>
-                        <param name="i" type="text" value="S,1,1.15" size="10" label="Set a function governing the interval between seed substrings to use during multiseed alignment (see `Multiseed alignment` section of help below). Also see description of this option below in the help section" help="-i; Since it's best to use longer intervals for longer reads, this parameter sets the interval as a function of the read length, rather than a single one-size-fits-all number. For instance, specifying `-i S,1,2.5` sets the interval function `f` to `f(x) = 1 + 2.5 * sqrt(x)`, where x is the read length. See also `Setting function options` below in help section. If the function returns a result less than 1, it is rounded up to 1. Default=`S,1,1.15`"/>
-                        <param name="n_ceil" type="text" value="L,0,0.15" label="Set a function governing the maximum number of ambiguous characters (usually `N`s and/or `.`s) allowed in a read as a function of read length" help="--n-ceil; For instance, specifying `L,0,0.15` sets the N-ceiling function `f` to `f(x) = 0 + 0.15 * x`, where x is the read length.  See also: [setting function options]. Reads exceeding this ceiling are filtered out. Default=`L,0,0.15`"/>
+                        <param name="L" type="integer" min="0" max="32" value="22" label="Sets the length of the seed substrings to align during multiseed alignment (see `Multiseed alignment` section of help below)" help="-L; Smaller values make alignment slower but more sensitive. Default=22"/>
+                        <param name="i" type="text" value="S,1,1.15" size="10" label="Set a function governing the interval between seed substrings to use during multiseed alignment (see `Multiseed alignment` section of help below). Also see description of this option below in the help section" help="-i; Since it's best to use longer intervals for longer reads, this parameter sets the interval as a function of the read length, rather than a single one-size-fits-all number. For instance, specifying `-i S,1,2.5` sets the interval function `f` to `f(x) = 1 + 2.5 * sqrt(x)`, where x is the read length. If the function returns a result less than 1, it is rounded up to 1. Default=`S,1,1.15`"/>
+                        <param name="n_ceil" type="text" value="L,0,0.15" label="Set a function governing the maximum number of ambiguous characters (usually `N`s and/or `.`s) allowed in a read as a function of read length" help="--n-ceil; For instance, specifying `L,0,0.15` sets the N-ceiling function `f` to `f(x) = 0 + 0.15 * x`, where x is the read length. Reads exceeding this ceiling are filtered out. Default=`L,0,0.15`"/>
                         <param name="dpad" type="integer" min="0" value="15" label="Pad dynamic programming problems by that many columns on either side to allow gaps" help="--dpad; default=15"/>
                         <param name="gbar" type="integer" min="0" value="4" label="Disallow gaps within that many positions of the beginning or end of the read" help="--gbar; default=4"/>
                         <param name="ignore_quals" type="boolean" truevalue="--ignore-quals" falsevalue="" selected="False" label="When calculating a mismatch penalty, always consider the quality value at the mismatched position to be the highest possible, regardless of the actual value" help="--ignore-quals; input is treated as though all quality values are high; default=False"/>
@@ -332,10 +332,10 @@
                                 <option value="local">Local (--local)</option>
                             </param>
                             <when value="end-to-end">
-                                <param name="score_min_ete" type="text" value="L,-0.6,-0.6" label="Set a function governing the minimum alignment score needed for an alignment to be considered `valid` (i.e. good enough to report)" help="--score-min; This is a function of read length. For instance, specifying `L,0,-0.6` sets the minimum-score function `f` to `f(x) = 0 + -0.6 * x`, where `x` is the read length.  See also: [setting function options].  The default in `--end-to-end` mode is `L,-0.6,-0.6` and the default in `--local` mode is `G,20,8`"/>
+                                <param name="score_min_ete" type="text" value="L,-0.6,-0.6" label="Set a function governing the minimum alignment score needed for an alignment to be considered `valid` (i.e. good enough to report)" help="--score-min; This is a function of read length. For instance, specifying `L,0,-0.6` sets the minimum-score function `f` to `f(x) = 0 + -0.6 * x`, where `x` is the read length. The default in `--end-to-end` mode is `L,-0.6,-0.6` and the default in `--local` mode is `G,20,8`"/>
                             </when>
                             <when value="local">
-                                <param name="score_min_loc" type="text" value="G,20,8" label="Set a function governing the minimum alignment score needed for an alignment to be considered `valid` (i.e. good enough to report)" help="--score-min; This is a function of read length. For instance, specifying `L,0,-0.6` sets the minimum-score function `f` to `f(x) = 0 + -0.6 * x`, where `x` is the read length.  See also: [setting function options].  The default in `--end-to-end` mode is `L,-0.6,-0.6` and the default in `--local` mode is `G,20,8`"/>
+                                <param name="score_min_loc" type="text" value="G,20,8" label="Set a function governing the minimum alignment score needed for an alignment to be considered `valid` (i.e. good enough to report)" help="--score-min; This is a function of read length. For instance, specifying `L,0,-0.6` sets the minimum-score function `f` to `f(x) = 0 + -0.6 * x`, where `x` is the read length. The default in `--end-to-end` mode is `L,-0.6,-0.6` and the default in `--local` mode is `G,20,8`"/>
                             </when>
                         </conditional>
                     </when>
@@ -542,7 +542,7 @@ Bowtie 2 accepts files in Sanger FASTQ format (single or pair-end). Use the FAST
             pipelines.
 
     --phred64
-            Input qualities are ASCII chars equal to the [Phred quality] plus 64.  This is
+            Input qualities are ASCII chars equal to the Phred quality plus 64.  This is
             also called the "Phred+64" encoding.
 
     --solexa-quals
@@ -552,7 +552,7 @@ Bowtie 2 accepts files in Sanger FASTQ format (single or pair-end). Use the FAST
 
     --int-quals
             Quality values are represented in the read input file as space-separated ASCII integers, e.g., `40 40 30 40`..., rather than ASCII characters, e.g., `II?I`....
-            Integers are treated as being on the [Phred quality] scale unless
+            Integers are treated as being on the Phred quality scale unless
             `--solexa-quals` is also specified. Default: off.
                         
 ------
@@ -592,19 +592,19 @@ Bowtie 2 accepts files in Sanger FASTQ format (single or pair-end). Use the FAST
 **Alignment options**::
 
     -N &lt;int&gt;
-            Sets the number of mismatches to allowed in a seed alignment during [multiseed
-            alignment].  Can be set to 0 or 1. Setting this higher makes alignment slower
+            Sets the number of mismatches to allowed in a seed alignment during multiseed
+            alignment.  Can be set to 0 or 1. Setting this higher makes alignment slower
             (often much slower) but increases sensitivity.  Default: 0.
 
     -L &lt;int&gt;
-            Sets the length of the seed substrings to align during [multiseed alignment].
-            Smaller values make alignment slower but more senstive. Default: the
-            `--sensitive` preset is used by default, which sets `-L` to 20 both in
-            `--end-to-end` mode and in `--local` mode.
+            Sets the length of the seed substrings to align during multiseed alignment.
+            Smaller values make alignment slower but more sensitive. Default: the
+            `--sensitive` preset is used by default, which sets `-L` to 22 in
+            `--end-to-end` mode and to 20 in `--local` mode.
 
     -i &lt;func&gt;
             Sets a function governing the interval between seed substrings to use during
-            [multiseed alignment].  For instance, if the read has 30 characers, and seed
+            multiseed alignment.  For instance, if the read has 30 characers, and seed
             length is 10, and the seed interval is 6, the seeds extracted will be:
 
     Read:      TAGCTACGCTCTACGCTATCATGCATAAAC
@@ -621,7 +621,7 @@ Bowtie 2 accepts files in Sanger FASTQ format (single or pair-end). Use the FAST
     the interval as a function of the read length, rather than a single
     one-size-fits-all number.  For instance, specifying `-i S,1,2.5` sets the
     interval function `f` to `f(x) = 1 + 2.5 * sqrt(x)`, where x is the read length.
-    See also: [setting function options]. If the function returns a result less than
+    If the function returns a result less than
     1, it is rounded up to 1. Default: the `--sensitive` preset is used by
     default, which sets `-i` to `S,1,1.15` in `--end-to-end` mode to `-i S,1,0.75`
     in `--local` mode.
@@ -630,8 +630,8 @@ Bowtie 2 accepts files in Sanger FASTQ format (single or pair-end). Use the FAST
             Sets a function governing the maximum number of ambiguous characters (usually
             `N`s and/or `.`s) allowed in a read as a function of read length.  For instance,
             specifying `-L,0,0.15` sets the N-ceiling function `f` to `f(x) = 0 + 0.15 * x`,
-            where x is the read length.  See also: [setting function options].  Reads
-            exceeding this ceiling are [filtered out].  Default: `L,0,0.15`.
+            where x is the read length.  Reads exceeding this ceiling are filtered out.
+            Default: `L,0,0.15`.
 
     --dpad &lt;int&gt;
             "Pads" dynamic programming problems by `&lt;int&gt;` columns on either side to allow
@@ -659,14 +659,14 @@ Bowtie 2 accepts files in Sanger FASTQ format (single or pair-end). Use the FAST
 
     --no-1mm-upfront
             By default, Bowtie 2 will attempt to find either an exact or a 1-mismatch
-            end-to-end alignment for the read *before* trying the [multiseed heuristic].  Such
+            end-to-end alignment for the read *before* trying the multiseed heuristic.  Such
             alignments can be found very quickly, and many short read alignments have exact or
             near-exact end-to-end alignments.  However, this can lead to unexpected
-            alignments when the user also sets options governing the [multiseed heuristic],
+            alignments when the user also sets options governing the multiseed heuristic,
             like `-L` and `-N`.  For instance, if the user specifies `-N 0` and `-L` equal
             to the length of the read, the user will be surprised to find 1-mismatch alignments
             reported.  This option prevents Bowtie 2 from searching for 1-mismatch end-to-end
-            alignments before using the [multiseed heuristic], which leads to the expected
+            alignments before using the multiseed heuristic, which leads to the expected
             behavior when combined with options such as `-L` and `-N`.  This comes at the
             expense of speed.
 
@@ -722,8 +722,7 @@ Bowtie 2 accepts files in Sanger FASTQ format (single or pair-end). Use the FAST
             Sets a function governing the minimum alignment score needed for an alignment to
             be considered "valid" (i.e. good enough to report).  This is a function of read
             length. For instance, specifying `L,0,-0.6` sets the minimum-score function `f`
-            to `f(x) = 0 + -0.6 * x`, where `x` is the read length.  See also: [setting
-            function options].  The default in `--end-to-end` mode is `L,-0.6,-0.6` and
+            to `f(x) = 0 + -0.6 * x`, where `x` is the read length.  The default in `--end-to-end` mode is `L,-0.6,-0.6` and
             the default in `--local` mode is `G,20,8`.
                                         
 -----                                        
@@ -841,18 +840,15 @@ Bowtie 2 accepts files in Sanger FASTQ format (single or pair-end). Use the FAST
     --dovetail
             If the mates "dovetail", that is if one mate alignment extends past the
             beginning of the other such that the wrong mate begins upstream, consider that
-            to be concordant.  See also: [Mates can overlap, contain or dovetail each
-            other].  Default: mates cannot dovetail in a concordant alignment.
+            to be concordant.  Default: mates cannot dovetail in a concordant alignment.
 
     --no-contain
             If one mate alignment contains the other, consider that to be non-concordant.
-            See also: [Mates can overlap, contain or dovetail each other].  Default: a mate
-            can contain the other in a concordant alignment.
+            Default: a mate can contain the other in a concordant alignment.
 
     --no-overlap
             If one mate alignment overlaps the other at all, consider that to be
-            non-concordant.  See also: [Mates can overlap, contain or dovetail each other]. 
-            Default: mates can overlap in a concordant alignment.
+            non-concordant.  Default: mates can overlap in a concordant alignment.
                                 
 ------
 
@@ -867,9 +863,9 @@ Bowtie 2 accepts files in Sanger FASTQ format (single or pair-end). Use the FAST
     --rg &lt;text&gt;
             Add `&lt;text&gt;` (usually of the form `TAG:VAL`, e.g. `SM:Pool1`) as a field on the
             `@RG` header line.  Note: in order for the `@RG` line to appear, `--rg-id`
-            must also be specified.  This is because the `ID` tag is required by the [SAM
-            Spec][SAM].  Specify `--rg` multiple times to set multiple fields.  See the
-            [SAM Spec][SAM] for details about what fields are legal.
+            must also be specified.  This is because the `ID` tag is required by the SAM
+            Specification.  Specify `--rg` multiple times to set multiple fields.  See the
+            SAM Specification for details about what fields are legal.
 
     --omit-sec-seq
             When printing secondary alignments, Bowtie 2 by default will write out the `SEQ`
