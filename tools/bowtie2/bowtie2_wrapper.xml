@@ -150,9 +150,9 @@
         
         ## output file
         #if ( str( $analysis_type.analysis_type_selector ) != "full" or str( $analysis_type.sam_opt ) != "true" ):
-          | samtools view -Su - | samtools sort -o - - > $output_1
+          | samtools view -Su - | samtools sort -o - - > $output
         #else
-          > $output_2
+          > $output_sam
         #end if
 
         ## rename unaligned sequence files
@@ -449,7 +449,7 @@
             </actions>
         </data>
         
-        <data format="bam" name="output_1" label="${tool.name} on ${on_string}: aligned reads (sorted BAM)">
+        <data format="bam" name="output" label="${tool.name} on ${on_string}: aligned reads (sorted BAM)">
           <filter>analysis_type['analysis_type_selector'] == "simple" or analysis_type['sam_opt'] is False</filter>
           <actions>
             <conditional name="reference_genome.source">
@@ -470,7 +470,7 @@
           </actions>
         </data>
 
-        <data format="sam" name="output_2" label="${tool.name} on ${on_string}: aligned reads (SAM)">
+        <data format="sam" name="output_sam" label="${tool.name} on ${on_string}: aligned reads (SAM)">
           <filter>analysis_type['analysis_type_selector'] == "full" and analysis_type['sam_opt'] is True</filter>
           <actions>
             <conditional name="reference_genome.source">
@@ -505,7 +505,7 @@
             <param name="input_1" value="bowtie2-fq1.fq" ftype="fastqsanger"/>
             <param name="input_2" value="bowtie2-fq2.fq" ftype="fastqsanger"/>
             <param name="own_file" value="bowtie2-ref.fasta" />
-            <output name="output_1" file="bowtie2-test1.bam" ftype="bam" lines_diff="2"/>
+            <output name="output" file="bowtie2-test1.bam" ftype="bam" lines_diff="2"/>
         </test>
     </tests>
 
