@@ -76,18 +76,49 @@
       --min-coverage "${options_type.min_coverage}"
 
 ##    Command line direct text entry is not allowed at this time for security reasons
-
-##    #elif str( $options_type.options_type_selector ) == "cline":
-    
-##      ${options_type.cline}
-  
-##      @optional_inputs_outputs@
     
     #elif str( $options_type.options_type_selector ) == "full":
-    
-##optional inputs and outputs
  
-        @optional_inputs_outputs@
+        #if $options_type.optional_inputs.optional_inputs_selector:
+        
+          #if $options_type.optional_inputs.output_trace_option:
+            --trace "${output_trace}"
+          #end if
+          
+          #if $options_type.optional_inputs.output_failed_alleles_option:
+            --failed-alleles "${output_failed_alleles_bed}"
+          #end if
+       
+          #if $options_type.optional_inputs.samples:
+              --samples "${options_type.optional_inputs.samples}"
+          #end if
+          
+          #if $options_type.optional_inputs.populations:
+            --populations "${options_type.optional_inputs.populations}"
+          #end if
+          
+          #if $options_type.optional_inputs.A:
+            --cnv-map "${options_type.optional_inputs.A}"
+          #end if
+          
+          #if str( $options_type.optional_inputs.input_variant_type.input_variant_type_selector ) == "provide_vcf":
+            --variant-input "input_variant_vcf.vcf.gz"  ## input_variant_vcf.vcf.gz is symlinked to a galaxy-generated dataset in "Tabixize optional input_varinat_vcf file" section of the command line above
+            ${options_type.optional_inputs.input_variant_type.only_use_input_alleles}
+          #end if
+          
+          #if $options_type.optional_inputs.haplotype_basis_alleles:
+            --haplotype-basis-alleles "${options_type.optional_inputs.haplotype_basis_alleles}"
+          #end if
+          
+          #if $options_type.optional_inputs.observation_bias:
+            --observation-bias "${options_type.optional_inputs.observation_bias}"
+          #end if
+          
+          #if $options_type.optional_inputs.contamination_estimates:
+            --contamination-estimates "${options_type.optional_inputs.contamination_estimates}"
+          #end if
+          
+        #end if
         
 ## REPORTING
         
@@ -193,87 +224,6 @@
     
   </command>
   
-  <macros>
-      <token name="@optional_inputs_outputs@">     
-      ## This token gets injected in commane in two instances: when options_type.options_type_selector == "full" and "cline" ( cline is not supported at this time )
-      
-      #if $options_type.optional_inputs.optional_inputs_selector:
-        
-          #if $options_type.optional_inputs.output_trace_option:
-            --trace "${output_trace}"
-          #end if
-          
-          #if $options_type.optional_inputs.output_failed_alleles_option:
-            --failed-alleles "${output_failed_alleles_bed}"
-          #end if
-       
-          #if $options_type.optional_inputs.samples:
-              --samples "${options_type.optional_inputs.samples}"
-          #end if
-          
-          #if $options_type.optional_inputs.populations:
-            --populations "${options_type.optional_inputs.populations}"
-          #end if
-          
-          #if $options_type.optional_inputs.A:
-            --cnv-map "${options_type.optional_inputs.A}"
-          #end if
-          
-          #if str( $options_type.optional_inputs.input_variant_type.input_variant_type_selector ) == "provide_vcf":
-            --variant-input "input_variant_vcf.vcf.gz"  ## input_variant_vcf.vcf.gz is symlinked to a galaxy-generated dataset in "Tabixize optional input_varinat_vcf file" section of the command line above
-            ${options_type.optional_inputs.input_variant_type.only_use_input_alleles}
-          #end if
-          
-          #if $options_type.optional_inputs.haplotype_basis_alleles:
-            --haplotype-basis-alleles "${options_type.optional_inputs.haplotype_basis_alleles}"
-          #end if
-          
-          #if $options_type.optional_inputs.observation_bias:
-            --observation-bias "${options_type.optional_inputs.observation_bias}"
-          #end if
-          
-          #if $options_type.optional_inputs.contamination_estimates:
-            --contamination-estimates "${options_type.optional_inputs.contamination_estimates}"
-          #end if
-          
-        #end if
-    </token>
-    <xml name="optional_file_inputs">
-      <conditional name="optional_inputs">
-          <param name="optional_inputs_selector" type="boolean" truevalue="set" falsevalue="do_not_set" label="Do you want to provide additional inputs?" help="Sets --samples, --populations, --cnv-map, --trace, --failed-alleles, --varinat-input, --only-use-input-alleles, --haplotype-basis-alleles, --report-all-haplotype-alleles, --report-monomorphic options, --observation-bias, and --contamination-estimates" />
-          <when value="set">
-            <param name="output_failed_alleles_option" type="boolean" truevalue="--failed-alleles" falsevalue="" checked="False" label="Write out failed alleles file" help="--failed-alleles" />
-            <param name="output_trace_option" type="boolean" truevalue="--trace" falsevalue="" checked="False" label="Write out algorithm trace file" help="--trace"/>
-            <param name="samples" type="data" format="txt" label="Limit analysis to samples listed (one per line) in the FILE" optional="True" help="-s --samples; default=By default FreeBayes will analyze all samples in its input BAM files"/>
-            <param name="populations" type="data" format="txt" label="Populations File" optional="True" help="--populations; default=False. Each line of FILE should list a sample and a population which it is part of.  The population-based bayesian inference model will then be partitioned on the basis of the populations" />
-            <param name="A" type="data" format="bed" label="Read a copy number map from the BED file FILE" optional="True" help="-A --cnv-map; default=copy number is set to as specified by --ploidy. Read a copy number map from the BED file FILE, which has the format: reference sequence, start, end, sample name, copy number ... for each region in each sample which does not have the default copy number as set by --ploidy."/>
-            <conditional name="input_variant_type">
-              <param name="input_variant_type_selector" type="select" label="Provide variants file">
-                <option value="do_not_provide" selected="True">Do not provide</option>
-                <option value="provide_vcf">Provide VCF file</option>
-              </param>
-              <when value="do_not_provide">
-                <!-- Do nothing here -->
-              </when>
-              <when value="provide_vcf">
-                <param name="input_variant_vcf" type="data" format="vcf_bgzip" label="Use variants reported in VCF file as input to the algorithm">
-                  <conversion name="Tabixized_input" type="tabix" />
-                </param>
-                <param name="only_use_input_alleles" type="boolean" truevalue="--only-use-input-alleles" falsevalue="" checked="False" label="Only provide variant calls and genotype likelihoods for sites in VCF" />
-              </when>
-            </conditional>
-            <param name="haplotype_basis_alleles" type="data" format="vcf" label="Only use variant alleles provided in this input VCF for the construction of complex or haplotype alleles" optional="True" help="--haplotype-basis-alleles" />
-            <param name="report_monomorphic" type="boolean" truevalue="--report-monomorphic" falsevalue="" checked="False" label="Report even loci which appear to be monomorphic, and report all considered alleles, even those which are not in called genotypes." help="--report-monomorphic  " />
-            <param name="observation_bias" optional="True" type="data" format="tabular" label="Load read length-dependent allele observation biases from" help="--observation-bias; The format is [length] [alignment efficiency relative to reference] where the efficiency is 1 if there is no relative observation bias" />           
-            <param name="contamination_estimates" optional="True" type="data" format="tabular" label="Upload per-sample estimates of contamination from" help="--contamination-estimates; The format should be: sample p(read=R|genotype=AR) p(read=A|genotype=AA) Sample '*' can be used to set default contamination estimates." />
-          </when>
-          <when value="do_not_set">
-            <!-- do nothing -->
-          </when>
-      </conditional>
-    </xml>
-  </macros>
-  
   <inputs>
     <conditional name="reference_source">
       <param name="reference_source_selector" type="select" label="Load reference genome from">
@@ -332,8 +282,39 @@
         -->
       </param>
       <when value="full">
-   
-        <expand macro="optional_file_inputs" /> <!-- see macros section -->
+        
+        <conditional name="optional_inputs">
+          <param name="optional_inputs_selector" type="boolean" truevalue="set" falsevalue="do_not_set" label="Do you want to provide additional inputs?" help="Sets --samples, --populations, --cnv-map, --trace, --failed-alleles, --varinat-input, --only-use-input-alleles, --haplotype-basis-alleles, --report-all-haplotype-alleles, --report-monomorphic options, --observation-bias, and --contamination-estimates" />
+          <when value="set">
+            <param name="output_failed_alleles_option" type="boolean" truevalue="--failed-alleles" falsevalue="" checked="False" label="Write out failed alleles file" help="--failed-alleles" />
+            <param name="output_trace_option" type="boolean" truevalue="--trace" falsevalue="" checked="False" label="Write out algorithm trace file" help="--trace"/>
+            <param name="samples" type="data" format="txt" label="Limit analysis to samples listed (one per line) in the FILE" optional="True" help="-s --samples; default=By default FreeBayes will analyze all samples in its input BAM files"/>
+            <param name="populations" type="data" format="txt" label="Populations File" optional="True" help="--populations; default=False. Each line of FILE should list a sample and a population which it is part of.  The population-based bayesian inference model will then be partitioned on the basis of the populations" />
+            <param name="A" type="data" format="bed" label="Read a copy number map from the BED file FILE" optional="True" help="-A --cnv-map; default=copy number is set to as specified by --ploidy. Read a copy number map from the BED file FILE, which has the format: reference sequence, start, end, sample name, copy number ... for each region in each sample which does not have the default copy number as set by --ploidy."/>
+            <conditional name="input_variant_type">
+              <param name="input_variant_type_selector" type="select" label="Provide variants file">
+                <option value="do_not_provide" selected="True">Do not provide</option>
+                <option value="provide_vcf">Provide VCF file</option>
+              </param>
+              <when value="do_not_provide">
+                <!-- Do nothing here -->
+              </when>
+              <when value="provide_vcf">
+                <param name="input_variant_vcf" type="data" format="vcf_bgzip" label="Use variants reported in VCF file as input to the algorithm">
+                  <conversion name="Tabixized_input" type="tabix" />
+                </param>
+                <param name="only_use_input_alleles" type="boolean" truevalue="--only-use-input-alleles" falsevalue="" checked="False" label="Only provide variant calls and genotype likelihoods for sites in VCF" />
+              </when>
+            </conditional>
+            <param name="haplotype_basis_alleles" type="data" format="vcf" label="Only use variant alleles provided in this input VCF for the construction of complex or haplotype alleles" optional="True" help="--haplotype-basis-alleles" />
+            <param name="report_monomorphic" type="boolean" truevalue="--report-monomorphic" falsevalue="" checked="False" label="Report even loci which appear to be monomorphic, and report all considered alleles, even those which are not in called genotypes." help="--report-monomorphic  " />
+            <param name="observation_bias" optional="True" type="data" format="tabular" label="Load read length-dependent allele observation biases from" help="--observation-bias; The format is [length] [alignment efficiency relative to reference] where the efficiency is 1 if there is no relative observation bias" />           
+            <param name="contamination_estimates" optional="True" type="data" format="tabular" label="Upload per-sample estimates of contamination from" help="--contamination-estimates; The format should be: sample p(read=R|genotype=AR) p(read=A|genotype=AA) Sample '*' can be used to set default contamination estimates." />
+          </when>
+          <when value="do_not_set">
+            <!-- do nothing -->
+          </when>
+        </conditional>
         
         <!-- reporting -->
         
@@ -506,28 +487,10 @@
     <!-- do nothing build command line using haplotype-length 0 min-alternate-count 1 min-alternate-fraction 0 pooled-continuous report-monomorphic standard-filters-->
     <param name="min_coverage" type="integer" value="0" label="Require at least this coverage to process a site" help="-! --min-coverage; default=0  " />
   </when>
-  
-  <!-- We will not allow command line textboxes at this time
-  <when value="cline">
-    
-    <expand macro="optional_file_inputs" /> 
-    
-    <param name="cline" size="60" type="text" value="-m 20 -q 30" label="Type command line tags here" help="All paremeters that DO NOT involve filenames can be typed here. Use &quot;Do you want to provide additional inputs?&quot; section above to control input and output files. For full syntax check help section below">
-      <sanitizer>
-        <valid initial="string.printable">
-         <remove value="&apos;"/>
-        </valid>
-        <mapping initial="none">
-          <add source="&apos;" target="__sq__"/>
-        </mapping>
-      </sanitizer>
-    </param>
-  </when>
-  -->
-
 </conditional>
 
   </inputs>
+  
   <outputs>
     <data format="vcf" name="output_vcf" label="${tool.name} on ${on_string} (variants)" />
     <data format="bed" name="output_failed_alleles_bed" label="${tool.name} on ${on_string} (failed alleles)">
