@@ -508,6 +508,14 @@
       <param name="options_type_selector" value="simple"/>
       <output name="output_vcf" file="freebayes-phix174-test1.vcf" compare="contains"/>
     </test>
+    <test>
+     <param name="reference_source_selector" value="history" />
+      <param name="ref_file" ftype="fasta" value="freebayes-phix174.fasta"/>
+      <param name="input_bam" ftype="bam" value="freebayes-phix174.bam"/>
+      <param name="options_type_selector" value="naive_w_filters"/>
+      <param name="min_coverage" value="14"/>
+      <output name="output_vcf" file="freebayes-phix174-test2.vcf" compare="contains"/>
+    </test>
   </tests>
   <stdio>
     <exit_code range="1:" />
@@ -519,7 +527,7 @@ FreeBayes is a Bayesian genetic variant detector designed to find small polymorp
 
 See https://github.com/ekg/freebayes for details on FreeBayes.
 
-This Galaxy instance of FreeBayes corresponds to release 0.9.18
+This Galaxy instance of FreeBayes corresponds to release 0.9.20
 
 ------
 
