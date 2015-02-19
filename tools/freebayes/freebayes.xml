@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<tool id="freebayes" name="FreeBayes" version="0.3">
+<tool id="freebayes" name="FreeBayes" version="0.4">
   <requirements>
-    <requirement type="package" version="0.9.18_0059bdf">freebayes</requirement>
+    <requirement type="package" version="0_9_20_b040236">freebayes</requirement>
     <requirement type="package" version="0.1.18">samtools</requirement>
   </requirements>
   <description> - bayesian genetic variant detector</description>
