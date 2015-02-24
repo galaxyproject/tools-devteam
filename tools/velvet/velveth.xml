@@ -1,8 +1,17 @@
 <tool id="velveth" name="velveth" version="1.0.0">
   <description>Prepare a dataset for the Velvet velvetg Assembler</description>
   <version_command>velveth 2&gt;&amp;1 | grep "Version" | sed -e 's/Version //'</version_command>
+  <requirements>
+      <requirement type="package" version="1.2.10">velvet</requirement>
+  </requirements>
+  <stdio>
+      <exit_code range="1:" />
+      <exit_code range=":-1" />
+      <regex match="Error:" />
+      <regex match="Exception:" />
+  </stdio>
   <command interpreter="python">
-    velveth_wrapper.py 
+    velveth_wrapper.py
            '$out_file1' '$out_file1.extra_files_path'
            $hash_length
            $strand_specific
@@ -90,7 +99,7 @@ Velveth takes in a number of sequence files, produces a hashtable, then outputs 
 
 **Hash Length**
 
-The hash length, also known as k-mer length, corresponds to the length, in base pairs, of the words being hashed. 
+The hash length, also known as k-mer length, corresponds to the length, in base pairs, of the words being hashed.
 
 The hash length is the length of the k-mers being entered in the hash table. Firstly, you must observe three technical constraints::
 
@@ -110,9 +119,9 @@ read. In other words, if the reads are indexed from 0, then reads 0 and 1 are pa
 Supported file formats are::
 
   fasta
-  fastq 
-  fasta.gz 
-  fastq.gz 
+  fastq
+  fasta.gz
+  fastq.gz
   eland
   gerald
 
