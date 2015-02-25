@@ -1,6 +1,7 @@
 <tool id="rgweblogo3" name="Sequence Logo" version="0.4">
    <description>generator for fasta (eg Clustal alignments)</description>
    <requirements>
+      <requirement type="package" version="1.7.1">numpy</requirement>
       <requirement type="package" version="3.3">weblogo</requirement>
       <requirement type="package" version="9.10">ghostscript</requirement>
    </requirements>
