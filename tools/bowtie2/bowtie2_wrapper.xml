@@ -31,13 +31,13 @@
         
         ## Fastq inputs
         #if str( $library.type ) == "single":
-            -U "${input_1}"
+            -U "${library.input_1}"
             #if str( $library.unaligned_file ) == "true":
                 --un $output_unaligned_reads_l
             #end if
         #elif str( $library.type ) == "paired":
-            -1 "${input_1}"
-            -2 "${input_2}"
+            -1 "${library.input_1}"
+            -2 "${library.input_2}"
             #if str( $library.paired_options.paired_options_selector ) == "yes":
                 -I "${library.paired_options.I}"
                 -X "${library.paired_options.X}"
