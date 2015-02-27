@@ -1,15 +1,11 @@
-<tool id="velvetg" name="velvetg" version="1.0.0">
+<tool id="velvetg" name="velvetg" version="@WRAPPER_VERSION@.0">
   <description>Velvet sequence assembler for very short reads</description>
   <version_command>velvetg 2&gt;&amp;1 | grep "Version" | sed -e 's/Version //'</version_command>
-  <requirements>
-      <requirement type="package" version="1.2.10">velvet</requirement>
-  </requirements>
-  <stdio>
-      <exit_code range="1:" />
-      <exit_code range=":-1" />
-      <regex match="Error:" />
-      <regex match="Exception:" />
-  </stdio>
+  <macros>
+    <import>macros.xml</import>
+  </macros>
+  <expand macro="requirements"/>
+  <expand macro="stdio"/>
   <command interpreter="python">
     velvetg_wrapper.py
            '$input.extra_files_path'
@@ -115,7 +111,7 @@
       <when value="none"/>
       <when value="auto"/>
       <when value="value">
-        <param name="cov_cutoff" value = "10.0" label="Remove nodes with coverage below" type="float" />
+        <param name="cov_cutoff" value="10.0" label="Remove nodes with coverage below" type="float" />
       </when>
     </conditional>
 
@@ -128,7 +124,7 @@
       <when value="none"/>
       <when value="auto"/>
       <when value="value">
-        <param name="exp_cov" value = "10.0" label="Remove nodes with coverage below" type="float" />
+        <param name="exp_cov" value="10.0" label="Remove nodes with coverage below" type="float" />
       </when>
     </conditional>
 
@@ -307,4 +303,5 @@ This is a list of implemented Velvetg options::
         directory/velvet_asm.afg         : (if requested) AMOS compatible assembly file
 
   </help>
+  <expand macro="citation"/>
 </tool>
