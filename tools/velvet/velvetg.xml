@@ -135,7 +135,7 @@
       </param>
       <when value="no"/>
       <when value="yes">
-        <param name="min_contig_lgth" value = "42" label="minimum contig length" type="integer" help="minimum contig length exported to contigs.fa file (default: hash length * 2)"/>
+        <param name="min_contig_lgth" value="42" label="minimum contig length" type="integer" help="minimum contig length exported to contigs.fa file (default: hash length * 2)"/>
       </when>
     </conditional>
 
@@ -146,7 +146,7 @@
       </param>
       <when value="no"/>
       <when value="yes">
-        <param name="ins_length" value = "-1" label="Insert Length in Paired-End Read dataset (ignored when -1)" type="integer" help="Expected distance between two paired end reads"/>
+        <param name="ins_length" value="-1" label="Insert Length in Paired-End Read dataset (ignored when -1)" type="integer" help="Expected distance between two paired end reads"/>
         <conditional name="options">
           <param name="advanced" type="select" label="Velvet Advanced Options">
             <option value="no">Use Defaults</option>
@@ -154,17 +154,17 @@
           </param>
           <when value="no"/>
           <when value="yes">
-            <param name="ins_length_sd" value = "-1" label="Estimate of Standard Deviation of Paired-End Read dataset(ignored when -1)" type="integer" help="Estimate of standard deviation of Paired-End Read dataset (default: 10% of corresponding length)"/>
-            <param name="ins_length2" value = "-1" label="Insert Length in 2nd Paired-End Short Read dataset (ignored when -1)" type="integer" help="Expected distance between two paired end reads in the second short-read dataset"/>
-            <param name="ins_length2_sd" value = "-1" label="Estimate of Standard Deviation of 2nd Paired-End Read dataset (ignored when -1)" type="integer" help="Estimate of standard deviation of 2nd Paired-End Read dataset (default: 10% of corresponding length)"/>
-            <param name="ins_length_long" value = "-1" label="Insert Length in Long Paired-End Read dataset (ignored when -1)" type="integer" help="Expected distance between two long paired-end reads"/>
-            <param name="ins_length_long_sd" value = "-1" label="Estimate of Standard Deviation of 2nd Paired-End Read dataset (ignored when -1)" type="integer" help="Estimate of standard deviation of Long Paired-End Read dataset (default: 10% of corresponding length)"/>
-            <param name="max_branch_length" value = "-1" label="Maximum branch length (ignored when -1)" type="integer" help="maximum length in base pair of bubble (default: 100)"/>
-            <param name="max_divergence" value = "-1." label="Maximum max_divergence (between .0 and 1., ignored when -1.)" type="float" help="maximum divergence rate between two branches in a bubble (default: .2)"/>
-            <param name="max_gap_count" value = "-1" label="Maximum gap count (ignored when -1)" type="integer" help="maximum number of gaps allowed in the alignment of the two branches of a bubble (default: 3)"/>
-            <param name="min_pair_count" value = "-1" label="Minimum read-pair count (ignored when -1)" type="integer" help="minimum number of paired end connections to justify the scaffolding of two long contigs (default: 10)"/>
-            <param name="max_coverage" value = "-1." label="Maximum coverage exclusion(ignored when -1.)" type="float" help="Exclude data that has coverage more than this maximum coverage value"/>
-            <param name="long_mult_cutoff" value = "-1" label="Minimum number of long reads required to merge contigs (ignored when -1)" type="integer" help="minimum number of long reads required to merge contigs (default: 2)"/>
+            <param name="ins_length_sd" value="-1" label="Estimate of Standard Deviation of Paired-End Read dataset(ignored when -1)" type="integer" help="Estimate of standard deviation of Paired-End Read dataset (default: 10% of corresponding length)"/>
+            <param name="ins_length2" value="-1" label="Insert Length in 2nd Paired-End Short Read dataset (ignored when -1)" type="integer" help="Expected distance between two paired end reads in the second short-read dataset"/>
+            <param name="ins_length2_sd" value="-1" label="Estimate of Standard Deviation of 2nd Paired-End Read dataset (ignored when -1)" type="integer" help="Estimate of standard deviation of 2nd Paired-End Read dataset (default: 10% of corresponding length)"/>
+            <param name="ins_length_long" value="-1" label="Insert Length in Long Paired-End Read dataset (ignored when -1)" type="integer" help="Expected distance between two long paired-end reads"/>
+            <param name="ins_length_long_sd" value="-1" label="Estimate of Standard Deviation of 2nd Paired-End Read dataset (ignored when -1)" type="integer" help="Estimate of standard deviation of Long Paired-End Read dataset (default: 10% of corresponding length)"/>
+            <param name="max_branch_length" value="-1" label="Maximum branch length (ignored when -1)" type="integer" help="maximum length in base pair of bubble (default: 100)"/>
+            <param name="max_divergence" value="-1." label="Maximum max_divergence (between .0 and 1., ignored when -1.)" type="float" help="maximum divergence rate between two branches in a bubble (default: .2)"/>
+            <param name="max_gap_count" value="-1" label="Maximum gap count (ignored when -1)" type="integer" help="maximum number of gaps allowed in the alignment of the two branches of a bubble (default: 3)"/>
+            <param name="min_pair_count" value="-1" label="Minimum read-pair count (ignored when -1)" type="integer" help="minimum number of paired end connections to justify the scaffolding of two long contigs (default: 10)"/>
+            <param name="max_coverage" value="-1." label="Maximum coverage exclusion(ignored when -1.)" type="float" help="Exclude data that has coverage more than this maximum coverage value"/>
+            <param name="long_mult_cutoff" value="-1" label="Minimum number of long reads required to merge contigs (ignored when -1)" type="integer" help="minimum number of long reads required to merge contigs (default: 2)"/>
             <param name="scaffolding" type="boolean" checked="true" truevalue="-scaffolding yes" falsevalue="-scaffolding no" label="Use Scaffolding" help="Scaffold contigs that it cannot quite be connected (This results in sequences of Ns in the contigs)"/>
 
           </when>
