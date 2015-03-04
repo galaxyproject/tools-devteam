@@ -24,14 +24,9 @@ This tool runs the ``samtools reheader`` command in the SAMtools toolkit.
 
 Replace the header for a SAM or BAM file with a different header.
 
-**Citation**
-
+    </help>
     <citations>
         <citation type="doi">10.1093/bioinformatics/btp352</citation>
     </citations>
-
-
-If you use this tool in Galaxy, please cite Blankenberg D, et al. *In preparation.*
-    </help>
 </tool>
 

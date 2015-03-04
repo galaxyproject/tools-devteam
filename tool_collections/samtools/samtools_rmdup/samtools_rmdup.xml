@@ -60,15 +60,8 @@ This tool uses the SAMTools_ toolkit to remove potential PCR duplicates: if mult
 
 .. _SAMTools: http://samtools.sourceforge.net/samtools.shtml
 
-------
-
-**Citation**
-
+  </help>
     <citations>
         <citation type="doi">10.1093/bioinformatics/btp352</citation>
     </citations>
-
-If you use this tool in Galaxy, please cite Blankenberg D, et al. *In preparation.*
-
-  </help>
 </tool>

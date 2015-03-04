@@ -506,10 +506,6 @@ ${pasted_data}
      - comma separated list of platforms for indels
      - all
 
-------
-
-**Citation**
-If you use this tool in Galaxy, please cite Blankenberg D, et al. *In preparation.*
     </help>
     <citations>
         <citation type="doi">10.1093/bioinformatics/btp352</citation>

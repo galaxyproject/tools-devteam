@@ -97,16 +97,8 @@
 
 Generate the MD tag. If the MD tag is already present, this command will give a warning if the MD tag generated is different from the existing tag. Outputs a BAM file. 
 
-------
-
-**Citation**
-
+    </help>
     <citations>
         <citation type="doi">10.1093/bioinformatics/btp352</citation>
     </citations>
-
-
-If you use this tool in Galaxy, please cite Blankenberg D, et al. *In preparation.*
-
-        </help>
 </tool>

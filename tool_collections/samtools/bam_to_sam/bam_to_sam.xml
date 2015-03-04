@@ -56,13 +56,8 @@ This tool uses the SAMTools_ toolkit to produce a SAM file from a BAM file.
 
 .. _SAMTools: http://samtools.sourceforge.net/samtools.shtml
 
-------
-
-**Citation**
-
-    <citations>
-        <citation type="doi">10.1093/bioinformatics/btp352</citation>
-    </citations>
-
   </help>
+  <citations>
+      <citation type="doi">10.1093/bioinformatics/btp352</citation>
+  </citations>
 </tool>
