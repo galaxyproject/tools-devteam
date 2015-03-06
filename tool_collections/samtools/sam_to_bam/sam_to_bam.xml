@@ -1,7 +1,7 @@
-<tool id="sam_to_bam" name="SAM-to-BAM" version="1.1.4">
+<tool id="sam_to_bam" name="SAM-to-BAM" version="1.1.5">
   <description>converts SAM format to BAM format</description>
   <requirements>
-    <requirement type="package" version="0.1.19">samtools</requirement>
+    <requirement type="package" version="1.1">samtools</requirement>
   </requirements>
   <command interpreter="python">
     sam_to_bam.py
