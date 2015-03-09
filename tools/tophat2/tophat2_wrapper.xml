@@ -1,4 +1,4 @@
-<tool id="tophat2" name="Tophat2" version="0.7">
+<tool id="tophat2" name="Tophat" version="0.7">
     <!-- Wrapper compatible with Tophat version 2.0.0+ -->
     <description>Gapped-read mapper for RNA-seq data</description>
     <version_command>tophat2 --version</version_command>
