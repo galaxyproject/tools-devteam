@@ -249,7 +249,7 @@ Conditions for filtering BAM files can be arranged in **Groups and Filters**. Wh
 When filtering on a single condition there is no need to worry about filters and conditions. Just choose a filter from the **Select BAM property to filter on:** dropdown and enter a value (or click a checkbox for binary filters).
 For example, for retaining reads with mapping quality of at least 20 one would set the tool interface as shown below:
 
-.. image:: ${static_path}/images/simple-filter.png
+.. image:: ${static_path}/images/single-filter.png
 
 -----
 

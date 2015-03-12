@@ -42,14 +42,9 @@ This tool runs the ``samtools split`` command in the SAMtools toolkit.
 
 Split BAM files by read group.
 
-**Citation**
-
+    </help>
     <citations>
         <citation type="doi">10.1093/bioinformatics/btp352</citation>
     </citations>
-
-
-If you use this tool in Galaxy, please cite Blankenberg D, et al. *In preparation.*
-    </help>
 </tool>
 

@@ -216,14 +216,9 @@ This tool runs the ``samtools stats`` command in the SAMtools toolkit.
 
 Collects statistics from BAM files. The output can be visualized using plot-bamstats.
 
-**Citation**
-
+    </help>
     <citations>
         <citation type="doi">10.1093/bioinformatics/btp352</citation>
     </citations>
-
-
-If you use this tool in Galaxy, please cite Blankenberg D, et al. *In preparation.*
-    </help>
 </tool>
 

@@ -18,3 +18,6 @@ Other repositories with high quality tools:
  * [Peter Cock's blast repo](https://github.com/peterjc/galaxy_blast)
  * [Peter Cock's pico_galaxy repo](https://github.com/peterjc/pico_galaxy)
  * [ENCODE tools](https://github.com/modENCODE-DCC/Galaxy)
+ * [Biopython repo](https://github.com/biopython/galaxy_packages)
+ * [Galaxy Proteomics repo](https://github.com/galaxyproteomics/tools-galaxyp)
+

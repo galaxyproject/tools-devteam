@@ -28,15 +28,8 @@
 
  Accepts an input BAM file and an input BED file and creates an output BAM file containing only those alignments that overlap the provided BED intervals.
 
-------
-
-**Citation**
-
+  </help>
     <citations>
         <citation type="doi">10.1093/bioinformatics/btp352</citation>
     </citations>
-
-If you use this tool in Galaxy, please cite Blankenberg D, et al. *In preparation.*
-
-  </help>
 </tool>
