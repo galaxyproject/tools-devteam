@@ -15,5 +15,4 @@
     <repository name="samtools_sort" owner="devteam" />
     <repository name="samtools_split" owner="devteam" />
     <repository name="samtools_stats" owner="devteam" />
-    <repository name="pileup_interval" owner="devteam" />
 </repositories>
