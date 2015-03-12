@@ -1,13 +1,14 @@
-<tool id="samtools_slice_bam" name="Slice BAM" version="0.0.2">
+<tool id="samtools_slice_bam" name="Slice BAM" version="0.0.3">
   <description>by provided regions</description>
   <requirements>
-      <requirement type="package" version="0.1.19">samtools</requirement>
+      <requirement type="package" version="1.1">samtools</requirement>
   </requirements>
-  <command interpreter="python">samtools_slice_bam.py
-    "${input_bam}"
-    "${input_bam.metadata.bam_index}"
-    "${input_interval}"
-    "${output_bam}"
+  <command><![CDATA[
+    ln -s "${input_bam}" temp_input.bam &&
+    ln -s "${input_bam.metadata.bam_index}" temp_input.bam.bai &&
+    samtools view -@ \${GALAXY_SLOTS:-1} -b -L "${input_interval}" temp_input.bam -o unsorted_output.bam && 
+    samtools sort unsorted_output.bam -O bam -T sorted -@ \${GALAXY_SLOTS:-1} -o "${output_bam}"
+    ]]>
   </command>
   <inputs>
     <param name="input_bam" type="data" format="bam" label="BAM file" />
