@@ -1,98 +1,89 @@
-<tool id="sam_to_bam" name="SAM-to-BAM" version="1.1.5">
-  <description>converts SAM format to BAM format</description>
-  <requirements>
-    <requirement type="package" version="1.1">samtools</requirement>
-  </requirements>
-  <command interpreter="python">
-    sam_to_bam.py
-      --input1=$source.input1
+<tool id="sam_to_bam" name="SAM-to-BAM" version="1.1.6">
+    <description>converts SAM format to BAM format</description>
+    <requirements>
+        <requirement type="package" version="1.1">samtools</requirement>
+    </requirements>
+    <stdio>
+        <exit_code range="1:" level="fatal" description="Error" />
+    </stdio>
+    <command>
+<![CDATA[
+    samtools sort -O bam -@ \${GALAXY_SLOTS:-1} "$input1" -o sorted_input.bam -T temp && 
       #if $source.index_source == "history":
-        --ref_file=$source.ref_file
+        ln -s $source.ref_file input.fa &&
+        samtools faidx input.fa &&
       #else
-        --index=${source.index.fields.path}
+        ln -s ${source.index.fields.path} input.fa &&
+        ln -s ${source.index.fields.path}.fai input.fa.fai &&
       #end if
-      --output1=$output1
-  </command>
-  <inputs>
-    <conditional name="source">
-      <param name="index_source" type="select" label="Choose the source for the reference list">
-        <option value="cached">Locally cached</option>
-        <option value="history">History</option>
-      </param>
-      <when value="cached">
-        <param name="input1" type="data" format="sam" metadata_name="dbkey" label="SAM file to convert">
-          <validator type="unspecified_build" />
-          <validator type="dataset_metadata_in_data_table" table_name="fasta_indexes" metadata_name="dbkey" metadata_column="1" message="Sequences are not currently available for the specified build." />
-        </param>
-        <param name="index" type="select" label="Using reference genome">
-          <options from_data_table="fasta_indexes">
-            <filter type="data_meta" ref="input1" key="dbkey" column="1" />
-            <validator type="no_options" message="No reference genome is available for the build associated with the selected input dataset" />
-          </options>
-        </param>
-      </when>
-      <when value="history">
-        <param name="input1" type="data" format="sam" label="SAM file to convert" />
-        <param name="ref_file" type="data" format="fasta" metadata_name="dbkey" label="Using reference file" />
-      </when>
-    </conditional>
-  </inputs>
-  <outputs>
-    <data format="bam" name="output1" label="${tool.name} on ${on_string}: converted BAM">
-      <actions>
-        <conditional name="source.index_source">
-          <when value="cached">
-            <action type="metadata" name="dbkey">
-              <option type="from_param" name="source.input1" param_attribute="dbkey" />
-            </action>
-          </when>
-          <when value="history">
-            <action type="metadata" name="dbkey">
-              <option type="from_param" name="source.ref_file" param_attribute="dbkey" />
-            </action>
-          </when>
+      samtools view -T input.fa sorted_input.bam -b -h -o $output1
+]]>
+    </command>
+    <inputs>
+        <conditional name="source">
+            <param label="Choose the source for the reference list" name="index_source" type="select">
+                <option value="cached">Locally cached</option>
+                <option value="history">History</option>
+            </param>
+            <when value="cached">
+                <param format="sam" label="SAM file to convert" metadata_name="dbkey" name="input1" type="data">
+                    <validator type="unspecified_build" />
+                    <validator message="Sequences are not currently available for the specified build." metadata_column="1" metadata_name="dbkey" table_name="fasta_indexes" type="dataset_metadata_in_data_table" />
+                </param>
+                <param label="Using reference genome" name="index" type="select">
+                    <options from_data_table="fasta_indexes">
+                        <filter column="1" key="dbkey" ref="input1" type="data_meta" />
+                        <validator message="No reference genome is available for the build associated with the selected input dataset" type="no_options" />
+                    </options>
+                </param>
+            </when>
+            <when value="history">
+                <param format="sam" label="SAM file to convert" name="input1" type="data" />
+                <param format="fasta" label="Using reference file" metadata_name="dbkey" name="ref_file" type="data" />
+            </when>
         </conditional>
-      </actions>
-    </data>
-  </outputs>
-  <tests>
-    <test>
-      <!--
-      Sam-to-Bam command:
-      cp test-data/chr_m.fasta .
-      samtools faidx chr_m.fasta
-      samtools view -hbt chr_m.fasta.fai -o unsorted.bam test-data/sam_to_bam_in1.sam
-      samtools sort unsorted.bam sam_to_bam_out1
-      chr_m.fasta is the reference file (chrM from equCab2)
-      -->
-      <param name="index_source" value="history" /> 
-      <param name="input1" value="sam_to_bam_in1.sam" ftype="sam" />
-      <param name="ref_file" value="chr_m.fasta" ftype="fasta" dbkey="equCab2" />
-      <output name="output1" file="sam_to_bam_out1.bam" ftype="bam" />
-    </test>
-    <test>
-      <!--
-      Sam-to-Bam command:
-      samtools view -hbt chr_m.fasta.fai -o unsorted.bam test-data/sam_to_bam_in1.sam
-      samtools sort unsorted.bam sam_to_bam_out2
-      chr_m.fasta is the reference file and the index chr_m.fasta.fai 
-      these should be in the same directory, and chrM is from equCab2
-      -->
-      <param name="index_source" value="cached" />
-      <param name="input1" value="sam_to_bam_in1.sam" ftype="sam" dbkey="chrM" />
-      <param name="index" value="chr_m" />
-      <output name="output1" file="sam_to_bam_out2.bam" ftype="bam" />
-    </test>
-  </tests>
-  <help>
-
+    </inputs>
+    <outputs>
+        <data format="bam" label="${tool.name} on ${on_string}: converted BAM" name="output1">
+            <actions>
+                <conditional name="source.index_source">
+                    <when value="cached">
+                        <action name="dbkey" type="metadata">
+                            <option name="source.input1" param_attribute="dbkey" type="from_param" />
+                        </action>
+                    </when>
+                    <when value="history">
+                        <action name="dbkey" type="metadata">
+                            <option name="source.ref_file" param_attribute="dbkey" type="from_param" />
+                        </action>
+                    </when>
+                </conditional>
+            </actions>
+        </data>
+    </outputs>
+    <tests>
+        <test>
+            <param name="index_source" value="history" />
+            <param ftype="sam" name="input1" value="sam_to_bam_in1.sam" />
+            <param dbkey="equCab2" ftype="fasta" name="ref_file" value="chr_m.fasta" />
+            <output file="sam_to_bam_out1.bam" ftype="bam" name="output1" />
+        </test>
+        <test>
+            <param name="index_source" value="cached" />
+            <param dbkey="chrM" ftype="sam" name="input1" value="sam_to_bam_in1.sam" />
+            <param name="index" value="chr_m" />
+            <output file="sam_to_bam_out2.bam" ftype="bam" name="output1" />
+        </test>
+    </tests>
+    <help>
+<![CDATA[
 **What it does**
 
 This tool uses the SAMTools_ toolkit to produce an indexed BAM file based on a sorted input SAM file.
 
 .. _SAMTools: http://samtools.sourceforge.net/samtools.shtml
-
-  </help>
+]]>
+    </help>
     <citations>
         <citation type="doi">10.1093/bioinformatics/btp352</citation>
     </citations>
