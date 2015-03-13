@@ -1,36 +1,36 @@
-<tool id="bam_to_sam" name="BAM-to-SAM" version="1.0.5">
+<tool id="bam_to_sam" name="BAM-to-SAM" version="1.0.6">
     <description>converts BAM format to SAM format</description>
     <requirements>
         <requirement type="package" version="1.1">samtools</requirement>
     </requirements>
     <command>
 <![CDATA[
-  samtools sort -O bam -@ \${GALAXY_SLOTS:-1} "$input" -o sorted_input.bam -T temp && 
-  samtools view sorted_input.bam $header -o $output -@ \${GALAXY_SLOTS:-1}
+  samtools sort -O bam -@ \${GALAXY_SLOTS:-1} "$input1" -o sorted_input.bam -T temp && 
+  samtools view sorted_input.bam $header -o $output1 -@ \${GALAXY_SLOTS:-1}
 ]]>
     </command>
     <inputs>
-        <param format="bam" label="BAM File to Convert" name="input" type="data" />
+        <param format="bam" label="BAM File to Convert" name="input1" type="data" />
         <param checked="False" falsevalue="" label="Include header in output" name="header" truevalue="-h" type="boolean" />
     </inputs>
     <outputs>
-        <data format="sam" label="${tool.name} on ${on_string}: converted SAM" name="output" />
+        <data format="sam" label="${tool.name} on ${on_string}: converted SAM" name="output1" />
     </outputs>
     <tests>
         <test>
-            <param ftype="bam" name="input" value="bam_to_sam_in1.bam" />
+            <param ftype="bam" name="input1" value="bam_to_sam_in1.bam" />
             <param name="header" value="" />
-            <output file="bam_to_sam_out1.sam" name="output" sorted="True" />
+            <output file="bam_to_sam_out1.sam" name="output1" sorted="True" />
         </test>
         <test>
-            <param ftype="bam" name="input" value="bam_to_sam_in2.bam" />
+            <param ftype="bam" name="input1" value="bam_to_sam_in2.bam" />
             <param name="header" value="" />
-            <output file="bam_to_sam_out2.sam" name="output" sorted="True" />
+            <output file="bam_to_sam_out2.sam" name="output1" sorted="True" />
         </test>
         <test>
-            <param ftype="bam" name="input" value="bam_to_sam_in1.bam" />
+            <param ftype="bam" name="input1" value="bam_to_sam_in1.bam" />
             <param name="header" value="True" />
-            <output file="bam_to_sam_out3.sam" name="output" sorted="True" />
+            <output file="bam_to_sam_out3.sam" name="output1" sorted="True" />
         </test>
     </tests>
     <help>
