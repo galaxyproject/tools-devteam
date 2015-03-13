@@ -3,7 +3,6 @@ eggs.require( 'SQLAlchemy' )
 eggs.require( 'pysqlite>=2' )
 from sqlalchemy import *
 from sqlalchemy.sql import and_
-from sqlalchemy import exceptions as sa_exceptions
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import scoped_session
 
