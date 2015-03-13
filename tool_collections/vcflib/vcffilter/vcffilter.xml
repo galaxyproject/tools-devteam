@@ -1,12 +1,14 @@
 <tool id="vcffilter2" name="VCFfilter:" version="0.0.2">
 <requirements>
     <requirement type="package" version="8a5602bf07">vcflib</requirement>
+    <requirement type="package" version="0.2.6">tabix</requirement>
 </requirements>
   <description>filter VCF data in a variety of attributes</description>
   <command>
   <!-- This tools depends on tabix functionality, which is currently distributed with Galaxy itself via a pysam egg -->
-    ln -s "${input1}" input1.vcf.gz &amp;&amp;
-    ln -s "${Tabixized_input}" input1.vcf.gz.tbi &amp;&amp;
+    ln -s "${input1}" input1.vcf &amp;&amp;
+    bgzip input1.vcf &amp;&amp;
+    tabix -p vcf input1.vcf.gz &amp;&amp;
     vcffilter ${filterList} input1.vcf.gz  > "${out_file1}"
   </command>
   
@@ -21,8 +23,7 @@
         </mapping>
       </sanitizer>
     </param>
-    <param format="vcf_bgzip" name="input1" type="data" label="VCF dataset to filter">
-      <conversion name="Tabixized_input" type="tabix" />
+    <param format="vcf" name="input1" type="data" label="VCF dataset to filter">
     </param>
   </inputs>
   <outputs>
