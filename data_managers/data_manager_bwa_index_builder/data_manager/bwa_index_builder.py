@@ -46,20 +46,11 @@ def build_bwa_index( data_manager_dict, fasta_filename, params, target_directory
     if color_space:
         args.append( '-c' )
     args.append( sym_linked_fasta_filename )
-    tmp_stderr = tempfile.NamedTemporaryFile( prefix = "tmp-data-manager-bwa-index-builder-stderr" )
-    proc = subprocess.Popen( args=args, shell=False, cwd=target_directory, stderr=tmp_stderr.fileno() )
+    proc = subprocess.Popen( args=args, shell=False, cwd=target_directory )
     return_code = proc.wait()
     if return_code:
-        tmp_stderr.flush()
-        tmp_stderr.seek(0)
-        print >> sys.stderr, "Error building index:"
-        while True:
-            chunk = tmp_stderr.read( CHUNK_SIZE )
-            if not chunk:
-                break
-            sys.stderr.write( chunk )
+        print >> sys.stderr, "Error building index."
         sys.exit( return_code )
-    tmp_stderr.close()
     data_table_entry = dict( value=sequence_id, dbkey=dbkey, name=sequence_name, path=fasta_base_name )
     _add_data_table_entry( data_manager_dict, data_table_name, data_table_entry )
 
