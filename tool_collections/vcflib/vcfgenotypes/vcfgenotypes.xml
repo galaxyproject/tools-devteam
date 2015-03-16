@@ -1,10 +1,10 @@
 <tool id="vcfgenotypes" name="VCFgenotypes:" version="0.0.2">
+  <description>Convert numerical representation of genotypes to allelic</description>
   <macros>
     <import>macros.xml</import>
   </macros>
   <expand macro="requirements"></expand>
   <expand macro="stdio" />
-  <description>Convert numerical representation of genotypes to allelic</description>
   <command>vcfgenotypes "${vcf_input}" > "${out_file1}"</command>
   <inputs>
     <param format="vcf" name="vcf_input" type="data" label="Select VCF dataset"/>

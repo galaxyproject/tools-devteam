@@ -1,10 +1,10 @@
 <tool id="vcfflatten2" name="VCFflatten:" version="0.0.2">
+  <description>Removes multi-allelic sites by picking the most common alternate</description>
   <macros>
     <import>macros.xml</import>
   </macros>
   <expand macro="requirements"></expand>
   <expand macro="stdio" />
-  <description>Removes multi-allelic sites by picking the most common alternate</description>
   <command>vcfflatten "${input1}" > "${out_file1}"</command>
   <inputs>
     <param format="vcf" name="input1" type="data" label="Select VCF dataset"/>
