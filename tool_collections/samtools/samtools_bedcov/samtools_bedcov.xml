@@ -1,9 +1,10 @@
-<tool id="samtools_bedcov" name="Calculate read depth" version="1.0.0">
-    <description>on BAM files</description>
-    <requirements>
-        <requirement type="package" version="1.1">samtools</requirement>
-    </requirements>
-    <version_command>samtools --version | head -n 1 | awk '{ print $2 }'</version_command>
+<tool id="samtools_bedcov" name="Calculate read depth" version="1.0.1">
+  <description>on BAM files</description>
+  <macros>
+    <import>macros.xml</import>
+  </macros>
+  <expand macro="requirements"></expand>
+    <expand macro="version_command"></expand>
     <command><![CDATA[
         for bamfile in 
         #for dataset in $input_bams:
@@ -52,8 +53,6 @@ This tool runs the ``samtools bedcov`` command in the SAMtools toolkit.
 Show read depth per BED region.
 
     </help>
-    <citations>
-        <citation type="doi">10.1093/bioinformatics/btp352</citation>
-    </citations>
+    <expand macro="citations"></expand>
 </tool>
 

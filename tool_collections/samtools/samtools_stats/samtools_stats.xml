@@ -1,9 +1,10 @@
-<tool id="samtools_stats" name="Generate statistics" version="1.0.0">
+<tool id="samtools_stats" name="Generate statistics" version="1.0.1">
     <description>for a BAM or SAM file</description>
-    <requirements>
-        <requirement type="package" version="1.1">samtools</requirement>
-    </requirements>
-    <version_command>samtools --version | head -n 1 | awk '{ print $2 }'</version_command>
+    <macros>
+    <import>macros.xml</import>
+  </macros>
+  <expand macro="requirements"></expand>
+    <expand macro="version_command"></expand>
     <command><![CDATA[
         #if $use_reference.use_ref_selector == "yes":
             #if $use_reference.reference_source.reference_source_selector == "history":
@@ -217,8 +218,6 @@ This tool runs the ``samtools stats`` command in the SAMtools toolkit.
 Collects statistics from BAM files. The output can be visualized using plot-bamstats.
 
     </help>
-    <citations>
-        <citation type="doi">10.1093/bioinformatics/btp352</citation>
-    </citations>
+    <expand macro="citations"></expand>
 </tool>
 
