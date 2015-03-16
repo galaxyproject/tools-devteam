@@ -1,8 +1,10 @@
 <tool id="vcfcommonsamples" name="VCFcommonSamples:" version="0.0.2">
-<requirements>
-    <requirement type="package" version="8a5602bf07">vcflib</requirement>
-</requirements>
   <description>Output records belonging to samples commong between two datasets</description>
+  <macros>
+    <import>macros.xml</import>
+  </macros>
+  <expand macro="requirements"></expand>
+  <expand macro="stdio" />
   <command>vcfcommonsamples "${input1}" "${input2}" > "${out_file1}"</command>
   <inputs>
     <param format="vcf" name="input1" type="data" label="First dataset"/>
@@ -24,7 +26,7 @@ Outputs each record in the first file, removing samples not present in the secon
 
 ----
 
-Vcfcommonsamples is a part of VCFlib toolkit developed by Erik Garrison (https://github.com/ekg/vcflib).                                                                                                                                 
-
+Vcfcommonsamples @IS_PART_OF_VCFLIB@
 </help>
+  <expand macro="citations" />
 </tool>

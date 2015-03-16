@@ -1,7 +1,8 @@
 <tool id="vcfgeno2haplo" name="VCFgenotype-to-haplotype:" version="0.0.2">
-<requirements>
-    <requirement type="package" version="8a5602bf07">vcflib</requirement>
-</requirements>
+  <macros>
+    <import>macros.xml</import>
+  </macros>
+  <expand macro="requirements"></expand>
   <description>Convert genotype-based phased alleles into haplotype alleles</description>
   <command>
     #set $reference_fasta_filename = "localref.fa"
@@ -70,7 +71,7 @@ The options are::
 
 ----
 
-Vcfgeno2haplo is a part of VCFlib toolkit developed by Erik Garrison (https://github.com/ekg/vcflib).                                                                                                                                 
-
+Vcfgeno2haplo @IS_PART_OF_VCFLIB@
 </help>
+  <expand macro="citations" />
 </tool>

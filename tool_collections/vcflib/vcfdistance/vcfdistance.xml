@@ -1,8 +1,10 @@
 <tool id="vcfdistance" name="VCFdistance:" version="0.0.2">
-<requirements>
-    <requirement type="package" version="8a5602bf07">vcflib</requirement>
-</requirements>
   <description>Calculate distance to the nearest variant</description>
+  <macros>
+    <import>macros.xml</import>
+  </macros>
+  <expand macro="requirements"></expand>
+  <expand macro="stdio" />
   <command>cat "${input1}" | vcfdistance > "${out_file1}"</command>
   <inputs>
     <param format="vcf" name="input1" type="data" label="Select VCF dataset"/>
@@ -26,7 +28,7 @@ The dataset used as input to this tool must be coordinate sorted. This can be ac
 
 ----
 
-Vcfdistance is a part of VCFlib toolkit developed by Erik Garrison (https://github.com/ekg/vcflib).                                                                                                                                 
-
+Vcfdistance @IS_PART_OF_VCFLIB@
 </help>
+  <expand macro="citations" />
 </tool>

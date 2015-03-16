@@ -1,8 +1,10 @@
 <tool id="vcfannotate" name="VCFannotate:" version="0.0.2">
-<requirements>
-    <requirement type="package" version="8a5602bf07">vcflib</requirement>
-</requirements>
   <description>Intersect VCF records with BED annotations</description>
+  <macros>
+    <import>macros.xml</import>
+  </macros>
+  <expand macro="requirements"></expand>
+  <expand macro="stdio" />
   <command>vcfannotate --key "${key_option}" -b "${bed_data}" "${input}" > "${out_file1}"</command>
   <inputs>        
     <param format="vcf" name="input" type="data" label="Select VCF dataset"/>
@@ -43,8 +45,7 @@ will appear as the follwing after intersectuion with BED records uc010zpo.2, uc0
 
 ----
 
-Vcfannotate is a part of VCFlib toolkit developed by Erik Garrison (https://github.com/ekg/vcflib).                                                                                                                                 
-
-
-</help>
+Vcfannotate @IS_PART_OF_VCFLIB@
+    </help>
+    <expand macro="citations" />
 </tool>

@@ -1,9 +1,9 @@
 <tool id="vcfleftalign" name="VCFleftAlign:" version="0.0.2">
-<requirements>
-    <requirement type="package" version="8a5602bf07">vcflib</requirement>
-    <!-- <requirement type="package" version="0.1.18">samtools</requirement> -->
-</requirements>
   <description>Left-align indels and complex variants in VCF dataset</description>
+  <macros>
+    <import>macros.xml</import>
+  </macros>
+  <expand macro="requirements"></expand>
   <command>
     #set $reference_fasta_filename = "localref.fa"
     #if str( $reference_source.reference_source_selector ) == "history":
@@ -53,7 +53,7 @@ Left-aligns variants in VCF dataset.  Window size is determined dynamically acco
 
 ----
 
-Vcfleftalign is a part of VCFlib toolkit developed by Erik Garrison (https://github.com/ekg/vcflib).                                                                                                                                 
-
+Vcfleftalign @IS_PART_OF_VCFLIB@
 </help>
+  <expand macro="citations" />
 </tool>

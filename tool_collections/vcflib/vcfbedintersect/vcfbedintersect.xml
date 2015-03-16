@@ -1,9 +1,10 @@
 <tool id="vcfbedintersect" name="VCF-BEDintersect:" version="0.0.2">
-<requirements>
-    <requirement type="package" version="8a5602bf07">vcflib</requirement>
-    <!-- <requirement type="package" version="0.1.18">samtools</requirement> -->
-</requirements>
   <description>Intersect VCF and BED datasets</description>
+  <macros>
+    <import>macros.xml</import>
+  </macros>
+  <expand macro="requirements"></expand>
+  <expand macro="stdio" />
   <command>
     #if str($bed_vs_interval.bed_vs_interval_selector) == "bed":
         vcfintersect -b "${bed_vs_interval.bed_input}" ${invert} "${vcf_input}" > "${out_file1}"
@@ -56,6 +57,6 @@ Computes intersection between a VCF dataset and a set of genomic intervals defin
 ----                                                                                                                                                                              
 
 VCFBEDintersect is based on vcfintersect utility of VCFlib toolkit developed by Erik Garrison (https://github.com/ekg/vcflib).     
-
 </help>
+  <expand macro="citations" />
 </tool>

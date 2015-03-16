@@ -1,9 +1,12 @@
 <tool id="vcffilter2" name="VCFfilter:" version="0.0.2">
-<requirements>
-    <requirement type="package" version="8a5602bf07">vcflib</requirement>
-    <requirement type="package" version="0.2.6">tabix</requirement>
-</requirements>
   <description>filter VCF data in a variety of attributes</description>
+  <macros>
+    <import>macros.xml</import>
+  </macros>
+  <expand macro="requirements">
+    <requirement type="package" version="0.2.6">tabix</requirement>
+  </expand>
+  <expand macro="stdio" />
   <command>
   <!-- This tools depends on tabix functionality, which is currently distributed with Galaxy itself via a pysam egg -->
     ln -s "${input1}" input1.vcf &amp;&amp;
@@ -69,7 +72,7 @@ To restrict output to a specific location use the -r option (must be used in con
 
 -----
 
-Vcffilter is a part of VCFlib toolkit developed by Erik Garrison (https://github.com/ekg/vcflib).
-
+Vcffilter @IS_PART_OF_VCFLIB@
 </help>
+  <expand macro="citations" />
 </tool>

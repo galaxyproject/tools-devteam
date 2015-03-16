@@ -1,8 +1,10 @@
 <tool id="vcffixup" name="VCFfixup:" version="0.0.2">
-<requirements>
-    <requirement type="package" version="8a5602bf07">vcflib</requirement>
-</requirements>
   <description>Count the allele frequencies across alleles present in each record in the VCF file</description>
+  <macros>
+    <import>macros.xml</import>
+  </macros>
+  <expand macro="requirements"></expand>
+  <expand macro="stdio" />
   <command>vcffixup "${input1}" > "${out_file1}"</command>
   <inputs>
     <param format="vcf" name="input1" type="data" label="Select VCF dataset"/>
@@ -22,7 +24,7 @@ Uses genotypes from the selected VCF dataset to correct AC (alternate allele cou
 
 ----
 
-Vcffixup is a part of VCFlib toolkit developed by Erik Garrison (https://github.com/ekg/vcflib).                                                                                                                                 
-
+Vcffixup @IS_PART_OF_VCFLIB@
 </help>
+  <expand macro="citations" />
 </tool>

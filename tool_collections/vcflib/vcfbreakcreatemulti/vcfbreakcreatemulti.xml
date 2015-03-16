@@ -1,8 +1,10 @@
 <tool id="vcfbreakcreatemulti" name="VCFbreakCreateMulti:" version="0.0.2">
-<requirements>
-    <requirement type="package" version="8a5602bf07">vcflib</requirement>
-</requirements>
   <description>Break multiple alleles into multiple records, or combine overallpoing alleles into a single record</description>
+  <macros>
+    <import>macros.xml</import>
+  </macros>
+  <expand macro="requirements"></expand>
+  <expand macro="stdio" />
   <command>
 
    #if str($break_or_create) == "break":
@@ -47,4 +49,5 @@ This tool breaks or creates multiallelic VCF records based on user selection (**
 This tools is based on vcfbreakmulti and vcfcreatemulti utilities from the VCFlib toolkit developed by Erik Garrison (https://github.com/ekg/vcflib).                                                                                                                                 
 
 </help>
+  <expand macro="citations" />
 </tool>

@@ -1,8 +1,10 @@
 <tool id="vcfhethom" name="VCFhetHomAlleles:" version="0.0.2">
-<requirements>
-    <requirement type="package" version="8a5602bf07">vcflib</requirement>
-</requirements>
   <description>Count the number of heterozygotes and alleles, compute het/hom ratio</description>
+  <macros>
+    <import>macros.xml</import>
+  </macros>
+  <expand macro="requirements"></expand>
+  <expand macro="stdio" />
   <command>
 
    #if str($analysis_type) == "count":
@@ -56,4 +58,5 @@ This tool performs three basic calculations:
 This tools is based on vcfhetcount, vcfhethomratio,and vcfcountalleles utilities from the VCFlib toolkit developed by Erik Garrison (https://github.com/ekg/vcflib).                                                                                                                                 
 
 </help>
+  <expand macro="citations" />
 </tool>

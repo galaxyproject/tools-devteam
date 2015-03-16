@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <tool id="vcfallelicprimitives" name="VcfAllelicPrimitives:" version="0.0.2">
     <description>Split alleleic primitives (gaps or mismatches) into multiple VCF lines</description>
-    <requirements>
-        <requirement type="package" version="8a5602bf07">vcflib</requirement>
-    </requirements>
+    <macros>
+        <import>macros.xml</import>
+    </macros>
+    <expand macro="requirements"></expand>
+    <expand macro="stdio" />
     <command>
         cat "${input}" | vcfallelicprimitives 
             ${m_option} 
@@ -54,8 +56,7 @@ The options are::
 
 ----
 
-Vcfallelicprimitives is a part of VCFlib toolkit developed by Erik Garrison (https://github.com/ekg/vcflib).
-
+Vcfallelicprimitives @IS_PART_OF_VCFLIB@
     </help>
+    <expand macro="citations" />
 </tool>
-

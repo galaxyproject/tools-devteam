@@ -1,8 +1,10 @@
 <tool id="vcfrandomsample" name="VCFrandomSample:" version="0.0.2">
-<requirements>
-    <requirement type="package" version="8a5602bf07">vcflib</requirement>
-</requirements>
   <description>Randomly sample sites from VCF dataset</description>
+  <macros>
+    <import>macros.xml</import>
+  </macros>
+  <expand macro="requirements"></expand>
+  <expand macro="stdio" />
   <command>
 
     #if $adv_options.adv_options_selector == True:
@@ -47,7 +49,7 @@ Options::
 
 ----
 
-Vcfrandomsample is a part of VCFlib toolkit developed by Erik Garrison (https://github.com/ekg/vcflib).                                                                                                                                 
-
+Vcfrandomsample @IS_PART_OF_VCFLIB@
 </help>
+  <expand macro="citations" />
 </tool>

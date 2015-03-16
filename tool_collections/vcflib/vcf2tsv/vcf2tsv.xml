@@ -1,8 +1,10 @@
 <tool id="vcf2tsv" name="VCFtoTab-delimited:" version="0.0.2">
-<requirements>
-    <requirement type="package" version="8a5602bf07">vcflib</requirement>
-</requirements>
   <description>Convert VCF data into TAB-delimited format</description>
+  <macros>
+      <import>macros.xml</import>
+  </macros>
+  <expand macro="requirements"></expand>
+  <expand macro="stdio" />
   <command>vcf2tsv ${g_option} -n "${null_filler}" "${input}" > "${out_file1}"</command>
   <inputs>
     <param format="vcf" name="input" type="data" label="Select VCF dataset to convert"/>
@@ -38,7 +40,7 @@ Specifying "**Report data per sample**" (-g) will output one line per sample wit
 
 ----
 
-Vcf2Tsv is a part of VCFlib toolkit developed by Erik Garrison (https://github.com/ekg/vcflib).    
-
+Vcf2Tsv @IS_PART_OF_VCFLIB@
 </help>
+  <expand macro="citations" />
 </tool>

@@ -1,9 +1,9 @@
 <tool id="vcfvcfintersect" name="VCF-VCFintersect:" version="0.0.2">
-<requirements>
-    <requirement type="package" version="8a5602bf07">vcflib</requirement>
-    <!-- <requirement type="package" version="0.1.18">samtools</requirement> -->
-</requirements>
   <description>Intersect two VCF datasets</description>
+  <macros>
+    <import>macros.xml</import>
+  </macros>
+  <expand macro="requirements"></expand>
   <command>
 
     #set $reference_fasta_filename = "localref.fa"
@@ -120,7 +120,7 @@ The options are::
 
 ----
 
-VCFVCFintersect is based on vcfintersect utility of VCFlib toolkit developed by Erik Garrison (https://github.com/ekg/vcflib).                                                                                                                                 
-
+VCFVCFintersect is based on vcfintersect utility of VCFlib toolkit developed by Erik Garrison (https://github.com/ekg/vcflib).
 </help>
+  <expand macro="citations" />
 </tool>

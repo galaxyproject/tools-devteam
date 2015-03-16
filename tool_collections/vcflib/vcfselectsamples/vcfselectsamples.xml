@@ -1,8 +1,10 @@
 <tool id="vcfselectsamples" name="VCFselectsamples:" version="0.0.2">
-<requirements>
-    <requirement type="package" version="8a5602bf07">vcflib</requirement>
-</requirements>
   <description>Select samples from a VCF dataset</description>
+  <macros>
+    <import>macros.xml</import>
+  </macros>
+  <expand macro="requirements"></expand>
+  <expand macro="stdio" />
   <command>vcfkeepsamples "${input1}" ${ ' '.join( map( lambda x:'"%s"' % ( x ), str($vcf_samples ).split(",") ) ) } > "${out_file1}"</command>
   <inputs>
     <param format="vcf" name="input1" type="data" label="Select VCF dataset"  />
@@ -45,10 +47,7 @@ will, obviously, remove *NA00002*::
 
 ----
 
-Vcfselectsamples is based on vcfkeepsamples/vcfremovesamples utilities from **VCFlib** toolkit developed by Erik Garrison (https://github.com/ekg/vcflib).                                                                                
-                                                 
-
-
-
+Vcfselectsamples is based on vcfkeepsamples/vcfremovesamples utilities from **VCFlib** toolkit developed by Erik Garrison (https://github.com/ekg/vcflib).
 </help>
+  <expand macro="citations" />
 </tool>
