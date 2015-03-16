@@ -1,9 +1,10 @@
-<tool id="samtools_rmdup" name="rmdup" version="1.0.2">
-  <requirements>
-    <requirement type="package" version="1.1">samtools</requirement>
-  </requirements>
+<tool id="samtools_rmdup" name="rmdup" version="1.0.3">
+  <macros>
+    <import>macros.xml</import>
+  </macros>
+  <expand macro="requirements"></expand>
   <description>remove PCR duplicates</description>
-    <version_command>samtools --version | head -n 1 | awk '{ print $2 }'</version_command>
+  <expand macro="version_command"></expand>
   <command>samtools rmdup 
   #if str( $bam_paired_end_type.bam_paired_end_type_selector ) == "PE"
       ${bam_paired_end_type.force_se}
@@ -61,7 +62,5 @@ This tool uses the SAMTools_ toolkit to remove potential PCR duplicates: if mult
 .. _SAMTools: http://samtools.sourceforge.net/samtools.shtml
 
   </help>
-    <citations>
-        <citation type="doi">10.1093/bioinformatics/btp352</citation>
-    </citations>
+    <expand macro="citations"></expand>
 </tool>

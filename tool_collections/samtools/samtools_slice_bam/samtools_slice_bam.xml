@@ -1,8 +1,10 @@
-<tool id="samtools_slice_bam" name="Slice BAM" version="0.0.2">
+<tool id="samtools_slice_bam" name="Slice BAM" version="0.0.3">
   <description>by provided regions</description>
-  <requirements>
-      <requirement type="package" version="0.1.19">samtools</requirement>
-  </requirements>
+  <macros>
+    <import>macros.xml</import>
+  </macros>
+  <expand macro="requirements"></expand>
+  <expand macro="version_command"></expand>
   <command interpreter="python">samtools_slice_bam.py
     "${input_bam}"
     "${input_bam.metadata.bam_index}"
@@ -29,7 +31,5 @@
  Accepts an input BAM file and an input BED file and creates an output BAM file containing only those alignments that overlap the provided BED intervals.
 
   </help>
-    <citations>
-        <citation type="doi">10.1093/bioinformatics/btp352</citation>
-    </citations>
+    <expand macro="citations"></expand>
 </tool>

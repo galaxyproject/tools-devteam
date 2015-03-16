@@ -1,8 +1,10 @@
-<tool id="sam_to_bam" name="SAM-to-BAM" version="1.1.5">
+<tool id="sam_to_bam" name="SAM-to-BAM" version="1.1.6">
   <description>converts SAM format to BAM format</description>
-  <requirements>
-    <requirement type="package" version="1.1">samtools</requirement>
-  </requirements>
+  <macros>
+    <import>macros.xml</import>
+  </macros>
+  <expand macro="requirements"></expand>
+  <expand macro="version_command"></expand>
   <command interpreter="python">
     sam_to_bam.py
       --input1=$source.input1
@@ -93,7 +95,5 @@ This tool uses the SAMTools_ toolkit to produce an indexed BAM file based on a s
 .. _SAMTools: http://samtools.sourceforge.net/samtools.shtml
 
   </help>
-    <citations>
-        <citation type="doi">10.1093/bioinformatics/btp352</citation>
-    </citations>
+    <expand macro="citations"></expand>
 </tool>

@@ -1,9 +1,10 @@
-<tool id="samtools_mpileup" name="MPileup" version="0.0.4">
-    <description>SNP and indel caller</description>
-    <requirements>
-        <requirement type="package" version="1.1">samtools</requirement>
-    </requirements>
-    <version_command>samtools --version | head -n 1 | awk '{ print $2 }'</version_command>
+<tool id="samtools_mpileup" name="MPileup" version="0.0.5">
+  <description>SNP and indel caller</description>
+  <macros>
+    <import>macros.xml</import>
+  </macros>
+  <expand macro="requirements"></expand>
+  <expand macro="version_command"></expand>
     <command><![CDATA[
     #if $reference_source.reference_source_selector == "history":
        ln -s "${reference_source.ref_file}" && samtools faidx `basename "${reference_source.ref_file}"` && samtools mpileup
@@ -507,7 +508,5 @@ ${pasted_data}
      - all
 
     </help>
-    <citations>
-        <citation type="doi">10.1093/bioinformatics/btp352</citation>
-    </citations>
+    <expand macro="citations"></expand>
 </tool>
