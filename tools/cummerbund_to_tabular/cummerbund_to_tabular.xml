@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<tool id="cummerbund_to_cuffdiff" name="Extract CuffDiff" version="1.0.0">
+<tool id="cummerbund_to_cuffdiff" name="Extract CuffDiff" version="1.0.1">
     <description>tabular files from a cummeRbund database</description>
     <command interpreter="python"><![CDATA[
         cummerbund_to_tabular.py --file ${input_database}

@@ -2,19 +2,16 @@ import os
 import argparse
 import sys
 import string
+import sqlite3
 
-from galaxy.model.orm import *
 import logging
-from galaxy import eggs
-eggs.require('SQLAlchemy')
-import sqlalchemy
 
 
 class CummerbundParser(object):
 
     def __init__(self, opts):
         self.cummerbund_db = opts.filename
-        self.__connect_database()
+        self.session = sqlite3.connect( os.path.abspath( self.cummerbund_db ) )
 
     def generate_file( self, table ):
         if hasattr( self, table ):
@@ -22,14 +19,6 @@ class CummerbundParser(object):
                 getattr( self, table )()
         else:
             print 'Table %s is not supported or does not exist.' % table
-
-    def __connect_database( self ):
-        database_connection = 'sqlite:///%s' % os.path.abspath( self.cummerbund_db )
-        # Initialize the database connection.
-        engine = create_engine( database_connection )
-        meta = MetaData( bind=engine )
-        sa_sesssion = Session = scoped_session( sessionmaker( bind=engine, autoflush=False, autocommit=True ) )
-        self.session = sa_sesssion
 
     def __write_line(self, line):
         columns = []
