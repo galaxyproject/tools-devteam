@@ -4,6 +4,7 @@
     <import>macros.xml</import>
   </macros>
   <expand macro="requirements"></expand>
+  <expand macro="stdio"></expand>
   <command>
     #set $reference_fasta_filename = "localref.fa"
     #if str( $reference_source.reference_source_selector ) == "history":
@@ -35,9 +36,6 @@
   <outputs>
     <data format="vcf" name="out_file1" />
   </outputs>
- <stdio>
-    <exit_code range="1:" level="fatal" />
- </stdio>
   <tests>
     <test>
       <param name="reference_source_selector" value="history" />
