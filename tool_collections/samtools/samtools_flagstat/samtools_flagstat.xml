@@ -3,6 +3,7 @@
     <import>macros.xml</import>
   </macros>
   <expand macro="requirements"></expand>
+  <expand macro="version_command"></expand>
   <description>provides simple stats on BAM files</description>
   <command>samtools flagstat "$input1" > "$output1"
   </command>

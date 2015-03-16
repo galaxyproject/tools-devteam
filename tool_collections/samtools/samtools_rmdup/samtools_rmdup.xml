@@ -4,7 +4,7 @@
   </macros>
   <expand macro="requirements"></expand>
   <description>remove PCR duplicates</description>
-    <version_command>samtools --version | head -n 1 | awk '{ print $2 }'</version_command>
+  <expand macro="version_command"></expand>
   <command>samtools rmdup 
   #if str( $bam_paired_end_type.bam_paired_end_type_selector ) == "PE"
       ${bam_paired_end_type.force_se}

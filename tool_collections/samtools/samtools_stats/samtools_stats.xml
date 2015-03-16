@@ -4,7 +4,7 @@
     <import>macros.xml</import>
   </macros>
   <expand macro="requirements"></expand>
-    <version_command>samtools --version | head -n 1 | awk '{ print $2 }'</version_command>
+    <expand macro="version_command"></expand>
     <command><![CDATA[
         #if $use_reference.use_ref_selector == "yes":
             #if $use_reference.reference_source.reference_source_selector == "history":

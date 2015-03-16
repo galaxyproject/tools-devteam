@@ -4,6 +4,7 @@
     <import>macros.xml</import>
   </macros>
   <expand macro="requirements"></expand>
+  <expand macro="version_command"></expand>
   <command interpreter="python">samtools_slice_bam.py
     "${input_bam}"
     "${input_bam.metadata.bam_index}"

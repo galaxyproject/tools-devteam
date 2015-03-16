@@ -4,6 +4,7 @@
     <import>macros.xml</import>
   </macros>
   <expand macro="requirements"></expand>
+  <expand macro="version_command"></expand>
     <command>samtools phase -b "phase_wrapper"
         #if str($option_set.option_sets) == 'advanced':
             ${option_set.ignore_chimeras}

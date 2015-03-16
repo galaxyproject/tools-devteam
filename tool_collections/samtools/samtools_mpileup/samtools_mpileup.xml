@@ -4,7 +4,7 @@
     <import>macros.xml</import>
   </macros>
   <expand macro="requirements"></expand>
-    <version_command>samtools --version | head -n 1 | awk '{ print $2 }'</version_command>
+  <expand macro="version_command"></expand>
     <command><![CDATA[
     #if $reference_source.reference_source_selector == "history":
        ln -s "${reference_source.ref_file}" && samtools faidx `basename "${reference_source.ref_file}"` && samtools mpileup

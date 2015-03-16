@@ -4,7 +4,7 @@
       <import>macros.xml</import>
     </macros>
     <expand macro="requirements"></expand>
-    <version_command>samtools --version | head -n 1 | awk '{ print $2 }'</version_command>
+    <expand macro="version_command"></expand>
     <command><![CDATA[
 if [ ! -f "${input}.bai" ] ; then
     ln -s "${input}" input.bam ;

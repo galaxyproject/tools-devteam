@@ -4,6 +4,7 @@
     <import>macros.xml</import>
   </macros>
   <expand macro="requirements"></expand>
+  <expand macro="version_command"></expand>
   <command interpreter="python">
     sam_to_bam.py
       --input1=$source.input1

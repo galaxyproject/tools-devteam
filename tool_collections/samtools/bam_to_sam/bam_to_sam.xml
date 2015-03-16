@@ -3,6 +3,7 @@
     <import>macros.xml</import>
   </macros>
   <expand macro="requirements"></expand>
+  <expand macro="version_command"></expand>
   <description>converts BAM format to SAM format</description>
   <command interpreter="python">
     bam_to_sam.py
