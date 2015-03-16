@@ -1,7 +1,8 @@
-<tool id="bam_to_sam" name="BAM-to-SAM" version="1.0.5">
-  <requirements>
-    <requirement type="package" version="1.1">samtools</requirement>
-  </requirements>
+<tool id="bam_to_sam" name="BAM-to-SAM" version="1.0.6">
+  <macros>
+    <import>macros.xml</import>
+  </macros>
+  <expand macro="requirements"></expand>
   <description>converts BAM format to SAM format</description>
   <command interpreter="python">
     bam_to_sam.py
@@ -57,7 +58,5 @@ This tool uses the SAMTools_ toolkit to produce a SAM file from a BAM file.
 .. _SAMTools: http://samtools.sourceforge.net/samtools.shtml
 
   </help>
-  <citations>
-      <citation type="doi">10.1093/bioinformatics/btp352</citation>
-  </citations>
+  <expand macro="citations"></expand>
 </tool>
