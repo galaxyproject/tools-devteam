@@ -1,8 +1,10 @@
 <tool id="samtools_slice_bam" name="Slice BAM" version="0.0.3">
-    <description>by provided regions</description>
-    <requirements>
-        <requirement type="package" version="1.1">samtools</requirement>
-    </requirements>
+  <description>by provided regions</description>
+  <macros>
+    <import>macros.xml</import>
+  </macros>
+  <expand macro="requirements"></expand>
+  <expand macro="version_command"></expand>
     <stdio>
         <exit_code description="Error" level="fatal" range="1:" />
     </stdio>
@@ -29,11 +31,12 @@
         </test>
     </tests>
     <help>
+<![CDATA[
+
 **What it does**
 
  Accepts an input BAM file and an input BED file and creates an output BAM file containing only those alignments that overlap the provided BED intervals.
+]]>
   </help>
-    <citations>
-        <citation type="doi">10.1093/bioinformatics/btp352</citation>
-    </citations>
+    <expand macro="citations"></expand>
 </tool>

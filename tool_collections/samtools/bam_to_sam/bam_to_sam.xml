@@ -1,8 +1,10 @@
 <tool id="bam_to_sam" name="BAM-to-SAM" version="1.0.6">
-    <description>converts BAM format to SAM format</description>
-    <requirements>
-        <requirement type="package" version="1.1">samtools</requirement>
-    </requirements>
+  <macros>
+    <import>macros.xml</import>
+  </macros>
+  <expand macro="requirements"></expand>
+  <expand macro="version_command"></expand>
+  <description>converts BAM format to SAM format</description>
     <stdio>
         <exit_code range="1:" level="fatal" description="Error" />
     </stdio>
@@ -45,8 +47,6 @@ This tool uses the SAMTools_ toolkit to produce a SAM file from a BAM file.
 
 .. _SAMTools: http://samtools.sourceforge.net/samtools.shtml
 ]]>
-    </help>
-    <citations>
-        <citation type="doi">10.1093/bioinformatics/btp352</citation>
-    </citations>
+  </help>
+  <expand macro="citations"></expand>
 </tool>
