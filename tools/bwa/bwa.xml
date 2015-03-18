@@ -1,10 +1,77 @@
 <?xml version="1.0"?>
 <tool id="bwa" name="Map with BWA" version="0.1">
+  <description>- map short reads (&lt; 100 bp) against reference genome</description>
+  <macros>
+    <import>bwa_macros.xml</import>
+    <token name="@command_options@">
+    #if str( $analysis_type.analysis_type_selector ) == "full":
+      -n ${analysis_type.n}
+      -o ${analysis_type.o}
+      -e ${analysis_type.e}
+      -i ${analysis_type.i}
+      -d ${analysis_type.d}
+      -l ${analysis_type.l}
+      -k ${analysis_type.k}
+      -m ${analysis_type.m}
+      -M ${analysis_type.M}
+      -O ${analysis_type.O}
+      -E ${analysis_type.E}
+      -R ${analysis_type.R}
+      -q ${analysis_type.q}
+
+      #if str( $analysis_type.B ):
+        -B ${analysis_type.B}
+      #end if
+
+      #if str( $analysis_type.L ):
+        -B ${analysis_type.L}
+      #end if
+    #end if
+    </token>
+    <token name="@read_group_options@">
+      #if str( $rg.rg_selector ) == "set":
+        @set_rg_string@
+        -r '$rg_string'
+      #end if
+    </token>
+
+    <xml name="advanced_pe_options">
+      <param name="adv_pe_options_selector" type="select" label="Set advanced paired end options?" help="Provides additional controls">
+        <option value="set">Set</option>
+        <option value="do_not_set" selected="True">Do not set</option>
+      </param>
+      <when value="set">
+        <param name="a" type="integer" value="500" label="Maximum insert size for a read pair to be considered being mapped properly." help="sampe -a; This option is only used when there are not enough good alignment to infer the distribution of insert sizes; default=500"/>
+        <param name="o" type="integer" value="100000" label="Maximum occurrences of a read for pairing. A read with more occurrences will be treated as a single-end read." help="sampe -o; Reducing this parameter helps faster pairing; default=100000"/>
+        <param name="n" type="integer" value="3" label="Maximum number of alignments to output in the XA tag for reads paired properly." help="sampe -n; If a read has more than this many hits, the XA tag will not be written; default=3"/>
+        <param name="N" type="integer" value="10" label="Maximum number of alignments to output in the XA tag for disconcordant read pairs (excluding singletons)." help="sampe -N; If a read has more than this many hits, the XA tag will not be written; default=10"/>
+        <param name="c" type="float" value="0.00005" label="Prior of chimeric rate (lower bound)" help="sampe -c"/>
+      </when>
+      <when value="do_not_set">
+        <!-- do nothing -->
+      </when>
+    </xml>
+    <xml name="advanced_se_options">
+      <param name="adv_se_options_selector" type="select" label="Set advanced single end options?" help="Provides additional controls">
+        <option value="set">Set</option>
+        <option value="do_not_set" selected="True">Do not set</option>
+      </param>
+      <when value="set">
+        <param name="n" type="integer" value="3" label="Maximum number of alignments to output in the XA tag." help="-n; If a read has more than this many hits, the XA tag will not be written; default=3"/>
+      </when>
+      <when value="do_not_set">
+        <!-- do nothing -->
+      </when>
+    </xml>
+  </macros>
+
   <requirements>
     <requirement type="package" version="0.7.10.039ea20639">bwa</requirement>
     <requirement type="package" version="1.1">samtools</requirement>
   </requirements>
-  <description>- map short reads (&lt; 100 bp) against reference genome</description>
+  <stdio>
+    <exit_code range="1:" />
+  </stdio>
   <command>
     #set $reference_fasta_filename = "localref.fa"
 
@@ -182,70 +249,6 @@
     samtools sort -f temporary_bam_file.bam ${bam_output}
   </command>
 
-  <macros>
-    <import>bwa_macros.xml</import>
-    <token name="@command_options@">
-    #if str( $analysis_type.analysis_type_selector ) == "full":
-      -n ${analysis_type.n}
-      -o ${analysis_type.o}
-      -e ${analysis_type.e}
-      -i ${analysis_type.i}
-      -d ${analysis_type.d}
-      -l ${analysis_type.l}
-      -k ${analysis_type.k}
-      -m ${analysis_type.m}
-      -M ${analysis_type.M}
-      -O ${analysis_type.O}
-      -E ${analysis_type.E}
-      -R ${analysis_type.R}
-      -q ${analysis_type.q}
-
-      #if str( $analysis_type.B ):
-        -B ${analysis_type.B}
-      #end if
-
-      #if str( $analysis_type.L ):
-        -B ${analysis_type.L}
-      #end if
-    #end if
-    </token>
-    <token name="@read_group_options@">
-      #if str( $rg.rg_selector ) == "set":
-        @set_rg_string@
-        -r '$rg_string'
-      #end if
-    </token>
-
-    <xml name="advanced_pe_options">
-      <param name="adv_pe_options_selector" type="select" label="Set advanced paired end options?" help="Provides additional controls">
-        <option value="set">Set</option>
-        <option value="do_not_set" selected="True">Do not set</option>
-      </param>
-      <when value="set">
-        <param name="a" type="integer" value="500" label="Maximum insert size for a read pair to be considered being mapped properly." help="sampe -a; This option is only used when there are not enough good alignment to infer the distribution of insert sizes; default=500"/>
-        <param name="o" type="integer" value="100000" label="Maximum occurrences of a read for pairing. A read with more occurrences will be treated as a single-end read." help="sampe -o; Reducing this parameter helps faster pairing; default=100000"/>
-        <param name="n" type="integer" value="3" label="Maximum number of alignments to output in the XA tag for reads paired properly." help="sampe -n; If a read has more than this many hits, the XA tag will not be written; default=3"/>
-        <param name="N" type="integer" value="10" label="Maximum number of alignments to output in the XA tag for disconcordant read pairs (excluding singletons)." help="sampe -N; If a read has more than this many hits, the XA tag will not be written; default=10"/>
-        <param name="c" type="float" value="0.00005" label="Prior of chimeric rate (lower bound)" help="sampe -c"/>
-      </when>
-      <when value="do_not_set">
-        <!-- do nothing -->
-      </when>
-    </xml>
-    <xml name="advanced_se_options">
-      <param name="adv_se_options_selector" type="select" label="Set advanced single end options?" help="Provides additional controls">
-        <option value="set">Set</option>
-        <option value="do_not_set" selected="True">Do not set</option>
-      </param>
-      <when value="set">
-        <param name="n" type="integer" value="3" label="Maximum number of alignments to output in the XA tag." help="-n; If a read has more than this many hits, the XA tag will not be written; default=3"/>
-      </when>
-      <when value="do_not_set">
-        <!-- do nothing -->
-      </when>
-    </xml>
-  </macros>
-
   <inputs>
 
     <conditional name="reference_source">
@@ -388,9 +391,6 @@
       <output name="bam_output" ftype="bam" file="bwa-aln-test3.bam" lines_diff="2" />
     </test>
   </tests>
-  <stdio>
-    <exit_code range="1:" />
-  </stdio>
   <help>
 **What is does**
 

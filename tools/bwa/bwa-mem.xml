@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <tool id="bwa_mem" name="Map with BWA-MEM" version="0.2.1">
+  <description>- map medium and long reads (&gt; 100 bp) against reference genome</description>
   <macros>
     <import>bwa_macros.xml</import>
   </macros>
@@ -7,7 +8,9 @@
     <requirement type="package" version="0.7.10.039ea20639">bwa</requirement>
     <requirement type="package" version="1.1">samtools</requirement>
   </requirements>
-  <description>- map medium and long reads (&gt; 100 bp) against reference genome</description>
+  <stdio>
+    <exit_code range="1:" />
+  </stdio>
   <command>
     #set $reference_fasta_filename = "localref.fa"
 
@@ -303,9 +306,6 @@
       <output name="bam_output" ftype="bam" file="bwa-mem-test2.bam" lines_diff="2" />
     </test>
   </tests>
-  <stdio>
-    <exit_code range="1:" />
-  </stdio>
   <help>
 **What is does**
 
