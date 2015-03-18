@@ -5,9 +5,7 @@
   </macros>
   <expand macro="requirements"></expand>
   <expand macro="version_command"></expand>
-    <stdio>
-        <exit_code description="Error" level="fatal" range="1:" />
-    </stdio>
+  <expand macro="stdio"></expand>
     <command>
 <![CDATA[
     ln -s "${input_bam}" temp_input.bam &&
