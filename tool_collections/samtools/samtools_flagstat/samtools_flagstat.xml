@@ -4,6 +4,7 @@
   </macros>
   <expand macro="requirements"></expand>
   <expand macro="version_command"></expand>
+  <expand macro="stdio"></expand>
   <description>provides simple stats on BAM files</description>
   <command>samtools flagstat "$input1" > "$output1"
   </command>
