@@ -17,7 +17,7 @@
             size=`stat -c %s "${reference_fasta_filename}" 2&gt;/dev/null`;                  ## Linux
             if [ $? -eq 0 ];
             then
-              if [ \$size -lt 2000000000 ];
+              if [ "\$size" -lt 2000000000 ];
               then
                 bwa index -a is "${reference_fasta_filename}";
               else
@@ -25,10 +25,10 @@
               fi;
             fi;
 
-            eval \$(stat -s "${reference_fasta_filename}");                                  ## OSX
-            if [ $? -eq 0 ];
+            eval \$(stat -s "${reference_fasta_filename}" 2&gt;/dev/null);                   ## OSX
+            if [ -n "\$st_size" ];
             then
-              if [ \$st_size -lt 2000000000 ];
+              if [ "\$st_size" -lt 2000000000 ];
               then
                 bwa index -a is "${reference_fasta_filename}";
                 echo "Generating BWA index with is algorithm";
