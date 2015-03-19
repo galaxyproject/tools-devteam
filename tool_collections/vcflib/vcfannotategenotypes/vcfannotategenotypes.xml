@@ -1,4 +1,4 @@
-<tool id="vcfannotategenotypes" name="VCFannotateGenotypes:" version="0.0.2">
+<tool id="vcfannotategenotypes" name="VCFannotateGenotypes:" version="0.0.3">
   <description>Annotate genotypes in a VCF dataset using genotypes from another VCF dataset</description>
   <macros>
     <import>macros.xml</import>

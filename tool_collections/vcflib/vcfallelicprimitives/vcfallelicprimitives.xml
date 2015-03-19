@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<tool id="vcfallelicprimitives" name="VcfAllelicPrimitives:" version="0.0.2">
+<tool id="vcfallelicprimitives" name="VcfAllelicPrimitives:" version="0.0.3">
     <description>Split alleleic primitives (gaps or mismatches) into multiple VCF lines</description>
     <macros>
         <import>macros.xml</import>

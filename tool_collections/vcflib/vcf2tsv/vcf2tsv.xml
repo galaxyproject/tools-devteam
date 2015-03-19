@@ -1,4 +1,4 @@
-<tool id="vcf2tsv" name="VCFtoTab-delimited:" version="0.0.2">
+<tool id="vcf2tsv" name="VCFtoTab-delimited:" version="0.0.3">
   <description>Convert VCF data into TAB-delimited format</description>
   <macros>
       <import>macros.xml</import>

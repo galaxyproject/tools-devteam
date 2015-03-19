@@ -1,4 +1,4 @@
-<tool id="vcfbreakcreatemulti" name="VCFbreakCreateMulti:" version="0.0.2">
+<tool id="vcfbreakcreatemulti" name="VCFbreakCreateMulti:" version="0.0.3">
   <description>Break multiple alleles into multiple records, or combine overallpoing alleles into a single record</description>
   <macros>
     <import>macros.xml</import>

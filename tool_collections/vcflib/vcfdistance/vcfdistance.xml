@@ -1,4 +1,4 @@
-<tool id="vcfdistance" name="VCFdistance:" version="0.0.2">
+<tool id="vcfdistance" name="VCFdistance:" version="0.0.3">
   <description>Calculate distance to the nearest variant</description>
   <macros>
     <import>macros.xml</import>

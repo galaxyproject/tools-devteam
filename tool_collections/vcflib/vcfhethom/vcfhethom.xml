@@ -1,4 +1,4 @@
-<tool id="vcfhethom" name="VCFhetHomAlleles:" version="0.0.2">
+<tool id="vcfhethom" name="VCFhetHomAlleles:" version="0.0.3">
   <description>Count the number of heterozygotes and alleles, compute het/hom ratio</description>
   <macros>
     <import>macros.xml</import>

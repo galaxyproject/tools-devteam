@@ -1,4 +1,4 @@
-<tool id="vcfselectsamples" name="VCFselectsamples:" version="0.0.2">
+<tool id="vcfselectsamples" name="VCFselectsamples:" version="0.0.3">
   <description>Select samples from a VCF dataset</description>
   <macros>
     <import>macros.xml</import>

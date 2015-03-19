@@ -1,4 +1,4 @@
-<tool id="vcfcheck" name="VCFcheck:" version="0.0.2">
+<tool id="vcfcheck" name="VCFcheck:" version="0.0.3">
   <description>Verify that the reference allele matches the reference genome</description>
   <macros>
     <import>macros.xml</import>

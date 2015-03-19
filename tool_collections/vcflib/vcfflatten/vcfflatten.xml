@@ -1,4 +1,4 @@
-<tool id="vcfflatten2" name="VCFflatten:" version="0.0.2">
+<tool id="vcfflatten2" name="VCFflatten:" version="0.0.3">
   <description>Removes multi-allelic sites by picking the most common alternate</description>
   <macros>
     <import>macros.xml</import>

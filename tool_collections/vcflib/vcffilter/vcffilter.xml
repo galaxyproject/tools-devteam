@@ -1,4 +1,4 @@
-<tool id="vcffilter2" name="VCFfilter:" version="0.0.2">
+<tool id="vcffilter2" name="VCFfilter:" version="0.0.3">
   <description>filter VCF data in a variety of attributes</description>
   <macros>
     <import>macros.xml</import>
