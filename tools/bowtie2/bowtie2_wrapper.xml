@@ -154,10 +154,10 @@
 
         ## rename unaligned sequence files
         #if $library.type == "paired" and $output_unaligned_reads_l and $output_unaligned_reads_r:
-            #set left  = str($output_unaligned_reads_l)[:-3] + '1.dat'
-            #set right = str($output_unaligned_reads_l)[:-3] + '2.dat'
-            &amp;&amp; mv "${ left }" "${ output_unaligned_reads_l }"
-            &amp;&amp; mv "${ right }" "${ output_unaligned_reads_r }"
+            #from os.path import splitext
+            #set _unaligned_root, _unaligned_ext = splitext( str( $output_unaligned_reads_l ) )
+            &amp;&amp; mv "${ _unaligned_root }.1${_unaligned_ext}" "${ output_unaligned_reads_l }"
+            &amp;&amp; mv "${ _unaligned_root }.2${_unaligned_ext}" "${ output_unaligned_reads_r }"
         #end if
         
     </command>
