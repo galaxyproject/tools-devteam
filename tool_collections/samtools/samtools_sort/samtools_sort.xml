@@ -1,13 +1,12 @@
-<tool id="samtools_sort" name="sort" version="1.0.3">
-    <requirements>
-        <requirement type="package" version="1.1">samtools</requirement>
-    </requirements>
+<tool id="samtools_sort" name="sort" version="1.0.4">
+    <macros>
+    <import>macros.xml</import>
+  </macros>
+  <expand macro="requirements"></expand>
     <description>a BAM file</description>
-    <version_command>samtools --version | head -n 1 | awk '{ print $2 }'</version_command>
+    <expand macro="version_command"></expand>
+    <expand macro="stdio"></expand>
     <command>samtools sort $sort_mode "${input1}" -o "${output1}" -O bam -T dataset</command>
-    <stdio>
-        <exit_code range="1:" level="fatal" description="Error" />
-    </stdio>
     <inputs>
         <param name="input1" type="data" format="bam" label="BAM File" />
         <param name="sort_mode" type="select" label="Sort by ">
@@ -33,7 +32,5 @@ This tool uses the SAMTools_ toolkit to sort alignments by leftmost coordinates 
 .. _SAMTools: http://samtools.sourceforge.net/samtools.shtml
 
     </help>
-    <citations>
-        <citation type="doi">10.1093/bioinformatics/btp352</citation>
-    </citations>
+    <expand macro="citations"></expand>
 </tool>

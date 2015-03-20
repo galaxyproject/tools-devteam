@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<repositories>
+    <repository name="vcf2tsv" owner="devteam" />
+    <repository name="vcfaddinfo" owner="devteam" />
+    <repository name="vcfallelicprimitives" owner="devteam" />
+    <repository name="vcfannotate" owner="devteam" />
+    <repository name="vcfannotategenotypes" owner="devteam" />
+    <repository name="vcfbedintersect" owner="devteam" />
+    <repository name="vcfbreakcreatemulti" owner="devteam" />
+    <repository name="vcfcheck" owner="devteam" />
+    <repository name="vcfcombine" owner="devteam" />
+    <repository name="vcfcommonsamples" owner="devteam" />
+    <repository name="vcfdistance" owner="devteam" />
+    <repository name="vcffilter" owner="devteam" /> 
+    <repository name="vcffixup" owner="devteam" />
+    <repository name="vcfflatten" owner="devteam" />
+    <repository name="vcfgeno2haplo" owner="devteam" />
+    <repository name="vcfgenotypes" owner="devteam" />
+    <repository name="vcfhethom" owner="devteam" />
+    <repository name="vcfleftalign" owner="devteam" />
+    <repository name="vcfprimers" owner="devteam" />
+    <repository name="vcfrandomsample" owner="devteam" />
+    <repository name="vcfselectsamples" owner="devteam" />
+    <repository name="vcfsort" owner="devteam" />
+    <repository name="vcfvcfintersect" owner="devteam" />
+</repositories>

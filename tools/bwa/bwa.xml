@@ -1,220 +1,10 @@
 <?xml version="1.0"?>
-<tool id="bwa" name="BWA" version="0.1">
-  
-  <requirements>
-    <requirement type="package" version="0.7.10.039ea20639">bwa</requirement>
-    <requirement type="package" version="1.1">samtools</requirement>
-  </requirements>
+<tool id="bwa" name="Map with BWA" version="0.2.2">
   <description>- map short reads (&lt; 100 bp) against reference genome</description>
-  <command>
- 
-    #set $reference_fasta_filename = "localref.fa"
-       
-    #if str( $reference_source.reference_source_selector ) == "history":
-    
-        ln -s "${reference_source.ref_file}" "${reference_fasta_filename}" &amp;&amp;
-        
-        ## The following shell commands decide with of the BWA indexing algorithms (IS or BWTSW) will be run
-        ## depending ob the size of the input FASTA dataset
-        
-           (
-            size=`stat -c %s "${reference_fasta_filename}" 2&gt;/dev/null`;                  ## Linux
-            if [ $? -eq 0 ]; 
-            then
-              if [ \$size -lt 2000000000 ]; 
-              then
-                bwa index -a is "${reference_fasta_filename}";
-              else
-                bwa index -a bwtsw "${reference_fasta_filename}";
-              fi;
-            fi;
-
-            eval \$(stat -s "${reference_fasta_filename}");                                  ## OSX
-            if [ $? -eq 0 ];
-            then
-              if [ \$st_size -lt 2000000000 ];
-              then
-                bwa index -a is "${reference_fasta_filename}";
-                echo "Generating BWA index with is algorithm";
-              else
-                bwa index -a bwtsw "${reference_fasta_filename}";
-                echo "Generating BWA index with bwtsw algorithm";
-              fi;
-            fi;
-            ) &amp;&amp;
-             
-    #else:
-        #set $reference_fasta_filename = str( $reference_source.ref_file.fields.path )
-    #end if
-    
-    ## Begin bwa command line
-    
-####### Fastq paired
-    
-    #if str( $input_type.input_type_selector ) == "paired" or str( $input_type.input_type_selector ) == "paired_collection":
-      
-      bwa aln
-      -t "\${GALAXY_SLOTS:-1}"
-      
-      @command_options@
-      
-      "${reference_fasta_filename}"
-      
-      #if str( $input_type.input_type_selector ) == "paired_collection":
-        "${input_type.fastq_input1.forward}"
-      #else
-        "${input_type.fastq_input1}"
-      #end if
-      
-      > first.sai &amp;&amp;
-      
-      bwa aln
-      -t "\${GALAXY_SLOTS:-1}"
-      
-      @command_options@
-      
-      "${reference_fasta_filename}"
-      
-      #if str( $input_type.input_type_selector ) == "paired_collection":
-        "${input_type.fastq_input1.reverse}"
-      #else
-        "${input_type.fastq_input2}"
-      #end if
-
-      > second.sai &amp;&amp;
-   
-      bwa sampe
-      
-      #if str( $input_type.adv_pe_options.adv_pe_options_selector) == "True":
-      
-        -a ${$input_type.adv_pe_options.a}
-        -o ${$input_type.adv_pe_options.o}
-        -n ${$input_type.adv_pe_options.n}
-        -N ${$input_type.adv_pe_options.N}
-      
-      #end if
-      
-      @read_group_options@
-      
-      #if str( $input_type.input_type_selector ) == "paired_collection":
-      
-        "${reference_fasta_filename}" first.sai second.sai "${input_type.fastq_input1.forward}" "${input_type.fastq_input1.reverse}"
-      
-      #else:
-      
-        "${reference_fasta_filename}" first.sai second.sai "${input_type.fastq_input1}" "${input_type.fastq_input2}"
-      
-      #end if
-      
-####### Fastq single
- 
-    #elif str( $input_type.input_type_selector ) == "single":
-    
-      bwa aln
-      -t "\${GALAXY_SLOTS:-1}"
-      
-      @command_options@
-      
-      "${reference_fasta_filename}"
-      "${input_type.fastq_input1}"
-      > first.sai &amp;&amp;
-      
-      bwa samse
-      
-      #if str( $input_type.adv_se_options.adv_se_options_selector) == "True":
-        
-        -n ${$input_type.adv_se_options.n}
-        
-      #end if
-      
-      @read_group_options@
-      
-      "${reference_fasta_filename}" first.sai "${input_type.fastq_input1}"
-      
-####### BAM paired
-
-    #elif str( $input_type.input_type_selector ) == "paired_bam":
-    
-      bwa aln
-      -t "\${GALAXY_SLOTS:-1}"
-      -b
-      -1
-      
-      @command_options@
-      
-      "${reference_fasta_filename}"
-      "${input_type.bam_input}"
-      > first.sai &amp;&amp;
-      
-      bwa aln
-      -t "\${GALAXY_SLOTS:-1}"
-      -b
-      -2
-      @command_options@
-      "${reference_fasta_filename}"
-      "${input_type.bam_input}"
-      > second.sai &amp;&amp;
-      
-      bwa sampe
-      
-      #if str( $input_type.adv_bam_pe_options.adv_pe_options_selector) == "True":
-      
-        -a ${$input_type.adv_bam_pe_options.a}
-        -o ${$input_type.adv_bam_pe_options.o}
-        -n ${$input_type.adv_bam_pe_options.n}
-        -N ${$input_type.adv_bam_pe_options.N}
-      
-      #end if
-      
-      @read_group_options@
-      
-      "${reference_fasta_filename}" first.sai second.sai "${input_type.bam_input}" "${input_type.bam_input}"
-    
-####### Fastq single   ------------ to do next
-
-    #elif str( $input_type.input_type_selector ) == "single_bam":
-      
-      bwa aln
-      -t "\${GALAXY_SLOTS:-1}"
-      -b
-      -0
-      
-      @command_options@
-      
-      "${reference_fasta_filename}"
-      "${input_type.bam_input}"
-      > first.sai &amp;&amp;
-      
-      bwa samse
-      
-      #if str( $input_type.adv_bam_se_options.adv_se_options_selector) == "True":
-    
-        -n ${$input_type.adv_bam_se_options.n}    
-      
-      #end if
-      
-      @read_group_options@
-      
-      "${reference_fasta_filename}" first.sai "${input_type.bam_input}"
-      
-    #end if
-    
-    | samtools view -Sb - > temporary_bam_file.bam &amp;&amp;
-    
-    samtools sort -f temporary_bam_file.bam ${bam_output}
-    
-      
-  </command>
-  
   <macros>
     <import>bwa_macros.xml</import>
-    <token name="@command_options@">        
-    #if str( $analysis_type.analysis_type_selector ) == "illumina":
-     
-      ## do nothing -> just align with default parameters
-      
-    #elif str( $analysis_type.analysis_type_selector ) == "full":
-    
+    <token name="@command_options@">
+    #if str( $analysis_type.analysis_type_selector ) == "full":
       -n ${analysis_type.n}
       -o ${analysis_type.o}
       -e ${analysis_type.e}
@@ -228,15 +18,15 @@
       -E ${analysis_type.E}
       -R ${analysis_type.R}
       -q ${analysis_type.q}
-      
+
       #if str( $analysis_type.B ):
         -B ${analysis_type.B}
       #end if
-      
+
       #if str( $analysis_type.L ):
         -B ${analysis_type.L}
       #end if
-    #end if    
+    #end if
     </token>
     <token name="@read_group_options@">
       #if str( $rg.rg_selector ) == "set":
@@ -244,7 +34,7 @@
         -r '$rg_string'
       #end if
     </token>
-      
+
     <xml name="advanced_pe_options">
       <param name="adv_pe_options_selector" type="select" label="Set advanced paired end options?" help="Provides additional controls">
         <option value="set">Set</option>
@@ -275,6 +65,190 @@
     </xml>
   </macros>
 
+  <requirements>
+    <requirement type="package" version="0.7.10.039ea20639">bwa</requirement>
+    <requirement type="package" version="1.1">samtools</requirement>
+  </requirements>
+  <stdio>
+    <exit_code range="1:" />
+  </stdio>
+  <command>
+    #set $reference_fasta_filename = "localref.fa"
+
+    #if str( $reference_source.reference_source_selector ) == "history":
+        ln -s "${reference_source.ref_file}" "${reference_fasta_filename}" &amp;&amp;
+
+        ## The following shell commands decide with of the BWA indexing algorithms (IS or BWTSW) will be run
+        ## depending ob the size of the input FASTA dataset
+           (
+            size=`stat -c %s "${reference_fasta_filename}" 2&gt;/dev/null`;                  ## Linux
+            if [ $? -eq 0 ];
+            then
+              if [ "\$size" -lt 2000000000 ];
+              then
+                bwa index -a is "${reference_fasta_filename}";
+              else
+                bwa index -a bwtsw "${reference_fasta_filename}";
+              fi;
+            fi;
+
+            eval \$(stat -s "${reference_fasta_filename}" 2&gt;/dev/null);                   ## OSX
+            if [ -n "\$st_size" ];
+            then
+              if [ "\$st_size" -lt 2000000000 ];
+              then
+                bwa index -a is "${reference_fasta_filename}";
+                echo "Generating BWA index with is algorithm";
+              else
+                bwa index -a bwtsw "${reference_fasta_filename}";
+                echo "Generating BWA index with bwtsw algorithm";
+              fi;
+            fi;
+            ) &amp;&amp;
+    #else:
+        #set $reference_fasta_filename = str( $reference_source.ref_file.fields.path )
+    #end if
+
+    ## Begin bwa command line
+
+####### Fastq paired
+
+    #if str( $input_type.input_type_selector ) == "paired" or str( $input_type.input_type_selector ) == "paired_collection":
+      bwa aln
+      -t "\${GALAXY_SLOTS:-1}"
+
+      @command_options@
+
+      "${reference_fasta_filename}"
+
+      #if str( $input_type.input_type_selector ) == "paired_collection":
+        "${input_type.fastq_input1.forward}"
+      #else
+        "${input_type.fastq_input1}"
+      #end if
+
+      > first.sai &amp;&amp;
+
+      bwa aln
+      -t "\${GALAXY_SLOTS:-1}"
+
+      @command_options@
+
+      "${reference_fasta_filename}"
+
+      #if str( $input_type.input_type_selector ) == "paired_collection":
+        "${input_type.fastq_input1.reverse}"
+      #else
+        "${input_type.fastq_input2}"
+      #end if
+
+      > second.sai &amp;&amp;
+
+      bwa sampe
+
+      #if str( $input_type.adv_pe_options.adv_pe_options_selector) == "True":
+        -a ${$input_type.adv_pe_options.a}
+        -o ${$input_type.adv_pe_options.o}
+        -n ${$input_type.adv_pe_options.n}
+        -N ${$input_type.adv_pe_options.N}
+      #end if
+
+      @read_group_options@
+
+      #if str( $input_type.input_type_selector ) == "paired_collection":
+        "${reference_fasta_filename}" first.sai second.sai "${input_type.fastq_input1.forward}" "${input_type.fastq_input1.reverse}"
+      #else:
+        "${reference_fasta_filename}" first.sai second.sai "${input_type.fastq_input1}" "${input_type.fastq_input2}"
+      #end if
+
+####### Fastq single
+
+    #elif str( $input_type.input_type_selector ) == "single":
+      bwa aln
+      -t "\${GALAXY_SLOTS:-1}"
+
+      @command_options@
+
+      "${reference_fasta_filename}"
+      "${input_type.fastq_input1}"
+      > first.sai &amp;&amp;
+
+      bwa samse
+
+      #if str( $input_type.adv_se_options.adv_se_options_selector) == "True":
+        -n ${$input_type.adv_se_options.n}
+      #end if
+
+      @read_group_options@
+
+      "${reference_fasta_filename}" first.sai "${input_type.fastq_input1}"
+
+####### BAM paired
+
+    #elif str( $input_type.input_type_selector ) == "paired_bam":
+      bwa aln
+      -t "\${GALAXY_SLOTS:-1}"
+      -b
+      -1
+
+      @command_options@
+
+      "${reference_fasta_filename}"
+      "${input_type.bam_input}"
+      > first.sai &amp;&amp;
+
+      bwa aln
+      -t "\${GALAXY_SLOTS:-1}"
+      -b
+      -2
+      @command_options@
+      "${reference_fasta_filename}"
+      "${input_type.bam_input}"
+      > second.sai &amp;&amp;
+
+      bwa sampe
+
+      #if str( $input_type.adv_bam_pe_options.adv_pe_options_selector) == "True":
+        -a ${$input_type.adv_bam_pe_options.a}
+        -o ${$input_type.adv_bam_pe_options.o}
+        -n ${$input_type.adv_bam_pe_options.n}
+        -N ${$input_type.adv_bam_pe_options.N}
+      #end if
+
+      @read_group_options@
+
+      "${reference_fasta_filename}" first.sai second.sai "${input_type.bam_input}" "${input_type.bam_input}"
+
+####### Fastq single   ------------ to do next
+
+    #elif str( $input_type.input_type_selector ) == "single_bam":
+      bwa aln
+      -t "\${GALAXY_SLOTS:-1}"
+      -b
+      -0
+
+      @command_options@
+
+      "${reference_fasta_filename}"
+      "${input_type.bam_input}"
+      > first.sai &amp;&amp;
+
+      bwa samse
+
+      #if str( $input_type.adv_bam_se_options.adv_se_options_selector) == "True":
+        -n ${$input_type.adv_bam_se_options.n}
+      #end if
+
+      @read_group_options@
+
+      "${reference_fasta_filename}" first.sai "${input_type.bam_input}"
+    #end if
+
+    | samtools view -Sb - > temporary_bam_file.bam &amp;&amp;
+
+    samtools sort -f temporary_bam_file.bam ${bam_output}
+  </command>
+
   <inputs>
 
     <conditional name="reference_source">
@@ -291,7 +265,7 @@
           <validator type="no_options" message="A built-in reference genome is not available for the build associated with the selected input file"/>
         </param>
       </when>
-      <when value="history"> 
+      <when value="history">
         <param name="ref_file" type="data" format="fasta" label="Use the following dataset as the reference sequence" help="You can upload a FASTA sequence to the history and use it as reference" />
       </when>
     </conditional>
@@ -307,51 +281,50 @@
         <param name="fastq_input1" type="data" format="fastqsanger" label="Select first set of reads" help="Specify dataset with forward reads"/>
         <param name="fastq_input2" type="data" format="fastqsanger" label="Select second set of reads" help="Specify dataset with reverse reads"/>
         <conditional name="adv_pe_options">
-          
+
           <expand macro="advanced_pe_options" />
-          
+
         </conditional>
       </when>
-      
+
       <when value="paired_collection">
         <param name="fastq_input1" format="fastqsanger" type="data_collection" collection_type="paired" label="Select a paired collection" help="See help section for an explanation of dataset collections"/>
         <conditional name="adv_pe_options">
-          
+
           <expand macro="advanced_pe_options" />
-          
+
         </conditional>
       </when>
-      
-      
+
       <when value="single">
         <param name="fastq_input1" type="data" format="fastqsanger" label="Select fastq dataset" help="Specify dataset with single reads"/>
         <conditional name="adv_se_options">
-          
+
           <expand macro="advanced_se_options" />
-          
+
         </conditional>
       </when>
-      
+
       <!-- the difference between single and paired bams is in the <command> tag portion and realated to -0, -1, and -2 options -->
-      
+
       <when value="paired_bam">
         <param name="bam_input" type="data" format="bam" label="Select BAM dataset" help="Specify BAM dataset with paired reads"/>
         <conditional name="adv_bam_pe_options">
-          
+
           <expand macro="advanced_pe_options" />
-          
+
         </conditional>
       </when>
-      
+
       <when value="single_bam">
         <param name="bam_input" type="data" format="bam" label="Select BAM dataset" help="Specify BAM dataset with single reads"/>
         <conditional name="adv_bam_se_options">
-          
+
           <expand macro="advanced_se_options" />
-          
+
         </conditional>
       </when>
- 
+
     </conditional>
 
     <expand macro="readgroup_params" />
@@ -364,7 +337,7 @@
       <when value="illumina">
         <!-- do nothing -->
       </when>
-      <when value="full">     
+      <when value="full">
         <param name="n" type="text" value="0.04" label="maximum edit distance if the value is integer, or the fraction of missing alignments given 2% uniform base error rate if float. In the latter case, the maximum edit distance is automatically chosen for different read lengths." help="aln -n; default=0.04"/>
         <param name="o" type="integer" value="1" label="maximum number or gap openings" help="aln -o; default=1"/>
         <param name="e" type="integer" value="-1" label="maximum number of gap extensions" help="aln -e; -1 disables long gaps and invokes k-difference mode; default=-1"/>
@@ -379,15 +352,15 @@
         <param name="R" type="integer" value="30" label="stop searching when there are more than this value of equally best hits" help="aln -R; default=30"/>
         <param name="q" type="integer" value="0" label="quality threshold for read trimming down to 35bp" help="aln -q; default=0"/>
         <param name="B" type="integer" optional="True" label="length of barcode" help="aln -B; optional parameter"/>
-        <param name="L" type="float" optional="True" label="log-scaled gap penalty for long deletions" help="aln -L; optional parameter"/>   
+        <param name="L" type="float" optional="True" label="log-scaled gap penalty for long deletions" help="aln -L; optional parameter"/>
       </when>
     </conditional>
   </inputs>
-  
+
   <outputs>
     <data format="bam" name="bam_output" label="${tool.name} on ${on_string} (mapped reads in BAM format)"/>
   </outputs>
-  
+
   <tests>
     <test>
       <param name="reference_source_selector" value="history" />
@@ -418,11 +391,7 @@
       <output name="bam_output" ftype="bam" file="bwa-aln-test3.bam" lines_diff="2" />
     </test>
   </tests>
-  <stdio>
-    <exit_code range="1:" />
-  </stdio>
   <help>
-    
 **What is does**
 
 BWA is a software package for mapping low-divergent sequences against a large reference genome, such as the human genome. The bwa-aln algorithm is designed for Illumina sequence reads up to 100bp. For longer reads use BWA-MEM algorithm distributed as separate Galaxy tool.
@@ -432,7 +401,7 @@ This Galaxy tool wraps bwa-aln, bwa-samse and -sampe modules of bwa read mapping
   - bwa aln - actual mapper placing reads onto the reference sequence
   - bwa samse - post-processor converting suffix array coordinates into genome coordinates in SAM format for single reads
   - bam sampe - post-processor for paired reads
-  
+
 Galaxy implementation takes fastq or BAM (unaligned BAM) datasets as input and produces output in BAM (not SAM; in reality SAM produced by the bwa is converted to BAM on the fly by samtools view command) format, which can be further processed using various BAM utilities exiting in Galaxy (BAMTools, SAMTools, Picard).
 
 -----
@@ -443,7 +412,7 @@ Galaxy allows three levels of control over bwa-mem options provided by **Select 
 
   1. *Simple Illumina mode*: The simplest possible bwa mem application in which it alignes single or paired-end data to reference using default parameters. It is equivalent to the following command: bwa mem &lt;reference index&gt; &lt;fastq dataset1&gt; [fastq dataset2]
   2. *Full list of options*: Allows access to all options through Galaxy interface.
-  
+
 ------
 
 **bwa-aln options**
@@ -485,14 +454,12 @@ Each Galaxy parameter widget corresponds to command line flags listed below::
 
     -n INT    maximum hits to output for paired reads [3]
     -r STR    read group header line [null]
-                 
 
 @dataset_collections@
 
 @RG@
 
 @info@
-    
   </help>
   <citations>
     <citation type="doi">10.1093/bioinformatics/btp324</citation>

@@ -1,9 +1,11 @@
 <tool id="samtools_mpileup" name="MPileup" version="0.0.5">
-    <description>- call variants</description>
-    <requirements>
-        <requirement type="package" version="1.1">samtools</requirement>
-    </requirements>
-    <version_command>samtools --version | head -n 1 | awk '{ print $2 }'</version_command>
+  <description>- call variants</description>
+  <macros>
+    <import>macros.xml</import>
+  </macros>
+  <expand macro="requirements"></expand>
+  <expand macro="version_command"></expand>
+  <expand macro="stdio"></expand>
     <command><![CDATA[
     #if $reference_source.reference_source_selector == "history":
        ln -s "${reference_source.ref_file}" && samtools faidx `basename "${reference_source.ref_file}"` && samtools mpileup
@@ -77,9 +79,6 @@
     #end if
     --output "$output_mpileup" 2> "$output_log"
     ]]></command>
-    <stdio>
-        <exit_code range="1:" level="fatal" description="Error" />
-    </stdio>
     <inputs>
     	<conditional name="output_format">
     		<param name="output_format_selector" type="select" label="Choose the output format">
@@ -400,7 +399,5 @@ Report variants for one or multiple BAM files. Alignment records are grouped by 
 **Notes**: Assuming diploid individuals.
 
     </help>
-    <citations>
-        <citation type="doi">10.1093/bioinformatics/btp352</citation>
-    </citations>
+    <expand macro="citations"></expand>
 </tool>

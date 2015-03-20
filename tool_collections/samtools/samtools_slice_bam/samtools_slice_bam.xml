@@ -1,35 +1,40 @@
-<tool id="samtools_slice_bam" name="Slice BAM" version="0.0.2">
+<tool id="samtools_slice_bam" name="Slice BAM" version="0.0.3">
   <description>by provided regions</description>
-  <requirements>
-      <requirement type="package" version="0.1.19">samtools</requirement>
-  </requirements>
-  <command interpreter="python">samtools_slice_bam.py
-    "${input_bam}"
-    "${input_bam.metadata.bam_index}"
-    "${input_interval}"
-    "${output_bam}"
-  </command>
-  <inputs>
-    <param name="input_bam" type="data" format="bam" label="BAM file" />
-    <param name="input_interval" type="data" format="bed" label="BED file" />
-  </inputs>
-  <outputs>
-    <data format="bam" name="output_bam"/>
-  </outputs>
-  <tests>
-      <test>
-          <param name="input_bam" value="gatk/fake_phiX_reads_1.bam" ftype="bam" />
-          <param name="input_interval" value="gatk/fake_phiX_variant_locations.bed" ftype="bed" />
-          <output name="output_bam" file="gatk/fake_phiX_reads_1.bam" ftype="bam" />
-      </test>
-  </tests>
-  <help>
+  <macros>
+    <import>macros.xml</import>
+  </macros>
+  <expand macro="requirements"></expand>
+  <expand macro="version_command"></expand>
+  <expand macro="stdio"></expand>
+    <command>
+<![CDATA[
+    ln -s "${input_bam}" temp_input.bam &&
+    ln -s "${input_bam.metadata.bam_index}" temp_input.bam.bai &&
+    samtools view -@ \${GALAXY_SLOTS:-1} -b -L "${input_interval}" temp_input.bam -o unsorted_output.bam && 
+    samtools sort unsorted_output.bam -O bam -T sorted -@ \${GALAXY_SLOTS:-1} -o "${output_bam}"
+]]>
+    </command>
+    <inputs>
+        <param format="bam" label="BAM file" name="input_bam" type="data" />
+        <param format="bed" label="BED file" name="input_interval" type="data" />
+    </inputs>
+    <outputs>
+        <data format="bam" name="output_bam" />
+    </outputs>
+    <tests>
+        <test>
+            <param ftype="bam" name="input_bam" value="gatk/fake_phiX_reads_1.bam" />
+            <param ftype="bed" name="input_interval" value="gatk/fake_phiX_variant_locations.bed" />
+            <output file="gatk/fake_phiX_reads_1.bam" ftype="bam" name="output_bam" />
+        </test>
+    </tests>
+    <help>
+<![CDATA[
+
 **What it does**
 
  Accepts an input BAM file and an input BED file and creates an output BAM file containing only those alignments that overlap the provided BED intervals.
-
+]]>
   </help>
-    <citations>
-        <citation type="doi">10.1093/bioinformatics/btp352</citation>
-    </citations>
+    <expand macro="citations"></expand>
 </tool>

@@ -1,9 +1,11 @@
-<tool id="samtools_split" name="Split" version="1.0.0">
+<tool id="samtools_split" name="Split" version="1.0.1">
     <description>a BAM file by read group</description>
-    <requirements>
-        <requirement type="package" version="1.1">samtools</requirement>
-    </requirements>
-    <version_command>samtools --version | head -n 1 | awk '{ print $2 }'</version_command>
+    <macros>
+        <import>macros.xml</import>
+    </macros>
+    <expand macro="requirements"></expand>
+    <expand macro="version_command"></expand>
+    <expand macro="stdio"></expand>
     <command><![CDATA[
         samtools split -f 'Read_Group_%!.bam'
         #if $header:
@@ -13,9 +15,6 @@
         #end if
         "${input_bam}"
         ]]></command>
-    <stdio>
-        <exit_code range="1:" level="fatal" description="Error" />
-    </stdio>
     <inputs>
         <param name="input_bam" type="data" format="bam" label="BAM file" multiple="true" />
         <param name="header" type="data" format="bam,sam" label="Replace header in output file" optional="True" />
@@ -43,8 +42,6 @@ This tool runs the ``samtools split`` command in the SAMtools toolkit.
 Split BAM files by read group.
 
     </help>
-    <citations>
-        <citation type="doi">10.1093/bioinformatics/btp352</citation>
-    </citations>
+    <expand macro="citations"></expand>
 </tool>
 

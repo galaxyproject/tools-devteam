@@ -1,0 +1,55 @@
+<tool id="vcfrandomsample" name="VCFrandomSample:" version="0.0.3">
+  <description>Randomly sample sites from VCF dataset</description>
+  <macros>
+    <import>macros.xml</import>
+  </macros>
+  <expand macro="requirements"></expand>
+  <expand macro="stdio" />
+  <command>
+
+    #if $adv_options.adv_options_selector == True:
+        vcfrandomsample -s "${adv_options.scale_by}" -p ${random_seed} -r ${rate} "${vcf_input}" > "${out_file1}"
+    #else:
+        vcfrandomsample -p ${random_seed} -r ${rate} "${vcf_input}" > "${out_file1}" 
+    #end if                                                                      
+  </command>
+  <inputs>
+    <param format="vcf" name="vcf_input" type="data" label="Select random sites from"/>
+    <param name="rate" type="float" value="0.1" label="base sampling probability per locus" help="-r, --rate"/>
+    <param name="random_seed" type="integer" value="17823618326" label="use this random seed" help="-p, --random-seed; use this to make results reproducible" />
+    <conditional name="adv_options">
+      <param name="adv_options_selector" type="boolean" truevalue="use_adv_controls" label="Advanced controls" help="Allows you to specify options that are not listed above"/>
+      <when value="use_adv_controls">
+	<param name="scale_by" type="text" value="AF" label="scale sampling likelihood by this INFO field" help="-s, --scale-by; this only works for Float info fields such as AF" />
+      </when>
+      </conditional>
+  </inputs>
+  <outputs>
+    <data format="vcf" name="out_file1" />
+  </outputs>
+  <tests>
+    <test>
+      <param name="vcf_input" value="vcflib.vcf"/>
+      <param name="rate" value="0.2" />
+      <param name="random_seed" value="1" />
+      <param name="adv_options_selector" value="False" />
+      <output name="out_file1" file="vcfrandomsample-test1.vcf" lines_diff="2" />
+    </test>
+    </tests>
+  <help>
+
+Randomly sample sites from an input VCF dataset. Scale the sampling probability by the field specified by --scale-by (see advanced controls).  This may be
+used to provide uniform sampling across allele frequencies, for instance (AF field in this case).
+
+Options::
+
+    -r, --rate RATE      base sampling probability per locus
+    -s, --scale-by KEY   scale sampling likelihood by this Float info field
+    -p, --random-seed N  use this random seed
+
+----
+
+Vcfrandomsample @IS_PART_OF_VCFLIB@
+</help>
+  <expand macro="citations" />
+</tool>

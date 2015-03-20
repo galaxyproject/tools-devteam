@@ -1,9 +1,11 @@
-<tool id="samtools_calmd" name="Recalculate" version="1.0.1">
-    <description>MD/NM tags and '=' bases</description>
-    <requirements>
-        <requirement type="package" version="1.1">samtools</requirement>
-    </requirements>
-    <version_command>samtools --version | head -n 1 | awk '{ print $2 }'</version_command>
+<tool id="samtools_calmd" name="Recalculate" version="1.0.2">
+  <description>MD/NM tags and '=' bases</description>
+  <macros>
+    <import>macros.xml</import>
+  </macros>
+  <expand macro="requirements"></expand>
+  <expand macro="stdio"></expand>
+  <expand macro="version_command"></expand>
     <command><![CDATA[
         #if str( $reference_source.reference_source_selector ) == "history":
             #set ref_fa = 'ref.fa'
@@ -17,9 +19,6 @@
         #end if
         -b "$input_bam" "$ref_fa" > "$calmd_output" ]]>
     </command>
-    <stdio>
-        <exit_code range="1:" level="fatal" description="Error" />
-    </stdio>
     <inputs>
         <param format="bam" name="input_bam" type="data" label="BAM file to recalculate" />
         <conditional name="reference_source">
@@ -98,7 +97,5 @@
 Generate the MD tag. If the MD tag is already present, this command will give a warning if the MD tag generated is different from the existing tag. Outputs a BAM file. 
 
     </help>
-    <citations>
-        <citation type="doi">10.1093/bioinformatics/btp352</citation>
-    </citations>
+    <expand macro="citations"></expand>
 </tool>

@@ -3,31 +3,31 @@
   <token name="@set_rg_string@">
       #set $rg_string = "@RG\tID:" + str($rg.ID) + "\tSM:" + str($rg.SM) + "\tPL:" + str($rg.PL)
       #if $rg.LB
-        #set $rg_string += "\tLB:$rg.LB"
+        #set $rg_string += "\tLB:" + str($rg.LB)
       #end if
       #if $rg.CN
-        #set $rg_string += "\tCN:$rg.CN"
+        #set $rg_string += "\tCN:" + str($rg.CN)
       #end if
       #if $rg.DS
-        #set $rg_string += "\tDS:$rg.DS"
+        #set $rg_string += "\tDS:" + str($rg.DS)
       #end if
       #if $rg.DT
-        #set $rg_string += "\tDT:$rg.DT"
+        #set $rg_string += "\tDT:" + str($rg.DT)
       #end if
       #if $rg.FO
-        #set $rg_string += "\tFO:$rg.FO"
+        #set $rg_string += "\tFO:" + str($rg.FO)
       #end if
       #if $rg.KS
-        #set $rg_string += "\tKS:$rg.KS"
+        #set $rg_string += "\tKS:" + str($rg.KS)
       #end if
       #if $rg.PG
-        #set $rg_string += "\tPG:$rg.PG"
+        #set $rg_string += "\tPG:" + str($rg.PG)
       #end if
       #if str($rg.PI)
-        #set $rg_string += "\tPI:$rg.PI"
+        #set $rg_string += "\tPI:" + str($rg.PI)
       #end if
       #if $rg.PU
-        #set $rg_string += "\tPU:$rg.PU"
+        #set $rg_string += "\tPU:" + str($rg.PU)
       #end if
   </token>
     
