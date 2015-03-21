@@ -7,6 +7,11 @@
     </xml>
     <xml name="citations">
         <citations>
+            <citation type="bibtex">
+                @misc{SAM_def,
+                title={Definition of SAM/BAM format},
+                url = {https://samtools.github.io/hts-specs/SAMv1.pdf},}
+            </citation>
             <citation type="doi">10.1093/bioinformatics/btp352</citation>
             <citation type="doi">10.1093/bioinformatics/btr076</citation>
             <citation type="doi">10.1093/bioinformatics/btr509</citation>
