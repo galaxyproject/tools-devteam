@@ -8,6 +8,31 @@
     <xml name="citations">
         <citations>
             <citation type="doi">10.1093/bioinformatics/btp352</citation>
+            <citation type="doi">10.1093/bioinformatics/btr076</citation>
+            <citation type="doi">10.1093/bioinformatics/btr509</citation>
+            <citation type="bibtex">
+                @misc{Danecek_et_al,
+                Author={Danecek, P., Schiffels, S., Durbin, R.},
+                title={Multiallelic calling model in bcftools (-m)},
+                url = {http://samtools.github.io/bcftools/call-m.pdf},}
+            </citation>
+            <citation type="bibtex">
+                @misc{Durbin_VCQC,
+                Author={Durbin, R.},
+                title={Segregation based metric for variant call QC},
+                url = {http://samtools.github.io/bcftools/rd-SegBias.pdf},}
+            </citation>
+            <citation type="bibtex">
+                @misc{Li_SamMath,
+                Author={Li, H.},
+                title={Mathematical Notes on SAMtools Algorithms},
+                url = {http://www.broadinstitute.org/gatk/media/docs/Samtools.pdf},}
+            </citation>
+            <citation type="bibtex">
+                @misc{SamTools_github,
+                title={SAMTools GitHub page},
+                url = {https://github.com/samtools/samtools},}
+            </citation>
         </citations>
     </xml>
     <xml name="version_command">
@@ -18,4 +43,5 @@
             <exit_code range="1:" level="fatal" description="Error" />
         </stdio>
     </xml>
+
 </macros>

@@ -1,4 +1,4 @@
-<tool id="sam_to_bam" name="SAM-to-BAM" version="1.1.6">
+<tool id="sam_to_bam" name="SAM-to-BAM" version="1.1.7">
   <description>converts SAM format to BAM format</description>
   <macros>
     <import>macros.xml</import>
@@ -8,7 +8,7 @@
   <expand macro="stdio"></expand>
   <command>
     <![CDATA[
-        samtools sort -O bam -@ \${GALAXY_SLOTS:-1} "$input1" -o sorted_input.bam -T temp && 
+        samtools sort -O bam -@ \${GALAXY_SLOTS:-1} -o sorted_input.bam -T temp "$input1" && 
           #if $source.index_source == "history":
             ln -s $source.ref_file input.fa &&
             samtools faidx input.fa &&
@@ -16,14 +16,14 @@
             ln -s ${source.index.fields.path} input.fa &&
             ln -s ${source.index.fields.path}.fai input.fa.fai &&
           #end if
-          samtools view -T input.fa sorted_input.bam -b -h -o $output1
+          samtools view -@ \${GALAXY_SLOTS:-1} -b -h -o $output1 -T input.fa sorted_input.bam
     ]]>
     </command>
     <inputs>
         <conditional name="source">
-            <param label="Choose the source for the reference list" name="index_source" type="select">
-                <option value="cached">Locally cached</option>
-                <option value="history">History</option>
+            <param label="Choose the source for the reference genome" name="index_source" type="select">
+                <option value="cached">Use a built-in genome</option>
+                <option value="history">Use a genome from the history</option>
             </param>
             <when value="cached">
                 <param format="sam" label="SAM file to convert" metadata_name="dbkey" name="input1" type="data">
@@ -64,14 +64,14 @@
     <tests>
         <test>
             <param name="index_source" value="history" />
-            <param ftype="sam" name="input1" value="sam_to_bam_in1.sam" />
+            <param name="input1" ftype="sam" value="sam_to_bam_in1.sam" />
             <param dbkey="equCab2" ftype="fasta" name="ref_file" value="chr_m.fasta" />
             <output file="sam_to_bam_out1.bam" ftype="bam" name="output1" />
         </test>
         <test>
             <param name="index_source" value="cached" />
-            <param dbkey="chrM" ftype="sam" name="input1" value="sam_to_bam_in1.sam" />
-            <param name="index" value="chr_m" />
+            <param name="input1" ftype="sam" dbkey="chr_m" value="sam_to_bam_in1.sam" />
+            <param name="index" value="chrM" />
             <output file="sam_to_bam_out2.bam" ftype="bam" name="output1" />
         </test>
     </tests>
@@ -79,9 +79,10 @@
 <![CDATA[
 **What it does**
 
-This tool uses the SAMTools_ toolkit to produce an indexed BAM file based on a sorted input SAM file.
+Converts SAM dataset into its binary, BAM, representation using **samtools sort** and **view** commands::
 
-.. _SAMTools: http://samtools.sourceforge.net/samtools.shtml
+  samtools sort -O bam -o sorted_input.bam [INPUT SAM] 
+  samtools view -b -h -o -T [REFERENCE GENOME] [OUTPUT BAM] sorted_input.bam
 
 ]]>
   </help>

@@ -44,9 +44,9 @@
 
 **What it does**
 
-This tools uses **samtools view** command to convert a BAM dataset into SAM data.
+Converts BAM dataset to SAM using **samtools view** command::
 
-.. _SAMTools: https://github.com/samtools/samtools
+ samtools view -o [OUTPUT SAM] [-h|-H] [INPUT BAM] 
 
 ]]>
   </help>
