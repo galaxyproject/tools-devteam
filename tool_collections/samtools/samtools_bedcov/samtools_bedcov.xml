@@ -1,5 +1,5 @@
-<tool id="samtools_bedcov" name="Calculate read depth" version="1.0.1">
-  <description>on BAM files</description>
+<tool id="samtools_bedcov" name="BedCov" version="1.0.1">
+  <description>calulate read depth for a set of genomic intervals</description>
   <macros>
     <import>macros.xml</import>
   </macros>
@@ -47,9 +47,9 @@
     <help>
 **What it does**
 
-This tool runs the ``samtools bedcov`` command in the SAMtools toolkit.
+Calculates read depth for regions listed in a BED dataset using **samtools bedcov** command::
 
-Show read depth per BED region.
+ samtools bedcov [INPUT BED] [INPUT BAM1] ... [INPUT BAMn] > [OUTPUT]
 
     </help>
     <expand macro="citations"></expand>

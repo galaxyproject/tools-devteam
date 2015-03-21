@@ -5,7 +5,7 @@
   <expand macro="requirements"></expand>
   <expand macro="version_command"></expand>
   <expand macro="stdio"></expand>
-  <description>converts BAM format to SAM format</description>  
+  <description>convert BAM to SAM</description>  
     <command>
 <![CDATA[
   samtools view -o "${output1}" ${header} "${input1}"

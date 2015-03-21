@@ -1,5 +1,5 @@
-<tool id="samtools_calmd" name="Recalculate" version="1.0.2">
-  <description>MD/NM tags and '=' bases</description>
+<tool id="samtools_calmd" name="CalMD" version="1.0.2">
+  <description>recalculate MD/NM tags</description>
   <macros>
     <import>macros.xml</import>
   </macros>
@@ -22,9 +22,9 @@
     <inputs>
         <param format="bam" name="input_bam" type="data" label="BAM file to recalculate" />
         <conditional name="reference_source">
-            <param name="reference_source_selector" type="select" label="Choose the source for the reference FASTA">
-                <option value="cached">Locally cached</option>
-                <option value="history">History</option>
+            <param name="reference_source_selector" type="select" label="Choose the source for the reference genome">
+                <option value="cached">Use a built-in genome</option>
+                <option value="history">Use a genome from the history</option>
             </param>
             <when value="cached">
                 <param name="ref_fasta" type="select" label="Using reference genome">
@@ -45,10 +45,10 @@
             </param>
             <when value="default" />
             <when value="advanced">
-                <param name="change_identical" type="boolean" truevalue="-e" falsevalue="" checked="False" label="Change identical bases to '='" />
-                <param name="modify_quality" type="boolean" truevalue="-A" falsevalue="" checked="False" label="Modify the quality string" />
-                <param name="compute_cap" type="boolean" truevalue="-r" falsevalue="" checked="False" label="Compute BQ or cap baseQ by BAQ" />
-                <param name="extended_baq" type="boolean" truevalue="-E" falsevalue="" checked="False" label="Extended BAQ for better sensitivity" />
+                <param name="change_identical" type="boolean" truevalue="-e" falsevalue="" checked="False" label="Change identical bases to '='" help="-e"/>
+                <param name="modify_quality" type="boolean" truevalue="-A" falsevalue="" checked="False" label="Modify the quality string" help="-A"/>
+                <param name="compute_cap" type="boolean" truevalue="-r" falsevalue="" checked="False" label="Compute BQ or cap baseQ by BAQ" help="-r"/>
+                <param name="extended_baq" type="boolean" truevalue="-E" falsevalue="" checked="False" label="Extended BAQ for better sensitivity" help="-E"/>
             </when>
         </conditional>
     </inputs>
@@ -58,30 +58,30 @@
     <tests>
         <test>
             <param name="option_sets" value="default" /> 
-            <param name="input_bam" value="phiX.bam" dbkey="phiX" />
-            <param name="reference_source|reference_source_selector" value="history" />
-            <param name="ref_fasta" value="phiX.fasta" dbkey="phiX" />
+            <param name="input_bam" value="phiX.bam"/>
+            <param name="reference_source_selector" value="history" />
+            <param name="ref_fasta" value="phiX.fasta" />
             <output name="calmd_output" file="samtools_calmd_out_1.bam" ftype="bam" />
         </test>
         <!-- Using the test-data-repo's phiX.fa should produce the same output. -->
-        <test>
+        <!--<test>
             <param name="option_sets" value="default" /> 
             <param name="input_bam" value="phiX.bam" dbkey="phiX" />
-            <param name="reference_source|reference_source_selector" value="cached" />
+            <param name="reference_source_selector" value="cached" />
             <param name="ref_fasta" value="phiX" />
             <output name="calmd_output" file="samtools_calmd_out_1.bam" ftype="bam" />
-        </test>
+        </test>-->
         <test>
             <param name="option_sets" value="advanced" /> 
             <param name="change_identical" value="true" />
             <param name="extended_baq" value="true" />
-            <param name="input_bam" value="phiX.bam" dbkey="phiX" />
-            <param name="reference_source|reference_source_selector" value="history" />
-            <param name="ref_fasta" value="phiX.fasta" dbkey="phiX" />
+            <param name="input_bam" value="phiX.bam"/>
+            <param name="reference_source_selector" value="history" />
+            <param name="ref_fasta" value="phiX.fasta" />
             <output name="calmd_output" file="samtools_calmd_out_2.bam" ftype="bam" />
         </test>
         <!-- Using the test-data-repo's phiX.fa should, as before, produce the same output. -->
-        <test>
+        <!-- <test>
             <param name="option_sets" value="advanced" /> 
             <param name="change_identical" value="true" />
             <param name="extended_baq" value="true" />
@@ -89,12 +89,28 @@
             <param name="reference_source|reference_source_selector" value="cached" />
             <param name="ref_fasta" value="phiX" />
             <output name="calmd_output" file="samtools_calmd_out_2.bam" ftype="bam" />
-        </test>
+        </test> -->
     </tests>
     <help>
 **What it does**
 
-Generate the MD tag. If the MD tag is already present, this command will give a warning if the MD tag generated is different from the existing tag. Outputs a BAM file. 
+Generates the MD tag using **samtools calmd** command. If the MD tag (see SAM format refernce below for explanation of SAM/BAM tags) is already present, this command will give a warning if the MD tag generated is different from the existing tag. Outputs a BAM file. The command has the following options::
+
+  -e       change identical bases to '='
+  -A       modify the quality string
+  -r       compute the BQ tag (without -A) or cap baseQ by BAQ (with -A)
+  -E       extended BAQ for better sensitivity but lower specificity
+  
+-----
+
+**NM and MD tags**
+
+From SAM format specification::
+
+  MD (string)  String for mismatching positions. Regex : [0-9]+(([A-Z]|\^[A-Z]+)[0-9]+)*7
+  NM (indeger) Edit distance to the reference, including ambiguous bases but excluding clipping
+  
+See refernces for more information about SAM format tags.
 
     </help>
     <expand macro="citations"></expand>
