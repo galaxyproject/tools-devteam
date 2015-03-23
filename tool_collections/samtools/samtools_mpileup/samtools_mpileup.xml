@@ -1,4 +1,4 @@
-<tool id="samtools_mpileup" name="MPileup" version="0.0.5">
+<tool id="samtools_mpileup" name="MPileup" version="0.0.6">
   <description>- call variants</description>
   <macros>
     <import>macros.xml</import>
@@ -12,9 +12,6 @@
     #else:
         samtools mpileup
     #end if
-    #if $output_format.output_format_selector != "pileup":
-	    ${output_format.output_format_selector} ${output_format.compressed}
-	#end if
     #if $reference_source.reference_source_selector != "history":
         -f "${reference_source.ref_file.fields.path}"
     #else:
@@ -73,6 +70,7 @@
         #if len( $genotype_likelihood_computation_type.platform_list_repeat ):
             -P "${ ",".join( [ str( platform.platform_entry ) for platform in $genotype_likelihood_computation_type.platform_list_repeat ] ) }"
         #end if
+        ${genotype_likelihood_computation_type.output_format.output_format_selector}  ${genotype_likelihood_computation_type.output_format.compressed}
     #else:
         ${genotype_likelihood_computation_type.base_position_on_reads}
         ${genotype_likelihood_computation_type.output_mapping_quality}
@@ -80,20 +78,6 @@
     --output "$output_mpileup" 2> "$output_log"
     ]]></command>
     <inputs>
-    	<conditional name="output_format">
-    		<param name="output_format_selector" type="select" label="Choose the output format">
-                <option value="--VCF">VCF</option>
-                <option value="--BCF">BCF</option>
-                <option value="pileup">Pileup</option>
-            </param>
-            <when value="--VCF">
-				<param name="compressed" type="boolean" truevalue="" falsevalue="--uncompressed" checked="False" label="Compress output" />
-            </when>
-            <when value="--BCF">
-				<param name="compressed" type="boolean" truevalue="" falsevalue="--uncompressed" checked="False" label="Compress output" />
-            </when>
-            <when value="pileup" />
-        </conditional>
         <conditional name="reference_source">
             <param name="reference_source_selector" type="select" label="Choose the source for the reference list">
                 <option value="cached">Locally cached</option>
@@ -122,10 +106,22 @@
         </conditional>
         <conditional name="genotype_likelihood_computation_type">
             <param name="genotype_likelihood_computation_type_selector" type="select" label="Genotype Likelihood Computation">
-                <option value="perform_genotype_likelihood_computation">Perform genotype likelihood computation</option>
-                <option value="do_not_perform_genotype_likelihood_computation" selected="True">Do not perform genotype likelihood computation</option>
+                <option value="perform_genotype_likelihood_computation" selected="True">Perform genotype likelihood computation</option>
+                <option value="do_not_perform_genotype_likelihood_computation">Do not perform genotype likelihood computation</option>
             </param>
             <when value="perform_genotype_likelihood_computation">
+                <conditional name="output_format">
+                    <param name="output_format_selector" type="select" label="Choose the output format">
+                        <option value="--VCF">VCF</option>
+                        <option value="--BCF">BCF</option>
+                    </param>
+                    <when value="--VCF">
+                        <param name="compressed" type="boolean" truevalue="" falsevalue="--uncompressed" checked="False" label="Compress output" />
+                    </when>
+                    <when value="--BCF">
+                        <param name="compressed" type="boolean" truevalue="" falsevalue="--uncompressed" checked="False" label="Compress output" />
+                    </when>
+                </conditional>
                 <param name="gap_extension_sequencing_error_probability" type="integer" value="20" label="Phred-scaled gap extension sequencing error probability" />
                 <param name="coefficient_for_modeling_homopolymer_errors" type="integer" value="100" label="Coefficient for modeling homopolymer errors." />
                 <conditional name="perform_indel_calling">
@@ -266,10 +262,10 @@ ${pasted_data}
         </configfile>
     </configfiles>
     <outputs>
-        <data format="vcf" name="output_mpileup" label="${tool.name} on ${on_string}">
+        <data format="pileup" name="output_mpileup" label="${tool.name} on ${on_string}">
             <change_format>
-                <when input="output_format.output_format_selector" value="--BCF" format="bcf" />
-                <when input="output_format.output_format_selector" value="pileup" format="pileup" />
+                <when input="genotype_likelihood_computation_type.output_format.output_format_selector" value="--BCF" format="bcf" />
+                <when input="genotype_likelihood_computation_type.output_format.output_format_selector" value="--VCF" format="vcf" />
             </change_format>
         </data>
         <data format="txt" name="output_log" label="${tool.name} on ${on_string} (log)" />
@@ -283,7 +279,7 @@ ${pasted_data}
             <param name="advanced_options_selector" value="basic" />
             <param name="base_position_on_reads" value="true" />
             <param name="output_mapping_quality" value="true" />
-            <param name="output_format|output_format_selector" value="pileup" />
+            <param name="genotype_likelihood_computation_type|output_format|output_format_selector" value="pileup" />
             <output name="output_mpileup" file="samtools_mpileup_out_1.pileup" /> 
             <output name="output_log" file="samtools_mpileup_out_1.log" />
         </test>
@@ -299,8 +295,8 @@ ${pasted_data}
             <param name="gap_open_sequencing_error_probability" value="40" />
             <param name="platform_list_repeat" value="0" />
             <param name="advanced_options_selector" value="basic" />
-            <param name="output_format|output_format_selector" value="+--VCF" />
-            <output name="output_mpileup" ftype="vcf" file="samtools_mpileup_out_2.vcf" lines_diff="6" /> 
+            <param name="genotype_likelihood_computation_type|output_format|output_format_selector" value="+--VCF" />
+            <output name="output_mpileup" ftype="vcf" file="samtools_mpileup_out_2.vcf" lines_diff="8" /> 
             <output name="output_log" file="samtools_mpileup_out_2.log" />
         </test>
         <test>
@@ -314,7 +310,7 @@ ${pasted_data}
             <param name="gap_open_sequencing_error_probability" value="40" />
             <param name="platform_list_repeat" value="0" />
             <param name="advanced_options_selector" value="basic" />
-            <output name="output_mpileup" ftype="vcf" file="samtools_mpileup_out_2.vcf" lines_diff="6" /> 
+            <output name="output_mpileup" ftype="vcf" file="samtools_mpileup_out_2.vcf" lines_diff="8" /> 
             <output name="output_log" file="samtools_mpileup_out_3.log" />
         </test>
         <test>
@@ -335,7 +331,7 @@ ${pasted_data}
             <param name="advanced_options|extended_BAQ_computation" value="true" />
             <param name="advanced_options|minimum_mapping_quality" value="0" />
             <param name="advanced_options|minimum_base_quality" value="43" />
-            <param name="output_format|output_format_selector" value="+--VCF" />
+            <param name="genotype_likelihood_computation_type|output_format|output_format_selector" value="+--VCF" />
             <output name="output_mpileup" ftype="vcf" file="samtools_mpileup_out_4.vcf" lines_diff="6" /> 
             <output name="output_log" file="samtools_mpileup_out_4.log" />
         </test>
