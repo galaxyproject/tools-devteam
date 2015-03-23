@@ -3,31 +3,31 @@
   <token name="@set_rg_string@">
       #set $rg_string = "@RG\tID:" + str($rg.ID) + "\tSM:" + str($rg.SM) + "\tPL:" + str($rg.PL)
       #if $rg.LB
-        #set $rg_string += "\tLB:$rg.LB"
+        #set $rg_string += "\tLB:" + str($rg.LB)
       #end if
       #if $rg.CN
-        #set $rg_string += "\tCN:$rg.CN"
+        #set $rg_string += "\tCN:" + str($rg.CN)
       #end if
       #if $rg.DS
-        #set $rg_string += "\tDS:$rg.DS"
+        #set $rg_string += "\tDS:" + str($rg.DS)
       #end if
       #if $rg.DT
-        #set $rg_string += "\tDT:$rg.DT"
+        #set $rg_string += "\tDT:" + str($rg.DT)
       #end if
       #if $rg.FO
-        #set $rg_string += "\tFO:$rg.FO"
+        #set $rg_string += "\tFO:" + str($rg.FO)
       #end if
       #if $rg.KS
-        #set $rg_string += "\tKS:$rg.KS"
+        #set $rg_string += "\tKS:" + str($rg.KS)
       #end if
       #if $rg.PG
-        #set $rg_string += "\tPG:$rg.PG"
+        #set $rg_string += "\tPG:" + str($rg.PG)
       #end if
       #if str($rg.PI)
-        #set $rg_string += "\tPI:$rg.PI"
+        #set $rg_string += "\tPI:" + str($rg.PI)
       #end if
       #if $rg.PU
-        #set $rg_string += "\tPU:$rg.PU"
+        #set $rg_string += "\tPU:" + str($rg.PU)
       #end if
   </token>
     
@@ -38,7 +38,7 @@
 
 **Read Groups are Important!**
 
-One of the recommended best practices in NGS analysis is adding read group information to BAM files. You can do thid directly in BWA interface using the
+One of the recommended best practices in NGS analysis is adding read group information to BAM files. You can do this directly in BWA interface using the
 **Specify read group information?** widget. If you are not familiar with read groups you shold know that this is effectively a way to tag reads with an additional ID.
 This allows you to combine BAM files from, for example, multiple BWA runs into a single dataset. This significantly simplifies downstream processing as
 instead of dealing with multiple datasets you only have to handle only one. This is possible because the read group information allows you to identify
@@ -104,13 +104,13 @@ To obtain more information about BWA and ask questions use these resources:
 
 **Dataset collections - processing large numbers of datasets at once**
 
-This will be added shortly
+Dataset collections are in beta-testing. Extensive documentation will be added later this Spring.
 
 
   </token>
   <xml name="readgroup_params">
     <conditional name="rg">
-      <param name="rg_selector" type="select" label="Set read groups information?" help="-R; Specifying read group information can greatly simplify your downstream analyses by allowing combining multiple datasets. See help below for more details">
+      <param name="rg_selector" type="select" label="Set read groups information?" help="(-R in bwa mem; -r in bwa aln); Specifying read group information can greatly simplify your downstream analyses by allowing combining multiple datasets. See help below for more details">
         <option value="set">Set</option>
         <option value="do_not_set" selected="True">Do not set</option>
       </param>
@@ -122,7 +122,7 @@ This will be added shortly
         <param name="PL" type="select" label="Platform/technology used to produce the reads (PL)">
           <option value="CAPILLARY">CAPILLARY</option>
           <option value="LS454">LS454</option>
-          <option value="ILLUMINA">ILLUMINA</option>
+          <option selected="True" value="ILLUMINA">ILLUMINA</option>
           <option value="SOLID">SOLID</option>
           <option value="HELICOS">HELICOS</option>
           <option value="IONTORRENT">IONTORRENT</option>

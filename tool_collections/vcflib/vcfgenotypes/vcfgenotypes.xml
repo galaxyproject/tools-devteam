@@ -1,4 +1,4 @@
-<tool id="vcfgenotypes" name="VCFgenotypes:" version="0.0.2">
+<tool id="vcfgenotypes" name="VCFgenotypes:" version="0.0.3">
   <description>Convert numerical representation of genotypes to allelic</description>
   <macros>
     <import>macros.xml</import>

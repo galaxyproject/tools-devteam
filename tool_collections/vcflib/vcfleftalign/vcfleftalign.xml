@@ -1,4 +1,4 @@
-<tool id="vcfleftalign" name="VCFleftAlign:" version="0.0.2">
+<tool id="vcfleftalign" name="VCFleftAlign:" version="0.0.3">
   <description>Left-align indels and complex variants in VCF dataset</description>
   <macros>
     <import>macros.xml</import>

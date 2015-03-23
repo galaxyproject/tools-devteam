@@ -1,4 +1,4 @@
-<tool id="vcfvcfintersect" name="VCF-VCFintersect:" version="0.0.2">
+<tool id="vcfvcfintersect" name="VCF-VCFintersect:" version="0.0.3">
   <description>Intersect two VCF datasets</description>
   <macros>
     <import>macros.xml</import>

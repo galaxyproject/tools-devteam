@@ -1,4 +1,4 @@
-<tool id="vcfcombine" name="VCFcombine:" version="0.0.2">
+<tool id="vcfcombine" name="VCFcombine:" version="0.0.3">
   <description>Combine multiple VCF datasets</description>
   <macros>
     <import>macros.xml</import>

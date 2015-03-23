@@ -1,4 +1,4 @@
-<tool id="vcffixup" name="VCFfixup:" version="0.0.2">
+<tool id="vcffixup" name="VCFfixup:" version="0.0.3">
   <description>Count the allele frequencies across alleles present in each record in the VCF file</description>
   <macros>
     <import>macros.xml</import>

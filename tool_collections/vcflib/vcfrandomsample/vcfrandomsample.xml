@@ -1,4 +1,4 @@
-<tool id="vcfrandomsample" name="VCFrandomSample:" version="0.0.2">
+<tool id="vcfrandomsample" name="VCFrandomSample:" version="0.0.3">
   <description>Randomly sample sites from VCF dataset</description>
   <macros>
     <import>macros.xml</import>
