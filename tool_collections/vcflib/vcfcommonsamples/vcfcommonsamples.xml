@@ -1,5 +1,5 @@
 <tool id="vcfcommonsamples" name="VCFcommonSamples:" version="0.0.3">
-  <description>Output records belonging to samples commong between two datasets</description>
+  <description>Output records belonging to samples common between two datasets</description>
   <macros>
     <import>macros.xml</import>
   </macros>
