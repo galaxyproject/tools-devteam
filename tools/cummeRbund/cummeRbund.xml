@@ -350,7 +350,9 @@
     </tests>
     <help><![CDATA[
 This tool allows for persistent storage, access, exploration, and manipulation of Cufflinks high-throughput sequencing data. In addition, provides numerous plotting functions for commonly used visualizations.
+
 ------
+
 Based on the `cummeRbund wrapper <http://toolshed.bx.psu.edu/view/jjohnson/cummerbund>`_ written by James E. Johnson of the Minnesota Supercomputing Institute.
     ]]></help>
     <citations>
