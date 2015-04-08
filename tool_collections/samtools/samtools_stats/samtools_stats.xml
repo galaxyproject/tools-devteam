@@ -1,8 +1,9 @@
-<tool id="samtools_stats" name="Generate statistics" version="1.0.1">
-    <description>for a BAM or SAM file</description>
+<tool id="samtools_stats" name="Stats" version="1.0.1">
+    <description>generate statistics for BAM dataset</description>
     <macros>
     <import>macros.xml</import>
   </macros>
+    <code file="samtools_stats_options.py"/>
     <expand macro="requirements"></expand>
     <expand macro="version_command"></expand>
     <expand macro="stdio"></expand>
@@ -29,6 +30,14 @@
         #end if
         --GC-depth ${gc_depth}
         --insert-size ${insert_size}
+
+        ## The code below is commented out because using -I/--id options causes the following exception
+        ## Samtools-htslib: init_group_id() header parsing not yet implemented
+
+        ##if str($read_group) != "":
+        ##    -I "${read_group}"
+        ##end if
+
         #if str($read_length) != "0":
             --read-length "${read_length}"
         #end if
@@ -153,7 +162,11 @@
         </conditional>
         <param name="gc_depth" type="float" value="2000" label="GC-depth bin size" />
         <param name="insert_size" type="integer" value="8000" label="Maximum insert size" />
-        <param name="read_group" type="text" optional="true" label="Limit to a specific read group name" />
+
+        <!-- The block below commented because -I option does not yet work in samtools (see command section above) -->
+
+        <!-- param name="read_group" type="select" optional="true" label="Limit to a specific read group name" dynamic_options="get_rg( input_file ) -->
+
         <param name="read_length" type="integer" value="0" optional="true" label="Minimum read length to generate statistics for" />
         <param name="most_inserts" type="float" value="0.99" label="Report only the main part of inserts" />
         <param name="trim_quality" type="integer" value="0" label="BWA trim parameter" />

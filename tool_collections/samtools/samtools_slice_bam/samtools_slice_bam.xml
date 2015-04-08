@@ -94,7 +94,7 @@
 
 Allow to restrict input BAM dataset to a list of intervals defined in a BED file, individual chromosomes, and coordinates. BED datasets can be obtained from **Get Data -> UCSC Main**.
 
-This tool is based on *samtools view* command. 
+This tool is based on ``samtools view`` command. 
 
 ]]>
   </help>

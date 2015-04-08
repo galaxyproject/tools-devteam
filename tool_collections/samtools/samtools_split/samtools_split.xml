@@ -1,5 +1,5 @@
 <tool id="samtools_split" name="Split" version="1.0.1">
-    <description>a BAM file by read group</description>
+    <description>BAM dataset on readgroups</description>
     <macros>
         <import>macros.xml</import>
     </macros>
@@ -16,7 +16,7 @@
         "${input_bam}"
         ]]></command>
     <inputs>
-        <param name="input_bam" type="data" format="bam" label="BAM file" multiple="true" />
+        <param name="input_bam" type="data" format="bam" label="BAM file" />
         <param name="header" type="data" format="bam,sam" label="Replace header in output file" optional="True" />
      </inputs>
     <outputs>
@@ -37,9 +37,11 @@
     <help>
 **What it does**
 
-This tool runs the ``samtools split`` command in the SAMtools toolkit.
+Splits BAM files on readgroups.
 
-Split BAM files by read group.
+This tool is based on ``samtools split`` command.
+
+
 
     </help>
     <expand macro="citations"></expand>

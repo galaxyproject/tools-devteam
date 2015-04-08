@@ -1,9 +1,9 @@
-<tool id="samtools_sort" name="sort" version="1.0.4">
+<tool id="samtools_sort" name="Sort" version="1.0.4">
     <macros>
     <import>macros.xml</import>
   </macros>
   <expand macro="requirements"></expand>
-    <description>a BAM file</description>
+    <description>BAM dataset</description>
     <expand macro="version_command"></expand>
     <expand macro="stdio"></expand>
     <command>samtools sort $sort_mode "${input1}" -o "${output1}" -O bam -T dataset</command>
@@ -27,9 +27,8 @@
 
 **What it does**
 
-This tool uses the SAMTools_ toolkit to sort alignments by leftmost coordinates or read names.
+This tool uses ``samtools sort`` command to sort BAM datasets in coordinate or read name order.
 
-.. _SAMTools: http://samtools.sourceforge.net/samtools.shtml
 
     </help>
     <expand macro="citations"></expand>
