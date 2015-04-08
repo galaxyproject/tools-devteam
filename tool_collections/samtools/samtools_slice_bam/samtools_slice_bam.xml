@@ -1,8 +1,9 @@
-<tool id="samtools_slice_bam" name="Slice BAM" version="0.0.3">
-  <description>by provided regions</description>
+<tool id="samtools_slice_bam" name="Slice" version="0.0.4">
+  <description>BAM by genomic regions</description>
   <macros>
     <import>macros.xml</import>
   </macros>
+  <code file="samtools_slice_options.py"/>
   <expand macro="requirements"></expand>
   <expand macro="version_command"></expand>
   <expand macro="stdio"></expand>
@@ -10,22 +11,80 @@
 <![CDATA[
     ln -s "${input_bam}" temp_input.bam &&
     ln -s "${input_bam.metadata.bam_index}" temp_input.bam.bai &&
-    samtools view -@ \${GALAXY_SLOTS:-1} -b -L "${input_interval}" temp_input.bam -o unsorted_output.bam && 
-    samtools sort unsorted_output.bam -O bam -T sorted -@ \${GALAXY_SLOTS:-1} -o "${output_bam}"
+
+    #if str($slice_method.slice_method_selector) == "bed":
+    
+        samtools view -@ \${GALAXY_SLOTS:-1} -b -L "${input_interval}" -o unsorted_output.bam temp_input.bam && 
+
+    #elif str($slice_method.slice_method_selector) == "chr":
+
+        samtools view -@ \${GALAXY_SLOTS:-1} -b -o unsorted_output.bam temp_input.bam 
+        ${ ' '.join( map( lambda x:'"%s"' % ( x ), str( $slice_method.refs ).split(",") ) ) } &&
+
+    #elif str($slice_method.slice_method_selector) == "man":
+
+        samtools view -@ \${GALAXY_SLOTS:-1} -b -o unsorted_output.bam temp_input.bam 
+
+        #for $region in $slice_method.regions:
+            "${region.chrom}:${region.start}-${region.end}"
+        #end for
+
+        &&
+
+    #end if
+
+    samtools sort -O bam -T sorted -@ \${GALAXY_SLOTS:-1} -o "${output_bam}" unsorted_output.bam
 ]]>
     </command>
     <inputs>
-        <param format="bam" label="BAM file" name="input_bam" type="data" />
-        <param format="bed" label="BED file" name="input_interval" type="data" />
+        <param name="input_bam" format="bam" label="Select BAM dataset to slice" type="data" />
+        <conditional name="slice_method">
+            <param name="slice_method_selector" type="select" label="How do you want to slice your dataset?">
+                <option value="bed">using a list of intervals from a BED dataset</option>
+                <option value="chr">by chromosomes/contigs present in the BAM dataset</option>
+                <option value="man">by chromosomes/contigs and coordinates</option>
+            </param>
+            <when value="bed">
+                <param format="bed" label="BED file" name="input_interval" type="data" help="BED datasets can be obtained using &quot;Get Data -> UCSC Main&quot; datasource."/>
+            </when>
+            <when value="chr">
+                <param name="refs" type="select" optional="False" multiple="True" label="Select references you would like to restrict bam to" dynamic_options="get_references( input_bam )" help="Click and type in the box above to see options. You can select multiple entries. Numbers show the length of chromosome/contig in bp."/>
+            </when>
+            <when value="man">
+                <repeat name="regions" title="Regions" min="1">
+                    <param name="chrom" type="select" optional="False" label="Select references you would like to restrict bam to" dynamic_options="get_references( input_bam )" help="Select chromosome/contig from the list. Numbers show the length of chromosome/contig in bp."/>
+                    <param name="start" type="integer" min="1" value="0" label="Enter START coordinate (1-based)"/>
+                    <param name="end" type="integer" min="1" value="100" label="Enter END coordinate"/>
+                </repeat>
+
+
+            </when>
+        </conditional>
+
     </inputs>
     <outputs>
         <data format="bam" name="output_bam" />
     </outputs>
     <tests>
         <test>
-            <param ftype="bam" name="input_bam" value="gatk/fake_phiX_reads_1.bam" />
-            <param ftype="bed" name="input_interval" value="gatk/fake_phiX_variant_locations.bed" />
-            <output file="gatk/fake_phiX_reads_1.bam" ftype="bam" name="output_bam" />
+            <param ftype="bam" name="input_bam" value="bam-slice-input.bam" />
+            <param name="slice_method_selector" value="bed"/>
+            <param ftype="bed" name="input_interval" value="bam-slice.bed" />
+            <output file="bam-slice-test1.bam" ftype="bam" name="output_bam" />
+        </test>
+        <test>
+            <param ftype="bam" name="input_bam" value="bam-slice-input.bam" />
+            <param name="slice_method_selector" value="chr"/>
+            <param name="refs" value="chrM" />
+            <output file="bam-slice-test2.bam" ftype="bam" name="output_bam" />
+        </test>
+        <test>
+            <param ftype="bam" name="input_bam" value="bam-slice-input.bam" />
+            <param name="slice_method_selector" value="man"/>
+            <param name="chrom" value="chrM" />
+            <param name="start" value="1" />
+            <param name="end" value="1000" />
+            <output file="bam-slice-test3.bam" ftype="bam" name="output_bam" />
         </test>
     </tests>
     <help>
@@ -33,7 +92,10 @@
 
 **What it does**
 
- Accepts an input BAM file and an input BED file and creates an output BAM file containing only those alignments that overlap the provided BED intervals.
+Allow to restrict input BAM dataset to a list of intervals defined in a BED file, individual chromosomes, and coordinates. BED datasets can be obtained from **Get Data -> UCSC Main**.
+
+This tool is based on *samtools view* command. 
+
 ]]>
   </help>
     <expand macro="citations"></expand>
