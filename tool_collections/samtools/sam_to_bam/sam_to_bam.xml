@@ -79,7 +79,7 @@
 <![CDATA[
 **What it does**
 
-Converts SAM dataset into its binary, BAM, representation using **samtools sort** and **view** commands::
+Converts SAM dataset into its binary, BAM, representation using ``samtools sort`` and ``view`` commands::
 
   samtools sort -O bam -o sorted_input.bam [INPUT SAM] 
   samtools view -b -h -o -T [REFERENCE GENOME] [OUTPUT BAM] sorted_input.bam

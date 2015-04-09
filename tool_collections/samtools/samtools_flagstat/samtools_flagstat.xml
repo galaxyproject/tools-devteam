@@ -24,7 +24,7 @@
 
 **What it does**
 
-Uses **samtools flagstat** command to print descriptive information for a BAM dataset. Here is an example of such information::
+Uses ``samtools flagstat`` command to print descriptive information for a BAM dataset. Here is an example of such information::
 
   200 + 0 in total (QC-passed reads + QC-failed reads)  
   0 + 0 secondary

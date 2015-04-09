@@ -39,9 +39,7 @@
 
 Splits BAM files on readgroups.
 
-This tool is based on ``samtools split`` command.
-
-
+This tool is based on ``samtools split`` command. It will generate multiple output datasets for each redagroup from the input dataset. 
 
     </help>
     <expand macro="citations"></expand>

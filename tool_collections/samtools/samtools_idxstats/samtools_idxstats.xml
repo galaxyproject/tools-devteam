@@ -32,7 +32,7 @@ fi]]>
 <![CDATA[
 **What it does**
 
-Runs the **samtools idxstats** command. It retrieves and prints stats in the index file.
+Runs the ``samtools idxstats`` command. It retrieves and prints stats in the index file.
 
 Input is a sorted and indexed BAM file, the output is tabular with
 four columns (one row per reference sequence plus a final line for

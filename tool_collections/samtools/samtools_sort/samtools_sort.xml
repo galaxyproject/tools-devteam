@@ -6,12 +6,12 @@
     <description>BAM dataset</description>
     <expand macro="version_command"></expand>
     <expand macro="stdio"></expand>
-    <command>samtools sort $sort_mode "${input1}" -o "${output1}" -O bam -T dataset</command>
+    <command>samtools sort $sort_mode "${input1}" -@ \${GALAXY_SLOTS:-1} -o "${output1}" -O bam -T dataset</command>
     <inputs>
         <param name="input1" type="data" format="bam" label="BAM File" />
         <param name="sort_mode" type="select" label="Sort by ">
             <option value="" selected="True">Chromosomal coordinates</option>
-            <option value="-n">Read names</option>
+            <option value="-n">Read names (-n)</option>
         </param>
     </inputs>
     <outputs>

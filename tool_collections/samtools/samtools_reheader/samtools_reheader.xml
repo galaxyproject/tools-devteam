@@ -24,7 +24,7 @@
     <help>
 **What it does**
 
-Copies header from *source* dataset into *target* dataset using **samtools reheader** command.
+Copies header from *source* dataset into *target* dataset using ``samtools reheader`` command.
 
     </help>
     <expand macro="citations"></expand>

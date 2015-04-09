@@ -47,7 +47,7 @@
     <help>
 **What it does**
 
-Calculates read depth for regions listed in a BED dataset using **samtools bedcov** command::
+Calculates read depth for regions listed in a BED dataset using ``samtools bedcov`` command::
 
  samtools bedcov [INPUT BED] [INPUT BAM1] ... [INPUT BAMn] > [OUTPUT]
 

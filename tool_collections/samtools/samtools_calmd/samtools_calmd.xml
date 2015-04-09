@@ -94,7 +94,7 @@
     <help>
 **What it does**
 
-Generates the MD tag using **samtools calmd** command. If the MD tag (see SAM format refernce below for explanation of SAM/BAM tags) is already present, this command will give a warning if the MD tag generated is different from the existing tag. Outputs a BAM file. The command has the following options::
+Generates the MD tag using ``samtools calmd`` command. If the MD tag (see SAM format refernce below for explanation of SAM/BAM tags) is already present, this command will give a warning if the MD tag generated is different from the existing tag. Outputs a BAM file. The command has the following options::
 
   -e       change identical bases to '='
   -A       modify the quality string
