@@ -3,7 +3,7 @@
     <package name="picard" version="1.126.0">
         <install version="1.0">
             <actions_group>
-                <actions architecture="x86_64" os="linux">
+                <actions>
                     <action type="download_by_url">https://github.com/broadinstitute/picard/releases/download/1.126/picard-tools-1.126.zip</action>
                     <action type="move_directory_files">
                         <source_directory>.</source_directory>
