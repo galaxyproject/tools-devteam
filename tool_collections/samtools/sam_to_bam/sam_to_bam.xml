@@ -1,4 +1,4 @@
-<tool id="sam_to_bam" name="SAM-to-BAM" version="1.1.7">
+<tool id="sam_to_bam" name="SAM-to-BAM" version="1.1">
   <description>convert SAM to BAM</description>
   <macros>
     <import>macros.xml</import>
@@ -67,12 +67,6 @@
             <param name="input1" ftype="sam" value="sam_to_bam_in1.sam" />
             <param dbkey="equCab2" ftype="fasta" name="ref_file" value="chr_m.fasta" />
             <output file="sam_to_bam_out1.bam" ftype="bam" name="output1" />
-        </test>
-        <test>
-            <param name="index_source" value="cached" />
-            <param name="input1" ftype="sam" dbkey="chr_m" value="sam_to_bam_in1.sam" />
-            <param name="index" value="chrM" />
-            <output file="sam_to_bam_out2.bam" ftype="bam" name="output1" />
         </test>
     </tests>
     <help>

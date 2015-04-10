@@ -1,4 +1,4 @@
-<tool id="samtools_calmd" name="CalMD" version="1.0.2">
+<tool id="samtools_calmd" name="CalMD" version="1.1">
   <description>recalculate MD/NM tags</description>
   <macros>
     <import>macros.xml</import>
@@ -63,14 +63,6 @@
             <param name="ref_fasta" value="phiX.fasta" />
             <output name="calmd_output" file="samtools_calmd_out_1.bam" ftype="bam" />
         </test>
-        <!-- Using the test-data-repo's phiX.fa should produce the same output. -->
-        <!--<test>
-            <param name="option_sets" value="default" /> 
-            <param name="input_bam" value="phiX.bam" dbkey="phiX" />
-            <param name="reference_source_selector" value="cached" />
-            <param name="ref_fasta" value="phiX" />
-            <output name="calmd_output" file="samtools_calmd_out_1.bam" ftype="bam" />
-        </test>-->
         <test>
             <param name="option_sets" value="advanced" /> 
             <param name="change_identical" value="true" />
@@ -80,16 +72,6 @@
             <param name="ref_fasta" value="phiX.fasta" />
             <output name="calmd_output" file="samtools_calmd_out_2.bam" ftype="bam" />
         </test>
-        <!-- Using the test-data-repo's phiX.fa should, as before, produce the same output. -->
-        <!-- <test>
-            <param name="option_sets" value="advanced" /> 
-            <param name="change_identical" value="true" />
-            <param name="extended_baq" value="true" />
-            <param name="input_bam" value="phiX.bam" dbkey="phiX" />
-            <param name="reference_source|reference_source_selector" value="cached" />
-            <param name="ref_fasta" value="phiX" />
-            <output name="calmd_output" file="samtools_calmd_out_2.bam" ftype="bam" />
-        </test> -->
     </tests>
     <help>
 **What it does**

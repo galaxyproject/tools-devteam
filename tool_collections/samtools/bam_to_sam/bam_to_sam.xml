@@ -1,4 +1,4 @@
-<tool id="bam_to_sam" name="BAM-to-SAM" version="1.0.7">
+<tool id="bam_to_sam" name="BAM-to-SAM" version="1.1">
   <macros>
     <import>macros.xml</import>
   </macros>
