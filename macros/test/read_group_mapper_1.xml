@@ -1,0 +1,127 @@
+<tool id="read_group_mapper_1" name="read_group_mapper_1">
+    <description>Example tool that optionally assigns read groups as part or a fictitious analysis</description>
+    <macros>
+        <import>read_group_macros.xml</import>
+    </macros>
+    <command>
+@define_read_group_helpers@
+#if $input.selection_type == "single_dataset"
+#set $rg_auto_name = $read_group_name_default($input.input1)
+#elif $input.selection_type == "two_datasets"
+#set $rg_auto_name = $read_group_name_default($input.input1, $input.input2)
+#elif $input.selection_type == "dataset_pair"
+#set $rg_auto_name = $read_group_name_default($input.input1)
+#end if
+@set_use_rg_var@
+@set_read_group_vars@
+#if $use_rg
+echo $format_read_group("ID:", $rg_id, "'")
+     $format_read_group("SM:", $rg_sm, "'")
+     $format_read_group("PL:", $rg_pl, "'")
+#else
+echo 'Not using read groups'
+#end if
+    </command>
+    <inputs>
+        <conditional name="input">
+            <param name="selection_type" type="select" label="Selection Type">
+                <option value="single_dataset" selected="true">single_dataset</option>
+                <option value="two_datasets">two_datasets</option>
+                <option value="dataset_pair">dataset_pair</option>
+            </param>
+            <when value="single_dataset">
+                <param name="input1" type="data" format="data" />
+            </when>
+            <when value="two_datasets">
+                <param name="input1" type="data" format="data" />
+                <param name="input2" type="data" format="data" />
+            </when>
+            <when value="dataset_pair">
+                <param name="input1" type="data_collection" collection_type="paired" format="data" />
+            </when>
+        </conditional>
+        <expand macro="read_group_conditional" />
+    </inputs>
+    <outputs>
+        <data name="out_file1" format="input" metadata_source="input1"/>
+    </outputs>
+    <tests>
+        <test>
+            <param name="input1" value="simple_line.txt" />
+            <assert_command>
+                <has_text text="echo 'Not using read groups'" />
+            </assert_command>
+        </test>
+        <test>
+            <param name="input1" value="simple_line.txt" />
+            <conditional name="rg">
+                <param name="rg_selector" value="set" />
+                <conditional name="read_group_id_conditional">
+                    <param name="ID" value="the_id" />
+                </conditional>
+                <param name="PL" value="PACBIO" />
+            </conditional>
+            <assert_command>
+                <has_text text="echo 'ID:the_id'" />
+                <has_text text="'PL:PACBIO'" />
+            </assert_command>
+        </test>
+        <test>
+            <param name="input1" value="simple_line.txt" />
+            <conditional name="rg">
+                <param name="rg_selector" value="set" />
+                <conditional name="read_group_id_conditional">
+                    <param name="do_auto_name" value="true" />
+                </conditional>
+                <param name="PL" value="PACBIO" />
+            </conditional>
+            <assert_command>
+                <has_text text="echo 'ID:simple_line.txt'" />
+                <has_text text="'PL:PACBIO'" />
+            </assert_command>
+        </test>
+        <test>
+            <param name="selection_type" value="two_datasets" />
+            <param name="input1" value="simple_line.txt" />
+            <param name="input2" value="simple_line_x2.txt" />
+            <conditional name="rg">
+                <param name="rg_selector" value="set" />
+                <conditional name="read_group_id_conditional">
+                    <param name="do_auto_name" value="true" />
+                </conditional>
+                <param name="PL" value="PACBIO" />
+            </conditional>
+            <assert_command>
+                <has_text text="echo 'ID:simple_line'" />
+                <has_text text="'PL:PACBIO'" />
+            </assert_command>
+        </test>
+        <test>
+            <param name="selection_type" value="two_datasets" />
+            <param name="input1" value="simple_line.txt" />
+            <param name="input2" value="simple_line_x2.txt" />
+            <conditional name="rg">
+                <param name="rg_selector" value="set_picard" />
+                <conditional name="read_group_id_conditional">
+                    <param name="do_auto_name" value="true" />
+                </conditional>
+                <param name="PL" value="PACBIO" />
+            </conditional>
+            <assert_command>
+                <has_text text="echo 'ID:simple_line'" />
+                <has_text text="'PL:PACBIO'" />
+            </assert_command>
+        </test>
+        <test>
+            <param name="selection_type" value="two_datasets" />
+            <param name="input1" value="simple_line.txt" />
+            <param name="input2" value="simple_line_x2.txt" />
+            <conditional name="rg">
+                <param name="rg_selector" value="set_id_auto" />
+            </conditional>
+            <assert_command>
+                <has_text text="echo 'ID:simple_line'" />
+            </assert_command>
+        </test>
+    </tests>
+</tool>

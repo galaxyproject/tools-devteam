@@ -1,4 +1,4 @@
-<tool name="AddOrReplaceReadGroups" id="picard_AddOrReplaceReadGroups" version="1.126.0">
+<tool name="AddOrReplaceReadGroups" id="picard_AddOrReplaceReadGroups" version="1.126.0-gx-1">
   <description>add or replaces read group information</description>
   <requirements>
     <requirement type="package" version="1.126.0">picard</requirement>
@@ -6,35 +6,25 @@
   
   <macros>
     <import>picard_macros.xml</import>
+    <import>read_group_macros.xml</import>
   </macros>
   
   <command>
+    @define_read_group_helpers@
+    #set $rg_auto_name = $read_group_name_default($inputFile)
+    @set_read_group_vars@
     @java_options@
     java -jar \$JAVA_JAR_PATH/picard.jar
       AddOrReplaceReadGroups
       INPUT="${inputFile}"
-      RGLB="${rglb}"
-      RGPL="${rgpl}"
-      RGPU="${rgpu}"
-      RGSM="${rgsm}"
-      RGID="${rgid}"
-      
-      #if str( $rgcn):
-        RGCN="${rgcn}"
-      #end if
-      
-      #if str( $rgds):
-        RGDS="${rgds}"
-      #end if
-      
-      #if str( $rgpi):
-        RGPI="${rgpi}"
-      #end if
-
-      #if str( $rgdt):
-        RGDT="${rgdt}"
-      #end if
-      
+      $format_read_group("RGLB=", $rg_lb, '"')
+      $format_read_group("RGPL=", $rg_pl, '"')
+      $format_read_group("RGPU=", $rg_pu, '"')
+      $format_read_group("RGSM=", $rg_sm, '"')
+      $format_read_group("RGID=", $rg_id, '"')
+      $format_read_group("RGDS=", $rg_ds, '"')
+      $format_read_group("RGPI=", $rg_pi, '"')
+      $format_read_group("RGDT=", $rg_dt, '"')
       VALIDATION_STRINGENCY="${validation_stringency}"
       QUIET=true
       VERBOSITY=ERROR
@@ -44,17 +34,7 @@
   
   <inputs>
     <param format="bam,sam" name="inputFile" type="data" label="Select SAM/BAM dataset or dataset collection" help="If empty, upload or import a SAM/BAM dataset" />
-    <param name="rgid" value="A" type="text" label="Read Group ID" help="RGID; Required" />
-    <param name="rgsm" value="sample-a" type="text" label="Read Group Sample name" help="RGSM; Required" />
-    <param name="rglb" value="tumor-a" type="text" label="Read Group library" help="RGLB; Required" />
-    <param name="rgpl" value="Illumina" type="text" label="Read Group Platform" help="RGPL; Required; e.g., Illumina, 454, IonTorrent, etc" />
-    <param name="rgpu" value="run-1" type="text" label="Read Group Platform Unit" help="RGPU; Required; e.g., run, barcode, etc" />
-    <!-- optional params -->
-    <param name="rgcn" value="" optional="True" type="text" label="Read Group sequencing center name" help="RGCN; Optional" />
-    <param name="rgds" value="" optional="True" type="text" label="Read Group description" help="RGDS; Optional" />
-    <param name="rgpi" value="" optional="True" type="integer" label="Read Group predicted insert size" help="RGPI; Optional" />
-    <param name="rgdt" value="" optional="True" type="text" label="Read Group run date" help="RGDT; Optional; Format=YYYY-MM-DD (eg 1997-07-16)"/>
-    
+    <expand macro="read_group_inputs_picard" />
     <expand macro="VS" />
     
   </inputs>
@@ -70,11 +50,11 @@
   <tests>
     <test>
       <param name="inputFile" value="picard_ARRG.bam" />
-      <param name="rglb" value="tumor-a" />
-      <param name="rgpl" value="Illumina" />
-      <param name="rgpu" value="run-1" />
-      <param name="rgsm" value="sample-a" />
-      <param name="rgid" value="id-1" />
+      <param name="LB" value="tumor-a" />
+      <param name="PL" value="ILLUMINA" />
+      <param name="PU" value="run-1" />
+      <param name="SM" value="sample-a" />
+      <param name="ID" value="id-1" />
       <output name="outFile" file="picard_ARRG_test1.bam" ftype="bam" />
     </test>
   </tests>
@@ -133,6 +113,7 @@ Add or Replace Read Groups in an input BAM or SAM file.
 @more_info@
   </help>
 </tool>
+
 
 
 

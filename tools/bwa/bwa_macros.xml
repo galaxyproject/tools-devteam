@@ -1,34 +1,18 @@
 <macros>
-
+  <import>read_group_macros.xml</import>
   <token name="@set_rg_string@">
-      #set $rg_string = "@RG\tID:" + str($rg.ID) + "\tSM:" + str($rg.SM) + "\tPL:" + str($rg.PL)
-      #if $rg.LB
-        #set $rg_string += "\tLB:" + str($rg.LB)
-      #end if
-      #if $rg.CN
-        #set $rg_string += "\tCN:" + str($rg.CN)
-      #end if
-      #if $rg.DS
-        #set $rg_string += "\tDS:" + str($rg.DS)
-      #end if
-      #if $rg.DT
-        #set $rg_string += "\tDT:" + str($rg.DT)
-      #end if
-      #if $rg.FO
-        #set $rg_string += "\tFO:" + str($rg.FO)
-      #end if
-      #if $rg.KS
-        #set $rg_string += "\tKS:" + str($rg.KS)
-      #end if
-      #if $rg.PG
-        #set $rg_string += "\tPG:" + str($rg.PG)
-      #end if
-      #if str($rg.PI)
-        #set $rg_string += "\tPI:" + str($rg.PI)
-      #end if
-      #if $rg.PU
-        #set $rg_string += "\tPU:" + str($rg.PU)
-      #end if
+      #set $rg_string = "@RG\tID:" + str($rg_id)
+      #set $rg_string += $format_read_group("\tSM:", $rg_sm)
+      #set $rg_string += $format_read_group("\tPL:", $rg_pl)
+      #set $rg_string += $format_read_group("\tLB:", $rg_lb)
+      #set $rg_string += $format_read_group("\tCN:", $rg_cn)
+      #set $rg_string += $format_read_group("\tDS:", $rg_ds)
+      #set $rg_string += $format_read_group("\tDT:", $rg_dt)
+      #set $rg_string += $format_read_group("\tFO:", $rg_fo)
+      #set $rg_string += $format_read_group("\tKS:", $rg_ks)
+      #set $rg_string += $format_read_group("\tPG:", $rg_pg)
+      #set $rg_string += $format_read_group("\tPI:", $rg_pi)
+      #set $rg_string += $format_read_group("\tPU:", $rg_pu)
   </token>
     
   <token name="@RG@">
@@ -108,42 +92,5 @@ Dataset collections are in beta-testing. Extensive documentation will be added l
 
 
   </token>
-  <xml name="readgroup_params">
-    <conditional name="rg">
-      <param name="rg_selector" type="select" label="Set read groups information?" help="(-R in bwa mem; -r in bwa aln); Specifying read group information can greatly simplify your downstream analyses by allowing combining multiple datasets. See help below for more details">
-        <option value="set">Set</option>
-        <option value="do_not_set" selected="True">Do not set</option>
-      </param>
-      <when value="set">
-        <param name="ID" type="text" value="" size="20" label="Read group identifier (ID)" help="This value must be unique among multiple samples in your experiment">
-          <validator type="empty_field" />
-        </param>
-        <param name="SM" type="text" value="" size="20" label="Read group sample name (SM)" help="This value should be descriptive. Use pool name where a pool is being sequenced" />
-        <param name="PL" type="select" label="Platform/technology used to produce the reads (PL)">
-          <option value="CAPILLARY">CAPILLARY</option>
-          <option value="LS454">LS454</option>
-          <option selected="True" value="ILLUMINA">ILLUMINA</option>
-          <option value="SOLID">SOLID</option>
-          <option value="HELICOS">HELICOS</option>
-          <option value="IONTORRENT">IONTORRENT</option>
-          <option value="PACBIO">PACBIO</option>
-        </param>
-        <param name="LB" type="text" size="25" label="Library name (LB)" />
-        <param name="CN" type="text" size="25" label="Sequencing center that produced the read (CN)" />
-        <param name="DS" type="text" size="25" label="Description (DS)" />
-        <param name="DT" type="text" size="25" label="Date that run was produced (DT)" help="ISO8601 format date or date/time, like YYYY-MM-DD" />
-        <param name="FO" type="text" size="25" optional="true" label="Flow order (FO)" help="The array of nucleotide bases that correspond to the nucleotides used for each flow of each read. Multi-base flows are encoded in IUPAC format, and non-nucleotide flows by various other characters. Format: /\*|[ACMGRSVTWYHKDBN]+/">
-          <validator type="regex" message="Invalid flow order">\*|[ACMGRSVTWYHKDBN]+$</validator>
-        </param>
-        <param name="KS" type="text" size="25" label="The array of nucleotide bases that correspond to the key sequence of each read (KS)" />
-        <param name="PG" type="text" size="25" label="Programs used for processing the read group (PG)" />
-        <param name="PI" type="integer" optional="true" label="Predicted median insert size (PI)" />
-        <param name="PU" type="text" size="25" label="Platform unit (PU)" help="Unique identifier (e.g. flowcell-barcode.lane for Illumina or slide for SOLiD)" />
-      </when>
-      <when value="do_not_set">
-        <!-- do nothing -->
-      </when>
-    </conditional>
-  </xml>
 
 </macros>
