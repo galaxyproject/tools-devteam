@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<tool id="kraken_database_builder" version="1.0.0" tool_type="manage_data" name="Kraken">
+<tool id="kraken_database_builder" name="Kraken" tool_type="manage_data" version="1.0.0">
     <description>database builder</description>
     <requirements>
         <requirement type="package" version="0.10.5">kraken</requirement>
@@ -7,7 +7,7 @@
         <requirement type="set_environment">KRAKEN_SCRIPT_PATH</requirement>
     </requirements>
     <stdio>
-        <exit_code range="1:" level="fatal" description="Error" />
+        <exit_code description="Error" level="fatal" range="1:" />
     </stdio>
     <version_command>kraken -version | awk '{print $NF}'</version_command>
     <command>
@@ -26,20 +26,21 @@
     ]]>
     </command>
     <inputs>
-        <param name="database_name" type="text" label="Name for this database" />
-        <param name="libraries" type="select" multiple="True" label="Select partial library to download">
+        <param label="Name for this database" name="database_name" type="text" />
+        <param label="Select partial library to download" multiple="True" name="libraries" type="select">
             <option value="bacteria">Bacteria</option>
             <option value="plasmids">Plasmids</option>
             <option value="viruses">Viruses</option>
             <option value="human">Human</option>
         </param>
-        <repeat name="fasta_add" label="FASTA File" title="Add FASTA files to the library">
-            <param name="input_fasta" type="data" format="fasta" label="Select history item" />
-        </repeat>
-        <param name="kmer_len" type="integer" value="31" label="K-mer length in BP" />
-        <param name="minimizer_len" type="integer" value="15" label="Minimizer length" />
+        <param format="fasta" label="Select history item" multiple="True" name="input_fasta" type="data" />
+        <param label="K-mer length in BP" name="kmer_len" type="integer" value="31" />
+        <param label="Minimizer length" name="minimizer_len" type="integer" value="15" />
     </inputs>
     <outputs>
-        <data name="out_file" format="data_manager_json"/>
+        <data format="data_manager_json" name="out_file" />
     </outputs>
+    <citations>
+        <citation type="doi">10.1186/gb-2014-15-3-r46</citation>
+    </citations>
 </tool>
