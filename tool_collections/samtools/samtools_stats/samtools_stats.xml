@@ -1,12 +1,8 @@
-<tool id="samtools_stats" name="Stats" version="1.1">
+<tool id="samtools_stats" name="Stats" version="2.0">
     <description>generate statistics for BAM dataset</description>
     <macros>
     <import>macros.xml</import>
   </macros>
-    
-    <!-- the code file below should be enabled with samtools -I bug is fixed -->
-    <!--<code file="samtools_stats_options.py"/>-->
-
     <expand macro="requirements"></expand>
     <expand macro="version_command"></expand>
     <expand macro="stdio"></expand>
@@ -198,9 +194,22 @@
         <param name="gc_depth" type="float" value="20000" label="GC-depth bin size" help="--GC-depth; decreasing bin size increases memory requirement; default = 20000.0"/>
         <param name="insert_size" type="integer" value="8000" label="Maximum insert size" help="--insert-size; default = 8000"/>
 
-        <!-- The block below commented because -I option does not yet work in samtools (see command section above) -->
+        <!--
+            
+            The -I option of samtools stats returns the following message in version 1.2:
 
-        <!-- param name="read_group" type="select" optional="true" label="Limit to a specific read group name" dynamic_options="get_rg( input_file ) -->
+            Samtools-htslib: init_group_id() header parsing not yet implemented
+            Abort trap: 6
+    
+            Because of this the section below is commented out until this stats bug is fixed
+
+            <param name="read_group" type="select" optional="true" label="Limit to a specific read group name" > 
+                <options>
+                    <filter type="data_meta" ref="input_file" key="read_groups" />
+                </options>
+            </param>
+
+        -->
 
         <param name="read_length" type="integer" value="0" label="Minimum read length to generate statistics for" help="--read-length; default = no cutoff"/>
         <param name="most_inserts" type="float" value="0.99" label="Report only the main part of inserts" help="--most-inserts; default = 0.99"/>
