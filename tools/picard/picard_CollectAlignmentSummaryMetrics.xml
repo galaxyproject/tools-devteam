@@ -55,7 +55,7 @@
         </param>
       </when>
       <when value="history">
-        <param name="ref_file" type="data" format="fasta" label="Use the folloing dataset as the reference sequence" help="REFERENCE_SEQUENCE; You can upload a FASTA sequence to the history and use it as reference" />
+        <param name="ref_file" type="data" format="fasta" label="Use the following dataset as the reference sequence" help="REFERENCE_SEQUENCE; You can upload a FASTA sequence to the history and use it as reference" />
       </when>
     </conditional>
     <param name="metric_accumulation_level" type="select" label="The level(s) at which to accumulate metrics" multiple="true" help="METRIC_ACCUMULATION_LEVEL">
