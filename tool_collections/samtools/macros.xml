@@ -48,5 +48,23 @@
             <exit_code range="1:" level="fatal" description="Error" />
         </stdio>
     </xml>
+    <token name="@no-chrom-options@">
+-----
+
+.. class:: warningmark
+
+**No options available? How to re-detect metadata**
+
+If you see a &quot;No options available&quot; within the &quot;**Select references (chromosomes and contigs) you would like to restrict bam to**&quot; drop down, you need to re-detect metadata for the dataset you are trying to process. To do this follow these steps:
+
+1. Click on the **pencil** icon adjacent to the dataset in the history
+2. A new menu will appear in the center pane of the interface
+3. Click **Datatype** tab
+4. Set **New Type** to **BAM**
+5. Click **Save**
+
+The medatada will be re-detected and you will be able to see the list of reference sequences in the &quot;**Select references (chromosomes and contigs) you would like to restrict bam to**&quot; drop-down.
+
+    </token>
 
 </macros>
