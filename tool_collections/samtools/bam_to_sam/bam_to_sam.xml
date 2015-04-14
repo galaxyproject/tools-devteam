@@ -1,20 +1,23 @@
-<tool id="bam_to_sam" name="BAM-to-SAM" version="1.0.6">
+<tool id="bam_to_sam" name="BAM-to-SAM" version="2.0">
   <macros>
     <import>macros.xml</import>
   </macros>
   <expand macro="requirements"></expand>
   <expand macro="version_command"></expand>
   <expand macro="stdio"></expand>
-  <description>converts BAM format to SAM format</description>  
+  <description>convert BAM to SAM</description>  
     <command>
 <![CDATA[
-  samtools sort -O bam -@ \${GALAXY_SLOTS:-1} "$input1" -o sorted_input.bam -T temp && 
-  samtools view sorted_input.bam $header -o $output1 -@ \${GALAXY_SLOTS:-1}
+  samtools view -o "${output1}" ${header} "${input1}"
 ]]>
     </command>
     <inputs>
         <param format="bam" label="BAM File to Convert" name="input1" type="data" />
-        <param checked="False" falsevalue="" label="Include header in output" name="header" truevalue="-h" type="boolean" />
+        <param name="header" label="Header options" type="select" help="Allows to choose between seeing the entire dataset with the header, header only, or data only.">
+          <option value="-h">Include header in SAM output (-h)</option>
+          <option value="-H">Print header only (-H)</option>
+          <option value="">Exclude header</option>
+        </param>
     </inputs>
     <outputs>
         <data format="sam" label="${tool.name} on ${on_string}: converted SAM" name="output1" />
@@ -22,17 +25,17 @@
     <tests>
         <test>
             <param ftype="bam" name="input1" value="bam_to_sam_in1.bam" />
-            <param name="header" value="" />
+            <param name="header" value="-h" />
             <output file="bam_to_sam_out1.sam" name="output1" sorted="True" />
         </test>
         <test>
-            <param ftype="bam" name="input1" value="bam_to_sam_in2.bam" />
-            <param name="header" value="" />
+            <param ftype="bam" name="input1" value="bam_to_sam_in1.bam" />
+            <param name="header" value="-H" />
             <output file="bam_to_sam_out2.sam" name="output1" sorted="True" />
         </test>
         <test>
             <param ftype="bam" name="input1" value="bam_to_sam_in1.bam" />
-            <param name="header" value="True" />
+            <param name="header" value="" />
             <output file="bam_to_sam_out3.sam" name="output1" sorted="True" />
         </test>
     </tests>
@@ -41,9 +44,10 @@
 
 **What it does**
 
-This tool uses the SAMTools_ toolkit to produce a SAM file from a BAM file.
+Converts BAM dataset to SAM using ``samtools view`` command::
 
-.. _SAMTools: http://samtools.sourceforge.net/samtools.shtml
+ samtools view -o [OUTPUT SAM] [-h|-H] [INPUT BAM] 
+
 ]]>
   </help>
   <expand macro="citations"></expand>
