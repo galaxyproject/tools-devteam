@@ -122,8 +122,8 @@
                 <param checked="False" falsevalue="--uncompressed" label="Compress output" name="compressed" truevalue="" type="boolean" help="--incompressed; default=False"/>
                 <param name="output_tags" optional="True" type="select" multiple="True" display="checkboxes" label="Optional tags to output" help="--output-tags">
                     <option value="DP">DP (Number of high-quality bases)</option>
-                    <option value="DPR">DRP(Number of high-quality bases for each observed allele)</option>
-                    <option value="DV">DV(Number of high-quality non-reference bases)</option>
+                    <option value="DPR">DRP (Number of high-quality bases for each observed allele)</option>
+                    <option value="DV">DV (Number of high-quality non-reference bases)</option>
                     <option value="DP4">DP4 (Number of high-quality ref-forward, ref-reverse, alt-forward and alt-reverse bases)</option>
                     <option value="INFO/DPR">INFO/DPR (Number of high-quality bases for each observed allele)</option>
                     <option value="SP">SP (Phred-scaled strand bias P-value)</option>
@@ -201,7 +201,7 @@
                 <conditional name="limit_by_region">
                     <param label="Select regions to call" name="limit_by_regions" type="select">
                         <option selected="True" value="no_limit">Do not limit</option>
-                        <option value="history">From an uploaded BED file  (--positions)</option>
+                        <option value="history">From an uploaded BED file (--positions)</option>
                         <option value="paste">Paste a list of regions or BED (--region)</option>
                     </param>
                     <when value="history">
@@ -232,7 +232,7 @@
                 </conditional>
                 <param checked="False" falsevalue="" label="Disable read-pair overlap detection" name="ignore_overlaps" truevalue="-x" type="boolean" help="--ignore-overlaps"/>
                 <param checked="False" falsevalue="" label="Do not skip anomalous read pairs in variant calling" name="skip_anomalous_read_pairs" truevalue="-A" type="boolean" help="--count-orphans"/>
-                <param checked="False" falsevalue="" label=" Disable probabilistic realignment for the computation of base alignment quality (BAQ)" name="disable_probabilistic_realignment" truevalue="-B" type="boolean" help="--no-BAQ; BAQ is the Phred-scaled probability of a read base being misaligned. Applying this option greatly helps to reduce false SNPs caused by misalignments"/>
+                <param checked="False" falsevalue="" label="Disable probabilistic realignment for the computation of base alignment quality (BAQ)" name="disable_probabilistic_realignment" truevalue="-B" type="boolean" help="--no-BAQ; BAQ is the Phred-scaled probability of a read base being misaligned. Applying this option greatly helps to reduce false SNPs caused by misalignments"/>
                 <param label="Coefficient for downgrading mapping quality for reads containing excessive mismatches" name="coefficient_for_downgrading" type="integer" value="0" help="--adjust-MQ; Given a read with a phred-scaled probability q of being generated from the mapped position, the new mapping quality is about sqrt((INT-q)/INT)*INT. A zero value disables this functionality; if enabled, the recommended value for BWA is 50. default=0"/>
                 <param label="Max reads per BAM" max="1024" min="1" name="max_reads_per_bam" type="integer" value="250" help="--max-depth; default=250"/>
                 <param checked="False" falsevalue="" label="Redo BAQ computation" name="extended_BAQ_computation" truevalue="-E" type="boolean" help="--redo-BAQ; ignore existing BQ tags"/>
