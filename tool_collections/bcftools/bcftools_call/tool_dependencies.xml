@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<tool_dependency>
+    <package name="bcftools" version="1.2">
+        <repository name="package_bcftools_1_2" owner="iuc" />
+    </package>
+</tool_dependency>
