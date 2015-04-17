@@ -54,7 +54,7 @@
         #if str($out_format) == "tabular":
             ; cat output.${input.dbkey}_multianno.txt | python \${SCRIPT_PATH}/replace_NA.py > ${output}
         #else:
-            ; cp output.hg19_multianno.vcf ${output}
+            ; cp output.${input.dbkey}_multianno.vcf ${output}
         #end if
     </command>
 
