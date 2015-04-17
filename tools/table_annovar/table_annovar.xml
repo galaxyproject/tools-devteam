@@ -8,9 +8,14 @@
 
     <command>
         ## Convert VCF to AV input format.
-        convert2annovar.pl -format vcf4 -includeinfo ${input} > input.avinput
+        #if str($out_format) == "tabular":
+            convert2annovar.pl -format vcf4 -includeinfo ${input} > input.avinput ;
+            #set tab_anno_input = "input.avinput"
+        #else:
+            #set tab_anno_input = $input
+        #end if
 
-        ## Variant annotation; make sure to include entry in indexes table for build database. 
+        ## Variant annotation; make sure to include entry in indexes table for build database.
 
         #set protocol = []
         #set operation = []
@@ -34,13 +39,23 @@
         #end if
 
         #set protocol = ','.join( $protocol )
-        #set operation = ','.join( $operation ) 
+        #set operation = ','.join( $operation )
 
-        ## Reduce variants.
-        ; table_annovar.pl input.avinput ${__get_data_table_entry__('annovar_indexes', 'dbkey', $input.dbkey, 'path')} -protocol ${protocol} -operation ${operation} -nastring NA -buildver ${input.dbkey} --outfile output
+        ## Annotate variants.
+        table_annovar.pl ${tab_anno_input} ${__get_data_table_entry__('annovar_indexes', 'dbkey', $input.dbkey, 'path')} -protocol ${protocol} -operation ${operation} -nastring '.' -buildver ${input.dbkey} --outfile output
 
-        ## Process annotated table to remove "NA" strings from numerical columns and copy to output.
-        ; cat output.${input.dbkey}_multianno.txt | python \$SCRIPT_PATH/replace_NA.py > ${output}
+        ## Add option to consume/produce VCF.
+        #if str($out_format) == "vcf":
+            --vcfinput
+        #end if
+
+        ## Post-processing: process annotated table to remove "NA" strings from numerical columns if
+        ## tabular. Copy to output.
+        #if str($out_format) == "tabular":
+            ; cat output.${input.dbkey}_multianno.txt | python \${SCRIPT_PATH}/replace_NA.py > ${output}
+        #else:
+            ; cp output.hg19_multianno.vcf ${output}
+        #end if
     </command>
 
     <inputs>
@@ -61,13 +76,19 @@
             <filter type="static_value" name="type" value="region" column="2"/>
         </options>
     </param>
-    
+
     <param name="filters" type="select" multiple="True" label="Annotation Databases" help="" >
         <options from_data_table="annovar_indexes">
             <filter type="data_meta" key="dbkey" ref="input" column="1"/>
             <filter type="static_value" name="type" value="filter" column="2"/>
         </options>
     </param>
+
+    <param name="out_format" type="select" label="Output data type">
+        <option value="vcf">VCF</option>
+        <option value="tabular">Tabular</option>
+    </param>
+
     </inputs>
 
     <stdio>
@@ -75,7 +96,11 @@
     </stdio>
 
     <outputs>
-        <data name="output" format="tabular"/>
+        <data name="output" format="tabular">
+            <change_format>
+                <when input="out_format" value="vcf" format="vcf"/>
+            </change_format>
+        </data>
     </outputs>
 
     <tests>
@@ -84,8 +109,8 @@
     <help>
 **What it does**
 
-This tool will annotate variants using specified gene annotations, regions, and filtering databases. Input is a VCF dataset, and output is a table of annotations for each variant in the 
-VCF dataset.
+This tool will annotate variants using specified gene annotations, regions, and filtering databases. Input is a VCF dataset, and output is a table of annotations for each variant in the
+VCF dataset or a VCF dataset with the annotations in INFO fields.
 
 **ANNOVAR Website and Documentation**
 
