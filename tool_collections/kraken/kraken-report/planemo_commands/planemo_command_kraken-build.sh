@@ -1,0 +1,1 @@
+planemo tool_init --force --id "kraken-build" --name "Create your own customised database" --requirement Kraken@0.10.3-beta --example_command 'kraken-build [task option] [options] > $DBNAME' --example_input names.dmp --example_output database.directory --help_from_command 'kraken-build --help'

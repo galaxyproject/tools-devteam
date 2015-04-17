@@ -1,0 +1,1 @@
+planemo tool_init --force --id "kraken_multithreading" --name "Classify with kraken using Multithreading" --requirement Kraken@0.10.3-beta --example_command 'kraken --db $DBNAME --threads NUM seqs.fa  > classified_seqs.txt' --example_input seqs.fa --example_output classified_seqs.txt --help_text 'Multithreading: Use the "--threads NUM" switch to use multiple threads'

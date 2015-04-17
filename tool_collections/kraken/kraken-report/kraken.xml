@@ -1,0 +1,137 @@
+<tool id="krakentest" name="Kraken" version="1.0.0">
+    <requirements>
+        <requirement type="package" version="0.10.5">kraken</requirement>
+    </requirements>
+    <description>
+        Kraken is a taxonomic sequence classifier that assigns taxonomic labels to short DNA reads.
+    </description>
+    <version_command>kraken -version</version_command>
+    <command>
+        kraken --db
+        #if $krakenDBSource.DBSource=="customDB":
+            $krakenDBSource.chosenDB
+        #end if
+        $input
+        #if str($option_set.options)=="classified_out":
+            --classified-out "$option_set.classified"
+        #elif str($option_set.options)=="unclassified_out":
+            --unclassified-out "$option_set.unclassified"
+        #end if
+        &gt; $output
+    </command>
+    <!-- basic error handling -->
+    <stdio>
+        <exit_code range="1:" level="fatal" description="Tool exception" />
+    </stdio>
+
+    <inputs>
+        <!--  READS INPUT takes in FASTA and FASTQ-->
+        <param format="fasta,fastq,fastqsanger" name="input_sequences"  type="data" label="Input sequences" />
+
+        <!-- DATABASE INPUT-->
+        <conditional name="krakenDBSource">
+            <param name="DBSource" type="select" label="Will you select a reference genome from your history or use a built-in index?">
+                <option value="customDB">Use a built-in index</option>
+                <option value="galaxyhistory">Use one from the history</option>
+            </param>
+            <!-- BUILT-IN-->
+            <when value="customDB">
+                <param name="chosenDB" type="select" label="Select a Kraken database">
+                    <options from_data_table="kraken_databases">
+                    <validator type="no_options" message="No databases are available built-in" />
+                    </options>
+                </param>
+            </when>
+            <when value="galaxyhistory">
+                <param name="ownFile" type="data" format="fasta" metadata_name="dbkey" label="Select a database from galaxy history" />
+            </when>
+        </conditional>
+
+         <conditional name="option_set">
+            <param label="Sequence Filtering" name="options" type="select">
+                <option selected="True" value="default">No sequence filtering</option>
+                <option value="classified_out">Classified output</option>
+                <option value="unclassified_out">Unclassified output</option>
+            </param>
+            <when value="default" />
+            <when value="classified_out">
+                <param falsevalue="" help="(--classified-out)" label="Only classified sequences are sent to a file for later processing" name="classified" truevalue="--classified-out" type="boolean" />
+            </when>
+            <when value="unclassified_out">
+                <param falsevalue="" help="(--unclassified-out)" label="Only unclassified sequences are sent to a file for later processing" name="unclassified" truevalue="--unclassified-out" type="boolean" />
+            </when>
+        </conditional>
+
+
+    </inputs>
+
+    <outputs>
+        <!-- CLASSIFIED SEQUENCES OUTPUT-->
+        <data name="output" format="tabular"/>
+    </outputs>
+    <tests>
+        <test>
+            <param name="input" value="seqs.fa"/>
+            <output name="output" file="classified_seqs.txt"/>
+        </test>
+    </tests>
+
+    <help>
+
+
+        **What it does**
+
+        Kraken is a taxonomic sequence classifier that assigns taxonomic labels to short DNA reads. It does this by examining the k-mers within a read and querying a database with those k-mers. This database contains a mapping of every k-mer in Kraken's genomic library to the lowest common ancestor (LCA) in a taxonomic tree of all genomes that contain that k-mer. The set of LCA taxa that correspond to the k-mers in a read are then analyzed to create a single taxonomic label for the read; this label can be any of the nodes in the taxonomic tree. Kraken is designed to be rapid, sensitive, and highly precise. Our tests on various real and simulated data have shown Kraken to have sensitivity slightly lower than Megablast with precision being slightly higher. On a set of simulated 100 bp reads, Kraken processed over 1.3 million reads per minute on a single core in normal operation, and over 4.1 million reads per minute in quick operation.
+
+        **Usage**
+
+        Kraken classifies a set of sequences (reads) with the commands below:
+
+        kraken --db $DBNAME sequences.fa > sequences.kraken
+
+        or
+
+        kraken --db $DBNAME sequences.fq > sequences.kraken
+
+
+        -DBNAME is the name of the Kraken Database to be used.
+
+        -sequences.fa or sequences.fq is the FASTA or FASTQ input file containing the desired sequences for classification.
+
+        -sequences.kraken is the generated output.
+
+
+
+        **Options**
+
+        The kraken program allows several different sequencing modifiers (parameters):
+
+        **Multithreading:** Use the --threads NUM switch to use multiple threads.
+
+        **Sequence filtering:** Classified or unclassified sequences can be sent to a file for later processing, using the --classified-out and --unclassified-out switches, respectively.
+
+
+
+        **Output Format**
+
+        Each sequence classified by Kraken results in a single line of output. Output lines contain five tab-delimited fields; from left to right, they are:
+
+        1. "C"/"U": one letter code indicating that the sequence was either classified or unclassified.
+        2. The sequence ID, obtained from the FASTA/FASTQ header.
+        3. The taxonomy ID Kraken used to label the sequence; this is 0 if the sequence is unclassified.
+        4. The length of the sequence in bp.
+
+        5. A space-delimited list indicating the LCA mapping of each k-mer in the sequence. For example, "562:13 561:4 A:31 0:1 562:3" would indicate that:
+            a) the first 13 k-mers mapped to taxonomy ID #562
+            b) the next 4 k-mers mapped to taxonomy ID #561
+            c) the next 31 k-mers contained an ambiguous nucleotide
+            d) the next k-mer was not in the database
+            e) the last 3 k-mers mapped to taxonomy ID #562
+
+
+
+    </help>
+    <citations>
+        <citation type="doi">10.1186/gb-2014-15-3-r46</citation>
+    </citations>
+</tool>

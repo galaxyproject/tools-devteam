@@ -1,0 +1,57 @@
+<tool id="kraken-report" name="Kraken Report" version="1.0.0">
+    <description>
+        View a sample report of your classification.
+    </description>
+    <macros>
+        <import>macros.xml</import>
+    </macros>
+    <command>
+        <![CDATA[
+        ln -s ${kraken_database.fields.path}/${kraken_database.fields.name} &&
+        kraken --threads 64 --db ${kraken_database.fields.name}
+        "$input_sequences"
+        #if $split_reads:
+            --classified-out "${classified_out}" --unclassified-out "${unclassified_out}"
+        #end if
+        --output "${output}" &&
+        kraken-translate --db ${kraken_database.fields.name} "${output}" > "${translated}"
+        ]]>
+    </command>
+    <inputs>
+        <param format="tabular" label="Input the Sequenced Kraken Output from your Current History" name="kraken_output" type="data" />
+        <expand macro="input_database" />
+    </inputs>
+    <outputs>
+        <data format="tabular" name="output_report" />
+    </outputs>
+    <help>
+<![CDATA[
+
+***Note that the database used must be the same as the one used to generate
+the output file, or the report script may encounter problems.***
+
+
+
+**The output of kraken-report is tab-delimited, with one line per taxon. The fields of the output, from left-to-right, are as follows:**
+
+    1)Percentage of reads covered by the clade rooted at this taxon
+
+    2)Number of reads covered by the clade rooted at this taxon
+
+    3)Number of reads assigned directly to this taxon
+
+    4)A rank code, indicating (U)nclassified, (D)omain, (K)ingdom, (P)hylum, (C)lass, (O)rder, (F)amily, (G)enus, or (S)pecies. All other ranks are simply -.
+
+    5)NCBI taxonomy ID
+
+    6)Indented scientific name
+
+The scientific names are indented using spaces, according to the tree
+structure specified by the taxonomy.
+    ]]>
+    </help>
+    <expand macro="version_command" />
+    <expand macro="requirements" />
+    <expand macro="stdio" />
+    <expand macro="citations" />
+</tool>

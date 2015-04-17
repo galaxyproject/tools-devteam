@@ -1,0 +1,1 @@
+planemo tool_init --force --id "kraken_fastq-input" --name "Classify fastq files with kraken" --requirement Kraken@0.10.3-beta --example_command 'kraken --db $DBNAME --fastq-input seqs.fq  > classified_seqs.txt' --example_input seqs.fq --example_output classified_seqs.txt --help_text 'Indicate that input is FASTQ, not FASTA format'

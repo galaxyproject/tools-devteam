@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<tool_dependency>
+  <package name="kraken" version="0.10.3-beta">
+      <repository name="package_kraken_0_10_3-beta" owner="devteam" />
+    </package>
+</tool_dependency>
