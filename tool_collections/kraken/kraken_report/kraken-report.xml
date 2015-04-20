@@ -8,7 +8,7 @@
     <command>
         <![CDATA[
         ln -s ${kraken_database.fields.path}/${kraken_database.fields.name} &&
-        kraken-report --threads 64 --db ${kraken_database.fields.name} > "$kraken_output"
+        kraken-report --db ${kraken_database.fields.name} "${kraken_output}" > "$output_report"
         ]]>
     </command>
     <inputs>
