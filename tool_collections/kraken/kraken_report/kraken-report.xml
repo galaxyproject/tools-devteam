@@ -1,4 +1,4 @@
-<tool id="kraken-report" name="Kraken Report" version="1.0.0">
+<tool id="kraken-report" name="Kraken-report" version="1.0.0">
     <description>
         View a sample report of your classification.
     </description>
@@ -7,8 +7,7 @@
     </macros>
     <command>
         <![CDATA[
-        ln -s ${kraken_database.fields.path}/${kraken_database.fields.name} &&
-        kraken-report --db ${kraken_database.fields.name} "${kraken_output}" > "$output_report"
+        kraken-report @INPUT_DATABASE@ "${kraken_output}" > "$output_report"
         ]]>
     </command>
     <inputs>

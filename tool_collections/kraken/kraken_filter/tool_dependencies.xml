@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<tool_dependency>
+  <package name="kraken" version="0.10.5">
+      <repository name="package_kraken_0_10_5" owner="iuc" />
+    </package>
+</tool_dependency>

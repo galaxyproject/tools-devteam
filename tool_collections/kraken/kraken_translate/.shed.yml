@@ -1,6 +1,6 @@
 owner: devteam
-name: kraken_report
-description: Contains galaxy tool wrapper for kraken-report.
+name: kraken_translate
+description: Contains a galaxy tool wrapper for the kraken-translate command.
 categories:
   - Metagenomics
 long_description: 'Kraken is a system for assigning taxonomic labels to short DNA
@@ -11,4 +11,4 @@ long_description: 'Kraken is a system for assigning taxonomic labels to short DN
   high sensitivity and high speed by utilizing exact alignments of k-mers and a novel
   classification algorithm.'
 homepage_url: https://github.com/galaxyproject/tools-devteam/
-remote_repository_url: https://github.com/galaxyproject/tools-devteam/blob/master/tool_collections/kraken/kraken_report/
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/blob/master/tool_collections/kraken/kraken_translate/

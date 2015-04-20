@@ -25,4 +25,5 @@
             <citation type="doi">10.1186/gb-2014-15-3-r46</citation>
         </citations>
     </xml>
+    <token name="@INPUT_DATABASE@">--db ${kraken_database.fields.path}/${kraken_database.fields.name}</token>
 </macros>
