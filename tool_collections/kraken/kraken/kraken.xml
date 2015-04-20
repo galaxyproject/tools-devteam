@@ -16,7 +16,7 @@
         --output "${output}" &&
         kraken-translate --db ${kraken_database.fields.name} "${output}" > "${translated}"
         #if $draw_histogram:
-            && awk '{print $4}' | $__tool_directory__/draw_histogram.py
+            && awk '{print \$4}' "${output}" | $__tool_directory__/draw_histogram.py > "${histogram}"
         #end if
         ]]>
     </command>
@@ -32,6 +32,9 @@
         </data>
         <data format="tabular" label="${tool.name} on ${on_string}: Unclassified reads" name="unclassified_out">
             <filter>(split_reads)</filter>
+        </data>
+        <data format="tabular" label="${tool.name} on ${on_string}: Histogram" name="histogram">
+            <filter>(draw_histogram)</filter>
         </data>
         <data format="tabular" label="${tool.name} on ${on_string}: Classification" name="output" />
         <data format="tabular" label="${tool.name} on ${on_string}: Translated classification" name="translated" />

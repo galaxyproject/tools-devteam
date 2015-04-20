@@ -8,13 +8,7 @@
     <command>
         <![CDATA[
         ln -s ${kraken_database.fields.path}/${kraken_database.fields.name} &&
-        kraken --threads 64 --db ${kraken_database.fields.name}
-        "$input_sequences"
-        #if $split_reads:
-            --classified-out "${classified_out}" --unclassified-out "${unclassified_out}"
-        #end if
-        --output "${output}" &&
-        kraken-translate --db ${kraken_database.fields.name} "${output}" > "${translated}"
+        kraken-report --threads 64 --db ${kraken_database.fields.name} > "$kraken_output"
         ]]>
     </command>
     <inputs>

@@ -1,5 +1,5 @@
 owner: devteam
-name: kraken
+name: kraken_report
 description: Contains a data manager that defines and populates the kraken_databases tool data table.
 categories:
   - Metagenomics
