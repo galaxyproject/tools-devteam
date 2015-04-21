@@ -1,6 +1,6 @@
 <tool id="kraken-translate" name="Kraken-translate" version="1.0.0">
     <description>
-        convert taxonomy IDs to names.
+        convert taxonomy IDs to names
     </description>
     <macros>
         <import>macros.xml</import>

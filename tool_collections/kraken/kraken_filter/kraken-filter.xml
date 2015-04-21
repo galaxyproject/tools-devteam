@@ -1,6 +1,6 @@
 <tool id="kraken-filter" name="Filter Kraken" version="1.0.0">
     <description>
-        by confidence.
+        by confidence score
     </description>
     <macros>
         <import>macros.xml</import>
@@ -12,7 +12,7 @@
     </command>
     <inputs>
         <param format="tabular" label="Kraken classified output" name="input" type="data" />
-        <param max="1" min="0" label="Confidence threshold" name="threshold" type="float" value="0" />
+        <param label="Confidence threshold" max="1" min="0" name="threshold" type="float" value="0" />
         <expand macro="input_database" />
     </inputs>
     <outputs>

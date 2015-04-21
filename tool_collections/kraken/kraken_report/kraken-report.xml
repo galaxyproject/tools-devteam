@@ -1,6 +1,6 @@
 <tool id="kraken-report" name="Kraken-report" version="1.0.0">
     <description>
-        View a sample report of your classification.
+        View a sample report of your classification
     </description>
     <macros>
         <import>macros.xml</import>

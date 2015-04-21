@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <tool id="kraken" name="Kraken" version="1.0.0">
     <description>
-        assign taxonomic labels to short DNA reads.
+        assign taxonomic labels to short DNA reads
     </description>
     <macros>
         <import>macros.xml</import>
@@ -15,15 +15,11 @@
         #end if
         --output "${output}" &&
         kraken-translate --db ${kraken_database.fields.name} "${output}" > "${translated}"
-        #if $draw_histogram:
-            && awk '{print \$4}' "${output}" | $__tool_directory__/draw_histogram.py > "${histogram}"
-        #end if
         ]]>
     </command>
     <inputs>
         <param format="fasta,fastq,fastqsanger" label="Input sequences" name="input_sequences" type="data" />
         <param label="Output classified and unclassified reads" name="split_reads" type="boolean" />
-        <param label="Draw histogram of abundances" name="draw_histogram" type="boolean" />
         <expand macro="input_database" />
     </inputs>
     <outputs>
