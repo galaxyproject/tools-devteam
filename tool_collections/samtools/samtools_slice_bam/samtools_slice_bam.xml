@@ -5,8 +5,8 @@
   </macros>
   <!-- <code file="samtools_slice_options.py"/> -->
   <expand macro="requirements"></expand>
-  <expand macro="version_command"></expand>
   <expand macro="stdio"></expand>
+  <expand macro="version_command"></expand>
     <command>
 <![CDATA[
     ln -s "${input_bam}" temp_input.bam &&

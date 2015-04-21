@@ -3,6 +3,9 @@
     <macros>
         <import>macros.xml</import>
     </macros>
+    <expand macro="requirements" />
+    <expand macro="stdio" />
+    <expand macro="version_command" />
     <command>
     <![CDATA[
     #if $reference_source.reference_source_selector == "history":
@@ -340,9 +343,6 @@ Report variants for one or multiple BAM files. Alignment records are grouped by 
 **Notes**: Assuming diploid individuals.
 ]]>
     </help>
-    <expand macro="requirements" />
-    <expand macro="version_command" />
-    <expand macro="stdio" />
     <configfiles>
         <configfile name="excluded_read_groups">
 <![CDATA[
