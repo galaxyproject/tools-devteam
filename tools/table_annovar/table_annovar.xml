@@ -1,4 +1,4 @@
-<tool id="table_annovar" name="ANNOVAR Annotate VCF" version="0.1">
+<tool id="table_annovar" name="ANNOVAR Annotate VCF" version="0.2">
     <description>with functional information using ANNOVAR</description>
 
     <requirements>
