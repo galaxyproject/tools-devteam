@@ -7,6 +7,6 @@
         <repository name="package_kraken_0_10_5" owner="iuc" />
     </package>
     <package name="jellyfish" version="1.1.11">
-        <repository name="package_jellyfish_1_1_11" owner="devteam" />
+        <repository name="package_jellyfish_1_1_11" owner="iuc" />
     </package>
 </tool_dependency>
