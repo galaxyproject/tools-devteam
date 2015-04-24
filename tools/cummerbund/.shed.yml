@@ -10,5 +10,5 @@ long_description: |
   http://compbio.mit.edu/cummeRbund/
 name: cummerbund
 owner: devteam
-remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/cummeRbund
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/cummerbund
 type: unrestricted
