@@ -8,7 +8,7 @@ long_description: |
   can be retrieved very efficiently and allows the user to explore subfeatures of individual genes, or genesets as the analysis requires.
 
   http://compbio.mit.edu/cummeRbund/
-name: cummeRbund
+name: cummerbund
 owner: devteam
 remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/cummeRbund
 type: unrestricted
