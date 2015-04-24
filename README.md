@@ -20,4 +20,3 @@ Other repositories with high quality tools:
  * [ENCODE tools](https://github.com/modENCODE-DCC/Galaxy)
  * [Biopython repo](https://github.com/biopython/galaxy_packages)
  * [Galaxy Proteomics repo](https://github.com/galaxyproteomics/tools-galaxyp)
-
