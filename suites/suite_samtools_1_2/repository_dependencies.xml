@@ -8,7 +8,6 @@
     <repository name="samtools_flagstat" owner="devteam" />
     <repository name="samtools_idxstat" owner="devteam" />
     <repository name="samtools_mpileup" owner="devteam" />
-    <repository name="samtools_phase" owner="devteam" />
     <repository name="samtools_reheader" owner="devteam" />
     <repository name="samtools_rmdup" owner="devteam" />
     <repository name="samtools_slice_bam" owner="devteam" />
