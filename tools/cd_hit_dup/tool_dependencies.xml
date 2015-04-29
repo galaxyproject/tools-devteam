@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<tool_dependency>
+  <package name="cd-hit-auxtools" version="0.5-2012-03-07-fix-dan-gh-0.0.1">
+      <repository name="package_cd_hit_auxtools_0_5_2012_03_07_fix_dan" owner="iuc" />
+    </package>
+</tool_dependency>
