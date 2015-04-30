@@ -4,26 +4,52 @@
     <macros>
         <import>macros.xml</import>
     </macros>
+    <expand macro="requirements" />
+    <expand macro="stdio" />
+    <expand macro="version_command" />
     <command>
 <![CDATA[
-        ln -s "${input_vcf}" input.vcf.gz &&
-        bcftools index input.vcf.gz &&
+           #if str($input.ext) == 'vcf':
+
+           cp ${input} input.vcf && bgzip input.vcf &&
+           #set $input="input.vcf.gz"
+
+           #elif str($input.ext) == 'vcf_bgzip':
+
+           ln -s  ${input} input.vcf.gz  &&
+           #set $input="input.vcf.gz"
+
+           #elif str($input.ext) == 'bcf':
+
+           cp ${input} input.bcf &&
+           #set $input="input.bcf"
+
+           #elif str($input.ext) == 'bcf_bgzip':
+
+           ln -s  ${input} input.bcf.gz  &&
+           #set $input="input.bcf.gz"
+
+           #end if
+
+        bcftools index ${input} &&  
+
         bcftools call 
             -o "${output}"
             -O ${output_format}
-            #if str($filter_conditional.filter_calls_selector) == 'regions':
-                -R "${filter_conditional.input_regions}"
-            #else if str($filter_conditional.filter_calls_selector) == 'samples':
-                -S "${filter_conditional.input_regions}"
-                ${filter_conditional.output_ploidy}
-            #else if str($filter_conditional.filter_calls_selector) == 'targets':
-                -T "${filter_conditional.input_regions}"
+            #if str($filter_calls.filter_calls_selector) == 'regions':
+                -R "${input_regions}"
+            #else if str($filter_calls.filter_calls_selector) == 'samples':
+                -S "${input_regions}"
+                ${output_ploidy}
+            #else if str($filter_calls.filter_calls_selector) == 'targets':
+                -T "${input_regions}"
             #end if
+            ${caller}
+            
             ${variants_only}
             ${skip_indels_snps}
-            ${skip_snps}
-            ${caller}
-            input.vcf.gz
+            
+            ${input}
 ]]>
     </command>
     <inputs>
@@ -50,17 +76,18 @@
     </outputs>
     <tests>
         <test>
-            <param ftype="vcf" name="input_vcf" value="bcftools_call_in1.vcf" />
+            <param ftype="vcf" name="input" value="bcftools_call_in1.vcf" />
             <param name="output_format" value="v" />
+            <param name="variants_only" value="True" />
             <param name="caller" value="-m" />
-            <output file="bcftools_call_out1.vcf" ftype="vcf" name="output" />
+            <output file="bcftools_call_out1.vcf" ftype="vcf" name="output" lines_diff="2" />
         </test>
-        <test>
+        <!--test>
             <param ftype="vcf" name="input_vcf" value="bcftools_call_in2.tab.gz" />
             <param name="output_format" value="b" />
             <param name="caller" value="-m" />
             <output file="bcftools_call_out1.vcf" ftype="vcf" name="output" />
-        </test>
+        </test-->
     </tests>
     <help>
 <![CDATA[
@@ -94,8 +121,5 @@ Consensus/variant calling options:
    -Y, --chromosome-Y              haploid output for males and skips females (requires PED file with -s)
 ]]>
     </help>
-    <expand macro="requirements" />
-    <expand macro="version_command" />
-    <expand macro="stdio" />
     <expand macro="citations" />
 </tool>

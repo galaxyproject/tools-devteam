@@ -32,8 +32,9 @@
     <xml name="output_dataset">
         <data format="vcf" label="${tool.name} on ${on_string}" name="output">
             <change_format>
-                <when format="bcf" input="output_format" value="-Ob" />
-                <when format="vcf" input="output_format" value="-Ov" />
+                <when format="bcf" input="output_format" value="u" />
+                <when format="vcf_bgzip" input="output_format" value="z" />
+                <when format="bcf_bgzip" input="output_format" value="b" />                
             </change_format>
         </data>
     </xml>
@@ -48,6 +49,7 @@
     <xml name="requirements">
         <requirements>
             <requirement type="package" version="1.2">bcftools</requirement>
+            <requirement type="package" version="0.2.6">tabix</requirement>
         </requirements>
     </xml>
     <xml name="stdio">
@@ -56,10 +58,8 @@
         </stdio>
     </xml>
     <xml name="vcf_input">
-        <param format="vcf_bgzip" label="VCF dataset to filter" name="input_vcf" type="data">
-            <conversion name="Tabixized_input" type="tabix" />
-        </param>
-    </xml>
+              <param format="bcf,bcf_bgzip,vcf,vcf_bgzip" label="VCF/BCF dataset" name="input" optional="false" type="data" />
+     </xml>
     <xml name="version_command">
         <version_command>bcftools --version | head -n 1 | awk '{ print $2 }'</version_command>
     </xml>
