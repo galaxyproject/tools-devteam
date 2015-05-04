@@ -87,4 +87,9 @@ of D. Blankenberg's fastq joiner:
 
 New style header support added by Simone Leo &lt;simone.leo@crs4.it&gt;
   </help>
+  
+  <citations>
+    <citation type="doi">10.1093/bioinformatics/btq281</citation>
+  </citations>
+  
 </tool>
