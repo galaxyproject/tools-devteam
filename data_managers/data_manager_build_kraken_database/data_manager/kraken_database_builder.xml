@@ -19,7 +19,9 @@
             kraken-build --threads \${GALAXY_SLOTS:-1} --download-library $library --db "${database_name}"  &&
         #end for
         #for $fasta in $input_fasta:
-            kraken-build --threads \${GALAXY_SLOTS:-1} --db "${database_name}" --add-to-library "$fasta"  &&
+            #if str($fasta) != 'None':
+                kraken-build --threads \${GALAXY_SLOTS:-1} --db "${database_name}" --add-to-library "$fasta"  &&
+            #end if
         #end for
         kraken-build --threads \${GALAXY_SLOTS:-1} --db "${database_name}" --build --kmer-len ${kmer_len} --minimizer-len ${minimizer_len}  &&
         cd .. && python \$KRAKEN_SCRIPT_PATH/data_manager/make_json.py --db "${database_name}" --out "${out_file}"
