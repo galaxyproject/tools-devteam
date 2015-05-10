@@ -6,11 +6,11 @@
     <command>
 @define_read_group_helpers@
 #if $input.selection_type == "single_dataset"
-#set $rg_auto_name = $read_group_name_default($input.input1)
+    #set $rg_auto_name = $read_group_name_default($input.input1)
 #elif $input.selection_type == "two_datasets"
-#set $rg_auto_name = $read_group_name_default($input.input1, $input.input2)
+    #set $rg_auto_name = $read_group_name_default($input.input1, $input.input2)
 #elif $input.selection_type == "dataset_pair"
-#set $rg_auto_name = $read_group_name_default($input.input1)
+    #set $rg_auto_name = $read_group_name_default($input.input1)
 #end if
 @set_use_rg_var@
 @set_read_group_vars@

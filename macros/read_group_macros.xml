@@ -2,7 +2,6 @@
     <!-- Import this at the top of your command block and then
          define rg_auto_name. -->
     <token name="@define_read_group_helpers@">
-#import re
 #def identifier_or_name($input1)
     #if hasattr($input1, 'element_identifier')
         #return $input1.element_identifier
@@ -12,6 +11,7 @@
 #end def
 
 #def clean(name)
+    #import re
     #set $name_clean = re.sub('[^\w\-_\.]', '_', $name)
     #return $name_clean
 #end def
@@ -79,7 +79,7 @@
 
     #if $rg_param('read_group_lb_conditional') is None
         #set $rg_lb = ''
-    #elif $rg_param('read_group_lb_conditional')do_auto_name
+    #elif $rg_param('read_group_lb_conditional').do_auto_name
         #set $rg_lb = $rg_auto_name
     #else
         #set $rg_lb = str($rg_param('read_group_lb_conditional').LB)
@@ -147,7 +147,7 @@
     </xml>
     <xml name="read_group_id_param">
         <param name="ID" type="text" value="" size="20" label="Read group identifier (ID)" help="This value must be unique among multiple samples in your experiment" optional="false">
-        <validator type="empty_field" />
+            <validator type="empty_field" />
         </param>
     </xml>
     <xml name="read_group_id_conditional">

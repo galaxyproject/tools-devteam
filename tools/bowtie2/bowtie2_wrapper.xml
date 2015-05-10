@@ -76,11 +76,11 @@
         ## Read group information.
         @define_read_group_helpers@
         #if str( $library.type ) == "single":
-        #set $rg_auto_name = $read_group_name_default($library.input_1)
+            #set $rg_auto_name = $read_group_name_default($library.input_1)
         #elif str( $library.type ) == "paired":
-        #set $rg_auto_name = $read_group_name_default($library.input_1, $library.input_2)
+            #set $rg_auto_name = $read_group_name_default($library.input_1, $library.input_2)
         #else
-        #set $rg_auto_name = $read_group_name_default($library.input_1)
+            #set $rg_auto_name = $read_group_name_default($library.input_1)
         #end if
         @set_use_rg_var@
         @set_read_group_vars@
