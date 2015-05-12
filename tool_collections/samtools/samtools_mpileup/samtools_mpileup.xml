@@ -3,6 +3,9 @@
     <macros>
         <import>macros.xml</import>
     </macros>
+    <expand macro="requirements" />
+    <expand macro="stdio" />
+    <expand macro="version_command" />
     <command>
     <![CDATA[
     #if $reference_source.reference_source_selector == "history":
@@ -30,14 +33,14 @@
         #if str( $advanced_options.limit_by_region.limit_by_regions ) == "paste":
             -l "$pasted_regions"
         #elif str( $advanced_options.limit_by_region.limit_by_regions ) == "history"
-            -l "$bed_regions"
+            -l "$advanced_options.limit_by_region.bed_regions"
         #end if
         #if str( $advanced_options.exclude_read_group.exclude_read_groups ) == "paste":
             -G "$excluded_read_groups"
         #elif str( $advanced_options.exclude_read_group.exclude_read_groups ) == "history"
-            -G "$read_groups"
+            -G "$advanced_options.exclude_read_group.read_groups"
         #end if
-            ${advanced_options.skip_anomalous_read_pairs}
+        ${advanced_options.skip_anomalous_read_pairs}
         ${advanced_options.disable_probabilistic_realignment}
         -C "${advanced_options.coefficient_for_downgrading}"
         -d "${advanced_options.max_reads_per_bam}"
@@ -238,6 +241,7 @@
                 <param checked="False" falsevalue="" label="Redo BAQ computation" name="extended_BAQ_computation" truevalue="-E" type="boolean" help="--redo-BAQ; ignore existing BQ tags"/>
                 <param label="Minimum mapping quality for an alignment to be used" name="minimum_mapping_quality" type="integer" value="0" help="-min-MQ; default=0"/>
                 <param label="Minimum base quality for a base to be considered" name="minimum_base_quality" type="integer" value="13" help="--min-BQ; default=13"/>
+                <param label="Only generate pileup in region" name="region_string" type="text" value="" help="--region; If used in conjunction with --positions, then considers the intersection of the two requests. Defaults to all sites" />
             </when>
             <when value="basic" />
         </conditional>
@@ -340,9 +344,6 @@ Report variants for one or multiple BAM files. Alignment records are grouped by 
 **Notes**: Assuming diploid individuals.
 ]]>
     </help>
-    <expand macro="requirements" />
-    <expand macro="version_command" />
-    <expand macro="stdio" />
     <configfiles>
         <configfile name="excluded_read_groups">
 <![CDATA[

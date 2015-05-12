@@ -1,4 +1,4 @@
-# Galaxy Tools maintained by Galaxy Team
+# Galaxy Tools maintained by the Galaxy Team
 
 This repo contains a subset of Galaxy tools used in the Tool Shed 
 (https://toolshed.g2.bx.psu.edu/) mostly created by the Galaxy Team (devteam). 
@@ -6,11 +6,11 @@ This repo contains a subset of Galaxy tools used in the Tool Shed
 The repo's main goals are to:
 
   * simplify the maintenance of these tools
-  * provide learning environment to Galaxy Tool developers
+  * provide a learning environment to Galaxy Tool developers
 
-If you want to contribute to this repository please see file [CONTRIBUTING.md](CONTRIBUTING.md).
+If you want to contribute to this repository, please see file [CONTRIBUTING.md](CONTRIBUTING.md).
 
-Wraping tools for use in Galaxy is easy! If you want to start please see [our wiki](https://wiki.galaxyproject.org/Admin/Tools/AddToolTutorial).
+Wrapping tools for use in Galaxy is easy! If you want to start, please see [our wiki](https://wiki.galaxyproject.org/Admin/Tools/AddToolTutorial).
 
 Other repositories with high quality tools:
  * [IUC repo](https://github.com/galaxyproject/tools-iuc)
@@ -20,4 +20,3 @@ Other repositories with high quality tools:
  * [ENCODE tools](https://github.com/modENCODE-DCC/Galaxy)
  * [Biopython repo](https://github.com/biopython/galaxy_packages)
  * [Galaxy Proteomics repo](https://github.com/galaxyproteomics/tools-galaxyp)
-

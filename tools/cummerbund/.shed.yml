@@ -1,0 +1,14 @@
+categories:
+  - Visualization
+description: CummeRbund is an R package that is designed to aid and simplify the task of analyzing Cufflinks RNA-Seq output.
+long_description: |
+  CummeRbund takes the various output files from a cuffdiff run and creates a SQLite database of the
+  results describing appropriate relationships betweeen genes, transcripts, transcription start sites,
+  and CDS regions. Once stored and indexed, data for these features, even across multiple samples or conditions,
+  can be retrieved very efficiently and allows the user to explore subfeatures of individual genes, or genesets as the analysis requires.
+
+  http://compbio.mit.edu/cummeRbund/
+name: cummerbund
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/cummerbund
+type: unrestricted

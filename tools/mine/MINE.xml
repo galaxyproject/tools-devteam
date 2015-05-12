@@ -47,6 +47,7 @@
       <when value="adjacentPairs">
         <param type="boolean" truevalue="--permute" false_value="" name="permute" checked="False" />
       </when>
+      <when value="allPairs" />
     </conditional>
     
     <param type="float" value="0" name="cv" />

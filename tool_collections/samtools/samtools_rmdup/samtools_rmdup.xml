@@ -1,11 +1,11 @@
 <tool id="samtools_rmdup" name="RmDup" version="2.0">
+  <description>remove PCR duplicates</description>
   <macros>
     <import>macros.xml</import>
   </macros>
   <expand macro="requirements"></expand>
-  <description>remove PCR duplicates</description>
-  <expand macro="version_command"></expand>
   <expand macro="stdio"></expand>
+  <expand macro="version_command"></expand>
   <command>samtools rmdup 
   #if str( $bam_paired_end_type.bam_paired_end_type_selector ) == "PE"
       ${bam_paired_end_type.force_se}

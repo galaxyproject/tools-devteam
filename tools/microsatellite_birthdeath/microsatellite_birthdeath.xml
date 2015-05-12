@@ -63,6 +63,7 @@
 **What it does**
 
 This tool uses raw orthologous microsatellite clusters (identified by the tool "Extract orthologous microsatellites") to identify microsatellite births and deaths along individual lineages of a phylogenetic tree.
+
 -----
 
 .. class:: warningmark

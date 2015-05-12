@@ -4,8 +4,8 @@
     <import>macros.xml</import>
   </macros>
     <expand macro="requirements"></expand>
-    <expand macro="version_command"></expand>
     <expand macro="stdio"></expand>
+    <expand macro="version_command"></expand>
     <command><![CDATA[
         #if $use_reference.use_ref_selector == "yes":
             #if $use_reference.reference_source.reference_source_selector == "history":
@@ -253,7 +253,7 @@
             <param name="use_ref_selector" value="yes" />
             <param name="reference_source_selector" value="history" />
             <param name="ref_file" value="samtools_stats_ref.fa" ftype="fasta" />
-            <output name="output" file="samtools_stats_out1.tab" ftype="tabular" lines_diff="2" />
+            <output name="output" file="samtools_stats_out1.tab" ftype="tabular" lines_diff="4" />
         </test>
         <test>
             <param name="input_file" value="samtools_stats_input.bam" ftype="bam" />
@@ -262,7 +262,7 @@
             <param name="ref_file" value="samtools_stats_ref.fa" ftype="fasta" />
             <param name="split_output_selector" value="yes" />
             <param name="generate_tables" value="sn,mpc,gcc" />
-            <output name="output" file="samtools_stats_out2.tab" lines_diff="2">
+            <output name="output" file="samtools_stats_out2.tab" lines_diff="4">
                 <discovered_dataset designation="Summary numbers" ftype="tabular" file="samtools_stats_out2/sn.tab" />
                 <discovered_dataset designation="ACGT content per cycle" ftype="tabular" file="samtools_stats_out2/gcc.tab" />
                 <discovered_dataset designation="Mismatches per cycle" ftype="tabular" file="samtools_stats_out2/mpc.tab" />

@@ -1,0 +1,135 @@
+<tool id="cd_hit_dup" name="cd-hit-dup" version="0.0.1">
+    <requirements>
+        <requirement type="package" version="0.5-2012-03-07-fix-dan-gh-0.0.1">cd-hit-auxtools</requirement>
+    </requirements>
+    <stdio>
+        <exit_code range="1:" />
+        <exit_code range=":-1" />
+    </stdio>
+
+    <command><![CDATA[
+        cd-hit-dup
+        -i "${ fastq_input.fastq_input1 }"
+        #if str( $fastq_input.fastq_input_selector ) == "paired":
+            -i2 "${ fastq_input.fastq_input2 }"
+        #elif str( $fastq_input.filter_chimeras.filter_chimeras_selector ) == "true":
+            -f "true"
+            -s "${ fastq_input.filter_chimeras.min_chimeric_length }"
+            -a "${ fastq_input.filter_chimeras.abundance_cutoff }"
+            -b "${ fastq_input.filter_chimeras.abundance_ratio }"
+            -p "${ fastq_input.filter_chimeras.dissimilarity_control }"
+        #end if
+        -u "${ prefix_length }"
+        -m "${ match_length }"
+        #if str( $mismatches_allowed ) != "":
+            #if float( str( $mismatches_allowed ) ) == int( float( str( $mismatches_allowed ) ) ):
+                -e "${ int( float( str( $mismatches_allowed ) ) ) }"
+            #else:
+                -e "${ mismatches_allowed }"
+            #end if
+        #end if
+        -d "${ description_length }"
+        -o "output"
+    ]]>
+    </command>
+    <inputs>
+        <conditional name="fastq_input">
+            <param name="fastq_input_selector" type="select" label="Single or Paired-end reads" help="For joined Paired-end reads choose Single.">
+                <option value="paired">Paired</option>
+                <option value="single" selected="True">Single</option>
+            </param>
+            <when value="paired">
+                <param name="fastq_input1" type="data" format="fastqsanger,fasta" label="Select first set of reads" help="Specify dataset with forward reads"/>
+                <param name="fastq_input2" type="data" format="fastqsanger,fasta" label="Select second set of reads" help="Specify dataset with reverse reads"/>
+            </when>
+            <when value="single">
+                <param name="fastq_input1" type="data" format="fastqsanger,fasta" label="Select read dataset" help="Specify dataset with single reads"/>
+                <conditional name="filter_chimeras">
+                    <param name="filter_chimeras_selector" type="select" label="Filter out chimeric clusters">
+                        <option value="true">Yes</option>
+                        <option value="false" selected="True">No</option>
+                    </param>
+                    <when value="true">
+                        <param name="min_chimeric_length" type="integer" value="30" min="20" label="Minimum length of common sequence shared between a chimeric read and each of its parents" help="-s"/>
+                        <param name="abundance_cutoff" type="integer" value="1" min="1" label="Abundance cutoff" help="-a; Tool Author recommend default of 2, but this would require the chimera itself to need 2 copies"/>
+                        <param name="abundance_ratio" type="integer" value="1" min="1" label="Abundance ratio between a parent read and a chimeric read" help="-b"/>
+                        <param name="dissimilarity_control" type="integer" value="1" min="1" label="Dissimilarity control for chimeric filtering" help="-p"/>
+                    </when>
+                    <when value="false">
+                        <!-- do nothing here -->
+                    </when>
+                </conditional>
+            </when>
+        </conditional>
+        <param name="prefix_length" type="integer" value="0" min="0" label="Length of prefix to be used in the analysis" help="-u"/>
+        <param name="match_length" type="boolean" truevalue="true" falsevalue="false" checked="true" label="Match length" help="-m; specifies whether the lengths of two reads should be exactly the same to be considered as duplicates. "/>
+        <param name="mismatches_allowed" type="float" optional="True" value="" min="0" label="Maximum number/percent of mismatches allowed" help="-e"/>
+        <param name="description_length" type="integer" value="0" min="0" label="Description length" help="-d; 0 means truncate at the first whitespace character"/>
+    </inputs>
+    <outputs>
+        <data format="fastqsanger" format_source="fastq_input1" name="output_reads" label="${tool.name} on ${on_string} (filtered reads)" from_work_dir="output"/>
+        <data format="tabular" name="output_duplicate_clusters" label="${tool.name} on ${on_string} (duplicate clusters)" from_work_dir="output.clstr"/>
+        <data format="tabular" name="output_chimeric_clusters" label="${tool.name} on ${on_string} (chimeric clusters)" from_work_dir="output2.clstr">
+            <filter>str( fastq_input['filter_chimeras']['filter_chimeras_selector'] ) == "true"</filter>
+        </data>
+    </outputs>
+    <tests>
+        <test>
+            <param name="fastq_input|fastq_input_selector" value="single" />
+            <param name="fastq_input|fastq_input1" ftype="fastqsanger" value="cd-hit-dup_in.fastqsanger"/>
+            <output name="output_reads" ftype="fastqsanger" file="cd-hit-dup_out.fastqsanger" />
+            <output name="output_duplicate_clusters" ftype="tabular" file="cd-hit-dup_out.dup_clusters.tabular" />
+        </test>
+        <test>
+            <param name="fastq_input|fastq_input_selector" value="single" />
+            <param name="fastq_input|fastq_input1" ftype="fastqsanger" value="cd-hit-dup_in.fastqsanger"/>
+            <param name="fastq_input|filter_chimeras|filter_chimeras_selector" value="true"/>
+            <output name="output_reads" ftype="fastqsanger" file="cd-hit-dup_out_chimera.fastqsanger" />
+            <output name="output_duplicate_clusters" ftype="tabular" file="cd-hit-dup_out_chimera.dup_clusters.tabular" />
+            <output name="output_chimeric_clusters" ftype="tabular" file="cd-hit-dup_out_chimera.chimeric_clusters.tabular" />
+        </test>
+    </tests>
+    <help>
+        <![CDATA[
+        **What it does**
+
+        cd-hit-dup is a simple tool for removing duplicates from sequencing reads, with optional step to detect and remove chimeric reads. A number of options are provided to tune how the duplicates are removed.
+
+
+        **Options**
+
+            +--------+-------------------------------------------------------------------------------------------------------------------+
+            | Option | Description                                                                                                       |
+            +========+===================================================================================================================+
+            |-i      | Input file                                                                                                        |
+            +--------+-------------------------------------------------------------------------------------------------------------------+
+            |-i2     | Second input file                                                                                                 |
+            +--------+-------------------------------------------------------------------------------------------------------------------+
+            |-o      | Output file                                                                                                       |
+            +--------+-------------------------------------------------------------------------------------------------------------------+
+            |-d      | Description length (default 0, truncate at the first whitespace character)                                        |
+            +--------+-------------------------------------------------------------------------------------------------------------------+
+            |-u      | Length of prefix to be used in the analysis (default 0, for full/maximum length)                                  |
+            +--------+-------------------------------------------------------------------------------------------------------------------+
+            |-m      | Match length (true/false, default true)                                                                           |
+            +--------+-------------------------------------------------------------------------------------------------------------------+
+            |-e      | Maximum number/percent of mismatches allowed                                                                      |
+            +--------+-------------------------------------------------------------------------------------------------------------------+
+            |-f      | Filter out chimeric clusters (true/false, default false)                                                          |
+            +--------+-------------------------------------------------------------------------------------------------------------------+
+            |-s      | Minimum length of common sequence shared between a chimeric read and each of its parents (default 30, minimum 20) |
+            +--------+-------------------------------------------------------------------------------------------------------------------+
+            |-a      | Abundance cutoff (default 1 without chimeric filtering, 2 with chimeric filtering)                                |
+            +--------+-------------------------------------------------------------------------------------------------------------------+
+            |-b      | Abundance ratio between a parent read and a chimeric read (default 1)                                             |
+            +--------+-------------------------------------------------------------------------------------------------------------------+
+            |-p      | Dissimilarity control for chimeric filtering (default 1)                                                          |
+            +--------+-------------------------------------------------------------------------------------------------------------------+
+
+
+        ]]>
+    </help>
+    <citations>
+        <citation type="doi">10.1093/bioinformatics/bts565</citation>
+    </citations>
+</tool>
