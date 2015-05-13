@@ -1,12 +1,9 @@
 <?xml version="1.0"?>
 <tool_dependency>
-  <package name="bowtie2" version="2.1.0">
-      <repository name="package_bowtie2_2_1_0" owner="devteam" prior_installation_required="False" />
+  <package name="bowtie2" version="2.2.5">
+      <repository name="package_bowtie_2_2_5" owner="iuc" prior_installation_required="False" />
     </package>
-    <package name="samtools" version="0.1.18">
-      <repository name="package_samtools_0_1_18" owner="devteam" prior_installation_required="False" />
-    </package>
-    <package name="tophat2" version="2.0.9">
-      <repository name="package_tophat2_2_0_9" owner="devteam" prior_installation_required="False" />
+    <package name="tophat" version="2.0.14">
+      <repository name="package_tophat_2_0_14" owner="iuc" prior_installation_required="False" />
     </package>
 </tool_dependency>
