@@ -1,0 +1,64 @@
+<tool id="hisat" name="HISAT" version="1.0.0">
+    <description>spliced aligner</description>
+    <requirements>
+        <requirement type="package" version="0.1.5">hisat</requirement>
+    </requirements>
+    <stdio>
+        <exit_code range="1:" />
+    </stdio>
+    <version_command>hisat --version</version_command>
+    <command><![CDATA[
+        hisat -p \${GALAXY_SLOTS:-1}
+        #if $paired.paired_selector == 'paired':
+            -1 "${reads_f}" -2 "${reads_r}"
+        #else:
+            -U "${reads}"
+        #end if
+        -S "${output_alignments}"
+        #if $reads == 'qseq':
+            --qseq
+        #else if $reads == 'fasta':
+            -f
+        #else
+            -q
+        #end if
+        -s ${skip} -u ${stop_after} -5 ${trim_five} -3 ${trim_three} --ma ${match_bonus} --mp ${max_mismatch},${min_mismatch}
+        --np ${ambiguous_penalty} --rdg ${read_open_penalty},${read_extend_penalty} --rfg ${ref_open_penalty},${ref_extend_penalty} 
+    ]]></command>
+    <inputs>
+        <conditional name="paired">
+            <param label="Single end or paired reads?" name="paired_selector" type="select">
+                <option value="paired">Reads are paired</option>
+                <option value="single">Reads are unpaired</option>
+            </param>
+            <when value="paired">
+                <param label="Forward reads" type="data" name="reads_f" multiple="true" format="fastqsanger,fasta" />
+                <param label="Reverse reads" type="data" name="reads_r" multiple="true" format="fastqsanger,fasta" />
+            </when>
+            <when value="single">
+                <param label="Reads" type="data" name="reads" multiple="true" format="fastqsanger,fasta" />
+            </when>
+        </conditional>
+        <param name="skip" label="Skip the first N reads or pairs in the input" help="-s" type="integer" value="0" default="0" />
+        <param name="stop_after" label="Stop after aligning N reads" help="-u" type="integer" value="0" default="0" />
+        <param name="trim_five" label="Trim N bases from 5' end of each read before alignment" help="-5" type="integer" value="0" default="0" />
+        <param name="trim_three" label="Trim N bases from 3' end of each read before alignment" help="-3" type="integer" value="0" default="0" />
+        <param name="match_bonus" label="Add N to the alignment score for each position where a read character aligns" help="--ma" type="integer" value="2" default="2" />
+        <param name="max_mismatch" label="Maximum mismatch penalty" help="--mp" type="integer" value="6" default="6" />
+        <param name="min_mismatch" label="Minimum mismatch penalty" help="--mp" type="integer" value="2" default="2" />
+        <param name="ambiguous_penalty" label="Ambiguous read penalty" help="--np" type="integer" value="1" default="1" />
+        <param name="read_open_penalty" label="Read gap open penalty. A read gap of length N gets a penalty of [open_penalty] + N * [extend_penalty]" type="integer" help="--rdg" value="5" default="5" />
+        <param name="read_extend_penalty" label="Read gap extend penalty. A read gap of length N gets a penalty of [open_penalty] + N * [extend_penalty]" type="integer" help="--rdg" value="3" default="3" />
+        <param name="ref_open_penalty" label="Reference gap open penalty." help="--rfg" type="integer" value="5" default="5" />
+        <param name="ref_extend_penalty" label="Reference gap extend penalty." help="--rfg" type="integer" value="3" default="3" />
+    </inputs>
+    <outputs>
+        <data name="output_alignments" format="sam" />
+    </outputs>
+    <help><![CDATA[
+        TODO: Fill in help.
+    ]]></help>
+    <citations>
+        <citation type="doi">10.1038/nmeth.3317</citation>
+    </citations>
+</tool>
