@@ -2,62 +2,262 @@
     <description>spliced aligner</description>
     <requirements>
         <requirement type="package" version="0.1.5">hisat</requirement>
+        <!-- <requirement type="package" version="2.2.5">bowtie2</requirement> -->
     </requirements>
     <stdio>
         <exit_code range="1:" />
     </stdio>
     <version_command>hisat --version</version_command>
     <command><![CDATA[
-        hisat -p \${GALAXY_SLOTS:-1}
-        #if $paired.paired_selector == 'paired':
+        #if $reference_genome.reference_genome_source == "history":
+            ln -s "$reference_genome.history_item" genome.fa &&
+            hisat-build genome.fa genome && 
+            #set index_path = 'genome'
+        #else:
+            #set index_path = $reference_genome.index.fields.path
+        #end if
+        hisat -p \${GALAXY_SLOTS:-1} -x "${index_path}"
+        #if str($input_format.paired.paired_selector) == 'paired':
             -1 "${reads_f}" -2 "${reads_r}"
         #else:
             -U "${reads}"
         #end if
-        -S "${output_alignments}"
-        #if $reads == 'qseq':
-            --qseq
-        #else if $reads == 'fasta':
+        #if $input_format.input_format_selector == 'fasta':
             -f
-        #else
-            -q
         #end if
-        -s ${skip} -u ${stop_after} -5 ${trim_five} -3 ${trim_three} --ma ${match_bonus} --mp ${max_mismatch},${min_mismatch}
-        --np ${ambiguous_penalty} --rdg ${read_open_penalty},${read_extend_penalty} --rfg ${ref_open_penalty},${ref_extend_penalty} 
+        -S "${output_alignments}"
+        #if str($input_options.input_options_selector) == "advanced":
+            -s ${skip} -u ${stop_after} -5 ${trim_five} -3 ${trim_three}
+        #end if
+        #if str($scoring_options.scoring_options_selector) == "advanced":
+            --ma ${match_bonus} --mp ${max_mismatch},${min_mismatch}
+            --np ${ambiguous_penalty} --rdg ${read_open_penalty},${read_extend_penalty} --rfg ${ref_open_penalty},${ref_extend_penalty}
+        #end if
     ]]></command>
     <inputs>
-        <conditional name="paired">
-            <param label="Single end or paired reads?" name="paired_selector" type="select">
-                <option value="paired">Reads are paired</option>
-                <option value="single">Reads are unpaired</option>
+        <conditional name="input_format">
+            <param name="input_format_selector" label="Input data format" type="select">
+                <option value="fastq" selected="selected">FASTQ</option>
+                <option value="fasta">FASTA</option>
             </param>
-            <when value="paired">
-                <param label="Forward reads" type="data" name="reads_f" multiple="true" format="fastqsanger,fasta" />
-                <param label="Reverse reads" type="data" name="reads_r" multiple="true" format="fastqsanger,fasta" />
+            <when value="fasta">
+                <conditional name="paired">
+                    <param label="Single end or paired reads?" name="paired_selector" type="select">
+                        <option value="paired">Reads are paired</option>
+                        <option value="single">Reads are unpaired</option>
+                    </param>
+                    <when value="paired">
+                        <param label="Forward reads" type="data" name="reads_f" multiple="true" format="fasta" />
+                        <param label="Reverse reads" type="data" name="reads_r" multiple="true" format="fasta" />
+                    </when>
+                    <when value="single">
+                        <param label="Reads" type="data" name="reads" multiple="true" format="fasta" />
+                    </when>
+                </conditional>
             </when>
-            <when value="single">
-                <param label="Reads" type="data" name="reads" multiple="true" format="fastqsanger,fasta" />
+            <when value="fastq">
+                <conditional name="paired">
+                    <param label="Single end or paired reads?" name="paired_selector" type="select">
+                        <option value="paired">Reads are paired</option>
+                        <option value="single">Reads are unpaired</option>
+                    </param>
+                    <when value="paired">
+                        <param label="Forward reads" type="data" name="reads_f" multiple="true" format="fastq,fastqsanger,fastqsolexa" />
+                        <param label="Reverse reads" type="data" name="reads_r" multiple="true" format="fastq,fastqsanger,fastqsolexa" />
+                    </when>
+                    <when value="single">
+                        <param label="Reads" type="data" name="reads" multiple="true" format="fastq,fastqsanger,fastqsolexa" />
+                    </when>
+                </conditional>
             </when>
         </conditional>
-        <param name="skip" label="Skip the first N reads or pairs in the input" help="-s" type="integer" value="0" default="0" />
-        <param name="stop_after" label="Stop after aligning N reads" help="-u" type="integer" value="0" default="0" />
-        <param name="trim_five" label="Trim N bases from 5' end of each read before alignment" help="-5" type="integer" value="0" default="0" />
-        <param name="trim_three" label="Trim N bases from 3' end of each read before alignment" help="-3" type="integer" value="0" default="0" />
-        <param name="match_bonus" label="Add N to the alignment score for each position where a read character aligns" help="--ma" type="integer" value="2" default="2" />
-        <param name="max_mismatch" label="Maximum mismatch penalty" help="--mp" type="integer" value="6" default="6" />
-        <param name="min_mismatch" label="Minimum mismatch penalty" help="--mp" type="integer" value="2" default="2" />
-        <param name="ambiguous_penalty" label="Ambiguous read penalty" help="--np" type="integer" value="1" default="1" />
-        <param name="read_open_penalty" label="Read gap open penalty. A read gap of length N gets a penalty of [open_penalty] + N * [extend_penalty]" type="integer" help="--rdg" value="5" default="5" />
-        <param name="read_extend_penalty" label="Read gap extend penalty. A read gap of length N gets a penalty of [open_penalty] + N * [extend_penalty]" type="integer" help="--rdg" value="3" default="3" />
-        <param name="ref_open_penalty" label="Reference gap open penalty." help="--rfg" type="integer" value="5" default="5" />
-        <param name="ref_extend_penalty" label="Reference gap extend penalty." help="--rfg" type="integer" value="3" default="3" />
+        <conditional name="reference_genome">
+            <param name="reference_genome_source" type="select" label="Source for the reference genome to align against" help="Built-in references were created using default options">
+                <option value="indexed" selected="True">Use a built-in genome</option>
+                <option value="history">Use a genome from history</option>
+            </param>
+            <when value="indexed">
+                <param name="index" type="select" label="Select a reference genome" help="If your genome of interest is not listed, contact the Galaxy team">
+                    <options from_data_table="hisat_indexes">
+                        <filter type="sort_by" column="2"/>
+                        <validator type="no_options" message="No genomes are available for the selected input dataset"/>
+                    </options>
+                </param>
+            </when>
+            <when value="history">
+                <param name="history_item" type="data" format="fasta" metadata_name="dbkey" label="Select the reference genome" />
+            </when>
+        </conditional>
+        <conditional name="input_options">
+            <param label="Input options" name="input_options_selector" type="select">
+                <option value="defaults">Use default values</option>
+                <option value="advanced">Fine tune input parameters</option>
+            </param>
+            <when value="defaults" />
+            <when value="advanced">
+                <label>Scoring options</label>
+                <param name="skip" label="Skip the first N reads or pairs in the input" help="-s" type="integer" value="0" default="0" />
+                <param name="stop_after" label="Stop after aligning N reads" help="(-u) Align the first N reads or read pairs from the input (after the first N reads or pairs have been skipped), then stop." type="integer" value="0" default="0" />
+                <param name="trim_five" label="Trim 5' end" help="(-5) Trim N bases from 5' (left) end of each read before alignment" type="integer" value="0" default="0" />
+                <param name="trim_three" label="Trim 3' end" help="(-3) Trim N bases from 3' (right) end of each read before alignment" type="integer" value="0" default="0" />
+            </when>
+        </conditional>
+        <conditional name="scoring_options">
+            <param label="Scoring options" name="scoring_options_selector" type="select">
+                <option value="defaults">Use default values</option>
+                <option value="advanced">Fine tune scoring parameters</option>
+            </param>
+            <when value="default" />
+            <when value="advanced">
+                <param name="match_bonus" label="Set match bonus" help="(--ma) In local mode N is added to the alignment score for each position where a read character aligns to a reference character and the characters match. Not used in end-to-end mode" type="integer" value="2" default="2" />
+                <param name="max_mismatch" label="Maximum mismatch penalty" help="(--mp) Sets the maximum mismatch penalty. A number less than or equal to MX and greater than or equal to MN is subtracted from the alignment score for each position where a read character aligns to a reference character, the characters do not match, and neither is an N. If --ignore-quals is specified, the number subtracted quals MX. Otherwise, the number subtracted is MN + floor( (MX-MN)(MIN(Q, 40.0)/40.0) ) where Q is the Phred quality value." type="integer" value="6" default="6" />
+                <param name="min_mismatch" label="Minimum mismatch penalty" help="(--mp) Sets the minimum mismatch penalty. A number less than or equal to MX and greater than or equal to MN is subtracted from the alignment score for each position where a read character aligns to a reference character, the characters do not match, and neither is an N. If --ignore-quals is specified, the number subtracted quals MX. Otherwise, the number subtracted is MN + floor( (MX-MN)(MIN(Q, 40.0)/40.0) ) where Q is the Phred quality value." type="integer" value="2" default="2" />
+                <param name="ambiguous_penalty" label="Ambiguous read penalty" help="(--np) Sets penalty for positions where the read, reference, or both, contain an ambiguous character such as N" type="integer" value="1" default="1" />
+                <param name="read_open_penalty" label="Read gap open penalty." type="integer" help="(--rdg) A read gap of length N gets a penalty of [open_penalty] + N * [extend_penalty]" value="5" default="5" />
+                <param name="read_extend_penalty" label="Read gap extend penalty." type="integer" help="(--rdg) A read gap of length N gets a penalty of [open_penalty] + N * [extend_penalty]" value="3" default="3" />
+                <param name="ref_open_penalty" label="Reference gap open penalty." help="(--rfg) A reference gap of length N gets a penalty of [open_penalty] + N * [extend_penalty]" type="integer" value="5" default="5" />
+                <param name="ref_extend_penalty" label="Reference gap extend penalty." help="(--rfg) A reference gap of length N gets a penalty of [open_penalty] + N * [extend_penalty]" type="integer" value="3" default="3" />
+            </when>
+        </conditional>
     </inputs>
     <outputs>
         <data name="output_alignments" format="sam" />
     </outputs>
     <help><![CDATA[
-        TODO: Fill in help.
-    ]]></help>
+Introduction
+============
+
+What is HISAT?
+--------------
+
+`HISAT <http://ccb.jhu.edu/software/hisat>`__ is a fast and sensitive
+spliced alignment program. As part of HISAT, we have developed a new
+indexing scheme based on the Burrows-Wheeler transform
+(`BWT <http://en.wikipedia.org/wiki/Burrows-Wheeler_transform>`__) and
+the `FM index <http://en.wikipedia.org/wiki/FM-index>`__, called
+hierarchical indexing, that employs two types of indexes: (1) one global
+FM index representing the whole genome, and (2) many separate local FM
+indexes for small regions collectively covering the genome. Our
+hierarchical index for the human genome (about 3 billion bp) includes
+~48,000 local FM indexes, each representing a genomic region of
+~64,000bp. As the basis for non-gapped alignment, the FM index is
+extremely fast with a low memory footprint, as demonstrated by
+`Bowtie <http://bowtie-bio.sf.net>`__. In addition, HISAT provides
+several alignment strategies specifically designed for mapping different
+types of RNA-seq reads. All these together, HISAT enables extremely fast
+and sensitive alignment of reads, in particular those spanning two exons
+or more. As a result, HISAT is much faster >50 times than
+`TopHat2 <http://ccb.jhu.edu/software/tophat>`__ with better alignment
+quality. Although it uses a large number of indexes, the memory
+requirement of HISAT is still modest, approximately 4.3 GB for human.
+HISAT uses the `Bowtie2 <http://bowtie-bio.sf.net/bowtie2>`__
+implementation to handle most of the operations on the FM index. In
+addition to spliced alignment, HISAT handles reads involving indels and
+supports a paired-end alignment mode. Multiple processors can be used
+simultaneously to achieve greater alignment speed. HISAT outputs
+alignments in `SAM <http://samtools.sourceforge.net/SAM1.pdf>`__ format,
+enabling interoperation with a large number of other tools (e.g.
+`SAMtools <http://samtools.sourceforge.net>`__,
+`GATK <http://www.broadinstitute.org/gsa/wiki/index.php/The_Genome_Analysis_Toolkit>`__)
+that use SAM. HISAT is distributed under the `GPLv3
+license <http://www.gnu.org/licenses/gpl-3.0.html>`__, and it runs on
+the command line under Linux, Mac OS X and Windows.
+
+Running HISAT
+=============
+
+Reporting
+---------
+
+The reporting mode governs how many alignments HISAT looks for, and how
+to report them.
+
+In general, when we say that a read has an alignment, we mean that it
+has a `valid
+alignment <#valid-alignments-meet-or-exceed-the-minimum-score-threshold>`__.
+When we say that a read has multiple alignments, we mean that it has
+multiple alignments that are valid and distinct from one another.
+
+Distinct alignments map a read to different places
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Two alignments for the same individual read are "distinct" if they map
+the same read to different places. Specifically, we say that two
+alignments are distinct if there are no alignment positions where a
+particular read offset is aligned opposite a particular reference offset
+in both alignments with the same orientation. E.g. if the first
+alignment is in the forward orientation and aligns the read character at
+read offset 10 to the reference character at chromosome 3, offset
+3,445,245, and the second alignment is also in the forward orientation
+and also aligns the read character at read offset 10 to the reference
+character at chromosome 3, offset 3,445,245, they are not distinct
+alignments.
+
+Two alignments for the same pair are distinct if either the mate 1s in
+the two paired-end alignments are distinct or the mate 2s in the two
+alignments are distinct or both.
+
+Default mode: search for one or more alignments, report each
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+HISAT searches for up to N distinct, primary alignments for each read,
+where N equals the integer specified with the ``-k`` parameter. Primary
+alignments mean alignments whose alignment score is equal or higher than
+any other alignments. It is possible that multiple distinct alignments
+whave the same score. That is, if ``-k 2`` is specified, HISAT will
+search for at most 2 distinct alignments. The alignment score for a
+paired-end alignment equals the sum of the alignment scores of the
+individual mates. Each reported read or pair alignment beyond the first
+has the SAM 'secondary' bit (which equals 256) set in its FLAGS field.
+See the `SAM specification <http://samtools.sourceforge.net/SAM1.pdf>`__
+for details.
+
+HISAT does not "find" alignments in any specific order, so for reads
+that have more than N distinct, valid alignments, HISAT does not
+gaurantee that the N alignments reported are the best possible in terms
+of alignment score. Still, this mode can be effective and fast in
+situations where the user cares more about whether a read aligns (or
+aligns a certain number of times) than where exactly it originated.
+
+Alignment summmary
+------------------
+
+When HISAT finishes running, it prints messages summarizing what
+happened. These messages are printed to the "standard error" ("stderr")
+filehandle. For datasets consisting of unpaired reads, the summary might
+look like this:
+
+::
+
+    20000 reads; of these:
+      20000 (100.00%) were unpaired; of these:
+        1247 (6.24%) aligned 0 times
+        18739 (93.69%) aligned exactly 1 time
+        14 (0.07%) aligned >1 times
+    93.77% overall alignment rate
+
+For datasets consisting of pairs, the summary might look like this:
+
+::
+
+    10000 reads; of these:
+      10000 (100.00%) were paired; of these:
+        650 (6.50%) aligned concordantly 0 times
+        8823 (88.23%) aligned concordantly exactly 1 time
+        527 (5.27%) aligned concordantly >1 times
+        ----
+        650 pairs aligned concordantly 0 times; of these:
+          34 (5.23%) aligned discordantly 1 time
+        ----
+        616 pairs aligned 0 times concordantly or discordantly; of these:
+          1232 mates make up the pairs; of these:
+            660 (53.57%) aligned 0 times
+            571 (46.35%) aligned exactly 1 time
+            1 (0.08%) aligned >1 times
+    96.70% overall alignment rate
+
+The indentation indicates how subtotals relate to totals.
+        ]]></help>
     <citations>
         <citation type="doi">10.1038/nmeth.3317</citation>
     </citations>
