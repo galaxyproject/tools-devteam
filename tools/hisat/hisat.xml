@@ -7,6 +7,9 @@
     <stdio>
         <exit_code range="1:" />
     </stdio>
+    <macros>
+        <import>hisat_macros.xml</import>
+    </macros>
     <version_command>hisat --version</version_command>
     <command><![CDATA[
         #if $reference_genome.reference_genome_source == "history":
@@ -88,6 +91,16 @@
                 <param name="history_item" type="data" format="fasta" metadata_name="dbkey" label="Select the reference genome" />
             </when>
         </conditional>
+        <conditional name="alignment_options">
+            <param label="Alignment options" name="alignment_options_selector" type="select">
+                <option value="defaults">Use default values</option>
+                <option value="advanced">Fine tune alignment parameters</option>
+            </param>
+            <when value="defaults" />
+            <when value="advanced">
+                <expand macro="function"><label>Sets a function governing the maximum number of ambiguous characters</label></expand>
+            </when>
+        </conditional>
         <conditional name="input_options">
             <param label="Input options" name="input_options_selector" type="select">
                 <option value="defaults">Use default values</option>
@@ -95,7 +108,6 @@
             </param>
             <when value="defaults" />
             <when value="advanced">
-                <label>Scoring options</label>
                 <param name="skip" label="Skip the first N reads or pairs in the input" help="-s" type="integer" value="0" default="0" />
                 <param name="stop_after" label="Stop after aligning N reads" help="(-u) Align the first N reads or read pairs from the input (after the first N reads or pairs have been skipped), then stop." type="integer" value="0" default="0" />
                 <param name="trim_five" label="Trim 5' end" help="(-5) Trim N bases from 5' (left) end of each read before alignment" type="integer" value="0" default="0" />

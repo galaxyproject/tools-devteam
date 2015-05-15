@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<macros>
+    <xml name="function">
+        <param type="select" label="Function type" name="function_type" display="radio">
+            <yield />
+            <option value="C">Constant</option>
+            <option value="L">Linear [f(x) = y + z * x]</option>
+            <option value="S">Square root [f(x) = y + z * x²]</option>
+            <option value="G">Natural logarithm [f(x) = y + z * log(x)]</option>
+        </param>
+        <param type="integer" label="Constant term (y)" name="constant_term" value="0" />
+        <param type="integer" label="Coefficient (z)" name="coefficient_term" value="0" />
+    </xml>
+</macros>
