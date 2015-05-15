@@ -12,6 +12,10 @@
     </stdio>
     <version_command>hisat --version</version_command>
     <command><![CDATA[
+        #if str($spliced_options.spliced_options_selector) == "advanced" and str($spliced_options.known_splice_gff) != 'None':
+            ln -s "${spliced_options.known_splice_gff}" splice_sites.gff &&
+            python $__tool_directory__/extract_splice_sites.py "$spliced_options.known_splice_gff" > splice_sites.txt &&
+        #end if
         #if $reference_genome.reference_genome_source == "history":
             ln -s "$reference_genome.history_item" genome.fa &&
             hisat-build genome.fa genome && 
@@ -19,7 +23,7 @@
         #else:
             #set index_path = $reference_genome.index.fields.path
         #end if
-        hisat -p \${GALAXY_SLOTS:-1} -x "${index_path}"
+        hisat --reorder -p \${GALAXY_SLOTS:-1} -x "${index_path}"
         #if str($input_format.paired.paired_selector) == 'paired':
             -1 "${reads_f}" -2 "${reads_r}"
         #else:
@@ -35,6 +39,17 @@
         #if str($scoring_options.scoring_options_selector) == "advanced":
             --ma ${match_bonus} --mp ${max_mismatch},${min_mismatch}
             --np ${ambiguous_penalty} --rdg ${read_open_penalty},${read_extend_penalty} --rfg ${ref_open_penalty},${ref_extend_penalty}
+        #end if
+        #if str($alignment_options.alignment_options_selector) == "advanced":
+            --n-ceil ${alignment_options.function_type},${alignment_options.constant_term},${alignment_options.coefficient_term}
+            ${skip_fw} ${skip_rc}
+        #end if
+        #if str($spliced_options.spliced_options_selector) == "advanced":
+            --pen-cansplice ${spliced_options.canonical_penalty} --pen-noncansplice ${spliced_options.noncanonical_penalty}
+            --pen-intronlen ${spliced_options.function_type},${spliced_options.constant_term},${spliced_options.coefficient_term}
+            #if str($spliced_options.known_splice_gff) != 'None':
+                --known-splicesite-infile splice_sites.txt
+            #end if
         #end if
     ]]></command>
     <inputs>
@@ -136,6 +151,23 @@
                 <param name="ref_extend_penalty" label="Reference gap extend penalty." help="(--rfg) A reference gap of length N gets a penalty of [open_penalty] + N * [extend_penalty]" type="integer" value="3" default="3" />
             </when>
         </conditional>
+        <conditional name="spliced_options">
+            <param label="Scoring options" name="spliced_options_selector" type="select">
+                <option value="defaults">Use default values</option>
+                <option value="advanced">Fine tune scoring parameters</option>
+            </param>
+            <when value="default" />
+            <when value="advanced">
+                <param name="canonical_penalty" label="Penalty for canonical splice sites" type="integer" value="0" />
+                <param name="noncanonical_penalty" label="Penalty for non-canonical splice sites" type="integer" value="3" />
+                <expand macro="function">
+                    <label>Sets the penalty for long introns so that alignments with shorter introns are preferred to those with longer ones.</label>
+                </expand>
+                <param name="min_intron" label="Minimum intron length" type="integer" value="20" />
+                <param name="max_intron" label="Maximum intron length" type="integer" value="500000" />
+                <param name="known_splice_gff" type="data" format="gff" optional="True" />
+            </when>
+        </conditional>
     </inputs>
     <tests>
         <test>
@@ -145,7 +177,7 @@
             <param name="history_item" value="phiX.fa" ftype="fasta" />
             <param name="reads_f" ftype="fastqsanger" value="hisat_input_1_forward.fastq" /> 
             <param name="reads_r" ftype="fastqsanger" value="hisat_input_1_reverse.fastq" /> 
-            <output name="output_alignments" ftype="sam" file="empty.sam" />
+            <output name="output_alignments" ftype="sam" file="empty.sam" lines_diff="4" />
         </test>
     </tests>
     <outputs>
