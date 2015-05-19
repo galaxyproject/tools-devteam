@@ -11,4 +11,12 @@
         <param type="integer" label="Constant term (y)" name="constant_term" value="0" />
         <param type="integer" label="Coefficient (z)" name="coefficient_term" value="0" />
     </xml>
+    <xml name="single_paired_selector">
+        <param label="Single end or paired reads?" name="paired_selector" type="select">
+            <option value="collection">Single collection of paired reads</option>
+            <option value="collection">List of paired reads</option>
+            <option value="paired">Reads are paired</option>
+            <option value="single">Reads are unpaired</option>
+        </param>
+    </xml>
 </macros>

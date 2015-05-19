@@ -5,6 +5,7 @@
     </macros>
     <requirements>
         <requirement type="package" version="0.1.5">hisat</requirement>
+        <requirement>samtools</requirement>
         <!-- <requirement type="package" version="2.2.5">bowtie2</requirement> -->
     </requirements>
     <stdio>
@@ -14,7 +15,7 @@
     <command><![CDATA[
         #if str($spliced_options.spliced_options_selector) == "advanced" and str($spliced_options.known_splice_gff) != 'None':
             ln -s "${spliced_options.known_splice_gff}" splice_sites.gff &&
-            python $__tool_directory__/extract_splice_sites.py "$spliced_options.known_splice_gff" > splice_sites.txt &&
+            python $__tool_directory__/extract_splice_sites.py splice_sites.gff > splice_sites.txt &&
         #end if
         #if $reference_genome.reference_genome_source == "history":
             ln -s "$reference_genome.history_item" genome.fa &&
@@ -23,16 +24,17 @@
         #else:
             #set index_path = $reference_genome.index.fields.path
         #end if
-        hisat --reorder -p \${GALAXY_SLOTS:-1} -x "${index_path}"
+        hisat -p \${GALAXY_SLOTS:-1} -x "${index_path}"
         #if str($input_format.paired.paired_selector) == 'paired':
             -1 "${reads_f}" -2 "${reads_r}"
+        #else if str($input_format.paired.paired_selector) == 'collection':
+            -1 "${input_format.paired.reads.forward}" -2 "${input_format.paired.reads.reverse}"
         #else:
             -U "${reads}"
         #end if
         #if $input_format.input_format_selector == 'fasta':
             -f
         #end if
-        -S "${output_alignments}"
         #if str($input_options.input_options_selector) == "advanced":
             -s ${skip} -u ${stop_after} -5 ${trim_five} -3 ${trim_three}
         #end if
@@ -51,6 +53,10 @@
                 --known-splicesite-infile splice_sites.txt
             #end if
         #end if
+        -S alignments.sam &&
+        samtools view -bS alignments.sam -o alignments.bam &&
+        samtools sort alignments.bam alignments.sorted &&
+        mv alignments.sorted.bam "${output_alignments}"
     ]]></command>
     <inputs>
         <conditional name="input_format">
@@ -60,10 +66,10 @@
             </param>
             <when value="fasta">
                 <conditional name="paired">
-                    <param label="Single end or paired reads?" name="paired_selector" type="select">
-                        <option value="paired">Reads are paired</option>
-                        <option value="single">Reads are unpaired</option>
-                    </param>
+                    <expand macro="single_paired_selector" />
+                    <when value="collection">
+                        <param format="fasta" name="reads" type="data_collection" collection_type="paired" label="Paired reads" />
+                    </when>
                     <when value="paired">
                         <param label="Forward reads" type="data" name="reads_f" multiple="true" format="fasta" />
                         <param label="Reverse reads" type="data" name="reads_r" multiple="true" format="fasta" />
@@ -75,10 +81,10 @@
             </when>
             <when value="fastq">
                 <conditional name="paired">
-                    <param label="Single end or paired reads?" name="paired_selector" type="select">
-                        <option value="paired">Reads are paired</option>
-                        <option value="single">Reads are unpaired</option>
-                    </param>
+                    <expand macro="single_paired_selector" />
+                    <when value="collection">
+                        <param format="fastq,fastqsanger,fastqsolexa" name="reads" type="data_collection" collection_type="paired" label="Paired reads" />
+                    </when>
                     <when value="paired">
                         <param label="Forward reads" type="data" name="reads_f" multiple="true" format="fastq,fastqsanger,fastqsolexa" />
                         <param label="Reverse reads" type="data" name="reads_r" multiple="true" format="fastq,fastqsanger,fastqsolexa" />
@@ -109,7 +115,7 @@
         <conditional name="alignment_options">
             <param label="Alignment options" name="alignment_options_selector" type="select">
                 <option value="defaults">Use default values</option>
-                <option value="advanced">Fine tune alignment parameters</option>
+                <option value="advanced">Specify alignment parameters</option>
             </param>
             <when value="defaults" />
             <when value="advanced">
@@ -124,7 +130,7 @@
         <conditional name="input_options">
             <param label="Input options" name="input_options_selector" type="select">
                 <option value="defaults">Use default values</option>
-                <option value="advanced">Fine tune input parameters</option>
+                <option value="advanced">Specify input parameters</option>
             </param>
             <when value="defaults" />
             <when value="advanced">
@@ -137,9 +143,9 @@
         <conditional name="scoring_options">
             <param label="Scoring options" name="scoring_options_selector" type="select">
                 <option value="defaults">Use default values</option>
-                <option value="advanced">Fine tune scoring parameters</option>
+                <option value="advanced">Specify scoring parameters</option>
             </param>
-            <when value="default" />
+            <when value="defaults" />
             <when value="advanced">
                 <param name="match_bonus" label="Set match bonus" help="(--ma) In local mode N is added to the alignment score for each position where a read character aligns to a reference character and the characters match. Not used in end-to-end mode" type="integer" value="2" default="2" />
                 <param name="max_mismatch" label="Maximum mismatch penalty" help="(--mp) Sets the maximum mismatch penalty. A number less than or equal to MX and greater than or equal to MN is subtracted from the alignment score for each position where a read character aligns to a reference character, the characters do not match, and neither is an N. If --ignore-quals is specified, the number subtracted quals MX. Otherwise, the number subtracted is MN + floor( (MX-MN)(MIN(Q, 40.0)/40.0) ) where Q is the Phred quality value." type="integer" value="6" default="6" />
@@ -152,11 +158,11 @@
             </when>
         </conditional>
         <conditional name="spliced_options">
-            <param label="Scoring options" name="spliced_options_selector" type="select">
+            <param label="Spliced alignment parameters" name="spliced_options_selector" type="select">
                 <option value="defaults">Use default values</option>
-                <option value="advanced">Fine tune scoring parameters</option>
+                <option value="advanced">Specify spliced alignment parameters</option>
             </param>
-            <when value="default" />
+            <when value="defaults" />
             <when value="advanced">
                 <param name="canonical_penalty" label="Penalty for canonical splice sites" type="integer" value="0" />
                 <param name="noncanonical_penalty" label="Penalty for non-canonical splice sites" type="integer" value="3" />
@@ -165,7 +171,7 @@
                 </expand>
                 <param name="min_intron" label="Minimum intron length" type="integer" value="20" />
                 <param name="max_intron" label="Maximum intron length" type="integer" value="500000" />
-                <param name="known_splice_gff" type="data" format="gff" optional="True" />
+                <param name="known_splice_gff" label="GTF/GFF file with known splice sites" type="data" format="gff" optional="True" />
             </when>
         </conditional>
     </inputs>
@@ -181,7 +187,7 @@
         </test>
     </tests>
     <outputs>
-        <data name="output_alignments" format="sam" />
+        <data name="output_alignments" format="bam" />
     </outputs>
     <help><![CDATA[
 Introduction
