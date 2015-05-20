@@ -7,6 +7,7 @@
     </macros>
     <command>
         <![CDATA[
+        @SET_DATABASE_PATH@ &&
         kraken-report @INPUT_DATABASE@ "${kraken_output}" > "$output_report"
         ]]>
     </command>

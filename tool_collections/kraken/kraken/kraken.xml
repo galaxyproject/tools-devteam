@@ -8,6 +8,7 @@
     </macros>
     <command>
         <![CDATA[
+        @SET_DATABASE_PATH@ &&
         kraken --threads \${GALAXY_SLOTS:-1} @INPUT_DATABASE@ 
         "$input_sequences"
         #if $split_reads:
@@ -28,9 +29,6 @@
         </data>
         <data format="tabular" label="${tool.name} on ${on_string}: Unclassified reads" name="unclassified_out">
             <filter>(split_reads)</filter>
-        </data>
-        <data format="tabular" label="${tool.name} on ${on_string}: Histogram" name="histogram">
-            <filter>(draw_histogram)</filter>
         </data>
         <data format="tabular" label="${tool.name} on ${on_string}: Classification" name="output" />
         <data format="tabular" label="${tool.name} on ${on_string}: Translated classification" name="translated" />
