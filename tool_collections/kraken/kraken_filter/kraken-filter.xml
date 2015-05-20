@@ -7,6 +7,7 @@
     </macros>
     <command>
         <![CDATA[
+        @SET_DATABASE_PATH@ &&
         kraken-filter @INPUT_DATABASE@ --threshold $threshold "${input}" > "$filtered_output"
         ]]>
     </command>
