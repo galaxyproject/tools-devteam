@@ -6,7 +6,6 @@
     <requirements>
         <requirement type="package" version="0.1.5">hisat</requirement>
         <requirement>samtools</requirement>
-        <!-- <requirement type="package" version="2.2.5">bowtie2</requirement> -->
     </requirements>
     <stdio>
         <exit_code range="1:" />
@@ -27,8 +26,17 @@
         hisat -p \${GALAXY_SLOTS:-1} -x "${index_path}"
         #if str($input_format.paired.paired_selector) == 'paired':
             -1 "${reads_f}" -2 "${reads_r}"
-        #else if str($input_format.paired.paired_selector) == 'collection':
+        #else if str($input_format.paired.paired_selector) == 'paired_collection':
             -1 "${input_format.paired.reads.forward}" -2 "${input_format.paired.reads.reverse}"
+        #else if str($input_format.paired.paired_selector) == 'paired_list':
+            #set forward_reads = []
+            #set reverse_reads = []
+            #for read in $input_format.paired.reads:
+                $forward_reads.append($read.forward)
+                $reverse_reads.append($read.reverse)
+            #end for
+            -1 "${','.join([str($read) for read in $forward_reads])}"
+            -2 "${','.join([str($read) for read in $reverse_reads])}"
         #else:
             -U "${reads}"
         #end if
@@ -67,8 +75,11 @@
             <when value="fasta">
                 <conditional name="paired">
                     <expand macro="single_paired_selector" />
-                    <when value="collection">
+                    <when value="paired_collection">
                         <param format="fasta" name="reads" type="data_collection" collection_type="paired" label="Paired reads" />
+                    </when>
+                    <when value="paired_list">
+                        <param format="fasta" name="reads" type="data_collection" collection_type="list:paired" label="Paired reads" />
                     </when>
                     <when value="paired">
                         <param label="Forward reads" type="data" name="reads_f" multiple="true" format="fasta" />
@@ -82,8 +93,11 @@
             <when value="fastq">
                 <conditional name="paired">
                     <expand macro="single_paired_selector" />
-                    <when value="collection">
+                    <when value="paired_collection">
                         <param format="fastq,fastqsanger,fastqsolexa" name="reads" type="data_collection" collection_type="paired" label="Paired reads" />
+                    </when>
+                    <when value="paired_list">
+                        <param format="fastq,fastqsanger,fastqsolexa" name="reads" type="data_collection" collection_type="list:paired" label="Paired reads" />
                     </when>
                     <when value="paired">
                         <param label="Forward reads" type="data" name="reads_f" multiple="true" format="fastq,fastqsanger,fastqsolexa" />
