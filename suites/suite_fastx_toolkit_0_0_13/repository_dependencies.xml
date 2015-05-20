@@ -2,7 +2,7 @@
 <repositories>
     <repository name="fasta_clipping_histogram" owner="devteam" />
     <repository name="fasta_formatter" owner="devteam" />
-    <repository  name="fasta_nucleotide_changer" owner="devteam" />
+    <repository name="fasta_nucleotide_changer" owner="devteam" />
     <repository name="fastq_quality_boxplot" owner="devteam" />
     <repository name="fastq_quality_converter" owner="devteam" />
     <repository name="fastq_quality_filter" owner="devteam" />
