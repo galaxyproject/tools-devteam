@@ -3,4 +3,7 @@
     <package name="hisat" version="0.1.5">
         <repository name="package_hisat_0_1_5" owner="iuc" />
     </package>
+    <package name="samtools" version="0.1.18">
+        <repository name="package_samtools_0_1_18" owner="iuc" />
+    </package>
 </tool_dependency>

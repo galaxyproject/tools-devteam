@@ -5,7 +5,7 @@
     </macros>
     <requirements>
         <requirement type="package" version="0.1.5">hisat</requirement>
-        <requirement>samtools</requirement>
+        <requirement type="package" version="0.1.18">samtools</requirement>
     </requirements>
     <stdio>
         <exit_code range="1:" />
@@ -61,10 +61,7 @@
                 --known-splicesite-infile splice_sites.txt
             #end if
         #end if
-        -S alignments.sam &&
-        samtools view -bS alignments.sam -o alignments.bam &&
-        samtools sort alignments.bam alignments.sorted &&
-        mv alignments.sorted.bam "${output_alignments}"
+        | samtools view -bS - | samtools sort - -o hsbam > "${output_alignments}"
     ]]></command>
     <inputs>
         <conditional name="input_format">
