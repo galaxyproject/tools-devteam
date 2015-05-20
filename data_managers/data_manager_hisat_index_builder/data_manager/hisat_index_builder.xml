@@ -1,4 +1,4 @@
-<tool id="hisat_index_builder_data_manager" name="HISAT index" tool_type="manage_data" version="0.0.1">
+<tool id="hisat_index_builder_data_manager" name="HISAT index" tool_type="manage_data" version="1.0.0">
     <description>builder</description>
     <requirements>
         <requirement type="package" version="0.1.5">hisat</requirement>

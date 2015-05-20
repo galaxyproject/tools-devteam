@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-#Dan Blankenberg
+# Based heavily on the Bowtie 2 data manager wrapper script by Dan Blankenberg
 
 import sys
 import os
