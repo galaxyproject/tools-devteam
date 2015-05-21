@@ -142,6 +142,8 @@ def extract_transcripts(gtf_filename, verbose = True):
 
     transcript_avg_length = float(transcript_length_sum) / transcript_counts
     exon_avg_length = float(exon_length_sum) / exon_counts
+    if intron_counts == 0:
+        intron_counts += 1
     intron_avg_length = float(intron_length_sum) / intron_counts
 
     if verbose:
