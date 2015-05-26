@@ -33,6 +33,7 @@
     VALIDATION_STRINGENCY="${validation_stringency}"
     QUIET=true
     VERBOSITY=ERROR
+    TMP=$(pwd)
   
   </command>
   <inputs>
