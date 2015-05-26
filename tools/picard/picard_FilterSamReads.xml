@@ -41,7 +41,7 @@
   
   </command>
   <inputs>
-    <param name="inputFile" multiple="True" type="data" format="sam,bam" label="Select SAM/BAM dataset or dataset collection" help="If empty, upload or import a SAM/BAM dataset"/>
+    <param name="inputFile" type="data" format="sam,bam" label="Select SAM/BAM dataset or dataset collection" help="If empty, upload or import a SAM/BAM dataset"/>
     <conditional name="filter_type">
       <param name="filter" type="select" label="Select filtering type" help="FILTER; see Help for deatiled info">
         <option value="includeAligned">Include aligned</option>
