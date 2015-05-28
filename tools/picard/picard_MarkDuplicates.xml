@@ -33,7 +33,7 @@
     VALIDATION_STRINGENCY="${validation_stringency}"
     QUIET=true
     VERBOSITY=ERROR
-    TMP_DIR=$(pwd)
+    TMP_DIR=$__new_file_path__
   
   </command>
   <inputs>
