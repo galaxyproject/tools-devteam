@@ -1,13 +1,9 @@
 <tool name="RevertSam" id="picard_RevertSam" version="1.126.0">
   <description>revert SAM/BAM datasets to a previous state</description>
-  <requirements>
-    <requirement type="package" version="1.126.0">picard</requirement>
-  </requirements>
-  
   <macros>
     <import>picard_macros.xml</import>
   </macros>
-  
+  <expand macro="requirements" />
   <command>
     @java_options@
     

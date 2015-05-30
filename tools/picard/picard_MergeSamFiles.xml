@@ -1,13 +1,9 @@
 <tool name="MergeSamFiles" id="picard_MergeSamFiles" version="1.126.0">
   <description>merges multiple SAM/BAM datasets into one</description>
-  <requirements>
-    <requirement type="package" version="1.126.0">picard</requirement>
-  </requirements>
-  
   <macros>
     <import>picard_macros.xml</import>
   </macros>
-  
+  <expand macro="requirements" />
   <command>
     @java_options@
     

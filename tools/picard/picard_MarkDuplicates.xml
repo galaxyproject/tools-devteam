@@ -1,13 +1,9 @@
 <tool name="MarkDuplicates" id="picard_MarkDuplicates" version="1.126.0">
   <description>examine aligned records in BAM datasets to locate duplicate molecules</description>
-  <requirements>
-    <requirement type="package" version="1.126.0">picard</requirement>
-  </requirements>
-  
   <macros>
     <import>picard_macros.xml</import>
   </macros>
-  
+  <expand macro="requirements" />
   <command>
     @java_options@
     

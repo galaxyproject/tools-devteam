@@ -1,13 +1,9 @@
 <tool name="FilterSamReads" id="picard_FilterSamReads" version="1.126.0">
   <description>include or exclude aligned and unaligned reads and read lists</description>
-  <requirements>
-    <requirement type="package" version="1.126.0">picard</requirement>
-  </requirements>
-  
   <macros>
     <import>picard_macros.xml</import>
   </macros>
-  
+  <expand macro="requirements" />
   <command>
     @java_options@
     
