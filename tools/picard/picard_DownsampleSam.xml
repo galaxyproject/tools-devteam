@@ -1,13 +1,9 @@
 <tool name="Downsample SAM/BAM" id="picard_DownsampleSam" version="1.126.0">
   <description>Downsample a file to retain a subset of the reads</description>
-  <requirements>
-    <requirement type="package" version="1.126.0">picard</requirement>
-  </requirements>
-   
   <macros>
     <import>picard_macros.xml</import>
   </macros>
-   
+  <expand macro="requirements" />
   <command>
     @java_options@
     java -jar

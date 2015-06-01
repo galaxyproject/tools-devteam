@@ -1,13 +1,11 @@
 <tool name="MeanQualityByCycle" id="picard_MeanQualityByCycle" version="1.126.0">
   <description>chart distribution of base qualities</description>
-  <requirements>
-    <requirement type="package" version="1.126.0">picard</requirement>
-  </requirements>
-  
   <macros>
     <import>picard_macros.xml</import>
   </macros>
-  
+  <expand macro="requirements">
+    <requirement type="package" version="3.1.2">R</requirement>
+  </expand>
   <command>
     @java_options@
     ##set up input files

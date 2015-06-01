@@ -3,4 +3,7 @@
     <package name="picard" version="1.126.0">
         <repository name="package_picard_1_126_0" owner="devteam" />
     </package>
+    <package name="R" version="3.1.2">
+        <repository name="package_r_3_1_2" owner="iuc" />
+    </package>
 </tool_dependency>

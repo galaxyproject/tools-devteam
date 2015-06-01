@@ -1,16 +1,13 @@
 <tool name="CollectRnaSeqMetrics" id="picard_CollectRnaSeqMetrics" version="1.126.0">
-<description> collect metrics about the alignment of RNA to various functional classes of loci in the genome</description>
-<requirements>
-   <requirement type="package" version="1.126.0">picard</requirement>
-</requirements>
+    <description> collect metrics about the alignment of RNA to various functional classes of loci in the genome</description>
+    <macros>
+        <import>picard_macros.xml</import>
+    </macros>
+    <expand macro="requirements">
+        <requirement type="package" version="3.1.2">R</requirement>
+    </expand>
+    <command>
 
-<macros>
-    <import>picard_macros.xml</import>
-</macros>
-  
-
-   <command>
-      
       ## Set up input files
       
       ## Reference sequences

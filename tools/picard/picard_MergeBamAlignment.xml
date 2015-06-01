@@ -1,11 +1,9 @@
 <tool name="MergeBamAlignment" id="picard_MergeBamAlignment" version="1.126.0">
   <description>merge alignment data with additional info stored in an unmapped BAM dataset</description>
-  <requirements><requirement type="package" version="1.126.0">picard</requirement></requirements>
-  
   <macros>
     <import>picard_macros.xml</import>
   </macros>
-  
+  <expand macro="requirements" />
   <command>
     @java_options@
     #set $picard_dict = "localref.dict"

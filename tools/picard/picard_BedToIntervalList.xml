@@ -1,11 +1,9 @@
 <tool name="BedToIntervalList" id="picard_BedToIntervalList" version="1.126.0">
   <description>convert coordinate data into picard interval list format</description>
-  <requirements><requirement type="package" version="1.126.0">picard</requirement></requirements>
-  
   <macros>
     <import>picard_macros.xml</import>
   </macros>
-  
+  <expand macro="requirements" />
   <command>
     @java_options@
     
