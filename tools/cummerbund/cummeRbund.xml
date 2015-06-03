@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <tool id="cummeRbund" name="cummeRbund" version="1.0.1">
-    <description>visualize CuffDiff output</description>
+    <description>visualize Cuffdiff output</description>
     <requirements>
         <requirement type="set_environment">CUMMERBUND_SCRIPT_PATH</requirement>
         <requirement type="package" version="3.1.2">R</requirement>
