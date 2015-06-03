@@ -63,4 +63,21 @@
     <xml name="version_command">
         <version_command>bcftools --version | head -n 1 | awk '{ print $2 }'</version_command>
     </xml>
+    <token name="@INPUT_FORMAT@">
+        <![CDATA[
+            #if str($input.ext) == 'vcf':
+                ln -s ${input} input.vcf && bgzip input.vcf &&
+                #set $input="input.vcf.gz"
+            #elif str($input.ext) == 'vcf_bgzip':
+                ln -s  ${input} input.vcf.gz  &&
+                #set $input="input.vcf.gz"
+            #elif str($input.ext) == 'bcf':
+                ln -s ${input} input.bcf &&
+                #set $input="input.bcf"
+            #elif str($input.ext) == 'bcf_bgzip':
+                ln -s  ${input} input.bcf.gz  &&
+                #set $input="input.bcf.gz"
+            #end if
+        ]]>
+    </token>
 </macros>
