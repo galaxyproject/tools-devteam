@@ -4,6 +4,9 @@
     <macros>
         <import>macros.xml</import>
     </macros>
+    <expand macro="requirements" />
+    <expand macro="stdio" />
+    <expand macro="version_command" />
     <command>
         <![CDATA[
             #if str($input.ext) == 'vcf':
@@ -103,8 +106,5 @@
             -Y, --chromosome-Y              haploid output for males and skips females (requires PED file with -s)
         ]]>
     </help>
-    <expand macro="requirements" />
-    <expand macro="stdio" />
-    <expand macro="version_command" />
     <expand macro="citations" />
 </tool>
