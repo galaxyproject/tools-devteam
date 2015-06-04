@@ -1,10 +1,10 @@
-<tool id="hisat" name="HISAT" version="1.0.0">
+<tool id="hisat" name="HISAT" version="1.0.1">
     <description>spliced aligner</description>
     <macros>
         <import>hisat_macros.xml</import>
     </macros>
     <requirements>
-        <requirement type="package" version="0.1.5">hisat</requirement>
+        <requirement type="package" version="0.1.6">hisat</requirement>
         <requirement type="package" version="1.2">samtools</requirement>
     </requirements>
     <stdio>
@@ -14,7 +14,7 @@
     <command><![CDATA[
         #if str($spliced_options.spliced_options_selector) == "advanced" and str($spliced_options.known_splice_gff) != 'None':
             ln -s "${spliced_options.known_splice_gff}" splice_sites.gff &&
-            python $__tool_directory__/extract_splice_sites.py splice_sites.gff > splice_sites.txt &&
+            extract_splice_sites.py splice_sites.gff > splice_sites.txt &&
         #end if
         #if $reference_genome.reference_genome_source == "history":
             ln -s "$reference_genome.history_item" genome.fa &&
