@@ -78,7 +78,7 @@
             <output file="bcftools_view_out1.vcf" ftype="vcf" lines_diff="2" name="output" />
         </test>
         <test>
-            <param ftype="bcf_bgzip" name="input" value="bcftools_view_in1.bcf.gz" />
+            <param ftype="vcf" name="input" value="bcftools_view_in1.vcf" />
             <param name="output_format" value="v" />
             <output file="bcftools_view_out1.vcf" ftype="vcf" lines_diff="2" name="output" />
         </test>
