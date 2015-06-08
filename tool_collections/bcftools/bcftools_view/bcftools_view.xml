@@ -10,14 +10,14 @@
     <command>
 <![CDATA[
         @INPUT_FORMAT@
-        bcftools view "$input" $dropgenotypes $headers --compressionLevel $compression --output-file "$out_file"
-            --output-type $outputtype $novelsites $knownsites $excludephased $selectphased
+        bcftools view "$input" $dropgenotypes $headers --compression-level $compression --output-file "$output"
+            --output-type $output_format $novelsites $knownsites $excludephased $selectphased
         #if $varExists('$region.regioninput')
             --regions-file $region.regioninput
-        #endif
+        #end if
         #if $varExists('$target.targetinput')
             --target-file $target.targetinput
-        #endif
+        #end if
 ]]>
     </command>
     <inputs>
@@ -27,12 +27,7 @@
             <option value="--no-header">No Headers in Output</option>
             <option value="--header-only">Only Headers in Output</option>
         </param>
-        <param name="outputtype" type="select" label="Output Type" help="--output-type">
-            <option value="v" selected="true">Uncompressed VCF</option>
-            <option value="b">Compressed VCF</option>
-            <option value="u">Uncompressed BCF</option>
-            <option value="z">Compressed BCF</option>
-        </param>
+        <expand macro="output_format_selector" />
         <param name="compression"  type="integer" value="-1" min="-1" max="9" help="--compressionLevel" label="Compression Level (0: no compression, 1: best speed, 9: best compression"/>
         <param name="dropgenotypes" type="boolean" truevalue="--drop-genotypes" falsevalue="" checked="false" label="drop individual genotype information (after subsetting if -s is put)" help="--drop-genotypes"/>
 
@@ -72,6 +67,21 @@
         <expand macro="output_dataset" />
     </outputs>
     <tests>
+        <test>
+            <param ftype="vcf_bgzip" name="input" value="bcftools_view_in1.vcf.gz" />
+            <param name="output_format" value="v" />
+            <output file="bcftools_view_out1.vcf" ftype="vcf" lines_diff="2" name="output" />
+        </test>
+        <test>
+            <param ftype="bcf" name="input" value="bcftools_view_in1.bcf" />
+            <param name="output_format" value="v" />
+            <output file="bcftools_view_out1.vcf" ftype="vcf" lines_diff="2" name="output" />
+        </test>
+        <test>
+            <param ftype="bcf_bgzip" name="input" value="bcftools_view_in1.bcf.gz" />
+            <param name="output_format" value="v" />
+            <output file="bcftools_view_out1.vcf" ftype="vcf" lines_diff="2" name="output" />
+        </test>
     </tests>
     <help>
 <![CDATA[
