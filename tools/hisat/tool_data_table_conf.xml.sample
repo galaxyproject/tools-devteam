@@ -3,6 +3,6 @@
     <!-- Locations of indexes in the Bowtie2 mapper format -->
     <table name="hisat_indexes" comment_char="#">
         <columns>value, dbkey, name, path</columns>
-        <file path="tool-data/hisat_indices.loc" />
+        <file path="tool-data/hisat_indexes.loc" />
     </table>
 </tables>

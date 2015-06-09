@@ -1,4 +1,4 @@
-# hisat_indices.loc.sample
+# hisat_indexes.loc.sample
 # This is a *.loc.sample file distributed with Galaxy that enables tools
 # to use a directory of indexed data files. This one is for HISAT.
 # See the wiki: http://wiki.galaxyproject.org/Admin/NGS%20Local%20Setup
@@ -25,7 +25,7 @@
 #    -rw-rw-r-- 1 james   james   914M Feb 10 20:45 hg19canon.rev.1.bt2
 #    -rw-rw-r-- 1 james   james   683M Feb 10 20:45 hg19canon.rev.2.bt2
 #
-# then the hisat_indices.loc entry could look like this:
+# then the hisat_indexes.loc entry could look like this:
 #
 #hg19	hg19	Human (hg19)	/depot/data2/galaxy/hg19/hisat/hg19canon
 #
