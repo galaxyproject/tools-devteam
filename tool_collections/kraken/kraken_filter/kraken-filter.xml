@@ -1,6 +1,6 @@
-<tool id="kraken-filter" name="Kraken-filter" version="1.0.0">
+<tool id="kraken-filter" name="Kraken-filter" version="1.1.0">
     <description>
-        classification by confidence score
+        filter classification by confidence score
     </description>
     <macros>
         <import>macros.xml</import>

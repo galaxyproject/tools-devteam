@@ -1,4 +1,4 @@
-<tool id="kraken-translate" name="Kraken-translate" version="1.0.0">
+<tool id="kraken-translate" name="Kraken-translate" version="1.1.0">
     <description>
         convert taxonomy IDs to names
     </description>
