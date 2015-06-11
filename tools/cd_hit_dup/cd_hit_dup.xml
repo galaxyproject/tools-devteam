@@ -1,4 +1,7 @@
 <tool id="cd_hit_dup" name="cd-hit-dup" version="0.0.1">
+    <description>
+        remove duplicates and detect chimaeras in sequencing reads
+    </description>
     <requirements>
         <requirement type="package" version="0.5-2012-03-07-fix-dan-gh-0.0.1">cd-hit-auxtools</requirement>
     </requirements>
@@ -43,7 +46,7 @@
                 <param name="fastq_input2" type="data" format="fastqsanger,fasta" label="Select second set of reads" help="Specify dataset with reverse reads"/>
             </when>
             <when value="single">
-                <param name="fastq_input1" type="data" format="fastqsanger,fasta" label="Select read dataset" help="Specify dataset with single reads"/>
+                <param name="fastq_input1" type="data" format="fastqsanger,fasta" label="Select reads" help="Specify dataset with single reads"/>
                 <conditional name="filter_chimeras">
                     <param name="filter_chimeras_selector" type="select" label="Filter out chimeric clusters">
                         <option value="true">Yes</option>
@@ -91,40 +94,24 @@
     </tests>
     <help>
         <![CDATA[
-        **What it does**
+**What it does**
 
-        cd-hit-dup is a simple tool for removing duplicates from sequencing reads, with optional step to detect and remove chimeric reads. A number of options are provided to tune how the duplicates are removed.
+cd-hit-dup is a simple tool for removing duplicates from sequencing reads, with optional step to detect and remove chimeric reads. 
 
+**Options**
 
-        **Options**
+cd-hit-dup provides a number of options to tune how the duplicates are removed::
 
-            +--------+-------------------------------------------------------------------------------------------------------------------+
-            | Option | Description                                                                                                       |
-            +========+===================================================================================================================+
-            |-i      | Input file                                                                                                        |
-            +--------+-------------------------------------------------------------------------------------------------------------------+
-            |-i2     | Second input file                                                                                                 |
-            +--------+-------------------------------------------------------------------------------------------------------------------+
-            |-o      | Output file                                                                                                       |
-            +--------+-------------------------------------------------------------------------------------------------------------------+
-            |-d      | Description length (default 0, truncate at the first whitespace character)                                        |
-            +--------+-------------------------------------------------------------------------------------------------------------------+
-            |-u      | Length of prefix to be used in the analysis (default 0, for full/maximum length)                                  |
-            +--------+-------------------------------------------------------------------------------------------------------------------+
-            |-m      | Match length (true/false, default true)                                                                           |
-            +--------+-------------------------------------------------------------------------------------------------------------------+
-            |-e      | Maximum number/percent of mismatches allowed                                                                      |
-            +--------+-------------------------------------------------------------------------------------------------------------------+
-            |-f      | Filter out chimeric clusters (true/false, default false)                                                          |
-            +--------+-------------------------------------------------------------------------------------------------------------------+
-            |-s      | Minimum length of common sequence shared between a chimeric read and each of its parents (default 30, minimum 20) |
-            +--------+-------------------------------------------------------------------------------------------------------------------+
-            |-a      | Abundance cutoff (default 1 without chimeric filtering, 2 with chimeric filtering)                                |
-            +--------+-------------------------------------------------------------------------------------------------------------------+
-            |-b      | Abundance ratio between a parent read and a chimeric read (default 1)                                             |
-            +--------+-------------------------------------------------------------------------------------------------------------------+
-            |-p      | Dissimilarity control for chimeric filtering (default 1)                                                          |
-            +--------+-------------------------------------------------------------------------------------------------------------------+
+ -d     Description length (default 0, truncate at the first whitespace character)
+ -u     Length of prefix to be used in the analysis (default 0, for full/maximum length)
+ -m     Match length (true/false, default true)
+ -e     Maximum number/percent of mismatches allowed
+ -f     Filter out chimeric clusters (true/false, default false)
+ -s     Minimum length of common sequence shared between a chimeric read and each of
+        its parents (default 30, minimum 20)
+ -a     Abundance cutoff (default 1 without chimeric filtering, 2 with chimeric filtering)
+ -b     Abundance ratio between a parent read and a chimeric read (default 1)
+ -p     Dissimilarity control for chimeric filtering (default 1)
 
 
         ]]>
