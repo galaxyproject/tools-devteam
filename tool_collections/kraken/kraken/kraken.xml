@@ -11,7 +11,7 @@
         @SET_DATABASE_PATH@ &&
         kraken --threads \${GALAXY_SLOTS:-1} @INPUT_DATABASE@ 
         
-        #if isinstance( $input_sequences.datatype, $__app__.datatypes_registry.get_datatype_by_extension('fastq').__class__):
+        #if $input_sequences.is_of_type( 'fastq' ):
             --fastq-input
         #else:
             --fasta-input
