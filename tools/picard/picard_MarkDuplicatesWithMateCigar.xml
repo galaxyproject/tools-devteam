@@ -14,10 +14,8 @@
     OUTPUT="${outFile}"
     
     METRICS_FILE="${metrics_file}"
-    #for $element in $comments:
-      COMMENT="${element.comment}"
-    #end for
-    
+    COMMENT="${comment}"
+
     MINIMUM_DISTANCE="${minimum_distance}"
     SKIP_PAIRS_WITH_NO_MATE_CIGAR="${skip_pairs_with_no_mate_cigar}"
     
