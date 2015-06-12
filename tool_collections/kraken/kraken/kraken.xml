@@ -29,8 +29,8 @@
         #if $split_reads:
             --classified-out "${classified_out}" --unclassified-out "${unclassified_out}"
         #end if
-        --output "${output}" &&
-        kraken-translate --db ${kraken_database.fields.name} "${output}" > "${translated}"
+        --output "${output}"
+        ##kraken-translate --db ${kraken_database.fields.name} "${output}" > "${translated}"
         ]]>
     </command>
     <inputs>
@@ -61,17 +61,14 @@
         <data format="tabular" label="${tool.name} on ${on_string}: Unclassified reads" name="unclassified_out">
             <filter>(split_reads)</filter>
         </data>
-        <data format="tabular" label="${tool.name} on ${on_string}: Histogram" name="histogram">
-            <filter>(draw_histogram)</filter>
-        </data>
         <data format="tabular" label="${tool.name} on ${on_string}: Classification" name="output" />
-        <data format="tabular" label="${tool.name} on ${on_string}: Translated classification" name="translated" />
+        <!--<data format="tabular" label="${tool.name} on ${on_string}: Translated classification" name="translated" />-->
     </outputs>
     <help>
         <![CDATA[
 **What it does**
 
-Kraken is a taxonomic sequence classifier that assigns taxonomic labels to short DNA reads. It does this by examining the k-mers within a read and querying a database with those k-mers. This database contains a mapping of every k-mer in Kraken's genomic library to the lowest common ancestor (LCA) in a taxonomic tree of all genomes that contain that k-mer. The set of LCA taxa that correspond to the k-mers in a read are then analyzed to create a single taxonomic label for the read; this label can be any of the nodes in the taxonomic tree. Kraken is designed to be rapid, sensitive, and highly precise. Our tests on various real and simulated data have shown Kraken to have sensitivity slightly lower than Megablast with precision being slightly higher. On a set of simulated 100 bp reads, Kraken processed over 1.3 million reads per minute on a single core in normal operation, and over 4.1 million reads per minute in quick operation.
+Kraken is a taxonomic sequence classifier that assigns taxonomic labels to short DNA reads. It does this by examining the k-mers within a read and querying a database with those k-mers. This database contains a mapping of every k-mer in Kraken's genomic library to the lowest common ancestor (LCA) in a taxonomic tree of all genomes that contain that k-mer. The set of LCA taxa that correspond to the k-mers in a read are then analyzed to create a single taxonomic label for the read; this label can be any of the nodes in the taxonomic tree. Kraken is designed to be rapid, sensitive, and highly precise.
 
 -----
 
