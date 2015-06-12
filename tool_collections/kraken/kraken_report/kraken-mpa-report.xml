@@ -1,0 +1,68 @@
+<tool id="kraken-mpa-report" name="Kraken-mpa-report" version="1.1.0">
+    <description>
+        view report of classification for multiple samples
+    </description>
+    <macros>
+        <import>macros.xml</import>
+    </macros>
+    <command>
+      <![CDATA[
+
+#for $input_count, $input_classification in enumerate( $classifications ):
+ ln -s "${input_classification.classification}" "sample_${input_count}" &&
+#end for
+
+kraken-mpa-report @INPUT_DATABASE@
+
+#for $input_count, $input_classification in enumerate( $classifications ):
+ "sample_${input_count}"
+#end for
+
+${show_zeros}
+${header_line}
+
+> "$output_report"
+
+
+	]]>
+    </command>
+    <inputs>
+      <repeat name="classifications" title="Classifications" min="1">
+	<param name="classification" type="data" format="tabular" label="Kraken output"/>
+      </repeat>
+      <param name="show_zeros" type="boolean" truevalue="--show-zeros" falsevalue="" checked="False" label="Display taxa even if they lack a read in any sample" help="--show-zeros"/>
+      <param name="header_line" type="boolean" truevalue="--header-line" falsevalue="" checked="False" label="Display a header line indicating sample IDs" help="--header-line"/>
+        <expand macro="input_database" />
+    </inputs>
+    <outputs>
+        <data format="tabular" name="output_report" />
+    </outputs>
+    <help>
+<![CDATA[
+
+.. class:: warningmark
+
+**Note**: the database used must be the same as the one used in the original Kraken run
+
+-----
+
+**Output**
+
+The output of kraken-report is tab-delimited, with one line per taxon. The fields of the output, from left-to-right, are as follows::
+
+ 1. Percentage of reads covered by the clade rooted at this taxon
+ 2. Number of reads covered by the clade rooted at this taxon
+ 3. Number of reads assigned directly to this taxon
+ 4. A rank code, indicating (U)nclassified, (D)omain, (K)ingdom, (P)hylum, (C)lass, (O)rder, (F)amily, (G)enus, or (S)pecies. All other ranks are simply filled with a dash.
+ 5. NCBI taxonomy ID
+ 6. Indented scientific name
+
+The scientific names are indented using spaces, according to the tree
+structure specified by the taxonomy.
+    ]]>
+    </help>
+    <expand macro="version_command" />
+    <expand macro="requirements" />
+    <expand macro="stdio" />
+    <expand macro="citations" />
+</tool>
