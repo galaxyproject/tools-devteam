@@ -18,7 +18,7 @@
 
         ${only_classified_output}
 
-        #if str( $quick-operation.quick ) == "yes":
+        #if str( $quick_operation.quick ) == "yes":
             --quick
             --min-hits ${quick-operation.min_hits}
 
@@ -37,7 +37,7 @@
         <param format="fasta,fastq" label="Input sequences" name="input_sequences" type="data" help="FASTA or FASTQ datasets"/>
         <param label="Output classified and unclassified reads?" name="split_reads" type="boolean" help="Sets --unclassified-out and --classified-out"/>
   
-        <conditional name="quick-operation">
+        <conditional name="quick_operation">
             <param name="quick" type="select" label="Enable quick operation?" help="--quick; Rather than searching all k-mers in a sequence, stop classification after a specified number of database hit">
                 <option value="yes">Yes</option>
                 <option selected="True" value="no">No</option>
