@@ -30,9 +30,7 @@ ${header_line}
 	]]>
     </command>
     <inputs>
-      <!--<repeat name="classifications" title="Classifications" min="1" multiple="True">-->
-	<param multiple="True" name="classification" type="data" format="tabular" label="Kraken output"/>
-      <!--</repeat>-->
+      <param multiple="True" name="classification" type="data" format="tabular" label="Kraken output"/>
       <param name="show_zeros" type="boolean" truevalue="--show-zeros" falsevalue="" checked="False" label="Display taxa even if they lack a read in any sample" help="--show-zeros"/>
       <param name="header_line" type="boolean" truevalue="--header-line" falsevalue="" checked="False" label="Display a header line indicating sample IDs" help="--header-line"/>
         <expand macro="input_database" />
