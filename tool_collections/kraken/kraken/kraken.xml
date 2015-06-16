@@ -20,7 +20,7 @@
 
         #if str( $quick_operation.quick ) == "yes":
             --quick
-            --min-hits ${quick-operation.min_hits}
+            --min-hits ${quick_operation.min_hits}
 
         #end if
 
