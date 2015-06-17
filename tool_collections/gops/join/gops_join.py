@@ -8,28 +8,28 @@ usage: %prog bed_file_1 bed_file_2 out_file
     -m, --mincols=N: Require this much overlap (default 1bp)
     -f, --fill=N: none, right, left, both
 """
-import sys, traceback, fileinput
-from warnings import warn
-from bx.intervals import *
-from bx.intervals.io import *
-from bx.intervals.operations.join import *
+import fileinput
+import sys
+from bx.intervals.io import NiceReaderWrapper
+from bx.intervals.operations.join import join
 from bx.cookbook import doc_optparse
-from galaxy.tools.util.galaxyops import *
+from bx.tabular.io import ParseError
+from galaxy.tools.util.galaxyops import fail, parse_cols_arg, skipped
 
 assert sys.version_info[:2] >= ( 2, 4 )
 
+
 def main():
     mincols = 1
-    upstream_pad = 0
-    downstream_pad = 0
     leftfill = False
     rightfill = False
-    
+
     options, args = doc_optparse.parse( __doc__ )
     try:
         chr_col_1, start_col_1, end_col_1, strand_col_1 = parse_cols_arg( options.cols1 )
-        chr_col_2, start_col_2, end_col_2, strand_col_2 = parse_cols_arg( options.cols2 )      
-        if options.mincols: mincols = int( options.mincols )
+        chr_col_2, start_col_2, end_col_2, strand_col_2 = parse_cols_arg( options.cols2 )
+        if options.mincols:
+            mincols = int( options.mincols )
         if options.fill:
             if options.fill == "both":
                 rightfill = leftfill = True

@@ -13,26 +13,26 @@ usage: %prog in_file_1 in_file_2 out_file
     -s, --sameformat: All files are precisely the same format.
 """
 
-import sys, traceback, fileinput
-from warnings import warn
-from bx.intervals import *
-from bx.intervals.io import *
-from bx.intervals.operations.concat import *
+import fileinput
+import sys
+from bx.intervals.io import GenomicInterval, NiceReaderWrapper
+from bx.intervals.operations.concat import concat
 from bx.cookbook import doc_optparse
-from galaxy.tools.util.galaxyops import *
+from bx.tabular.io import ParseError
+from galaxy.tools.util.galaxyops import fail, parse_cols_arg, skipped
 
 assert sys.version_info[:2] >= ( 2, 4 )
 
+
 def main():
-    sameformat=False
-    upstream_pad = 0
-    downstream_pad = 0
+    sameformat = False
 
     options, args = doc_optparse.parse( __doc__ )
     try:
         chr_col_1, start_col_1, end_col_1, strand_col_1 = parse_cols_arg( options.cols1 )
         chr_col_2, start_col_2, end_col_2, strand_col_2 = parse_cols_arg( options.cols2 )
-        if options.sameformat: sameformat = True
+        if options.sameformat:
+            sameformat = True
         in_file_1, in_file_2, out_fname = args
     except:
         doc_optparse.exception()
@@ -69,6 +69,6 @@ def main():
         print skipped( g1, filedesc=" of 1st dataset" )
     if g2.skipped > 0:
         print skipped( g2, filedesc=" of 2nd dataset" )
-        
+
 if __name__ == "__main__":
     main()

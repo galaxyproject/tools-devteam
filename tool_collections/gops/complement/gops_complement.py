@@ -8,27 +8,27 @@ usage: %prog in_file out_file
     -a, --all: Complement all chromosomes (Genome-wide complement)
 """
 
-import sys, traceback, fileinput
-from warnings import warn
-from bx.intervals import *
-from bx.intervals.io import *
+import sys
+import fileinput
+from bx.intervals.io import GenomicInterval, GenomicIntervalReader, NiceReaderWrapper
 from bx.intervals.operations.complement import complement
 from bx.intervals.operations.subtract import subtract
 from bx.cookbook import doc_optparse
-from galaxy.tools.util.galaxyops import *
+from bx.tabular.io import ParseError
+from galaxy.tools.util.galaxyops import fail, parse_cols_arg, skipped
 
 assert sys.version_info[:2] >= ( 2, 4 )
 
+
 def main():
     allchroms = False
-    upstream_pad = 0
-    downstream_pad = 0
 
     options, args = doc_optparse.parse( __doc__ )
     try:
         chr_col_1, start_col_1, end_col_1, strand_col_1 = parse_cols_arg( options.cols1 )
         lengths = options.lengths
-        if options.all: allchroms = True
+        if options.all:
+            allchroms = True
         in_fname, out_fname = args
     except:
         doc_optparse.exception()
@@ -45,7 +45,7 @@ def main():
     # dbfile is used to determine the length of each chromosome.  The lengths
     # are added to the lens dict and passed copmlement operation code in bx.
     dbfile = fileinput.FileInput( lengths )
-    
+
     if dbfile:
         if not allchroms:
             try:
@@ -60,7 +60,7 @@ def main():
                 for line in dbfile:
                     fields = line.split("\t")
                     end = int(fields[1])
-                    chroms.append("\t".join([fields[0],"0",str(end)]))
+                    chroms.append("\t".join([fields[0], "0", str(end)]))
             except:
                 pass
 

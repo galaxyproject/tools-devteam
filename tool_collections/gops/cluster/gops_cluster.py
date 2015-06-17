@@ -9,30 +9,33 @@ usage: %prog in_file out_file
     -m, --minregions=N: Minimum regions per cluster
     -o, --output=N: 1)merged 2)filtered 3)clustered 4) minimum 5) maximum
 """
-import sys, traceback, fileinput
-from warnings import warn
-from bx.intervals import *
-from bx.intervals.io import *
-from bx.intervals.operations.find_clusters import *
+import fileinput
+import sys
+from bx.intervals.io import GenomicInterval, NiceReaderWrapper
+from bx.intervals.operations.find_clusters import find_clusters
 from bx.cookbook import doc_optparse
-from galaxy.tools.util.galaxyops import *
+from bx.tabular.io import ParseError
+from galaxy.tools.util.galaxyops import fail, parse_cols_arg, skipped
 
 assert sys.version_info[:2] >= ( 2, 4 )
+
 
 def main():
     distance = 0
     minregions = 2
     output = 1
-    upstream_pad = 0
-    downstream_pad = 0
 
     options, args = doc_optparse.parse( __doc__ )
     try:
         chr_col_1, start_col_1, end_col_1, strand_col_1 = parse_cols_arg( options.cols1 )
-        if options.distance: distance = int( options.distance )
-        if options.overlap: distance = -1 * int( options.overlap )
-        if options.output: output = int( options.output )
-        if options.minregions: minregions = int( options.minregions )
+        if options.distance:
+            distance = int( options.distance )
+        if options.overlap:
+            distance = -1 * int( options.overlap )
+        if options.output:
+            output = int( options.output )
+        if options.minregions:
+            minregions = int( options.minregions )
         in_fname, out_fname = args
     except:
         doc_optparse.exception()
@@ -52,10 +55,10 @@ def main():
 
     f1 = open( in_fname, "r" )
     out_file = open( out_fname, "w" )
-    
+
     # If "merge"
     if output == 1:
-        fields = ["."  for x in range(max(g1.chrom_col, g1.start_col, g1.end_col)+1)]
+        fields = ["." for x in range(max(g1.chrom_col, g1.start_col, g1.end_col) + 1)]
         for chrom, tree in clusters.items():
             for start, end, lines in tree.getregions():
                 fields[g1.chrom_col] = chrom
@@ -91,7 +94,6 @@ def main():
         f1.seek(0)
         fileLines = f1.readlines()
         for chrom, tree in clusters.items():
-            regions = tree.getregions()
             for start, end, lines in tree.getregions():
                 outsize = -1
                 outinterval = None
@@ -100,11 +102,11 @@ def main():
                     # should only execute this code once per line
                     fileline = fileLines[line].rstrip("\n\r")
                     try:
-                        cluster_interval = GenomicInterval( g1, fileline.split("\t"), 
-                                                            g1.chrom_col, 
+                        cluster_interval = GenomicInterval( g1, fileline.split("\t"),
+                                                            g1.chrom_col,
                                                             g1.start_col,
-                                                            g1.end_col, 
-                                                            g1.strand_col, 
+                                                            g1.end_col,
+                                                            g1.strand_col,
                                                             g1.default_strand,
                                                             g1.fix_strand )
                     except Exception, exc:
@@ -114,14 +116,14 @@ def main():
                     interval_size = cluster_interval.end - cluster_interval.start
                     if outsize == -1 or \
                        ( outsize > interval_size and output == 4 ) or \
-                       ( outsize < interval_size and output == 5 ) :
+                       ( outsize < interval_size and output == 5 ):
                         outinterval = cluster_interval
                         outsize = interval_size
                 out_file.write( "%s\n" % outinterval )
 
     f1.close()
     out_file.close()
-    
+
     if g1.skipped > 0:
         print skipped( g1, filedesc="" )
 
