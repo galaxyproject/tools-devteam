@@ -1,5 +1,5 @@
 # runs after the job (and after the default post-filter)
-from galaxy.tools.parameters.basic import DataToolParameter
+from galaxy.tools.parameters import DataToolParameter
 
 from galaxy.jobs.handler import JOB_ERROR
 
