@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
-<tool id="bwa" name="Map with BWA" version="0.2.3">
+<tool id="bwa" name="Map with BWA" version="0.3.0">
   <description>- map short reads (&lt; 100 bp) against reference genome</description>
   <macros>
+    <import>read_group_macros.xml</import>
     <import>bwa_macros.xml</import>
     <token name="@command_options@">
     #if str( $analysis_type.analysis_type_selector ) == "full":
@@ -29,7 +30,7 @@
     #end if
     </token>
     <token name="@read_group_options@">
-      #if str( $rg.rg_selector ) == "set":
+      #if $use_rg:
         @set_rg_string@
         -r '$rg_string'
       #end if
@@ -108,6 +109,18 @@
     #else:
         #set $reference_fasta_filename = str( $reference_source.ref_file.fields.path )
     #end if
+
+    ## setup vars for rg handling...
+    @define_read_group_helpers@
+    #if str( $input_type.input_type_selector ) == "paired":
+      #set $rg_auto_name = $read_group_name_default($input_type.fastq_input1, $input_type.fastq_input2)
+    #elif str( $input_type.input_type_selector ) in ["single_bam", "paired_bam"]:
+      #set $rg_auto_name = $read_group_name_default($input_type.bam_input)
+    #else
+      #set $rg_auto_name = $read_group_name_default($input_type.fastq_input1)
+    #end if
+    @set_use_rg_var@
+    @set_read_group_vars@
 
     ## Begin bwa command line
 
@@ -327,7 +340,7 @@
 
     </conditional>
 
-    <expand macro="readgroup_params" />
+    <expand macro="read_group_conditional" />
 
     <conditional name="analysis_type">
       <param name="analysis_type_selector" type="select" label="Select analysis mode">

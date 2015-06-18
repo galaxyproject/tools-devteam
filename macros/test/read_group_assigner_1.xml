@@ -1,0 +1,45 @@
+<tool id="read_group_assigner_1" name="read_group_assigner_1">
+    <description>Example tool that assigns read groups</description>
+    <macros>
+        <import>read_group_macros.xml</import>
+    </macros>
+    <command>
+@define_read_group_helpers@
+#set $rg_auto_name = $read_group_name_default($input1)
+@set_read_group_vars@
+#set rg_str = ""
+#set rg_str += $format_read_group("ID=", $rg_id)
+#set rg_str += $format_read_group("\tSM=", $rg_sm)
+#set rg_str += $format_read_group("\tPL=", $rg_pl)
+echo '$rg_str'
+    </command>
+    <inputs>
+        <param name="input1" type="data" format="data" />
+        <expand macro="read_group_inputs_picard" />
+    </inputs>
+    <outputs>
+        <data name="out_file1" format="input" metadata_source="input1"/>
+    </outputs>
+    <tests>
+        <test>
+            <param name="input1" value="simple_line.txt" />
+            <conditional name="read_group_id_conditional">
+                <param name="ID" value="the_id" />
+            </conditional>
+            <param name="PL" value="PACBIO" />
+            <assert_command>
+                <has_text text="echo 'ID=the_id&#009;PL=PACBIO" />
+            </assert_command>
+        </test>
+        <test>
+            <param name="input1" value="simple_line.txt" />
+            <conditional name="read_group_id_conditional">
+                <param name="do_auto_name" value="true" />
+            </conditional>
+            <param name="PL" value="PACBIO" />
+            <assert_command>
+                <has_text text="echo 'ID=simple_line.txt&#009;PL=PACBIO" />
+            </assert_command>
+        </test>
+    </tests>
+</tool>
