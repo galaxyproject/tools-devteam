@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<tool id="krona" name="Krona" version="1.0">
+    <description>
+        draw community composition
+    </description>
+    <command>
+        <![CDATA[
+
+        ktImportGalaxy
+        -l
+        -d "${max_rank}"
+        -n "${root_name}"
+        -o ${output}
+        ${combine_inputs}
+        #for $input_count, $input_dataset in enumerate( $tax ):
+            "${input_dataset},${input_count}"
+        #end for
+
+        ]]>
+    </command>
+    <inputs>
+        <param format="taxonomy" name="tax" type="data" multiple="True" label="Select taxonomy dataset"  help="Taxonomy dataset"/>
+        <param name="max_rank" type="select" label="show ranks from root to" help="-d; Show all level from roop up to this point">
+            <option value="8">Class</option> 
+            <option value="0">Show entire tree</option>
+            <option value="1">Superkingdom</option>
+            <option value="2">Kingdom</option>
+            <option value="3">Subkingdom</option>
+            <option value="4">Superphylum</option>
+            <option value="5">Phylum</option>
+            <option value="6">Subphylum</option>
+            <option value="7">Superclass</option>
+            <option value="9">Subclass</option>
+            <option value="10">Superorder</option>
+            <option value="11">Order</option>
+            <option value="12">Suborder</option>
+            <option value="13">Superfamily</option>
+            <option value="14">Family</option>
+            <option value="15">Subfamily</option>
+            <option value="16">Tribe</option>
+            <option value="17">Subtribe</option>
+            <option value="18">Genus</option>
+            <option value="19">Subgenus</option>
+            <option value="20">Species</option>
+            <option value="21">Subspecies</option>
+        </param>
+        <param name="root_name" type="text" size="20" value="Root" label="Provide a name for the basal rank" help="-n"/>
+        <param name="combine_inputs" type="boolean" truevalue="-c" falsevalue="" selected="False" label="Combine data from multiple datasets?" help="-c"/>
+    </inputs>
+    <outputs>
+        <data format="html" label="${tool.name} on ${on_string}: Classified reads" name="output"/>
+    </outputs>
+    <help>
+        <![CDATA[
+**What it does**
+
+Creates a Krona chart based Galaxy taxonomic representations. The Galaxy version supports the following options::
+                                                                                                                                                                                      _
+   [-o <string>]    Output file name.
+
+   [-n <string>]    Name of the highest level.
+
+   [-c]             Combine data from each file, rather than creating separate datasets within the chart.
+
+   [-d <integer>]   Maximum depth of wedges to include in the chart.
+
+   ]]>
+</help>
+
+</tool>
