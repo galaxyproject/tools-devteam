@@ -81,6 +81,8 @@
     </test>
   </tests>
   <help>
+**What is does**
+    
 This tool allows you to trim the ends of reads.
 
 You can specify either absolute or percent-based offsets. Offsets are calculated, starting at 0, from the respective end to be trimmed. When using the percent-based method, offsets are rounded to the nearest integer. 
@@ -114,10 +116,10 @@ Trimming a color space read will cause any adapter base to be lost.
 
 ------
 
-**Citation**
-
-If you use this tool, please cite `Blankenberg D, Gordon A, Von Kuster G, Coraor N, Taylor J, Nekrutenko A; Galaxy Team. Manipulation of FASTQ data with Galaxy. Bioinformatics. 2010 Jul 15;26(14):1783-5. &lt;http://www.ncbi.nlm.nih.gov/pubmed/20562416&gt;`_
-
-
   </help>
+  
+  <citations>
+    <citation type="doi">10.1093/bioinformatics/btq281</citation>
+  </citations>
+  
 </tool>
