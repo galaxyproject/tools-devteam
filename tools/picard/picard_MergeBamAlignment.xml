@@ -1,4 +1,4 @@
-<tool name="MergeBamAlignment" id="picard_MergeBamAlignment" version="1.126.0">
+<tool name="MergeBamAlignment" id="picard_MergeBamAlignment" version="1.126.1">
   <description>merge alignment data with additional info stored in an unmapped BAM dataset</description>
   <macros>
     <import>picard_macros.xml</import>
@@ -40,7 +40,7 @@
           READ1_ALIGNED_BAM="${dataset.read1_aligned_bam}"
         #end for
         #for $dataset in $aligned_or_read1_and_read2.read2_aligned_bams:
-          READ2_ALIGNED_BAM="${dataset.read1_aligned_bam}"
+          READ2_ALIGNED_BAM="${dataset.read2_aligned_bam}"
         #end for
       #else
         #for $dataset in $aligned_or_read1_and_read2.read1_aligned_bams:
