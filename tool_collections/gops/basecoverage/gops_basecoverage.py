@@ -6,34 +6,32 @@ usage: %prog in_file out_file
     -1, --cols1=N,N,N,N: Columns for start, end, strand in first file
 """
 
-import sys, traceback, fileinput
-from warnings import warn
-from bx.intervals import *
-from bx.intervals.io import *
-from bx.intervals.operations.base_coverage import *
+import fileinput
+import sys
+from bx.intervals.io import NiceReaderWrapper
+from bx.intervals.operations.base_coverage import base_coverage
 from bx.cookbook import doc_optparse
-from galaxy.tools.util.galaxyops import *
+from bx.tabular.io import ParseError
+from galaxy.tools.util.galaxyops import fail, parse_cols_arg, skipped
 
 assert sys.version_info[:2] >= ( 2, 4 )
 
-def main():
-    upstream_pad = 0
-    downstream_pad = 0
 
+def main():
     options, args = doc_optparse.parse( __doc__ )
     try:
         chr_col_1, start_col_1, end_col_1, strand_col_1 = parse_cols_arg( options.cols1 )
         in_fname, out_fname = args
     except:
         doc_optparse.exception()
-        
+
     g1 = NiceReaderWrapper( fileinput.FileInput( in_fname ),
                             chrom_col=chr_col_1,
                             start_col=start_col_1,
                             end_col=end_col_1,
-                            strand_col = strand_col_1,
+                            strand_col=strand_col_1,
                             fix_strand=True )
-    
+
     try:
         bases = base_coverage(g1)
     except ParseError, exc:

@@ -7,24 +7,22 @@ usage: %prog bed_file_1 bed_file_2 out_file
     -1, --cols1=N,N,N,N: Columns for start, end, strand in first file
     -2, --cols2=N,N,N,N: Columns for start, end, strand in second file
 """
-import sys, traceback, fileinput
-from warnings import warn
-from bx.intervals import *
-from bx.intervals.io import *
-from bx.intervals.operations.coverage import *
+import fileinput
+import sys
+from bx.intervals.io import GenomicInterval, NiceReaderWrapper
+from bx.intervals.operations.coverage import coverage
 from bx.cookbook import doc_optparse
-from galaxy.tools.util.galaxyops import *
+from bx.tabular.io import ParseError
+from galaxy.tools.util.galaxyops import fail, parse_cols_arg, skipped
 
 assert sys.version_info[:2] >= ( 2, 4 )
 
-def main():
-    upstream_pad = 0
-    downstream_pad = 0
 
+def main():
     options, args = doc_optparse.parse( __doc__ )
     try:
         chr_col_1, start_col_1, end_col_1, strand_col_1 = parse_cols_arg( options.cols1 )
-        chr_col_2, start_col_2, end_col_2, strand_col_2 = parse_cols_arg( options.cols2 )      
+        chr_col_2, start_col_2, end_col_2, strand_col_2 = parse_cols_arg( options.cols2 )
         in_fname, in2_fname, out_fname = args
     except:
         doc_optparse.exception()
@@ -45,7 +43,7 @@ def main():
     out_file = open( out_fname, "w" )
 
     try:
-        for line in coverage( [g1,g2] ):
+        for line in coverage( [g1, g2] ):
             if type( line ) is GenomicInterval:
                 out_file.write( "%s\n" % "\t".join( line.fields ) )
             else:
