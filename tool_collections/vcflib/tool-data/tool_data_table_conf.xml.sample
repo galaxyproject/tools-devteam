@@ -2,7 +2,7 @@
 <tables>
     <!-- Location of SAMTools indexes and other files -->
     <table name="fasta_indexes" comment_char="#">
-        <columns>line_type, value, path</columns>
+        <columns>value, dbkey, name, path</columns>
         <file path="tool-data/fasta_indexes.loc" />
     </table>
 </tables>
