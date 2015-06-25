@@ -121,7 +121,9 @@
         #end if
         
 ## REPORTING
-        
+
+        ${options_type.optional_inputs.report_monomorphic}
+
         #if str( $options_type.reporting.reporting_selector ) == "True":
             --pvar ${options_type.reporting.pvar}
         #end if
