@@ -27,6 +27,7 @@ def get_id_name( params, dbkey, fasta_description=None):
 
 def build_sam_index( data_manager_dict, fasta_filename, target_directory, dbkey, sequence_id, sequence_name, data_table_name=DEFAULT_DATA_TABLE_NAME ):
     #TODO: allow multiple FASTA input files
+    assert os.path.exists( fasta_filename ), 'FASTA file "%s" is missing, cannot build samtools index.' % fasta_filename
     fasta_base_name = os.path.split( fasta_filename )[-1]
     sym_linked_fasta_filename = os.path.join( target_directory, fasta_base_name )
     os.symlink( fasta_filename, sym_linked_fasta_filename )
