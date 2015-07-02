@@ -24,6 +24,41 @@
       </stdio>
   </xml>
 
+  <macro name="dbKeyActionsBwa">
+    <expand macro="dbKeyActions">
+      <option type="from_data_table" name="bwa_indexes" column="1" offset="0">
+        <filter type="param_value" column="0" value="#" compare="startswith" keep="False"/>
+        <filter type="param_value" ref="reference_source.ref_file" column="0"/>
+      </option>
+    </expand>
+  </macro>
+
+  <macro name="dbKeyActionsBwaMem">
+    <expand macro="dbKeyActions">
+      <option type="from_data_table" name="bwa_mem_indexes" column="1" offset="0">
+        <filter type="param_value" column="0" value="#" compare="startswith" keep="False"/>
+        <filter type="param_value" ref="reference_source.ref_file" column="0"/>
+      </option>
+    </expand>
+  </macro>
+
+  <macro name="dbKeyActions">
+      <actions>
+          <conditional name="reference_source.reference_source_selector">
+              <when value="cached">
+                  <action type="metadata" name="dbkey">
+                      <yield />
+                  </action>
+              </when>
+              <when value="history">
+                  <action type="metadata" name="dbkey">
+                    <option type="from_param" name="reference_source.ref_file" param_attribute="dbkey" />
+                  </action>
+              </when>
+          </conditional>
+      </actions>
+  </macro>
+
   <token name="@RG@">
 -----
 

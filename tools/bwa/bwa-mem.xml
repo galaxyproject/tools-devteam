@@ -289,7 +289,9 @@
   </inputs>
 
   <outputs>
-    <data format="bam" name="bam_output" label="${tool.name} on ${on_string} (mapped reads in BAM format)"/>
+    <data format="bam" name="bam_output" label="${tool.name} on ${on_string} (mapped reads in BAM format)">
+      <expand macro="dbKeyActionsBwaMem" />
+    </data>
   </outputs>
 
   <tests>
