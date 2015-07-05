@@ -1,4 +1,4 @@
-<tool id="hisat" name="HISAT" version="1.0.1">
+<tool id="hisat" name="HISAT" version="1.0.2">
     <description>spliced aligner</description>
     <macros>
         <import>hisat_macros.xml</import>
@@ -12,9 +12,9 @@
     </stdio>
     <version_command>hisat --version</version_command>
     <command><![CDATA[
-        #if str($spliced_options.spliced_options_selector) == "advanced" and str($spliced_options.known_splice_gff) != 'None':
-            ln -s "${spliced_options.known_splice_gff}" splice_sites.gff &&
-            extract_splice_sites.py splice_sites.gff > splice_sites.txt &&
+        #if str($spliced_options.spliced_options_selector) == "advanced" and str($spliced_options.known_splice_gtf) != 'None':
+            ln -s "${spliced_options.known_splice_gtf}" splice_sites.gtf &&
+            extract_splice_sites.py splice_sites.gtf > splice_sites.txt &&
         #end if
         #if $reference_genome.reference_genome_source == "history":
             ln -s "$reference_genome.history_item" genome.fa &&
@@ -58,7 +58,7 @@
         #if str($spliced_options.spliced_options_selector) == "advanced":
             --pen-cansplice ${spliced_options.canonical_penalty} --pen-noncansplice ${spliced_options.noncanonical_penalty}
             --pen-intronlen ${spliced_options.function_type},${spliced_options.constant_term},${spliced_options.coefficient_term}
-            #if str($spliced_options.known_splice_gff) != 'None':
+            #if str($spliced_options.known_splice_gtf) != 'None':
                 --known-splicesite-infile splice_sites.txt
             #end if
         #end if
@@ -183,7 +183,7 @@
                 </expand>
                 <param name="min_intron" label="Minimum intron length" type="integer" value="20" />
                 <param name="max_intron" label="Maximum intron length" type="integer" value="500000" />
-                <param name="known_splice_gff" label="GTF/GFF file with known splice sites" type="data" format="gff" optional="True" />
+                <param name="known_splice_gtf" label="GTF file with known splice sites" type="data" format="gtf" optional="True" />
             </when>
         </conditional>
     </inputs>
