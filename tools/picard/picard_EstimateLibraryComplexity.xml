@@ -1,4 +1,4 @@
-<tool name="EstimateLibraryComplexity" id="picard_EstimateLibraryComplexity" version="1.126.0">
+<tool name="EstimateLibraryComplexity" id="picard_EstimateLibraryComplexity" version="1.135">
   <description>assess sequence library complexity from read sequences</description>
   <macros>
     <import>picard_macros.xml</import>

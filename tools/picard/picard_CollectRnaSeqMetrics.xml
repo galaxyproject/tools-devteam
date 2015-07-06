@@ -1,4 +1,4 @@
-<tool name="CollectRnaSeqMetrics" id="picard_CollectRnaSeqMetrics" version="1.126.0">
+<tool name="CollectRnaSeqMetrics" id="picard_CollectRnaSeqMetrics" version="1.135">
     <description> collect metrics about the alignment of RNA to various functional classes of loci in the genome</description>
     <macros>
         <import>picard_macros.xml</import>

@@ -1,4 +1,4 @@
-<tool name="MeanQualityByCycle" id="picard_MeanQualityByCycle" version="1.126.0">
+<tool name="MeanQualityByCycle" id="picard_MeanQualityByCycle" version="1.135">
   <description>chart distribution of base qualities</description>
   <macros>
     <import>picard_macros.xml</import>

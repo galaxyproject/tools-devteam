@@ -9,7 +9,7 @@
 
     <xml name="requirements">
         <requirements>
-            <requirement type="package" version="1.126.0">picard</requirement>
+            <requirement type="package" version="1.135">picard</requirement>
             <yield/>
         </requirements>
     </xml>

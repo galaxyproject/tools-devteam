@@ -1,4 +1,4 @@
-<tool name="RevertSam" id="picard_RevertSam" version="1.126.0">
+<tool name="RevertSam" id="picard_RevertSam" version="1.135">
   <description>revert SAM/BAM datasets to a previous state</description>
   <macros>
     <import>picard_macros.xml</import>

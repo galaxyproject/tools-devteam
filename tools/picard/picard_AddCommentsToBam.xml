@@ -1,4 +1,4 @@
-<tool name="AddCommentsToBam" id="picard_AddCommentsToBam" version="1.126.0">
+<tool name="AddCommentsToBam" id="picard_AddCommentsToBam" version="1.135">
   <description>add comments to BAM dataset</description>
   <macros>
     <import>picard_macros.xml</import>

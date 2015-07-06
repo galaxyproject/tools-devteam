@@ -1,4 +1,4 @@
-<tool name="Downsample SAM/BAM" id="picard_DownsampleSam" version="1.126.0">
+<tool name="Downsample SAM/BAM" id="picard_DownsampleSam" version="1.135">
   <description>Downsample a file to retain a subset of the reads</description>
   <macros>
     <import>picard_macros.xml</import>

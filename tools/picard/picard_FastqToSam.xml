@@ -1,4 +1,4 @@
-<tool name="FastqToSam" id="picard_FastqToSam" version="1.126.0">
+<tool name="FastqToSam" id="picard_FastqToSam" version="1.135">
   <description>convert Fastq data into unaligned BAM</description>
   <macros>
     <import>picard_macros.xml</import>

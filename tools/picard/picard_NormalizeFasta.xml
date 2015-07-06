@@ -1,4 +1,4 @@
-<tool name="NormalizeFasta" id="picard_NormalizeFasta" version="1.126.0">
+<tool name="NormalizeFasta" id="picard_NormalizeFasta" version="1.135">
   <description>normalize fasta datasets</description>
   <macros>
     <import>picard_macros.xml</import>

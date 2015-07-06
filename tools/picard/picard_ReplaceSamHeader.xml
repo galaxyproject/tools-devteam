@@ -1,4 +1,4 @@
-<tool name="ReplaceSamHeader" id="picard_ReplaceSamHeader" version="1.126.0">
+<tool name="ReplaceSamHeader" id="picard_ReplaceSamHeader" version="1.135">
   <description>replace header in a SAM/BAM dataset</description>
   <macros>
     <import>picard_macros.xml</import>

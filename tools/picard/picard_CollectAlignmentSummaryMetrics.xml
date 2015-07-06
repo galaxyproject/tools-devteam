@@ -1,4 +1,4 @@
-<tool name="Collect Alignment Summary Metrics" id="picard_CASM" version="1.126.0">
+<tool name="Collect Alignment Summary Metrics" id="picard_CASM" version="1.135">
   <description>writes a file containing summary alignment metrics</description>
   <macros>
     <import>picard_macros.xml</import>

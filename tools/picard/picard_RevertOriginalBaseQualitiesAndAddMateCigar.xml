@@ -1,4 +1,4 @@
-<tool name="RevertOriginalBaseQualitiesAndAddMateCigar" id="picard_RevertOriginalBaseQualitiesAndAddMateCigar" version="1.126.0">
+<tool name="RevertOriginalBaseQualitiesAndAddMateCigar" id="picard_RevertOriginalBaseQualitiesAndAddMateCigar" version="1.135">
   <description>revert the original base qualities and add the mate cigar tag</description>
   <macros>
     <import>picard_macros.xml</import>

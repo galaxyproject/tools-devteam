@@ -1,4 +1,4 @@
-<tool name="MergeSamFiles" id="picard_MergeSamFiles" version="1.126.0">
+<tool name="MergeSamFiles" id="picard_MergeSamFiles" version="1.135">
   <description>merges multiple SAM/BAM datasets into one</description>
   <macros>
     <import>picard_macros.xml</import>

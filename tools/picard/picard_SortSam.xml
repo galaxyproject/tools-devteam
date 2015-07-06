@@ -1,4 +1,4 @@
-<tool id="picard_SortSam" name="SortSam" version="1.126.0">
+<tool id="picard_SortSam" name="SortSam" version="1.135">
   <description>sort SAM/BAM dataset</description>
   <macros>
     <import>picard_macros.xml</import>
