@@ -1,4 +1,4 @@
-<tool id="hisat" name="HISAT" version="1.0.2">
+<tool id="hisat" name="HISAT" version="1.0.3">
     <description>spliced aligner</description>
     <macros>
         <import>hisat_macros.xml</import>
@@ -28,15 +28,6 @@
             -1 "${reads_f}" -2 "${reads_r}"
         #else if str($input_format.paired.paired_selector) == 'paired_collection':
             -1 "${input_format.paired.reads.forward}" -2 "${input_format.paired.reads.reverse}"
-        #else if str($input_format.paired.paired_selector) == 'paired_list':
-            #set forward_reads = []
-            #set reverse_reads = []
-            #for read in $input_format.paired.reads:
-                $forward_reads.append($read.forward)
-                $reverse_reads.append($read.reverse)
-            #end for
-            -1 "${','.join([str($read) for read in $forward_reads])}"
-            -2 "${','.join([str($read) for read in $reverse_reads])}"
         #else:
             -U "${reads}"
         #end if
@@ -92,17 +83,14 @@
                 <conditional name="paired">
                     <expand macro="single_paired_selector" />
                     <when value="paired_collection">
-                        <param format="fastq,fastqsanger,fastqsolexa" name="reads" type="data_collection" collection_type="paired" label="Paired reads" />
-                    </when>
-                    <when value="paired_list">
-                        <param format="fastq,fastqsanger,fastqsolexa" name="reads" type="data_collection" collection_type="list:paired" label="Paired reads" />
+                        <param format="fastq" name="reads" type="data_collection" collection_type="paired" label="Paired reads" />
                     </when>
                     <when value="paired">
-                        <param label="Forward reads" type="data" name="reads_f" multiple="true" format="fastq,fastqsanger,fastqsolexa" />
-                        <param label="Reverse reads" type="data" name="reads_r" multiple="true" format="fastq,fastqsanger,fastqsolexa" />
+                        <param label="Forward reads" type="data" name="reads_f" multiple="true" format="fastq" />
+                        <param label="Reverse reads" type="data" name="reads_r" multiple="true" format="fastq" />
                     </when>
                     <when value="single">
-                        <param label="Reads" type="data" name="reads" multiple="true" format="fastq,fastqsanger,fastqsolexa" />
+                        <param label="Reads" type="data" name="reads" multiple="true" format="fastq" />
                     </when>
                 </conditional>
             </when>
