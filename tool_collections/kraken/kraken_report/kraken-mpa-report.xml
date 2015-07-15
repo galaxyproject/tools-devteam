@@ -1,0 +1,71 @@
+<tool id="kraken-mpa-report" name="Kraken-mpa-report" version="1.1.0">
+  <expand macro="version_command" />
+  <expand macro="requirements" />
+  <expand macro="stdio" />
+  <description>
+        view report of classification for multiple samples
+    </description>
+    <macros>
+        <import>macros.xml</import>
+    </macros>
+    <command>
+      <![CDATA[
+
+#for $input_count, $input_classification in enumerate( $classification ):
+ ln -s "${input_classification}" "sample_${input_count}" &&
+#end for
+
+kraken-mpa-report @INPUT_DATABASE@
+
+#for $input_count, $input_classification in enumerate( $classification ):
+ "sample_${input_count}"
+#end for
+
+${show_zeros}
+${header_line}
+
+> "$output_report"
+
+
+	]]>
+    </command>
+    <inputs>
+      <param multiple="True" name="classification" type="data" format="tabular" label="Kraken output"/>
+      <param name="show_zeros" type="boolean" truevalue="--show-zeros" falsevalue="" checked="False" label="Display taxa even if they lack a read in any sample" help="--show-zeros"/>
+      <param name="header_line" type="boolean" truevalue="--header-line" falsevalue="" checked="False" label="Display a header line indicating sample IDs" help="--header-line"/>
+        <expand macro="input_database" />
+    </inputs>
+    <outputs>
+        <data format="tabular" name="output_report" />
+    </outputs>
+    <help>
+<![CDATA[
+
+.. class:: warningmark
+
+**Note**: the database used must be the same as the one used in the original Kraken run
+
+-----
+
+**What is Does**
+
+Kraken-mpa-report summarizes read counts across taxonomic ranks for multiple samples. This is convenient for comparing results across multiple expreriments, conditions, locations, etc. It support sthe following parameters::
+
+ --show-zeros    Display taxa even if they lack a read in any sample
+ --header-line   Display a header line indicating sample IDs
+                 (sample IDs are the filenames)
+
+-----
+
+**Output**
+
+The output of kraken-mpa-report is tab-delimited, with one line per taxon.
+
+
+
+
+
+    ]]>
+    </help>
+    <expand macro="citations" />
+</tool>
