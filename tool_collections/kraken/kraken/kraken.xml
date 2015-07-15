@@ -8,6 +8,7 @@
     </macros>
     <command>
         <![CDATA[
+        @SET_DATABASE_PATH@ &&
         kraken --threads \${GALAXY_SLOTS:-1} @INPUT_DATABASE@ 
         
         #if $input_sequences.is_of_type( 'fastq' ):
