@@ -1,4 +1,4 @@
-<tool name="AddOrReplaceReadGroups" id="picard_AddOrReplaceReadGroups" version="1.136">
+<tool name="AddOrReplaceReadGroups" id="picard_AddOrReplaceReadGroups" version="@TOOL_VERSION@.0">
   <description>add or replaces read group information</description>
   <macros>
     <import>picard_macros.xml</import>
