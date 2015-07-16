@@ -1,3 +1,8 @@
 owner: devteam
 name: package_picard_1_135_0
-    
+description: Contains a tool dependency definition that downloads and compiles version 1.135 of the Picard package.
+homepage_url: http://broadinstitute.github.io/picard/
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/blob/master/packages/package_picard_1_135/
+type: tool_dependency_definition
+categories:
+- Tool Dependency Packages
