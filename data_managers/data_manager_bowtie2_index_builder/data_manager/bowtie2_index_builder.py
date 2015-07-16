@@ -9,7 +9,7 @@ import subprocess
 from json import loads, dumps
 
 
-DEFAULT_DATA_TABLE_NAME = "bowtie2_indexes"
+DEFAULT_DATA_TABLE_NAMES = ["bowtie2_indexes"]
 
 def get_id_name( params, dbkey, fasta_description=None):
     #TODO: ensure sequence_id is unique and does not already appear in location file
@@ -24,7 +24,7 @@ def get_id_name( params, dbkey, fasta_description=None):
             sequence_name = dbkey
     return sequence_id, sequence_name
 
-def build_bowtie2_index( data_manager_dict, fasta_filename, params, target_directory, dbkey, sequence_id, sequence_name, data_table_name=DEFAULT_DATA_TABLE_NAME ):
+def build_bowtie2_index( data_manager_dict, fasta_filename, params, target_directory, dbkey, sequence_id, sequence_name, data_table_names=DEFAULT_DATA_TABLE_NAMES ):
     #TODO: allow multiple FASTA input files
     fasta_base_name = os.path.split( fasta_filename )[-1]
     sym_linked_fasta_filename = os.path.join( target_directory, fasta_base_name )
@@ -36,7 +36,8 @@ def build_bowtie2_index( data_manager_dict, fasta_filename, params, target_direc
         print >> sys.stderr, "Error building index."
         sys.exit( return_code )
     data_table_entry = dict( value=sequence_id, dbkey=dbkey, name=sequence_name, path=sequence_id )
-    _add_data_table_entry( data_manager_dict, data_table_name, data_table_entry )
+    for data_table_name in data_table_names:
+        _add_data_table_entry( data_manager_dict, data_table_name, data_table_entry )
 
 def _add_data_table_entry( data_manager_dict, data_table_name, data_table_entry ):
     data_manager_dict['data_tables'] = data_manager_dict.get( 'data_tables', {} )
@@ -50,7 +51,7 @@ def main():
     parser.add_option( '-f', '--fasta_filename', dest='fasta_filename', action='store', type="string", default=None, help='fasta_filename' )
     parser.add_option( '-d', '--fasta_dbkey', dest='fasta_dbkey', action='store', type="string", default=None, help='fasta_dbkey' )
     parser.add_option( '-t', '--fasta_description', dest='fasta_description', action='store', type="string", default=None, help='fasta_description' )
-    parser.add_option( '-n', '--data_table_name', dest='data_table_name', action='store', type="string", default=None, help='data_table_name' )
+    parser.add_option( '-n', '--data_table_name', dest='data_table_name', action='append', type="string", default=None, help='data_table_name' )
     (options, args) = parser.parse_args()
     
     filename = args[0]
@@ -68,7 +69,7 @@ def main():
     sequence_id, sequence_name = get_id_name( params, dbkey=dbkey, fasta_description=options.fasta_description )
     
     #build the index
-    build_bowtie2_index( data_manager_dict, options.fasta_filename, params, target_directory, dbkey, sequence_id, sequence_name, data_table_name=options.data_table_name or DEFAULT_DATA_TABLE_NAME )
+    build_bowtie2_index( data_manager_dict, options.fasta_filename, params, target_directory, dbkey, sequence_id, sequence_name, data_table_names=options.data_table_name or DEFAULT_DATA_TABLE_NAMES )
     
     #save info to json file
     open( filename, 'wb' ).write( dumps( data_manager_dict ) )
