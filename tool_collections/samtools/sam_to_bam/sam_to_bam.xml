@@ -8,15 +8,14 @@
   <expand macro="version_command"></expand>
   <command>
     <![CDATA[
-samtools sort -O bam -@ \${GALAXY_SLOTS:-1} -o sorted_input.bam -T temp "$input1" && 
-          #if $source.index_source == "history":
-            ln -s $source.ref_file input.fa &&
-            samtools faidx input.fa &&
-          #else
-            ln -s ${source.index.fields.path} input.fa &&
-            ln -s ${source.index.fields.path}.fai input.fa.fai &&
-          #end if
-          samtools view -@ \${GALAXY_SLOTS:-1} -b -h -o $output1 -T input.fa sorted_input.bam
+        #if $source.index_source == "history":
+          ln -s $source.ref_file input.fa &&
+          samtools faidx input.fa &&
+        #else
+          ln -s ${source.index.fields.path} input.fa &&
+          ln -s ${source.index.fields.path}.fai input.fa.fai &&
+        #end if
+        samtools view -b -@ \${GALAXY_SLOTS:-1} -t input.fa.fai "$input1" | samtools sort -O bam -@ \${GALAXY_SLOTS:-1} -o "$output1" -T temp
     ]]>
     </command>
     <inputs>
