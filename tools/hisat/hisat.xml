@@ -1,4 +1,4 @@
-<tool id="hisat" name="HISAT" version="1.0.3">
+<tool id="hisat" name="HISAT" version="1.0.4">
     <description>spliced aligner</description>
     <macros>
         <import>hisat_macros.xml</import>
@@ -26,10 +26,32 @@
         hisat -p \${GALAXY_SLOTS:-1} -x "${index_path}"
         #if str($input_format.paired.paired_selector) == 'paired':
             -1 "${reads_f}" -2 "${reads_r}"
+            
+            #if str($spliced_options.spliced_options_selector) == "advanced":
+                #if str($spliced_options.rna_strandness).strip() != '':
+                    --rna-strandness $spliced_options.rna_strandness
+                #end if
+            #end if
+            
         #else if str($input_format.paired.paired_selector) == 'paired_collection':
             -1 "${input_format.paired.reads.forward}" -2 "${input_format.paired.reads.reverse}"
+
+            #if str($spliced_options.spliced_options_selector) == "advanced":
+                #if str($spliced_options.rna_strandness).strip() != '':
+                    --rna-strandness $spliced_options.rna_strandness
+                #end if
+            #end if
+
         #else:
             -U "${reads}"
+
+            #if str($spliced_options.spliced_options_selector) == "advanced":
+                #if str($spliced_options.rna_strandness).strip() != '':
+                    ## In single end mode the option should be either F or R, this is the first letter.
+                    --rna-strandness str($spliced_options.rna_strandness)[0]
+                #end if
+            #end if
+
         #end if
         #if $input_format.input_format_selector == 'fasta':
             -f
@@ -52,6 +74,9 @@
             #if str($spliced_options.known_splice_gtf) != 'None':
                 --known-splicesite-infile splice_sites.txt
             #end if
+            $no_spliced_alignment
+            --min-intronlen $min_intron
+            --max-intronlen $max_intron
         #end if
         | samtools view -bS - | samtools sort - -o hsbam > "${output_alignments}"
     ]]></command>
@@ -169,6 +194,14 @@
                 <expand macro="function">
                     <label>Sets the penalty for long introns so that alignments with shorter introns are preferred to those with longer ones.</label>
                 </expand>
+                <param name="rna_strandness" type="select" label="Specify strand-specific information"
+                    help="'F' means a read corresponds to a transcript. 'R' means a read corresponds to the reverse complemented counterpart of a transcript. (--rna-strandness)">
+                    <option value="">FR Unstranded</option>
+                    <option value="RF">First Strand (R/RF)</option>
+                    <option value="FR">Second Strand (F/FR)</option>
+                </param>
+                <param name="no_spliced_alignment" type="boolean" truevalue="--ignore-quals" falsevalue="" 
+                    label="Disable spliced alignment" help="(--no-spliced-alignment)" />
                 <param name="min_intron" label="Minimum intron length" type="integer" value="20" />
                 <param name="max_intron" label="Maximum intron length" type="integer" value="500000" />
                 <param name="known_splice_gtf" label="GTF file with known splice sites" type="data" format="gtf" optional="True" />
