@@ -7,7 +7,6 @@
         <![CDATA[
 
         ktImportGalaxy
-        -l
         -d "${max_rank}"
         -n "${root_name}"
         -o ${output}
