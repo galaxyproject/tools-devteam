@@ -29,7 +29,7 @@
             <when value="advanced">
                 <param name="no_mixed" label="Disable alignments of individual mates" type="boolean" truevalue="--no-mixed" falsevalue=""
                     help="By default, when hisat cannot find a concordant or discordant alignment for a pair, it then tries to find alignments for the individual mates. This option disables that behavior. (--no-mixed)" />
-                <param name="no_discordant" label="Skip forward strand of reference" type="boolean" truevalue="--no-discordant" falsevalue=""
+                <param name="no_discordant" label="Disable discordant alignments" type="boolean" truevalue="--no-discordant" falsevalue=""
                     help="By default, hisat looks for discordant alignments if it cannot find any concordant alignments. A discordant alignment is an alignment where both mates align uniquely, but that does not satisfy the paired-end constraints (--fr/--rf/--ff, -I, -X). This option disables that behavior. (--no-discordant)" />
                 <param name="skip_reverse" label="Skip reference strand of reference" type="boolean" truevalue="--norc" falsevalue="" help="(--norc) If --norc is specified, hisat will not attempt to align unpaired reads against the reverse-complement (Crick) reference strand. In paired-end mode, --nofw and --norc pertain to the fragments; i.e. specifying --nofw causes hisat to explore only those paired-end configurations corresponding to fragments from the reverse-complement (Crick) strand." />
             </when>
