@@ -1,0 +1,117 @@
+<tool id="vegan_rarefaction" name="Vegan Rarefaction" version="0.0.1">
+    <requirements>
+        <requirement type="package" version="3.2.1-atlas">R</requirement>
+        <requirement type="package" version="2.3-0">vegan</requirement>
+    </requirements>
+    <stdio>
+        <exit_code range="1:" />
+        <exit_code range=":-1" />
+    </stdio>
+
+    <command>cp "${vegan_rarefaction_script}" "${vegan_rarefaction_script_output}" &amp;&amp; 
+    Rscript "${vegan_rarefaction_script}"
+    </command>
+    <configfiles>
+        <configfile name="vegan_rarefaction_script"><![CDATA[
+#set $int_species_column = int(str($species_column))
+#set $fixed_sample_columns = []
+#for $sample_col in map(int, str($sample_columns).split(",")):
+#assert $sample_col != $int_species_column, "Sample label column and sample count columns must not be the same."
+#silent $fixed_sample_columns.append( str( $sample_col if $sample_col < $int_species_column else $sample_col-1 ) )
+#end for
+options(bitmapType='cairo')## No X11, so we'll use cairo
+library(vegan)
+input_abundance <- read.table("${input_abundance}", sep="\t", row.names=${ species_column }, header=FALSE )##, sep="${input_abundance.metadata.seperator}", row.names=1) ##FIXME, allow setting row.names, now assuming is column 1
+
+input_abundance <- t( input_abundance[ c( ${ ",".join( $fixed_sample_columns ) } )] )
+
+#if str( $sample_size ) == '':
+raremax <- min(rowSums(input_abundance))
+raremax_offset <- -1
+sprintf("Automatically determining subsampling size, will apply offset to slope calculation and species probabilities.")
+#else:
+raremax = $sample_size
+raremax_offset <- 0
+#end if
+sprintf("Using sample size: %i", raremax)
+Srare <- rarefy(input_abundance, sample=raremax, se=FALSE, MARGIN=1) ##${estimate_standard_error} ##${margin}
+##SHOULD we t(Srare) for out?
+write.table(Srare, "${output_richness}", col.names=NA, sep = "\t")
+
+write.table(rareslope(input_abundance, sample=raremax+raremax_offset), "${output_slope}", sep = "\t")
+
+S <- specnumber(input_abundance)
+
+write.table(S, "${ output_species_count }", col.names=NA, sep="\t" )
+write.table(specnumber(input_abundance, MARGIN=2), "${ output_species_frequency }", col.names=NA, sep="\t" )
+
+write.table(drarefy(input_abundance, sample=raremax+raremax_offset), "${ output_species_probabilities }", col.names=NA, sep="\t" )
+
+##Draw the Curve
+png('${output_plot}', width=1020, height=800, units='px')
+##plot(S, Srare, xlab = "Observed No. of Species", ylab = "Rarefied No. of Species")
+##abline(0, 1)
+rarecurve(input_abundance, step = ${step_size}, sample = raremax, xlab = "${xlab}", ylab = "${ylab}", label="${label}", col = "blue", cex = 0.6)
+##library(Hmisc)
+##minor.tick(nx=2, ny=2, tick.ratio=0.5)
+invisible(dev.off())
+
+    ]]>
+        </configfile>
+    </configfiles>
+    <inputs>
+        <param name="input_abundance" type="data" format="tabular" label="File with abundance values for community" help="Rows are samples; columns are species/phyla/community classifier"/>
+        
+        <!-- spec column label?, counts (spec in rows) single select
+        treatment columns multi select, 1+
+        -->
+        
+        <param name="species_column" label="Group name column" type="data_column" data_ref="input_abundance" value="6" help="Species, phylum, etc"/>
+        <param name="sample_columns" label="Sample count columns" type="data_column" multiple="True" value="2" data_ref="input_abundance" help="Select each column that contains counts"/>
+        <!-- <param name="swap_columns_rows" type="boolean" truevalue="true" falsevalue="false" checked="False" label="Swap rows and columns" help="Rows are species/phyla/community classifier; columns are samples"/> -->
+        <param name="sample_size" type="integer" value="" min="1" optional="True" label="Subsample size for rarefying community" help="leave empty to subsample by community size for the smallest sample"/>
+        <!-- <param name="estimate_standard_error" type="boolean" truevalue="TRUE" falsevalue="FALSE" checked="False" label="Estimate standard errors"/> -->
+        <!-- <param name="margin" type="integer" value="1" label="Margin for which the index is computed" /> -->
+        
+        <param name="step_size" type="integer" value="1" min="1" label="Step size for sample sizes"/>
+        <param name="xlab" type="text" value="Sample Size" label="X-axis label"/>
+        <param name="ylab" type="text" value="Species" label="Y-axis label"/>
+        <param name="label" type="boolean" truevalue="TRUE" falsevalue="FALSE" checked="True" label="Label rarefaction curves by rownames of X"/>
+
+        
+    </inputs>
+    <outputs>
+        <data format="tabular" name="output_species_count" label="${tool.name} on ${on_string} (number of species)"/>
+        <data format="tabular" name="output_species_frequency" label="${tool.name} on ${on_string} (frequency of species)"/>
+        <data format="tabular" name="output_richness" label="${tool.name} on ${on_string} (estimated richness)"/>
+        <data format="tabular" name="output_species_probabilities" label="${tool.name} on ${on_string} (species probabilities)"/>
+        <data format="tabular" name="output_slope" label="${tool.name} on ${on_string} (slope of curve)"/>
+        <data format="txt" name="vegan_rarefaction_script_output" label="${tool.name} on ${on_string} (Rscript)" />
+        <data format="png" name="output_plot" label="${tool.name} on ${on_string} (plot)" />
+    </outputs>
+    <tests>
+        <test>
+            <param name="fastq_input|fastq_input_selector" value="single" />
+            <param name="fastq_input|fastq_input1" ftype="fastqsanger" value="cd-hit-dup_in.fastqsanger"/>
+            <output name="output_reads" ftype="fastqsanger" file="cd-hit-dup_out.fastqsanger" />
+            <output name="output_duplicate_clusters" ftype="tabular" file="cd-hit-dup_out.dup_clusters.tabular" />
+        </test>
+        <test>
+            <param name="fastq_input|fastq_input_selector" value="single" />
+            <param name="fastq_input|fastq_input1" ftype="fastqsanger" value="cd-hit-dup_in.fastqsanger"/>
+            <param name="fastq_input|filter_chimeras|filter_chimeras_selector" value="true"/>
+            <output name="output_reads" ftype="fastqsanger" file="cd-hit-dup_out_chimera.fastqsanger" />
+            <output name="output_duplicate_clusters" ftype="tabular" file="cd-hit-dup_out_chimera.dup_clusters.tabular" />
+            <output name="output_chimeric_clusters" ftype="tabular" file="cd-hit-dup_out_chimera.chimeric_clusters.tabular" />
+        </test>
+    </tests>
+    <help>
+        <![CDATA[
+        
+        When subsampling by community size, slope of the rarefaction curve and species probabilities are computed using community size-1
+        
+        ]]>
+    </help>
+    <citations>
+    </citations>
+</tool>
