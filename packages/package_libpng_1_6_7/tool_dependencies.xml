@@ -10,6 +10,7 @@
                   <environment_variable action="prepend_to" name="PATH">$INSTALL_DIR/bin</environment_variable>
                   <environment_variable action="set_to" name="LIBPNG_ROOT">$INSTALL_DIR</environment_variable>
                   <environment_variable action="set_to" name="LIBPNG_LIB_PATH">$INSTALL_DIR/lib</environment_variable>
+                  <environment_variable action="set_to" name="LIBPNG_INCLUDE_PATH">$INSTALL_DIR/include</environment_variable>
                   <environment_variable action="prepend_to" name="LD_LIBRARY_PATH">$INSTALL_DIR/lib</environment_variable>
                   <environment_variable action="prepend_to" name="PKG_CONFIG_PATH">$INSTALL_DIR/lib/pkgconfig</environment_variable>
                 </action>
