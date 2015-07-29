@@ -1,0 +1,19 @@
+# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/datamash
+categories:
+- Text Manipulation
+description: GNU Datamash is a grouping and summarizing tool on tabular data files
+long_description: |
+  GNU Datamash is a command-line program which performs basic
+  numeric,textual and statistical operations on input textual data files.
+
+  It is designed to be portable and reliable, and aid researchers
+  to easily automate analysis pipelines, without writing code or even short scripts.
+
+  Home page: http://www.gnu.org/software/datamash
+  License: GPL Version 3 (or later).
+
+  These tool wrappers were originally writen by Assaf Gordon.
+name: datamash
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/datamash
+type: unrestricted
