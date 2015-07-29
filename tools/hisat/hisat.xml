@@ -62,7 +62,11 @@
             -f
         #end if
         #if str($input_options.input_options_selector) == "advanced":
-            -s ${input_options.skip} -u ${input_options.stop_after} -5 ${input_options.trim_five} -3 ${input_options.trim_three}
+            -s ${input_options.skip}
+            #if ${input_options.stop_after}:
+                -u ${input_options.stop_after}
+            #end if
+            -5 ${input_options.trim_five} -3 ${input_options.trim_three}
         #end if
         #if str($scoring_options.scoring_options_selector) == "advanced":
             --ma ${scoring_options.match_bonus} --mp ${scoring_options.max_mismatch},${scoring_options.min_mismatch}
@@ -79,9 +83,9 @@
             #if str($spliced_options.known_splice_gtf) != 'None':
                 --known-splicesite-infile splice_sites.txt
             #end if
-            $no_spliced_alignment
-            --min-intronlen $min_intron
-            --max-intronlen $max_intron
+            ${spliced_options.no_spliced_alignment}
+            --min-intronlen ${spliced_options.min_intron}
+            --max-intronlen ${spliced_options.max_intron}
         #end if
         | samtools view -bS - | samtools sort - -o hsbam > "${output_alignments}"
     ]]></command>
@@ -170,7 +174,8 @@
             <when value="defaults" />
             <when value="advanced">
                 <param name="skip" label="Skip the first N reads or pairs in the input" help="-s" type="integer" value="0" default="0" />
-                <param name="stop_after" label="Stop after aligning N reads" help="(-u) Align the first N reads or read pairs from the input (after the first N reads or pairs have been skipped), then stop." type="integer" value="0" default="0" />
+                <param name="stop_after" type="integer" value="" min="1" optional="True" label="Stop after aligning N reads"
+                    help="(-u) Align the first N reads or read pairs from the input (after the first N reads or pairs have been skipped), then stop." />
                 <param name="trim_five" label="Trim 5' end" help="(-5) Trim N bases from 5' (left) end of each read before alignment" type="integer" value="0" default="0" />
                 <param name="trim_three" label="Trim 3' end" help="(-3) Trim N bases from 3' (right) end of each read before alignment" type="integer" value="0" default="0" />
             </when>
