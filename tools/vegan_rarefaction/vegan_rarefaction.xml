@@ -1,6 +1,6 @@
 <tool id="vegan_rarefaction" name="Vegan Rarefaction" version="0.0.1">
     <requirements>
-        <requirement type="package" version="3.2.1-atlas">R</requirement>
+        <requirement type="package" version="3.2.1">R</requirement>
         <requirement type="package" version="2.3-0">vegan</requirement>
     </requirements>
     <stdio>
