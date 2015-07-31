@@ -3,6 +3,10 @@
     <description>
         draw community composition
     </description>
+    <requirements>
+        <requirement type="package" version="5.18.1">perl</requirement>
+        <requirement type="package" version="2.5">krona</requirement>
+    </requirements>
     <command>
         <![CDATA[
 
