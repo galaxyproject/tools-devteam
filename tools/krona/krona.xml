@@ -50,6 +50,15 @@
     <outputs>
         <data format="html" label="${tool.name} on ${on_string}: Classified reads" name="output"/>
     </outputs>
+    <tests>
+        <test>
+            <param name="tax" value="taxonomy_data.tax"/>
+            <param name="max_rank" value="Genus"/>
+            <param name="root_name" value="Root"/>
+            <param name="combine_inputs" value="False"/>
+            <output name="output" file="krona_test1.html" ftype="html" lines_diff="30"/>
+        </test>
+    </tests>
     <help>
         <![CDATA[
 
