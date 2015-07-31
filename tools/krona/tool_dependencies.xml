@@ -3,16 +3,7 @@
 	<package name="perl" version="5.18.1">
         <repository name="package_perl_5_18" owner="iuc" prior_installation_required="True" />
     </package>
-
     <package name="krona" version="2.5">
-        <install version="1.0">
-            <actions>
-                <action type="setup_perl_environment">
-                    <repository name="package_perl_5_18" owner="iuc">
-                        <package name="perl" version="5.18.1"/>
-                    </repository>
-                    <package>https://depot.galaxyproject.org/package/source/KronaTools-2.5.tar</package>
-                </action>
-            </actions>
-        </install>
+        <repository name="package_krona_2_5" owner="iuc" prior_installation_required="True" />
+    </package>
 </tool_dependency>
