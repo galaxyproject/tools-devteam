@@ -37,8 +37,8 @@
     </xml>
     <token name="@paired_end_options@">
         #if str($input_format.paired.paired_end_options.paired_end_options_selector) == 'advanced':
-            "${input_format.paired.paired_end_options.no_mixed}"
-            "${input_format.paired.paired_end_options.no_discordant}"
+            ${input_format.paired.paired_end_options.no_mixed}
+            ${input_format.paired.paired_end_options.no_discordant}
         #end if
     </token>
 </macros>
