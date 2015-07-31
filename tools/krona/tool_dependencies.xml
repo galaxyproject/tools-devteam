@@ -15,4 +15,5 @@
                 </action>
             </actions>
         </install>
+    </package>
 </tool_dependency>
