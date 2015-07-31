@@ -48,7 +48,7 @@
         <param name="combine_inputs" type="boolean" truevalue="-c" falsevalue="" selected="False" label="Combine data from multiple datasets?" help="-c; Combine data from each dataset, rather than creating separate datasets within the chart"/>
     </inputs>
     <outputs>
-        <data format="html" label="${tool.name} on ${on_string}: Classified reads" name="output"/>
+        <data format="html" label="${tool.name} on ${on_string}: Krona chart" name="output"/>
     </outputs>
     <tests>
         <test>
