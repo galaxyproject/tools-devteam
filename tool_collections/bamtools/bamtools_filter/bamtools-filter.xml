@@ -4,9 +4,8 @@
     <requirement type="package" version="2.3.0_2d7685d2ae">bamtools</requirement>
   </requirements>
   <command>
-
     cat $script_file > $out_file2;
-    
+
     #for $bam_count, $input_bam in enumerate( $input_bams ):
         ln -s "${input_bam.input_bam}" "localbam_${bam_count}.bam" &amp;&amp;
         ln -s "${input_bam.input_bam.metadata.bam_index}" "localbam_${bam_count}.bam.bai" &amp;&amp;
@@ -20,9 +19,7 @@
         -in "localbam_${bam_count}.bam"
     #end for
     -out $out_file1
-    
   </command>
-
   <inputs>
     <repeat name="input_bams" title="BAM dataset(s) to filter" min="1">
           <param name="input_bam" type="data" format="bam" label="BAM dataset" />
@@ -197,8 +194,8 @@
           },
           #else
           }
-          #end if      
-      #end for   
+          #end if
+      #end for
       #if len( $conditions ) > 1
       #if str( $rule_configuration.rules_selector ) == "True":
         ],
@@ -249,7 +246,7 @@ Conditions for filtering BAM files can be arranged in **Groups and Filters**. Wh
 When filtering on a single condition there is no need to worry about filters and conditions. Just choose a filter from the **Select BAM property to filter on:** dropdown and enter a value (or click a checkbox for binary filters).
 For example, for retaining reads with mapping quality of at least 20 one would set the tool interface as shown below:
 
-.. image:: ${static_path}/images/single-filter.png
+.. image:: $PATH_TO_IMAGES/images/single-filter.png
 
 -----
 
@@ -258,7 +255,7 @@ For example, for retaining reads with mapping quality of at least 20 one would s
 Now suppose one needs to extract reads that (1) have mapping quality of at least 20, (2) contain at least 1 mismatch, and (3) are mapping onto forward strand only.
 To do so we will use three filters as shown below (multiple filters are added to the interface by clicking on the **Add new Filter** button):
 
-.. image:: ${static_path}/images/multiple-filters.png
+.. image:: $PATH_TO_IMAGES/images/multiple-filters.png
 
 In this case (you can see that the three filters are grouped within a single Condition - **Condition 1**) the filter too use logical **AND** to perform filtering.
 In other words only reads that (1) have mapping quality of at least 20 **AND** (2) contain at least 1 mismatch **AND** are mapping onto forward strand will be returned in this example.
@@ -271,7 +268,7 @@ Suppose now you would like to select **either** reads that (**1**) have (*1.1*) 
 at least one mismatch and (*2.2*) are on the reverse strand. In this scenario we have to set up two conditions: (**1**) and (**2**) each with two filters: *1.1* and *1.2* as well as *2.1* and *2.2*. 
 The following screenshot expalins how this can be done:
 
-.. image:: ${static_path}/images/complex-filters.png
+.. image:: $PATH_TO_IMAGES/images/complex-filters.png
 
 -----
 
@@ -285,7 +282,7 @@ filtering will look like this::
  
 Here, numbers 1, 2, and 3 represent conditions. The following screenshot illustrates how to do this in Galaxy:
 
-.. image:: ${static_path}/images/rule.png
+.. image:: $PATH_TO_IMAGES/images/rule.png
 
 There are three conditions here, each with a single filter. A text entry area that can be opened by clicking on the **Would you like to set rules?** checkbox enables you to enter a rule.
 Here numbers correspond to numbers of conditions as they are shown in the interface. E.g., 1 corresponds to condition 1, 2 to condition 2 and so on... In human language this means::
@@ -312,8 +309,7 @@ For instance, the example 4 looks like this in the JSON form::
           }
         ]
       }
-    
-    
+
 
 -----
 
