@@ -1,18 +1,18 @@
 <macros>
   <import>read_group_macros.xml</import>
   <token name="@set_rg_string@">
-      #set $rg_string = "@RG\tID:" + str($rg_id)
-      #set $rg_string += $format_read_group("\tSM:", $rg_sm)
-      #set $rg_string += $format_read_group("\tPL:", $rg_pl)
-      #set $rg_string += $format_read_group("\tLB:", $rg_lb)
-      #set $rg_string += $format_read_group("\tCN:", $rg_cn)
-      #set $rg_string += $format_read_group("\tDS:", $rg_ds)
-      #set $rg_string += $format_read_group("\tDT:", $rg_dt)
-      #set $rg_string += $format_read_group("\tFO:", $rg_fo)
-      #set $rg_string += $format_read_group("\tKS:", $rg_ks)
-      #set $rg_string += $format_read_group("\tPG:", $rg_pg)
-      #set $rg_string += $format_read_group("\tPI:", $rg_pi)
-      #set $rg_string += $format_read_group("\tPU:", $rg_pu)
+      #set $rg_string = "@RG\\tID:" + str($rg_id)
+      #set $rg_string += $format_read_group("\\tSM:", $rg_sm)
+      #set $rg_string += $format_read_group("\\tPL:", $rg_pl)
+      #set $rg_string += $format_read_group("\\tLB:", $rg_lb)
+      #set $rg_string += $format_read_group("\\tCN:", $rg_cn)
+      #set $rg_string += $format_read_group("\\tDS:", $rg_ds)
+      #set $rg_string += $format_read_group("\\tDT:", $rg_dt)
+      #set $rg_string += $format_read_group("\\tFO:", $rg_fo)
+      #set $rg_string += $format_read_group("\\tKS:", $rg_ks)
+      #set $rg_string += $format_read_group("\\tPG:", $rg_pg)
+      #set $rg_string += $format_read_group("\\tPI:", $rg_pi)
+      #set $rg_string += $format_read_group("\\tPU:", $rg_pu)
   </token>
 
   <xml name="stdio">
