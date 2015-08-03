@@ -20,6 +20,8 @@
     QUIET=true
     VERBOSITY=ERROR
     VALIDATION_STRINGENCY=${validation_stringency}
+    
+    @TMP_DIR_FIX@
   </command>
   
   <inputs>
@@ -33,8 +35,7 @@
   </inputs>
   
   <outputs>
-    <data name="outFile" format="bam" label="${tool.name} on ${on_string}: BAM sorted in ${sort_order} order">
-    </data>
+    <data name="outFile" format="bam" label="${tool.name} on ${on_string}: BAM sorted in ${sort_order} order" />
   </outputs>
   
   <stdio>

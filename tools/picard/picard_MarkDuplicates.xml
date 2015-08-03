@@ -33,8 +33,8 @@
     VALIDATION_STRINGENCY="${validation_stringency}"
     QUIET=true
     VERBOSITY=ERROR
-    TMP_DIR=$__new_file_path__
-  
+    
+    @TMP_DIR_FIX@
   </command>
   <inputs>
     <param format="bam" name="inputFile" type="data" label="Select SAM/BAM dataset or dataset collection" help="If empty, upload or import a SAM/BAM dataset"/>

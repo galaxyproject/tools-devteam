@@ -81,5 +81,7 @@ This will be added shortly
 
     </token>
     
-
+    <token name="@TMP_DIR_FIX@"><!-- Bugfix that ensures that Picards temp dir is set to the galaxy temp dir -->
+        TMP_DIR=$__new_file_path__
+    </token>
 </macros>

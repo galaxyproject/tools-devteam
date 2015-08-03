@@ -9,7 +9,6 @@
   </macros>
   
   <command>
-    
     ##set the maximum number of open file to hard maximum or 4096 if on a mac (mac gives 'unlimited' as output of `ulimit -Hn` command
     
     [ `ulimit -Hn` = unlimited ] &amp;&amp; ulimit -Sn 4096 || ulimit -Sn `ulimit -Hn`
@@ -49,7 +48,8 @@
      
     VERBOSITY=ERROR
     QUIET=true
-   
+       
+    @TMP_DIR_FIX@
   </command>
   <inputs>
     <param format="sam,bam" name="inputFile" type="data" label="SAM/BAM dataset or dataset collection" help="If empty, upload or import a SAM/BAM dataset." />

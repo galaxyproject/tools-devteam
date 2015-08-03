@@ -26,7 +26,8 @@
     
     QUIET=true
     VERBOSITY=ERROR
-  
+    
+    @TMP_DIR_FIX@
   </command>
   <inputs>
     <param format="fasta" name="inputFile" type="data" label="FASTA dataset or dataset collection" help="If empty, upload or import a FASTA dataset" />

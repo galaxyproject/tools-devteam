@@ -40,11 +40,14 @@
     VALIDATION_STRINGENCY="${validation_stringency}"
     QUIET=true
     VERBOSITY=ERROR
-  
+    
+    @TMP_DIR_FIX@
   </command>
   <inputs>
     <param format="bam" name="inputFile" type="data" label="Select SAM/BAM dataset or dataset collection" help="If empty, upload or import a SAM/BAM dataset"/>
+    <repeat name="comments" title="Comment" min="0" help="You can provide multiple comments">
       <param name="comment" type="text" size="50" label="Add this comment to BAM dataset"/>
+    </repeat>
     
     <param name="minimum_distance" type="integer" value="-1" label="The minimum distance to buffer records to account for clipping on the 5' end of the records" help="MINIMUM_DISTANCE; Set this number to -1 to use twice the first read's read length (or 100, whichever is smaller); default=-1"/>
     <param name="skip_pairs_with_no_mate_cigar" type="boolean" checked="true" truevalue="true" falsevalue="false" label="Skip record pairs with no mate cigar and include them in the output" help="SKIP_PAIRS_WITH_NO_MATE_CIGAR; default=True"/>

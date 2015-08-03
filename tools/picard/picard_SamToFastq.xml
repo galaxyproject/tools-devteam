@@ -49,11 +49,11 @@
     
     INCLUDE_NON_PRIMARY_ALIGNMENTS="${include_non_primary_alignments}"
     
-    
     VALIDATION_STRINGENCY="${validation_stringency}"
     QUIET=true
     VERBOSITY=ERROR
-  
+    
+    @TMP_DIR_FIX@
   </command>
   <inputs>
     

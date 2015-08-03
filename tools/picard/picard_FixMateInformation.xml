@@ -23,6 +23,7 @@
     QUIET=true
     VERBOSITY=ERROR
   
+    @TMP_DIR_FIX@
   </command>
   <inputs>
     <param name="inputFile" multiple="True" type="data" format="sam,bam" label="Select SAM/BAM dataset or dataset collection" help="If empty, upload or import a SAM/BAM dataset"/>

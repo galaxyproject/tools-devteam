@@ -39,6 +39,7 @@
       QUIET=true
       VERBOSITY=ERROR
       
+      @TMP_DIR_FIX@
   </command>
   
   <inputs>

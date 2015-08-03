@@ -19,6 +19,8 @@
     QUIET=true
     VERBOSITY=ERROR
     VALIDATION_STRINGENCY=${validation_stringency}
+    
+    @TMP_DIR_FIX@
   </command>
   
   <inputs>
