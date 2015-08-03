@@ -4,10 +4,10 @@
     <macros>
         <import>macros.xml</import>
     </macros>
+    <expand macro="requirements" />
+    <expand macro="stdio" />
+    <expand macro="version_command" />
     <command>
-        <expand macro="requirements" />
-        <expand macro="stdio" />
-        <expand macro="version_command" />
 <![CDATA[
 
 #for $input_count, $input_classification in enumerate( $classification ):
