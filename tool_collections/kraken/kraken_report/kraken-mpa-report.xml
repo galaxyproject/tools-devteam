@@ -15,6 +15,7 @@
  ln -s "${input_classification}" "sample_${input_count}" &&
 #end for
 
+@SET_DATABASE_PATH@ &&
 kraken-mpa-report @INPUT_DATABASE@
 
 #for $input_count, $input_classification in enumerate( $classification ):
