@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<tool_dependency>
+    <package name="gb_taxonomy" version="8d245994d7">
+        <install version="1.0">
+            <actions>
+                <action type="shell_command">git clone https://github.com/spond/gb_taxonomy_tools.git gb_taxonomy</action>
+                <action type="shell_command">git reset --hard 8d245994d77546daac1f595b87a110a620426b4c</action>
+                <action type="shell_command">cmake -D INSTALL_PREFIX:PATH=$INSTALL_DIR .</action>
+                <action type="make_install" />
+                <action type="set_environment">
+                    <environment_variable name="PATH" action="prepend_to">$INSTALL_DIR/bin</environment_variable>
+                </action>
+            </actions>
+        </install>
+    </package>
+</tool_dependency>
