@@ -1,12 +1,15 @@
-<tool id="Kraken2Tax" name="convert Kraken data to Galaxy taxonomy representation" version="1.0">
-  <description></description>
-    <!--<requirements>
-        <requirement type="package" version="1.0.0">taxonomy</requirement>
-    </requirements>-->
+<tool id="Kraken2Tax" name="Convert Kraken" version="1.0">
+  <description>data to Galaxy taxonomy representation</description>
+    <requirements>
+        <requirement type="package" version="8d245994d7">gb_taxonomy</requirement>
+    </requirements>
   <command>
 <![CDATA[
 
   awk '{ print \$${read_name}, \$${tax_id} }' OFS="\t" "${input}" | taxonomy-reader \${GALAXY_DATA_INDEX_DIR}/taxonomy/names.dmp \${GALAXY_DATA_INDEX_DIR}/taxonomy/nodes.dmp 1 > "${out_file}"
+
+  ## To function this tool requires names.dmp and nodes.dmp files dowloaded from ftp://ftp.ncbi.nih.gov/pub/taxonomy/taxdump.tar.gz
+  ## These two files must be placed into a filesystem location accessible at ${GALAXY_DATA_INDEX_DIR}/taxonomy/
 
  ]]>
   </command>
@@ -36,36 +39,27 @@ Use *Filter and Sort->Filter* to restrict output of this tool to desired taxonom
 
 **What it does**
 
-Fetches taxonomic information for a list of GI numbers (sequences identifiers used by the National Center for Biotechnology Information http://www.ncbi.nlm.nih.gov).
+This tool is designed to translate results of the Kraken metagenomic classifier (see citations below) to the full representation of NCBI taxonomy. It does so by using Taxonomic ID field provided by Kraken. The output of this tool can be directly visualized by the Krona tool. It is based on `gb_taxonomy_tools` developed by https://github.com/spond.
 
 -------
 
 **Example**
 
-Suppose you have BLAST output that looks like this::
-  
-   +-----------------------+----------+----------+-----------------+------------+------+--------+
-   | queryId               | targetGI | identity | alignmentLength | mismatches | gaps | score  |
-   +-----------------------+----------+----------+-----------------+------------+------+--------+
-   | 1L_EYKX4VC01BXWX1_265 |  1430919 |    90.09 |             212 |         15 |    6 | 252.00 | 
-   +-----------------------+----------+----------+-----------------+------------+------+--------+
+Suppose you have Kraken output that looks like this (here the second field is the name of a sequencing read and the third is the taxonomic ID)::
 
-and you want to obtain full taxonomic representation for GIs listed in *targetGI* column. If you set parameters as shown here:
+  C   Read_1   9606  465   Q:1
 
-.. image:: ${static_path}/images/fetchTax.png
+and you want to obtain the full taxonomic representation for this read. Setting **Read name** and **Taxonomy ID field** parameters to **2** and **3**, respectively, will produce the following output (you may need to scroll sideways to see the entire line)::
 
+  1      2    3    4         5       6 7 8        9        10            11       12 13               14       15         16          17        18  19  20 21  22  23           24
+  Read_1 9606 root Eukaryota Metazoa n n Chordata Craniata Gnathostomata Mammalia n  Euarchontoglires Primates Haplorrhini Hominoidea Hominidae n   n   n  Homo n  Homo sapiens n
 
-the tool will generate the following output (you may need to scroll sideways to see the entire line)::
-
-  1                     2    3    4         5       6 7 8        9        10            11       12 13               14       15         16          17        18  19  20 21  22  23           24 25
-  1L_EYKX4VC01BXWX1_265 9606 root Eukaryota Metazoa n n Chordata Craniata Gnathostomata Mammalia n  Euarchontoglires Primates Haplorrhini Hominoidea Hominidae n   n   n  Homo n  Homo sapiens n  1430919
-
-In other words the tool printed *Name column*, *taxonomy Id*, appended 22 columns containing taxonomic ranks from Superkingdom to Subspecies and added *GI* as the last column. Below is a formal definition of the output columns::
+In other words the tool printed *Read name*, *Taxonomy ID field*, and appended 22 columns containing taxonomic ranks from Superkingdom to Subspecies. Below is a formal definition of the output columns::
 
     Column Definition
-   ------- ------------------------------------------
-         1 Name (specified by 'Name column' dropdown)
-         2 GI   (specified by 'GI column' dropdown)
+   ------- -------------------------------------------------
+         1 Name (specified by 'Read name' dropdown)
+         2 taxID   (specified by 'Taxonomy ID field' dropdown)
          3 root
          4 superkingdom
          5 kingdom
@@ -101,7 +95,7 @@ Be aware that the NCBI taxonomy (ftp://ftp.ncbi.nih.gov/pub/taxonomy/) this tool
 </help>
 <citations>
             <citation type="doi">10.1186/gb-2014-15-3-r46</citation>
-            <citation type="doi">10.1101/gr.094508.109</citation>
+            <citation type="doi"> 10.1101/gr.094508.109</citation>
         </citations>
 </tool>
 
