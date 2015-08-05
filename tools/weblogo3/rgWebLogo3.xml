@@ -21,7 +21,7 @@
       <option value="pdf">PDF</option>
       <option value="jpeg">JPG</option>
       <option value="eps">EPS</option>
-      <option value="txt">Text (shows the detailed calculations for each position - no image)</option>
+      <option value="logodata">Text (shows the detailed calculations for each position - no image)</option>
     </param>
     <param name="units" type="select" label="Display Units"
       help="What the height of each logo element depicts - eg bits of entropy (default)">
@@ -73,7 +73,7 @@
            <when input="outformat" value="png" format="png" />
            <when input="outformat" value="jpeg" format="jpg" />
            <when input="outformat" value="eps" format="eps" />
-           <when input="outformat" value="txt" format="txt" />
+           <when input="outformat" value="logodata" format="txt" />
        </change_format>
     </data>
   </outputs>
