@@ -19,7 +19,7 @@ def main(args):
     target_directory = params['output_data'][0]['extra_files_path']
     os.mkdir(target_directory)
     output_path = os.path.abspath(os.getcwd())
-    for filename in [ 'names.dmp', 'nodes.dmp' ]:
+    for filename in os.listdir(output_path):
         shutil.move(os.path.join(output_path, filename), target_directory)
     file(args.output, 'w').write(json.dumps(data_manager_json))
 
