@@ -5,16 +5,16 @@
     </requirements>
   <command>
 <![CDATA[
-
-  awk '{ print \$${read_name}, \$${tax_id} }' OFS="\t" "${input}" | taxonomy-reader \${GALAXY_DATA_INDEX_DIR}/taxonomy/names.dmp \${GALAXY_DATA_INDEX_DIR}/taxonomy/nodes.dmp 1 > "${out_file}"
-
-  ## To function this tool requires names.dmp and nodes.dmp files dowloaded from ftp://ftp.ncbi.nih.gov/pub/taxonomy/taxdump.tar.gz
-  ## These two files must be placed into a filesystem location accessible at ${GALAXY_DATA_INDEX_DIR}/taxonomy/
-
- ]]>
+  awk '{ print \$${read_name}, \$${tax_id} }' OFS="\t" "${input}" | taxonomy-reader ${ncbi_taxonomy.fields.path}/names.dmp ${ncbi_taxonomy.fields.path}/nodes.dmp 1 > "${out_file}"
+]]>
   </command>
   <inputs>
     <param format="tabular" name="input" type="data" label="Choose dataset to convert"/>
+    <param label="Select a taxonomy database" name="ncbi_taxonomy" type="select">
+        <options from_data_table="ncbi_taxonomy">
+            <validator message="No built-in databases are available" type="no_options" />
+        </options>
+    </param>
     <param name="read_name" label="Read name" type="data_column" data_ref="input" value="2" help="Select column containing read names"/>
     <param name="tax_id" label="Taxonomy ID field" type="data_column" data_ref="input" numerical="True" value="3" help="Select column containing taxonomy ID"/>
   </inputs>
