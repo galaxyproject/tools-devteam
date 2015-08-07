@@ -1,11 +1,12 @@
 import json
+import datetime
 import argparse
 import os
 import shutil
 
 parser = argparse.ArgumentParser(description='Create data manager json.')
 parser.add_argument('--out', dest='output', action='store', help='JSON filename')
-parser.add_argument('--name', dest='name', action='store', help='Data table entry unique ID')
+parser.add_argument('--name', dest='name', action='store', default=str(datetime.date.today()), help='Data table entry unique ID')
 
 args = parser.parse_args()
 
@@ -19,10 +20,9 @@ def main(args):
     target_directory = params['output_data'][0]['extra_files_path']
     os.mkdir(target_directory)
     output_path = os.path.abspath(os.getcwd())
-    for filename in os.listdir(output_path):
+    for filename in [ 'names.dmp', 'nodes.dmp' ]:
         shutil.move(os.path.join(output_path, filename), target_directory)
     file(args.output, 'w').write(json.dumps(data_manager_json))
 
 if __name__ == '__main__':
     main(args)
-

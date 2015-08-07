@@ -9,11 +9,14 @@
     </stdio>
     <command>
     <![CDATA[
-        curl -o taxdump.tar.gz ${taxonomy_url} && tar xzf taxdump.tar.gz && python $__tool_directory__/data_manager.py --name "${database_name}" --out "${out_file}"
+        curl -o taxdump.tar.gz ${taxonomy_url} && tar xzf taxdump.tar.gz && python $__tool_directory__/data_manager.py --out "${out_file}"
+        #if $database_name:
+            --name "${database_name}"
+        #end if
     ]]>
     </command>
     <inputs>
-        <param label="Name for this database" name="database_name" type="text" />
+        <param help="Enter a unique identifier, or leave blank for today's date" label="Name for this database" name="database_name" type="text" optional="True" />
         <param label="Enter URL for taxonomy files" name="taxonomy_url" type="text" value="ftp://ftp.ncbi.nih.gov/pub/taxonomy/taxdump.tar.gz" />
     </inputs>
     <outputs>
