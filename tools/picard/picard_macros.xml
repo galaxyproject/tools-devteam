@@ -81,7 +81,7 @@ This will be added shortly
 
     </token>
     
-    <token name="@TMP_DIR_FIX@"><!-- Bugfix that that sets Picards temp dir - requires TMP_DIR to be configured in config/job_conf.xml -->
+    <token name="@TMP_DIR_FIX@"><!-- Bugfix that that sets Picards temp dir. Environment variable $TMPDIR should be configured in config/job_conf.xml -->
         TMP_DIR=\$TMPDIR
     </token>
     
