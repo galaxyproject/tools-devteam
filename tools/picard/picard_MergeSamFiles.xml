@@ -91,7 +91,7 @@ Merges multiple SAM/BAM datasets into one.
 
 @more_info@
 
+@tmp_dir_notice@
+
   </help>
 </tool>
-
-

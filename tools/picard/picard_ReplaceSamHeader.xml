@@ -62,7 +62,7 @@ Replace the SAMFileHeader in a SAM/BAM dataset with the given header. Validation
 
 @more_info@
 
+@tmp_dir_notice@
+
   </help>
 </tool>
-
-

@@ -132,18 +132,8 @@ Add or Replace Read Groups in an input BAM or SAM file.
   PI=Integer              Read Group predicted insert size  Default value: null. 
 
 @more_info@
+
+@tmp_dir_notice@
+
   </help>
 </tool>
-
-
-
-
-
-
-
-
-
-
-
-
-

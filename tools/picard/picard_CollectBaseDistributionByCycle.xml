@@ -111,6 +111,8 @@ Program to chart the nucleotide distribution per cycle in a SAM or BAM file.
 
 @more_info@
 
+@tmp_dir_notice@
+
   </help>
 </tool>
 

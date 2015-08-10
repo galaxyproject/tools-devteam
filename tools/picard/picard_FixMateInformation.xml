@@ -80,6 +80,8 @@ is to assume that the BAM you are working with is coordinate sorted.
   
 @more_info@
 
+@tmp_dir_notice@
+
   </help>
 </tool>
 

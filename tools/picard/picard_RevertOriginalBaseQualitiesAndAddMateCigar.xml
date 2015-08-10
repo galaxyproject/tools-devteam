@@ -74,7 +74,7 @@ Reverts the original base qualities and adds the mate cigar tag to SAM or BAMs.
 
 @more_info@
 
+@tmp_dir_notice@
+
   </help>
 </tool>
-
-

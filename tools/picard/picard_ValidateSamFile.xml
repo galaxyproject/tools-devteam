@@ -224,7 +224,7 @@ Reads a SAM/BAM dataset and report on its validity.
   
 @more_info@
 
+@tmp_dir_notice@
+
   </help>
 </tool>
-
-

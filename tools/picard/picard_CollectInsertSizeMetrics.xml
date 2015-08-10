@@ -136,6 +136,8 @@ Reads a SAM or BAM dataset and writes a file containing metrics about the statis
                                 
 @more_info@
 
+@tmp_dir_notice@
+
   </help>
 </tool>
 

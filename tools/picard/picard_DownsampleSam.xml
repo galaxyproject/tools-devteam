@@ -73,9 +73,11 @@ Randomly down-sample a SAM or BAM file to retain a random subset of the reads. M
                       
   PROBABILITY=Double
   P=Double            The probability of keeping any individual read, between 0 and 1. 
-                       
 
 
 @more_info@
+
+@tmp_dir_notice@
+
   </help>
 </tool>

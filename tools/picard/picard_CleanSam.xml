@@ -61,5 +61,7 @@ Read SAM/BAM and perform various fix-ups. Currently, the only fix-ups are:
  
 @more_info@
 
+@tmp_dir_notice@
+
   </help>
 </tool>

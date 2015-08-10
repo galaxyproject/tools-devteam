@@ -126,7 +126,7 @@ Examines aligned records in the supplied SAM or BAM dataset to locate duplicate 
 
 @more_info@
 
+@tmp_dir_notice@
+
   </help>
 </tool>
-
-

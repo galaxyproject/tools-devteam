@@ -313,18 +313,8 @@ Merges alignment data from a SAM or BAM dataset with additional data stored in a
 
 
 @more_info@
+
+@tmp_dir_notice@
+
   </help>
 </tool>
-
-
-
-
-
-
-
-
-
-
-
-
-

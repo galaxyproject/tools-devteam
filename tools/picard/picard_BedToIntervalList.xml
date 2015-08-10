@@ -101,18 +101,8 @@ Convert coordinate data (such as BED or Galaxy Interval) into Picard Interval Fo
 
 
 @more_info@
+
+@tmp_dir_notice@
+
   </help>
 </tool>
-
-
-
-
-
-
-
-
-
-
-
-
-

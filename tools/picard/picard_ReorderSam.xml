@@ -116,18 +116,8 @@ Not to be confused with **SortSam**.
                                 Default value: false.  Possible values: {true, false} 
 
 @more_info@
+
+@tmp_dir_notice@
+
   </help>
 </tool>
-
-
-
-
-
-
-
-
-
-
-
-
-

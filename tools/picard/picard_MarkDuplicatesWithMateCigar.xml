@@ -1,4 +1,4 @@
-<tool name="MarkDuplicatesWithMateCigar" id="picard_MarkDuplicatesWithMateCigar" version="1.126.0">
+<tool name="MarkDuplicatesWithMateCigar" id="picard_MarkDuplicatesWithMateCigar" version="1.126.0.2">
   <description>examine aligned records in BAM datasets to locate duplicate molecules</description>
   <requirements>
     <requirement type="package" version="1.126.0">picard</requirement>
@@ -163,7 +163,7 @@ alignments that have large gaps or reference skips, which happens frequently in 
 
 @more_info@
 
+@tmp_dir_notice@
+
   </help>
 </tool>
-
-

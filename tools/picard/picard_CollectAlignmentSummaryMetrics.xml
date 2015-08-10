@@ -132,6 +132,8 @@ Reads a SAM or BAM file and writes a file containing summary alignment metrics.
 
 @more_info@
 
+@tmp_dir_notice@
+
   </help>
 </tool>
 

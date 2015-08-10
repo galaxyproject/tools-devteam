@@ -199,5 +199,7 @@ This tool requires gene annotations in refFlat_ format. These data can be obtain
 
 @more_info@
 
+@tmp_dir_notice@
+
   </help>
 </tool>

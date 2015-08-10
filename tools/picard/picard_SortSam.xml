@@ -67,5 +67,7 @@ Sorts the input SAM or BAM.
  
  @more_info@
 
+@tmp_dir_notice@
+
   </help>
 </tool>

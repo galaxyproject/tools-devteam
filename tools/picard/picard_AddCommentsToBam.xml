@@ -64,18 +64,8 @@ Adds one or more comments (@CO) to the header of a specified BAM dataset.
   C=String          Comments to add to the BAM file  This option may be specified 0 or more times. 
 
 @more_info@
+
+@tmp_dir_notice@
+
   </help>
 </tool>
-
-
-
-
-
-
-
-
-
-
-
-
-
