@@ -1,6 +1,7 @@
 <tool id="Kraken2Tax" name="Convert Kraken" version="1.0">
   <description>data to Galaxy taxonomy representation</description>
     <requirements>
+        <requirement type="package" version="52a8268bb49f">package_gnu_awk_4_1_0</requirement>
         <requirement type="package" version="8d245994d7">gb_taxonomy</requirement>
     </requirements>
   <command>
@@ -92,11 +93,11 @@ In other words the tool printed *Read name*, *Taxonomy ID field*, and appended 2
 Be aware that the NCBI taxonomy (ftp://ftp.ncbi.nih.gov/pub/taxonomy/) this tool relies upon is incomplete.  This means that for many species one or more ranks are absent and represented as "**n**". In the above example *subkingdom*, *superphylum* etc. are missing.
 
 
-</help>
-<citations>
-            <citation type="doi">10.1186/gb-2014-15-3-r46</citation>
-            <citation type="doi"> 10.1101/gr.094508.109</citation>
-        </citations>
+  </help>
+  <citations>
+    <citation type="doi">10.1186/gb-2014-15-3-r46</citation>
+    <citation type="doi"> 10.1101/gr.094508.109</citation>
+  </citations>
 </tool>
 
 
