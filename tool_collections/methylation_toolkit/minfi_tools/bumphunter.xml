@@ -1,0 +1,37 @@
+<tool id="bumphunter" name="Get differentially methylated regions" version="0.1.0">
+    <description>Estimate regions for which a genomic profile deviates from its baseline value</description>
+    <requirements>
+        <requirement type="R-module" version="1.15.7">minfi</requirement>
+    </requirements>
+    <stdio>
+        <exit_code range="1:" />
+    </stdio>
+    <command><![CDATA[
+        Rscript bump_hunter.R --RGset=$RGset --design=$design --cutoff=$cutoff --output=$bumps
+    ]]></command>
+    <inputs>
+        <param type="data" name="input1" format="RData" />
+    </inputs>
+    <outputs>
+        <data name="output1" format="txt" from_work_dir="bumps.txt" />
+    </outputs>
+    <tests>
+        <test>
+            <param name="input1" value="RGset.RData"/>
+            <output name="output1" file="bumps.txt"/>
+        </test>
+    </tests>
+    <help>
+** What it does**
+Estimate regions for which a genomic profile deviates from its
+baseline value. Originally implemented to detect differentially
+methylated genomic regions between two populations.
+
+Reference:
+
+Jaffe AE, Murakami P, Lee H, Leek JT, Fallin MD, Feinberg AP,
+Irizarry RA (2012) Bump hunting to identify differentially
+methylated regions in epigenetic epidemiology studies.
+International Journal of Epidemiology 41(1):200-9.
+    </help>
+</tool>
