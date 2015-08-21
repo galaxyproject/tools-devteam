@@ -8,8 +8,10 @@
         <exit_code range=":-1" />
     </stdio>
 
-    <command>cp "${vegan_rarefaction_script}" "${vegan_rarefaction_script_output}" &amp;&amp; 
-    Rscript "${vegan_rarefaction_script}"
+    <command><![CDATA[
+        cp "${vegan_rarefaction_script}" "${vegan_rarefaction_script_output}" &&
+        Rscript "${vegan_rarefaction_script}"
+    ]]>
     </command>
     <configfiles>
         <configfile name="vegan_rarefaction_script"><![CDATA[
