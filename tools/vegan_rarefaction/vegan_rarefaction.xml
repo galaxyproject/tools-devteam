@@ -49,11 +49,7 @@ write.table(drarefy(input_abundance, sample=raremax+raremax_offset), "${ output_
 
 ##Draw the Curve
 png('${output_plot}', width=1020, height=800, units='px')
-##plot(S, Srare, xlab = "Observed No. of Species", ylab = "Rarefied No. of Species")
-##abline(0, 1)
 rarecurve(input_abundance, step = ${step_size}, sample = raremax, xlab = "${xlab}", ylab = "${ylab}", label="${label}", col = "blue", cex = 0.6)
-##library(Hmisc)
-##minor.tick(nx=2, ny=2, tick.ratio=0.5)
 invisible(dev.off())
 
     ]]>
@@ -91,18 +87,19 @@ invisible(dev.off())
     </outputs>
     <tests>
         <test>
-            <param name="fastq_input|fastq_input_selector" value="single" />
-            <param name="fastq_input|fastq_input1" ftype="fastqsanger" value="cd-hit-dup_in.fastqsanger"/>
-            <output name="output_reads" ftype="fastqsanger" file="cd-hit-dup_out.fastqsanger" />
-            <output name="output_duplicate_clusters" ftype="tabular" file="cd-hit-dup_out.dup_clusters.tabular" />
-        </test>
-        <test>
-            <param name="fastq_input|fastq_input_selector" value="single" />
-            <param name="fastq_input|fastq_input1" ftype="fastqsanger" value="cd-hit-dup_in.fastqsanger"/>
-            <param name="fastq_input|filter_chimeras|filter_chimeras_selector" value="true"/>
-            <output name="output_reads" ftype="fastqsanger" file="cd-hit-dup_out_chimera.fastqsanger" />
-            <output name="output_duplicate_clusters" ftype="tabular" file="cd-hit-dup_out_chimera.dup_clusters.tabular" />
-            <output name="output_chimeric_clusters" ftype="tabular" file="cd-hit-dup_out_chimera.chimeric_clusters.tabular" />
+            <param name="input_abundance" ftype="tabular" value="vegan_in.tabular"/>
+            <param name="species_column" value="6"/>
+            <param name="sample_columns" value="2"/>
+            <param name="sample_size" value=""/>
+            <param name="step_size" value="1"/>
+            <param name="xlab" value="Sample Size"/>
+            <param name="ylab" value="Species"/>
+            <param name="label" value="TRUE"/>
+            <output name="output_species_count" ftype="tabular" file="vegan_output_species_count.tabular" />
+            <output name="output_species_frequency" ftype="tabular" file="vegan_output_species_frequency.tabular" />
+            <output name="output_richness" ftype="tabular" file="vegan_output_richness.tabular" />
+            <output name="output_species_probabilities" ftype="tabular" file="vegan_output_species_probabilities.tabular" />
+            <output name="output_slope" ftype="tabular" file="vegan_output_slope.tabular" />
         </test>
     </tests>
     <help>
