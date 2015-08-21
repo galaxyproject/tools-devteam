@@ -12,21 +12,24 @@
     </stdio>
 
     <command><![CDATA[
-        cp "${vegan_rarefaction_script}" "${vegan_rarefaction_script_output}" &&
+        #if "output_r_script" in str( $include_outputs ).split( "," ):
+            cp "${vegan_rarefaction_script}" "${output_r_script}" &&
+        #end if
         Rscript "${vegan_rarefaction_script}"
     ]]>
     </command>
     <configfiles>
         <configfile name="vegan_rarefaction_script"><![CDATA[
-#set $int_species_column = int(str($species_column))
+#set $include_files = str( $include_outputs ).split( "," )
+#set $int_species_column = int( str( $species_column ) )
 #set $fixed_sample_columns = []
-#for $sample_col in map(int, str($sample_columns).split(",")):
+#for $sample_col in map( int, str( $sample_columns ).split( "," ) ):
 #assert $sample_col != $int_species_column, "Sample label column and sample count columns must not be the same."
 #silent $fixed_sample_columns.append( str( $sample_col if $sample_col < $int_species_column else $sample_col-1 ) )
 #end for
 options(bitmapType='cairo')## No X11, so we'll use cairo
 library(vegan)
-input_abundance <- read.table("${input_abundance}", sep="\t", row.names=${ species_column }, header=FALSE )##, sep="${input_abundance.metadata.seperator}", row.names=1) ##FIXME, allow setting row.names, now assuming is column 1
+input_abundance <- read.table("${input_abundance}", sep="\t", row.names=${ species_column }, header=FALSE )
 
 input_abundance <- t( input_abundance[ c( ${ ",".join( $fixed_sample_columns ) } )] )
 
@@ -39,24 +42,33 @@ raremax = $sample_size
 raremax_offset <- 0
 #end if
 sprintf("Using sample size: %i", raremax)
-Srare <- rarefy(input_abundance, sample=raremax, se=FALSE, MARGIN=1) ##${estimate_standard_error} ##${margin}
-##SHOULD we t(Srare) for out?
+Srare <- rarefy(input_abundance, sample=raremax, se=FALSE, MARGIN=1)
+#if "output_richness" in $include_files:
 write.table(Srare, "${output_richness}", col.names=NA, sep = "\t")
+#end if
 
+#if "output_slope" in $include_files:
 write.table(rareslope(input_abundance, sample=raremax+raremax_offset), "${output_slope}", sep = "\t")
+#end if
 
 S <- specnumber(input_abundance)
-
+#if "output_species_count" in $include_files:
 write.table(S, "${ output_species_count }", col.names=NA, sep="\t" )
+#end if
+
+#if "output_species_frequency" in $include_files:
 write.table(specnumber(input_abundance, MARGIN=2), "${ output_species_frequency }", col.names=NA, sep="\t" )
+#end if
 
+#if "output_species_probabilities" in $include_files:
 write.table(drarefy(input_abundance, sample=raremax+raremax_offset), "${ output_species_probabilities }", col.names=NA, sep="\t" )
+#end if
 
-##Draw the Curve
+#if "output_plot" in $include_files:
 png('${output_plot}', width=1020, height=800, units='px')
 rarecurve(input_abundance, step = ${step_size}, sample = raremax, xlab = "${xlab}", ylab = "${ylab}", label="${label}", col = "blue", cex = 0.6)
 invisible(dev.off())
-
+#end if
     ]]>
         </configfile>
     </configfiles>
@@ -69,15 +81,38 @@ invisible(dev.off())
         <param name="xlab" type="text" value="Sample Size" label="X-axis label"/>
         <param name="ylab" type="text" value="Species" label="Y-axis label"/>
         <param name="label" type="boolean" truevalue="TRUE" falsevalue="FALSE" checked="True" label="Label rarefaction curves by rownames of X"/>
+        <param name="include_outputs" type="select" multiple="True" label="Datasets to create">
+            <option value="output_species_count" selected="true">Count of species</option>
+            <option value="output_species_frequency" selected="true">Species frequency</option>
+            <option value="output_richness" selected="true">Richness</option>
+            <option value="output_species_probabilities" selected="true">Species probabilities</option>
+            <option value="output_slope" selected="true">Slope of rarefaction curve</option>
+            <option value="output_r_script" selected="false">R script</option>
+            <option value="output_plot" selected="true">Rarefaction plot</option>
+        </param>
     </inputs>
     <outputs>
-        <data format="tabular" name="output_species_count" label="${tool.name} on ${on_string} (number of species)"/>
-        <data format="tabular" name="output_species_frequency" label="${tool.name} on ${on_string} (frequency of species)"/>
-        <data format="tabular" name="output_richness" label="${tool.name} on ${on_string} (estimated richness)"/>
-        <data format="tabular" name="output_species_probabilities" label="${tool.name} on ${on_string} (species probabilities)"/>
-        <data format="tabular" name="output_slope" label="${tool.name} on ${on_string} (slope of curve)"/>
-        <data format="txt" name="vegan_rarefaction_script_output" label="${tool.name} on ${on_string} (Rscript)" />
-        <data format="png" name="output_plot" label="${tool.name} on ${on_string} (plot)" />
+        <data format="tabular" name="output_species_count" label="${tool.name} on ${on_string} (number of species)">
+            <filter>"output_species_count" in include_outputs</filter>
+        </data>
+        <data format="tabular" name="output_species_frequency" label="${tool.name} on ${on_string} (frequency of species)">
+            <filter>"output_species_frequency" in include_outputs</filter>
+        </data>
+        <data format="tabular" name="output_richness" label="${tool.name} on ${on_string} (estimated richness)">
+            <filter>"output_richness" in include_outputs</filter>
+        </data>
+        <data format="tabular" name="output_species_probabilities" label="${tool.name} on ${on_string} (species probabilities)">
+            <filter>"output_species_probabilities" in include_outputs</filter>
+        </data>
+        <data format="tabular" name="output_slope" label="${tool.name} on ${on_string} (slope of curve)">
+            <filter>"output_slope" in include_outputs</filter>
+        </data>
+        <data format="txt" name="output_r_script" label="${tool.name} on ${on_string} (Rscript)">
+            <filter>"output_r_script" in include_outputs</filter>
+        </data>
+        <data format="png" name="output_plot" label="${tool.name} on ${on_string} (plot)">
+            <filter>"output_plot" in include_outputs</filter>
+        </data>
     </outputs>
     <tests>
         <test>
