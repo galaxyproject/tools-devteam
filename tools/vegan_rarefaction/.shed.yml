@@ -1,6 +1,6 @@
 categories:
   - Metagenomics
-description: Rarefaction via Vegan R packaage
+description: Rarefaction via Vegan R package
 long_description: |
   Gives the expected species richness in random subsamples of size sample from the community.
   Draws rarefaction curves.
