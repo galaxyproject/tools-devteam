@@ -7,4 +7,4 @@ long_description: |
   http://cran.r-project.org/web/packages/vegan/index.html
 name: vegan_diversity
 owner: devteam
-remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/packages/vegan_diversity
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/vegan_diversity
