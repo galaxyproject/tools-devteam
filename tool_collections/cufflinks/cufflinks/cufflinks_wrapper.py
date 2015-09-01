@@ -5,9 +5,9 @@ from galaxy import eggs
 from galaxy.datatypes.util.gff_util import parse_gff_attributes, gff_attributes_to_str
 
 def stop_err( msg ):
-    sys.stderr.write( "%s\n" % msg )
-    sys.exit()
-    
+    sys.exit( "%s\n" % msg )
+
+
 def __main__():
     #Parse Command Line
     parser = optparse.OptionParser()
