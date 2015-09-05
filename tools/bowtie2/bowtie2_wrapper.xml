@@ -437,17 +437,40 @@
         <data format="fastqsanger" name="output_unaligned_reads_l" label="${tool.name} on ${on_string}: unaligned reads (L)" >
             <filter>library['unaligned_file'] is True</filter>
             <actions>
-                <action type="format">
-                    <option type="from_param" name="library.input_1" param_attribute="ext" />
-                </action>
+                <conditional name="library.type">
+                    <when value="single">
+                        <action type="format">
+                            <option type="from_param" name="library.input_1" param_attribute="ext" />
+                        </action>
+                    </when>
+                    <when value="paired">
+                        <action type="format">
+                            <option type="from_param" name="library.input_1" param_attribute="ext" />
+                        </action>
+                    </when>
+                    <when value="paired_collection">
+                        <action type="format">
+                            <option type="from_param" name="library.input_1" param_attribute="forward.ext" />
+                        </action>
+                    </when>
+                </conditional>
             </actions>
         </data>
         <data format="fastqsanger" name="output_unaligned_reads_r" label="${tool.name} on ${on_string}: unaligned reads (R)">
             <filter>( library['type'] == "paired" or library['type'] == "paired_collection" ) and library['unaligned_file'] is True</filter>
             <actions>
-                <action type="format">
-                    <option type="from_param" name="library.input_1" param_attribute="ext" />
-                </action>
+                <conditional name="library.type">
+                    <when value="paired">
+                        <action type="format">
+                            <option type="from_param" name="library.input_2" param_attribute="ext" />
+                        </action>
+                    </when>
+                    <when value="paired_collection">
+                        <action type="format">
+                            <option type="from_param" name="library.input_1" param_attribute="reverse.ext" />
+                        </action>
+                    </when>
+                </conditional>
             </actions>
         </data>
         
