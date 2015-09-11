@@ -10,7 +10,7 @@
     <param format="data" name="input2" type="data">
       <label>This is a file in the format of the output produced by 'compseq' that is used to set the minimum frequencies of words in this analysis</label>
     </param>
-    <param name="window" size="4" type="text" value="30">
+    <param name="window" type="text" value="30">
       <label>This is the size of window in which to count. Thus if you want to count frequencies in a 40 aa stretch you should enter 40 here</label>
     </param>
     <param name="ignorebz" type="select">

@@ -7,10 +7,10 @@
     <param format="fasta" name="input1" type="data">
       <label>Sequence</label>
     </param>
-    <param name="start" size="15" type="text" value="ATG">
+    <param name="start" type="text" value="ATG">
       <label>Start codons</label>
     </param>
-    <param name="stop" size="15" type="text" value="TAA">
+    <param name="stop" type="text" value="TAA">
       <label>Stop codons</label>
     </param>
   </inputs>

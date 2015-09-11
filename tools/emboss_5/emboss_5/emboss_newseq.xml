@@ -3,10 +3,10 @@
   <requirements><requirement type="package" version="5.0.0">emboss</requirement></requirements>
   <command>newseq -outseq $out_file1 -name "$seqname" -description "$description" -type $type -sequence "$sequence" -osformat5 $out_format1 -auto</command>
   <inputs>
-    <param name="seqname" size="10" type="text" value="">
+    <param name="seqname" type="text" value="">
       <label>Name of of the sequence</label>
     </param>
-    <param name="description" size="10" type="text" value="">
+    <param name="description" type="text" value="">
       <label>Description of the sequence</label>
     </param>
     <param name="type" type="select">
@@ -14,7 +14,7 @@
       <option value="N">Nucleic</option>
       <option value="P">Protein</option>
     </param>
-    <param name="sequence" size="50" type="text" value="">
+    <param name="sequence" type="text" value="">
       <label>The sequence itself</label>
     </param>
     <param name="out_format1" type="select">

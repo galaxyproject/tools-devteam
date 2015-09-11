@@ -4,7 +4,7 @@
   <inputs>
     <!--<param label="Genome" name="dbkey" type="genomebuild"/>-->
     <param format="interval" name="input" type="data" label="Select data"/>
-    <param name="size" size="10" type="integer" value="500" label="Window size"/>
+    <param name="size" type="integer" value="500" label="Window size"/>
     <conditional name="wintype">
 	    <param name="choice" type="select" label="Make sliding windows?">
 	    	<option value="0" selected="true">No</option>
@@ -14,7 +14,7 @@
     		<param name="offset" type="hidden" value="0" />
     	</when>
     	<when value="1">
-    		<param name="offset" size="10" type="integer" value="10" label="Offset size"/>
+    		<param name="offset" type="integer" value="10" label="Offset size"/>
     	</when>
 	</conditional>
   </inputs>

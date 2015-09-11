@@ -6,10 +6,10 @@
     <param format="fasta" name="input1" type="data">
       <label>On query</label>
     </param>
-    <param name="target" size="6" type="text" value="atg">
+    <param name="target" type="text" value="atg">
       <label>Replace all</label>
     </param>
-    <param name="replace" size="6" type="text" value="atg">
+    <param name="replace" type="text" value="atg">
       <label>with</label>
     </param>
     <param name="out_format1" type="select">

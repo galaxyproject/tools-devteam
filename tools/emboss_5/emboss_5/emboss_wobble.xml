@@ -6,10 +6,10 @@
     <param format="fasta" name="input1" type="data">
       <label>Sequence</label>
     </param>
-    <param name="window" size="5" type="text" value="30">
+    <param name="window" type="text" value="30">
       <label>Window size, in codons</label>
     </param>
-    <param name="bases" size="6" type="text" value="GC">
+    <param name="bases" type="text" value="GC">
       <label>Bases used</label>
     </param>
   </inputs>

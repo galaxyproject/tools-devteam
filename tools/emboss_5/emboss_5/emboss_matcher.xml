@@ -9,13 +9,13 @@
     <param format="data" name="input2" type="data">
       <label>Sequence 2</label>
     </param>
-    <param name="alternatives" size="4" type="text" value="1">
+    <param name="alternatives" type="text" value="1">
       <label>Number of alternative matches</label>
     </param>
-    <param name="gapopen" size="4" type="text" value="16">
+    <param name="gapopen" type="text" value="16">
       <label>Gap penalty</label>
     </param>
-    <param name="gapextend" size="4" type="text" value="4">
+    <param name="gapextend" type="text" value="4">
       <label>Gap length (extension) penalty</label>
     </param>
     <param name="out_format1" type="select">

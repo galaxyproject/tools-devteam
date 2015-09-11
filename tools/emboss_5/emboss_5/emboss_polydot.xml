@@ -8,7 +8,7 @@
     <param format="fasta" name="input1" type="data">
       <label>Sequence</label>
     </param>
-    <param name="wordsize" size="10" type="text" value="6">
+    <param name="wordsize" type="text" value="6">
       <label>Word size</label>
     </param>
     <param name="boxit" type="select">
@@ -16,7 +16,7 @@
       <option value="yes">Yes</option>
       <option value="no">No</option>
     </param>
-    <param name="gap" size="10" type="text" value="10">
+    <param name="gap" type="text" value="10">
       <label>Size of gap</label>
     </param>
   </inputs>

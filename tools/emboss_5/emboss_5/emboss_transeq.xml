@@ -39,7 +39,7 @@
       <option value="22">Scenedesmus obliquus</option>
       <option value="23">Thraustochytrium Mitochondrial</option>
     </param>
-    <param name="regions" size="10" type="text" value="">
+    <param name="regions" type="text" value="">
       <label>Regions to translate</label>
     </param>
     <param name="trim" type="select">

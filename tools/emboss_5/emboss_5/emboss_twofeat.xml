@@ -8,19 +8,19 @@
     <param format="data" name="input1" type="data">
       <label>Sequences</label>
     </param>
-    <param name="atype" size="50" type="text" value="*">
+    <param name="atype" type="text" value="*">
       <label>Feature type you wish to allow. Feature 1</label>
     </param>
-    <param name="btype" size="50" type="text" value="*">
+    <param name="btype" type="text" value="*">
       <label>Feature type you wish to allow. Feature 2</label>
     </param>
-    <param name="minrange" size="5" type="text" value="0">
+    <param name="minrange" type="text" value="0">
       <label>Minimun range</label>
     </param>
-    <param name="maxrange" size="5" type="text" value="0">
+    <param name="maxrange" type="text" value="0">
       <label>Maximum range</label>
     </param>
-    <param name="asource" size="50" type="text" value="*">
+    <param name="asource" type="text" value="*">
       <label>Feature source 1</label>
     </param>
     <param name="asense" type="select">
@@ -29,19 +29,19 @@
       <option value="+">Forward sense</option>
       <option value="-">Reverse sense</option>
     </param>
-    <param name="aminscore" size="5" type="text" value="0.0">
+    <param name="aminscore" type="text" value="0.0">
       <label>Feature 1 minimum score</label>
     </param>
-    <param name="amaxscore" size="5" type="text" value="0.0">
+    <param name="amaxscore" type="text" value="0.0">
       <label>Feature1 maxiumum score</label>
     </param>
-    <param name="atag" size="50" type="text" value="*">
+    <param name="atag" type="text" value="*">
       <label>Feature 1 tag</label>
     </param>
-    <param name="avalue" size="50" type="text" value="*">
+    <param name="avalue" type="text" value="*">
       <label>Tag 1 value</label>
     </param>
-    <param name="bsource" size="50" type="text" value="*">
+    <param name="bsource" type="text" value="*">
       <label>Feature 2 source</label>
     </param>
     <param name="bsense" type="select">
@@ -50,16 +50,16 @@
       <option value="+">Forward sense</option>
       <option value="-">Reverse sense</option>
     </param>
-    <param name="bminscore" size="5" type="text" value="0.0">
+    <param name="bminscore" type="text" value="0.0">
       <label>Feature 2 miniumum score</label>
     </param>
-    <param name="bmaxscore" size="5" type="text" value="0.0">
+    <param name="bmaxscore" type="text" value="0.0">
       <label>Feature 2 maximum score</label>
     </param>
-    <param name="btag" size="50" type="text" value="*">
+    <param name="btag" type="text" value="*">
       <label>Feature 2 tag</label>
     </param>
-    <param name="bvalue" size="50" type="text" value="*">
+    <param name="bvalue" type="text" value="*">
       <label>Feature 2 tag value</label>
     </param>
     <param name="overlap" type="select">
@@ -95,7 +95,7 @@
       <option value="no">No</option>
       <option value="yes">Yes</option>
     </param>
-    <param name="typeout" size="50" type="text" value="misc_feature">
+    <param name="typeout" type="text" value="misc_feature">
       <label>New feature type</label>
     </param>
     <param name="out_format1" type="select">

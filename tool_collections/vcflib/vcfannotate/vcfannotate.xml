@@ -9,7 +9,7 @@
   <inputs>        
     <param format="vcf" name="input" type="data" label="Select VCF dataset"/>
     <param name="bed_data" type="data" format="bed" label="Select BED dataset to itersect with"/>
-    <param name="key_option" size="20" type="text" value="BED-features" label="Intersecting VCF records will be prefixed with this TAG within the INFO field" help="--key option"/>
+    <param name="key_option" type="text" value="BED-features" label="Intersecting VCF records will be prefixed with this TAG within the INFO field" help="--key option"/>
   </inputs>
   <outputs>
     <data format="vcf" name="out_file1" />

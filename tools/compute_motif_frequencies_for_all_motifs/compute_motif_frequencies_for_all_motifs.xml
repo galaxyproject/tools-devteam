@@ -8,7 +8,7 @@
   <inputs>
   	<param format="tabular" name="inputFile1" type="data" label="Select the motifs file"/>
   	<param format="tabular" name="inputFile2" type="data" label="Select the indel flanking sequences windows file"/>
-    <param type="integer" name="inputWindowSize3" size="6" value="0" label="What is the number of 10bp windows in which the motif frequencies will be computed?" help="'0' = one window only"/>
+    <param type="integer" name="inputWindowSize3" value="0" label="What is the number of 10bp windows in which the motif frequencies will be computed?" help="'0' = one window only"/>
   </inputs>
   
   <outputs>

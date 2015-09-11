@@ -162,7 +162,7 @@
       <option value="Ezebrafish.cut">Ezebrafish.cut</option>
       <option value="Ezma.cut">Ezma.cut</option>
     </param>
-    <param name="window" size="4" type="text" value="30">
+    <param name="window" type="text" value="30">
       <label>Averaging window</label>
     </param>
     <param name="uncommon" type="select">
@@ -170,7 +170,7 @@
       <option value="no">No</option>
       <option value="yes">Yes</option>
     </param>
-    <param name="minimum" size="4" type="text" value="0.15">
+    <param name="minimum" type="text" value="0.15">
       <label>Minimum value for a common codon</label>
     </param>
   </inputs>

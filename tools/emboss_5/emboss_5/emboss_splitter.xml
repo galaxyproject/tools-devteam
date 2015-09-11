@@ -6,10 +6,10 @@
     <param format="fasta" name="input1" type="data">
       <label>Sequences</label>
     </param>
-    <param name="size" size="10" type="text" value="10000">
+    <param name="size" type="text" value="10000">
       <label>Size to split at</label>
     </param>
-    <param name="overlap" size="4" type="text" value="0">
+    <param name="overlap" type="text" value="0">
       <label>Overlap between split sequences</label>
     </param>
     <param name="addoverlap" type="select">

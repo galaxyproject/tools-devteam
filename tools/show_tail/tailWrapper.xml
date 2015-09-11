@@ -2,7 +2,7 @@
   <description>lines from a dataset</description>
   <command interpreter="perl">tailWrapper.pl "${input}" "${lineNum}" "${out_file1}"</command>
   <inputs>
-    <param name="lineNum" size="5" type="integer" value="10" label="Select last" help="lines"/>
+    <param name="lineNum" type="integer" value="10" label="Select last" help="lines"/>
     <param format="txt" name="input" type="data" label="from"/>
   </inputs>
   <outputs>

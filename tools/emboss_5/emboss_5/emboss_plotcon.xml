@@ -7,7 +7,7 @@
     <param format="data" name="input1" type="data">
       <label>Sequence</label>
     </param>
-    <param name="winsize" size="10" type="text" value="4">
+    <param name="winsize" type="text" value="4">
       <label>Number of columns to average alignment quality over</label>
     </param>
   </inputs>

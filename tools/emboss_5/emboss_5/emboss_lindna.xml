@@ -20,10 +20,10 @@
       <option value="Open">Open blocks</option>
       <option value="Outline">Black border</option>
     </param>
-    <param name="maxgroups" size="4" type="text" value="20">
+    <param name="maxgroups" type="text" value="20">
       <label>Maximum number of groups</label>
     </param>
-    <param name="maxlabels" size="6" type="text" value="10000">
+    <param name="maxlabels" type="text" value="10000">
       <label>Maximum number of labels</label>
     </param>
     <param name="intersymbol" type="select">
@@ -54,7 +54,7 @@
       <option value="no">No</option>
       <option value="yes">Yes</option>
     </param>
-    <param name="gapsize" size="6" type="text" value="500">
+    <param name="gapsize" type="text" value="500">
       <label>Interval between ticks in the ruler</label>
     </param>
     <param name="ticklines" type="select">
@@ -62,29 +62,29 @@
       <option value="no">No</option>
       <option value="yes">Yes</option>
     </param>
-    <param name="textheight" size="4" type="text" value="1.0">
+    <param name="textheight" type="text" value="1.0">
       <label>Height of text. Enter a number &lt;1.0 or &gt;1.0 to decrease or increase the size, respectively</label>
     </param>
-    <param name="textlength" size="4" type="text" value="1.0">
+    <param name="textlength" type="text" value="1.0">
       <label>Length of text. Enter a number &lt;1.0 or &gt;1.0 to decrease or increase the size, respectively</label>
     </param>
-    <param name="margin" size="4" type="text" value="1.0">
+    <param name="margin" type="text" value="1.0">
       <label>Width of left margin. This is the region left to the groups where the names of the groups are displayed. Enter a number &lt;1.0 or &gt;1.0 to decrease or increase the size,
       respectively</label>
     </param>
-    <param name="tickheight" size="4" type="text" value="1.0">
+    <param name="tickheight" type="text" value="1.0">
       <label>Height of ticks. Enter a number &lt;1.0 or &gt;1.0 to decrease or increase the size, respectively</label>
     </param>
-    <param name="blockheight" size="4" type="text" value="1.0">
+    <param name="blockheight" type="text" value="1.0">
       <label>Height of blocks. Enter a number &lt;1.0 or &gt;1.0 to decrease or increase the size, respectively</label>
     </param>
-    <param name="rangeheight" size="4" type="text" value="1.0">
+    <param name="rangeheight" type="text" value="1.0">
       <label>Height of range ends. Enter a number &lt;1.0 or &gt;1.0 to decrease or increase the size, respectively</label>
     </param>
-    <param name="gapgroup" size="4" type="text" value="1.0">
+    <param name="gapgroup" type="text" value="1.0">
       <label>Space between groups. Enter a number &lt;1.0 or &gt;1.0 to decrease or increase the size, respectively</label>
     </param>
-    <param name="postext" size="4" type="text" value="1.0">
+    <param name="postext" type="text" value="1.0">
       <label>Space between text and ticks, blocks, and ranges. Enter a number &lt;1.0 or &gt;1.0 to decrease or increase the size, respectively</label>
     </param>
   </inputs>

@@ -14,16 +14,16 @@
       <option value="no">No</option>
       <option value="yes">Yes</option>
     </param>
-    <param name="matchsource" size="50" type="text" value="*">
+    <param name="matchsource" type="text" value="*">
       <label>Feature source to match</label>
     </param>
-    <param name="matchtype" size="50" type="text" value="*">
+    <param name="matchtype" type="text" value="*">
       <label>Feature type to match</label>
     </param>
-    <param name="matchtag" size="50" type="text" value="*">
+    <param name="matchtag" type="text" value="*">
       <label>Feature tags to match</label>
     </param>
-    <param name="matchvalue" size="50" type="text" value="*">
+    <param name="matchvalue" type="text" value="*">
       <label>Tag values to match</label>
     </param>
     <param name="sort" type="select">
@@ -34,7 +34,7 @@
       <option value="nosort">No sorting done</option>
       <option value="join">Join coding regions together</option>
     </param>
-    <param name="annotation" size="50" type="text" value="">
+    <param name="annotation" type="text" value="">
       <label>Regions to annotate by marking</label>
     </param>
     <param name="id" type="select">
@@ -52,7 +52,7 @@
       <option value="yes">Yes</option>
       <option value="no">No</option>
     </param>
-    <param name="width" size="50" type="text" value="60">
+    <param name="width" type="text" value="60">
       <label>Screen width</label>
     </param>
     <param name="collapse" type="select">

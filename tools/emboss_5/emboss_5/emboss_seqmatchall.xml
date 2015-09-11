@@ -6,7 +6,7 @@
     <param format="fasta" name="input1" type="data">
       <label>Sequences</label>
     </param>
-    <param name="wordsize" size="4" type="text" value="4">
+    <param name="wordsize" type="text" value="4">
       <label>Word size</label>
     </param>
     <param name="out_format1" type="select">

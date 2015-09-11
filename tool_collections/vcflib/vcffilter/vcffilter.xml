@@ -16,7 +16,7 @@
   </command>
   
   <inputs>
-    <param name="filterList" size="40" type="text" value="-f &quot;DP &gt; 10&quot;" label="Specify filterting expression" help="See explanation of filtering options below">
+    <param name="filterList" type="text" value="-f &quot;DP &gt; 10&quot;" label="Specify filterting expression" help="See explanation of filtering options below">
       <sanitizer>
         <valid initial="string.printable">
 	  <remove value="&apos;"/>

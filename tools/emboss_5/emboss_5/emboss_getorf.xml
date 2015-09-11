@@ -28,10 +28,10 @@
       <option value="22">Scenedesmus obliquus</option>
       <option value="23">Thraustochytrium Mitochondrial</option>
     </param>
-    <param name="minsize" size="10" type="text" value="30">
+    <param name="minsize" type="text" value="30">
       <label>Minimum nucleotide size of ORF to report</label>
     </param>
-    <param name="maxsize" size="10" type="text" value="1000000">
+    <param name="maxsize" type="text" value="1000000">
       <label>Maximum nucleotide size of ORF to report</label>
     </param>
     <param name="find" type="select">
@@ -59,7 +59,7 @@
       <option value="yes">Yes</option>
       <option value="no">No</option>
     </param>
-    <param name="flanking" size="10" type="text" value="100">
+    <param name="flanking" type="text" value="100">
       <label>Number of flanking nucleotides to output</label>
     </param>
     <param name="out_format1" type="select">

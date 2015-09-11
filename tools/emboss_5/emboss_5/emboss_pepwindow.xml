@@ -7,7 +7,7 @@
     <param format="data" name="input1" type="data">
       <label>Sequence</label>
     </param>
-    <param name="length" size="10" type="text" value="7">
+    <param name="length" type="text" value="7">
       <label>Window size</label>
     </param>
   </inputs>

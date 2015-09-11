@@ -8,9 +8,9 @@
 
 	<inputs>
 		<param format="txt" name="input" type="data" label="Source file"> </param>
-		<param name="my_title" size="30" type="text" value="My Figure" label="Title of your plot" help="See syntax below"> </param>
-		<param name="X_axis" size="30" type="text" value="Text for X axis" label="Legend of X axis in your plot" help="See syntax below"> </param>
-		<param name="Y_axis" size="30" type="text" value="Text for Y axis" label="Legend of Y axis in your plot" help="See syntax below"> </param>
+		<param name="my_title" type="text" value="My Figure" label="Title of your plot" help="See syntax below"> </param>
+		<param name="X_axis" type="text" value="Text for X axis" label="Legend of X axis in your plot" help="See syntax below"> </param>
+		<param name="Y_axis" type="text" value="Text for Y axis" label="Legend of Y axis in your plot" help="See syntax below"> </param>
 	</inputs>
 	<outputs>
 		<data format="pdf" name="pdf_output" />

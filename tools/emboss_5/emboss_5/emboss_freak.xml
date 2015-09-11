@@ -6,13 +6,13 @@
     <param format="data" name="input1" type="data">
       <label>Sequences</label>
     </param>
-    <param name="letters" size="5" type="text" value="gc">
+    <param name="letters" type="text" value="gc">
       <label>Residue letters</label>
     </param>
-    <param name="step" size="5" type="text" value="1">
+    <param name="step" type="text" value="1">
       <label>Stepping value</label>
     </param>
-    <param name="window" size="5" type="text" value="30">
+    <param name="window" type="text" value="30">
       <label>Averaging window</label>
     </param>
   </inputs>

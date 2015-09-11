@@ -10,22 +10,22 @@
     <param format="data" name="input2" type="data">
       <label>Genomic sequence</label>
     </param>
-    <param name="match" size="4" type="text" value="1">
+    <param name="match" type="text" value="1">
       <label>Score for matching two bases</label>
     </param>
-    <param name="mismatch" size="4" type="text" value="1">
+    <param name="mismatch" type="text" value="1">
       <label>Cost for mismatching two bases</label>
     </param>
-    <param name="gappenalty" size="4" type="text" value="2">
+    <param name="gappenalty" type="text" value="2">
       <label>Cost for deleting a single base in either sequence, excluding introns</label>
     </param>
-    <param name="intronpenalty" size="4" type="text" value="40">
+    <param name="intronpenalty" type="text" value="40">
       <label>Cost for an intron, independent of length</label>
     </param>
-    <param name="splicepenalty" size="4" type="text" value="20">
+    <param name="splicepenalty" type="text" value="20">
       <label>Cost for an intron, independent of length and starting/ending on donor-acceptor sites</label>
     </param>
-    <param name="minscore" size="4" type="text" value="30">
+    <param name="minscore" type="text" value="30">
       <label>Exclude alignments with scores below this threshold score</label>
     </param>
     <param name="reverse" type="select">
@@ -49,10 +49,10 @@
       <option value="yes">Yes</option>
       <option value="no">No</option>
     </param>
-    <param name="shuffle" size="4" type="text" value="0">
+    <param name="shuffle" type="text" value="0">
       <label>Shuffle</label>
     </param>
-    <param name="seed" size="4" type="text" value="20825">
+    <param name="seed" type="text" value="20825">
       <label>Random number seed</label>
     </param>
     <param name="align" type="select">
@@ -60,7 +60,7 @@
       <option value="no">No</option>
       <option value="yes">Yes</option>
     </param>
-    <param name="width" size="4" type="text" value="50">
+    <param name="width" type="text" value="50">
       <label>Alignment width</label>
     </param>
   </inputs>

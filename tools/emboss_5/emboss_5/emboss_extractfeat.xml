@@ -8,16 +8,16 @@
     <param format="data" name="input1" type="data">
       <label>Sequences</label>
     </param>
-    <param name="before" size="4" type="text" value="0">
+    <param name="before" type="text" value="0">
       <label>Number of bases or residues before the feature to include in the extracted sequence</label>
     </param>
-    <param name="after" size="4" type="text" value="0">
+    <param name="after" type="text" value="0">
       <label>Number of bases or residues after the feature to include in the extracted sequence</label>
     </param>
-    <param name="source" size="4" type="text" value="*">
+    <param name="source" type="text" value="*">
       <label>Feature source</label>
     </param>
-    <param name="type" size="4" type="text" value="*">
+    <param name="type" type="text" value="*">
       <label>Feature type</label>
     </param>
     <param name="sense" type="select">
@@ -26,16 +26,16 @@
       <option value="1">Forward sense</option>
       <option value="-1">Reverse sense</option>
     </param>
-    <param name="minscore" size="4" type="text" value="0.0">
+    <param name="minscore" type="text" value="0.0">
       <label>Minimum score</label>
     </param>
-    <param name="maxscore" size="4" type="text" value="0.0">
+    <param name="maxscore" type="text" value="0.0">
       <label>Maximum score</label>
     </param>
-    <param name="tag" size="4" type="text" value="*">
+    <param name="tag" type="text" value="*">
       <label>Feature tags</label>
     </param>
-    <param name="value" size="4" type="text" value="*">
+    <param name="value" type="text" value="*">
       <label>Tag values</label>
     </param>
     <param name="join" type="select">
@@ -48,7 +48,7 @@
       <option value="no">No</option>
       <option value="yes">Yes</option>
     </param>
-    <param name="describe" size="4" type="text" value="">
+    <param name="describe" type="text" value="">
       <label>Specify one or more tag names that should be added to the output sequence Description text</label>
     </param>
     <param name="out_format1" type="select">

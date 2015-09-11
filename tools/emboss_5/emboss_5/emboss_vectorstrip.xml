@@ -10,7 +10,7 @@
     <param format="data" name="input2" type="data">
       <label>Vector file</label>
     </param>
-    <param name="mismatch" size="4" type="text" value="10">
+    <param name="mismatch" type="text" value="10">
       <label>Max allowed percent mismatch</label>
     </param>
     <param name="besthits" type="select">
@@ -18,10 +18,10 @@
       <option value="yes">Yes</option>
       <option value="no">No</option>
     </param>
-    <param name="linkera" size="50" type="text" value="">
+    <param name="linkera" type="text" value="">
       <label>The 5' sequence</label>
     </param>
-    <param name="linkerb" size="50" type="text" value="">
+    <param name="linkerb" type="text" value="">
       <label>The 3' sequence</label>
     </param>
     <param name="out_format1" type="select">

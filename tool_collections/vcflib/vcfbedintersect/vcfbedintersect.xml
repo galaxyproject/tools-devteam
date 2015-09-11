@@ -25,7 +25,7 @@
 	 <param name="bed_input" type="data" format="bed" label="Select BED dataset" />
        </when>
        <when value="interval">
-	 <param name="int_input" type="text" size="20" value="chr20:1-30" label="Enter interval string" help="use chr:start-end format" />
+	 <param name="int_input" type="text" value="chr20:1-30" label="Enter interval string" help="use chr:start-end format" />
        </when>
      </conditional>
      <param name="invert" type="boolean" truevalue="-v" falsevalue="" label="Invert selection?" help="-v, --invert. Print entries that DO NOT intersect." />

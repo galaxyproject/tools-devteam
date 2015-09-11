@@ -63,9 +63,9 @@
     <param name="assume_sorted" type="boolean" label="Assume the input file is already sorted" checked="true" truevalue="true" falsevalue="false" help="ASSUME_SORTED"/>
     <param name="bisulphite" type="boolean" label="Input file contains Bisulphite sequenced reads" checked="false" falsevalue="false" truevalue="true" help="IS_BISULFITE_SEQUENCED"/>
     <repeat name="adapters" title="Adapter" min="0" help="You can provide multiple adaptor sequences">
-          <param name="adapter" type="text" size="50" label="Use this adaptor sequence" help="ADAPTER_SEQUENCE"/>
+          <param name="adapter" type="text" label="Use this adaptor sequence" help="ADAPTER_SEQUENCE"/>
     </repeat>
-    <param name="maxinsert" value="100000" type="integer" label="Larger paired end reads and inter-chromosomal pairs considered chimeric" size="20" help="MAX_INSERT_SIZE"/>
+    <param name="maxinsert" value="100000" type="integer" label="Larger paired end reads and inter-chromosomal pairs considered chimeric" help="MAX_INSERT_SIZE"/>
     
     <expand macro="VS" />
     

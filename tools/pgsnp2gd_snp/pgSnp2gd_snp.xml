@@ -33,7 +33,7 @@
       <param name="ref" type="data_column" data_ref="input1" label="Column with reference allele" />
       </when>
     </conditional>
-    <param name="indName" type="text" size="20" label="Label for new individual/group" value="na" />
+    <param name="indName" type="text" label="Label for new individual/group" value="na" />
   </inputs>
   <outputs>
   <data format="gd_snp" name="out_file1" />

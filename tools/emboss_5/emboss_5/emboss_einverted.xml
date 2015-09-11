@@ -6,19 +6,19 @@
     <param format="fasta" name="input1" type="data">
       <label>On query</label>
     </param>
-    <param name="gap" size="4" type="text" value="12">
+    <param name="gap" type="text" value="12">
       <label>Gap penalty</label>
     </param>
-    <param name="threshold" size="4" type="text" value="50">
+    <param name="threshold" type="text" value="50">
       <label>Minimum score threshold</label>
     </param>
-    <param name="match" size="4" type="text" value="3">
+    <param name="match" type="text" value="3">
       <label>Match score</label>
     </param>
-    <param name="mismatch" size="4" type="text" value="-4">
+    <param name="mismatch" type="text" value="-4">
       <label>Mismatch score</label>
     </param>
-    <param name="maxrepeat" size="4" type="text" value="2000">
+    <param name="maxrepeat" type="text" value="2000">
       <label>Maximum separation between the start of repeat and the end of the inverted repeat</label>
     </param>
   </inputs>

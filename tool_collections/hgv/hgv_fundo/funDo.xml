@@ -13,7 +13,7 @@
         <filter type="unique_value" column="0"/>
       </options>
     </param>
-    <param name="term" size="40" type="text" label="Disease term(s)" />
+    <param name="term" type="text" label="Disease term(s)" />
   </inputs>
 
   <outputs>
