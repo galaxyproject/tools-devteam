@@ -81,7 +81,8 @@ This will be added shortly
 
     </token>
     
-    <token name="@TMP_DIR_FIX@"><!-- Bugfix that that sets Picards temp dir. Environment variable $TMPDIR should be configured in config/job_conf.xml -->
+    <!-- Bugfix that that sets Picards temp dir. Environment variable $TMPDIR should be configured in config/job_conf.xml -->
+    <token name="@TMP_DIR_FIX@">
         TMP_DIR=\$TMPDIR
     </token>
     
@@ -90,7 +91,7 @@ This will be added shortly
 
 **Galaxy TMPDIR configuration**
 
-When history items appear in error state and the error log indicates an error in *java.io.File.createTempFile*, it could be that the environment variable \$TMPDIR is configured correctly. In that case, double check whether \$TMPDIR is not empty and the galaxy user has write access to it. \$TMPDIR should be configured in config/job_conf.xml.
+When history items appear in error state and the error log indicates an error in *java.io.File.createTempFile*, it could be that the environment variable $TMPDIR is not configured correctly. In that case, double check whether $TMPDIR is not empty and the galaxy user has write access to it. $TMPDIR should be configured in config/job_conf.xml.
 
     </token>
 </macros>
