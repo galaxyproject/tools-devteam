@@ -1,4 +1,4 @@
-<tool id="gatk_print_reads" name="Print Reads" version="0.0.1">
+<tool id="gatk_print_reads" name="Print Reads" version="0.0.2">
   <description>from BAM files</description>
   <requirements>
       <requirement type="package" version="1.4">gatk</requirement>
@@ -73,7 +73,7 @@
     <param name="platform" type="text" value="" label="Exclude all reads with this platform from the output" help="-platform,--platform &amp;lt;platform&amp;gt;" />
     <param name="read_group" type="text" value="" label="Exclude all reads with this read group from the output" help="-readGroup,--readGroup &amp;lt;readGroup&amp;gt;" />
     <repeat name="sample_file_repeat" title="File containing a list of samples to include" help="-sf,--sample_file &amp;lt;sample_file&amp;gt;">
-        <param name="input_sample_file" type="data" format="text" label="Sample file" />
+        <param name="input_sample_file" type="data" format="txt" label="Sample file" />
     </repeat>
     <repeat name="sample_name_repeat" title="Sample name to be included in the analysis" help="-sn,--sample_name &amp;lt;sample_name&amp;gt;">
         <param name="sample_name" type="text" label="Sample name" />
@@ -86,15 +86,6 @@
     <data format="bam" name="output_bam" label="${tool.name} on ${on_string} (BAM)" />
     <data format="txt" name="output_log" label="${tool.name} on ${on_string} (log)" />
   </outputs>
-    <param name="number" type="integer" value="-1" label="Print the first n reads from the file, discarding the rest" />
-    <param name="platform" type="text" value="" label="Exclude all reads with this platform from the output" />
-    <param name="read_group" type="text" value="" label="Exclude all reads with this read group from the output" />
-    <repeat name="sample_file_repeat" title="File containing a list of samples to include">
-        <param name="input_sample_file" type="data" format="text" label="Sample file" />
-    </repeat>
-    <repeat name="sample_name_repeat" title="Sample name to be included in the analysis">
-        <param name="sample_name" type="text" label="Sample name" />
-    </repeat>
   <tests>
       <test>
           <param name="reference_source_selector" value="history" />
