@@ -1,4 +1,4 @@
-<tool id="tophat2" name="Tophat" version="0.9">
+<tool id="tophat2" name="TopHat" version="0.9">
     <!-- Wrapper compatible with Tophat version 2.0.0+ -->
     <description>Gapped-read mapper for RNA-seq data</description>
     <version_command>tophat2 --version</version_command>
@@ -25,7 +25,7 @@
         ##
 
         tophat2
-        
+
         ## Change this to accommodate the number of threads you have available.
         --num-threads \${GALAXY_SLOTS:-4}
 
@@ -35,7 +35,7 @@
             #if str($params.bowtie_n) == "Yes":
                 --bowtie-n
             #end if
-        
+
             --read-edit-dist $params.read_edit_dist
             --read-realign-edit-dist $params.read_realign_edit_dist
             -a $params.anchor_length
@@ -48,7 +48,7 @@
             --segment-mismatches $params.seg_mismatches
             --segment-length $params.seg_length
             --library-type $params.library_type
-            
+
             ## Indel search.
             #if $params.indel_search.allow_indel_search == "Yes":
                 ## --allow-indels
@@ -78,11 +78,11 @@
             #else:
                 --no-coverage-search
             #end if
-            
+
             #if str($params.microexon_search) == "Yes":
                 --microexon-search
             #end if
-            
+
             #if $params.fusion_search.do_search == "Yes":
                 --fusion-search
                 --fusion-anchor-length $params.fusion_search.anchor_len
@@ -92,13 +92,13 @@
                 --fusion-multipairs $params.fusion_search.multipairs
                 --fusion-ignore-chromosomes "$params.fusion_search.ignore_chromosomes"
             #end if
-            
+
             #if $params.bowtie2_settings.b2_settings == "Yes":
                 #if $params.bowtie2_settings.preset.b2_preset == "Yes":
                     --b2-$params.bowtie2_settings.preset.b2_preset_select
-                #end if    
+                #end if
             #end if
-                        
+
         #end if
 
         ## Read group information.
@@ -113,7 +113,7 @@
         #if $singlePaired.sPaired != "single"
             -r $singlePaired.mate_inner_distance
             --mate-std-dev=$singlePaired.mate_std_dev
-            
+
             #if str($singlePaired.report_discordant_pairs) == "No":
                 --no-discordant
             #end if
@@ -127,7 +127,7 @@
             ${index_path} "$singlePaired.input1"
         #end if
     </command>
-    
+
     <inputs>
         <conditional name="singlePaired">
             <param name="sPaired" type="select" label="Is this single-end or paired-end data?">
@@ -203,13 +203,13 @@
                 </when>
                 <when value="No" />
               </conditional>
-              
+
               <!-- Microexon search params -->
               <param name="microexon_search" type="select" label="Use Microexon Search" help="--microexon-search; With this option, the pipeline will attempt to find alignments incident to microexons. Works only for reads 50bp or longer.">
                 <option value="No">No</option>
                 <option value="Yes">Yes</option>
               </param>
-              
+
               <!-- Fusion mapping. -->
               <conditional name="fusion_search">
                   <param name="do_search" type="select" label="Do Fusion Search" help="Reads can be aligned to potential fusion transcripts if the --fusion-search option is specified. The fusion alignments are reported in SAM format using custom fields XF and XP (see the output format) and some additional information about fusions will be reported (see fusions.out). Once mapping is done, you can run tophat-fusion-post to filter out fusion transcripts (see the TopHat-Fusion website for more details).">
@@ -226,7 +226,7 @@
                       <param name="ignore_chromosomes" type="text" value='' label="--fusion-ignore-chromosomes; Ignore some chromosomes such as chrM when detecting fusion break points"/>
                   </when>
               </conditional>
-              
+
               <!-- Bowtie2 settings. -->
               <conditional name="bowtie2_settings">
                   <param name="b2_settings" type="select" label="Set Bowtie2 settings">
@@ -384,7 +384,7 @@
         </test>
         <!-- Test base-space single-end reads with user-supplied reference fasta and full parameters -->
         <test>
-            <!-- Tophat commands:
+            <!-- TopHat commands:
             bowtie2-build -f test-data/tophat_in1.fasta tophat_in1
             tophat2 -o tmp_dir -p 1 -a 8 -m 0 -i 70 -I 500000 -g 40 +coverage-search +min-coverage-intron 50 +max-coverage-intro 20000 +segment-mismatches 2 +segment-length 25 +microexon-search tophat_in1 test-data/tophat_in2.fastqsanger
             Replace the + with double-dash
@@ -462,7 +462,7 @@
             Replace the + with double-dash
             Rename the files in tmp_dir appropriately
             -->
-            <conditional name="singlePaired">            
+            <conditional name="singlePaired">
               <param name="sPaired" value="paired"/>
               <param name="input1" ftype="fastqsanger" value="tophat_in2.fastqsanger"/>
               <param name="input2" ftype="fastqsanger" value="tophat_in3.fastqsanger"/>
@@ -512,7 +512,7 @@
               </conditional>
               <!-- Fusion search params -->
               <conditional name="fusion_search">
-                <param name="do_search" value="Yes" />            
+                <param name="do_search" value="Yes" />
                 <param name="anchor_len" value="21" />
                 <param name="min_dist" value="10000021" />
                 <param name="read_mismatches" value="3" />
@@ -529,13 +529,12 @@
         </test>
     </tests>
     <help>
-**Tophat Overview**
+**TopHat Overview**
 
-TopHat_ is a fast splice junction mapper for RNA-Seq reads. It aligns RNA-Seq reads to mammalian-sized genomes using the ultra high-throughput short read aligner Bowtie(2), and then analyzes the mapping results to identify splice junctions between exons. Please cite: Kim D, Pertea G, Trapnell C, Pimentel H, Kelley R, and Salzberg SL. TopHat2: accurate alignment
-of transcriptomes in the presence of insertions, deletions and gene fusions. Genome Biol 14:R36, 2013.
+TopHat_ is a fast splice junction mapper for RNA-Seq reads. It aligns RNA-Seq reads to mammalian-sized genomes using the ultra high-throughput short read aligner Bowtie(2), and then analyzes the mapping results to identify splice junctions between exons.
 
-.. _Tophat: http://ccb.jhu.edu/software/tophat/
-        
+.. _TopHat: http://ccb.jhu.edu/software/tophat/
+
 ------
 
 **Know what you are doing**
@@ -550,13 +549,13 @@ There is no such thing (yet) as an automated gearshift in splice junction identi
 
 **Input formats**
 
-Tophat accepts files in Sanger FASTQ format. Use the FASTQ Groomer to prepare your files.
+TopHat accepts files in Sanger FASTQ format. Use the FASTQ Groomer to prepare your files.
 
 ------
 
 **Outputs**
 
-Tophat produces two output files:
+TopHat produces two output files:
 
 - junctions -- A UCSC BED_ track of junctions reported by TopHat. Each junction consists of two connected BED blocks, where each block is as long as the maximal overhang of any read spanning the junction. The score is the number of alignments spanning the junction.
 - accepted_hits -- A list of read alignments in BAM_ format.
@@ -568,27 +567,27 @@ Two other possible outputs, depending on the options you choose, are insertions 
 
 -------
 
-**Tophat settings**
+**TopHat settings**
 
-All of the options have a default value. You can change any of them. Some of the options in Tophat have been implemented here.
+All of the options have a default value. You can change any of them. Some of the options in TopHat have been implemented here.
 
 ------
 
-**Tophat parameter list**
+**TopHat parameter list**
 
-This is a list of implemented Tophat options::
+This is a list of implemented TopHat options::
 
-  -r                                This is the expected (mean) inner distance between mate pairs. For, example, for paired end runs with fragments 
-                                    selected at 300bp, where each end is 50bp, you should set -r to be 200. There is no default, and this parameter 
+  -r                                This is the expected (mean) inner distance between mate pairs. For, example, for paired end runs with fragments
+                                    selected at 300bp, where each end is 50bp, you should set -r to be 200. There is no default, and this parameter
                                     is required for paired end runs.
   --mate-std-dev INT                The standard deviation for the distribution on inner distances between mate pairs. The default is 20bp.
-  -a/--min-anchor-length INT        The "anchor length". TopHat will report junctions spanned by reads with at least this many bases on each side of the junction. Note that individual spliced     
-                                    alignments may span a junction with fewer than this many bases on one side. However, every junction involved in spliced alignments is supported by at least one 
+  -a/--min-anchor-length INT        The "anchor length". TopHat will report junctions spanned by reads with at least this many bases on each side of the junction. Note that individual spliced
+                                    alignments may span a junction with fewer than this many bases on one side. However, every junction involved in spliced alignments is supported by at least one
                                     read with this many bases on each side. This must be at least 3 and the default is 8.
   -m/--splice-mismatches INT        The maximum number of mismatches that may appear in the "anchor" region of a spliced alignment. The default is 0.
   -i/--min-intron-length INT        The minimum intron length. TopHat will ignore donor/acceptor pairs closer than this many bases apart. The default is 70.
   -I/--max-intron-length INT        The maximum intron length. When searching for junctions ab initio, TopHat will ignore donor/acceptor pairs farther than this many bases apart, except when such a pair is supported by a split segment alignment of a long read. The default is 500000.
-  -g/--max-multihits INT            Instructs TopHat to allow up to this many alignments to the reference for a given read, and suppresses all alignments for reads with more than this many 
+  -g/--max-multihits INT            Instructs TopHat to allow up to this many alignments to the reference for a given read, and suppresses all alignments for reads with more than this many
                                     alignments. The default is 40.
   -G/--GTF [GTF 2.2 file]           Supply TopHat with a list of gene model annotations. TopHat will use the exon records in this file to build a set of known splice junctions for each gene, and will attempt to align reads to these junctions even if they would not normally be covered by the initial mapping.
   -j/--raw-juncs [juncs file]       Supply TopHat with a list of raw junctions. Junctions are specified one per line, in a tab-delimited format. Records look like: [chrom] [left] [right] [+/-], left and right are zero-based coordinates, and specify the last character of the left sequenced to be spliced to the first character of the right sequence, inclusive.

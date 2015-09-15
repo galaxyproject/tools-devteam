@@ -1,4 +1,4 @@
-<tool id="samtools_mpileup" name="MPileup" version="2.0">
+<tool id="samtools_mpileup" name="MPileup" version="2.1">
     <description>call variants</description>
     <macros>
         <import>macros.xml</import>
@@ -59,7 +59,7 @@
         ${genotype_likelihood_computation_type.compressed}
         
         #if str( $genotype_likelihood_computation_type.output_tags ) != "None":
-            -output-tags "${genotype_likelihood_computation_type.output_tags}"
+            --output-tags "${genotype_likelihood_computation_type.output_tags}"
         #end if
 
         #if str( $genotype_likelihood_computation_type.perform_indel_calling.perform_indel_calling_selector ) == 'perform_indel_calling':
