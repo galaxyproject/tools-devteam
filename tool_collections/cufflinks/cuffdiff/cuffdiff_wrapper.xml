@@ -1,4 +1,4 @@
-<tool id="cuffdiff" name="Cuffdiff" version="@VERSION@.2">
+<tool id="cuffdiff" name="Cuffdiff" version="@VERSION@.3">
     <description>find significant changes in transcript expression, splicing, and promoter use</description>
     <requirements>
         <requirement type="set_environment">CUFFDIFF_SCRIPT_PATH</requirement>
@@ -203,10 +203,10 @@
         <data format="tabular" name="tss_groups_read_group" label="${tool.name} on ${on_string}: TSS groups read group tracking" from_work_dir="tss_groups.read_group_tracking" >
             <filter>(include_read_group_files == 'Yes') and not omit_tabular_output</filter>
         </data>
-        <data format="text" name="read_group_info" label="${tool.name} on ${on_string}: read group info" from_work_dir="read_groups.info" >
+        <data format="txt" name="read_group_info" label="${tool.name} on ${on_string}: read group info" from_work_dir="read_groups.info" >
             <filter>(include_read_group_files == 'Yes') and not omit_tabular_output</filter>
         </data>
-        <data format="text" name="run_info" label="${tool.name} on ${on_string}: run info" from_work_dir="run.info" >
+        <data format="txt" name="run_info" label="${tool.name} on ${on_string}: run info" from_work_dir="run.info" >
             <filter>(include_read_group_files == 'Yes') and not omit_tabular_output</filter>
         </data>
         <!-- Standard datasets. -->
