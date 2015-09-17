@@ -229,8 +229,10 @@ If you ran cuffcompare with the -r option, tracking rows will contain the follow
   6                 r               Repeat. Currently determined by looking at the reference sequence and applied to transcripts where at least 50% of the bases are lower case        
   7                 p               Possible polymerase run-on fragment        
   8                 u               Unknown, intergenic transcript        
-  9                 o               Unknown, generic overlap with reference        
-  10             .               (.tracking file only, indicates multiple classifications)
+  9                 o               Unknown, generic overlap with reference 
+  10                x               Exonic overlap with reference on the opposite strand
+  11                s               An intron of the transfrag overlaps a reference intron on the opposite strand (likely due to read mapping errors)
+  12                .               (.tracking file only, indicates multiple classifications)
     
 -------
 
