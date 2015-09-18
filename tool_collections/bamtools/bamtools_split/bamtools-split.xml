@@ -61,12 +61,10 @@
         <test>
             <param name="input_bam" ftype="bam" value="bamtools-input1.bam"/>
             <param name="analysis_type_selector" value="-mapped"/>
-            <output name="report">
-              <assert_contents>
-                <has_line line="BAM" />
-              </assert_contents>
-              <discovered_dataset designation="MAPPED" file="bamtools-split-test1.bam" ftype="bam"/>
-            </output>
+            <output_collection name="report">
+              <element name="MAPPED" file="bamtools-split-MAPPED1.bam" />
+              <element name="UNMAPPED" file="bamtools-split-UNMAPPED1.bam" />
+            </output_collection>
             
         </test>
     </tests>
