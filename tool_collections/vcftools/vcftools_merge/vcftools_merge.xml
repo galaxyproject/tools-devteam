@@ -9,7 +9,7 @@
     <command>
         ## Preprocessing for each dataset.
         #set dataset_names = []
-        #for i, $input in enumerate( $input_files ):
+        #for $i, $input in enumerate( $input_files ):
             ## Sort file.
             vcf-sort ${input} > ${i}.vcf.sorted ;
 
