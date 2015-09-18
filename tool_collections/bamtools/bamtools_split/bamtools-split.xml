@@ -5,7 +5,6 @@
   </requirements>
   <command>
 
-    echo "BAM" > $report &amp;&amp;
     
     #for $bam_count, $input_bam in enumerate( $input_bams ):
         ln -s "${input_bam.input_bam}" "localbam_${bam_count}.bam" &amp;&amp;
@@ -54,9 +53,9 @@
   </inputs>
   
   <outputs>
-    <data format="txt" name="report" label="BAMSplitter Run" hidden="true">
-      <discover_datasets pattern="split_bam\.(?P&lt;designation&gt;.+)\.bam" ext="bam" visible="true"/>
-    </data>
+    <collection name="report" type="list" label="BAMSplitter Run">
+        <discover_datasets pattern="split_bam\.(?P&lt;designation&gt;.+)\.bam" ext="bam"/>
+    </collection>
   </outputs>
     <tests>
         <test>
