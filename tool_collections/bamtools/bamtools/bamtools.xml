@@ -1,4 +1,4 @@
-<?xml version="1.0.1"?>
+<?xml version="1.1"?>
 <tool id="bamtools" name="Convert, Merge, Randomize" version="0.0.1">
   <description>BAM datasets and perform other transformations</description>
   <requirements>
