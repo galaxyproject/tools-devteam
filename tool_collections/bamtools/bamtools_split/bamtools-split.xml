@@ -63,7 +63,7 @@
             <param name="analysis_type_selector" value="-mapped"/>
             <output_collection name="report">
               <element name="MAPPED" file="bamtools-split-MAPPED1.bam" />
-              <element name="UNMAPPED" file="bamtools-split-UNMAPPED1.bam" />
+              <element name="UNMAPPED" file ="bamtools-split-UNMAPPED1.bam" />
             </output_collection>
             
         </test>
@@ -72,16 +72,6 @@
 **What is does**
 
 BAMTools split is a utility for splitting BAM files. It is based on BAMtools suite of tools by Derek Barnett (https://github.com/pezmaster31/bamtools).
-
------
-
-.. class:: warningmark
-
-**DANGER: Multiple Outputs**
-
-As described below, splitting a BAM dataset(s) on reference name or a tag value can produce very large numbers of outputs. Read below and know what you are doing.
-
------
 
 **How it works**
 
