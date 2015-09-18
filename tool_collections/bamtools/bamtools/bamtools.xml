@@ -101,7 +101,7 @@
   </command>
   <inputs>
 
-    <param name="input_bams" type="data" format="bam" label="BAM dataset(s) to filter" min="1"/>
+    <param name="input_bams" type="data" format="bam" label="BAM dataset(s) to filter" min="1" multiple="True"/>
 
     <conditional name="analysis_type">
       <param name="analysis_type_selector" type="select" label="Select BAM manipulation" help="See help below for detailed description of each tool">

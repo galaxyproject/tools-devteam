@@ -21,7 +21,7 @@
     -out $out_file1
   </command>
   <inputs>
-    <param name="input_bams" type="data" format="bam" label="BAM dataset(s) to filter" min="1"/>
+    <param name="input_bams" type="data" format="bam" label="BAM dataset(s) to filter" min="1" multiple="True"/>
     <repeat name="conditions" title="Condition" min="1">
       <repeat name="filters" title="Filter" min="1">
         <conditional name="bam_property">
