@@ -128,7 +128,7 @@
             </param>
             <param name="mask_file" type="data" format="gtf,gff3" label="Mask File" help="Ignore all alignment within transcripts in this file" optional="True" />
             <param name="max_mle_iterations" value="5000" type="integer" label="Max MLE iterations" help="Maximum iterations allowed for Maximal Likelyhood Estimation calculations" />
-            <param name="max_bundle_frags" type="integer" value="500000" label="Maximum number of fragments per locus" 
+            <param name="max_bundle_frags" type="integer" value="500000" label="Maximum number of fragments per locus"
                 help="Sets the maximum number of fragments a locus may have before being skipped. Default: 500,000" />
             </when>
         </conditional>
@@ -140,7 +140,7 @@
     <tests>
         <test>
             <!--
-                cuffquant cuffcompare_out5.gtf cuffdiff_in1.sam,cuffdiff_in2.sam 
+                cuffquant cuffcompare_out5.gtf cuffdiff_in1.sam,cuffdiff_in2.sam
             -->
             <param name="gtf_input" value="cuffquant_in.gtf" ftype="gtf" />
             <repeat name="samples">
@@ -188,7 +188,7 @@ Cuffquant takes Cufflinks or Cuffcompare GTF files as input along with two or mo
 Cuffquant produces one output file:
 
 1. Transcript expression values in binary format.
-    
+
 -------
 
 **Settings**

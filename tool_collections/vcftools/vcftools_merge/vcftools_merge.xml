@@ -1,17 +1,17 @@
-<tool id="vcftools_merge" name="Merge" version="0.1">
+<tool id="vcftools_merge" name="Merge" version="0.1.1">
     <description>multiple VCF datasets</description>
 
     <requirements>
         <requirement type="package">tabix</requirement>
         <requirement type="package" version="0.1.11">vcftools</requirement>
     </requirements>
-    
+
     <command>
         ## Preprocessing for each dataset.
         #set dataset_names = []
-        #for i, $input in enumerate( $inputs ):
-            ## Sort file.         
-            vcf-sort ${input.file} > ${i}.vcf.sorted ;
+        #for i, $input in enumerate( $input_files ):
+            ## Sort file.
+            vcf-sort ${input} > ${i}.vcf.sorted ;
 
             ## Compress.
             bgzip ${i}.vcf.sorted ;
@@ -25,12 +25,10 @@
         ## Merge.
         vcf-merge
         #echo ' '.join( dataset_names ) # > ${output}
-        
+
     </command>
     <inputs>
-        <repeat name="inputs" title="Datasets to Merge" min="2">
-            <param name="file" label="Dataset" type="data" format="vcf"/>
-        </repeat>
+        <param name="input_files" label="Datasets to Merge" type="data" format="vcf" min="2" multiple="True"/>
     </inputs>
 
     <outputs>

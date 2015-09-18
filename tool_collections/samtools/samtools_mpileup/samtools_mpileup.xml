@@ -1,4 +1,4 @@
-<tool id="samtools_mpileup" name="MPileup" version="2.1">
+<tool id="samtools_mpileup" name="MPileup" version="2.1.1">
     <description>call variants</description>
     <macros>
         <import>macros.xml</import>
@@ -18,8 +18,8 @@
     #else:
         -f "${reference_source.ref_file}"
     #end if
-    #for $i, $input_bam in enumerate( $reference_source.input_bams ):
-        "${input_bam.input_bam}"
+    #for $i, $bam  in enumerate( $reference_source.input_bam ):
+        "${bam}"
     #end for
     #if str( $advanced_options.advanced_options_selector ) == "advanced":
         #if str( $advanced_options.filter_by_flags.filter_flags ) == "filter":
@@ -50,14 +50,14 @@
         #if str( $advanced_options.region_string ):
             -r "${advanced_options.region_string}"
         #end if
-        
+
     #end if
     #if str( $genotype_likelihood_computation_type.genotype_likelihood_computation_type_selector ) == 'perform_genotype_likelihood_computation':
         ##
 
         ${genotype_likelihood_computation_type.output_format}
         ${genotype_likelihood_computation_type.compressed}
-        
+
         #if str( $genotype_likelihood_computation_type.output_tags ) != "None":
             --output-tags "${genotype_likelihood_computation_type.output_tags}"
         #end if
@@ -77,8 +77,8 @@
         #elif str( $genotype_likelihood_computation_type.perform_indel_calling.perform_indel_calling_selector ) == 'do_not_perform_indel_calling':
             -I
         #end if
-        
-         
+
+
     #else:
         ${genotype_likelihood_computation_type.base_position_on_reads}
         ${genotype_likelihood_computation_type.output_mapping_quality}
@@ -93,22 +93,18 @@
                 <option value="history">Use a genome from the history</option>
             </param>
             <when value="cached">
-                <repeat min="1" name="input_bams" title="BAM file">
-                    <param format="bam" label="BAM file" name="input_bam" type="data">
-                        <validator type="unspecified_build" />
-                        <validator message="Sequences are not currently available for the specified build." metadata_column="1" metadata_name="dbkey" table_name="fasta_indexes" type="dataset_metadata_in_data_table" />
-                    </param>
-                </repeat>
+                <param format="bam" label="BAM file(s)" name="input_bam" type="data" min="1" multiple="True">
+                    <validator type="unspecified_build" />
+                    <validator message="Sequences are not currently available for the specified build." metadata_column="1" metadata_name="dbkey" table_name="fasta_indexes" type="dataset_metadata_in_data_table" />
+                </param>
                 <param label="Using reference genome" name="ref_file" type="select">
                     <options from_data_table="fasta_indexes" />
                 </param>
             </when>
             <when value="history">
-                <repeat min="1" name="input_bams" title="BAM file">
-                    <param format="bam" label="BAM file" name="input_bam" type="data">
-                        <validator check="bam_index" message="Metadata missing, click the pencil icon in the history item and use the auto-detect feature to correct this issue." type="metadata" />
-                    </param>
-                </repeat>
+                <param format="bam" label="BAM file(s)" name="input_bam" type="data" min="1" multiple="True">
+                    <validator check="bam_index" message="Metadata missing, click the pencil icon in the history item and use the auto-detect feature to correct this issue." type="metadata" />
+                </param>
                 <param format="fasta" label="Using reference genome" name="ref_file" type="data" />
             </when>
         </conditional>
@@ -153,7 +149,7 @@
                     </when>
                     <when value="do_not_perform_indel_calling" />
                 </conditional>
-                
+
             </when>
             <when value="do_not_perform_genotype_likelihood_computation">
                 <param checked="False" falsevalue="" label="Output base positions on reads" name="base_position_on_reads" truevalue="-O" type="boolean" help="--output-BP"/>
@@ -288,7 +284,7 @@
 <![CDATA[
 **What it does**
 
-Report variants for one or multiple BAM files. Alignment records are grouped by sample identifiers in @RG header lines. If sample identifiers are absent, each input file is regarded as one sample. 
+Report variants for one or multiple BAM files. Alignment records are grouped by sample identifiers in @RG header lines. If sample identifiers are absent, each input file is regarded as one sample.
 
 ------
 
