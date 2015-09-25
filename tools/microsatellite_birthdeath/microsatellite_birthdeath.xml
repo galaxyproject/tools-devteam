@@ -24,16 +24,16 @@
       </options>
     </param>
 
-   	<param name="tree_definition" size="200" type="text" value= "((((hg18,panTro2),ponAbe2),rheMac2),calJac1)" label="Tree definition of all species above whether or not selected for microsatellite extraction" 
+   	<param name="tree_definition" type="text" value= "((((hg18,panTro2),ponAbe2),rheMac2),calJac1)" label="Tree definition of all species above whether or not selected for microsatellite extraction" 
     	help="For example: ((((hg18,panTro2),ponAbe2),rheMac2),calJac1)"/>
       	
-      	<param name="separation" size="10" type="integer" value="40" label="Total length of flanking DNA used for sequence-similarity comparisons among species"
+      	<param name="separation" type="integer" value="40" label="Total length of flanking DNA used for sequence-similarity comparisons among species"
     	help="A value of 40 means: 20 bp upstream and 20 bp downstream DNA will be used for similarity comparisons."/>
  
-     	<param name="thresholds" size="15" type="text" value="9,10,12,12" label="Minimum Threshold for the number of repeats for microsatellites"
+     	<param name="thresholds" type="text" value="9,10,12,12" label="Minimum Threshold for the number of repeats for microsatellites"
     	help="A value of 9,10,12,12 means: All monos having fewer than 9 repeats, dis having fewer than 5 repeats, tris having fewer than 4 repeats, tetras having fewer than 3 repeats will be excluded from the output."/>
 
-     	<param name="simthresh" size="10" type="integer" value="80" label="Percent sequence similarity of flanking regions (of length same as  the above separation distance"
+     	<param name="simthresh" type="integer" value="80" label="Percent sequence similarity of flanking regions (of length same as  the above separation distance"
     	help="Enter a value from 0 to 100"/>
 
 

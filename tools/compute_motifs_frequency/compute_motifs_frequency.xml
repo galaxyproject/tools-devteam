@@ -13,7 +13,7 @@
 
     <param format="tabular" name="inputFile2" type="data" label="Select indel flanking regions file from your history"/>
       
-    <param type="integer" name="inputNumber3" size="5" value="0" label="What is the size of each window?" help="'0' = all the upstream flanking sequence will be one window only, and the same for the downstream flanking sequence."/>
+    <param type="integer" name="inputNumber3" value="0" label="What is the size of each window?" help="'0' = all the upstream flanking sequence will be one window only, and the same for the downstream flanking sequence."/>
         
   </inputs>
   

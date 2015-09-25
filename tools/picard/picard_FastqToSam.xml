@@ -96,16 +96,16 @@
       <option value="Solexa">Solexa (+66)</option>
     </param>
 
-    <param name="read_group_name" type="text" size="20" value="A" label="Read group name" help="READ_GROUP_NAME"/>
-    <param name="sample_name" type="text" size="20" value="sample-a" label="Sample name" help="SAMPLE_NAME"/>
-    <param name="library_name" type="text" size="20" optional="True" label="The library name" help="LIBRARY_NAME; Optional"/>
-    <param name="platform_unit" type="text" size="20" optional="True"  label="The platform unit (often run_barcode.lane)" help="PLATFORM_UNIT; Optional"/>
-    <param name="platform" type="text" size="20" optional="True"  label="The platform type (e.g. illumina, 454)" help="PLATFORM; Optional"/>
-    <param name="sequencing_center" type="text" size="20" optional="True"  label="The sequencing center from which the data originated" help="SEQUENCING_CENTER; Optional"/>
+    <param name="read_group_name" type="text" value="A" label="Read group name" help="READ_GROUP_NAME"/>
+    <param name="sample_name" type="text" value="sample-a" label="Sample name" help="SAMPLE_NAME"/>
+    <param name="library_name" type="text" optional="True" label="The library name" help="LIBRARY_NAME; Optional"/>
+    <param name="platform_unit" type="text" optional="True"  label="The platform unit (often run_barcode.lane)" help="PLATFORM_UNIT; Optional"/>
+    <param name="platform" type="text" optional="True"  label="The platform type (e.g. illumina, 454)" help="PLATFORM; Optional"/>
+    <param name="sequencing_center" type="text" optional="True"  label="The sequencing center from which the data originated" help="SEQUENCING_CENTER; Optional"/>
 
     <param name="predicted_insert_size" type="integer" min="0" max="100000" optional="True" label="Predicted median insert size, to insert into the read group header" help="PREDICTED_INSERT_SIZE; Optional"/>
-    <param name="comment" type="text" size="20" optional="True" label="Comment to include in the output dataset's header" help="COMMENT; Optional"/>
-    <param name="description" type="text" size="20" optional="True" label="Optional description information" help="DESCRIPTION; Optional"/>
+    <param name="comment" type="text" optional="True" label="Comment to include in the output dataset's header" help="COMMENT; Optional"/>
+    <param name="description" type="text" optional="True" label="Optional description information" help="DESCRIPTION; Optional"/>
     <param name="run_date" optional="True" type="text" label="Run date" help="RGDT; Optional; Format=YYYY-MM-DD (eg 1997-07-16)"/>
     <param name="min_q" type="integer" value="0" min="0" max="100" label="Minimum quality allowed in the input fastq" help="MIN_Q; An exception will be thrown if a quality is less than this value; default=0"/>
     <param name="max_q" type="integer" value="93" min="0" max="100" label="Minimum quality allowed in the input fastq" help="MAX_Q; An exception will be thrown if a quality is greater than this value; default=93"/>

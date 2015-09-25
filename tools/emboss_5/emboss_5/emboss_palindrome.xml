@@ -6,16 +6,16 @@
     <param format="fasta" name="input1" type="data">
       <label>Sequences</label>
     </param>
-    <param name="minpallen" size="4" type="text" value="10">
+    <param name="minpallen" type="text" value="10">
       <label>Minimum length of palindrome</label>
     </param>
-    <param name="maxpallen" size="4" type="text" value="100">
+    <param name="maxpallen" type="text" value="100">
       <label>Maximum length of palindrome</label>
     </param>
-    <param name="gaplimit" size="4" type="text" value="100">
+    <param name="gaplimit" type="text" value="100">
       <label>Maximum gap between repeated regions</label>
     </param>
-    <param name="nummismatches" size="4" type="text" value="0">
+    <param name="nummismatches" type="text" value="0">
       <label>Number of mismatches allowed</label>
     </param>
     <param name="overlap" type="select">

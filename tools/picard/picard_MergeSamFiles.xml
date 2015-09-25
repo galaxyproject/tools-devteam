@@ -35,7 +35,7 @@
     <param name="assume_sorted" type="boolean" label="Assume the input file is already sorted" help="ASSUME_SORTED; default=False"/>
 
     <repeat name="comments" title="Comment" min="0" help="You can provide multiple comments">
-      <param name="comment" type="text" size="50" label="Add this comment to BAM dataset" help="COMMENT"/>
+      <param name="comment" type="text" label="Add this comment to BAM dataset" help="COMMENT"/>
     </repeat>
     
     <expand macro="VS" />

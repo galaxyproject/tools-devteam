@@ -24,7 +24,7 @@
             </param>
         </xml>
         <xml name="trackname">
-            <param name="tname" type="text" value="" size="30" optional="true" label="Trackname to use in the second column of each GFF output line" help="(-t track_name}">
+            <param name="tname" type="text" value="" optional="true" label="Trackname to use in the second column of each GFF output line" help="(-t track_name}">
                 <validator type="regex">\w+</validator>
             </param>
         </xml>
@@ -129,7 +129,7 @@
             </param>
             <when value="none"/>
             <when value="filter">
-                <param name="range" type="text" value="" size="60" label="Only show transcripts overlapping coordinate range">
+                <param name="range" type="text" value="" label="Only show transcripts overlapping coordinate range">
                     <help><![CDATA[
                     (-r [['strand']'chr':]'start'..'end') <br> 
                     examples: <br> 

@@ -8,8 +8,8 @@
 <page>
     <param name="input1" type="data" format="fasta" label="Reads" />
     <param name="input2" type="data" format="qualsolexa,qual454" label="Quality scores" />
-	<param name="trim" type="integer" size="5" value="20" label="Minimal quality score" help="bases scoring below this value will trigger splitting"/>
-    <param name="length" type="integer" size="5" value="100" label="Minimal length of contiguous segment" help="report all high quality segments above this length. Setting this option to '0' will cause the program to return a single longest run of high quality bases per read" />
+	<param name="trim" type="integer" value="20" label="Minimal quality score" help="bases scoring below this value will trigger splitting"/>
+    <param name="length" type="integer" value="100" label="Minimal length of contiguous segment" help="report all high quality segments above this length. Setting this option to '0' will cause the program to return a single longest run of high quality bases per read" />
     <conditional name="sequencing_method_choice">
         <param name="sequencer" type="select" label="Select technology">
             <option value="454">Roche (454) or ABI SOLiD</option>
@@ -22,7 +22,7 @@
             </param>
         </when>
         <when value="Solexa">
-            <param name="input3" type="integer" size="5" value="0" label="Restrict length of each read to" help="('0' = do not trim) The quality of Solexa reads drops towards the end. This option allows selecting the specified number of nucleotides from the beginning and then running the tool." />
+            <param name="input3" type="integer" value="0" label="Restrict length of each read to" help="('0' = do not trim) The quality of Solexa reads drops towards the end. This option allows selecting the specified number of nucleotides from the beginning and then running the tool." />
         </when> 
     </conditional>
 </page>

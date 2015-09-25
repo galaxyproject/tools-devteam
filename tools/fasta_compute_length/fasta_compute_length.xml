@@ -3,7 +3,7 @@
 	<command interpreter="python">fasta_compute_length.py $input $output $keep_first</command>
 	<inputs>
 		<param name="input" type="data" format="fasta" label="Compute length for these sequences"/>
-		<param name="keep_first" type="integer" size="5" value="0" label="How many title characters to keep?" help="'0' = keep the whole thing"/>
+		<param name="keep_first" type="integer" value="0" label="How many title characters to keep?" help="'0' = keep the whole thing"/>
 	</inputs>
 	<outputs>
 		<data name="output" format="tabular"/>

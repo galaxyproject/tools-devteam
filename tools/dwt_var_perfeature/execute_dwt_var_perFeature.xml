@@ -8,7 +8,7 @@
   <inputs>
   	<param format="tabular" name="inputFile" type="data" label="Select data"/>	
 	<param name="feature" label="Feature column" type="data_column" data_ref="inputFile" multiple="true" help="Please select at least one column"/>
-	<param name="alpha" size="10" type="float" value="0.05" label="alpha (significance level)" />
+	<param name="alpha" type="float" value="0.05" label="alpha (significance level)" />
   </inputs>
   
   <outputs>

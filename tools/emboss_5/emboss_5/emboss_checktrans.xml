@@ -6,7 +6,7 @@
     <param format="fasta" name="input1" type="data">
       <label>On query</label>
     </param>
-    <param name="orfml" size="4" type="text" value="100">
+    <param name="orfml" type="text" value="100">
       <label>Minimum ORF Length to report</label>
     </param>
     <param name="addlast" type="select">

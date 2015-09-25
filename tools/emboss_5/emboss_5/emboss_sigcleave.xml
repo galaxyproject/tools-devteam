@@ -6,7 +6,7 @@
     <param format="data" name="input1" type="data">
       <label>Sequences</label>
     </param>
-    <param name="minweight" size="4" type="text" value="3.5">
+    <param name="minweight" type="text" value="3.5">
       <label>Minimum scoring weight value for the predicted cleavage site</label>
     </param>
     <param name="prokaryote" type="select">

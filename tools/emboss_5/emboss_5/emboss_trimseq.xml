@@ -6,10 +6,10 @@
     <param format="fasta" name="input1" type="data">
       <label>Sequences</label>
     </param>
-    <param name="window" size="4" type="text" value="1">
+    <param name="window" type="text" value="1">
       <label>Window size</label>
     </param>
-    <param name="percent" size="5" type="text" value="100.0">
+    <param name="percent" type="text" value="100.0">
       <label>Threshold of the percentage ambiguity</label>
     </param>
     <param name="strict" type="select">

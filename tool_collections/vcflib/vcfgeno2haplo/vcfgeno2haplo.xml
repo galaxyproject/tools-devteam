@@ -38,7 +38,7 @@
 	 <param name="input_vcf" type="data" format="vcf" label="Select VCF dataset" />
        </when>
      </conditional>
-     <param name="window_size" type="text" size="4" value="30" label="compare records up to this many bp away" help="--window-size option (default = 30)" />
+     <param name="window_size" type="text" value="30" label="compare records up to this many bp away" help="--window-size option (default = 30)" />
      <param name="output_option" type="boolean" truevalue="-o" falsevalue="" label="What to report?" help="--only-variants option" />
 <!--       <option value=" ">Output entire haplotype</option>
        <option value="-o">Don't output the entire haplotype, just concatenate REF/ALT strings (delimited by &quot;:&quot;)</option>

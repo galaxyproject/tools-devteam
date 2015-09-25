@@ -18,7 +18,7 @@
 			</options>
         </param>
         <param name="input_seq" type="data" format="fasta" label="Sequence file"/>
-        <param name="align_len" type="integer" size="15" value="11" label="Minimal length of a hit (-h)" help="seed" />
+        <param name="align_len" type="integer" value="11" label="Minimal length of a hit (-h)" help="seed" />
         <param name="mismatch" type="select" label="Number of mismatches allowed (-m)">
             <option value="0">0</option>
             <option value="1">1</option>
@@ -33,7 +33,7 @@
             <when value="No">
             </when>
             <when value="Yes">
-                <param name="read_len" type="integer" size="15" value="36" label="Read length (-w)"/> 
+                <param name="read_len" type="integer" value="36" label="Read length (-w)"/> 
             </when>
         </conditional>
     </inputs>

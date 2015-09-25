@@ -17,8 +17,8 @@
     <inputs>
         <param format="vcf" name="input" type="data" label="Select VCF dataset"/>
         <param name="m_option" type="boolean" checked="false" truevalue="--use-mnps" falsevalue="" label="Retain MNPs as separate events" help="--use-mnps option"/>
-        <param name="t_option" size="20" type="text" value="Split primitives" label="Tag records which are split apart of a complex allele with this flag. " help="--tag-parsed option"/>
-	<param name="max_length" type="integer" size="4" value="200" label="Do not manipulate records in which either the ALT or REF is longer than (bp)" help="--max-length option"/>
+        <param name="t_option" type="text" value="Split primitives" label="Tag records which are split apart of a complex allele with this flag. " help="--tag-parsed option"/>
+	<param name="max_length" type="integer" value="200" label="Do not manipulate records in which either the ALT or REF is longer than (bp)" help="--max-length option"/>
         <param name="keep_info" type="boolean" truevalue="--keep-info" falsevalue="" checked="False" 
             label="Maintain site and allele-level annotations when decomposing" 
             help="Note that in many cases, such as multisample VCFs, these won't be valid post-decomposition.  For biallelic loci in single-sample VCFs, they should be usable with caution. (--keep-info)"/>

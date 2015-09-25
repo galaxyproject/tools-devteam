@@ -49,10 +49,10 @@
       <option value="yes">Yes</option>
       <option value="no">No</option>
     </param>
-    <param name="orfminsize" size="4" type="text" value="1">
+    <param name="orfminsize" type="text" value="1">
       <label>Minimum size of Open Reading Frames (ORFs) to display in the translations</label>
     </param>
-    <param name="uppercase" size="50" type="text" value="">
+    <param name="uppercase" type="text" value="">
       <label>Regions to put in uppercase</label>
     </param>
     <param name="number" type="select">
@@ -60,13 +60,13 @@
       <option value="yes">Yes</option>
       <option value="no">No</option>
     </param>
-    <param name="width" size="4" type="text" value="60">
+    <param name="width" type="text" value="60">
       <label>Number of nucleotides displayed on each line</label>
     </param>
-    <param name="length" size="4" type="text" value="0">
+    <param name="length" type="text" value="0">
       <label>Line length of page</label>
     </param>
-    <param name="margin" size="4" type="text" value="10">
+    <param name="margin" type="text" value="10">
       <label>Margin around sequence for numbering</label>
     </param>
     <param name="disp_name" type="select">
@@ -79,7 +79,7 @@
       <option value="yes">Yes</option>
       <option value="no">No</option>
     </param>
-    <param name="offset" size="4" type="text" value="1">
+    <param name="offset" type="text" value="1">
       <label>Number from which you want the DNA sequence to be numbered</label>
     </param>
     <param name="html_out1" type="select">

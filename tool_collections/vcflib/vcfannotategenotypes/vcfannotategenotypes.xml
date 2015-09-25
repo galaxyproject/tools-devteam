@@ -9,7 +9,7 @@
   <inputs>
     <param format="vcf" name="input1" type="data" label="Annotate genotypes in" help="First VCF dataset"/>
     <param format="vcf" name="input2" type="data" label="using genotypes from" help="Second VCF dataset"/>
-    <param name="tag_option" size="20" type="text" value="added-genotypes" label="Mark genotypes added to the first dataset with this tag" help="Annotation tag"/>
+    <param name="tag_option" type="text" value="added-genotypes" label="Mark genotypes added to the first dataset with this tag" help="Annotation tag"/>
   </inputs>
   <outputs>
     <data format="vcf" name="out_file1" />

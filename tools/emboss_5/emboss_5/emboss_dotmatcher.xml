@@ -10,10 +10,10 @@
     <param format="data" name="input2" type="data">
       <label>Sequence 2</label>
     </param>
-    <param name="windowsize" size="4" type="text" value="10">
+    <param name="windowsize" type="text" value="10">
       <label>Window size</label>
     </param>
-    <param name="threshold" size="4" type="text" value="23">
+    <param name="threshold" type="text" value="23">
       <label>Threshold</label>
     </param>
   </inputs>

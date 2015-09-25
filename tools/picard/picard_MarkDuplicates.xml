@@ -34,7 +34,7 @@
   <inputs>
     <param format="bam" name="inputFile" type="data" label="Select SAM/BAM dataset or dataset collection" help="If empty, upload or import a SAM/BAM dataset"/>
     <repeat name="comments" title="Comment" min="0" help="You can provide multiple comments">
-      <param name="comment" type="text" size="50" label="Add this comment to BAM dataset"/>
+      <param name="comment" type="text" label="Add this comment to BAM dataset"/>
     </repeat>
     <param name="remove_duplicates" type="boolean" label="If true do not write duplicates to the output file instead of writing them with appropriate flags set" help="REMOVE_DUPLICATES; default=False"/>
     <param name="assume_sorted" type="boolean" label="Assume the input file is already sorted" checked="true" truevalue="true" falsevalue="false" help="ASSUME_SORTED; default=True"/>
@@ -45,7 +45,7 @@
     </param>
 
 
-    <param name="read_name_regex" type="text" size="40" value="[a-zA-Z0-9]+:[0-9]:([0-9]+):([0-9]+):([0-9]+).*." label="Regular expression that can be used to parse read names in the incoming SAM/BAM dataset" help="READ_NAME_REGEX; Read names are parsed to extract three variables: tile/region, x coordinate and y coordinate. These values are used to estimate the rate of optical duplication in order to give a more accurate estimated library size. See help below for more info; default=[a-zA-Z0-9]+:[0-9]:([0-9]+):([0-9]+):([0-9]+).*.">
+    <param name="read_name_regex" type="text" value="[a-zA-Z0-9]+:[0-9]:([0-9]+):([0-9]+):([0-9]+).*." label="Regular expression that can be used to parse read names in the incoming SAM/BAM dataset" help="READ_NAME_REGEX; Read names are parsed to extract three variables: tile/region, x coordinate and y coordinate. These values are used to estimate the rate of optical duplication in order to give a more accurate estimated library size. See help below for more info; default=[a-zA-Z0-9]+:[0-9]:([0-9]+):([0-9]+):([0-9]+).*.">
       <sanitizer>
         <valid initial="string.printable">
         </valid>

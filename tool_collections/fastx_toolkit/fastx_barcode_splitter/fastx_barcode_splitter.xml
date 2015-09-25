@@ -14,9 +14,9 @@
 			<option value="--eol">End of sequence (3' end)</option>
 		</param>
 
-		<param name="mismatches" type="integer" size="3" value="2" label="Number of allowed mismatches" />
+		<param name="mismatches" type="integer" value="2" label="Number of allowed mismatches" />
 		
-		<param name="partial" type="integer" size="3" value="0" label="Number of allowed barcodes nucleotide deletions" />
+		<param name="partial" type="integer" value="0" label="Number of allowed barcodes nucleotide deletions" />
 	
 	</inputs>
 	

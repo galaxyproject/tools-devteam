@@ -6,7 +6,7 @@
     <param format="data" name="input1" type="data">
       <label>Sequence 1</label>
     </param>
-    <param name="pattern" size="50" type="text" value="(AUG)">
+    <param name="pattern" type="text" value="(AUG)">
       <label>Regular expression pattern</label>
     </param>
   </inputs>

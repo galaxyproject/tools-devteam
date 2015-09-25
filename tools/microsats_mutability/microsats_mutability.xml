@@ -42,7 +42,7 @@
 	      </when>
 	      <when value="align" />
       </conditional>
-      <param name="gens" size="10" type="integer" value="1" label="Number of generations between the two species in input file"/>
+      <param name="gens" type="integer" value="1" label="Number of generations between the two species in input file"/>
       <conditional name="pri_condition">
 	      <param name="primary_group" type="select" label="Group by" multiple="false">
 	         <option value="4">Motif type (mono/di/tri etc.)</option>
@@ -50,7 +50,7 @@
 	         <option value="6">Repeat Number </option>
 	      </param>
 	      <when value="6">
-	      	<param name="binsize" size="10" type="integer" value="1" label="Bin-size" help="Bin-size denotes the number of repeat numbers to be considered as a group. Bin-size of 5 will group every 5 consecutive repeat numbers into a group."/>
+	      	<param name="binsize" type="integer" value="1" label="Bin-size" help="Bin-size denotes the number of repeat numbers to be considered as a group. Bin-size of 5 will group every 5 consecutive repeat numbers into a group."/>
 	      	<param name="subgroup" type="select" label="Sub-group by" multiple="false">
 		      <option value="-1">None</option>
 			  <option value="4">Motif type (mono/di/tri etc.)</option>
@@ -67,7 +67,7 @@
 			   <when value="-1"></when>
 		       <when value="4"></when>
 		       <when value="6">
-		      	  <param name="s_binsize" size="10" type="integer" value="1" label="Bin size" help="Bin-size denotes the number of repeat numbers to be considered as a group. Bin-size of 5 will group every 5 consecutive repeat numbers into a group."/>
+		      	  <param name="s_binsize" type="integer" value="1" label="Bin size" help="Bin-size denotes the number of repeat numbers to be considered as a group. Bin-size of 5 will group every 5 consecutive repeat numbers into a group."/>
 		       </when>
 			</conditional>
 	      </when>
@@ -81,7 +81,7 @@
 			   <when value="-1"></when>
 		       <when value="7"></when>
 			   <when value="6">
-		      	  <param name="s_binsize" size="10" type="integer" value="1" label="Bin size" help="Bin-size denotes the number of repeat numbers to be considered as a group. Bin-size of 5 will group every 5 consecutive repeat numbers into a group."/>
+		      	  <param name="s_binsize" type="integer" value="1" label="Bin size" help="Bin-size denotes the number of repeat numbers to be considered as a group. Bin-size of 5 will group every 5 consecutive repeat numbers into a group."/>
 		       </when>
 			</conditional>
 	      </when>

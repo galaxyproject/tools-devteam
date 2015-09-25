@@ -14,7 +14,7 @@
   <inputs>
    <page>
     <param format="fasta" name="input" type="data" label="Fasta File" />
-    <param name="logoname" label="Title for output Sequence Logo" type="text" size="50" value="Galaxy-Rgenetics Sequence Logo" />
+    <param name="logoname" label="Title for output Sequence Logo" type="text" value="Galaxy-Rgenetics Sequence Logo" />
     <param name="outformat" type="select" label="Output format for image (or text report)" >
       <option value="png" selected="True">PNG screen quality</option>
       <option value="png_print">High quality printable PNG</option>
@@ -52,10 +52,10 @@
         <when value="complete">
         </when>
         <when value="part">    
-           <param name="seqstart" size="5" type="integer" value="1" help="WARNING: Specifying indexes outside the sequence lengths will cause unpredictable but bad consequences!" 
+           <param name="seqstart" type="integer" value="1" help="WARNING: Specifying indexes outside the sequence lengths will cause unpredictable but bad consequences!" 
              label="Index (eg 1=first letter) of the start of the sequence range to include in the logo">
            </param>
-           <param name="seqend" size="5" type="integer" value="99999" label="Index (eg 75=75th letter) of the end of the sequence range to include in the logo" >
+           <param name="seqend" type="integer" value="99999" label="Index (eg 75=75th letter) of the end of the sequence range to include in the logo" >
            </param> 
         </when>
     </conditional>

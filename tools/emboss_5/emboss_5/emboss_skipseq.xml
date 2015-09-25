@@ -6,7 +6,7 @@
     <param format="data" name="input1" type="data">
       <label>Sequences</label>
     </param>
-    <param name="skip" size="4" type="text" value="0">
+    <param name="skip" type="text" value="0">
       <label>Number of sequences to skip at start</label>
     </param>
     <param name="feature" type="select">

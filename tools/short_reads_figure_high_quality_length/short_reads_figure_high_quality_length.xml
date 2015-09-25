@@ -8,7 +8,7 @@
 <inputs>
 <page>
     <param name="input1" type="data" format="qualsolexa,qual454,txtseq.zip" label="Quality score file" help="No dataset? Read tip below"/>
-    <param name="input2" type="integer" size="5" value="20" label="Quality score threshold" />
+    <param name="input2" type="integer" value="20" label="Quality score threshold" />
 </page>
 </inputs>
 <outputs>

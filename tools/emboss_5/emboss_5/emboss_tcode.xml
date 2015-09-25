@@ -6,10 +6,10 @@
     <param format="data" name="input1" type="data">
       <label>Sequence</label>
     </param>
-    <param name="window" size="5" type="text" value="200">
+    <param name="window" type="text" value="200">
       <label>Window size</label>
     </param>
-    <param name="step" size="5" type="text" value="3">
+    <param name="step" type="text" value="3">
       <label>Step size</label>
     </param>
     <param name="out_format1" type="select">

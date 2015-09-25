@@ -146,7 +146,7 @@
         </when>
     </xml>
     <xml name="read_group_id_param">
-        <param name="ID" type="text" value="" size="20" label="Read group identifier (ID)" help="This value must be unique among multiple samples in your experiment" optional="false">
+        <param name="ID" type="text" value="" label="Read group identifier (ID)" help="This value must be unique among multiple samples in your experiment" optional="false">
             <validator type="empty_field" />
         </param>
     </xml>
@@ -158,7 +158,7 @@
         </conditional>
     </xml>
     <xml name="read_group_sm_param">
-        <param name="SM" type="text" value="" size="20" label="Read group sample name (SM)" help="This value should be descriptive. Use pool name where a pool is being sequenced" />
+        <param name="SM" type="text" value="" label="Read group sample name (SM)" help="This value should be descriptive. Use pool name where a pool is being sequenced" />
     </xml>
     <xml name="read_group_sm_conditional">
         <conditional name="read_group_sm_conditional">
@@ -171,7 +171,7 @@
          as per Picard.
     -->
     <xml name="read_group_sm_param_required">
-        <param name="SM" type="text" value="" size="20" label="Read group sample name (SM)" optional="false" help="This value should be descriptive. Use pool name where a pool is being sequenced">
+        <param name="SM" type="text" value="" label="Read group sample name (SM)" optional="false" help="This value should be descriptive. Use pool name where a pool is being sequenced">
             <validator type="empty_field" />
         </param>
     </xml>
@@ -194,7 +194,7 @@
         </param>
     </xml>
     <xml name="read_group_lb_param">
-        <param name="LB" type="text" size="25" label="Library name (LB)" optional="true" />
+        <param name="LB" type="text" label="Library name (LB)" optional="true" />
     </xml>
     <xml name="read_group_lb_conditional">
         <conditional name="read_group_lb_conditional">
@@ -204,7 +204,7 @@
         </conditional>
     </xml>
     <xml name="read_group_lb_required_param">
-        <param name="LB" type="text" size="25" label="Library name (LB)" optional="false">
+        <param name="LB" type="text" label="Library name (LB)" optional="false">
             <validator type="empty_field" />
         </param>
     </xml>
@@ -216,33 +216,33 @@
         </conditional>
     </xml>
     <xml name="read_group_cn_param">
-        <param name="CN" type="text" size="25" label="Sequencing center that produced the read (CN)" />
+        <param name="CN" type="text" label="Sequencing center that produced the read (CN)" />
     </xml>
     <xml name="read_group_ds_param">
-        <param name="DS" type="text" size="25" label="Description (DS)" />
+        <param name="DS" type="text" label="Description (DS)" />
     </xml>
     <xml name="read_group_dt_param">
-        <param name="DT" type="text" size="25" label="Date that run was produced (DT)" help="ISO8601 format date or date/time, like YYYY-MM-DD" />
+        <param name="DT" type="text" label="Date that run was produced (DT)" help="ISO8601 format date or date/time, like YYYY-MM-DD" />
     </xml>
     <xml name="read_group_fo_param">
-        <param name="FO" type="text" size="25" optional="true" label="Flow order (FO)" help="The array of nucleotide bases that correspond to the nucleotides used for each flow of each read. Multi-base flows are encoded in IUPAC format, and non-nucleotide flows by various other characters. Format: /\*|[ACMGRSVTWYHKDBN]+/">
+        <param name="FO" type="text" optional="true" label="Flow order (FO)" help="The array of nucleotide bases that correspond to the nucleotides used for each flow of each read. Multi-base flows are encoded in IUPAC format, and non-nucleotide flows by various other characters. Format: /\*|[ACMGRSVTWYHKDBN]+/">
           <validator type="regex" message="Invalid flow order">\*|[ACMGRSVTWYHKDBN]+$</validator>
         </param>
     </xml>
     <xml name="read_group_ks_param">
-        <param name="KS" type="text" size="25" label="The array of nucleotide bases that correspond to the key sequence of each read (KS)" />
+        <param name="KS" type="text" label="The array of nucleotide bases that correspond to the key sequence of each read (KS)" />
     </xml>
     <xml name="read_group_pg_param">
-        <param name="PG" type="text" size="25" label="Programs used for processing the read group (PG)" />
+        <param name="PG" type="text" label="Programs used for processing the read group (PG)" />
     </xml>
     <xml name="read_group_pi_param">
         <param name="PI" type="integer" optional="true" label="Predicted median insert size (PI)" />
     </xml>
     <xml name="read_group_pu_param">
-        <param name="PU" type="text" size="25" label="Platform unit (PU)" help="Unique identifier (e.g. flowcell-barcode.lane for Illumina or slide for SOLiD)" optional="True" />
+        <param name="PU" type="text" label="Platform unit (PU)" help="Unique identifier (e.g. flowcell-barcode.lane for Illumina or slide for SOLiD)" optional="True" />
     </xml>
     <xml name="read_group_pu_required_param">
-        <param name="PU" type="text" size="25" label="Platform unit (PU)" help="Unique identifier (e.g. flowcell-barcode.lane for Illumina or slide for SOLiD)" optional="False" />
+        <param name="PU" type="text" label="Platform unit (PU)" help="Unique identifier (e.g. flowcell-barcode.lane for Illumina or slide for SOLiD)" optional="False" />
     </xml>
     <!-- Only ID is required - all groups available -->
     <xml name="read_group_inputs_spec">

@@ -7,16 +7,16 @@
     <param format="data" name="input1" type="data">
       <label>On query</label>
     </param>
-    <param name="window" size="4" type="text" value="20">
+    <param name="window" type="text" value="20">
       <label>Window Size</label>
     </param>
-    <param name="shift" size="4" type="text" value="1">
+    <param name="shift" type="text" value="1">
       <label>Step size (shift increment)</label>
     </param>
-    <param name="dnaconc" size="4" type="text" value="50.0">
+    <param name="dnaconc" type="text" value="50.0">
       <label>DNA Concentration (nM)</label>
     </param>
-    <param name="saltconc" size="4" type="text" value="50.0">
+    <param name="saltconc" type="text" value="50.0">
       <label>Salt concentration (mM)</label>
     </param>
     <param name="thermo" type="select">
@@ -24,7 +24,7 @@
       <option value="yes">Yes</option>
       <option value="no">No</option>
     </param>
-    <param name="temperature" size="4" type="text" value="25 ">
+    <param name="temperature" type="text" value="25 ">
       <label>Temperature at which to calculate the DeltaG, DeltaH and DeltaS values</label>
     </param>
     <param name="rna" type="select">
@@ -37,13 +37,13 @@
       <option value="no">No</option>
       <option value="yes">Yes</option>
     </param>
-    <param name="formamide" size="4" type="text" value="0 ">
+    <param name="formamide" type="text" value="0 ">
       <label>Formamide concentration (nM)</label>
     </param>
-    <param name="mismatch" size="4" type="text" value="0 ">
+    <param name="mismatch" type="text" value="0 ">
       <label>Percent mismatch to be used in calculations</label>
     </param>
-    <param name="prodlen" size="4" type="text" value="20">
+    <param name="prodlen" type="text" value="20">
       <label>Product length to be used in calculations</label>
     </param>
     <param name="plot1" type="select">

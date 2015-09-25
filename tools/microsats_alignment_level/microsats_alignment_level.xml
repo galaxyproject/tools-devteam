@@ -9,13 +9,13 @@
   <inputs>
     <page>
     	<param format="fasta" name="input1" type="data" label="Select data"/>
-    	<param name="separation" size="10" type="integer" value="10" label="Minimum base pair distance between adjacent microsatellites"
+    	<param name="separation" type="integer" value="10" label="Minimum base pair distance between adjacent microsatellites"
     	help="A value of 10 means: Adjacent microsatellites separated by less than 10 base pairs will be excluded from the output."/>
-    	<param name="mono_threshold" size="10" type="integer" value="9" label="Minimum Threshold for the number of repeats for mononucleotide microsatellites"
+    	<param name="mono_threshold" type="integer" value="9" label="Minimum Threshold for the number of repeats for mononucleotide microsatellites"
     	help="A value of 9 means: All mononucleotide microsatellites having fewer than 9 repeats will be excluded from the output."/>
-    	<param name="non_mono_threshold" size="10" type="integer" value="4" label="Minimum Threshold for the number of repeats for non-mononucleotide microsatellites"
+    	<param name="non_mono_threshold" type="integer" value="4" label="Minimum Threshold for the number of repeats for non-mononucleotide microsatellites"
     	help="A value of 4 means: All non-mononucleotide microsatellites having fewer than 4 repeats will be excluded from the output."/>
-    	<param name="allow_different_units" size="5" type="select" label="Allow orthologous positions to have different microsatellite repeat units/motifs?">
+    	<param name="allow_different_units" type="select" label="Allow orthologous positions to have different microsatellite repeat units/motifs?">
     		<option value="0" selected="true">No</option>
           	<option value="1">Yes</option>
          </param>

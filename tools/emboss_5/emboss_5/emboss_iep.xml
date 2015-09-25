@@ -6,10 +6,10 @@
     <param format="data" name="input1" type="data">
       <label>Sequences</label>
     </param>
-    <param name="step" size="5" type="text" value=".5">
+    <param name="step" type="text" value=".5">
       <label>Step value for pH</label>
     </param>
-    <param name="amino" size="5" type="text" value="1">
+    <param name="amino" type="text" value="1">
       <label>Number of N-termini</label>
     </param>
     <param name="termini" type="select">

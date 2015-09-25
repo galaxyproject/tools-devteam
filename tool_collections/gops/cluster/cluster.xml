@@ -10,10 +10,10 @@
     <param format="interval" name="input1" type="data">
       <label>Cluster intervals of</label>
     </param>
-    <param name="distance" size="5" type="integer" value="1" help="(bp)">
+    <param name="distance" type="integer" value="1" help="(bp)">
       <label>max distance between intervals</label>
     </param>
-    <param name="minregions" size="5" type="integer" value="2">
+    <param name="minregions" type="integer" value="2">
       <label>min number of intervals per cluster</label>
     </param>
 	<param name="returntype" type="select" label="Return type">

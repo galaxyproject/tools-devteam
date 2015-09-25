@@ -13,7 +13,7 @@
   <inputs>
     <param format="fasta,fastqsanger,fastqsolexa,fastqillumina" name="input" type="data" label="Library to clip" />
   
-    <param name="minlength" size="4" type="integer" value="15">
+    <param name="minlength" type="integer" value="15">
       <label>Minimum sequence length (after clipping, sequences shorter than this length will be discarded)</label>
     </param>
 
@@ -24,7 +24,7 @@
 		</param>
 
 		<when value="user">
-			<param name="clip_sequence" size="30" label="Enter custom clipping sequence" type="text" value="AATTGGCC" />
+			<param name="clip_sequence" label="Enter custom clipping sequence" type="text" value="AATTGGCC" />
 		</when>
 
 		<when value="prebuilt">
@@ -37,7 +37,7 @@
 		</when>
 	</conditional>
 
-	<param name="keepdelta" size="2" type="integer" value="0">
+	<param name="keepdelta" type="integer" value="0">
 		<label>enter non-zero value to keep the adapter sequence and x bases that follow it</label>
 		<help>use this for hairpin barcoding. keep at 0 unless you know what you're doing.</help>
 	</param>

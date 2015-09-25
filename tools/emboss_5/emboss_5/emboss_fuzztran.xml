@@ -6,10 +6,10 @@
     <param format="fasta" name="input1" type="data">
       <label>Sequences</label>
     </param>
-    <param name="pattern" size="5" type="text" value="">
+    <param name="pattern" type="text" value="">
       <label>Search pattern</label>
     </param>
-    <param name="mismatch" size="5" type="text" value="0">
+    <param name="mismatch" type="text" value="0">
       <label>Number of mismatches</label>
     </param>
     <param name="frame" type="select">

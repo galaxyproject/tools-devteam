@@ -6,7 +6,7 @@
 	<command interpreter="sh">r_wrapper.sh $script_file</command>
 	<inputs>
 		<param format="tabular" name="input" type="data" label="Source file"/>
-		<param name="cond" size="30" type="integer" value="3" label="Number of principal components" help="See TIP below">
+		<param name="cond" type="integer" value="3" label="Number of principal components" help="See TIP below">
 			<validator type="empty_field" message="Enter a valid number of principal components, see syntax below for examples"/>
 		</param>
 

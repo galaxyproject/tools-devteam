@@ -44,7 +44,7 @@
                 <option value="yes">Yes</option>
             </param>
             <when value="yes">
-                <param name="ref_name" type="text" size="25" value="Type sequence name here" label="Enter name for the Reference sequence"/>
+                <param name="ref_name" type="text" value="Type sequence name here" label="Enter name for the Reference sequence"/>
             </when>
             <when value="no" />
         </conditional>
