@@ -1,4 +1,4 @@
-<tool id="cuffnorm" name="Cuffnorm" version="@VERSION@.1">
+<tool id="cuffnorm" name="Cuffnorm" version="@VERSION@.2">
     <description>Create normalized expression levels</description>
     <expand macro="requirements" />
     <expand macro="stdio" />
@@ -23,7 +23,7 @@
                 $advanced_settings.hits_norm
             #end if
             ## Inputs.
-            $gtf_input
+            "${ gtf_input }"
 
             @CONDITION_SAMPLES@
     </command>
@@ -195,7 +195,7 @@ There is no such thing (yet) as an automated gearshift in expression analysis. I
 
 **Input format**
 
-Cuffdiff takes Cufflinks or Cuffcompare GTF files as input along with two SAM files containing the fragment alignments for two or more samples.
+Cuffnorm takes Cufflinks or Cuffcompare GTF files as input along with two SAM files containing the fragment alignments for two or more samples.
 
 ------
 
@@ -210,13 +210,13 @@ To see the details of the simple table format used by Cuffnorm, refer to the sim
 
 **Settings**
 
-All of the options have a default value. You can change any of them. Most of the options in Cuffdiff have been implemented here.
+All of the options have a default value. You can change any of them. Most of the options in Cuffnorm have been implemented here.
 
 ------
 
-**Cuffdiff parameter list**
+**Cuffnorm parameter list**
 
-This is a list of implemented Cuffdiff options::
+This is a list of implemented Cuffnorm options::
 
   --library-norm-method          Library Normalization method : Geometric (default), classic-fpkm, quartile
   --library-type                 ff-firststrand,ff-secondstrand,ff-unstranded,fr-firstrand,fr-secondstrand,fr-unstranded,transfrags
