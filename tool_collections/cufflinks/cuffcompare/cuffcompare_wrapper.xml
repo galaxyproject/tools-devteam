@@ -225,12 +225,14 @@ If you ran cuffcompare with the -r option, tracking rows will contain the follow
   2                 c               Contained        
   3                 j               New isoform        
   4                 e               A single exon transcript overlapping a reference exon and at least 10 bp of a reference intron, indicating a possible pre-mRNA fragment.        
-  5                 i               A single exon transcript falling entirely with a reference intron        
-  6                 r               Repeat. Currently determined by looking at the reference sequence and applied to transcripts where at least 50% of the bases are lower case        
-  7                 p               Possible polymerase run-on fragment        
-  8                 u               Unknown, intergenic transcript        
-  9                 o               Unknown, generic overlap with reference        
-  10             .               (.tracking file only, indicates multiple classifications)
+  5                 i               A single exon transcript falling entirely with a reference intron
+  6                 o               Generic exonic overlap with a reference transcript
+  7                 p               Possible polymerase run-on fragment  
+  8                 r               Repeat. Currently determined by looking at the soft-masked reference sequence and applied to transcripts where at least 50% of the bases are lower case  
+  9                 u               Unknown, intergenic transcript
+  10                x               Exonic overlap with reference on the opposite strand
+  11                s               An intron of the transfrag overlaps a reference intron on the opposite strand (likely due to read mapping errors)
+  12                .               (.tracking file only, indicates multiple classifications)
     
 -------
 
