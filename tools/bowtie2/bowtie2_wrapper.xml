@@ -160,18 +160,21 @@
             #end if
             
             #if str( $analysis_type.other_options.other_options_selector ) == "yes":
+                ${analysis_type.other_options.reorder}
                 ${analysis_type.other_options.non_deterministic}
                 --seed "${analysis_type.other_options.seed}"
             #end if
         
         #elif str( $analysis_type.analysis_type_selector ) == "cline":
             ${analysis_type.cline}
-        #end if
+        #end if    
         
-        -S "galaxy_bowtie_2_output.sam" &amp;&amp;
-
-        ## view/sort and output BAM file
-        ( samtools view -Su "galaxy_bowtie_2_output.sam" | samtools sort -o - - > $output )
+        ## output file
+        #if ( str( $analysis_type.analysis_type_selector ) != "full" or str( $analysis_type.sam_opt ) != "true" ):
+          | samtools view -Su - | samtools sort -o - - &gt; $output
+        #else
+          &gt; $output_sam
+        #end if
 
         ## rename unaligned sequence files
         #if $library.type == "paired" and $output_unaligned_reads_l and $output_unaligned_reads_r:
@@ -198,12 +201,12 @@
             </param>
 
             <when value="single">
-                <param name="input_1" format="fastqsanger" type="data" label="FASTQ file" help="Nucleotide-space: Must have Sanger-scaled quality values with ASCII offset 33"/>
+                <param name="input_1" format="fastqsanger" type="data" label="FASTQ file" help="Must be of datatype &quot;fastqsanger&quot;" />
                 <param name="unaligned_file" type="boolean" truevalue="true" falsevalue="false" checked="False" label="Write unaligned reads (in fastq format) to separate file(s)" help="--un/--un-conc; This triggers --un parameter for single reads and --un-conc for paired reads" />
             </when>
             <when value="paired">
-                <param name="input_1" format="fastqsanger" type="data" label="FASTQ file" help="Nucleotide-space: Must have Sanger-scaled quality values with ASCII offset 33" />
-                <param name="input_2" format="fastqsanger" type="data" label="FASTQ file" help="Nucleotide-space: Must have Sanger-scaled quality values with ASCII offset 33" />
+                <param name="input_1" format="fastqsanger" type="data" label="FASTQ file #1" help="Must be of datatype &quot;fastqsanger&quot;" />
+                <param name="input_2" format="fastqsanger" type="data" label="FASTQ file #2" help="Must be of datatype &quot;fastqsanger&quot;" />
                 <param name="unaligned_file" type="boolean" truevalue="true" falsevalue="false" checked="False" label="Write unaligned reads (in fastq format) to separate file(s)" help="--un/--un-conc; This triggers --un parameter for single reads and --un-conc for paired reads" />
                 <conditional name="paired_options">
                     <param name="paired_options_selector" type="select" label="Do you want to set paired-end options?" help="See &quot;Alignment Options&quot; section of Help below for information">
@@ -230,7 +233,7 @@
                 </conditional>
             </when>
             <when value="paired_collection">
-                <param name="input_1" format="fastqsanger" type="data_collection" collection_type="paired" label="FASTQ Paired Dataset" help="Nucleotide-space: Must have Sanger-scaled quality values with ASCII offset 33" />
+                <param name="input_1" format="fastqsanger" type="data_collection" collection_type="paired" label="FASTQ Paired Dataset" help="Must be of datatype &quot;fastqsanger&quot;" />
                 <param name="unaligned_file" type="boolean" truevalue="true" falsevalue="false" checked="False" label="Write unaligned reads (in fastq format) to separate file(s)" help="--un/--un-conc; This triggers --un parameter for single reads and --un-conc for paired reads" />
                 <conditional name="paired_options">
                     <param name="paired_options_selector" type="select" label="Do you want to set paired-end options?" help="See &quot;Alignment Options&quot; section of Help below for information">
@@ -419,6 +422,7 @@
                         <option value="no" selected="true">No</option>
                     </param>
                     <when value="yes">
+                        <param name="reorder" type="boolean" truevalue="--reorder" falsevalue="" label="Guarantee that output SAM records are printed in an order corresponding to the order of the reads in the original input file" help="--reorder; Default=False"/>
                         <param name="seed" type="integer" value="0" min="0" label="Use this number as the seed for pseudo-random number generator" help="--seed; Default=0"/>
                         <param name="non_deterministic" type="boolean" truevalue="--non-deterministic" falsevalue="" label="Re-initialize the pseudo-random generator for each read using the current time" help="--non-deterministic; see Help below for explanation of this option; default=False"/>
                     </when>
@@ -426,6 +430,7 @@
                         <!-- do nothing -->
                     </when>
                 </conditional>
+                <param name="sam_opt" type="boolean" truevalue="true" falsevalue="false" label="Would you like the output to be a SAM file" help="By default, the output from this Bowtie2 wrapper is a sorted BAM file."/>
             </when>
         </conditional>
     </inputs>
@@ -475,6 +480,28 @@
         </data>
         
         <data format="bam" name="output" label="${tool.name} on ${on_string}: aligned reads (sorted BAM)">
+          <filter>analysis_type['analysis_type_selector'] == "simple" or analysis_type['sam_opt'] is False</filter>
+          <actions>
+            <conditional name="reference_genome.source">
+              <when value="indexed">
+                <action type="metadata" name="dbkey">
+                  <option type="from_data_table" name="bowtie2_indexes" column="1" offset="0">
+                    <filter type="param_value" column="0" value="#" compare="startswith" keep="False"/>
+                    <filter type="param_value" ref="reference_genome.index" column="0"/>
+                  </option>
+                </action>
+              </when>
+              <when value="history">
+                <action type="metadata" name="dbkey">
+                  <option type="from_param" name="reference_genome.own_file" param_attribute="dbkey" />
+                </action>
+              </when>
+            </conditional>
+          </actions>
+        </data>
+
+        <data format="sam" name="output_sam" label="${tool.name} on ${on_string}: aligned reads (SAM)">
+          <filter>analysis_type['analysis_type_selector'] == "full" and analysis_type['sam_opt'] is True</filter>
           <actions>
             <conditional name="reference_genome.source">
               <when value="indexed">
