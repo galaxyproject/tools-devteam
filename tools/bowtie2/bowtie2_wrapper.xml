@@ -10,7 +10,7 @@
         <requirement type="package" version="0.1.18">samtools</requirement>
     </requirements>
     <command>
-        
+
         ## prepare bowtie2 index
         #set index_path = ''
         #if str($reference_genome.source) == "history":
@@ -20,18 +20,17 @@
         #else:
             #set index_path = $reference_genome.index.fields.path
         #end if
-        
+
         ## execute bowtie2
-        
+
         bowtie2
-        
+
         ## number of threads
         -p \${GALAXY_SLOTS:-4}
 
         ## index file path
         -x $index_path
-        
-        
+
         ## Fastq inputs
         #if str( $library.type ) == "single":
             -U "${library.input_1}"
@@ -72,7 +71,7 @@
                 --un-conc $output_unaligned_reads_l
             #end if
         #end if
-        
+
         ## Read group information.
         @define_read_group_helpers@
         #if str( $library.type ) == "single":
@@ -98,7 +97,7 @@
           $format_read_group("PI:", $rg_pi, '"', arg='--rg ')
           $format_read_group("PU:", $rg_pu, '"', arg='--rg ')
         #end if
-        
+
         ## Analysis type
         #if ( str( $analysis_type.analysis_type_selector ) == "simple" and str( $analysis_type.presets ) != "no_presets" ):
             $analysis_type.presets
@@ -112,7 +111,7 @@
                 ${analysis_type.input_options.solexa_quals}
                 ${analysis_type.input_options.int_quals}
             #end if
-            
+
             #if str( $analysis_type.alignment_options.alignment_options_selector ) == "yes":
                 -N "${analysis_type.alignment_options.N}"
                 -L "${analysis_type.alignment_options.L}"
@@ -132,7 +131,7 @@
                     --score-min "${analysis_type.alignment_options.align_mode.score_min_loc}"
                 #end if
             #end if
-            
+
             #if str( $analysis_type.scoring_options.scoring_options_selector ) == "yes":
                 #if ( str( $analysis_type.alignment_options.alignment_options_selector ) == "yes" and str( $analysis_type.alignment_options.align_mode.align_mode_selector ) == "local" ):
                     --ma "${analysis_type.scoring_options.ma}"
@@ -142,33 +141,33 @@
                 --rdg "${analysis_type.scoring_options.rdg_read_open},${analysis_type.scoring_options.rdg_read_extend}"
                 --rfg "${analysis_type.scoring_options.rfg_ref_open},${analysis_type.scoring_options.rfg_ref_extend}"
             #end if
-            
+
             #if str( $analysis_type.reporting_options.reporting_options_selector ) == "k":
                 -k "${analysis_type.reporting_options.k}"
             #elif str( $analysis_type.reporting_options.reporting_options_selector ) == "a":
                 -a
             #end if
-            
+
             #if str( $analysis_type.effort_options.effort_options_selector ) == "yes":
                 -D "${analysis_type.effort_options.D}"
                 -R "${analysis_type.effort_options.R}"
             #end if
-            
+
             #if str( $analysis_type.sam_options.sam_options_selector ) == "yes":
                 ${analysis_type.sam_options.no_unal}
                 ${analysis_type.sam_options.omit_sec_seq}
             #end if
-            
+
             #if str( $analysis_type.other_options.other_options_selector ) == "yes":
                 ${analysis_type.other_options.reorder}
                 ${analysis_type.other_options.non_deterministic}
                 --seed "${analysis_type.other_options.seed}"
             #end if
-        
+
         #elif str( $analysis_type.analysis_type_selector ) == "cline":
             ${analysis_type.cline}
-        #end if    
-        
+        #end if
+
         ## output file
         #if ( str( $analysis_type.analysis_type_selector ) != "full" or str( $analysis_type.sam_opt ) != "true" ):
           | samtools view -Su - | samtools sort -o - - &gt; $output
@@ -183,14 +182,13 @@
             &amp;&amp; mv "${ _unaligned_root }.1${_unaligned_ext}" "${ output_unaligned_reads_l }"
             &amp;&amp; mv "${ _unaligned_root }.2${_unaligned_ext}" "${ output_unaligned_reads_r }"
         #end if
-        
+
     </command>
-    
     <!-- basic error handling -->
     <stdio>
         <exit_code range="1:" level="fatal" description="Tool exception" />
     </stdio>
-    
+
     <inputs>
         <!-- single/paired -->
         <conditional name="library">
