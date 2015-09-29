@@ -27,7 +27,7 @@
                     <package name="eigen" version="3.2.0">
                         <repository name="package_eigen_3_2_0" owner="devteam"  prior_installation_required="True" />
                     </package>
-                    <action type="download_by_url">http://cufflinks.cbcb.umd.edu/downloads/cufflinks-2.1.1.tar.gz</action>
+                    <action type="download_by_url">http://cole-trapnell-lab.github.io/cufflinks/assets/downloads/cufflinks-2.1.1.tar.gz</action>
                     <action type="set_environment_for_install">
                         <repository name="package_boost_1_53" owner="iuc"  prior_installation_required="True">
                             <package name="boost" version="1.53.0" />
