@@ -21,7 +21,7 @@
                   <package name="samtools" version="0.1.18">
                       <repository name="package_samtools_0_1_18" owner="devteam" prior_installation_required="True" />
                     </package>
-                    <action type="download_by_url">http://tophat.cbcb.umd.edu/downloads/tophat-1.4.0.tar.gz</action>
+                    <action type="download_by_url">http://ccb.jhu.edu/software/tophat/downloads/tophat-1.4.0.tar.gz</action>
                     <action type="set_environment_for_install">
                       <repository name="package_samtools_0_1_18" owner="devteam" prior_installation_required="True" />
                     </action>
