@@ -5,8 +5,9 @@ Estimates substitution rates from pairwise alignments using JC69 model.
 """
 
 from galaxy import eggs
-from galaxy.tools.util.galaxyops import *
+from galaxy.tools.util.galaxyops import parse_cols_arg
 from galaxy.tools.util import maf_utilities
+from bx.intervals.io import NiceReaderWrapper
 import bx.align.maf
 import fileinput
 import sys
