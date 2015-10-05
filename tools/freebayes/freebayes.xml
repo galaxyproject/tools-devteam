@@ -81,9 +81,7 @@
  
         #if $options_type.optional_inputs.optional_inputs_selector:
        
-	  #if $options_type.optional_inputs.report_monomorphic
-	    ${options_type.optional_inputs.report_monomorphic}
-	  #end if
+	  ${options_type.optional_inputs.report_monomorphic}
  
           #if $options_type.optional_inputs.output_trace_option:
             --trace "${output_trace}"
