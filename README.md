@@ -21,4 +21,6 @@ Other repositories with high quality tools:
  * [Biopython repo](https://github.com/biopython/galaxy_packages)
  * [Galaxy Proteomics repo](https://github.com/galaxyproteomics/tools-galaxyp)
  * [Colibread Galaxy Tools](https://github.com/genouest/tools-colibread)
+ * [Greg von Kuster's repo](https://github.com/gregvonkuster/galaxy-csg)
+ 
  
