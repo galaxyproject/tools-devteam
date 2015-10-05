@@ -354,7 +354,7 @@
         <param name="reference_allele_selector" type="boolean" truevalue="set" falsevalue="do_not_set" label="Use reference allele?" help="Sets --use-reference-allele and --reference-quality options  " />
         <when value="set">
           <param name="Z" type="boolean" truevalue="-Z" falsevalue="" checked="False" label="Include the reference allele in the analysis as if it is another sample from the same population" help="-Z --use-reference-allele; default=False" />
-          <param name="reference_quality" type="text" size="8" value="100,60" label="Assign mapping quality of MQ (100) to the reference allele at each site and base quality of BQ (60)" help="--reference-quality; default=100,60  " />
+          <param name="reference_quality" type="text" value="100,60" label="Assign mapping quality of MQ (100) to the reference allele at each site and base quality of BQ (60)" help="--reference-quality; default=100,60  " />
         </when>
         <when value="do_not_set">
            <!-- do nothing -->
@@ -457,7 +457,7 @@
         <param name="report_genotype_likelihood_max" type="boolean" truevalue="--report-genotype-likelihood-max" falsevalue="" checked="False" label="Report genotypes using the maximum-likelihood estimate provided from genotype likelihoods." help="--report-genotype-likelihood-max; default=False" />
         <param name="B" type="integer" value="1000" label="Iterate no more than N times during genotyping step" help="-B --genotyping-max-iterations; default=1000." />
         <param name="genotyping_max_banddepth" type="integer" value="6" label="Integrate no deeper than the Nth best genotype by likelihood when genotyping" help="--genotyping-max-banddepth; default=6" />
-        <param name="W" type="text" size="8" value="1,3" label="Integrate all genotype combinations in our posterior space which include no more than N (1) samples with their Mth (3) best data likelihood" help="-W --posterior-integration-limits; default=1,3" />
+        <param name="W" type="text" value="1,3" label="Integrate all genotype combinations in our posterior space which include no more than N (1) samples with their Mth (3) best data likelihood" help="-W --posterior-integration-limits; default=1,3" />
         <param name="N" type="boolean" truevalue="--exclude-unobserved-genotypes" falsevalue="" checked="False" label="Skip sample genotypings for which the sample has no supporting reads" help="-N --exclude-unobserved-genotypes; default=False" />
         <conditional name="genotype_variant_threshold">
           <param name="genotype_variant_threshold_selector" type="boolean" truevalue="set" falsevalue="do_not_set" label="Do you want to to limit posterior integration" help="-S --genotype-variant-threshold" />
