@@ -90,7 +90,7 @@ if ($ARGV[0] eq 'tab') {
    }
    close FH or die "Couldn't close $grpFile, $!\n";
    if ($file =~ /.gz$/) { 
-      open(FH, "zcat $file |") or die "Couldn't read $file, $!\n";
+      open(FH, "zcat < $file |") or die "Couldn't read $file, $!\n";
    }else {
       open(FH, $file) or die "Couldn't read $file, $!\n";
    }

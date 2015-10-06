@@ -1,39 +1,37 @@
 <tool id="cshl_fasta_nucleotides_changer" version="1.0.0" name="RNA/DNA" >
-	<description>converter</description>
+    <description>converter</description>
     <requirements>
         <requirement type="package" version="0.0.13">fastx_toolkit</requirement>
     </requirements>
-	<command>zcat -f '$input' | fasta_nucleotide_changer -$mode -v -o $output</command>
-	<inputs>
-		<param format="fasta" name="input" type="data" label="Library to convert" />
+    <command>
+<![CDATA[
+zcat -f < '$input' | fasta_nucleotide_changer -$mode -v -o '$output'
+]]>
+    </command>
+    <inputs>
+        <param format="fasta" name="input" type="data" label="Library to convert" />
 
-		<param name="mode" type="select" label="Convert">
-			<option value="d">RNA to DNA (U to T)</option>
-			<option value="r">DNA to RNA (T to U)</option>
-		</param>
-	</inputs>
-
-    <!-- 
-    Functional tests with param value starting with - fail.
-     -->
-	<tests>
-		<test>
-			<param name="input" value="fasta_nuc_changer1.fasta" /> 
-			<param name="mode" value="r" /> 
-			<param name="output" file="fasta_nuc_change1.out" />
-		</test>
-		<test>
-			<param name="input" value="fasta_nuc_changer2.fasta" /> 
-			<param name="mode" value="d" /> 
-			<param name="output" file="fasta_nuc_change2.out" />
-		</test>
-	</tests>
-  
-	<outputs>
-		<data format="input" name="output" metadata_source="input" />
-	</outputs>
-
-<help>
+        <param name="mode" type="select" label="Convert">
+            <option value="d">RNA to DNA (U to T)</option>
+            <option value="r">DNA to RNA (T to U)</option>
+        </param>
+    </inputs>
+    <outputs>
+        <data format_source="input" name="output" metadata_source="input" />
+    </outputs>
+    <tests>
+        <test>
+            <param name="input" value="fasta_nuc_changer1.fasta" />
+            <param name="mode" value="r" />
+            <output name="output" ftype="fasta" file="fasta_nuc_change1.out" />
+        </test>
+        <test>
+            <param name="input" value="fasta_nuc_changer2.fasta" />
+            <param name="mode" value="d" />
+            <output name="output" ftype="fasta" file="fasta_nuc_change2.out" />
+        </test>
+    </tests>
+    <help>
 **What it does**
 
 This tool converts RNA FASTA files to DNA (and vice-versa).
@@ -70,6 +68,5 @@ Output DNA FASTA file (with RNA-to-DNA mode)::
 This tool is based on `FASTX-toolkit`__ by Assaf Gordon.
 
  .. __: http://hannonlab.cshl.edu/fastx_toolkit/
- 
-</help>
+    </help>
 </tool>

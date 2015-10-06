@@ -1,41 +1,40 @@
 <tool id="cshl_fastx_reverse_complement" version="1.0.0" name="Reverse-Complement">
-	<description></description>
+    <description></description>
     <requirements>
         <requirement type="package" version="0.0.13">fastx_toolkit</requirement>
     </requirements>
-	<command>zcat -f '$input' | fastx_reverse_complement -v -o $output
+    <command>
+<![CDATA[
+zcat -f < '$input' | fastx_reverse_complement -v -o '$output'
 #if $input.ext == "fastqsanger":
--Q 33
+    -Q 33
 #end if
-	</command>
-	<inputs>
-		<param format="fasta,fastqsolexa,fastqsanger" name="input" type="data" label="Library to reverse-complement" />
-	</inputs>
-
-	<tests>
-		<test>
-			<!-- Reverse-complement a FASTA file -->
-			<param name="input" value="fastx_rev_comp1.fasta" /> 
-			<param name="output" file="fastx_reverse_complement1.out" />
-		</test>
-		<test>
-			<!-- Reverse-complement a FASTQ file -->
-			<param name="input" value="fastx_rev_comp2.fastq" ftype="fastqsolexa"/>
-			<param name="output" file="fastx_reverse_complement2.out" />
-		</test>
-	</tests>
-
-  
-	<outputs>
-		<data format="input" name="output" metadata_source="input" />
-	</outputs>
-
-<help>
+]]>
+    </command>
+    <inputs>
+        <param format="fasta,fastqsolexa,fastqsanger" name="input" type="data" label="Library to reverse-complement" />
+    </inputs>
+    <outputs>
+        <data format_source="input" name="output" metadata_source="input" />
+    </outputs>
+    <tests>
+        <test>
+            <!-- Reverse-complement a FASTA file -->
+            <param name="input" value="fastx_rev_comp1.fasta" />
+            <output name="output" ftype="fasta" file="fastx_reverse_complement1.out" />
+        </test>
+        <test>
+            <!-- Reverse-complement a FASTQ file -->
+            <param name="input" value="fastx_rev_comp2.fastq" ftype="fastqsolexa"/>
+            <output name="output" ftype="fastqsolexa" file="fastx_reverse_complement2.out" />
+        </test>
+    </tests>
+    <help>
 **What it does**
 
 This tool reverse-complements each sequence in a library.
 If the library is a FASTQ, the quality-scores are also reversed.
-  
+
 --------
 
 **Example**
@@ -60,6 +59,5 @@ Output FASTQ file::
 This tool is based on `FASTX-toolkit`__ by Assaf Gordon.
 
  .. __: http://hannonlab.cshl.edu/fastx_toolkit/
- 
-</help>
+    </help>
 </tool>
