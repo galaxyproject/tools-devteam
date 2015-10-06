@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<repositories description="Related data managers">
+    <repository name="data_manager_fetch_genome_dbkeys_all_fasta" owner="devteam" />
+</repositories>
