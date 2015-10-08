@@ -1,4 +1,4 @@
-<tool id="Kraken2Tax" name="Convert Kraken" version="1.0">
+<tool id="Kraken2Tax" name="Convert Kraken" version="1.1">
   <description>data to Galaxy taxonomy representation</description>
     <requirements>
         <requirement type="package" version="4.1.0">gnu_awk</requirement>
@@ -6,7 +6,7 @@
     </requirements>
   <command>
 <![CDATA[
-  awk '{ print \$${read_name}, \$${tax_id} }' OFS="\t" "${input}" | taxonomy-reader ${ncbi_taxonomy.fields.path}/names.dmp ${ncbi_taxonomy.fields.path}/nodes.dmp 1 > "${out_file}"
+  awk '{ print \$${read_name}, \$${tax_id} }' OFS="\t" "${input}" | taxonomy-reader "${ncbi_taxonomy.fields.path}/names.dmp" "${ncbi_taxonomy.fields.path}/nodes.dmp" 1 > "${out_file}"
 ]]>
   </command>
   <inputs>
