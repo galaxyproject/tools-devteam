@@ -56,10 +56,10 @@
         <expand macro="input_database" />
     </inputs>
     <outputs>
-        <data format="tabular" label="${tool.name} on ${on_string}: Classified reads" name="classified_out">
+        <data format_source="input_sequences" label="${tool.name} on ${on_string}: Classified reads" name="classified_out">
             <filter>(split_reads)</filter>
         </data>
-        <data format="tabular" label="${tool.name} on ${on_string}: Unclassified reads" name="unclassified_out">
+        <data format_source="input_sequences" label="${tool.name} on ${on_string}: Unclassified reads" name="unclassified_out">
             <filter>(split_reads)</filter>
         </data>
         <data format="tabular" label="${tool.name} on ${on_string}: Classification" name="output" />
