@@ -24,7 +24,9 @@
     #for $sequence in $adapters:
         ADAPTER_SEQUENCE="${sequence.adapter}"
     #end for
-    METRIC_ACCUMULATION_LEVEL="${metric_accumulation_level}"
+    #for $level in ${metric_accumulation_level}:
+        METRIC_ACCUMULATION_LEVEL="${level}"
+    #end for
     IS_BISULFITE_SEQUENCED="${bisulphite}"
     
     REFERENCE_SEQUENCE="${reference_fasta_filename}"
