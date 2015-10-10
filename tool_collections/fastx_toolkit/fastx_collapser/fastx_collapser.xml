@@ -1,31 +1,32 @@
 <tool id="cshl_fastx_collapser" version="1.0.0" name="Collapse">
-	<description>sequences</description>
+    <description>sequences</description>
     <requirements>
         <requirement type="package" version="0.0.13">fastx_toolkit</requirement>
     </requirements>
-	<command>zcat -f '$input' | fastx_collapser -v -o '$output' 
+    <command>
+<![CDATA[
+zcat -f < '$input' | fastx_collapser -v -o '$output'
 #if $input.ext == "fastqsanger":
--Q 33
+    -Q 33
 #end if
-	</command>
+]]>
+    </command>
 
-	<inputs>
-		<param format="fasta,fastqsanger,fastqsolexa" name="input" type="data" label="Library to collapse" />
-	</inputs>
-
-    <!-- The order of sequences in the test output differ between 32 bit and 64 bit machines. 
-	<tests>
-		<test>
-			<param name="input" value="fasta_collapser1.fasta" />
-			<param name="output" file="fasta_collapser1.out" />
-		</test>
-	</tests>
+    <inputs>
+        <param format="fasta,fastqsanger,fastqsolexa" name="input" type="data" label="Library to collapse" />
+    </inputs>
+    <outputs>
+        <data format="fasta" name="output" metadata_source="input" />
+    </outputs>
+    <!-- The order of sequences in the test output differ between 32 bit and 64 bit machines.
+    <tests>
+        <test>
+            <param name="input" value="fasta_collapser1.fasta" />
+            <param name="output" file="fasta_collapser1.out" />
+        </test>
+    </tests>
     -->
-	<outputs>
-		<data format="fasta" name="output" metadata_source="input" />
-	</outputs>
-  <help>
-
+    <help>
 **What it does**
 
 This tool collapses identical sequences in a FASTA file into a single sequence.
@@ -34,7 +35,7 @@ This tool collapses identical sequences in a FASTA file into a single sequence.
 
 **Example**
 
-Example Input File (Sequence "ATAT" appears multiple times):: 
+Example Input File (Sequence "ATAT" appears multiple times)::
 
     >CSHL_2_FC0042AGLLOO_1_1_605_414
     TGCG
@@ -65,10 +66,10 @@ Example Output file::
     TGAG
     >5-1
     TTCA
-    
+
 .. class:: infomark
 
-Original Sequence Names / Lane descriptions (e.g. "CSHL_2_FC0042AGLLOO_1_1_742_502") are discarded. 
+Original Sequence Names / Lane descriptions (e.g. "CSHL_2_FC0042AGLLOO_1_1_742_502") are discarded.
 
 The output sequence name is composed of two numbers: the first is the sequence's number, the second is the multiplicity value.
 
@@ -85,6 +86,5 @@ means that the sequence "ATAT" is the second sequence in the file, and it appear
 This tool is based on `FASTX-toolkit`__ by Assaf Gordon.
 
  .. __: http://hannonlab.cshl.edu/fastx_toolkit/
- 
-</help>
+    </help>
 </tool>

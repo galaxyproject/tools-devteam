@@ -62,7 +62,7 @@ BASEPATH="$OUTPUT_PATH/"
 PREFIX="$BASEPATH""${LIBNAME}__"
 SUFFIX=".txt"
 
-RESULTS=`zcat -f "$FASTQ_FILE" | fastx_barcode_splitter.pl --bcfile "$BARCODE_FILE" --prefix "$PREFIX" --suffix "$SUFFIX" "$@"`
+RESULTS=`zcat -f < "$FASTQ_FILE" | fastx_barcode_splitter.pl --bcfile "$BARCODE_FILE" --prefix "$PREFIX" --suffix "$SUFFIX" "$@"`
 if [ $? != 0 ]; then
 	echo "error"
 fi
