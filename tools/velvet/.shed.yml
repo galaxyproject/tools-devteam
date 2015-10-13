@@ -1,3 +1,4 @@
 # repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/velvet
 owner: devteam
 name: velvet
+description: de novo genomic assembler specially designed for short read sequencing technologies
