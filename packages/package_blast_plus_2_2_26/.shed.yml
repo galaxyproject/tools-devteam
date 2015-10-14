@@ -1,4 +1,14 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/package_blast_plus_2_2_26
-owner: devteam
+categories:
+- Tool Dependency Packages
+description: Contains a tool dependency definition that downloads and installs version
+  2.2.26+ of the NCBI BLAST+ package.
+long_description: |
+  This repository is intended to be defined as a complex repository
+  dependency within a separate repository.
+  http://wiki.galaxyproject.org/DefiningRepositoryDependencies#Complex_repository_dependencies:_tool_dependency_definitions_that_contain_repository_dependency_definitions
+  Program: BLAST+
+  Version: 2.2.26+
 name: package_blast_plus_2_2_26
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/packages/package_blast_plus_2_2_26
+type: tool_dependency_definition
