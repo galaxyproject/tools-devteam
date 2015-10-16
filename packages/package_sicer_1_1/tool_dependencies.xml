@@ -8,8 +8,8 @@
                     <source_directory>.</source_directory>
                     <destination_directory>$INSTALL_DIR</destination_directory>
                 </action>
-                <action type="shell_command">sed -i.bak 's#PATHTO=.\+#PATHTO=$INSTALL_DIR#' $INSTALL_DIR/SICER/*.sh</action>
-                <action type="shell_command">sed -i.bak 's#SICER=.\+#SICER=$INSTALL_DIR/SICER#' $INSTALL_DIR/SICER/*.sh</action>
+                <action type="shell_command">sed -i -e 's#PATHTO=.\+#PATHTO=$INSTALL_DIR#' $INSTALL_DIR/SICER/*.sh</action>
+                <action type="shell_command">sed -i -e 's#SICER=.\+#SICER=$INSTALL_DIR/SICER#' $INSTALL_DIR/SICER/*.sh</action>
                 <action type="chmod">
                     <file mode="755">$INSTALL_DIR/SICER/SICER.sh</file>
                 </action>
