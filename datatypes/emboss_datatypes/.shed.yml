@@ -2,7 +2,7 @@ categories:
 - Sequence Analysis
 description: Galaxy applicable data formats used by Emboss tools.
 long_description: |
-    Galaxy applicable data formats used by Emboss tools.  This repository
+    Galaxy applicable data formats used by Emboss tools. This repository
     contains no tools.
 name: emboss_datatypes
 owner: devteam

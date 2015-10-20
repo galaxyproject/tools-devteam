@@ -2,12 +2,6 @@ categories:
 - Tool Dependency Packages
 description: Contains a tool dependency definition that downloads and installs version
   0.1-4 of the kernlab R library.
-long_description: |
-  This repository is intended to be defined as a complex repository
-  dependency within a separate repository.
-  http://wiki.galaxyproject.org/DefiningRepositoryDependencies#Complex_repository_dependencies:_tool_dependency_definitions_that_contain_repository_dependency_definitions
-  Package: kernlab
-  Version: 0.1-4
 name: package_cran_kernlab_0_1_4
 owner: devteam
 remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/packages/package_cran_kernlab_0_1_4

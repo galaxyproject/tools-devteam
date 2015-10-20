@@ -3,11 +3,10 @@ categories:
 description: Contains a tool dependency definition that downloads and installs version
   2.2.26+ of the NCBI BLAST+ package.
 long_description: |
-  This repository is intended to be defined as a complex repository
-  dependency within a separate repository.
-  http://wiki.galaxyproject.org/DefiningRepositoryDependencies#Complex_repository_dependencies:_tool_dependency_definitions_that_contain_repository_dependency_definitions
-  Program: BLAST+
-  Version: 2.2.26+
+  This Tool Shed package is intended to be used as a dependency of the Galaxy wrappers
+  for NCBI BLAST+ and any other tools which call the BLAST+ binaries internally.
+  Development is hosted on GitHub https://github.com/peterjc/galaxy_blast/ which can
+  be used for reporting any issues.
 name: package_blast_plus_2_2_26
 owner: devteam
 remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/packages/package_blast_plus_2_2_26

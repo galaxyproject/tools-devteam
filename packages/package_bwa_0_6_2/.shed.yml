@@ -2,14 +2,7 @@ categories:
 - Sequence Analysis
 - Tool Dependency Packages
 description: Contains a tool dependency definition that downloads and compiles version
-  0.6.2 of the BWA package
-long_description: |
-  This repository is intended to be defined as a complex repository
-  dependency within a separate repository.
-  http://wiki.galaxyproject.org/DefiningRepositoryDependencies#Complex_repository_dependencies:_tool_dependency_definitions_that_contain_repository_dependency_definitions
-  Program: bwa (alignment via Burrows-Wheeler transformation)
-  Version: 0.6.2-r126
-  Contact: Heng Li <lh3@sanger.ac.uk>
+  0.6.2-r126 of the BWA package
 name: package_bwa_0_6_2
 owner: devteam
 remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/packages/package_bwa_0_6_2

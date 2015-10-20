@@ -1,4 +1,5 @@
-categories: []
+categories:
+- Tool Dependency Packages
 description: fastqc v 0.11.2
 name: package_fastqc_0_11_2
 owner: devteam

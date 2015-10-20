@@ -1,11 +1,7 @@
 categories:
 - Tool Dependency Packages
 description: Contains a tool dependency definition that downloads and compiles version
-  0.9.6 of FreeBayes.
-long_description: |
-  Program: freebayes (Bayesian haplotype-based polymorphism discovery
-  and genotyping.)
-  Version: 0.9.6 (9608597d12e127c847ae03aa03440ab63992fedf)
+  0.9.6 (9608597d12e127c847ae03aa03440ab63992fedf) of FreeBayes.
 name: package_freebayes_0_9_6_9608597d
 owner: devteam
 remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/packages/package_freebayes_0_9_6_9608597d

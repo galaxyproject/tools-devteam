@@ -1,7 +1,6 @@
 categories:
 - Tool Dependency Packages
 description: Compiles and installs Sergei Pond's GenBank taxonomy tools.
-homepage_url: ''
 long_description: |
   These are four simple utilities which perform certain manipulations and
   visualization tasks on GenBank taxonomic information.
