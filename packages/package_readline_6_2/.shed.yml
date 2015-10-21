@@ -1,4 +1,7 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/package_readline_6_2
-owner: devteam
+categories:
+- Tool Dependency Packages
+description: rl62
 name: package_readline_6_2
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/packages/package_readline_6_2
+type: tool_dependency_definition

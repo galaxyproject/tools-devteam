@@ -1,4 +1,13 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/package_libxslt_1_1_28
-owner: devteam
+categories:
+- Tool Dependency Packages
+description: Downloads and compiles the GNOME XSLT libraries.
+long_description: |
+  Libxslt is the XSLT C library developed for the GNOME project.
+  XSLT itself is a an XML language to define transformation for XML. Libxslt is based
+  on libxml2 the XML C library developed for the GNOME project. It also implements
+  most of the EXSLT set of processor-portable extensions functions and some of Saxon''s
+  evaluate and expressions extensions.
 name: package_libxslt_1_1_28
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/packages/package_libxslt_1_1_28
+type: tool_dependency_definition
