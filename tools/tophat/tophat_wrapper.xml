@@ -154,7 +154,6 @@
         <param format="fastqsanger" name="input1" type="data" label="RNA-Seq FASTQ file" help="Nucleotide-space: Must have Sanger-scaled quality values with ASCII offset 33" />
         <expand macro="refGenomeSourceConditional">
           <options from_data_table="tophat_indexes">
-            <filter type="sort_by" column="2"/>
             <validator type="no_options" message="No genomes are available for the selected input dataset"/>
           </options>
         </expand>

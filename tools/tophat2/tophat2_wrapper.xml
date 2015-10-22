@@ -150,7 +150,6 @@
         </conditional>
         <expand macro="refGenomeSourceConditional">
           <options from_data_table="tophat2_indexes">
-            <filter type="sort_by" column="2"/>
             <validator type="no_options" message="No genomes are available for the selected input dataset"/>
           </options>
         </expand>
