@@ -148,6 +148,9 @@
           --seed="${singlePaired.pParams.pSeed}"
         #end if
       #end if
+      #if $save_mapping_stats
+        --output_mapping_stats="$mapping_stats"
+      #end if
   </command>
   <inputs>
     <conditional name="refGenomeSource">
@@ -415,6 +418,7 @@
         </conditional> <!-- pParams -->
       </when> <!-- paired -->
     </conditional> <!-- singlePaired -->
+    <param name="save_mapping_stats" type="boolean" truevalue="True" falsevalue="False" checked="False" label="Save the bowtie mapping statistics to the history" />
     <param name="suppressHeader" type="boolean" truevalue="true" falsevalue="false" checked="False" label="Suppress the header in the output SAM file (--sam-nohead)" help="Bowtie produces SAM with several lines of header information by default" />
   </inputs>
   <outputs>
@@ -436,6 +440,9 @@
           </when>
         </conditional>
       </actions>
+    </data>
+    <data format="txt" name="mapping_stats" label="${tool.name} on ${on_string}: mapping stats">
+      <filter>save_mapping_stats is True</filter>
     </data>
     <data format="fastq" name="output_suppressed_reads_l" label="${tool.name} on ${on_string}: suppressed reads (L)">
       <filter>((
@@ -743,6 +750,37 @@
       <param name="pSettingsType" value="preSet" />
       <param name="suppressHeader" value="true" />
       <output name="output" ftype="sam" file="bowtie_out10.sam" sort="True" />
+    </test>
+    <test>
+      <!--
+      Bowtie command:
+      bowtie-build +offrate 5 +ftabchars 10 +little -f test-data/phiX.fasta phiX_base
+      bowtie -q -X 1000 +ff -p 4 -S +sam-nohead phiX_base -1 test-data/bowtie_in5.fastqsanger -2 test-data/bowtie_in6.fastqsanger > bowtie_out10_u.sam
+      sort bowtie_out10_u.sam > bowtie_out10.sam
+      -p is the number of threads. You need to replace the + with 2 dashes.
+      chrM_base is the index files' location/base name.
+      -->
+      <param name="genomeSource" value="history" />
+      <param name="ownFile" value="phiX.fasta" />
+      <param name="indexSettings" value="indexFull" />
+      <param name="autoB" value="auto" />
+      <param name="nodc" value="dc" />
+      <param name="noref" value="ref" />
+      <param name="offrate" value="5" />
+      <param name="ftab" value="10" />
+      <param name="ntoa" value="no" />
+      <param name="endian" value="little" />
+      <param name="seed" value="-1" />
+      <param name="sPaired" value="paired" />
+      <param name="pInput1" ftype="fastqsanger" value="bowtie_in5.fastqsanger" />
+      <param name="pInput2" ftype="fastqsanger" value="bowtie_in6.fastqsanger" />
+      <param name="pMaxInsert" value="1000" />
+      <param name="pMateOrient" value="ff" />
+      <param name="pSettingsType" value="preSet" />
+      <param name="suppressHeader" value="true" />
+      <param name="save_mapping_stats" value="true" />
+      <output name="output" ftype="sam" file="bowtie_out10.sam" sort="True" />
+      <output name="mapping_stats" ftype="txt" file="bowtie_out11.txt" sort="True" />
     </test>
   </tests>
 
