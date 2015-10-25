@@ -13,6 +13,7 @@
     <command><![CDATA[
         cuffdiff
             --no-update-check
+            --quiet
             --FDR=$fdr
             --num-threads="\${GALAXY_SLOTS:-4}"
             --min-alignment-count=$min_alignment_count
