@@ -72,4 +72,6 @@ Running this tool with **Strip fasta description from header** set to **True** a
 
 
     </help>
+    <citations>
+    </citations>
 </tool>
