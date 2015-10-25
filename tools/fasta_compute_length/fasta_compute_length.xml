@@ -1,4 +1,4 @@
-<tool id="fasta_compute_length" name="Compute sequence length" version="1.0.0">
+<tool id="fasta_compute_length" name="Compute sequence length" version="1.0.1">
     <description></description>
     <command interpreter="python">fasta_compute_length.py $input $output $keep_first $keep_first_word</command>
     <inputs>
