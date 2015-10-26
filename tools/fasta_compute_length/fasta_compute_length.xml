@@ -1,40 +1,40 @@
-<tool id="fasta_compute_length" name="Compute sequence length" version="1.0.0">
-	<description></description>
-	<command interpreter="python">fasta_compute_length.py $input $output $keep_first $keep_first_word</command>
-	<inputs>
-		<param name="input" type="data" format="fasta" label="Compute length for these sequences"/>
-		<param name="keep_first" type="integer" value="0" label="How many title characters to keep?" help="'0' = keep the whole thing"/>
+<tool id="fasta_compute_length" name="Compute sequence length" version="1.0.1">
+    <description></description>
+    <command interpreter="python">fasta_compute_length.py $input $output $keep_first $keep_first_word</command>
+    <inputs>
+        <param name="input" type="data" format="fasta" label="Compute length for these sequences"/>
+        <param name="keep_first" type="integer" value="0" label="How many title characters to keep?" help="'0' = keep the whole thing"/>
         <param name="keep_first_word" type="boolean" truevalue="id_only" falsevalue="id_and_desc"
             selected="false" label="Strip fasta description from header?"
             help="Stripping the description will truncate the fasta header to just the sequence ID. Otherwise the header description will be kept. This step is done before the 'How many characters to keep' option."/>
 
-	</inputs>
-	<outputs>
-		<data name="output" format="tabular"/>
-	</outputs>
-	<tests>
-		<test>
-			<param name="input" value="454.fasta" />
-			<param name="keep_first" value="0"/>
+    </inputs>
+    <outputs>
+        <data name="output" format="tabular"/>
+    </outputs>
+    <tests>
+        <test>
+            <param name="input" value="454.fasta" />
+            <param name="keep_first" value="0"/>
             <param name="keep_first_word" value="id_and_desc" />
-			<output name="output" file="fasta_tool_compute_length_1.out" />
-		</test>
+            <output name="output" file="fasta_tool_compute_length_1.out" />
+        </test>
 
-		<test>
-			<param name="input" value="extract_genomic_dna_out1.fasta" />
-			<param name="keep_first" value="0"/>
+        <test>
+            <param name="input" value="extract_genomic_dna_out1.fasta" />
+            <param name="keep_first" value="0"/>
             <param name="keep_first_word" value="id_and_desc" />
-			<output name="output" file="fasta_tool_compute_length_2.out" />
-		</test>
+            <output name="output" file="fasta_tool_compute_length_2.out" />
+        </test>
 
-		<test>
-			<param name="input" value="454.fasta" />
-			<param name="keep_first" value="14"/>
+        <test>
+            <param name="input" value="454.fasta" />
+            <param name="keep_first" value="14"/>
             <param name="keep_first_word" value="id_and_desc" />
-			<output name="output" file="fasta_tool_compute_length_3.out" />
-		</test>
-	</tests>
-	<help>
+            <output name="output" file="fasta_tool_compute_length_3.out" />
+        </test>
+    </tests>
+    <help>
 
 **What it does**
 
@@ -55,7 +55,7 @@ Suppose you have the following FASTA formatted sequences from a Roche (454) FLX 
 Running this tool while setting **How many characters to keep?** to **14** will produce this::
 
     EYKX4VC02EQLO5  108
-    EYKX4VC02D4GS2	 60
+    EYKX4VC02D4GS2   60
 
 However, if your IDs are not all the same length, you may wish to just keep the fasta ID, and not the description::
 
@@ -71,5 +71,8 @@ Running this tool with **Strip fasta description from header** set to **True** a
     EYKX4VC     60
 
 
-	</help>
+    </help>
+    <citations>
+        <citation type="doi">10.1093/bioinformatics/btq281</citation>
+    </citations>
 </tool>
