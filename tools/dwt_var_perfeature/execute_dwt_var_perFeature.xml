@@ -17,11 +17,11 @@
   </outputs>
   <tests>
     <test>
-	<param name="inputFile" value="discreteWavelet/dwt_var1/dwt_var_in.interval"/>
+	<param name="inputFile" value="dwt_var_in.interval"/>
 	<param name="feature" value="4"/>
 	<param name="alpha" value="0.05"/>
-	<output name="outputFile1" file="discreteWavelet/dwt_var1/dwt_var_out1.tabular" compare="re_match"/>
-	<output name="outputFile2" file="discreteWavelet/dwt_var1/dwt_var_out2.pdf" compare="sim_size"/>
+	<output name="outputFile1" file="dwt_var_out1.tabular" compare="re_match"/>
+	<output name="outputFile2" file="dwt_var_out2.pdf" compare="sim_size"/>
     </test>
   </tests>	    
   	
