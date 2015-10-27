@@ -1,4 +1,11 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/convert_solid_color2nuc
-owner: devteam
+categories: []
+description: Convert Color Space to Nucleotides
+long_description: 'The tool was designed for color space files generated from an ABI
+  SOLiD sequencer. The file format must be fasta-like: the title starts with a ">"
+  character, and each color space sequence starts with a leading nucleotide.
+
+  '
 name: convert_solid_color2nuc
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/convert_solid_color2nuc
+type: unrestricted

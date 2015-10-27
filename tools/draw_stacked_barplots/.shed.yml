@@ -1,4 +1,13 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/draw_stacked_barplots
-owner: devteam
+categories:
+- Graphics
+- Statistics
+description: Draw Stacked Bar Plots for different categories and different criteria
+long_description: |
+  This program draws, in a pdf file, a stacked bars plot for different
+  categories of data and for different criteria. For each criterion a stacked bar
+  is drawn, such that the height of each stacked sub-bar represents the number of
+  elements in each category satisfying that criterion.
 name: draw_stacked_barplots
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/draw_stacked_barplots
+type: unrestricted

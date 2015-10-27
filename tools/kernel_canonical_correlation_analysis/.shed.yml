@@ -1,4 +1,9 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/kernel_canonical_correlation_analysis
-owner: devteam
+categories: []
+description: Kernel Canonical Correlation Analysis
+long_description: |
+  This tool uses functions from ''kernlab'' library from R statistical
+  package to perform Kernel Canonical Correlation Analysis (kCCA) on the input data.
 name: kernel_canonical_correlation_analysis
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/kernel_canonical_correlation_analysis
+type: unrestricted

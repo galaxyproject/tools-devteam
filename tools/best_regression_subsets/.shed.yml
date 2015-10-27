@@ -1,4 +1,13 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/best_regression_subsets
-owner: devteam
+categories:
+- Sequence Analysis
+- Variant Analysis
+description: Perform Best-subsets Regression
+long_description: |
+  This tool uses the ''regsubsets'' function from R statistical package
+  for regression subset selection. It outputs two files, one containing a table with
+  the best subsets and the corresponding summary statistics, and the other containing
+  the graphical representation of the results.
 name: best_regression_subsets
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/best_regression_subsets
+type: unrestricted

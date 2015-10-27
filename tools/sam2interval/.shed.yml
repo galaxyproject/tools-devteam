@@ -1,4 +1,11 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/sam2interval
-owner: devteam
+categories:
+- SAM
+description: Convert SAM to interval.
+long_description: |
+  Converts positional information from a SAM dataset into interval
+  format with 0-based start and 1-based end. CIGAR string of SAM format is used to
+  compute the end coordinate.
 name: sam2interval
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/sam2interval
+type: unrestricted

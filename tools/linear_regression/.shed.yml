@@ -1,4 +1,13 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/linear_regression
-owner: devteam
+categories:
+- Sequence Analysis
+- Variant Analysis
+description: Perform Linear Regression
+long_description: |
+  This tool uses the ''lm'' function from R statistical package to
+  perform linear regression on the input data. It outputs two files, one containing
+  the summary statistics of the performed regression, and the other containing diagnostic
+  plots to check whether model assumptions are satisfied.
 name: linear_regression
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/linear_regression
+type: unrestricted

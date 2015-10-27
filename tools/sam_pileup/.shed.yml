@@ -1,4 +1,13 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/sam_pileup
-owner: devteam
+categories:
+- SAM
+description: Generate pileup from BAM dataset
+long_description: |
+  Uses SAMTools'' pileup command to produce a pileup dataset from
+  a provided BAM dataset. It generates two types of pileup datasets depending on the
+  specified options. If Call consensus according to MAQ model? option is set to No,
+  the tool produces simple pileup. If the option is set to Yes, a ten column pileup
+  dataset with consensus is generated.
 name: sam_pileup
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/sam_pileup
+type: unrestricted

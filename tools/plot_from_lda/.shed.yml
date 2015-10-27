@@ -1,4 +1,12 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/plot_from_lda
-owner: devteam
+categories:
+- Graphics
+- Statistics
+description: Draw ROC plot on "Perform LDA" output
+long_description: |
+  This tool generates a Receiver Operating Characteristic (ROC) plot
+  that shows LDA classification success rates for different values of the tuning parameter
+  tau as Figure 3 in Carrel et al., 2006 (PMID: 17009873).
 name: plot_from_lda
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/plot_from_lda
+type: unrestricted

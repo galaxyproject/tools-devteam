@@ -1,4 +1,9 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/show_beginning
-owner: devteam
+categories:
+- Text Manipulation
+description: Select lines from the beginning of a file.
+long_description: |
+  This tool outputs the specified number of lines from the beginning of the input dataset.
 name: show_beginning
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/show_beginning
+type: unrestricted

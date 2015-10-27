@@ -1,3 +1,12 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/cd_hit_dup
-owner: devteam
+categories:
+- Metagenomics
+- Sequence Analysis
+description: simple tool for removing duplicates from sequencing reads
+long_description: |
+  cd-hit-dup is a simple tool for removing duplicates from sequencing
+  reads, with optional step to detect and remove chimeric reads. A number of options
+  are provided to tune how the duplicates are removed.
 name: cd_hit_dup
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/cd_hit_dup
+type: unrestricted

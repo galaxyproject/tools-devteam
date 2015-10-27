@@ -1,4 +1,11 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/split_paired_reads
-owner: devteam
+categories:
+- Fasta Manipulation
+description: Split paired end reads
+long_description: |
+  Splits a single fastq dataset representing paired-end run into
+  two datasets (one for each end). This tool works only for datasets where both ends
+  have the same length.
 name: split_paired_reads
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/split_paired_reads
+type: unrestricted

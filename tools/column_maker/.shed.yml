@@ -1,4 +1,10 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/column_maker
-owner: devteam
+categories:
+- Text Manipulation
+description: Compute an expression on every row
+long_description: |
+  This tool computes an expression for every row of a dataset and
+  appends the result as a new column (field).
 name: column_maker
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/column_maker
+type: unrestricted

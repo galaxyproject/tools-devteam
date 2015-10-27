@@ -1,4 +1,10 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/t_test_two_samples
-owner: devteam
+categories:
+- Statistics
+description: T Test for Two Samples
+long_description: |
+  This program implements the non-pooled t-test for two samples where
+  the alternative hypothesis is two-sided or one-sided.
 name: t_test_two_samples
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/t_test_two_samples
+type: unrestricted

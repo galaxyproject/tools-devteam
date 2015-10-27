@@ -1,4 +1,10 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/dna_filtering
-owner: devteam
+categories:
+- Variant Analysis
+description: Filter on ambiguities in polymorphism datasets
+long_description: |
+  This tool is written for a very specific case related to an analysis
+  of polymorphism data. Suppose you have a table of SNP data that looks like this::
 name: dna_filtering
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/dna_filtering
+type: unrestricted

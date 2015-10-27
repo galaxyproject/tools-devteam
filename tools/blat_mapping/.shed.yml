@@ -1,4 +1,10 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/blat_mapping
-owner: devteam
+categories: []
+description: Coverage of the Reads in wiggle format
+long_description: |
+  This tool takes BLAT pslx output and returns a wig-like file showing
+  the number of reads (coverage) mapped at each chromosome location. Use Graph/Display
+  Data --> Build custom track tool to show the coverage mapping in UCSC Genome Browser.
 name: blat_mapping
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/blat_mapping
+type: unrestricted

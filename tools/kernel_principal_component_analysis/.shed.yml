@@ -1,4 +1,11 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/kernel_principal_component_analysis
-owner: devteam
+categories: []
+description: Kernel Principal Component Analysis
+long_description: |
+  This tool uses functions from ''kernlab'' library from R statistical
+  package to perform Kernel Principal Component Analysis (kPCA) on the input data.
+  It outputs two files, one containing the summary statistics of the performed kPCA,
+  and the other containing a scatterplot matrix of rotated values reported by kPCA.
 name: kernel_principal_component_analysis
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/kernel_principal_component_analysis
+type: unrestricted

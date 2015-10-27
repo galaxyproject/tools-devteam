@@ -1,4 +1,11 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/quality_filter
-owner: devteam
+categories:
+- Sequence Analysis
+- Variant Analysis
+description: Filter nucleotides based on quality scores
+long_description: |
+  This tool takes a MAF file as input and filters nucleotides in
+  every alignment block of the MAF file based on their quality/PHRED scores.
 name: quality_filter
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/quality_filter
+type: unrestricted

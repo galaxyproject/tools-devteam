@@ -1,4 +1,9 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/vcf2pgsnp
-owner: devteam
+categories:
+- Variant Analysis
+description: VCF to pgSnp
+long_description: |
+  Convert from VCF to pgSnp format
 name: vcf2pgsnp
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/vcf2pgsnp
+type: unrestricted

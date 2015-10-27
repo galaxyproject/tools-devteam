@@ -1,4 +1,9 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/blat_coverage_report
-owner: devteam
+categories: []
+description: Polymorphism of the Reads
+long_description: |
+  Calculate the percentage of reads supporting each nucleotide at
+  each location
 name: blat_coverage_report
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/blat_coverage_report
+type: unrestricted

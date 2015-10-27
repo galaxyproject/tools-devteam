@@ -1,4 +1,13 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/logistic_regression_vif
-owner: devteam
+categories:
+- Sequence Analysis
+- Variant Analysis
+description: Perform Logistic Regression with vif
+long_description: |
+  This tool uses the ''glm'' function from R statistical package
+  to perform logistic regression on the input data. It outputs one file containing
+  the summary statistics of the performed regression. Also, it calculates VIF(Variance
+  Inflation Factor) with ''vif'' function from library (car) in R.
 name: logistic_regression_vif
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/logistic_regression_vif
+type: unrestricted

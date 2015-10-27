@@ -1,4 +1,14 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/divide_pg_snp
-owner: devteam
+categories:
+- Sequence Analysis
+description: Separate pgSnp alleles into columns
+long_description: |
+  This separates the alleles from a pgSnp dataset into separate columns,
+  as well as the frequencies and scores that go with the alleles.  It will skip any
+  positions with more than 2 alleles.  If only a single allele is given then "N" will
+  be used for the second, with a frequency and score of zero.  Or, if a column with
+  reference alleles is provided, the value in that column will be used in place of
+  the "N" for single alleles.
 name: divide_pg_snp
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/divide_pg_snp
+type: unrestricted

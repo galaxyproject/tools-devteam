@@ -1,4 +1,10 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/pgsnp2gd_snp
-owner: devteam
+categories:
+- Variant Analysis
+description: Convert from pgSnp to gd_snp
+long_description: |
+  This tool converts a pgSnp dataset to gd_snp format, either starting
+  a new dataset or appending to an old one.
 name: pgsnp2gd_snp
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/pgsnp2gd_snp
+type: unrestricted

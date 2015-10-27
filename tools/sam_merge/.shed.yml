@@ -1,4 +1,10 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/sam_merge
-owner: devteam
+categories:
+- SAM
+description: Merge BAM Files
+long_description: |
+  This tool uses the Picard merge command to merge any number of
+  BAM files together into one BAM file while preserving the BAM metadata such as read groups
 name: sam_merge
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/sam_merge
+type: unrestricted
