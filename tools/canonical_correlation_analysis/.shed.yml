@@ -4,9 +4,7 @@ long_description: 'This tool uses functions from ''yacca'' library from R statis
   package to perform Canonical Correlation Analysis (CCA) on the input data. It outputs
   two files, one containing the summary statistics of the performed CCA, and the other
   containing helioplots, which display structural loadings of X and Y variables on
-  different canonical components.
-
-  '
+  different canonical components.'
 name: canonical_correlation_analysis
 owner: devteam
 remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/canonical_correlation_analysis

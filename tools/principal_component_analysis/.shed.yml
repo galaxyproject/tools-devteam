@@ -1,4 +1,5 @@
-categories: []
+categories:
+  - Statistics
 description: Principal Component Analysis
 long_description: |
   This tool performs Principal Component Analysis on the given numeric

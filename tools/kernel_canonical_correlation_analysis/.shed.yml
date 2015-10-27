@@ -1,4 +1,5 @@
-categories: []
+categories:
+  - Statistics
 description: Kernel Canonical Correlation Analysis
 long_description: |
   This tool uses functions from ''kernlab'' library from R statistical
