@@ -2,7 +2,7 @@ categories:
 - Fasta Manipulation
 description: Split paired end reads
 long_description: |
-  Splits a single fastq dataset representing paired-end run into
+  Splits a single fasta dataset representing paired-end run into
   two datasets (one for each end). This tool works only for datasets where both ends
   have the same length.
 name: split_paired_reads

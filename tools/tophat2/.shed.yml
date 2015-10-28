@@ -1,5 +1,6 @@
 categories:
 - RNA
+- Next Gen Mappers
 description: Tophat - fast splice junction mapper for RNA-Seq reads
 homepage_url: http://ccb.jhu.edu/software/tophat/index.shtml
 long_description: |

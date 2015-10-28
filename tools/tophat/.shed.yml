@@ -1,5 +1,6 @@
 categories:
 - RNA
+- Next Gen Mappers
 description: Tophat for Illumina
 long_description: |
   TopHat is a fast splice junction mapper for RNA-Seq reads. It aligns

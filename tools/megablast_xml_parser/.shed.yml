@@ -1,4 +1,6 @@
-categories: []
+categories:
+- Next Gen Mappers
+- Convert Formats
 description: Parse blast XML output
 long_description: |
   This tool processes the XML output of any NCBI blast tool (if you

@@ -1,6 +1,6 @@
 categories:
 - Sequence Analysis
-description: Generate A Matrix for using PC and LDA
+description: Generate a Matrix for using PC and LDA
 long_description: |
   This tool consists of a module to generate a matrix to be used
   for running the Linear Discriminant Analysis as described in Carrel et al., 2006

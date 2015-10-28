@@ -1,4 +1,6 @@
-categories: []
+categories:
+- Next Gen Mappers
+- Sequence Analysis
 description: Coverage of the Reads in wiggle format
 long_description: |
   This tool takes BLAT pslx output and returns a wig-like file showing

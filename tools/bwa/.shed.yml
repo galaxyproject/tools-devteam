@@ -1,6 +1,6 @@
 categories:
 - Next Gen Mappers
-description: Wrapper for bwa mem. aln, sampe, and samse
+description: 'Wrapper for bwa mem, aln, sampe, and samse'
 long_description: |
   A collection of Galaxy bwa wrappers based on version 0.7.10 (039ea206392ada2542bc41ff2581c53fa2fe2bf2).
 name: bwa

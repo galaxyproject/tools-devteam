@@ -1,6 +1,5 @@
 categories:
-- Sequence Analysis
-- Variant Analysis
+- Statistics
 description: Perform Linear Regression
 long_description: |
   This tool uses the ''lm'' function from R statistical package to

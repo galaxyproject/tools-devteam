@@ -1,6 +1,7 @@
 categories:
 - Sequence Analysis
 - Variant Analysis
+- Statistics
 description: Perform Logistic Regression with vif
 long_description: |
   This tool uses the ''glm'' function from R statistical package

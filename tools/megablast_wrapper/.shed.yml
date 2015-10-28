@@ -1,4 +1,6 @@
-categories: []
+categories:
+- Next Gen Mappers
+- Sequence Analysis
 description: 'Megablast compare short reads against htgs, nt, and wgs databases'
 long_description: |
   This tool runs megablast function of BLAST+ blastn tool - a high

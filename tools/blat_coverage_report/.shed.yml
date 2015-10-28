@@ -1,4 +1,6 @@
-categories: []
+categories:
+- Next Gen Mappers
+- Sequence Analysis
 description: Polymorphism of the Reads
 long_description: |
   Calculate the percentage of reads supporting each nucleotide at

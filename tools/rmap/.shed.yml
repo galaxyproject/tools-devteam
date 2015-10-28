@@ -1,4 +1,5 @@
-categories: []
+categories:
+- Next Gen Mappers
 description: RMAP for Solexa Short Reads Alignment
 long_description: |
   This tool runs rmap, mapping Solexa reads onto a genome build.

@@ -1,4 +1,5 @@
-categories: []
+categories:
+- Fastq Manipulation
 description: Select high quality segments
 long_description: |
   This tool finds high quality segments within sequencing reads generated
