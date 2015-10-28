@@ -1,4 +1,9 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/merge_cols
-owner: devteam
+categories:
+- Text Manipulation
+description: Merge columns together.
+long_description: |
+  This tool merges two or more columns from the input dataset into a single column.
 name: merge_cols
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/merge_cols
+type: unrestricted

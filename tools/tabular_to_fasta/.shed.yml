@@ -1,4 +1,9 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/tabular_to_fasta
-owner: devteam
+categories:
+- Convert Formats
+description: Tabular-to-FASTA
+long_description: |
+  Converts tab delimited data into FASTA formatted sequences.
 name: tabular_to_fasta
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/tabular_to_fasta
+type: unrestricted

@@ -1,4 +1,14 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/sicer
-owner: devteam
+categories:
+- ChIP-seq
+description: Statistical approach for the Identification of ChIP-Enriched Regions
+long_description: |
+  SICER first and foremost is a filtering tool. Its main functions are:
+
+  1. Delineation of the significantly ChIP-enriched regions, which can be used to
+  associate with other genomic landmarks.
+  2. Identification of reads on the ChIP-enriched regions, which can be used for profiling
+  and other quantitative analysis.
 name: sicer
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/sicer
+type: unrestricted

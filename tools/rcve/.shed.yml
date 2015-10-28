@@ -1,4 +1,14 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/rcve
-owner: devteam
+categories:
+- Sequence Analysis
+- Variant Analysis
+description: Compute RCVE
+long_description: |
+  This tool computes the RCVE (Relative Contribution to Variance)
+  for all possible variable subsets using the following formula:
+  RCVE(i) = [R-sq (full: 1,2,..,i..,p-1) - R-sq(without i: 1,2,...,p-1)] / R-sq (full:
+  1,2,..,i..,p-1),
+  which denotes the case where the ''i''th predictor is dropped.
 name: rcve
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/rcve
+type: unrestricted

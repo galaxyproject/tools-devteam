@@ -1,4 +1,11 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/compute_q_values
-owner: devteam
+categories:
+- Statistics
+description: Compute q-values based on multiple simultaneous tests p-values
+long_description: |
+  This program computes the q-values based on the p-values of multiple
+  simultaneous tests. The q-values are computed using a specific R package, created
+  by John Storey and Alan Dabney, called "qvalue". The program takes five inputs.
 name: compute_q_values
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/compute_q_values
+type: unrestricted

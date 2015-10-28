@@ -1,4 +1,11 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/megablast_xml_parser
-owner: devteam
+categories:
+- Next Gen Mappers
+- Convert Formats
+description: Parse blast XML output
+long_description: |
+  This tool processes the XML output of any NCBI blast tool (if you
+  run your own blast jobs, the XML output can be generated with -m 7 option).
 name: megablast_xml_parser
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/megablast_xml_parser
+type: unrestricted

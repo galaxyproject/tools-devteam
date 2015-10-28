@@ -1,4 +1,18 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/compute_motifs_frequency
-owner: devteam
+categories:
+- Sequence Analysis
+- Statistics
+description: Compute Motif Frequencies in indel flanking regions.
+long_description: |
+  This program computes the frequency of motifs in the flanking regions
+  of indels found in a chromosome or a genome. Each indel has an upstream flanking
+  sequence and a downstream flanking one. Each of the upstream and downstream flanking
+  sequences will be divided into a certain number of windows according to the window
+  size input by the user.  The frequency of a motif in a certain window in one of
+  the two flanking sequences is the total sum of occurrences of that motif in that
+  window of that flanking sequence over all indels. The indel flanking regions file
+  will be taken from your history or it will be uploaded, whereas the motifs file
+  should be uploaded.
 name: compute_motifs_frequency
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/compute_motifs_frequency
+type: unrestricted

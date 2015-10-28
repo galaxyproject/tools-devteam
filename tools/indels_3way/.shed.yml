@@ -1,4 +1,11 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/indels_3way
-owner: devteam
+categories:
+- Sequence Analysis
+description: Fetch Indels from 3-way alignments
+long_description: |
+  This tool consists of the first module from the computational pipeline
+  to identify indels as described in Kvikstad et al., 2007. Note that the generated
+  output does not include subsequent filtering steps.
 name: indels_3way
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/indels_3way
+type: unrestricted

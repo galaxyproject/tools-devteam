@@ -1,4 +1,10 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/change_case
-owner: devteam
+categories:
+- Text Manipulation
+description: Convert column case.
+long_description: |
+  This tool takes the specified columns and converts them to uppercase
+  or lowercase.
 name: change_case
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/change_case
+type: unrestricted

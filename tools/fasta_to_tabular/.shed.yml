@@ -1,4 +1,16 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/fasta_to_tabular
-owner: devteam
+categories:
+ - Fasta Manipulation
+description: FASTA-to-Tabular converter
+long_description: |
+  This tool converts FASTA formatted sequences to TAB-delimited format.
+  Many tools consider the first word of the FASTA ">" title line to be an identifier,
+  and any remaining text to be a free form description.
+  It is therefore useful to split this text into two columns in Galaxy (identifier
+  and any description) by setting How many columns to divide title string into? to
+  2.
+  In some cases the description can be usefully broken up into more columns -- see
+  the examples .
 name: fasta_to_tabular
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/fasta_to_tabular
+type: unrestricted

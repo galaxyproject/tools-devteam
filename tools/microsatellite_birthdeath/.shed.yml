@@ -1,4 +1,11 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/microsatellite_birthdeath
-owner: devteam
+categories:
+- Sequence Analysis
+description: Identify microsatellite births and deaths
+long_description: |
+  This tool uses raw orthologous microsatellite clusters (identified
+  by the tool "Extract orthologous microsatellites") to identify microsatellite births
+  and deaths along individual lineages of a phylogenetic tree.
 name: microsatellite_birthdeath
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/microsatellite_birthdeath
+type: unrestricted

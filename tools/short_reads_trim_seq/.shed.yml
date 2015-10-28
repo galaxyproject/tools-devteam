@@ -1,4 +1,10 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/short_reads_trim_seq
-owner: devteam
+categories:
+- Fastq Manipulation
+description: Select high quality segments
+long_description: |
+  This tool finds high quality segments within sequencing reads generated
+  by by Roche (454), Illumina (Solexa), or ABI SOLiD machines.
 name: short_reads_trim_seq
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/short_reads_trim_seq
+type: unrestricted

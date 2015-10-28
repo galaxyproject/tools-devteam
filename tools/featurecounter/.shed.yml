@@ -1,4 +1,12 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/featurecounter
-owner: devteam
+categories:
+- Sequence Analysis
+- Variant Analysis
+description: Feature coverage
+long_description: |
+  This tool finds the coverage of intervals in the first dataset
+  on intervals in the second dataset. The coverage and count are appended as 4 new
+  columns in the resulting dataset.
 name: featurecounter
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/featurecounter
+type: unrestricted

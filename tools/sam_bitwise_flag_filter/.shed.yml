@@ -1,4 +1,9 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/sam_bitwise_flag_filter
-owner: devteam
+categories:
+- SAM
+description: Filter SAM on bitwise flag values
+long_description: |
+  Allows parsing of SAM datasets using bitwise flag (the second column).
 name: sam_bitwise_flag_filter
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/sam_bitwise_flag_filter
+type: unrestricted
