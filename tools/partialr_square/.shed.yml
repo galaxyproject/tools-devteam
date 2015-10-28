@@ -1,6 +1,5 @@
 categories:
-- Sequence Analysis
-- Variant Analysis
+- Statistics
 description: Compute partial R square
 long_description: |
   This tool computes the Partial R squared for all possible variable
