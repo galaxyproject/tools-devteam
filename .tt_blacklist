@@ -100,7 +100,6 @@ tools/kernel_principal_component_analysis
 tools/multispecies_orthologous_microsats
 tools/vcf_extract
 tools/delete_overlapping_indels
-tools/freebayes
 tools/histogram
 tool_collections/galaxy_sequence_utils/fastq_groomer
 tool_collections/galaxy_sequence_utils/fastq_paired_end_deinterlacer
