@@ -1,4 +1,6 @@
-categories: []
+categories:
+  - Convert Formats
+  - Fastq Manipulation
 description: 'FASTQSOLEXA-to-FASTA-QUAL extracts sequences and quality scores from FASTQSOLEXA data'
 long_description: |
   This tool extracts sequences and quality scores from FASTQ data
