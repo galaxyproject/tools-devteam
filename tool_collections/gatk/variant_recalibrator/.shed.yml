@@ -1,4 +1,11 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/variant_recalibrator
-owner: devteam
+homepage_url: https://www.broadinstitute.org/gatk/
+categories:
+- Sequence Analysis
+description: Variant Recalibrator
+long_description: |
+  Takes variant calls as .vcf files, learns a Gaussian mixture model
+  over the variant annotations and evaluates the variant -- assigning an informative lod score
 name: variant_recalibrator
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/gatk/variant_recalibrator
+type: unrestricted

@@ -1,4 +1,10 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/fastq_filter
-owner: devteam
+homepage_url: https://github.com/galaxyproject/sequence_utils
+categories:
+- Fastq Manipulation
+description: Filter FASTQ reads by quality score and length
+long_description: |
+  This tool allows you to build complex filters to be applied to each read in a FASTQ file.
 name: fastq_filter
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/galaxy_sequence_utils/fastq_filter
+type: unrestricted

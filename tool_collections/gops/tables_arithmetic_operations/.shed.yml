@@ -1,4 +1,18 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/tables_arithmetic_operations
-owner: devteam
+categories:
+- Genomic Interval Operations
+description: Arithmetic Operations on tables
+long_description: |
+  This program implements arithmetic operations on tabular files
+  data. The program takes three inputs:
+
+  - The first input is a TABULAR format file containing numbers only.
+  - The second input is a TABULAR format file containing numbers only.
+  - The third input is an arithmetic operation: +, -, x, or / for addition, subtraction,
+  multiplication, or division, respectively.
+  - The output file is a TABULAR format file containing the result of implementing
+  the arithmetic operation on both input files.
 name: tables_arithmetic_operations
-    
+owner: devteam
+homepage_url: https://github.com/galaxyproject/gops
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/gops/tables_arithmetic_operations
+type: unrestricted

@@ -1,4 +1,12 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/lca_wrapper
-owner: devteam
+categories:
+- Metagenomics
+description: Find lowest diagnostic rank
+long_description: |
+  This tool identifies the lowest taxonomic rank for which a mategenomic
+  sequencing read is diagnostic. It takes datasets produced by *Fetch Taxonomic Ranks*
+  tool (aka Taxonomy format) as the input.
 name: lca_wrapper
-    
+owner: devteam
+homepage_url: https://bitbucket.org/natefoo/taxonomy
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/taxonomy/lca_wrapper
+type: unrestricted

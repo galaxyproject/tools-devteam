@@ -1,3 +1,11 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/bamtools_split
-owner: devteam
+categories:
+- Sequence Analysis
+description: Tool for splitting bamfiles
+long_description: |
+  Utility for splitting BAM files. It is based on BAMtools suite
+  of tools by Derek Barnett.
+homepage_url: https://github.com/pezmaster31/bamtools
 name: bamtools_split
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/bamtools/bamtools_split
+type: unrestricted

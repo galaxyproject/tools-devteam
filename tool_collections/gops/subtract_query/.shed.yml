@@ -1,4 +1,24 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/subtract_query
-owner: devteam
+categories:
+- Genomic Interval Operations
+description: Subtract Whole Dataset from another dataset
+long_description: |
+  This tool subtracts an entire dataset from another dataset.
+
+  - Any text format is valid.
+  - If both dataset formats are tabular, you may restrict the subtraction to specific
+  columns contained in both datasets and the resulting dataset will include only the
+  columns specified.
+  - The begin column must be less than or equal to the end column.  If it is not,
+  begin column is switched with end column.
+  - If begin column is specified but end column is not, end column will default to
+  begin_column (and vice versa).
+  - All blank and comment lines are skipped and not included in the resulting dataset
+  (comment lines are lines beginning with a # character).
+  - Duplicate lines are eliminated from both dataset prior to subtraction.  If any
+  duplicate lines were eliminated from the first dataset, the number is displayed
+  in the resulting history item.
 name: subtract_query
-    
+owner: devteam
+homepage_url: https://github.com/galaxyproject/gops
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/gops/subtract_query
+type: unrestricted

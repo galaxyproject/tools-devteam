@@ -1,4 +1,11 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/t2t_report
-owner: devteam
+categories:
+- Metagenomics
+description: Summarize taxonomy
+long_description: |
+  Given taxonomy representation (produced by *Taxonomy manipulation->Fetch
+  Taxonomic Ranks* tool) this utility computes a summary of all taxonomic ranks.
 name: t2t_report
-    
+owner: devteam
+homepage_url: https://bitbucket.org/natefoo/taxonomy
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/taxonomy/t2t_report
+type: unrestricted

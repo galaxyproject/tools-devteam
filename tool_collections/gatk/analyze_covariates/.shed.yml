@@ -1,4 +1,13 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/analyze_covariates
-owner: devteam
+homepage_url: https://www.broadinstitute.org/gatk/
+categories:
+- Sequence Analysis
+- Visualization
+- Graphics
+description: Analyze Covariates - draw plots
+long_description: |
+  Create collapsed versions of the recal csv file and call R scripts
+  to plot residual error versus the various covariates.
 name: analyze_covariates
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/gatk/analyze_covariates
+type: unrestricted

@@ -1,4 +1,10 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/fastx_renamer
-owner: devteam
+categories:
+- Fasta Manipulation
+description: Rename sequences
+long_description: |
+  This tool renames the sequence identifiers in a FASTQ/A file.
 name: fastx_renamer
-    
+owner: devteam
+homepage_url: http://hannonlab.cshl.edu/fastx_toolkit/
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/fastx_toolkit/fastx_renamer
+type: unrestricted

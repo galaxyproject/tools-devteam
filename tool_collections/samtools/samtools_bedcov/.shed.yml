@@ -1,4 +1,10 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/samtools_bedcov
-owner: devteam
+categories:
+- SAM
+description: Calculate read depth on BAM files
+long_description: |
+  This tool uses the SAMtools toolkit to produce read depth per BED region.
 name: samtools_bedcov
-    
+owner: devteam
+homepage_url: http://www.htslib.org/
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/samtools/samtools_bedcov
+type: unrestricted

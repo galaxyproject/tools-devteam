@@ -1,4 +1,11 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/variant_annotator
-owner: devteam
+homepage_url: https://www.broadinstitute.org/gatk/
+categories:
+- Sequence Analysis
+description: Variant Annotator
+long_description: |
+  Annotates variant calls with context information.  Users can specify
+  which of the available annotations to use.
 name: variant_annotator
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/gatk/variant_annotator
+type: unrestricted

@@ -1,4 +1,18 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/table_recalibration
-owner: devteam
+homepage_url: https://www.broadinstitute.org/gatk/
+categories:
+- Sequence Analysis
+description: Table Recalibration on BAM files
+long_description: |
+  This walker is designed to work as the second pass in a two-pass
+  processing step, doing a by-read traversal.  For each base in each read this walker
+  calculates various user-specified covariates (such as read group, reported quality
+  score, cycle, and dinuc) Using these values as a key in a large hashmap the walker
+  calculates an empirical base quality score and overwrites the quality score currently
+  in the read. This walker then outputs a new bam file with these updated (recalibrated)
+  reads.  Note: This walker expects as input the recalibration table file generated
+  previously by CovariateCounterWalker. Note: This walker is designed to be used in
+  conjunction with CovariateCounterWalker.
 name: table_recalibration
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/gatk/table_recalibration
+type: unrestricted

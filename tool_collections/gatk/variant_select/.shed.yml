@@ -1,4 +1,21 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/variant_select
-owner: devteam
+homepage_url: https://www.broadinstitute.org/gatk/
+categories:
+- Sequence Analysis
+description: Select Variants from VCF files
+long_description: |
+  Often, a VCF containing many samples and/or variants will need
+  to be subset in order to facilitate certain analyses (e.g. comparing and contrasting
+  cases vs. controls; extracting variant or non-variant loci that meet certain requirements,
+  displaying just a few samples in a browser like IGV, etc.). SelectVariants can be
+  used for this purpose. Given a single VCF file, one or more samples can be extracted
+  from the file (based on a complete sample name or a pattern match). Variants can
+  be further selected by specifying criteria for inclusion, i.e. "DP &gt; 1000" (depth
+  of coverage greater than 1000x), "AF &lt; 0.25" (sites with allele frequency less
+  than 0.25). These JEXL expressions are documented in the Using JEXL expressions
+  section (http://www.broadinstitute.org/gsa/wiki/index.php/Using_JEXL_expressions).
+  One can optionally include concordance or discordance tracks for use in selecting
+  overlapping variants.
 name: variant_select
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/gatk/variant_select
+type: unrestricted

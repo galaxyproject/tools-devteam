@@ -1,4 +1,11 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/variant_eval
-owner: devteam
+homepage_url: https://www.broadinstitute.org/gatk/
+categories:
+- Sequence Analysis
+description: Eval Variants
+long_description: |
+  General-purpose tool for variant evaluation (% in dbSNP, genotype
+  concordance, Ti/Tv ratios, and a lot more)
 name: variant_eval
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/gatk/variant_eval
+type: unrestricted

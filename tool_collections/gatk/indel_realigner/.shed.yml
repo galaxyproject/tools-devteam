@@ -1,4 +1,13 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/indel_realigner
-owner: devteam
+homepage_url: https://www.broadinstitute.org/gatk/
+categories:
+- Sequence Analysis
+description: Indel Realigner - perform local realignment
+long_description: |
+  Performs local realignment of reads based on misalignments due
+  to the presence of indels. Unlike most mappers, this walker uses the full alignment
+  context to determine whether an appropriate alternate reference (i.e. indel) exists
+  and updates SAMRecords accordingly.
 name: indel_realigner
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/gatk/indel_realigner
+type: unrestricted

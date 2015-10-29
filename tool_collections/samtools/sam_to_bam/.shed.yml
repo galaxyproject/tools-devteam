@@ -1,4 +1,10 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/sam_to_bam
-owner: devteam
+categories:
+- SAM
+description: Convert SAM format to BAM format.
+long_description: |
+  This tool uses the SAMtools toolkit to produce an indexed BAM file based on a sorted input SAM file.
 name: sam_to_bam
-    
+owner: devteam
+homepage_url: http://www.htslib.org/
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/samtools/sam_to_bam
+type: unrestricted

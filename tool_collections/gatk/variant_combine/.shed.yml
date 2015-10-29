@@ -1,4 +1,14 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/variant_combine
-owner: devteam
+homepage_url: https://www.broadinstitute.org/gatk/
+categories:
+- Sequence Analysis
+description: Combine Variants
+long_description: |
+  Combines VCF records from different sources; supports both full
+  merges and set unions. Merge: combines multiple records into a single one; if sample
+  names overlap then they are uniquified. Union: assumes each rod represents the same
+  set of samples (although this is not enforced); using the priority list (if provided),
+  emits a single record instance at every position represented in the rods.
 name: variant_combine
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/gatk/variant_combine
+type: unrestricted

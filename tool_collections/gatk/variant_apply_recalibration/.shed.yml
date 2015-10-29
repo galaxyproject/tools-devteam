@@ -1,4 +1,11 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/variant_apply_recalibration
-owner: devteam
+homepage_url: https://www.broadinstitute.org/gatk/
+categories:
+- Sequence Analysis
+description: Apply Variant Recalibration
+long_description: |
+  Applies cuts to the input vcf file (by adding filter lines) to
+  achieve the desired novel FDR levels which were specified during VariantRecalibration
 name: variant_apply_recalibration
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/gatk/variant_apply_recalibration
+type: unrestricted

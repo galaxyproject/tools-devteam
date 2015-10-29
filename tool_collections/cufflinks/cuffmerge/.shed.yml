@@ -1,4 +1,8 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/cuffmerge
-owner: devteam
+categories:
+- Transcriptomics
+description: Galaxy wrappers for the Cuffmerge tool.
+homepage_url: http://cole-trapnell-lab.github.io/cufflinks/
 name: cuffmerge
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/cufflinks/cuffmerge
+type: unrestricted
