@@ -1,6 +1,6 @@
 homepage_url: https://www.broadinstitute.org/gatk/
 categories:
-- Sequence Analysis
+- Variant Analysis
 description: Eval Variants
 long_description: |
   General-purpose tool for variant evaluation (% in dbSNP, genotype

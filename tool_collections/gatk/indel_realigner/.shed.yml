@@ -1,6 +1,6 @@
 homepage_url: https://www.broadinstitute.org/gatk/
 categories:
-- Sequence Analysis
+- Variant Analysis
 description: Indel Realigner - perform local realignment
 long_description: |
   Performs local realignment of reads based on misalignments due

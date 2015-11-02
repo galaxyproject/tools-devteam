@@ -3,7 +3,7 @@ categories:
 - Statistics
 description: Compute quality statistics
 long_description: |
-  Creates quality statistics report for the given Solexa/FASTQ library.
+  Creates quality statistics report for the given FASTQ library.
 name: fastx_quality_statistics
 owner: devteam
 homepage_url: http://hannonlab.cshl.edu/fastx_toolkit/

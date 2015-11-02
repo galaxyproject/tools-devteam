@@ -1,6 +1,6 @@
 homepage_url: https://www.broadinstitute.org/gatk/
 categories:
-- Sequence Analysis
+- Variant Analysis
 description: Apply Variant Recalibration
 long_description: |
   Applies cuts to the input vcf file (by adding filter lines) to

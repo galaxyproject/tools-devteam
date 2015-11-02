@@ -1,8 +1,9 @@
 categories:
 - Fasta Manipulation
+- Convert Formats
 description: FASTQ to FASTA converter
 long_description: |
-  This tool converts data from Solexa format to FASTA format.
+  This tool converts data from FASTQ format to FASTA format.
 homepage_url: http://hannonlab.cshl.edu/fastx_toolkit/
 name: fastq_to_fasta
 owner: devteam

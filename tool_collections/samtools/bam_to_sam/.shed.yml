@@ -1,5 +1,6 @@
 categories:
 - SAM
+- Convert Formats
 description: Converts BAM format to SAM format.
 long_description: |
   This tool uses the SAMtools toolkit to produce a SAM file from a BAM file.

@@ -1,6 +1,6 @@
 homepage_url: https://www.broadinstitute.org/gatk/
 categories:
-- Sequence Analysis
+- Variant Analysis
 description: Variant Filtration on VCF files
 long_description: |
   Filters variant calls using a number of user-selectable, parameterizable criteria.

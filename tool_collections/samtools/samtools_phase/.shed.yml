@@ -1,5 +1,6 @@
 categories:
 - SAM
+- Variant Analysis
 description: Call and phase heterozygous SNPs
 name: samtools_phase
 owner: devteam

@@ -1,6 +1,7 @@
 categories:
 - Sequence Analysis
 - Variant Analysis
+- Convert Formats
 description: Converts VCF files into tab-delimited format
 homepage_url: https://github.com/ekg/vcflib
 long_description: |

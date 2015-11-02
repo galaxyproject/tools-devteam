@@ -1,6 +1,6 @@
 homepage_url: https://www.broadinstitute.org/gatk/
 categories:
-- Sequence Analysis
+- Variant Analysis
 description: Print Reads from BAM files
 long_description: |
   PrintReads can dynamically merge the contents of multiple input

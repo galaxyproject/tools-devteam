@@ -1,6 +1,6 @@
 homepage_url: https://www.broadinstitute.org/gatk/
 categories:
-- Sequence Analysis
+- Variant Analysis
 description: Variant Recalibrator
 long_description: |
   Takes variant calls as .vcf files, learns a Gaussian mixture model

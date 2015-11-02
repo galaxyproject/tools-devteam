@@ -1,6 +1,6 @@
 homepage_url: https://www.broadinstitute.org/gatk/
 categories:
-- Sequence Analysis
+- Variant Analysis
 description: Combine Variants
 long_description: |
   Combines VCF records from different sources; supports both full

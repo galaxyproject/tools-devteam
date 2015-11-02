@@ -1,6 +1,6 @@
 homepage_url: https://www.broadinstitute.org/gatk/
 categories:
-- Sequence Analysis
+- Variant Analysis
 description: Unified Genotyper SNP and indel caller
 long_description: |
   A variant caller which unifies the approaches of several disparate
