@@ -1,6 +1,7 @@
 categories:
 - Sequence Analysis
-description: A tool for filtering on bamfiles
+- SAM
+description: A tool for filtering on BAM files
 long_description: |
   Utility for filtering BAM files. It is based on BAMtools suite
   of tools by Derek Barnett.

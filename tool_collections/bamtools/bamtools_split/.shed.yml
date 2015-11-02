@@ -1,6 +1,7 @@
 categories:
 - Sequence Analysis
-description: Tool for splitting bamfiles
+- SAM
+description: Tool for splitting BAM files
 long_description: |
   Utility for splitting BAM files. It is based on BAMtools suite
   of tools by Derek Barnett.

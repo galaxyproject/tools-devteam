@@ -1,6 +1,7 @@
 categories:
 - Sequence Analysis
-description: A collection of tools for manipulation of bamfiles
+- SAM
+description: A collection of tools for manipulation of BAM files
 long_description: |
   BAMTools is a collection of utilities for splitting BAM files.
   It is based on BAMtools suite of tools by Derek Barnett.
