@@ -1,5 +1,4 @@
 categories:
-- Sequence Analysis
 - Variant Analysis
 description: Calculate distance to the nearest variant.
 homepage_url: https://github.com/ekg/vcflib

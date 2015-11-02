@@ -1,5 +1,6 @@
 categories:
 - Fasta Manipulation
+- Fastq Manipulation
 description: Rename sequences
 long_description: |
   This tool renames the sequence identifiers in a FASTQ/A file.

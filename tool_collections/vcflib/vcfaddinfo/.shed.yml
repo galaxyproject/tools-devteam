@@ -1,5 +1,4 @@
 categories:
-- Sequence Analysis
 - Variant Analysis
 description: Adds info fields from the second dataset which are not present in the
   first dataset.

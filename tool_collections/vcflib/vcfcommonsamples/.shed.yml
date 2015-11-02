@@ -1,5 +1,4 @@
 categories:
-- Sequence Analysis
 - Variant Analysis
 description: Output records belonging to samples commong between two datasets.
 homepage_url: https://github.com/ekg/vcflib

@@ -1,5 +1,6 @@
 categories:
 - Fasta Manipulation
+- Fastq Manipulation
 description: Barcode Splitter
 long_description: |
   This tool splits a FASTQ file or a regular FASTA file into several files, using barcodes as the split criteria.

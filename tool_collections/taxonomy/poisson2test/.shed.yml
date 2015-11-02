@@ -1,5 +1,6 @@
 categories:
 - Statistics
+- Metagenomics
 description: Poisson two-sample test
 long_description: |
   Suppose you have metagenomic samples from two different locations

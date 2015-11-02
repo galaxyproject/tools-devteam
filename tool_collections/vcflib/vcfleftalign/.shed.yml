@@ -1,5 +1,4 @@
 categories:
-- Sequence Analysis
 - Variant Analysis
 description: Left-align indels and complex variants in VCF dataset
 homepage_url: https://github.com/ekg/vcflib

@@ -1,5 +1,4 @@
 categories:
-- Fastq Manipulation
 - SAM
 description: Sort alignments by leftmost coordinates or read name.
 long_description: |

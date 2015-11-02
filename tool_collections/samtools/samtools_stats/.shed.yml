@@ -1,5 +1,6 @@
 categories:
 - SAM
+- Statistics
 description: Generate statistics for a BAM or SAM file
 long_description: |
   This tool runs the samtools stats command in the SAMtools toolkit,

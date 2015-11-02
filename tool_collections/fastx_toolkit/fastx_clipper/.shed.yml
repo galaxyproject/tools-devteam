@@ -1,5 +1,6 @@
 categories:
 - Fasta Manipulation
+- Fastq Manipulation
 description: Clip adapter sequences
 long_description: |
   This tool clips adapters from the 3''-end of the sequences in a FASTA/FASTQ file.

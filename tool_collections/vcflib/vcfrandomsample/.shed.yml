@@ -1,5 +1,4 @@
 categories:
-- Sequence Analysis
 - Variant Analysis
 description: Randomly sample sites from VCF dataset
 homepage_url: https://github.com/ekg/vcflib

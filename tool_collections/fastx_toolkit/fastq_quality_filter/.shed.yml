@@ -1,5 +1,5 @@
 categories:
-- Fasta Manipulation
+- Fastq Manipulation
 description: Filter by quality
 long_description: |
   This tool filters reads based on quality scores.

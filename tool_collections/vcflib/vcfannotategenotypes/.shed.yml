@@ -1,5 +1,4 @@
 categories:
-- Sequence Analysis
 - Variant Analysis
 description: 'Annotate genotypes in a VCF dataset using genotypes from another VCF dataset.'
 homepage_url: https://github.com/ekg/vcflib

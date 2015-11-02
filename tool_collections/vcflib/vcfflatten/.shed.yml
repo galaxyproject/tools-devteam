@@ -1,5 +1,4 @@
 categories:
-- Sequence Analysis
 - Variant Analysis
 description: Removes multi-allelic sites by picking the most common alternate
 homepage_url: https://github.com/ekg/vcflib

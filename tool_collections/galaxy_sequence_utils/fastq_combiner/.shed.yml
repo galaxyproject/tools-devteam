@@ -1,5 +1,6 @@
 categories:
 - Fastq Manipulation
+- Fasta Manipulation
 description: Combine FASTA and QUAL into FASTQ.
 long_description: |
   This tool joins a FASTA file to a Quality Score file, creating

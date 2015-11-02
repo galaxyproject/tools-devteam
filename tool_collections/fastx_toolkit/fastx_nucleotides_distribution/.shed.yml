@@ -1,9 +1,9 @@
 categories:
-- Fasta Manipulation
+- Fastq Manipulation
 - Graphics
 description: Draw nucleotides distribution chart
 long_description: |
-  Creates a stacked-histogram graph for the nucleotide distribution in the Solexa library.
+  Creates a stacked-histogram graph for the nucleotide distribution in the FASTQ library.
 name: fastx_nucleotides_distribution
 owner: devteam
 homepage_url: http://hannonlab.cshl.edu/fastx_toolkit/

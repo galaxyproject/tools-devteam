@@ -1,5 +1,4 @@
 categories:
-- Sequence Analysis
 - Variant Analysis
 - Convert Formats
 description: Converts VCF files into tab-delimited format

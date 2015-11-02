@@ -1,5 +1,5 @@
 categories:
-- Fasta Manipulation
+- Fastq Manipulation
 description: Quality format converter (ASCII-Numeric)
 long_description: |
   Converts a Solexa FASTQ file to/from numeric or ASCII quality format.

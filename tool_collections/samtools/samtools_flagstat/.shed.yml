@@ -1,5 +1,6 @@
 categories:
 - SAM
+- Statistics
 description: Provides simple stats on BAM files.
 long_description: |
   This tool uses the SAMtools toolkit to produce simple stats on a BAM file.

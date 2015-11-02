@@ -1,5 +1,6 @@
 categories:
 - SAM
+- Statistics
 description: BAM mapping statistics (using samtools idxstats)
 long_description: |
   Runs "samtools idxstats" to get mapping statistics from a sorted

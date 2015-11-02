@@ -1,5 +1,6 @@
 categories:
 - Fasta Manipulation
+- Fastq Manipulation
 description: Remove sequencing artifacts
 homepage_url: http://hannonlab.cshl.edu/fastx_toolkit/
 long_description: |
