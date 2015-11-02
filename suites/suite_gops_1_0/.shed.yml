@@ -1,4 +1,7 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/suite_gops_1_0
-owner: devteam
+categories:
+- Genomic Interval Operations
+description: Installs full gops tool suite.
 name: suite_gops_1_0
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/suites/suite_gops_1_0
+type: repository_suite_definition
