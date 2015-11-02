@@ -1,4 +1,12 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/tabular_to_fastq
-owner: devteam
+homepage_url: https://github.com/galaxyproject/sequence_utils
+categories:
+- Fastq Manipulation
+description: Tabular to FASTQ converter
+long_description: |
+  This tool attempts to convert a tabular file containing sequencing
+  read data to a FASTQ formatted file. The FASTQ Groomer tool should always be used
+  on the output of this tool.
 name: tabular_to_fastq
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/galaxy_sequence_utils/tabular_to_fastq
+type: unrestricted

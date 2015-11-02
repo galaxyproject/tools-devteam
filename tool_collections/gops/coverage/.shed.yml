@@ -1,4 +1,12 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/coverage
-owner: devteam
+categories:
+- Genomic Interval Operations
+description: Coverage of a set of intervals on second set of intervals
+long_description: |
+  Find the coverage of intervals in the first dataset on intervals
+  in the second dataset.  The coverage is added as two columns, the first being bases
+  covered, and the second being the fraction of bases covered by that interval.
 name: coverage
-    
+owner: devteam
+homepage_url: https://github.com/galaxyproject/gops
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/gops/coverage
+type: unrestricted

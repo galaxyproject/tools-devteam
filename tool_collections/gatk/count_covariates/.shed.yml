@@ -1,4 +1,14 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/count_covariates
-owner: devteam
+homepage_url: https://www.broadinstitute.org/gatk/
+categories:
+- Variant Analysis
+description: Count Covariates on BAM files
+long_description: |
+  This calculation is critically dependent on being able to skip
+  over known variant sites. Please provide a dbSNP ROD or a VCF file containing known
+  sites of genetic variation.
+  However, if you do not provide this file, the ''--run_without_dbsnp_potentially_ruining_quality''
+  flag will be automatically used, and the command will be allowed to run.
 name: count_covariates
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/gatk/count_covariates
+type: unrestricted

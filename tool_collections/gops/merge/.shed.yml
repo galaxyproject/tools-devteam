@@ -1,4 +1,8 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/merge
-owner: devteam
+categories:
+- Genomic Interval Operations
+description: Merge the overlapping intervals of a dataset
 name: merge
-    
+owner: devteam
+homepage_url: https://github.com/galaxyproject/gops
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/gops/merge
+type: unrestricted

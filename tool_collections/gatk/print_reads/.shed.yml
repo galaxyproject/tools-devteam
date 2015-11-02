@@ -1,4 +1,11 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/print_reads
-owner: devteam
+homepage_url: https://www.broadinstitute.org/gatk/
+categories:
+- Variant Analysis
+description: Print Reads from BAM files
+long_description: |
+  PrintReads can dynamically merge the contents of multiple input
+  BAM files, resulting in merged output sorted in coordinate order.
 name: print_reads
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/gatk/print_reads
+type: unrestricted

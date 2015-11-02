@@ -1,4 +1,11 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/fastq_combiner
-owner: devteam
+categories:
+- Fastq Manipulation
+description: Combine FASTA and QUAL into FASTQ.
+long_description: |
+  This tool joins a FASTA file to a Quality Score file, creating
+  a single FASTQ block for each read.
 name: fastq_combiner
-    
+owner: devteam
+homepage_url: https://github.com/galaxyproject/sequence_utils
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/galaxy_sequence_utils/fastq_combiner
+type: unrestricted

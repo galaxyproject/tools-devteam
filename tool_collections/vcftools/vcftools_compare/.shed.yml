@@ -1,4 +1,8 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/vcftools_compare
-owner: devteam
+categories:
+- Variant Analysis
+description: Compare VCF files to get overlap and uniqueness statistics
 name: vcftools_compare
-    
+owner: devteam
+homepage_url: https://vcftools.github.io/
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/vcftools/vcftools_compare
+type: unrestricted

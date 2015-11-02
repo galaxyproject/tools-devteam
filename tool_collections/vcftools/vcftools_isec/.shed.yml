@@ -1,4 +1,8 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/vcftools_isec
-owner: devteam
+categories:
+- Variant Analysis
+description: Intersect multiple VCF datasets
 name: vcftools_isec
-    
+owner: devteam
+homepage_url: https://vcftools.github.io/
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/vcftools/vcftools_isec
+type: unrestricted

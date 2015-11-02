@@ -1,4 +1,12 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/gi2taxonomy
-owner: devteam
+categories:
+- Metagenomics
+description: Fetch taxonomic representation
+long_description: |
+  Use Filter and Sort->Filter to restrict output of this tool to
+  desired taxonomic ranks. You can also use Text Manipulation->Cut to remove unwanted
+  columns from the output.
 name: gi2taxonomy
-    
+owner: devteam
+homepage_url: https://bitbucket.org/natefoo/taxonomy
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/taxonomy/gi2taxonomy
+type: unrestricted
