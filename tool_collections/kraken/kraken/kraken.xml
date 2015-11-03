@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<tool id="kraken" name="Kraken" version="1.1.0">
+<tool id="kraken" name="Kraken" version="1.1.1">
     <description>
         assign taxonomic labels to sequencing reads
     </description>
@@ -11,12 +11,6 @@
         @SET_DATABASE_PATH@ &&
         kraken --threads \${GALAXY_SLOTS:-1} @INPUT_DATABASE@ 
         
-        #if $input_sequences.is_of_type( 'fastq' ):
-            --fastq-input
-        #else:
-            --fasta-input
-        #end if
-
         ${only_classified_output}
 
         #if str( $quick_operation.quick ) == "yes":
@@ -25,7 +19,22 @@
 
         #end if
 
-        "$input_sequences"
+        #if $single_paired.single_paired_selector == "yes":
+            #if $forward_input.is_of_type( 'fastq' ):
+                --fastq-input
+            #else:
+                --fasta-input
+            #end if
+            "$forward_input" "$reverse_input"
+            ${single_paired.check_names}
+        #else:
+            #if $input_sequences.is_of_type( 'fastq' ):
+                --fastq-input
+            #else:
+                --fasta-input
+            #end if
+            "$input_sequences"
+        #end if
 
         #if $split_reads:
             --classified-out "${classified_out}" --unclassified-out "${unclassified_out}"
@@ -35,7 +44,21 @@
         ]]>
     </command>
     <inputs>
-        <param format="fasta,fastq" label="Input sequences" name="input_sequences" type="data" help="FASTA or FASTQ datasets"/>
+        <conditional name="single_paired">
+            <param name="single_paired_selector" type="select" label="Reads are paired-end" help="--paired">
+                <option value="yes">Yes</option>
+                <option selected="True" value="no">No</option>
+            </param>
+            <when value="yes">
+                <param format="fasta,fastq" label="Forward strand" name="forward_input" type="data" help="FASTA or FASTQ dataset"/>
+                <param format="fasta,fastq" label="Reverse strand" name="reverse_input" type="data" help="FASTA or FASTQ dataset"/>
+                <param name="check_names" type="boolean" checked="False" truevalue="--paired --check-names" falsevalue="--paired" label="Verify read names match" help="--check-names" />
+            </when>
+            <when value="no">
+                <param format="fasta,fastq" label="Input sequences" name="input_sequences" type="data" help="FASTA or FASTQ datasets"/>
+            </when>
+
+        </conditional>
         <param label="Output classified and unclassified reads?" name="split_reads" type="boolean" help="Sets --unclassified-out and --classified-out"/>
   
         <conditional name="quick_operation">
