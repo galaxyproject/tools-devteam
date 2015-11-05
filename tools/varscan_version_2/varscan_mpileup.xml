@@ -5,15 +5,17 @@
         <requirement type="package" version="2.3.6">varscan</requirement>
     </requirements>
 
-    <!-- 
-    The version command string is not yet a template that can be filled in, so version command is not yet possible.
+    <stdio>
+        <regex match="Exception" source="both" level="fatal" description="Tool exception"/>
+        <regex match=".*" source="both" level="log" description="tool progress"/>
+    </stdio>
+
     <version_command>java -jar ${GALAXY_DATA_INDEX_DIR}/shared/jars/varscan/VarScan.jar 2>&amp;1 | head -n 1</version_command>
-    -->
 
     <command>
         ## Set up samples list file.
         #if $sample_names.strip() != '':
-	       echo $sample_names | awk -F ',' '{ for (i = 1; i &lt;= NF; i++) { print \$i; } }' > samples_list.txt;
+           echo $sample_names | awk -F ',' '{ for (i = 1; i &lt;= NF; i++) { print \$i; } }' > samples_list.txt;
         #end if
 
         ## Set up command + input.
@@ -62,11 +64,6 @@
         </param>
         <param name="sample_names" type="text" value="" help="Separate sample names by comma; leave blank to use default sample names."/>
     </inputs>
-
-    <stdio>
-        <regex match="Exception" source="both" level="fatal" description="Tool exception"/>
-        <regex match=".*" source="both" level="log" description="tool progress"/>
-    </stdio>
 
     <outputs>
         <data name="output" format="vcf"/>
@@ -152,4 +149,8 @@ VarScan produces a VCF 4.1 dataset as output.
     Report only variant (SNP/indel) positions [0]
 
     </help>
+
+    <citations>
+        <citation type="doi">10.1101/gr.129684.111</citation>
+    </citations>
 </tool>
