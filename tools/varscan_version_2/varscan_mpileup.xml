@@ -93,10 +93,8 @@
 
 VarScan_ performs variant detection for massively parallel sequencing data, such as exome, WGS, and transcriptome data. It calls variants from a mpileup dataset and produces a VCF 4.1 Full documentation is available online_.
 
-Please cite: Koboldt, D., Zhang, Q., Larson, D., Shen, D., McLellan, M., Lin, L., Miller, C., Mardis, E., Ding, L., and Wilson, R. (2012). VarScan 2: Somatic mutation and copy number alteration discovery in cancer by exome sequencing Genome Research DOI: 10.1101/gr.129684.111 
-
-.. _VarScan: http://varscan.sourceforge.net/
-.. _online: http://varscan.sourceforge.net/using-varscan.html
+.. _VarScan: http://dkoboldt.github.io/varscan/
+.. _online: http://dkoboldt.github.io/varscan/using-varscan.html
 
 **Input**
 
@@ -147,7 +145,6 @@ VarScan produces a VCF 4.1 dataset as output.
   
   variants
     Report only variant (SNP/indel) positions [0]
-
     </help>
 
     <citations>
