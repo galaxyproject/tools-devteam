@@ -1,4 +1,4 @@
-<tool id="bamFilter" name="Filter" version="0.0.1">
+<tool id="bamFilter" name="Filter" version="0.0.2">
   <description>BAM datasets on a variety of attributes</description>
   <requirements>
     <requirement type="package" version="2.3.0_2d7685d2ae">bamtools</requirement>
@@ -7,23 +7,21 @@
     cat $script_file > $out_file2;
 
     #for $bam_count, $input_bam in enumerate( $input_bams ):
-        ln -s "${input_bam.input_bam}" "localbam_${bam_count}.bam" &amp;&amp;
-        ln -s "${input_bam.input_bam.metadata.bam_index}" "localbam_${bam_count}.bam.bai" &amp;&amp;
+      ln -s "${input_bam}" "localbam_${bam_count}.bam" &amp;&amp;
+      ln -s "${input_bam.metadata.bam_index}" "localbam_${bam_count}.bam.bai" &amp;&amp;
     #end for
-    
+
     bamtools
     filter
     -script $script_file
-    
+
     #for $bam_count, $input_bam in enumerate( $input_bams ):
         -in "localbam_${bam_count}.bam"
     #end for
     -out $out_file1
   </command>
   <inputs>
-    <repeat name="input_bams" title="BAM dataset(s) to filter" min="1">
-          <param name="input_bam" type="data" format="bam" label="BAM dataset" />
-    </repeat>
+    <param name="input_bams" type="data" format="bam" label="BAM dataset(s) to filter" min="1" multiple="True"/>
     <repeat name="conditions" title="Condition" min="1">
       <repeat name="filters" title="Filter" min="1">
         <conditional name="bam_property">
@@ -182,14 +180,14 @@
       #for $i, $c in enumerate( $conditions, start=1 )
           { "id": "$i",
           #for $j, $s in enumerate( $c.filters, start=1 )
-          ##The if below takes care of the comma at the end of last condition within group       
+          ##The if below takes care of the comma at the end of last condition within group
             #if $j != len( $c.filters)
             "${s.bam_property.bam_property_selector}":"${s.bam_property.bam_property_value}",
             #else
             "${s.bam_property.bam_property_selector}":"${s.bam_property.bam_property_value}"
             #end if
           #end for
-          ##The if below takes care of the comma at the end of last condition within group 
+          ##The if below takes care of the comma at the end of last condition within group
           #if $i != len( $conditions )
           },
           #else
@@ -214,10 +212,10 @@
   </outputs>
     <tests>
         <test>
-            <param name="input_bam" ftype="bam" value="bamtools-input1.bam"/>
+            <param name="input_bams" ftype="bam" value="bamtools-input1.bam"/>
             <param name="bam_property_selector" value="mapQuality"/>
             <param name="bam_property_value" value=">20"/>
-            <output name="out_file1" file="bamtools-test1.bam" ftype="bam"/>        
+            <output name="out_file1" file="bamtools-test1.bam" ftype="bam"/>
         </test>
     </tests>
 <help>
@@ -264,8 +262,8 @@ In other words only reads that (1) have mapping quality of at least 20 **AND** (
 
 **Example 3. Complex filtering with multiple conditions**
 
-Suppose now you would like to select **either** reads that (**1**) have (*1.1*) no mismatches and (*1.2*) are on the forward strand **OR** (**2**) reads that have (*2.1*) 
-at least one mismatch and (*2.2*) are on the reverse strand. In this scenario we have to set up two conditions: (**1**) and (**2**) each with two filters: *1.1* and *1.2* as well as *2.1* and *2.2*. 
+Suppose now you would like to select **either** reads that (**1**) have (*1.1*) no mismatches and (*1.2*) are on the forward strand **OR** (**2**) reads that have (*2.1*)
+at least one mismatch and (*2.2*) are on the reverse strand. In this scenario we have to set up two conditions: (**1**) and (**2**) each with two filters: *1.1* and *1.2* as well as *2.1* and *2.2*.
 The following screenshot expalins how this can be done:
 
 .. image:: complex-filters.png
@@ -279,7 +277,7 @@ For example, suppose get all reads that (**1**) do NOT map to mitochondria and e
 filtering will look like this::
 
  !(1) &amp; (2 | 3)
- 
+
 Here, numbers 1, 2, and 3 represent conditions. The following screenshot illustrates how to do this in Galaxy:
 
 .. image:: rule.png

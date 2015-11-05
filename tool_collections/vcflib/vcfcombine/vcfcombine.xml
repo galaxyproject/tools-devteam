@@ -1,4 +1,4 @@
-<tool id="vcfcombine" name="VCFcombine:" version="0.0.3">
+<tool id="vcfcombine" name="VCFcombine:" version="0.0.4">
   <description>Combine multiple VCF datasets</description>
   <macros>
     <import>macros.xml</import>
@@ -8,25 +8,23 @@
   <command>
 
    vcfcombine
-   
+
    #for $input_vcf in $input_vcfs:
-        "${input_vcf.input_vcf}"
+        "${input_vcf}"
    #end for
 
    > "${out_file1}"
 
   </command>
   <inputs>
-    <repeat name="input_vcfs" title="Select VCF dataset" min="2" >
-      <param name="input_vcf" type="data" format="vcf" label="Dataset"/>
-    </repeat>
+    <param name="input_vcfs" type="data" format="vcf" label="Select VCF Datasets" min="2" multiple="True"/>
   </inputs>
   <outputs>
     <data format="vcf" name="out_file1" />
   </outputs>
   <tests>
     <test>
-      <param name="input_vcf" value="vcflib.vcf"/>
+      <param name="input_vcfs" value="vcflib.vcf"/>
       <output name="out_file1" file="vcfcombine-test1.vcf"/>
     </test>
     </tests>
