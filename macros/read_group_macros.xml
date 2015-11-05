@@ -121,7 +121,7 @@
         #set $rg_pg = ''
     #end if
 
-    #if str($rg_param("PI"))
+    #if $rg_param("PI") != None
         #set $rg_pi = str($rg_param("PI"))
     #else
         #set $rg_pi = ''
