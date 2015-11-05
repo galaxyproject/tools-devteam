@@ -59,7 +59,7 @@
                 <option selected="True" value="no">No</option>
             </param>
             <when value="collection">
-                <param format="fasta,fastq" label="Collection of paired reads" name="input_pair" type="data_collection1" collection_type="paired" help="FASTA or FASTQ datasets" />
+                <param format="fasta,fastq" label="Collection of paired reads" name="input_pair" type="data_collection" collection_type="paired" help="FASTA or FASTQ datasets" />
                 <param name="check_names" type="boolean" checked="False" truevalue="--paired --check-names" falsevalue="--paired" label="Verify read names match" help="--check-names" />
             </when>
             <when value="yes">
