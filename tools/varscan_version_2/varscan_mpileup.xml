@@ -10,7 +10,7 @@
         <regex match=".*" source="both" level="log" description="tool progress"/>
     </stdio>
 
-    <version_command>java -jar \$JAVA_JAR_PATH/VarScan.v2.3.6.jar 2>&amp;1 | head -n 1</version_command>
+    <version_command>java -jar $JAVA_JAR_PATH/VarScan.v2.3.6.jar 2>&amp;1 | head -n 1</version_command>
 
     <command>
         ## Set up samples list file.
