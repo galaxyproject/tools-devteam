@@ -1,5 +1,6 @@
 categories:
 - Fasta Manipulation
+- Fastq Manipulation
 description: Trim sequences
 long_description: |
   This tool trims (cut bases from) sequences in a FASTA/Q file.

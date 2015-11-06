@@ -1,5 +1,4 @@
 categories:
-- Sequence Analysis
 - Variant Analysis
 description: Sort VCF dataset by coordinate
 long_description: |

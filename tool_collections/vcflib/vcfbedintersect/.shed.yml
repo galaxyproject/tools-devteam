@@ -1,5 +1,4 @@
 categories:
-- Sequence Analysis
 - Variant Analysis
 description: Intersect VCF and BED datasets
 homepage_url: https://github.com/ekg/vcflib

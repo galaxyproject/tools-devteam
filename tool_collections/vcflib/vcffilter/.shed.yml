@@ -1,5 +1,4 @@
 categories:
-- Sequence Analysis
 - Variant Analysis
 description: Tool for filtering VCF files
 homepage_url: https://github.com/ekg/vcflib

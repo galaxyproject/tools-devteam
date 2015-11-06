@@ -1,4 +1,5 @@
 categories:
+- Fastq Manipulation
 - Fasta Manipulation
 description: Reverse-Complement
 long_description: |

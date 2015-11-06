@@ -1,6 +1,6 @@
 categories:
 - Metagenomics
-description: Contains galaxy tool wrapper for kraken-report.
+description: Kraken report.
 homepage_url: http://ccb.jhu.edu/software/kraken/
 long_description: |
   Kraken is a system for assigning taxonomic labels to short DNA

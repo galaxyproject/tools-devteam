@@ -1,5 +1,4 @@
 categories:
-- Sequence Analysis
 - Variant Analysis
 description: Convert genotype-based phased alleles into haplotype alleles
 homepage_url: https://github.com/ekg/vcflib

@@ -1,5 +1,6 @@
 categories:
 - Variant Analysis
+- Statistics
 description: snpFreq significant SNPs in case-control data
 long_description: |
   This tool performs a basic analysis of bi-allelic SNPs in case-control

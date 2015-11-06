@@ -1,5 +1,4 @@
 categories:
-- Sequence Analysis
 - Variant Analysis
 description: 'Count the allele frequencies across alleles present in each record in the VCF file.'
 homepage_url: https://github.com/ekg/vcflib

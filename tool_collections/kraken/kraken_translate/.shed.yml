@@ -1,7 +1,7 @@
 homepage_url: http://ccb.jhu.edu/software/kraken/
 categories:
 - Metagenomics
-description: Contains a galaxy tool wrapper for the kraken-translate command.
+description: Kraken translate command.
 long_description: |
   Kraken is a system for assigning taxonomic labels to short DNA
   sequences, usually obtained through metagenomic studies. Previous attempts by other

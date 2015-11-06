@@ -1,4 +1,11 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/all_vcftools
-owner: devteam
+categories:
+- Variant Analysis
+description: A metapackage that will install all vcftools wrappers and dependencies.
+long_description: |
+  Metapackage that will install vcftools_annotate, vcftools_compare,
+  vcftools_isec, vcftools_merge, vcftools_slice, and vcftools_subset
 name: all_vcftools
-    
+owner: devteam
+homepage_url: https://vcftools.github.io/
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/suites/all_vcftools
+type: repository_suite_definition

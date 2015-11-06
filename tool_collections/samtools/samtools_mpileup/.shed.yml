@@ -1,5 +1,6 @@
 categories:
 - SAM
+- Variant Analysis
 description: MPileup SNP and indel caller
 long_description: |
   Generate BCF or pileup for one or multiple BAM files. Alignment
