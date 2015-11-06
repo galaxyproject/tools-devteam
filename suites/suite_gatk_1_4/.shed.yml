@@ -1,5 +1,5 @@
 categories:
-- Sequence Analysis
+- Variant Analysis
 description: A suite of Galaxy utilities associated with version 1.4 of the GATK package.
 long_description: |
   The Genome Analysis Toolkit or GATK is a software package developed
