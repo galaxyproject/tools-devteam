@@ -98,6 +98,10 @@
 
 cd-hit-dup is a simple tool for removing duplicates from sequencing reads, with optional step to detect and remove chimeric reads. 
 
+.. class:: infomark
+
+**TIP:** Chimeric filtering is only available on single-ended, or joined paired-end, reads.
+
 **Options**
 
 cd-hit-dup provides a number of options to tune how the duplicates are removed::
@@ -112,7 +116,6 @@ cd-hit-dup provides a number of options to tune how the duplicates are removed::
  -a     Abundance cutoff (default 1 without chimeric filtering, 2 with chimeric filtering)
  -b     Abundance ratio between a parent read and a chimeric read (default 1)
  -p     Dissimilarity control for chimeric filtering (default 1)
-
 
         ]]>
     </help>
