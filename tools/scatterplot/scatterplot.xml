@@ -1,6 +1,7 @@
-<tool id="scatterplot_rpy" name="Scatterplot" version="1.0.0">
+<tool id="scatterplot_rpy" name="Scatterplot" version="1.0.1">
   <description>of two numeric columns</description>
   <requirements>
+    <requirement type="package" version="1.9">numpy</requirement>
     <requirement type="package" version="1.0.3">rpy</requirement>
   </requirements>
   <command interpreter="python">scatterplot.py $input $out_file1 $col1 $col2 "$title" "$xlab" "$ylab"</command>
@@ -30,7 +31,6 @@
   </tests>
   -->
   <help>
-
 .. class:: infomark
 
 **TIP:** If your data is not TAB delimited, use *Text Manipulation-&gt;Convert*
@@ -66,6 +66,5 @@ This tool creates a simple scatter plot between two variables containing numeric
 - Create a simple scatterplot between the variables in column 2 and column 3 of the above dataset.
 
 .. image:: scatterplot.png
-
 </help>
 </tool>
