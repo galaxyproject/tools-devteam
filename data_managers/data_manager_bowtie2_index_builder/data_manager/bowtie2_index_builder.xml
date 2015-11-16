@@ -1,4 +1,4 @@
-<tool id="bowtie2_index_builder_data_manager" name="Bowtie2 index" tool_type="manage_data" version="0.0.2">
+<tool id="bowtie2_index_builder_data_manager" name="Bowtie2 index" tool_type="manage_data" version="2.2.6">
     <description>builder</description>
     <requirements>
         <requirement type="package" version="2.2.6">bowtie2</requirement>
