@@ -3,7 +3,9 @@
   <macros>
     <import>macros.xml</import>
   </macros>
-  <expand macro="requirements"></expand>
+  <requirements>
+    <requirement type="package" version="0.1.19">samtools</requirement>
+  </requirements>
   <expand macro="stdio"></expand>
   <expand macro="version_command"></expand>
   <command>samtools rmdup 
