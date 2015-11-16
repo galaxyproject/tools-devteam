@@ -1,13 +1,12 @@
-<tool id="bowtie2" name="Bowtie2" version="0.6">
-    <!-- Wrapper compatible with Bowtie version 2.2.4 -->
+<tool id="bowtie2" name="Bowtie2" version="2.2.6">
     <description>- map reads against reference genome</description>
     <macros>
         <import>read_group_macros.xml</import>
     </macros>
     <version_command>bowtie2 --version</version_command>
     <requirements>
-        <requirement type="package" version="2.2.4">bowtie2</requirement>
-        <requirement type="package" version="0.1.18">samtools</requirement>
+        <requirement type="package" version="2.2.6">bowtie2</requirement>
+        <requirement type="package" version="1.2">samtools</requirement>
     </requirements>
     <command>
 
