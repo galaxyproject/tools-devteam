@@ -15,8 +15,10 @@ Wrapping tools for use in Galaxy is easy! If you want to start, please see [our 
 Other repositories with high quality tools:
  * [IUC repo](https://github.com/galaxyproject/tools-iuc)
  * [Björn Grüning's repo](https://github.com/bgruening/galaxytools)
- * [Peter Cock's blast repo](https://github.com/peterjc/galaxy_blast)
- * [Peter Cock's pico_galaxy repo](https://github.com/peterjc/pico_galaxy)
+ * Peter Cock's repos:
+   * [blast repo](https://github.com/peterjc/galaxy_blast)
+   * [pico repo](https://github.com/peterjc/pico_galaxy)
+   * [mira repo](https://github.com/peterjc/galaxy_mira)
  * [ENCODE tools](https://github.com/modENCODE-DCC/Galaxy)
  * [Biopython repo](https://github.com/biopython/galaxy_packages)
  * [Galaxy Proteomics repo](https://github.com/galaxyproteomics/tools-galaxyp)
