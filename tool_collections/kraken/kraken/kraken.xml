@@ -55,8 +55,8 @@
         <conditional name="single_paired">
             <param name="single_paired_selector" type="select" label="Single or paired reads" help="--paired">
                 <option value="collection">Collection</option>
-                <option value="yes">Yes</option>
-                <option selected="True" value="no">No</option>
+                <option value="yes">Paired</option>
+                <option selected="True" value="no">Single</option>
             </param>
             <when value="collection">
                 <param format="fasta,fastq" label="Collection of paired reads" name="input_pair" type="data_collection" collection_type="paired" help="FASTA or FASTQ datasets" />
