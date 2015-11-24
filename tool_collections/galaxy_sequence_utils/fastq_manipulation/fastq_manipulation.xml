@@ -1,4 +1,4 @@
-<tool id="fastq_manipulation" name="Manipulate FASTQ" version="1.0.1">
+<tool id="fastq_manipulation" name="Manipulate FASTQ" version="1.0.2">
   <options sanitize="False" /> <!-- This tool uses a file to rely all parameter information (actually a dynamically generated python module), we can safely not sanitize any parameters -->
   <requirements>
     <requirement type="package" version="1.0.0">galaxy_sequence_utils</requirement>
@@ -101,8 +101,7 @@
                       <validator type="in_range" message="Base Offsets must be positive" min="0" max="inf"/>
                       <validator type="expression" message="An integer is required.">int( float( value ) ) == float( value )</validator>
                     </param>
-                    <param name="right_column_offset" label="Offset from 3' end" value="0" type="integer" help="Values start at 0, increasing from the right">
-                      <validator type="in_range" message="Base Offsets must be positive" min="0" max="inf"/>
+                    <param name="right_column_offset" label="Offset from 3' end" value="0" type="integer" help="Values start at 0, increasing from the right; use a negative value to remove everything to the right of the absolute value of the position">
                       <validator type="expression" message="An integer is required.">int( float( value ) ) == float( value )</validator>
                     </param>
                   </when>
@@ -208,7 +207,7 @@ def manipulate_read( fastq_read ):
     left_column_offset = ${ manipulate_block['manipulation_type']['manipulation']['offset_type']['left_column_offset'] }
     right_column_offset = ${ manipulate_block['manipulation_type']['manipulation']['offset_type']['right_column_offset'] }
                 #end if
-    if right_column_offset > 0:
+    if right_column_offset != 0:
         right_column_offset = -right_column_offset
     else:
         right_column_offset = None

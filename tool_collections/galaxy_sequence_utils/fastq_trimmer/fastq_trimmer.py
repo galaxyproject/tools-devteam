@@ -21,7 +21,7 @@ def main():
         else:
             left_column_offset = int( left_offset )
             right_column_offset = int( right_offset )
-        if right_column_offset > 0:
+        if right_column_offset != 0:
             right_column_offset = -right_column_offset
         else:
             right_column_offset = None
