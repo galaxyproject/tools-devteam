@@ -2,9 +2,13 @@
     <description>
         view a sample report of your classification
     </description>
+    
     <macros>
         <import>macros.xml</import>
     </macros>
+    <expand macro="requirements" />
+    <expand macro="stdio" />
+    <expand macro="version_command" />
     <command>
         <![CDATA[
         @SET_DATABASE_PATH@ &&
@@ -18,6 +22,14 @@
     <outputs>
         <data format="tabular" name="output_report" />
     </outputs>
+    <tests>
+        <test>
+            <param name="kraken_output" value="kraken_report_test1.tab" ftype="tabular"/>
+            <param name="kraken_database" value="test_db"/>
+            <output name="output_report" file="kraken_report_test1_output.tab" ftype="tabular"/>
+        </test>
+    </tests>
+
     <help>
 <![CDATA[
 
@@ -42,8 +54,5 @@ The scientific names are indented using spaces, according to the tree
 structure specified by the taxonomy.
     ]]>
     </help>
-    <expand macro="version_command" />
-    <expand macro="requirements" />
-    <expand macro="stdio" />
     <expand macro="citations" />
 </tool>
