@@ -9,5 +9,5 @@ long_description: |
   the place to go for questions about the library is the png-mng-implement mailing list. 
 name: package_libpng_1_6_7
 owner: devteam
-remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/packages/package_libpng_1_6_7
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/legacy/package_libpng_1_6_7
 type: tool_dependency_definition
