@@ -25,5 +25,6 @@ Other repositories with high quality tools:
  * [Colibread Galaxy Tools](https://github.com/genouest/tools-colibread)
  * [Greg von Kuster's repo](https://github.com/gregvonkuster/galaxy-csg)
  * [TGAC repo](https://github.com/TGAC/tgac-galaxytools)
+ * [AAFC-MBB Canada repo]( https://github.com/AAFC-MBB/Galaxy/tree/master/wrappers)
  
  
