@@ -41,7 +41,7 @@
         </citations>
     </xml>
     <xml name="version_command">
-        <version_command>samtools --version | head -n 1 | awk '{ print $2 }'</version_command>
+        <version_command>echo $(samtools --version | head -n 1)", "$(samtools --version | grep -o -E "htslib.*?")</version_command>
     </xml>
     <xml name="stdio">
         <stdio>
