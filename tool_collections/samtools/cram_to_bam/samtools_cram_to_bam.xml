@@ -21,14 +21,14 @@
         
         samtools view
             #if $parameter_regions.target_region == "regions_bed_file"
-                -L $parameter_regions.regions_bed_file
+                -L "${parameter_regions.regions_bed_file}"
             #end if
             
             -@ \${GALAXY_SLOTS:-2}
             -b
-            -T ${reference_source.input_reference}
-            -o $output_alignment
-            $input_alignment
+            -T "${reference_source.input_reference}"
+            -o "$output_alignment"
+            "$input_alignment"
             
             #if $parameter_regions.target_region == "region"
                 "${parameter_regions.region_string}"

@@ -1,5 +1,5 @@
 categories:
-- Fastq Manipulation
+- Convert Formats
 - SAM
 description: Converts alignments in BAM format to CRAM format.
 long_description: |
