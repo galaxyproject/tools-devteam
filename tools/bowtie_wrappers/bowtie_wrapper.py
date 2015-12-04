@@ -436,9 +436,8 @@ def __main__():
                 raise Exception, stderr
             elif options.output_mapping_stats is not None:
                 # Write stderr (containing the mapping statistics) to a named file
-                mapping_stats = open( options.output_mapping_stats, 'w')
-                mapping_stats.write( stderr )
-                mapping_stats.close()
+                with open(options.output_mapping_stats, 'w') as mapping_stats:
+                    mapping_stats.write( stderr )
             # get suppressed and unmapped reads output files in place if appropriate
             if options.paired == 'paired' and tmp_suppressed_file_name and \
                                options.output_suppressed_reads_l and options.output_suppressed_reads_r:
