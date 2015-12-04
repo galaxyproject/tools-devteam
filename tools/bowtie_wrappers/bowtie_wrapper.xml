@@ -418,7 +418,7 @@
         </conditional> <!-- pParams -->
       </when> <!-- paired -->
     </conditional> <!-- singlePaired -->
-    <param name="save_mapping_stats" type="boolean" truevalue="True" falsevalue="False" checked="False" label="Save the bowtie mapping statistics to the history" />
+    <param name="save_mapping_stats" type="boolean" checked="False" label="Save the bowtie mapping statistics to the history" />
     <param name="suppressHeader" type="boolean" truevalue="true" falsevalue="false" checked="False" label="Suppress the header in the output SAM file (--sam-nohead)" help="Bowtie produces SAM with several lines of header information by default" />
   </inputs>
   <outputs>

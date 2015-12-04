@@ -435,7 +435,7 @@
                 <param name="sam_opt" type="boolean" truevalue="true" falsevalue="false" label="Would you like the output to be a SAM file" help="By default, the output from this Bowtie2 wrapper is a sorted BAM file."/>
             </when>
         </conditional>
-        <param name="save_mapping_stats" type="boolean" truevalue="True" falsevalue="False" checked="False" label="Save the bowtie2 mapping statistics to the history" />
+        <param name="save_mapping_stats" type="boolean" checked="False" label="Save the bowtie2 mapping statistics to the history" />
     </inputs>
 
     <!-- define outputs -->
