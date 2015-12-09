@@ -11,7 +11,7 @@
       <option value="old" selected="true">old</option>
       <option value="new">new</option>
     </param>
-    <param name="paste_sequence" type="text" label="Bases to insert between joined reads" value="" help="Values are in Base-space and quality scores of maximal value will be used."/>
+    <param name="paste_sequence" type="text" label="Bases to insert between joined reads" value="" help="Values are in Base-space and quality scores of maximal value will be used"/>
   </inputs>
   <outputs>
     <data name="output_file" format="input" />
