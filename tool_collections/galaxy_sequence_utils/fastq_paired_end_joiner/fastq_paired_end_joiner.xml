@@ -1,9 +1,9 @@
-<tool id="fastq_paired_end_joiner" name="FASTQ joiner" version="2.0.0">
+<tool id="fastq_paired_end_joiner" name="FASTQ joiner" version="2.0.1">
   <description>on paired end reads</description>
   <requirements>
-    <requirement type="package" version="1.0.0">galaxy_sequence_utils</requirement>
+    <requirement type="package" version="1.0.1">galaxy_sequence_utils</requirement>
   </requirements>
-  <command interpreter="python">fastq_paired_end_joiner.py '$input1_file' '${input1_file.extension[len( 'fastq' ):]}' '$input2_file' '${input2_file.extension[len( 'fastq' ):]}' '$output_file' '$style'</command>
+  <command interpreter="python">fastq_paired_end_joiner.py '$input1_file' '${input1_file.extension[len( 'fastq' ):]}' '$input2_file' '${input2_file.extension[len( 'fastq' ):]}' '$output_file' '$style' '${paste_sequence}'</command>
   <inputs>
     <param name="input1_file" type="data" format="fastqsanger,fastqcssanger" label="Left-hand Reads" />
     <param name="input2_file" type="data" format="fastqsanger,fastqcssanger" label="Right-hand Reads" />
@@ -11,6 +11,7 @@
       <option value="old" selected="true">old</option>
       <option value="new">new</option>
     </param>
+    <param name="paste_sequence" type="text" label="Bases to insert between joined reads" value="" help="Values are in Base-space and quality scores of maximal value will be used."/>
   </inputs>
   <outputs>
     <data name="output_file" format="input" />
