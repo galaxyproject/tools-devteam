@@ -79,5 +79,16 @@ or computing "type(c2)==type('') for Input will return::
    chr1  151077881  151077918  2  200  -  False
    chr1  151081985  151082078  3  500  +  False
 
-</help>
+
+The following build-in functions are available::
+
+  abs | all | any | bin | bool | chr | ceil | cmp | complex
+
+  divmod | exp | float | log | floor | hex | int | len | long
+
+  max | min | oct | ord | pow | range | reversed
+
+  round | sorted | sqrt | str | sum | type | unichr | unicode |
+
+  </help>
 </tool>
