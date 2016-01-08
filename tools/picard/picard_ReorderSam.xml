@@ -49,7 +49,6 @@
       <when value="cached">
         <param name="ref_file" type="select" label="Use dictionary from the list" help="Select genome from the list">
           <options from_data_table="picard_indexes">
-            <filter type="sort_by" column="2" />
             <validator type="no_options" message="No indexes are available" />
           </options>
           <validator type="no_options" message="A built-in dictionary is not available for the build associated with the selected input file"/>
