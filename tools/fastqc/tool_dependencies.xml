@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <tool_dependency>
-  <package name="FastQC" version="0.11.2">
-      <repository name="package_fastqc_0_11_2" owner="devteam" prior_installation_required="False" />
+  <package name="FastQC" version="0.11.4">
+      <repository name="package_fastqc_0_11_4" owner="iuc" prior_installation_required="False" />
     </package>
 </tool_dependency>
