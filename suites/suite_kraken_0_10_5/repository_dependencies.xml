@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<repositories description="A suite of Galaxy utilities associated with version 0.10.5 of the Kraken tool">
+    <repository name="data_manager_build_kraken_database" owner="devteam" />
+    <repository name="kraken" owner="devteam" />
+    <repository name="kraken_filter" owner="devteam" />
+    <repository name="kraken_report" owner="devteam" />
+    <repository name="kraken_translate" owner="devteam" />
+</repositories>

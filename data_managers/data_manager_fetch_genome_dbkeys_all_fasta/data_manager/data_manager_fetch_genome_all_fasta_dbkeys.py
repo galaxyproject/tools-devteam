@@ -185,7 +185,7 @@ def download_from_ucsc( data_manager_dict, params, target_directory, dbkey, dbke
         email = 'anonymous@example.com'
 
     ucsc_dbkey = params['param_dict']['reference_source']['requested_dbkey'] or dbkey
-    UCSC_CHROM_FA_FILENAMES = [ '%s.chromFa' % ucsc_dbkey, 'chromFa' ]
+    UCSC_CHROM_FA_FILENAMES = [ '%s.chromFa' % ucsc_dbkey, 'chromFa', ucsc_dbkey ]
     
     ftp = FTP( UCSC_FTP_SERVER )
     ftp.login( 'anonymous', email )

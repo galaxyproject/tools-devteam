@@ -1,4 +1,13 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/bowtie_wrappers
-owner: devteam
+categories:
+- Next Gen Mappers
+description: Galaxy wrappers for the Bowtie short read mapping tools.
+long_description: |
+  Bowtie is an ultrafast, memory-efficient short read aligner. It
+  aligns short DNA sequences (reads) to the human genome at a rate of over 25 million
+  35-bp reads per hour. Bowtie indexes the genome with a Burrows-Wheeler index to
+  keep its memory footprint small: typically about 2.2 GB for the human genome (2.9
+  GB for paired-end).
 name: bowtie_wrappers
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/bowtie_wrappers
+type: unrestricted

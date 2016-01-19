@@ -54,8 +54,8 @@ class IDManager( object ):
 
 class FastqJoiner( fq.fastqJoiner ):
 
-    def __init__( self, format, force_quality_encoding=None, sep="\t" ):
-        super( FastqJoiner, self ).__init__( format, force_quality_encoding )
+    def __init__( self, format, force_quality_encoding=None, sep="\t", paste="" ):
+        super( FastqJoiner, self ).__init__( format, force_quality_encoding, paste=paste )
         self.id_manager = IDManager( sep )
 
     def join( self, read1, read2 ):
@@ -84,16 +84,20 @@ class FastqJoiner( fq.fastqJoiner ):
             # convert to nuc space, join, then convert back
             rval.sequence = rval.convert_base_to_color_space( 
                 read1.convert_color_to_base_space( read1.sequence ) +
+                self.paste_sequence +
                 read2.convert_color_to_base_space( read2.sequence )
                 )
         else:
-            rval.sequence = read1.sequence + read2.sequence
+            rval.sequence = read1.sequence + self.paste_sequence + read2.sequence
         if force_quality_encoding == 'ascii':
-            rval.quality = read1.quality + read2.quality
+            rval.quality = read1.quality + self.paste_ascii_quality + read2.quality
         else:
             rval.quality = "%s %s" % ( 
-                read1.quality.strip(), read2.quality.strip()
+                read1.quality.strip(), self.paste_decimal_quality
                 )
+            rval.quality = ("%s %s" % (
+                rval.quality.strip(), read2.quality.strip()
+                )).strip()
         return rval
 
     def get_paired_identifier( self, read ):
@@ -119,15 +123,17 @@ def main():
     output_filename = sys.argv[5]
     
     fastq_style = sys.argv[6] or 'old'
+
+    paste = sys.argv[7] or ''
     #--
     if input1_type != input2_type:
         print "WARNING: You are trying to join files of two different types: %s and %s." % ( input1_type, input2_type )
     
     if fastq_style == 'new':
         sep = sniff_sep( input1_filename )
-        joiner = FastqJoiner( input1_type, sep=sep )
+        joiner = FastqJoiner( input1_type, sep=sep, paste=paste )
     else:
-        joiner = fq.fastqJoiner( input1_type )
+        joiner = fq.fastqJoiner( input1_type, paste=paste )
     #--
     input2 = fq.fastqNamedReader( open( input2_filename, 'rb' ), input2_type )
     out = fq.fastqWriter( open( output_filename, 'wb' ), format=input1_type )

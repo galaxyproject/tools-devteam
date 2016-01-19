@@ -1,13 +1,9 @@
-<tool name="RevertSam" id="picard_RevertSam" version="1.126.0">
+<tool name="RevertSam" id="picard_RevertSam" version="@TOOL_VERSION@.0">
   <description>revert SAM/BAM datasets to a previous state</description>
-  <requirements>
-    <requirement type="package" version="1.126.0">picard</requirement>
-  </requirements>
-  
   <macros>
     <import>picard_macros.xml</import>
   </macros>
-  
+  <expand macro="requirements" />
   <command>
     @java_options@
     
@@ -42,12 +38,12 @@
     <param name="remove_duplicate_information" type="boolean" checked="True" label="Remove duplicate read flags from all reads" help="REMOVE_DUPLICATE_INFORMATION; Note that if this is true and REMOVE_ALIGNMENT_INFORMATION is set to False, the output may have the unusual but sometimes desirable trait of having unmapped reads that are marked as duplicates; default=True"/>
     <param name="remove_alignment_information" type="boolean" checked="True" label="Remove all alignment information from the file" help="REMOVE_ALIGNMENT_INFORMATION; default=True"/>
     <repeat name="attributes_to_clear" title="Clear attribute" min="0" help="You can provide multiple attributes">
-      <param name="attribute" type="text" size="10" label="When removing alignment information, specify optional tags to remove (e.g., XM)" help="ATTRIBUTE_TO_CLEAR"/>
+      <param name="attribute" type="text" label="When removing alignment information, specify optional tags to remove (e.g., XM)" help="ATTRIBUTE_TO_CLEAR"/>
     </repeat>
     <param name="sanitize" type="boolean" label="Discard reads in order to produce a consistent output BAM" help="SANITIZE; WARNING: This option is potentially destructive. Reads discarded include (but are not limited to) paired reads with missing mates, duplicated records, records with mismatches in length of bases and qualities. This option can only be enabled if the output sort order is queryname and will always cause sorting to occur; default=False"/>
     <param name="max_discard_fraction" value="0.01" type="float" min="0.0" max="1.0" label="If SANITIZE=true and higher than MAX_DISCARD_FRACTION reads are discarded due to sanitization then the program will exit with an Exception instead of exiting cleanly" help="MAX_DISCARD_FRACTION; default=0.01"/>
-    <param name="sample_alias" type="text" size="40" value="null" label="The sample alias to use in the reverted output file. This will override the existing sample alias in the file and is used only if all the read groups in the input file have the same sample alias" help="SAMPLE_ALIAS; default=Null"/>
-    <param name="library_name" type="text" size="40" value="null" label="The library name to use in the reverted output file. This will override the existing sample alias in the file and is used only if all the read groups in the input file have the same sample alias" help="LIBRARY_NAME; default=Null"/>
+    <param name="sample_alias" type="text" value="null" label="The sample alias to use in the reverted output file. This will override the existing sample alias in the file and is used only if all the read groups in the input file have the same sample alias" help="SAMPLE_ALIAS; default=Null"/>
+    <param name="library_name" type="text" value="null" label="The library name to use in the reverted output file. This will override the existing sample alias in the file and is used only if all the read groups in the input file have the same sample alias" help="LIBRARY_NAME; default=Null"/>
     <param name="sort_order" type="select" label="The sort order to create the reverted output file with" help="SORT_ORDER; Picard default=queryname; Galaxy default=coordinate">
       <option value="coordinate" selected="True">Coordinate</option>
       <option value="queryname">Queryname</option>

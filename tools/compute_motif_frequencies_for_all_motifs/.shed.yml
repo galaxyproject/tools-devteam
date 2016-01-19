@@ -1,4 +1,12 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/compute_motif_frequencies_for_all_motifs
-owner: devteam
+categories:
+- Sequence Analysis
+- Statistics
+description: 'Compute Motif Frequencies For All Motifs, motif by motif.'
+long_description: |
+  This program computes the frequencies of each motif at a window
+  size, determined by the user, in both upstream and downstream sequences flanking
+  indels in all chromosomes.
 name: compute_motif_frequencies_for_all_motifs
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/compute_motif_frequencies_for_all_motifs
+type: unrestricted

@@ -1,4 +1,11 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/delete_overlapping_indels
-owner: devteam
+categories:
+- Sequence Analysis
+description: Delete Overlapping Indels from a chromosome indels file
+long_description: |
+  This program detects overlapping indels in a chromosome and keeps
+  all non-overlapping indels. As for overlapping indels, the first encountered one
+  is kept and all others are removed.
 name: delete_overlapping_indels
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/delete_overlapping_indels
+type: unrestricted

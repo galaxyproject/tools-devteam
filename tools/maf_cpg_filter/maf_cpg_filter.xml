@@ -18,7 +18,7 @@
   <inputs>
     <page>
     	<param format="maf" name="input" type="data" label="Select data"/>
-   		<param name="mask_char" size="5" type="select" label="Mask character">
+   		<param name="mask_char" type="select" label="Mask character">
     		<option value="0" selected="true">#</option>
           	<option value="1">$</option>
           	<option value="2">^</option>
@@ -27,12 +27,12 @@
           	<option value="5">N</option>
         </param>
         <conditional name="masksite">
-            <param name="type" size="5" type="select" label="Sites to be masked">
+            <param name="type" type="select" label="Sites to be masked">
                 <option value="CpG" selected="true">CpG sites</option>
                 <option value="nonCpG">non-CpG sites</option>
              </param>
             <when value="CpG">
-                <param name="definition" size="5" type="select" label="Definition">
+                <param name="definition" type="select" label="Definition">
                     <option value="0" selected="true">Inclusive</option>
                     <option value="1">Restricted</option>
                  </param>

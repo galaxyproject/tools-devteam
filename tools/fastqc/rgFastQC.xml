@@ -1,7 +1,7 @@
-<tool id="fastqc" name="FastQC" version="0.63">
+<tool id="fastqc" name="FastQC" version="0.64">
     <description>Read Quality reports</description>
     <requirements>
-        <requirement type="package" version="0.11.2">FastQC</requirement>
+        <requirement type="package" version="0.11.4">FastQC</requirement>
     </requirements>
     <stdio>
         <exit_code range="1:" />

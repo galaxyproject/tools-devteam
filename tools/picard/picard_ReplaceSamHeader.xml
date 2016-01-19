@@ -1,13 +1,9 @@
-<tool name="ReplaceSamHeader" id="picard_ReplaceSamHeader" version="1.126.0">
+<tool name="ReplaceSamHeader" id="picard_ReplaceSamHeader" version="@TOOL_VERSION@.0">
   <description>replace header in a SAM/BAM dataset</description>
-  <requirements>
-    <requirement type="package" version="1.126.0">picard</requirement>
-  </requirements>
-  
   <macros>
     <import>picard_macros.xml</import>
   </macros>
-  
+  <expand macro="requirements" />
   <command>
     @java_options@
     

@@ -1,4 +1,11 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/weightedaverage
-owner: devteam
+categories:
+- Sequence Analysis
+- Variant Analysis
+description: Assign weighted-average of the values of features overlapping an interval
+long_description: |
+  For each interval in your first dataset, this tool calculates the
+  weighted average value of the overlapping features in your second dataset.
 name: weightedaverage
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/weightedaverage
+type: unrestricted

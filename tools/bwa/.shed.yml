@@ -1,4 +1,9 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/bwa
-owner: devteam
+categories:
+- Next Gen Mappers
+description: 'Wrapper for bwa mem, aln, sampe, and samse'
+long_description: |
+  A collection of Galaxy bwa wrappers based on version 0.7.12.
 name: bwa
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/bwa
+type: unrestricted

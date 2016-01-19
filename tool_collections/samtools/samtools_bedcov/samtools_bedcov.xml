@@ -1,9 +1,11 @@
-<tool id="samtools_bedcov" name="Calculate read depth" version="1.0.0">
-    <description>on BAM files</description>
-    <requirements>
-        <requirement type="package" version="1.1">samtools</requirement>
-    </requirements>
-    <version_command>samtools --version | head -n 1 | awk '{ print $2 }'</version_command>
+<tool id="samtools_bedcov" name="BedCov" version="2.0">
+  <description>calculate read depth for a set of genomic intervals</description>
+  <macros>
+    <import>macros.xml</import>
+  </macros>
+  <expand macro="requirements"></expand>
+    <expand macro="stdio"></expand>
+    <expand macro="version_command"></expand>
     <command><![CDATA[
         for bamfile in 
         #for dataset in $input_bams:
@@ -21,10 +23,8 @@
             `basename "${dataset}"`
         #end for
         > "${output}"
-        ]]></command>
-    <stdio>
-        <exit_code range="1:" level="fatal" description="Error" />
-    </stdio>
+        ]]>
+    </command>
     <inputs>
         <param name="input_bed" type="data" format="bed" label="BED file" />
         <param name="input_bams" type="data" format="bam" label="BAM file" multiple="true" />
@@ -47,17 +47,11 @@
     <help>
 **What it does**
 
-This tool runs the ``samtools bedcov`` command in the SAMtools toolkit.
+Calculates read depth for regions listed in a BED dataset using ``samtools bedcov`` command::
 
-Show read depth per BED region.
+ samtools bedcov [INPUT BED] [INPUT BAM1] ... [INPUT BAMn] > [OUTPUT]
 
-**Citation**
-
-    <citations>
-        <citation type="doi">10.1093/bioinformatics/btp352</citation>
-    </citations>
-
-If you use this tool in Galaxy, please cite Blankenberg D, et al. *In preparation.*
     </help>
+    <expand macro="citations"></expand>
 </tool>
 

@@ -1,4 +1,10 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/add_value
-owner: devteam
+categories:
+- Text Manipulation
+description: Add a value as a new column.
+long_description: |
+  This tool will take the given value and add it as a new column
+  to every row of the input dataset.
 name: add_value
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/add_value
+type: unrestricted

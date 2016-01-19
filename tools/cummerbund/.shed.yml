@@ -1,0 +1,12 @@
+categories:
+- RNA
+- Visualization
+description: Wrapper for the Bioconductor cummeRbund library
+long_description: |
+  Allows for persistent storage, access, exploration, and manipulation
+  of Cufflinks high-throughput sequencing data. In addition, provides numerous plotting
+  functions for commonly used visualizations.
+name: cummerbund
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/cummerbund
+type: unrestricted

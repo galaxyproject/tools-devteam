@@ -6,7 +6,7 @@
   <command interpreter="python">fastq_to_tabular.py '$input_file' '$output_file' $descr_columns '${input_file.extension[len( 'fastq' ):]}'</command>
   <inputs>
     <param name="input_file" type="data" format="fastqsanger,fastqcssanger,fastqillumina,fastqsolexa" label="FASTQ file to convert" />
-    <param name="descr_columns" type="integer" size="2" value="1" label="How many columns to divide title string into?" help="Typically 2 to take the ID (first word) and decription (rest) as two columns, or 1 to give a single column">
+    <param name="descr_columns" type="integer" value="1" label="How many columns to divide title string into?" help="Typically 2 to take the ID (first word) and decription (rest) as two columns, or 1 to give a single column">
       <validator type="in_range" min="1" />
     </param>
   </inputs>
@@ -95,10 +95,10 @@ Note the sequences and quality strings have been truncated for display purposes 
 
 ------
 
-**Citation**
-
-If you use this tool, please cite `Blankenberg D, Gordon A, Von Kuster G, Coraor N, Taylor J, Nekrutenko A; Galaxy Team. Manipulation of FASTQ data with Galaxy. Bioinformatics. 2010 Jul 15;26(14):1783-5. &lt;http://www.ncbi.nlm.nih.gov/pubmed/20562416&gt;`_
-
-
   </help>
+  
+  <citations>
+    <citation type="doi">10.1093/bioinformatics/btq281</citation>
+  </citations>
+  
 </tool>

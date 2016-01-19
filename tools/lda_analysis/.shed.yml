@@ -1,4 +1,11 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/lda_analysis
-owner: devteam
+categories:
+- Graphics
+- Statistics
+description: Perform Linear Discriminant Analysis
+long_description: |
+  This tool consists of the module to perform the Linear Discriminant
+  Analysis as described in Carrel et al., 2006 (PMID: 17009873)
 name: lda_analysis
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/lda_analysis
+type: unrestricted

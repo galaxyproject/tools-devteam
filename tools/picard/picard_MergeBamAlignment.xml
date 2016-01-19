@@ -1,11 +1,9 @@
-<tool name="MergeBamAlignment" id="picard_MergeBamAlignment" version="1.126.0">
+<tool name="MergeBamAlignment" id="picard_MergeBamAlignment" version="@TOOL_VERSION@.0">
   <description>merge alignment data with additional info stored in an unmapped BAM dataset</description>
-  <requirements><requirement type="package" version="1.126.0">picard</requirement></requirements>
-  
   <macros>
     <import>picard_macros.xml</import>
   </macros>
-  
+  <expand macro="requirements" />
   <command>
     @java_options@
     #set $picard_dict = "localref.dict"
@@ -42,7 +40,7 @@
           READ1_ALIGNED_BAM="${dataset.read1_aligned_bam}"
         #end for
         #for $dataset in $aligned_or_read1_and_read2.read2_aligned_bams:
-          READ2_ALIGNED_BAM="${dataset.read1_aligned_bam}"
+          READ2_ALIGNED_BAM="${dataset.read2_aligned_bam}"
         #end for
       #else
         #for $dataset in $aligned_or_read1_and_read2.read1_aligned_bams:
@@ -143,11 +141,11 @@
     <param name="max_insertions_or_deletions" type="integer" value="1" label="The maximum number of insertions or deletions permitted for an alignment to be included" help="MAX_INSERTIONS_OR_DELETIONS; Alignments with more than this many insertions or deletions will be ignored. Set to -1 to allow any number of insertions or deletions. default=1"/>
  
     <repeat name="attributes_to_retain" title="Retain the following alignment attribute" min="0" help="You can provide multiple attributes">
-      <param name="attribute" type="text" size="4" label="Reserved alignment attributes (tags starting with X, Y, or Z) that should be brought over from the alignment data when merging" help="ATTRIBUTES_TO_RETAIN; example: XA"/>
+      <param name="attribute" type="text" label="Reserved alignment attributes (tags starting with X, Y, or Z) that should be brought over from the alignment data when merging" help="ATTRIBUTES_TO_RETAIN; example: XA"/>
     </repeat>
     
     <repeat name="attributes_to_remove" title="Remove the following alignment attribute" min="0" help="You can provide multiple attributes">
-      <param name="attribute" type="text" size="4" label="Attributes from the alignment record that should be removed when merging." help="ATTRIBUTES_TO_REMOVE; This overrides ATTRIBUTES_TO_RETAIN if they share common tags"/>
+      <param name="attribute" type="text" label="Attributes from the alignment record that should be removed when merging." help="ATTRIBUTES_TO_REMOVE; This overrides ATTRIBUTES_TO_RETAIN if they share common tags"/>
     </repeat>
     
     <param name="read1_trim" type="integer" value="0" label="The number of bases trimmed from the beginning of read 1 prior to alignment" help="READ1_TRIM; default=0"/>

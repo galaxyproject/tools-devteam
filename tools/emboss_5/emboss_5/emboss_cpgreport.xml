@@ -6,7 +6,7 @@
     <param format="fasta" name="input1" type="data">
       <label>On query</label>
     </param>
-    <param name="score" size="4" type="text" value="17">
+    <param name="score" type="text" value="17">
       <label>Score for each CG sequence found (1-200)</label>
     </param>
     <param name="out_format2" type="select">

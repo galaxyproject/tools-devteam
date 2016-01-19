@@ -6,9 +6,9 @@
   <command interpreter="python">poisson2test.py $input1 $input2 $input3 $input4 $input5 $output1 2>/dev/null </command>
   <inputs>
     <param name="input1" format="tabular" type="data" label="Input File"/>
-    <param name="input2" type="integer" size="5" value="2" label="First Column"/>
-    <param name="input3" type="integer" size="5" value="3" label="Second Column"/>
-    <param name="input4" type="float" size="5" value="1" label="D value"/>
+    <param name="input2" type="integer" value="2" label="First Column"/>
+    <param name="input3" type="integer" value="3" label="Second Column"/>
+    <param name="input4" type="float" value="1" label="D value"/>
     <param name="input5" type="select" label="correction method">
         <option value="0">Bonferroni</option>
         <option value="1">FDR</option>

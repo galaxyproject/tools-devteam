@@ -1,13 +1,9 @@
-<tool name="SamToFastq" id="picard_SamToFastq" version="1.126.0">
+<tool name="SamToFastq" id="picard_SamToFastq" version="@TOOL_VERSION@.0">
   <description>extract reads and qualities from SAM/BAM dataset and convert to fastq</description>
-  <requirements>
-    <requirement type="package" version="1.126.0">picard</requirement>
-  </requirements>
-  
   <macros>
     <import>picard_macros.xml</import>
   </macros>
-  
+  <expand macro="requirements" />
   <command>
      
     echo "BAM" > $report &amp;&amp;    ## This is necessary for output dataset detection (see output tags below)
@@ -62,8 +58,8 @@
     <param name="re_reverse" type="boolean" checked="True" label="Re-reverse bases and qualities of reads with negative strand flag set before writing them to fastq" help="RE_REVERSE; default=True"/>
     <param name="interleave" type="boolean" label="Will generate an interleaved fastq if paired, each line will have /1 or /2 to describe which end it came from" help="INTERLEAVE; default=False"/>
     <param name="include_non_pf_reads" type="boolean" label="Include non-PF reads from the SAM/BAM dataset into the output FASTQ" help="INCLUDE_NON_PF_READS; PF means 'passes filtering'. Reads whose 'not passing quality controls' flag is set are non-PF reads; default=False"/>
-    <param name="clipping_attribute" type="text" size="4" value="null" label="The attribute that stores the position at which the SAM/BAM record should be clipped" help="CLIPPING_ATTRIBUTE; default=null"/>
-    <param name="clipping_action" type="text" size="10" value="null" label="The action that should be taken with clipped reads: 'X' means the reads and qualities should be trimmed at the clipped position; 'N' means the bases should be changed to Ns in the clipped region; and any integer means that the base qualities should be set to that value in the clipped region" help="CLIPPING_ACTION; default=null"/>
+    <param name="clipping_attribute" type="text" value="null" label="The attribute that stores the position at which the SAM/BAM record should be clipped" help="CLIPPING_ATTRIBUTE; default=null"/>
+    <param name="clipping_action" type="text" value="null" label="The action that should be taken with clipped reads: 'X' means the reads and qualities should be trimmed at the clipped position; 'N' means the bases should be changed to Ns in the clipped region; and any integer means that the base qualities should be set to that value in the clipped region" help="CLIPPING_ACTION; default=null"/>
     <param name="read1_trim" type="integer" value="0" min="0" label="The number of bases to trim from the beginning of read 1" help="READ1_TRIM; default=0"/>
     <param name="read1_max_bases_to_write" type="integer" value="-1" label="The maximum number of bases to write from read 1 after trimming" help="READ1_MAX_BASES_TO_WRITE; If there are fewer than this many bases left after trimming, all will be written. If this value is null then all bases left after trimming will be written; default=null (-1)"/>
     <param name="read2_trim" type="integer" value="0" min="0" label="The number of bases to trim from the beginning of read 2" help="READ2_TRIM; default=0"/>

@@ -1,4 +1,14 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/suite_samtools_0_1_18
-owner: devteam
+categories:
+- SAM
+description: A suite of Galaxy utilities associated with version 0.1.18 of the SAMTools package.
+long_description: |
+  SAM (Sequence Alignment/Map) format is a generic format for storing
+  large nucleotide sequence alignments.   This repository suite associates selected
+  repositories containing Galaxy utilities that require version 0.1.18 of the SAMTools
+  package.  These associated Galaxy utilities consist of a data manager tool contained
+  in the repository named data_manager_sam_fasta_index_builder and Galaxy tools contained
+  in several separate repositories.
 name: suite_samtools_0_1_18
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/suites/suite_samtools_0_1_18
+type: repository_suite_definition

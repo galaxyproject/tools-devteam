@@ -1,4 +1,14 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/suite_fastx_toolkit_0_0_13
-owner: devteam
+categories:
+- Fasta Manipulation
+- Fastq Manipulation
+description: A suite of Galaxy utilities associated with version 0.0.13 of the FASTX-Toolkit package.
+long_description: |
+  The FASTX-Toolkit is a collection of command line tools for Short-Reads
+  FASTA/FASTQ files preprocessing. This repository suite associates selected repositories
+  containing Galaxy utilities that require version 0.0.13 of the FASTX-Toolkit package.
+  These associated Galaxy utilities consist of Galaxy tools contained in several separate
+  repositories.
 name: suite_fastx_toolkit_0_0_13
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/suites/suite_fastx_toolkit_0_0_13
+type: repository_suite_definition

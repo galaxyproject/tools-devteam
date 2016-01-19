@@ -1,0 +1,12 @@
+categories:
+- Metagenomics
+description: Convert Kraken output to Galaxy taxonomy data.
+long_description: |
+  Kraken is a system for assigning taxonomic labels to short DNA
+  sequences, usually obtained through metagenomic studies. This tool will convert
+  the output of Kraken to the format used by other Galaxy taxonomic tools
+name: kraken2tax
+owner: devteam
+homepage_url: https://bitbucket.org/natefoo/taxonomy
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/blob/master/tool_collections/taxonomy/kraken2tax/
+type: unrestricted

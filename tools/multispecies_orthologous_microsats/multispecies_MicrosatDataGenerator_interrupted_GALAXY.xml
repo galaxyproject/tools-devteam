@@ -15,16 +15,16 @@
     <page>
         <param format="maf" name="input1" type="data" label="Select unfiltered MAF alignments" help= "NOTE: Currently users are requested to select only the alignments that contain five, four or three species' genomes. )"/>
         <param format="maf" name="input2" type="data" label="Select the filtered version of above MAF alignments" help= "NOTE: Please use the tool 'Filter nucleotides' to filter nucleotides based on quality, in multiple species. When using the Filter nucleotide tool, ensure that you click 'Select All' for the option 'Mask Species')"/>
-       	<param name="separation" size="10" type="integer" value="10" label="Minimum base pair distance between adjacent microsatellite blocks"
+       	<param name="separation" type="integer" value="10" label="Minimum base pair distance between adjacent microsatellite blocks"
     	help="A value of 10 means: Adjacent microsatellites separated by less than 10 base pairs will be excluded from the output."/>
-    	<param name="thresholds" size="15" type="text" value="9,10,12,12" label="Minimum Threshold for the number of repeats for microsatellites"
+    	<param name="thresholds" type="text" value="9,10,12,12" label="Minimum Threshold for the number of repeats for microsatellites"
     	help="A value of 9,10,12,12 means: All monos having fewer than 9 repeats, dis having fewer than 5 repeats, tris having fewer than 4 repeats, tetras having fewer than 3 repeats will be excluded from the output."/>
     <param name="species" type="select" label="Select species" display="checkboxes" multiple="true" help="NOTE: Currently users are requested to select one of these three combinations: hg18-panTro2-ponAbe2, hg18-panTro2-ponAbe2-rheMac2 or hg18-panTro2-ponAbe2-rheMac2-calJac1">
       <options>
         <filter type="data_meta" ref="input1" key="species" />
       </options>
     </param>
-    	<param name="treedefinition" size="200" type="text" value = "((((hg18,panTro2),ponAbe2),rheMac2),calJac1)" label="Tree definition of all species above whether or not selected for microsatellite extraction" 
+    	<param name="treedefinition" type="text" value = "((((hg18,panTro2),ponAbe2),rheMac2),calJac1)" label="Tree definition of all species above whether or not selected for microsatellite extraction" 
     	help="For example: ((((hg18,panTro2),ponAbe2),rheMac2),calJac1)"/>
     </page>
   </inputs>

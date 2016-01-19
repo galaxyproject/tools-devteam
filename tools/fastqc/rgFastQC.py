@@ -79,7 +79,14 @@ class FastQCRunner(object):
         
         # Replace unwanted or problematic charaters in the input file name
         self.fastqinfilename = re.sub(ur'[^a-zA-Z0-9_\-\.]', '_', os.path.basename(infname))
-        
+        # check that the symbolic link gets a proper ending, fastqc seems to ignore the given format otherwise
+        if 'fastq' in opts.informat:
+            # with fastq the .ext is ignored, but when a format is actually passed it must comply with fastqc's 
+            # accepted formats..
+            opts.informat = 'fastq'
+        elif not self.fastqinfilename.endswith(opts.informat):
+            self.fastqinfilename += '.%s' % opts.informat
+
         # Build the Commandline from the given parameters
         command_line = [opts.executable, '--outdir %s' % opts.outputdir]
         if opts.contaminants != None:
@@ -89,6 +96,7 @@ class FastQCRunner(object):
         command_line.append('--quiet')
         command_line.append('--extract') # to access the output text file
         command_line.append(self.fastqinfilename)
+        command_line.append('-f %s' % opts.informat)
         self.command_line = ' '.join(command_line)
 
     def copy_output_file_to_dataset(self):

@@ -1,4 +1,12 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/categorize_elements_satisfying_criteria
-owner: devteam
+categories:
+- Statistics
+description: Categorize Elements satisfying criteria.
+long_description: |
+  The program takes as input a set of categories, such that each
+  category contains many elements. It also takes a table relating elements with criteria,
+  such that each element is assigned a number representing the number of times the
+  element satisfies a certain criterion.
 name: categorize_elements_satisfying_criteria
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/categorize_elements_satisfying_criteria
+type: unrestricted

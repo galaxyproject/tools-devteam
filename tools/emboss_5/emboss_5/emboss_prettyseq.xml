@@ -21,7 +21,7 @@
       <option value="yes">Yes</option>
       <option value="no">No</option>
     </param>
-    <param name="width" size="4" type="text" value="60">
+    <param name="width" type="text" value="60">
       <label>Width of screen</label>
     </param>
   </inputs>

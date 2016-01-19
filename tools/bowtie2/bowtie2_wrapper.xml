@@ -1,13 +1,15 @@
-<tool id="bowtie2" name="Bowtie2" version="0.3">
-    <!-- Wrapper compatible with Bowtie version 2.2.4 -->
+<tool id="bowtie2" name="Bowtie2" version="2.2.6.1">
     <description>- map reads against reference genome</description>
+    <macros>
+        <import>read_group_macros.xml</import>
+    </macros>
     <version_command>bowtie2 --version</version_command>
     <requirements>
-        <requirement type="package" version="2.2.4">bowtie2</requirement>
-        <requirement type="package" version="0.1.18">samtools</requirement>
+        <requirement type="package" version="2.2.6">bowtie2</requirement>
+        <requirement type="package" version="1.2">samtools</requirement>
     </requirements>
     <command>
-        
+
         ## prepare bowtie2 index
         #set index_path = ''
         #if str($reference_genome.source) == "history":
@@ -17,27 +19,26 @@
         #else:
             #set index_path = $reference_genome.index.fields.path
         #end if
-        
+
         ## execute bowtie2
-        
+
         bowtie2
-        
+
         ## number of threads
         -p \${GALAXY_SLOTS:-4}
 
         ## index file path
         -x $index_path
-        
-        
+
         ## Fastq inputs
         #if str( $library.type ) == "single":
-            -U "${input_1}"
+            -U "${library.input_1}"
             #if str( $library.unaligned_file ) == "true":
                 --un $output_unaligned_reads_l
             #end if
         #elif str( $library.type ) == "paired":
-            -1 "${input_1}"
-            -2 "${input_2}"
+            -1 "${library.input_1}"
+            -2 "${library.input_2}"
             #if str( $library.paired_options.paired_options_selector ) == "yes":
                 -I "${library.paired_options.I}"
                 -X "${library.paired_options.X}"
@@ -69,15 +70,33 @@
                 --un-conc $output_unaligned_reads_l
             #end if
         #end if
-        
-        ## Readgroups
-        #if str( $read_group.read_group_selector ) == "yes":
-            --rg-id "${read_group.rgid}"
-            --rg "SM:${read_group.rgsm}"
-            --rg "LB:${read_group.rglb}"
-            --rg "PL:${read_group.rgpl}"
+
+        ## Read group information.
+        @define_read_group_helpers@
+        #if str( $library.type ) == "single":
+            #set $rg_auto_name = $read_group_name_default($library.input_1)
+        #elif str( $library.type ) == "paired":
+            #set $rg_auto_name = $read_group_name_default($library.input_1, $library.input_2)
+        #else
+            #set $rg_auto_name = $read_group_name_default($library.input_1)
         #end if
-        
+        @set_use_rg_var@
+        @set_read_group_vars@
+        #if $use_rg
+          $format_read_group("", $rg_id, '"', arg='--rg-id ')
+          $format_read_group("SM:", $rg_sm, '"', arg='--rg ')
+          $format_read_group("PL:", $rg_pl, '"', arg='--rg ')
+          $format_read_group("LB:", $rg_lb, '"', arg='--rg ')
+          $format_read_group("CN:", $rg_cn, '"', arg='--rg ')
+          $format_read_group("DS:", $rg_ds, '"', arg='--rg ')
+          $format_read_group("DT:", $rg_dt, '"', arg='--rg ')
+          $format_read_group("FO:", $rg_fo, '"', arg='--rg ')
+          $format_read_group("KS:", $rg_ks, '"', arg='--rg ')
+          $format_read_group("PG:", $rg_pg, '"', arg='--rg ')
+          $format_read_group("PI:", $rg_pi, '"', arg='--rg ')
+          $format_read_group("PU:", $rg_pu, '"', arg='--rg ')
+        #end if
+
         ## Analysis type
         #if ( str( $analysis_type.analysis_type_selector ) == "simple" and str( $analysis_type.presets ) != "no_presets" ):
             $analysis_type.presets
@@ -91,7 +110,7 @@
                 ${analysis_type.input_options.solexa_quals}
                 ${analysis_type.input_options.int_quals}
             #end if
-            
+
             #if str( $analysis_type.alignment_options.alignment_options_selector ) == "yes":
                 -N "${analysis_type.alignment_options.N}"
                 -L "${analysis_type.alignment_options.L}"
@@ -111,7 +130,7 @@
                     --score-min "${analysis_type.alignment_options.align_mode.score_min_loc}"
                 #end if
             #end if
-            
+
             #if str( $analysis_type.scoring_options.scoring_options_selector ) == "yes":
                 #if ( str( $analysis_type.alignment_options.alignment_options_selector ) == "yes" and str( $analysis_type.alignment_options.align_mode.align_mode_selector ) == "local" ):
                     --ma "${analysis_type.scoring_options.ma}"
@@ -121,33 +140,38 @@
                 --rdg "${analysis_type.scoring_options.rdg_read_open},${analysis_type.scoring_options.rdg_read_extend}"
                 --rfg "${analysis_type.scoring_options.rfg_ref_open},${analysis_type.scoring_options.rfg_ref_extend}"
             #end if
-            
+
             #if str( $analysis_type.reporting_options.reporting_options_selector ) == "k":
                 -k "${analysis_type.reporting_options.k}"
             #elif str( $analysis_type.reporting_options.reporting_options_selector ) == "a":
                 -a
             #end if
-            
+
             #if str( $analysis_type.effort_options.effort_options_selector ) == "yes":
                 -D "${analysis_type.effort_options.D}"
                 -R "${analysis_type.effort_options.R}"
             #end if
-            
+
             #if str( $analysis_type.sam_options.sam_options_selector ) == "yes":
                 ${analysis_type.sam_options.no_unal}
                 ${analysis_type.sam_options.omit_sec_seq}
             #end if
-            
+
             #if str( $analysis_type.other_options.other_options_selector ) == "yes":
                 ${analysis_type.other_options.reorder}
                 ${analysis_type.other_options.non_deterministic}
                 --seed "${analysis_type.other_options.seed}"
             #end if
-        
+
         #elif str( $analysis_type.analysis_type_selector ) == "cline":
             ${analysis_type.cline}
-        #end if    
-        
+        #end if
+
+        ## mapping stats (i.e. stderr from bowtie2)
+        #if $save_mapping_stats
+	  2&gt; "$mapping_stats"
+        #end if
+
         ## output file
         #if ( str( $analysis_type.analysis_type_selector ) != "full" or str( $analysis_type.sam_opt ) != "true" ):
           | samtools view -Su - | samtools sort -o - - &gt; $output
@@ -157,20 +181,18 @@
 
         ## rename unaligned sequence files
         #if $library.type == "paired" and $output_unaligned_reads_l and $output_unaligned_reads_r:
-            #set left  = str($output_unaligned_reads_l).replace( '.dat', '.1.dat' )
-            #set right = str($output_unaligned_reads_l).replace( '.dat', '.2.dat' )
-        
-            ; mv $left $output_unaligned_reads_l;
-            mv $right $output_unaligned_reads_r
+            #from os.path import splitext
+            #set _unaligned_root, _unaligned_ext = splitext( str( $output_unaligned_reads_l ) )
+            &amp;&amp; mv "${ _unaligned_root }.1${_unaligned_ext}" "${ output_unaligned_reads_l }"
+            &amp;&amp; mv "${ _unaligned_root }.2${_unaligned_ext}" "${ output_unaligned_reads_r }"
         #end if
-        
+
     </command>
-    
     <!-- basic error handling -->
     <stdio>
         <exit_code range="1:" level="fatal" description="Tool exception" />
     </stdio>
-    
+
     <inputs>
         <!-- single/paired -->
         <conditional name="library">
@@ -204,8 +226,8 @@
                         <param name="no_mixed" type="boolean" truevalue="--no-mixed" falsevalue="" checked="False" label="Disable no-mixed behavior" help="--no-mixed; By default, when `bowtie2` cannot find a concordant or discordant alignment for a pair, it then tries to find alignments for the individual mates; default=False"/>
                         <param name="no_discordant" type="boolean" truevalue="--no-discordant" falsevalue="" checked="False" label="Disable no-discordant behavior" help="--no-discordant; By default, `bowtie2` looks for discordant alignments if it cannot find any concordant alignments. A discordant alignment is an alignment where both mates align uniquely, but that does not satisfy the paired-end constraints (`--fr`/`--rf`/`--ff`, `-I`, `-X`); default=False"/>
                         <param name="dovetail" type="boolean" truevalue="--dovetail" falsevalue="" checked="False" label="Allow mate dovetailing" help="--dovetail; If the mates `dovetail`, that is if one mate alignment extends past the beginning of the other such that the wrong mate begins upstream, consider that to be concordant. Default=False"/>
-                        <param name="no_contain" type="boolean" truevalue="--no-contain" falsevalue="" checked="False" label="Allow one mate alignment to contain another" help="--no-contain; If one mate alignment contains the other, consider that to be non-concordant. Default=False"/>
-                        <param name="no_overlap" type="boolean" truevalue="--no-overlap" falsevalue="" checked="False" label="Allow mate alignments to overlap" help="--no-overlap; If one mate alignment overlaps the other at all, consider that to be non-concordant. Default=False"/>
+                        <param name="no_contain" type="boolean" truevalue="--no-contain" falsevalue="" checked="False" label="Disallow one mate alignment to contain another" help="--no-contain; If one mate alignment contains the other, consider that to be non-concordant. Default=False"/>
+                        <param name="no_overlap" type="boolean" truevalue="--no-overlap" falsevalue="" checked="False" label="Disallow mate alignments to overlap" help="--no-overlap; If one mate alignment overlaps the other at all, consider that to be non-concordant. Default=False"/>
                     </when>
                     <when value="no">
                         <!-- do nothing -->
@@ -231,8 +253,8 @@
                         <param name="no_mixed" type="boolean" truevalue="--no-mixed" falsevalue="" checked="False" label="Disable no-mixed behavior" help="--no-mixed; By default, when `bowtie2` cannot find a concordant or discordant alignment for a pair, it then tries to find alignments for the individual mates; default=False"/>
                         <param name="no_discordant" type="boolean" truevalue="--no-discordant" falsevalue="" checked="False" label="Disable no-discordant behavior" help="--no-discordant; By default, `bowtie2` looks for discordant alignments if it cannot find any concordant alignments. A discordant alignment is an alignment where both mates align uniquely, but that does not satisfy the paired-end constraints (`--fr`/`--rf`/`--ff`, `-I`, `-X`); default=False"/>
                         <param name="dovetail" type="boolean" truevalue="--dovetail" falsevalue="" checked="False" label="Allow mate dovetailing" help="--dovetail; If the mates `dovetail`, that is if one mate alignment extends past the beginning of the other such that the wrong mate begins upstream, consider that to be concordant. Default=False"/>
-                        <param name="no_contain" type="boolean" truevalue="--no-contain" falsevalue="" checked="False" label="Allow one mate alignment to contain another" help="--no-contain; If one mate alignment contains the other, consider that to be non-concordant. Default=False"/>
-                        <param name="no_overlap" type="boolean" truevalue="--no-overlap" falsevalue="" checked="False" label="Allow mate alignments to overlap" help="--no-overlap; If one mate alignment overlaps the other at all, consider that to be non-concordant. Default=False"/>
+                        <param name="no_contain" type="boolean" truevalue="--no-contain" falsevalue="" checked="False" label="Disallow one mate alignment to contain another" help="--no-contain; If one mate alignment contains the other, consider that to be non-concordant. Default=False"/>
+                        <param name="no_overlap" type="boolean" truevalue="--no-overlap" falsevalue="" checked="False" label="Disallow mate alignments to overlap" help="--no-overlap; If one mate alignment overlaps the other at all, consider that to be non-concordant. Default=False"/>
                     </when>
                     <when value="no">
                         <!-- do nothing -->
@@ -261,20 +283,7 @@
         </conditional>
         
         <!-- read group settings -->
-        <conditional name="read_group">
-            <param name="read_group_selector" type="select" label="Specify the read group for this file?" help="Specifying readgroup information can greatly simplify your downstream analyses by allowing combining multiple datasets. See help below for more details">
-                <option value="yes">Yes</option>
-                <option value="no" selected="True">No</option>
-            </param>
-            <when value="yes">
-                <param name="rgid" type="text" size="25" label="Read group identiﬁer (ID). Each @RG line must have a unique ID. The value of ID is used in the RG tags of alignment records. Must be unique among all read groups in header section." help="--rg-id; Required if RG specified. Read group IDs may be modiﬁed when merging SAM ﬁles in order to handle collisions." />
-                <param name="rglb" type="text" size="25" label="Library name (LB)" help="--rg; Required if RG specified" />
-                <param name="rgpl" type="text" size="25" label="Platform/technology used to produce the reads (PL)" help="--rg; Required if RG specified. Valid values : CAPILLARY, LS454, ILLUMINA, SOLID, HELICOS, IONTORRENT and PACBIO" />
-                <param name="rgsm" type="text" size="25" label="Sample (SM)" help="--rg; Required if RG specified. Use pool name where a pool is being sequenced" />
-            </when>
-            <when value="no" />
-        </conditional>
-        
+        <expand macro="read_group_conditional" />
         <conditional name="analysis_type">
             <param name="analysis_type_selector" type="select" label="Select analysis mode">
                 <option value="simple">1: Default setting only</option>
@@ -301,7 +310,7 @@
                     </param>
                     <when value="yes">
                         <param name="skip" type="integer" min="0" value="0" label="Skip (i.e. do not align) the first that many reads or pairs in the input" help="-s/--skip; default=0"/>
-                        <param name="qupto" type="integer" min="1" value="100000000" label="Align the first that many reads or read pairs from the input (after the -s/--skip reads or pairs have been skipped), then stop" help="-u/--qupto"/>
+                        <param name="qupto" type="integer" min="1" value="100000000" label="Align the first that many reads or read pairs from the input (after the -s/--skip reads or pairs have been skipped), then stop" help="-u/--qupto; for default behavior (no limit) leave this value very large"/>
                         <param name="trim5" type="integer" min="0" value="0" label="Trim that many bases from 5' (left) end of each read before alignment" help="-5/--trim5; default=0"/>
                         <param name="trim3" type="integer" min="0" value="0" label="Trim that many bases from 3' (right) end of each read before alignment" help="-3/--trim3; default=0"/>
                         <param name="qv_encoding" type="select" display="radio" label="Select quality score encoding" help="See help below for more details">
@@ -323,7 +332,7 @@
                     <when value="yes">
                         <param name="N" type="integer" min="0" max="1" value="0" label="Set the number of mismatches to be allowed in a seed alignment during multiseed alignment (see `Multiseed alignment` section of help below)" help="-N; Can be set to 0 or 1. Setting this higher makes alignment slower (often much slower) but increases sensitivity; default=0"/>
                         <param name="L" type="integer" min="0" max="32" value="22" label="Sets the length of the seed substrings to align during multiseed alignment (see `Multiseed alignment` section of help below)" help="-L; Smaller values make alignment slower but more sensitive. Default=22"/>
-                        <param name="i" type="text" value="S,1,1.15" size="10" label="Set a function governing the interval between seed substrings to use during multiseed alignment (see `Multiseed alignment` section of help below). Also see description of this option below in the help section" help="-i; Since it's best to use longer intervals for longer reads, this parameter sets the interval as a function of the read length, rather than a single one-size-fits-all number. For instance, specifying `-i S,1,2.5` sets the interval function `f` to `f(x) = 1 + 2.5 * sqrt(x)`, where x is the read length. If the function returns a result less than 1, it is rounded up to 1. Default=`S,1,1.15`"/>
+                        <param name="i" type="text" value="S,1,1.15" label="Set a function governing the interval between seed substrings to use during multiseed alignment (see `Multiseed alignment` section of help below). Also see description of this option below in the help section" help="-i; Since it's best to use longer intervals for longer reads, this parameter sets the interval as a function of the read length, rather than a single one-size-fits-all number. For instance, specifying `-i S,1,2.5` sets the interval function `f` to `f(x) = 1 + 2.5 * sqrt(x)`, where x is the read length. If the function returns a result less than 1, it is rounded up to 1. Default=`S,1,1.15`"/>
                         <param name="n_ceil" type="text" value="L,0,0.15" label="Set a function governing the maximum number of ambiguous characters (usually `N`s and/or `.`s) allowed in a read as a function of read length" help="--n-ceil; For instance, specifying `L,0,0.15` sets the N-ceiling function `f` to `f(x) = 0 + 0.15 * x`, where x is the read length. Reads exceeding this ceiling are filtered out. Default=`L,0,0.15`"/>
                         <param name="dpad" type="integer" min="0" value="15" label="Pad dynamic programming problems by that many columns on either side to allow gaps" help="--dpad; default=15"/>
                         <param name="gbar" type="integer" min="0" value="4" label="Disallow gaps within that many positions of the beginning or end of the read" help="--gbar; default=4"/>
@@ -355,7 +364,7 @@
                     </param>
                     <when value="yes">
                         <param name="ma" type="integer" value="2" label="Set the match bonus" help="--ma;  In `--local` mode match bonus is added to the alignment score for each position where a read character aligns to a reference character and the characters match. Not used in `--end-to-end` mode; Default=2"/>
-                        <param name="mp" type="text" size="10" value="6,2" label="Set the maximum (`MX`) and minimum (`MN`) mismatch penalties, both integers" help="--mp; A number less than or equal to `MX` and greater than or equal to `MN` is subtracted from the alignment score for each position where a read character aligns to a reference character, the characters do not match, and neither is an `N`.  If `--ignore-quals` is specified, the number subtracted quals `MX`. Otherwise, the number subtracted is `MN + floor( (MX-MN)(MIN(Q, 40.0)/40.0) )` where Q is the Phred quality value; Default=6,2"/>
+                        <param name="mp" type="text" value="6,2" label="Set the maximum (`MX`) and minimum (`MN`) mismatch penalties, both integers" help="--mp; A number less than or equal to `MX` and greater than or equal to `MN` is subtracted from the alignment score for each position where a read character aligns to a reference character, the characters do not match, and neither is an `N`.  If `--ignore-quals` is specified, the number subtracted quals `MX`. Otherwise, the number subtracted is `MN + floor( (MX-MN)(MIN(Q, 40.0)/40.0) )` where Q is the Phred quality value; Default=6,2"/>
                         <param name="np" type="integer" value="1" label="Sets penalty for positions where the read, reference, or both, contain an ambiguous character such as `N`" help="--np; Default=1"/>
                         <param name="rdg_read_open" type="integer" value="5" label="Set the read gap opening penalty" help="--rdg; this is the first component of --rdg flag - opening penalty; Default=5"/>
                         <param name="rdg_read_extend" type="integer" value="3" label="Set the read gap extension penalty" help="--rdg; this is the second component of --rdg flag - extension penalty; Default=3"/>
@@ -426,6 +435,7 @@
                 <param name="sam_opt" type="boolean" truevalue="true" falsevalue="false" label="Would you like the output to be a SAM file" help="By default, the output from this Bowtie2 wrapper is a sorted BAM file."/>
             </when>
         </conditional>
+        <param name="save_mapping_stats" type="boolean" checked="False" label="Save the bowtie2 mapping statistics to the history" />
     </inputs>
 
     <!-- define outputs -->
@@ -435,17 +445,40 @@
         <data format="fastqsanger" name="output_unaligned_reads_l" label="${tool.name} on ${on_string}: unaligned reads (L)" >
             <filter>library['unaligned_file'] is True</filter>
             <actions>
-                <action type="format">
-                    <option type="from_param" name="library.input_1" param_attribute="ext" />
-                </action>
+                <conditional name="library.type">
+                    <when value="single">
+                        <action type="format">
+                            <option type="from_param" name="library.input_1" param_attribute="ext" />
+                        </action>
+                    </when>
+                    <when value="paired">
+                        <action type="format">
+                            <option type="from_param" name="library.input_1" param_attribute="ext" />
+                        </action>
+                    </when>
+                    <when value="paired_collection">
+                        <action type="format">
+                            <option type="from_param" name="library.input_1" param_attribute="forward.ext" />
+                        </action>
+                    </when>
+                </conditional>
             </actions>
         </data>
         <data format="fastqsanger" name="output_unaligned_reads_r" label="${tool.name} on ${on_string}: unaligned reads (R)">
             <filter>( library['type'] == "paired" or library['type'] == "paired_collection" ) and library['unaligned_file'] is True</filter>
             <actions>
-                <action type="format">
-                    <option type="from_param" name="library.input_1" param_attribute="ext" />
-                </action>
+                <conditional name="library.type">
+                    <when value="paired">
+                        <action type="format">
+                            <option type="from_param" name="library.input_2" param_attribute="ext" />
+                        </action>
+                    </when>
+                    <when value="paired_collection">
+                        <action type="format">
+                            <option type="from_param" name="library.input_1" param_attribute="reverse.ext" />
+                        </action>
+                    </when>
+                </conditional>
             </actions>
         </data>
         
@@ -490,6 +523,9 @@
             </conditional>
           </actions>
         </data>
+        <data format="txt" name="mapping_stats" label="${tool.name} on ${on_string}: mapping stats">
+          <filter>save_mapping_stats is True</filter>
+        </data>
 
     </outputs>
 
@@ -506,6 +542,37 @@
             <param name="input_2" value="bowtie2-fq2.fq" ftype="fastqsanger"/>
             <param name="own_file" value="bowtie2-ref.fasta" />
             <output name="output" file="bowtie2-test1.bam" ftype="bam" lines_diff="2"/>
+        </test>
+        <test>
+            <!-- basic test on single paired default run -->
+            <param name="type" value="paired"/>
+            <param name="selection" value="no"/>
+            <param name="paired_options_selector" value="no"/>
+            <param name="unaligned_file" value="false"/>
+            <param name="analysis_type_selector" value="simple"/>
+            <param name="rg_selector" value="set"/>
+            <param name="ID" value="rg1"/>
+            <param name="PL" value="CAPILLARY"/>
+            <param name="source" value="history" />
+            <param name="input_1" value="bowtie2-fq1.fq" ftype="fastqsanger"/>
+            <param name="input_2" value="bowtie2-fq2.fq" ftype="fastqsanger"/>
+            <param name="own_file" value="bowtie2-ref.fasta" />
+            <output name="output" file="bowtie2-test2.bam" ftype="bam" lines_diff="2"/>
+        </test>
+        <test>
+            <!-- basic test on single paired default run with stats-->
+            <param name="type" value="paired"/>
+            <param name="selection" value="no"/>
+            <param name="paired_options_selector" value="no"/>
+            <param name="unaligned_file" value="false"/>
+            <param name="analysis_type_selector" value="simple"/>
+            <param name="source" value="history" />
+            <param name="input_1" value="bowtie2-fq1.fq" ftype="fastqsanger"/>
+            <param name="input_2" value="bowtie2-fq2.fq" ftype="fastqsanger"/>
+            <param name="own_file" value="bowtie2-ref.fasta" />
+            <param name="save_mapping_stats" value="true" />
+            <output name="output" file="bowtie2-test1.bam" ftype="bam" lines_diff="2"/>
+            <output name="mapping_stats" file="bowtie2-stats.out" ftype="txt"/>
         </test>
     </tests>
 

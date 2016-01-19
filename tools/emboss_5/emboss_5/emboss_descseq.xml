@@ -6,10 +6,10 @@
     <param format="data" name="input1" type="data">
       <label>On query</label>
     </param>
-    <param name="seqname" size="50" type="text" value="">
+    <param name="seqname" type="text" value="">
       <label>Name of the sequence</label>
     </param>
-    <param name="desc" size="50" type="text" value="">
+    <param name="desc" type="text" value="">
       <label>Description of the sequence</label>
     </param>
     <param name="append" type="select">

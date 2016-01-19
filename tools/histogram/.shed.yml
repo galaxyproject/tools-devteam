@@ -1,4 +1,10 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/histogram
-owner: devteam
+categories:
+- Graphics
+- Statistics
+description: Histogram of a numeric column
+long_description: |
+ This tool computes a histogram of the numerical values in a column of a dataset.
 name: histogram
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/histogram
+type: unrestricted

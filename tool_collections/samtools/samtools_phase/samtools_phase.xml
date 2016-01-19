@@ -1,8 +1,11 @@
-<tool id="samtools_phase" name="Call and phase" version="1.0.2">
+<tool id="samtools_phase" name="Call and phase" version="2.0">
     <description>heterozygous SNPs</description>
-    <requirements>
-        <requirement type="package" version="1.1">samtools</requirement>
-    </requirements>
+    <macros>
+    <import>macros.xml</import>
+  </macros>
+  <expand macro="requirements"></expand>
+  <expand macro="stdio"></expand>
+  <expand macro="version_command"></expand>
     <command>samtools phase -b "phase_wrapper"
         #if str($option_set.option_sets) == 'advanced':
             ${option_set.ignore_chimeras}
@@ -16,9 +19,6 @@
         #end if
         "$input_bam" &gt; "$phase_sets"
     </command>
-    <stdio>
-        <exit_code range="1:" level="fatal" description="Error" />
-    </stdio>
     <inputs>
         <param format="bam" name="input_bam" type="data" label="Select dataset to phase"/>
         <conditional name="option_set">
@@ -125,16 +125,6 @@ Call and phase heterozygous SNPs
      - Drop reads with ambiguous phase
      - *off*
 
-------
-
-**Citation**
-
-    <citations>
-        <citation type="doi">10.1093/bioinformatics/btp352</citation>
-    </citations>
-
-
-If you use this tool in Galaxy, please cite Blankenberg D, et al. *In preparation.*
-
-        </help>
+    </help>
+    <expand macro="citations"></expand>
 </tool>

@@ -1,6 +1,6 @@
 <tool id="twobit_builder_data_manager" name="TwoBit" tool_type="manage_data" version="0.0.1">
     <requirements>
-        <requirement type="package">ucsc_tools</requirement>
+        <requirement type="package" version="312">ucsc_tools</requirement>
     </requirements>
     <description>builder</description>
     <command interpreter="python">twobit_builder.py "${out_file}" --fasta_filename "${all_fasta_source.fields.path}" --fasta_dbkey "${all_fasta_source.fields.dbkey}" --fasta_description "${all_fasta_source.fields.name}"</command>

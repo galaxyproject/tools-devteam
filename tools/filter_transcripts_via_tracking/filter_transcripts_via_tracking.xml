@@ -24,6 +24,8 @@
     </tests>
 
     <help>
+        **What it does**
+        
         Uses a tracking file (produced by cuffcompare) to filter a GTF file of transcripts (usually the transcripts produced by 
         cufflinks). Filtering is done by extracting transcript IDs from tracking file and then filtering the 
         GTF so that the output GTF contains only transcript found in the tracking file. Because a tracking file has multiple 

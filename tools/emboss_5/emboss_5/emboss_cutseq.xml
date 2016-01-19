@@ -6,10 +6,10 @@
     <param format="fasta" name="input1" type="data">
       <label>On query</label>
     </param>
-    <param name="from" size="8" type="text" value="1">
+    <param name="from" type="text" value="1">
       <label>Start of region to delete</label>
     </param>
-    <param name="to" size="8" type="text" value="1">
+    <param name="to" type="text" value="1">
       <label>End of region to delete</label>
     </param>
     <param name="out_format1" type="select">

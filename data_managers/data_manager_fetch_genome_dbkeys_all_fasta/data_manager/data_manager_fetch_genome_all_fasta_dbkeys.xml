@@ -51,7 +51,7 @@
           </when>
         </conditional>
         <conditional name="sorting">
-          <param name="sort_selector" type="select" label="Choose the source for the reference genome">
+          <param name="sort_selector" type="select" label="Sort by chromosome name">
             <option value="as_is" selected="True">As is</option>
             <option value="lexicographical">Lexicographical</option>
             <option value="gatk">GATK</option>

@@ -105,7 +105,7 @@ class WL3:
                 if seqlen <> flen:
                     print >> sys.stderr,self.badseq % self.opts.input
                     sys.exit(1)
-        return '# weblogo input %s has %d sequences all of length %d' % (self.opts.input,lasti,flen)
+        return '# weblogo input %s has %d sequences all of length %d' % (self.opts.input, lasti+1, flen)
 
 
     def run(self):

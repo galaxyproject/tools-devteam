@@ -1,4 +1,11 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/fasta_concatenate_by_species
-owner: devteam
+categories:
+ - Fasta Manipulation
+description: Concatenate FASTA alignment by species
+long_description: |
+  This tools attempts to parse FASTA headers to determine the species
+  for each sequence in a multiple FASTA alignment. It then linearly concatenates the
+  sequences for each species in the file, creating one sequence per determined species.
 name: fasta_concatenate_by_species
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/fasta_concatenate_by_species
+type: unrestricted

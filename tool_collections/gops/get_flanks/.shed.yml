@@ -1,4 +1,11 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/get_flanks
-owner: devteam
+categories:
+- Genomic Interval Operations
+description: Get flanks returns flanking region/s for every gene
+long_description: |
+  This tool finds the upstream and/or downstream flanking region(s)
+  of all the selected regions in the input file.
 name: get_flanks
-    
+owner: devteam
+homepage_url: https://github.com/galaxyproject/gops
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/gops/get_flanks
+type: unrestricted

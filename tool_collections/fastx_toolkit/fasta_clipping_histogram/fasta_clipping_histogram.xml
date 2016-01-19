@@ -1,19 +1,20 @@
 <tool id="cshl_fasta_clipping_histogram" name="Length Distribution" version="1.0.0">
-	<description>chart</description>
+    <description>chart</description>
     <requirements>
         <requirement type="package" version="0.0.13">fastx_toolkit</requirement>
     </requirements>
-	<command>fasta_clipping_histogram.pl $input $outfile</command>
-	
-	<inputs>
-		<param format="fasta" name="input" type="data" label="Library to analyze" />
-	</inputs>
+    <command>fasta_clipping_histogram.pl $input $outfile</command>
 
-	<outputs>
-		<data format="png" name="outfile" metadata_source="input" />
-	</outputs>
-<help>
+    <inputs>
+        <param format="fasta" name="input" type="data" label="Library to analyze" />
+    </inputs>
 
+    <outputs>
+        <data format="png" name="outfile" metadata_source="input" />
+    </outputs>
+    <tests>
+    </tests>
+    <help>
 **What it does**
 
 This tool creates a histogram image of sequence lengths distribution in a given fasta dataset file.
@@ -24,20 +25,17 @@ This tool creates a histogram image of sequence lengths distribution in a given 
 
 **Output Examples**
 
-In the following library, most sequences are 24-mers to 27-mers. 
+In the following library, most sequences are 24-mers to 27-mers.
 This could indicate an abundance of endo-siRNAs (depending of course of what you've tried to sequence in the first place).
 
 .. image:: ${static_path}/fastx_icons/fasta_clipping_histogram_1.png
 
-
-In the following library, most sequences are 19,22 or 23-mers. 
+In the following library, most sequences are 19,22 or 23-mers.
 This could indicate an abundance of miRNAs (depending of course of what you've tried to sequence in the first place).
 
 .. image:: ${static_path}/fastx_icons/fasta_clipping_histogram_2.png
 
-
 -----
-
 
 **Input Formats**
 
@@ -49,7 +47,6 @@ This tool accepts short-reads FASTA files. The reads don't have to be short, but
    GTGTGTGTGGGAAGTTGACACAGTA
    >sequence3
    CCTTGAGATTAACGCTAATCAAGTAAAC
-
 
 If the sequences span over multiple lines::
 
@@ -63,10 +60,7 @@ Use the **FASTA Width Formatter** tool to re-format the FASTA into a single-line
    >sequence1
    CAGCATCTACATAATATGATCGCTATTAAACTTAAATCTCCTTGACGGAGTCTTCGGTCATAACACAAACCCAGACCTACGTATATGACAAAGCTAATAGaactggtctttacctTTAAGTTG
 
-
 -----
-
-
 
 **Multiplicity counts (a.k.a reads-count)**
 
@@ -84,7 +78,6 @@ Example 1 - The following FASTA file *does not* have multiplicity counts::
 Each sequence is counts as one, to produce the following chart:
 
 .. image:: ${static_path}/fastx_icons/fasta_clipping_histogram_3.png
-
 
 Example 2 - The following FASTA file have multiplicity counts::
 
@@ -106,7 +99,5 @@ Use the **FASTA Collapser** tool to create FASTA files with multiplicity counts.
 This tool is based on `FASTX-toolkit`__ by Assaf Gordon.
 
  .. __: http://hannonlab.cshl.edu/fastx_toolkit/
- 
-</help>
-<!-- FASTA-Clipping-Histogram is part of the FASTX-toolkit, by A.Gordon (gordon@cshl.edu) -->
+    </help>
 </tool>

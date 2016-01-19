@@ -6,7 +6,7 @@
     <param format="data" name="input1" type="data">
       <label>Sequence</label>
     </param>
-    <param name="window" size="4" type="text" value="28">
+    <param name="window" type="text" value="28">
       <label>Window size</label>
     </param>
     <param name="coil" type="select">

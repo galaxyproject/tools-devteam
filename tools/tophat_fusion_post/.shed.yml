@@ -1,4 +1,9 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/tophat_fusion_post
-owner: devteam
+categories:
+- Transcriptomics
+description: Wrapper for Tophat-Fusion post step
+long_description: |
+  Plese see http://tophat.cbcb.umd.edu/fusion_index.html for details.
 name: tophat_fusion_post
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/tophat_fusion_post
+type: unrestricted

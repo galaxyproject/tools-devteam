@@ -1,4 +1,11 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/t2ps
-owner: devteam
+categories:
+- Metagenomics
+description: Draw phylogeny
+long_description: |
+  Given taxonomy representation (produced by *Fetch taxonomic representation*
+  tool) this utility produces a graphical representations of phylogenetic tree in PDF format.
 name: t2ps
-    
+owner: devteam
+homepage_url: https://bitbucket.org/natefoo/taxonomy
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/taxonomy/t2ps
+type: unrestricted

@@ -7,13 +7,13 @@
     <param format="data" name="input1" type="data">
       <label>Sequence</label>
     </param>
-    <param name="squares" size="10" type="text" value="ILVM">
+    <param name="squares" type="text" value="ILVM">
       <label>Residues to mark with squares</label>
     </param>
-    <param name="diamonds" size="10" type="text" value="DENQST">
+    <param name="diamonds" type="text" value="DENQST">
       <label>Residues to mark with diamonds</label>
     </param>
-    <param name="octags" size="10" type="text" value="HKR ">
+    <param name="octags" type="text" value="HKR ">
       <label>Residues to mark with octagons</label>
     </param>
     <param name="amphipathic" type="select">

@@ -1,4 +1,8 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/vcftools_annotate
-owner: devteam
+categories:
+- Variant Analysis
+description: Annotate VCF using custom/user-defined annotations
 name: vcftools_annotate
-    
+owner: devteam
+homepage_url: https://vcftools.github.io/
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/vcftools/vcftools_annotate
+type: unrestricted

@@ -9,10 +9,10 @@
     <param format="fasta" name="input2" type="data">
       <label>Sequence 2</label>
     </param>
-    <param name="gapopen" size="4" type="text" value="10.0">
+    <param name="gapopen" type="text" value="10.0">
       <label>Gap open penalty</label>
     </param>
-    <param name="gapextend" size="4" type="text" value="0.5">
+    <param name="gapextend" type="text" value="0.5">
       <label>Gap extension penalty</label>
     </param>
     <param name="brief" type="select">

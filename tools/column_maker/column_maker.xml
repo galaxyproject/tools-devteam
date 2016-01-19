@@ -4,7 +4,7 @@
     column_maker.py $input $out_file1 "$cond" $round ${input.metadata.columns} "${input.metadata.column_types}"
   </command>
   <inputs>
-    <param name="cond" size="40" type="text" value="c3-c2" label="Add expression"/>
+    <param name="cond" type="text" value="c3-c2" label="Add expression"/>
     <param format="tabular" name="input" type="data" label="as a new column to" help="Dataset missing? See TIP below"/>
     <param name="round" type="select" label="Round result?">
       <option value="no">NO</option>
@@ -79,5 +79,16 @@ or computing "type(c2)==type('') for Input will return::
    chr1  151077881  151077918  2  200  -  False
    chr1  151081985  151082078  3  500  +  False
 
-</help>
+
+The following build-in functions are available::
+
+  abs | all | any | bin | bool | chr | ceil | cmp | complex
+
+  divmod | exp | float | log | floor | hex | int | len | long
+
+  max | min | oct | ord | pow | range | reversed
+
+  round | sorted | sqrt | str | sum | type | unichr | unicode |
+
+  </help>
 </tool>

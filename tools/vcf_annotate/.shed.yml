@@ -1,4 +1,9 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/vcf_annotate
-owner: devteam
+categories:
+- Variant Analysis
+description: 'Annotate a VCF file (dbSNP, hapmap)'
+long_description: |
+  This tool uses vcfPytools'' annotate command to annotate a VCF file
 name: vcf_annotate
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/vcf_annotate
+type: unrestricted

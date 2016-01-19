@@ -1,4 +1,12 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/dwt_var_perclass
-owner: devteam
+categories:
+- Statistics
+description: Compute P-values and Max Variances for Feature Occurrences
+long_description: |
+  This program generates plots and computes table matrix of maximum
+  variances, p-values, and test orientations at multiple scales for the occurrences
+  of a class of features in one dataset of DNA sequences using multiscale wavelet
+  analysis technique.
 name: dwt_var_perclass
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/dwt_var_perclass
+type: unrestricted

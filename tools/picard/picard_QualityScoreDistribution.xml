@@ -1,13 +1,11 @@
-<tool name="QualityScoreDistribution" id="picard_QualityScoreDistribution" version="1.126.0">
+<tool name="QualityScoreDistribution" id="picard_QualityScoreDistribution" version="@TOOL_VERSION@.0">
   <description>chart quality score distribution</description>
-  <requirements>
-    <requirement type="package" version="1.126.0">picard</requirement>
-  </requirements>
-  
   <macros>
     <import>picard_macros.xml</import>
   </macros>
-  
+  <expand macro="requirements">
+    <requirement type="package" version="3.1.2">R</requirement>
+  </expand>
   <command>
     @java_options@
     ##set up input files

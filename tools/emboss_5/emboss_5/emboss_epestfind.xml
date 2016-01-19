@@ -7,7 +7,7 @@
     <param format="data" name="input1" type="data">
       <label>Sequence</label>
     </param>
-    <param name="window" size="4" type="text" value="10">
+    <param name="window" type="text" value="10">
       <label>Minimal distance between positively charged amino acids</label>
     </param>
     <param name="order" type="select">
@@ -16,7 +16,7 @@
       <option value="1">Length</option>
       <option value="2">Position</option>
     </param>
-    <param name="threshold" size="4" type="text" value="5.0">
+    <param name="threshold" type="text" value="5.0">
       <label>Threshold value to discriminate weak from potential PEST motifs.</label>
     </param>
     <param name="potential" type="select">

@@ -1,4 +1,12 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/gmaj
-owner: devteam
+categories:
+- Visualization
+description: GMAJ Multiple Alignment Viewer
+long_description: |
+  GMAJ is an interactive viewer for MAF alignments, with support
+  for optional annotation data.  In addition to browsing the alignments, you can select
+  and export them according to a variety of criteria and send the output back to your
+  Galaxy history.
 name: gmaj
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/gmaj
+type: unrestricted

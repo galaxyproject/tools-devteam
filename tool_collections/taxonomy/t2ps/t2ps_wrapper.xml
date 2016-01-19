@@ -35,7 +35,7 @@
         <option value="4">Tiny</option>
         <option value="12">Large</option>
     </param>
-    <param name="max_leaves" type="text" size="5" value="0" label="maximum number of leaves" help="set to 0 to show all"/>
+    <param name="max_leaves" type="text" value="0" label="maximum number of leaves" help="set to 0 to show all"/>
   </inputs>
   <outputs>
     <data format="pdf" name="out_file1" />

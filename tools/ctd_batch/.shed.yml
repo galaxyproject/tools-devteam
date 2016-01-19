@@ -1,4 +1,11 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/ctd_batch
-owner: devteam
+categories:
+- Sequence Analysis
+description: 'CTD analysis of chemicals, diseases, or genes'
+long_description: |
+  This tool extracts data related to the provided list of identifiers
+  from the Comparative Toxicogenomics Database (CTD).  The fields extracted vary with
+  the type of data requested; the first row of the output identifies the columns.
 name: ctd_batch
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/ctd_batch
+type: unrestricted

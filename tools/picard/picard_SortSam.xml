@@ -1,15 +1,9 @@
-<tool id="picard_SortSam" name="SortSam" version="1.126.0">
-    
+<tool id="picard_SortSam" name="SortSam" version="@TOOL_VERSION@.1">
   <description>sort SAM/BAM dataset</description>
-  
-  <requirements>
-    <requirement type="package" version="1.126.0">picard</requirement>
-  </requirements>
-  
   <macros>
     <import>picard_macros.xml</import>
   </macros>
-  
+  <expand macro="requirements" />
   <command>
     @java_options@
     java -jar \$JAVA_JAR_PATH/picard.jar
@@ -27,7 +21,6 @@
     <param name="sort_order" type="select" display="radio" label="Sort order" help="SORT_ORDER; default=coordinate">
       <option value="coordinate" selected="True">Coordinate</option>
       <option value="queryname">Queryname</option>
-      <option value="unsorted">Unsorted</option>
     </param>
     <expand macro="VS" />
   </inputs>
@@ -62,7 +55,7 @@ Sorts the input SAM or BAM.
 @description@
 
   SORT_ORDER=SortOrder
-  SO=SortOrder                  Sort order of output file  Required. Possible values: {unsorted, queryname, coordinate} 
+  SO=SortOrder          Sort order of output file. You can either sort by queryname or by coordinate.
  
  @more_info@
 

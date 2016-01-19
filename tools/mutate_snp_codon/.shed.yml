@@ -1,4 +1,19 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/mutate_snp_codon
-owner: devteam
+categories:
+- Variant Analysis
+description: Mutate Codons with SNPs
+long_description: |
+  This tool takes an interval file as input.  This input should contain
+  a set of codon locations and corresponding DNA sequence (such as from the *Extract
+  Genomic DNA* tool) joined to SNP locations with observed values (such as *all fields
+  from selected table* from the snp130 table of hg18 at the UCSC Table browser).  This
+  interval file should have the metadata (chromosome, start, end, strand) set for
+  the columns containing the locations of the codons. The user needs to specify the
+  columns containing the sequence for the codon as well as the genomic positions and
+  observed values (values should be split by ''/'') for the SNP data as tool input;
+  SNPs positions and sequence substitutes must have a length of exactly 1. Only genomic
+  intervals which yield a different sequence string are output. All sequence characters
+  are converted to uppercase during processing.
 name: mutate_snp_codon
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/mutate_snp_codon
+type: unrestricted

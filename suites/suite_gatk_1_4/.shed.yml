@@ -1,4 +1,14 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/suite_gatk_1_4
-owner: devteam
+categories:
+- Variant Analysis
+description: A suite of Galaxy utilities associated with version 1.4 of the GATK package.
+long_description: |
+  The Genome Analysis Toolkit or GATK is a software package developed
+  at the Broad Institute to analyse next-generation resequencing data.  This repository
+  suite associates selected repositories containing Galaxy utilities that require
+  version 1.4 of the GATK package.  These associated Galaxy utilities consist of a
+  data manager tool contained in the repository named data_manager_gatk_picard_index_builder
+  and Galaxy tools contained in several separate repositories.
 name: suite_gatk_1_4
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/suites/suite_gatk_1_4
+type: repository_suite_definition

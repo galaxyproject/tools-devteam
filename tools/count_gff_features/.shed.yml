@@ -1,4 +1,11 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/count_gff_features
-owner: devteam
+categories:
+- Sequence Analysis
+description: Count GFF Features
+long_description: |
+  Counts the number of features in a GFF dataset. GFF features are
+  often spread across multiple lines; this tool counts the number of features in dataset
+  rather than the number of lines.
 name: count_gff_features
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/count_gff_features
+type: unrestricted

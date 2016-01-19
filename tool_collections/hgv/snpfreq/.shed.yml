@@ -1,4 +1,13 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/snpfreq
-owner: devteam
+categories:
+- Variant Analysis
+- Statistics
+description: snpFreq significant SNPs in case-control data
+long_description: |
+  This tool performs a basic analysis of bi-allelic SNPs in case-control
+  data, using the R statistical environment and Fisher''s exact test to identify SNPs
+  with a significant difference in the allele frequencies between the two groups.  R''s
+  "qvalue" package is used to correct for multiple testing.
 name: snpfreq
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/hgv/snpfreq
+type: unrestricted

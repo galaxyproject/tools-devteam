@@ -1,13 +1,9 @@
-<tool name="MarkDuplicatesWithMateCigar" id="picard_MarkDuplicatesWithMateCigar" version="1.126.0">
+<tool name="MarkDuplicatesWithMateCigar" id="picard_MarkDuplicatesWithMateCigar" version="@TOOL_VERSION@.0">
   <description>examine aligned records in BAM datasets to locate duplicate molecules</description>
-  <requirements>
-    <requirement type="package" version="1.126.0">picard</requirement>
-  </requirements>
-  
   <macros>
     <import>picard_macros.xml</import>
   </macros>
-  
+  <expand macro="requirements" />
   <command>
     @java_options@
     
@@ -18,10 +14,8 @@
     OUTPUT="${outFile}"
     
     METRICS_FILE="${metrics_file}"
-    #for $element in $comments:
-      COMMENT="${element.comment}"
-    #end for
-    
+    COMMENT="${comment}"
+
     MINIMUM_DISTANCE="${minimum_distance}"
     SKIP_PAIRS_WITH_NO_MATE_CIGAR="${skip_pairs_with_no_mate_cigar}"
     
@@ -44,7 +38,7 @@
   </command>
   <inputs>
     <param format="bam" name="inputFile" type="data" label="Select SAM/BAM dataset or dataset collection" help="If empty, upload or import a SAM/BAM dataset"/>
-      <param name="comment" type="text" size="50" label="Add this comment to BAM dataset"/>
+      <param name="comment" type="text" label="Add this comment to BAM dataset"/>
     
     <param name="minimum_distance" type="integer" value="-1" label="The minimum distance to buffer records to account for clipping on the 5' end of the records" help="MINIMUM_DISTANCE; Set this number to -1 to use twice the first read's read length (or 100, whichever is smaller); default=-1"/>
     <param name="skip_pairs_with_no_mate_cigar" type="boolean" checked="true" truevalue="true" falsevalue="false" label="Skip record pairs with no mate cigar and include them in the output" help="SKIP_PAIRS_WITH_NO_MATE_CIGAR; default=True"/>
@@ -57,7 +51,7 @@
     </param>
 
 
-    <param name="read_name_regex" type="text" size="40" value="[a-zA-Z0-9]+:[0-9]:([0-9]+):([0-9]+):([0-9]+).*." label="Regular expression that can be used to parse read names in the incoming SAM/BAM dataset" help="READ_NAME_REGEX; Read names are parsed to extract three variables: tile/region, x coordinate and y coordinate. These values are used to estimate the rate of optical duplication in order to give a more accurate estimated library size. See help below for more info; default=[a-zA-Z0-9]+:[0-9]:([0-9]+):([0-9]+):([0-9]+).*.">
+    <param name="read_name_regex" type="text" value="[a-zA-Z0-9]+:[0-9]:([0-9]+):([0-9]+):([0-9]+).*." label="Regular expression that can be used to parse read names in the incoming SAM/BAM dataset" help="READ_NAME_REGEX; Read names are parsed to extract three variables: tile/region, x coordinate and y coordinate. These values are used to estimate the rate of optical duplication in order to give a more accurate estimated library size. See help below for more info; default=[a-zA-Z0-9]+:[0-9]:([0-9]+):([0-9]+):([0-9]+).*.">
       <sanitizer>
         <valid initial="string.printable">
         </valid>

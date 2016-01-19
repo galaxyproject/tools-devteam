@@ -6,13 +6,13 @@
     <param format="data" name="input1" type="data">
       <label>Sequences</label>
     </param>
-    <param name="mean" size="10" type="text" value="238.71">
+    <param name="mean" type="text" value="238.71">
       <label>Mean value</label>
     </param>
-    <param name="sd" size="10" type="text" value="293.61">
+    <param name="sd" type="text" value="293.61">
       <label>Standard Deviation value</label>
     </param>
-    <param name="minsd" size="10" type="text" value="2.5">
+    <param name="minsd" type="text" value="2.5">
       <label>Minimum SD</label>
     </param>
     <param name="eightyseven" type="select">

@@ -1,4 +1,10 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/substitutions
-owner: devteam
+categories:
+- Sequence Analysis
+- Variant Analysis
+description: Fetch substitutions from pairwise alignments
+long_description: |
+  This tool takes a pairwise MAF file as input and fetches substitutions per alignment block.
 name: substitutions
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/substitutions
+type: unrestricted

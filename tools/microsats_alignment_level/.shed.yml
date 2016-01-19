@@ -1,4 +1,12 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/microsats_alignment_level
-owner: devteam
+categories:
+- Sequence Analysis
+- Variant Analysis
+description: Extract Orthologous Microsatellites from pair-wise alignments
+long_description: |
+  This tool uses a modified version of SPUTNIK to fetch microsatellite
+  repeats from the input fasta sequences and extracts orthologous repeats from the
+  sputnik output. The modified version allows detection of mononucleotide microsatellites.
 name: microsats_alignment_level
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/microsats_alignment_level
+type: unrestricted

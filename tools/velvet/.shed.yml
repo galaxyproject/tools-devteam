@@ -1,0 +1,7 @@
+categories:
+- Assembly
+description: 'de novo genomic assembler specially designed for short read sequencing technologies'
+name: velvet
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/velvet
+type: unrestricted

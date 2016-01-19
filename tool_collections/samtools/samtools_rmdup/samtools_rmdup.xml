@@ -1,9 +1,13 @@
-<tool id="samtools_rmdup" name="rmdup" version="1.0.2">
-  <requirements>
-    <requirement type="package" version="1.1">samtools</requirement>
-  </requirements>
+<tool id="samtools_rmdup" name="RmDup" version="2.0">
   <description>remove PCR duplicates</description>
-    <version_command>samtools --version | head -n 1 | awk '{ print $2 }'</version_command>
+  <macros>
+    <import>macros.xml</import>
+  </macros>
+  <requirements>
+    <requirement type="package" version="0.1.19">samtools</requirement>
+  </requirements>
+  <expand macro="stdio"></expand>
+  <expand macro="version_command"></expand>
   <command>samtools rmdup 
   #if str( $bam_paired_end_type.bam_paired_end_type_selector ) == "PE"
       ${bam_paired_end_type.force_se}
@@ -12,19 +16,16 @@
   #end if
   "$input1" "$output1"
   </command>
-    <stdio>
-        <exit_code range="1:" level="fatal" description="Error" />
-    </stdio>
   <inputs>
     <param name="input1" type="data" format="bam" label="BAM File" />
     
     <conditional name="bam_paired_end_type">
-      <param name="bam_paired_end_type_selector" type="select" label="Is data paired-end">
+      <param name="bam_paired_end_type_selector" type="select" label="Is this paired-end or single end data">
         <option value="PE" selected="True">BAM is paired-end</option>
-        <option value="SE">BAM is single-end</option>
+        <option value="SE">BAM is single-end (-s)</option>
       </param>
       <when value="PE">
-        <param name="force_se" type="boolean" label="Treat as single-end" help="(-S)" truevalue="-S" falsevalue="" checked="False"/>
+        <param name="force_se" type="boolean" label="Treat as single-end" help="-S" truevalue="-S" falsevalue="" checked="False"/>
       </when>
       <when value="SE" /> <!-- No extra parameters here -->
     </conditional>
@@ -35,40 +36,21 @@
   </outputs>
   <tests>
     <test>
-      <param name="input1" value="1.bam" ftype="bam" />
-      <param name="bam_paired_end_type_selector" value="SE" />
-      <output name="output1" file="1.bam" ftype="bam" sort="True"/>
-    </test>
-    <test>
-      <param name="input1" value="1.bam" ftype="bam" />
-      <param name="bam_paired_end_type_selector" value="PE" />
-      <param name="force_se" value="True" />
-      <output name="output1" file="1.bam" ftype="bam" sort="True"/>
-    </test>
-    <test>
-      <param name="input1" value="1.bam" ftype="bam" />
+      <param name="input1" value="samtools-rmdup-input1.bam" ftype="bam" />
       <param name="bam_paired_end_type_selector" value="PE" />
       <param name="force_se" />
-      <output name="output1" file="1.bam" ftype="bam" sort="True" />
+      <output name="output1" file="samtools-rmdup-test1.bam" ftype="bam" sort="True" />
     </test>
   </tests>
   <help>
 
 **What it does**
 
-This tool uses the SAMTools_ toolkit to remove potential PCR duplicates: if multiple read pairs have identical external coordinates, only retain the pair with highest mapping quality. In the paired-end mode, this command ONLY works with FR orientation and requires ISIZE is correctly set. It does not work for unpaired reads (e.g. two ends mapped to different chromosomes or orphan reads). 
+Remove potential PCR duplicates: if multiple read pairs have identical external coordinates, only retain the pair with highest mapping quality. In the paired-end mode, this command ONLY works with FR orientation and requires ISIZE is correctly set. It does not work for unpaired reads (e.g. two ends mapped to different chromosomes or orphan reads). This tool has the following parameters::
 
-.. _SAMTools: http://samtools.sourceforge.net/samtools.shtml
-
-------
-
-**Citation**
-
-    <citations>
-        <citation type="doi">10.1093/bioinformatics/btp352</citation>
-    </citations>
-
-If you use this tool in Galaxy, please cite Blankenberg D, et al. *In preparation.*
+  -s    rmdup for SE reads
+  -S    treat PE reads as SE in rmdup (force -s)
 
   </help>
+    <expand macro="citations"></expand>
 </tool>

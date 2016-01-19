@@ -7,7 +7,7 @@
     <param format="fasta" name="input1" type="data">
       <label>Sequence 1</label>
     </param>
-    <param name="count" size="4" type="text" value="1">
+    <param name="count" type="text" value="1">
       <label>Number of times to perform the mutation operations</label>
     </param>
     <param name="point" type="select">
@@ -45,10 +45,10 @@
       <option value="no">No</option>
       <option value="yes">Yes</option>
     </param>
-    <param name="minimum" size="4" type="text" value="1">
+    <param name="minimum" type="text" value="1">
       <label>Minimum size for a block mutation</label>
     </param>
-    <param name="maximum" size="4" type="text" value="10">
+    <param name="maximum" type="text" value="10">
       <label>Maximum size for a block mutation</label>
     </param>
     <param name="out_format1" type="select">

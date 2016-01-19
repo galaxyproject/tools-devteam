@@ -1,4 +1,12 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/microsats_mutability
-owner: devteam
+categories:
+- Sequence Analysis
+- Variant Analysis
+description: Estimate microsatellite mutability by specified attributes
+long_description: |
+  This tool computes microsatellite mutability for the orthologous
+  microsatellites fetched from  ''Extract Orthologous Microsatellites from pair-wise
+  alignments'' tool.
 name: microsats_mutability
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/microsats_mutability
+type: unrestricted

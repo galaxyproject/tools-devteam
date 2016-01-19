@@ -32,11 +32,11 @@
       </param>
       <when value = "coverage">
       <param name="coverage_col" type="data_column" data_ref="input" numerical="True" label="Numerical column for read coverage" />
-      <param name="cname" type="text" size="15" value="User Track" label="Coverage track name">
+      <param name="cname" type="text" value="User Track" label="Coverage track name">
         <validator type="length" max="15"/>
       </param>
       <param name="cdescription" type="text" value="User Supplied Coverage Track (from Galaxy)" label="Coverage track description">
-        <validator type="length" max="60" size="15"/>
+        <validator type="length" max="60"/>
       </param>
       <param label="Coverage track Color" name="ccolor" type="select">
             <option selected="yes" value="0-0-0">Black</option>
@@ -67,12 +67,12 @@
        -->
       <param name="col2" type="data_column" data_ref="input" label="Column containing the read nucleotide" />
       <!-- 
-      <param name="sname" type="text" size="15" value="User Track-2" label="SNP track name">
+      <param name="sname" type="text" value="User Track-2" label="SNP track name">
         <validator type="length" max="15"/>
       </param>
        -->
       <param name="sdescription" type="text" value="User Supplied Track (from Galaxy)" label="SNP track description">
-        <validator type="length" max="60" size="15"/>
+        <validator type="length" max="60"/>
       </param>
       <param label="SNP track Visibility" name="svisibility" type="select">
             <option selected="yes" value="1">Dense</option>
@@ -85,10 +85,10 @@
       
       <when value = "both">
       <param name="coverage_col" type="data_column" data_ref="input" numerical="True" label="Numerical column for read coverage" />
-      <param name="cname" type="text" size="15" value="User Track" label="Coverage track name">
+      <param name="cname" type="text" value="User Track" label="Coverage track name">
         <validator type="length" max="15"/>
       </param>
-      <param name="cdescription" type="text" size="15" value="User Supplied Track (from Galaxy)" label="Coverage track description">
+      <param name="cdescription" type="text" value="User Supplied Track (from Galaxy)" label="Coverage track description">
         <validator type="length" max="60"/>
       </param>
       <param label="Coverage track Color" name="ccolor" type="select">
@@ -117,11 +117,11 @@
        -->
       <param name="col2" type="data_column" data_ref="input" label="Column containing the read nucleotide" />
       <!-- 
-      <param name="sname" type="text" size="15" value="User Track-2" label="SNP track name">
+      <param name="sname" type="text" value="User Track-2" label="SNP track name">
         <validator type="length" max="15"/>
       </param>
        -->
-      <param name="sdescription" type="text" size="15" value="User Supplied Track (from Galaxy)" label="SNP track description">
+      <param name="sdescription" type="text" value="User Supplied Track (from Galaxy)" label="SNP track description">
         <validator type="length" max="60"/>
       </param>
       <param label="SNP track Visibility" name="svisibility" type="select">

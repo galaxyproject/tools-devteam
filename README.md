@@ -1,4 +1,4 @@
-# Galaxy Tools maintained by Galaxy Team
+# Galaxy Tools maintained by the Galaxy Team
 
 This repo contains a subset of Galaxy tools used in the Tool Shed 
 (https://toolshed.g2.bx.psu.edu/) mostly created by the Galaxy Team (devteam). 
@@ -6,15 +6,25 @@ This repo contains a subset of Galaxy tools used in the Tool Shed
 The repo's main goals are to:
 
   * simplify the maintenance of these tools
-  * provide learning environment to Galaxy Tool developers
+  * provide a learning environment to Galaxy Tool developers
 
-If you want to contribute to this repository please see file [CONTRIBUTING.md](CONTRIBUTING.md).
+If you want to contribute to this repository, please see file [CONTRIBUTING.md](CONTRIBUTING.md).
 
-Wraping tools for use in Galaxy is easy! If you want to start please see [our wiki](https://wiki.galaxyproject.org/Admin/Tools/AddToolTutorial).
+Wrapping tools for use in Galaxy is easy! If you want to start, please see [our wiki](https://wiki.galaxyproject.org/Admin/Tools/AddToolTutorial).
 
 Other repositories with high quality tools:
  * [IUC repo](https://github.com/galaxyproject/tools-iuc)
  * [Björn Grüning's repo](https://github.com/bgruening/galaxytools)
- * [Peter Cock's blast repo](https://github.com/peterjc/galaxy_blast)
- * [Peter Cock's pico_galaxy repo](https://github.com/peterjc/pico_galaxy)
+ * Peter Cock's repos:
+   * [blast repo](https://github.com/peterjc/galaxy_blast)
+   * [pico repo](https://github.com/peterjc/pico_galaxy)
+   * [mira repo](https://github.com/peterjc/galaxy_mira)
  * [ENCODE tools](https://github.com/modENCODE-DCC/Galaxy)
+ * [Biopython repo](https://github.com/biopython/galaxy_packages)
+ * [Galaxy Proteomics repo](https://github.com/galaxyproteomics/tools-galaxyp)
+ * [Colibread Galaxy Tools](https://github.com/genouest/tools-colibread)
+ * [Greg von Kuster's repo](https://github.com/gregvonkuster/galaxy-csg)
+ * [TGAC repo](https://github.com/TGAC/tgac-galaxytools)
+ * [AAFC-MBB Canada repo]( https://github.com/AAFC-MBB/Galaxy/tree/master/wrappers)
+ 
+ 

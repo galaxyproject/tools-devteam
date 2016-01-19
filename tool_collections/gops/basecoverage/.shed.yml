@@ -1,4 +1,12 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/basecoverage
-owner: devteam
+categories:
+- Genomic Interval Operations
+description: Base Coverage of all intervals
+long_description: |
+  This operation counts the total bases covered by a set of intervals.  Bases
+  that are covered by more than one interval are not counted more than once towards
+  the total.
 name: basecoverage
-    
+owner: devteam
+homepage_url: https://github.com/galaxyproject/gops
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/gops/basecoverage
+type: unrestricted

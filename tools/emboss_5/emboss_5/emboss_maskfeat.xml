@@ -6,7 +6,7 @@
     <param format="data" name="input1" type="data">
       <label>Sequence</label>
     </param>
-    <param name="type" size="50" type="text" value="repeat*">
+    <param name="type" type="text" value="repeat*">
       <label>Feature to mask</label>
     </param>
     <param name="tolower" type="select">
@@ -14,7 +14,7 @@
       <option value="no">No</option>
       <option value="yes">Yes</option>
     </param>
-    <param name="maskchar" size="1" type="text" value="N">
+    <param name="maskchar" type="text" value="N">
       <label>Character to mask with</label>
     </param>
     <param name="out_format1" type="select">

@@ -1,13 +1,9 @@
-<tool name="Downsample SAM/BAM" id="picard_DownsampleSam" version="1.126.0">
+<tool name="Downsample SAM/BAM" id="picard_DownsampleSam" version="@TOOL_VERSION@.0">
   <description>Downsample a file to retain a subset of the reads</description>
-  <requirements>
-    <requirement type="package" version="1.126.0">picard</requirement>
-  </requirements>
-   
   <macros>
     <import>picard_macros.xml</import>
   </macros>
-   
+  <expand macro="requirements" />
   <command>
     @java_options@
     java -jar
@@ -23,8 +19,8 @@
   </command>
   <inputs>
     <param format="sam,bam" name="inputFile" type="data" label="Select SAM/BAM dataset or dataset collection" help="If empty, upload or import a SAM or BAM dataset" />
-    <param name="probability" type="float" size="4" min="0.0" max="1.0" label="Probability (between 0 and 1) that any given read will be kept" help="PROBABILITY; specify 1 to keep all reads, 0.1 to keep 10% of the reads" value="1" />
-    <param name="seed" type="integer" size="5" label="Random seed value" help="RANDOM_SEED; default=1" value="1" />
+    <param name="probability" type="float" min="0.0" max="1.0" label="Probability (between 0 and 1) that any given read will be kept" help="PROBABILITY; specify 1 to keep all reads, 0.1 to keep 10% of the reads" value="1" />
+    <param name="seed" type="integer" label="Random seed value" help="RANDOM_SEED; default=1" value="1" />
     
     <expand macro="VS" />
     

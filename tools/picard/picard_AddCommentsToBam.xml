@@ -1,11 +1,9 @@
-<tool name="AddCommentsToBam" id="picard_AddCommentsToBam" version="1.126.0">
+<tool name="AddCommentsToBam" id="picard_AddCommentsToBam" version="@TOOL_VERSION@.0">
   <description>add comments to BAM dataset</description>
-  <requirements><requirement type="package" version="1.126.0">picard</requirement></requirements>
-  
   <macros>
     <import>picard_macros.xml</import>
   </macros>
-  
+  <expand macro="requirements" />
   <command>
     @java_options@
     java -jar \$JAVA_JAR_PATH/picard.jar
@@ -23,7 +21,7 @@
   <inputs>
     <param format="bam" name="inputFile" type="data" label="Select SAM/BAM dataset or dataset collection" help="If empty, upload or import a SAM/BAM dataset" />
     <repeat name="comments" title="Comment" min="1" help="You can provide multiple comments">
-          <param name="comment" type="text" size="50" label="Add this comment to BAM dataset" help="COMMENT"/>
+          <param name="comment" type="text" label="Add this comment to BAM dataset" help="COMMENT"/>
     </repeat>
 
     <expand macro="VS" />

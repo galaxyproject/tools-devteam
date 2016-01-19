@@ -1,13 +1,9 @@
-<tool name="MergeSamFiles" id="picard_MergeSamFiles" version="1.126.0">
+<tool name="MergeSamFiles" id="picard_MergeSamFiles" version="@TOOL_VERSION@.0">
   <description>merges multiple SAM/BAM datasets into one</description>
-  <requirements>
-    <requirement type="package" version="1.126.0">picard</requirement>
-  </requirements>
-  
   <macros>
     <import>picard_macros.xml</import>
   </macros>
-  
+  <expand macro="requirements" />
   <command>
     @java_options@
     
@@ -39,7 +35,7 @@
     <param name="assume_sorted" type="boolean" label="Assume the input file is already sorted" help="ASSUME_SORTED; default=False"/>
 
     <repeat name="comments" title="Comment" min="0" help="You can provide multiple comments">
-      <param name="comment" type="text" size="50" label="Add this comment to BAM dataset" help="COMMENT"/>
+      <param name="comment" type="text" label="Add this comment to BAM dataset" help="COMMENT"/>
     </repeat>
     
     <expand macro="VS" />

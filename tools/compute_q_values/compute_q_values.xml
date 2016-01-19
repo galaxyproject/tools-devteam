@@ -11,14 +11,14 @@
   <inputs>
   	<param format="tabular" name="inputFile1" type="data" label="Select the p-values file"/>
   	
-  	<param type="text" name="inputLambda2" size="100" value="sequence_from_0_to_0.95_increment_0.05" label="What is the lambda value?" help="Either choose the default sequence or one deciaml value between 0 and 1"/>
+  	<param type="text" name="inputLambda2" value="sequence_from_0_to_0.95_increment_0.05" label="What is the lambda value?" help="Either choose the default sequence or one deciaml value between 0 and 1"/>
   	
   	<param name="inputPI0_method3" type="select" label="Choose the PI method:">
     	<option value="smoother">smoother</option>
       	<option value="bootstrap">bootstrap</option>
     </param>
     
-    <param type="float" name="inputFDR_level4" size="5" value="" label="What is the FDR level?" help="The FDR level must be between 0 and 1"/>
+    <param type="float" name="inputFDR_level4" value="" label="What is the FDR level?" help="The FDR level must be between 0 and 1"/>
     
     <param name="inputRobust5" type="select" label="Do you want to make the estimate more robust:" help="Choose TRUE for small p-values">
   		<option value="FALSE">FALSE</option>

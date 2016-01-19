@@ -20,7 +20,7 @@
   <inputs>
     <repeat name="tracks" title="Track">
       <param name="input" type="data" format="interval,wig" label="Dataset"/>
-      <param name="name" type="text" size="15" value="User Track">
+      <param name="name" type="text" value="User Track">
         <validator type="length" max="15"/>
       </param>
       <param name="description" type="text" value="User Supplied Track (from Galaxy)">

@@ -5,15 +5,17 @@
         <requirement type="package" version="2.3.6">varscan</requirement>
     </requirements>
 
-    <!-- 
-    The version command string is not yet a template that can be filled in, so version command is not yet possible.
-    <version_command>java -jar ${GALAXY_DATA_INDEX_DIR}/shared/jars/varscan/VarScan.jar 2>&amp;1 | head -n 1</version_command>
-    -->
+    <stdio>
+        <regex match="Exception" source="both" level="fatal" description="Tool exception"/>
+        <regex match=".*" source="both" level="log" description="tool progress"/>
+    </stdio>
+
+    <version_command>java -jar $JAVA_JAR_PATH/VarScan.v2.3.6.jar 2>&amp;1 | head -n 1</version_command>
 
     <command>
         ## Set up samples list file.
         #if $sample_names.strip() != '':
-	       echo $sample_names | awk -F ',' '{ for (i = 1; i &lt;= NF; i++) { print \$i; } }' > samples_list.txt;
+           echo $sample_names | awk -F ',' '{ for (i = 1; i &lt;= NF; i++) { print \$i; } }' > samples_list.txt;
         #end if
 
         ## Set up command + input.
@@ -63,11 +65,6 @@
         <param name="sample_names" type="text" value="" help="Separate sample names by comma; leave blank to use default sample names."/>
     </inputs>
 
-    <stdio>
-        <regex match="Exception" source="both" level="fatal" description="Tool exception"/>
-        <regex match=".*" source="both" level="log" description="tool progress"/>
-    </stdio>
-
     <outputs>
         <data name="output" format="vcf"/>
     </outputs>
@@ -96,10 +93,8 @@
 
 VarScan_ performs variant detection for massively parallel sequencing data, such as exome, WGS, and transcriptome data. It calls variants from a mpileup dataset and produces a VCF 4.1 Full documentation is available online_.
 
-Please cite: Koboldt, D., Zhang, Q., Larson, D., Shen, D., McLellan, M., Lin, L., Miller, C., Mardis, E., Ding, L., and Wilson, R. (2012). VarScan 2: Somatic mutation and copy number alteration discovery in cancer by exome sequencing Genome Research DOI: 10.1101/gr.129684.111 
-
-.. _VarScan: http://varscan.sourceforge.net/
-.. _online: http://varscan.sourceforge.net/using-varscan.html
+.. _VarScan: http://dkoboldt.github.io/varscan/
+.. _online: http://dkoboldt.github.io/varscan/using-varscan.html
 
 **Input**
 
@@ -150,6 +145,9 @@ VarScan produces a VCF 4.1 dataset as output.
   
   variants
     Report only variant (SNP/indel) positions [0]
-
     </help>
+
+    <citations>
+        <citation type="doi">10.1101/gr.129684.111</citation>
+    </citations>
 </tool>

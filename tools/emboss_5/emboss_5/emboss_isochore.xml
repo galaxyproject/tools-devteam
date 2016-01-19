@@ -7,10 +7,10 @@
     <param format="fasta" name="input1" type="data">
       <label>Sequences</label>
     </param>
-    <param name="window" size="4" type="text" value="1000">
+    <param name="window" type="text" value="1000">
       <label>Window size</label>
     </param>
-    <param name="shift" size="4" type="text" value="100">
+    <param name="shift" type="text" value="100">
       <label>Shift increment</label>
     </param>
   </inputs>

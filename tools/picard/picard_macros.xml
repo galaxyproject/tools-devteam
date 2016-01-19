@@ -6,7 +6,16 @@
           <option value="STRICT">Strict</option>
         </param>
     </xml>
-    
+
+    <token name="@TOOL_VERSION@">1.136</token>
+
+    <xml name="requirements">
+        <requirements>
+            <requirement type="package" version="1.136">picard</requirement>
+            <yield/>
+        </requirements>
+    </xml>
+
     <token name="@java_options@">
     _JAVA_OPTIONS=\${_JAVA_OPTIONS:-'-Xmx2048m -Xms256m'} &amp;&amp;
     export _JAVA_OPTIONS &amp;&amp;

@@ -1,13 +1,18 @@
 #!/usr/bin/env python
 
-import optparse, os, shutil, subprocess, sys, tempfile
-from galaxy import eggs
+import optparse
+import os
+import shutil
+import subprocess
+import sys
+import tempfile
 from galaxy.datatypes.util.gff_util import parse_gff_attributes, gff_attributes_to_str
 
+
 def stop_err( msg ):
-    sys.stderr.write( "%s\n" % msg )
-    sys.exit()
-    
+    sys.exit( "%s\n" % msg )
+
+
 def __main__():
     #Parse Command Line
     parser = optparse.OptionParser()
@@ -17,30 +22,30 @@ def __main__():
     parser.add_option( '-j', '--pre-mrna-fraction', dest='pre_mrna_fraction', help='Some RNA-Seq protocols produce a significant amount of reads that originate from incompletely spliced transcripts, and these reads can confound the assembly of fully spliced mRNAs. Cufflinks uses this parameter to filter out alignments that lie within the intronic intervals implied by the spliced alignments. The minimum depth of coverage in the intronic region covered by the alignment is divided by the number of spliced reads, and if the result is lower than this parameter value, the intronic alignments are ignored. The default is 5%.' )
     parser.add_option( '-p', '--num-threads', dest='num_threads', help='Use this many threads to align reads. The default is 1.' )
     parser.add_option( '-G', '--GTF', dest='GTF', help='Tells Cufflinks to use the supplied reference annotation to estimate isoform expression. It will not assemble novel transcripts, and the program will ignore alignments not structurally compatible with any reference transcript.' )
-    parser.add_option ("--compatible-hits-norm",dest='compatible_hits_norm',help='Count hits compatible with reference RNAs only')
+    parser.add_option("--compatible-hits-norm", dest='compatible_hits_norm', action="store_true", help='Count hits compatible with reference RNAs only')
     parser.add_option( '-g', '--GTF-guide', dest='GTFguide', help='use reference transcript annotation to guide assembly' )
-    parser.add_option("--3-overhang-tolerance",dest='three_overhang_tolerance', help='The number of bp allowed to overhang the 3prime end of a reference transcript when determining if an assembled transcript should be merged with it (ie, the assembled transcript is not novel). The default is 600 bp.')
-    parser.add_option("--intron-overhang-tolerance",dest='intron_overhang_tolerance',help='The number of bp allowed to enter the intron of a reference transcript when determining if an assembled transcript should be merged with it (ie, the assembled transcript is not novel). The default is 50 bp.')
-    parser.add_option("--no-faux-reads", dest='no_faux_reads',help='This option disables tiling of the reference transcripts with faux reads. Use this if you only want to use sequencing reads in assembly but do not want to output assembled transcripts that lay within reference transcripts. All reference transcripts in the input annotation will also be included in the output.')
+    parser.add_option("--3-overhang-tolerance", dest='three_overhang_tolerance', help='The number of bp allowed to overhang the 3prime end of a reference transcript when determining if an assembled transcript should be merged with it (ie, the assembled transcript is not novel). The default is 600 bp.')
+    parser.add_option("--intron-overhang-tolerance", dest='intron_overhang_tolerance', help='The number of bp allowed to enter the intron of a reference transcript when determining if an assembled transcript should be merged with it (ie, the assembled transcript is not novel). The default is 50 bp.')
+    parser.add_option("--no-faux-reads", dest='no_faux_reads', help='This option disables tiling of the reference transcripts with faux reads. Use this if you only want to use sequencing reads in assembly but do not want to output assembled transcripts that lay within reference transcripts. All reference transcripts in the input annotation will also be included in the output.')
     parser.add_option( '-u', '--multi-read-correct', dest='multi_read_correct', action="store_true", help='Tells Cufflinks to do an initial estimation procedure to more accurately weight reads mapping to multiple locations in the genome')
-    
+
     # Normalization options.
-    parser.add_option( "--no-effective-length-correction", dest="no_effective_length_correction", action="store_true" ) 
-    parser.add_option( "--no-length-correction", dest="no_length_correction", action="store_true" ) 
+    parser.add_option( "--no-effective-length-correction", dest="no_effective_length_correction", action="store_true" )
+    parser.add_option( "--no-length-correction", dest="no_length_correction", action="store_true" )
 
     # Wrapper / Galaxy options.
     parser.add_option( '-A', '--assembled-isoforms-output', dest='assembled_isoforms_output_file', help='Assembled isoforms output file; formate is GTF.' )
 
-    # Advanced Options:	
-    parser.add_option( "--library-type",dest="library_type",help=' library prep used for input reads, default fr-unstranded')
-    parser.add_option( '-M','--mask-file', dest='mask_file', help='Tells Cufflinks to ignore all reads that could have come from transcripts in this GTF file. \
+    # Advanced Options:
+    parser.add_option( "--library-type", dest="library_type", help=' library prep used for input reads, default fr-unstranded')
+    parser.add_option( '-M', '--mask-file', dest='mask_file', help='Tells Cufflinks to ignore all reads that could have come from transcripts in this GTF file. \
                                                                    We recommend including any annotated rRNA, mitochondrial transcripts other abundant transcripts \
                                                                    you wish to ignore in your analysis in this file. Due to variable efficiency of mRNA enrichment \
                                                                    methods and rRNA depletion kits, masking these transcripts often improves the overall robustness \
                                                                    of transcript abundance estimates.')
     parser.add_option( '-m', '--inner-mean-dist', dest='inner_mean_dist', help='This is the expected (mean) inner distance between mate pairs. \
                                                                                 For, example, for paired end runs with fragments selected at 300bp, \
-                                                                                where each end is 50bp, you should set -r to be 200. The default is 45bp.') # cufflinks: --frag-len-mean
+                                                                                where each end is 50bp, you should set -r to be 200. The default is 45bp.')  # cufflinks: --frag-len-mean
 
     parser.add_option( '-s', '--inner-dist-std-dev', dest='inner_dist_std_dev', help='The standard deviation for the distribution on inner distances between mate pairs. The default is 20bp.' )  # cufflinks: --frag-len-std-dev
     parser.add_option( '--max-mle-iterations', dest='max_mle_iterations', help='Sets the number of iterations allowed during maximum likelihood estimation of abundances. Default: 5000' )
@@ -55,17 +60,16 @@ def __main__():
     parser.add_option( '--trim-3-avgcov-thresh', dest='trim_three_avgcov_thresh', help='Minimum average coverage required to attempt 3prime trimming. Default: 10' )
     parser.add_option( '--trim-3-dropoff-frac', dest='trim_three_dropoff_frac', help='The fraction of average coverage below which to trim the 3prime end of an assembled transcript. Default: 0.1' )
 
-
     # Bias correction options.
     parser.add_option( '-b', dest='do_bias_correction', action="store_true", help='Providing Cufflinks with a multifasta file via this option instructs it to run our new bias detection and correction algorithm which can significantly improve accuracy of transcript abundance estimates.')
     parser.add_option( '', '--index', dest='index', help='The path of the reference genome' )
     parser.add_option( '', '--ref_file', dest='ref_file', help='The reference dataset from the history' )
-    
+
     # Global model (for trackster).
     parser.add_option( '', '--global_model', dest='global_model_file', help='Global model used for computing on local data' )
-    
+
     (options, args) = parser.parse_args()
-    
+
     # output version # of tool
     try:
         tmp = tempfile.NamedTemporaryFile().name
@@ -84,7 +88,7 @@ def __main__():
             raise Exception
     except:
         sys.stdout.write( 'Could not determine Cufflinks version\n' )
-    
+
     # If doing bias correction, set/link to sequence file.
     if options.do_bias_correction:
         if options.ref_file:
@@ -98,27 +102,27 @@ def __main__():
             seq_path = options.index
 
     # Build command.
-    
+
     # Base; always use quiet mode to avoid problems with storing log output.
     cmd = "cufflinks -q --no-update-check"
-    
+
     # Add options.
     if options.max_intron_len:
-        cmd += ( " -I %i" % int ( options.max_intron_len ) )
+        cmd += ( " -I %i" % int( options.max_intron_len ) )
     if options.min_isoform_fraction:
-        cmd += ( " -F %f" % float ( options.min_isoform_fraction ) )
+        cmd += ( " -F %f" % float( options.min_isoform_fraction ) )
     if options.pre_mrna_fraction:
-        cmd += ( " -j %f" % float ( options.pre_mrna_fraction ) )    
+        cmd += ( " -j %f" % float( options.pre_mrna_fraction ) )
     if options.num_threads:
-        cmd += ( " -p %i" % int ( options.num_threads ) )
+        cmd += ( " -p %i" % int( options.num_threads ) )
     if options.GTF:
         cmd += ( " -G %s" % options.GTF )
     if options.compatible_hits_norm:
         cmd += ( " --compatible-hits-norm" )
     if options.GTFguide:
         cmd += ( " -g %s" % options.GTFguide )
-        cmd += ( " --3-overhang-tolerance %i" % int ( options.three_overhang_tolerance ) )
-        cmd += ( " --intron-overhang-tolerance %i" % int ( options.intron_overhang_tolerance ) )
+        cmd += ( " --3-overhang-tolerance %i" % int( options.three_overhang_tolerance ) )
+        cmd += ( " --intron-overhang-tolerance %i" % int( options.intron_overhang_tolerance ) )
     if options.no_faux_reads:
         cmd += ( " --no-faux-reads" )
     if options.multi_read_correct:
@@ -129,27 +133,27 @@ def __main__():
     if options.mask_file:
         cmd += ( " --mask-file %s" % options.mask_file )
     if options.inner_mean_dist:
-        cmd += ( " -m %i" % int ( options.inner_mean_dist ) )
+        cmd += ( " -m %i" % int( options.inner_mean_dist ) )
     if options.inner_dist_std_dev:
-        cmd += ( " -s %i" % int ( options.inner_dist_std_dev ) )
+        cmd += ( " -s %i" % int( options.inner_dist_std_dev ) )
     if options.max_mle_iterations:
-        cmd += ( " --max-mle-iterations %i" % int ( options.max_mle_iterations ) )
+        cmd += ( " --max-mle-iterations %i" % int( options.max_mle_iterations ) )
     if options.junc_alpha:
-        cmd += ( " --junc-alpha %f" % float ( options.junc_alpha) ) 
+        cmd += ( " --junc-alpha %f" % float( options.junc_alpha) )
     if options.small_anchor_fraction:
-        cmd += ( " --small-anchor-fraction %f" % float (options.small_anchor_fraction ) )
+        cmd += ( " --small-anchor-fraction %f" % float(options.small_anchor_fraction ) )
     if options.overhang_tolerance:
-        cmd += ( " --overhang-tolerance %i" % int ( options.overhang_tolerance ) )
+        cmd += ( " --overhang-tolerance %i" % int( options.overhang_tolerance ) )
     if options.max_bundle_length:
-        cmd += ( " --max-bundle-length %i" % int ( options.max_bundle_length ) ) 
+        cmd += ( " --max-bundle-length %i" % int( options.max_bundle_length ) )
     if options.max_bundle_frags:
-        cmd += ( " --max-bundle-frags %i" % int ( options.max_bundle_frags ) )
+        cmd += ( " --max-bundle-frags %i" % int( options.max_bundle_frags ) )
     if options.min_intron_length:
-        cmd += ( " --min-intron-length %i" % int ( options.min_intron_length ) )
+        cmd += ( " --min-intron-length %i" % int( options.min_intron_length ) )
     if options.trim_three_avgcov_thresh:
-        cmd += ( " --trim-3-avgcov-thresh %i" % int ( options.trim_three_avgcov_thresh ) ) 
+        cmd += ( " --trim-3-avgcov-thresh %i" % int( options.trim_three_avgcov_thresh ) )
     if options.trim_three_dropoff_frac:
-        cmd += ( " --trim-3-dropoff-frac %f" % float ( options.trim_three_dropoff_frac ) ) 
+        cmd += ( " --trim-3-dropoff-frac %f" % float( options.trim_three_dropoff_frac ) )
 
     if options.do_bias_correction:
         cmd += ( " -b %s" % seq_path )
@@ -157,13 +161,13 @@ def __main__():
         cmd += ( " --no-effective-length-correction" )
     if options.no_length_correction:
         cmd += ( " --no-length-correction" )
-        
+
     # Add input files.
     cmd += " " + options.input
-   
+
     # Debugging.
     print cmd
- 
+
     #
     # Run command and handle output.
     #
@@ -176,15 +180,15 @@ def __main__():
         proc = subprocess.Popen( args=cmd, shell=True, stderr=tmp_stderr.fileno() )
         returncode = proc.wait()
         tmp_stderr.close()
-        
+
         # Error checking.
         if returncode != 0:
-            raise Exception, "return code = %i" % returncode
-        
+            raise Exception("return code = %i" % returncode)
+
         #
         # Handle output.
-        # 
-        
+        #
+
         # Read standard error to get total map/upper quartile mass.
         total_map_mass = -1
         tmp_stderr = open( tmp_name, 'r' )
@@ -193,21 +197,21 @@ def __main__():
                 total_map_mass = float( line.split(":")[1].strip() )
                 break
         tmp_stderr.close()
-        
+
         #
         # If there's a global model provided, use model's total map mass
         # to adjust FPKM + confidence intervals.
         #
-        if options.global_model_file:        
+        if options.global_model_file:
             # Global model is simply total map mass from original run.
             global_model_file = open( options.global_model_file, 'r' )
             global_model_total_map_mass = float( global_model_file.readline() )
             global_model_file.close()
-        
+
             # Ratio of global model's total map mass to original run's map mass is
             # factor used to adjust FPKM.
             fpkm_map_mass_ratio = total_map_mass / global_model_total_map_mass
-        
+
             # Update FPKM values in transcripts.gtf file.
             transcripts_file = open( "transcripts.gtf", 'r' )
             tmp_transcripts = tempfile.NamedTemporaryFile( dir="." ).name
@@ -223,11 +227,11 @@ def __main__():
             transcripts_file.close()
             new_transcripts_file.close()
             shutil.copyfile( tmp_transcripts, "transcripts.gtf" )
-            
+
         # TODO: update expression files as well.
-                    
+
         # Set outputs. Transcript and gene expression handled by wrapper directives.
-        shutil.copyfile( "transcripts.gtf" , options.assembled_isoforms_output_file )
+        shutil.copyfile( "transcripts.gtf", options.assembled_isoforms_output_file )
         if total_map_mass > -1:
             f = open( "global_model.txt", 'w' )
             f.write( "%f\n" % total_map_mass )
@@ -245,7 +249,7 @@ def __main__():
         except OverflowError:
             pass
         tmp_stderr.close()
-        
         stop_err( 'Error running cufflinks.\n%s\n%s' % ( str( e ), stderr ) )
 
-if __name__=="__main__": __main__()
+if __name__ == "__main__":
+    __main__()

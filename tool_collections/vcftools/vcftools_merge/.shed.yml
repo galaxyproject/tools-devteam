@@ -1,4 +1,8 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/vcftools_merge
-owner: devteam
+categories:
+- Variant Analysis
+description: Merge multiple VCF datasets into a single dataset
 name: vcftools_merge
-    
+owner: devteam
+homepage_url: https://vcftools.github.io/
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/vcftools/vcftools_merge
+type: unrestricted

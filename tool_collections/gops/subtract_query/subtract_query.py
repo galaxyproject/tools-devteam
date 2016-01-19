@@ -6,7 +6,7 @@ Subtract an entire query from another query
 usage: %prog in_file_1 in_file_2 begin_col end_col output
     --ignore-empty-end-cols: ignore empty end columns when subtracting
 """
-import sys, re
+import sys
 from bx.cookbook import doc_optparse
 
 # Older py compatibility
@@ -16,6 +16,7 @@ except:
     from sets import Set as set
 
 assert sys.version_info[:2] >= ( 2, 4 )
+
 
 def get_lines(fname, begin_col='', end_col='', ignore_empty_end_cols=False):
     lines = set([])
@@ -27,22 +28,25 @@ def get_lines(fname, begin_col='', end_col='', ignore_empty_end_cols=False):
                 """Both begin_col and end_col must be integers at this point."""
                 try:
                     line = line.split('\t')
-                    line = '\t'.join([line[j] for j in range(begin_col-1, end_col)])
+                    line = '\t'.join([line[j] for j in range(begin_col - 1, end_col)])
                     if ignore_empty_end_cols:
                         # removing empty fields, we do not compare empty fields at the end of a line.
                         line = line.rstrip()
                     lines.add( line )
-                except: pass
+                except:
+                    pass
             else:
                 if ignore_empty_end_cols:
                     # removing empty fields, we do not compare empty fields at the end of a line.
                     line = line.rstrip()
                 lines.add( line )
-    if i: return (i+1, lines)
-    else: return (i, lines)
+    if i:
+        return (i + 1, lines)
+    else:
+        return (i, lines)
+
 
 def main():
-    
     # Parsing Command Line here
     options, args = doc_optparse.parse( __doc__ )
 
@@ -50,10 +54,10 @@ def main():
         inp1_file, inp2_file, begin_col, end_col, out_file = args
     except:
         doc_optparse.exception()
-    
+
     begin_col = begin_col.strip()
     end_col = end_col.strip()
-    
+
     if begin_col != 'None' or end_col != 'None':
         """
         The user selected columns for restriction.  We'll allow default
@@ -75,7 +79,7 @@ def main():
         begin_col = end_col = ''
 
     try:
-        fo = open(out_file,'w')
+        fo = open(out_file, 'w')
     except:
         print >> sys.stderr, "Unable to open output file"
         sys.exit()
@@ -88,7 +92,7 @@ def main():
     len1, lines1 = get_lines(inp1_file, begin_col, end_col, options.ignore_empty_end_cols)
     diff1 = len1 - len(lines1)
     len2, lines2 = get_lines(inp2_file, begin_col, end_col, options.ignore_empty_end_cols)
-    
+
     lines1.difference_update(lines2)
     """lines1 is now the set of unique lines in inp1_file - the set of unique lines in inp2_file"""
 
@@ -96,15 +100,15 @@ def main():
         print >> fo, line
 
     fo.close()
-    
-    info_msg = 'Subtracted %d lines. ' %((len1 - diff1) - len(lines1))
-    
+
+    info_msg = 'Subtracted %d lines. ' % ((len1 - diff1) - len(lines1))
+
     if begin_col and end_col:
         info_msg += 'Restricted to columns c' + str(begin_col) + ' thru c' + str(end_col) + '. '
 
     if diff1 > 0:
-        info_msg += 'Eliminated %d duplicate/blank/comment/invalid lines from first query.' %diff1
-    
+        info_msg += 'Eliminated %d duplicate/blank/comment/invalid lines from first query.' % diff1
+
     print info_msg
 
 if __name__ == "__main__":

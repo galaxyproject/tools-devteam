@@ -1,0 +1,11 @@
+categories:
+- Transcriptomics
+description: Contains the full set of cuff* tools in version 2.2.1
+long_description: |
+  Includes the following tools: cufflinks, cuffcompare, cuffmerge,
+  cuffdiff, cuffnorm, gffread, and cuffquant
+name: suite_cufflinks_2_2_1
+owner: devteam
+homepage_url: http://cole-trapnell-lab.github.io/cufflinks/
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/suites/suite_cufflinks_2_2_1
+type: repository_suite_definition

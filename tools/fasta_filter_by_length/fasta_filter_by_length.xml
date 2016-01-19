@@ -3,8 +3,8 @@
 	<command interpreter="python">fasta_filter_by_length.py $input $min_length $max_length $output </command>
 	<inputs>
 		<param name="input" type="data" format="fasta" label="Fasta file"/>
-		<param name="min_length" type="integer" size="15" value="0" label="Minimal length" />
-		<param name="max_length" type="integer" size="15" value="0" label="Maximum length" help="Setting to '0' will return all sequences longer than the 'Minimal length'"/> 
+		<param name="min_length" type="integer" value="0" label="Minimal length" />
+		<param name="max_length" type="integer" value="0" label="Maximum length" help="Setting to '0' will return all sequences longer than the 'Minimal length'"/> 
 	</inputs>
 	<outputs>
 		<data name="output" format="fasta"/>

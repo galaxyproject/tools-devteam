@@ -1,4 +1,11 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/realigner_target_creator
-owner: devteam
+homepage_url: https://www.broadinstitute.org/gatk/
+categories:
+- Variant Analysis
+description: Realigner Target Creator for use in local realignment
+long_description: |
+  Emits intervals for the Local Indel Realigner to target for cleaning.  Ignores
+  454 reads, MQ0 reads, and reads with consecutive indel operators in the CIGAR string.
 name: realigner_target_creator
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/gatk/realigner_target_creator
+type: unrestricted

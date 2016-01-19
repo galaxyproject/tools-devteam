@@ -1,4 +1,10 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/dwt_var_perfeature
-owner: devteam
+categories:
+- Statistics
+description: Wavelet variance using Discrete Wavelet Transfoms
+long_description: |
+  This tool computes the scale-specific variance in wavelet coeffients
+  obtained from the discrete wavelet transform of a feature of interest.
 name: dwt_var_perfeature
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/dwt_var_perfeature
+type: unrestricted
