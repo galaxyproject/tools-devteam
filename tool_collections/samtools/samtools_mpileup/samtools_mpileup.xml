@@ -1,4 +1,4 @@
-<tool id="samtools_mpileup" name="MPileup" version="2.1.1">
+<tool id="samtools_mpileup" name="MPileup" version="2.1.2">
     <description>call variants</description>
     <macros>
         <import>macros.xml</import>
