@@ -1,4 +1,4 @@
-<tool id="samtools_mpileup" name="MPileup" version="2.1.1">
+<tool id="samtools_mpileup" name="MPileup" version="2.1.2">
     <description>call variants</description>
     <macros>
         <import>macros.xml</import>
@@ -8,6 +8,10 @@
     <expand macro="version_command" />
     <command>
     <![CDATA[
+    #for $bam_count, $input_bam in enumerate( $reference_source.input_bam ):
+        ln -s "${input_bam}" "localbam_${bam_count}.bam" &&
+        ln -s "${input_bam.metadata.bam_index}" "localbam_${bam_count}.bam.bai" &&
+    #end for
     #if $reference_source.reference_source_selector == "history":
        ln -s "${reference_source.ref_file}" && samtools faidx `basename "${reference_source.ref_file}"` && samtools mpileup
     #else:
@@ -18,8 +22,8 @@
     #else:
         -f "${reference_source.ref_file}"
     #end if
-    #for $bam in $reference_source.input_bam:
-        "${bam}"
+    #for $bam_count, $input_bam in enumerate( $reference_source.input_bam ):
+        "localbam_${bam_count}.bam"
     #end for
     #if str( $advanced_options.advanced_options_selector ) == "advanced":
         #if str( $advanced_options.filter_by_flags.filter_flags ) == "filter":
