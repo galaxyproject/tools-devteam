@@ -1,11 +1,15 @@
 <tool id="tophat_fusion_post" name="Tophat Fusion Post" version="0.2">
     <description>post-processing to identify fusion genes</description>
-    <version_command>tophat-fusion-post --version</version_command>
     <requirements>
         <requirement type="package" version="2.2.28">blast+</requirement>
         <requirement type="package" version="0.12.7">bowtie</requirement>
         <requirement type="package" version="2.0.9">tophat2</requirement>
     </requirements>
+    <stdio>
+        <regex match=".*" source="both" level="log" description="tool progress"/>
+    </stdio>
+    <version_command>tophat-fusion-post --version</version_command>
+
     <command><![CDATA[
         ## Set up tophat_out structure.
         mkdir tophat_out &&
@@ -55,18 +59,30 @@
         <param name="skip_read_dist" type="boolean" truevalue="--skip-read-dist" falsevalue="" checked="false" label="Processing: skip read dist?" help="(--skip-read-dist)"/>
     </inputs>
 
-    <stdio>
-        <regex match=".*" source="both" level="log" description="tool progress"/>
-    </stdio>
-
     <outputs>
         <data format="tabular" name="results_txt" label="${tool.name} on ${on_string}: text results" from_work_dir="tophatfusion_out/result.txt"/>
         <data format="html" name="results_html" label="${tool.name} on ${on_string}: html results" from_work_dir="tophatfusion_out/result.html"/>
     </outputs>
+
+    <tests>
+        <test>
+            <!-- Test does not work because of failure to set $accepted_hits.dbkey-->
+            <param name="accepted_hits" value="accepted_hits.bam"/>
+            <param name="dbkey" value="hg19"/>
+            <param name="fusions" value="fusions.txt"/>
+            <param name="skip_blast" value="--skip-blast"/>
+            <param name="num_fusion_pairs" value="0"/>
+            <output name="result.txt" file="output.txt" compare="diff"/>
+        </test>
+    </tests>
 
     <help>
 This tool runs tophat-fusion-post_.
 
 .. _tophat-fusion-post: http://tophat-fusion.sourceforge.net/manual.html
     </help>    
+
+    <citations>
+        <citation type="doi">10.1186/gb-2011-12-8-r72</citation>
+    </citations>
 </tool>
