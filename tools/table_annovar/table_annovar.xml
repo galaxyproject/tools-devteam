@@ -63,21 +63,21 @@
         <validator type="unspecified_build" />
     </param>
 
-    <param name="gene_anns" type="select" multiple="True" optional="True" label="Gene Annotations" help="" >
+    <param name="gene_anns" type="select" display="checkboxes" multiple="True" optional="True" label="Gene Annotations" help="" >
         <options from_data_table="annovar_indexes">
             <filter type="data_meta" key="dbkey" ref="input" column="1"/>
             <filter type="static_value" name="type" value="gene_ann" column="2"/>
         </options>
     </param>
 
-    <param name="regions" type="select" multiple="True" optional="True" label="Annotation Regions" help="" >
+    <param name="regions" type="select" display="checkboxes" multiple="True" optional="True" label="Annotation Regions" help="" >
         <options from_data_table="annovar_indexes">
             <filter type="data_meta" key="dbkey" ref="input" column="1"/>
             <filter type="static_value" name="type" value="region" column="2"/>
         </options>
     </param>
 
-    <param name="filters" type="select" multiple="True" label="Annotation Databases" help="" >
+    <param name="filters" type="select" display="checkboxes" multiple="True" label="Annotation Databases" help="" >
         <options from_data_table="annovar_indexes">
             <filter type="data_meta" key="dbkey" ref="input" column="1"/>
             <filter type="static_value" name="type" value="filter" column="2"/>
