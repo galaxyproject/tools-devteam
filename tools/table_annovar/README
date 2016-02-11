@@ -1,7 +1,8 @@
 ANNOVAR needs to be installed manually in the following way:
 
 1a)	If you already have ANNOVAR installed on your system, simply edit the tool-data/annovar.loc file to reflect locations of 
-	the perl scripts (annotate_variation.pl and convert2annovar.pl) and humandb directory (directory containing the annovar database files)
+	humandb directory (directory containing the annovar database files) and set the SCRIPT_PATH variable in the associated env.sh file 
+	to directory where the perl scripts (annotate_variation.pl and convert2annovar.pl) are installed.
 
 1b)	If you do not have ANNOVAR installed, request annovar download and sign license here: 
 		http://www.openbioinformatics.org/annovar/annovar_download_form.php
@@ -19,6 +20,7 @@ ANNOVAR needs to be installed manually in the following way:
 	
 	iii) edit the tool-data/annovar.loc file to reflect location of humandb folder
 
-2) add the annovar scripts convert2annovar.pl and table_annovar.pl to your Galaxy user's path
+2) set the SCRIPT_PATH variable in the associated env.sh file to directory where the perl scripts (annotate_variation.pl and convert2annovar.pl) are installed.
+   The env.sh file can be found at <tool_dependecy_dir>/environment_settings/SCRIPT_PATH/devteam/table_annovar/<changeset_revision>/env.sh.
 
 3) restart galaxy instance for changes in .loc file to take effect
