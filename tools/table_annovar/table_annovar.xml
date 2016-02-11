@@ -52,7 +52,7 @@
         ## Post-processing: process annotated table to remove "NA" strings from numerical columns if
         ## tabular. Copy to output.
         #if str($out_format) == "tabular":
-            ; cat output.${input.dbkey}_multianno.txt | python replace_NA.py > ${output}
+            ; cat output.${input.dbkey}_multianno.txt | python ${__tool_directory__}/replace_NA.py > ${output}
         #else:
             ; cp output.${input.dbkey}_multianno.vcf ${output}
         #end if
