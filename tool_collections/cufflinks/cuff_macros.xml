@@ -1,11 +1,13 @@
 <macros>
   <token name="@VERSION@">2.2.1</token>
+
   <xml name="requirements">
     <requirements>
       <requirement type="package" version="2.2.1">cufflinks</requirement>
       <yield />
     </requirements>
   </xml>
+
   <xml name="stdio">
     <stdio>
         <exit_code range="1:" />

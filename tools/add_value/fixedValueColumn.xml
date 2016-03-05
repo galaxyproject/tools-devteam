@@ -1,26 +1,32 @@
 <tool id="addValue" name="Add column" version="1.0.0">
-  <description>to an existing dataset</description>
-  <command interpreter="perl">fixedValueColumn.pl "${input}" "${out_file1}" "${exp}" "${iterate}"</command>
-  <inputs>
-     <param name="exp" type="text" value="1" label="Add this value"/>
-    <param format="tabular" name="input" type="data" label="to Dataset" help="Dataset missing? See TIP below" />
-    <param name="iterate" type="select" label="Iterate?">
-      <option value="no">NO</option>
-      <option value="yes">YES</option>
-    </param>    
-  </inputs>
-  <outputs>
-    <data format="input" name="out_file1" metadata_source="input"/>
-  </outputs>
-  <tests>
-    <test>
-      <param name="exp" value="1"/>
-      <param name="input" value="1.bed"/>
-      <param name="iterate" value="no"/>
-      <output name="out_file1" file="eq-addvalue.dat"/>
-    </test>
-  </tests>
-  <help>
+    <description>to an existing dataset</description>
+    <command>
+        perl $__tool_directory__/fixedValueColumn.pl
+            "${input}"
+            "${out_file1}"
+            "${exp}"
+            "${iterate}"
+    </command>
+    <inputs>
+        <param name="exp" type="text" value="1" label="Add this value"/>
+        <param format="tabular" name="input" type="data" label="to Dataset" help="Dataset missing? See TIP below" />
+        <param name="iterate" type="select" label="Iterate?">
+            <option value="no">NO</option>
+            <option value="yes">YES</option>
+        </param>
+    </inputs>
+    <outputs>
+        <data format="input" name="out_file1" metadata_source="input"/>
+    </outputs>
+    <tests>
+        <test>
+            <param name="exp" value="1"/>
+            <param name="input" value="1.bed"/>
+            <param name="iterate" value="no"/>
+            <output name="out_file1" file="eq-addvalue.dat"/>
+        </test>
+    </tests>
+    <help>
 
 .. class:: infomark
 
@@ -55,7 +61,6 @@ You can also add line numbers by selecting **Iterate: YES**. In this case if you
     chr2 200 300 geneB 2
     chr2 400 500 geneC 3
 
-
-
-</help>
+    </help>
 </tool>
+

@@ -9,7 +9,6 @@
         <requirement type="package" version="1.2">samtools</requirement>
     </requirements>
     <command>
-
         ## prepare bowtie2 index
         #set index_path = ''
         #if str($reference_genome.source) == "history":
