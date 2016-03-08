@@ -1,6 +1,8 @@
 <tool id="lastz_wrapper_2" name="Lastz" version="1.2.2">
     <requirements>
         <requirement type="package" version="1.02.00">lastz</requirement>
+        <requirement type="package" version="1.0.2">lastz</requirement>
+        <requirement type="package" version="0.7.2">bx-python</requirement>
     </requirements>
     <description> map short reads against reference sequence</description>
     <command interpreter="python">lastz_wrapper.py

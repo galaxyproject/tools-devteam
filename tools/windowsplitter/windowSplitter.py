@@ -8,16 +8,27 @@ usage: %prog input size out_file
 """
 
 import sys
-
-from galaxy import eggs
-import pkg_resources
-pkg_resources.require( "bx-python" )
 from bx.cookbook import doc_optparse
-from galaxy.tools.util.galaxyops import *
 
 def stop_err( msg ):
     sys.stderr.write( msg )
     sys.exit()
+
+# Default chrom, start, end, strand cols for a bed file
+BED_DEFAULT_COLS = 0, 1, 2, 5
+
+
+def parse_cols_arg( cols ):
+    """Parse a columns command line argument into a four-tuple"""
+    if cols:
+        # Handle case where no strand column included - in this case, cols
+        # looks something like 1,2,3,
+        if cols.endswith( ',' ):
+            cols += '0'
+        col_list = map( lambda x: int( x ) - 1, cols.split(",") )
+        return col_list
+    else:
+        return BED_DEFAULT_COLS
 
 
 def main():

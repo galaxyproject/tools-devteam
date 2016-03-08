@@ -4,12 +4,8 @@
 Fetches substitutions from pairwise alignments.
 """
 
-from galaxy import eggs
-
-from galaxy.tools.util import maf_utilities
-
-import bx.align.maf
 import sys
+import bx.align.maf
 
 def stop_err(msg):
     sys.stderr.write(msg)
