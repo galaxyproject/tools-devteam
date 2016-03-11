@@ -7,6 +7,14 @@
       <label>Sequences</label>
     </param>
     <param name="pattern" type="text" value="">
+      <sanitizer>
+        <valid initial="string.printable">
+         <remove value="&apos;"/>
+        </valid>
+        <mapping initial="none">
+          <add source="&apos;" target=""/>
+        </mapping>
+      </sanitizer>
       <label>Search pattern</label>
     </param>
     <param name="mismatch" type="text" value="0">
