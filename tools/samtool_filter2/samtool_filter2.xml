@@ -17,7 +17,7 @@
   #set $input = 'input.sam'
   ln -s "$input1" $input &&
 #end if
-samtools view -o $possibly_select_inverse "$output1" $header
+samtools view $possibly_select_inverse -o "$output1" $header
 
   #if $input1.datatype.file_ext == 'sam':
    -S
