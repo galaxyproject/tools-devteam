@@ -3,8 +3,8 @@
   <requirements>
     <requirement type="package" version="1.0.0">galaxy_sequence_utils</requirement>
   </requirements>
-  <command interpreter="python">
-fastq_paired_end_interlacer.py
+  <command>
+python $__tool_directory__/fastq_paired_end_interlacer.py
 #if $reads.reads_selector == 'paired'
     '${reads.input1_file}' ${reads.input1_file.extension[len('fastq'):]} '${reads.input2_file}' ${reads.input2_file.extension[len('fastq'):]}
 #else
