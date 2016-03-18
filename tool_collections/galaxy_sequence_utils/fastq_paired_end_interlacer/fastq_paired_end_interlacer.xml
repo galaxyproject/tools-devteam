@@ -1,7 +1,7 @@
 <tool id="fastq_paired_end_interlacer" name="FASTQ interlacer" version="1.2">
   <description>on paired end reads</description>
   <requirements>
-    <requirement type="package" version="1.0.0">galaxy_sequence_utils</requirement>
+    <requirement type="package" version="1.0.1">galaxy_sequence_utils</requirement>
   </requirements>
   <command>
 python $__tool_directory__/fastq_paired_end_interlacer.py
