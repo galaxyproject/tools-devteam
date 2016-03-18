@@ -109,7 +109,6 @@ tools/freebayes
 tools/fasta_compute_length
 tools/histogram
 tool_collections/galaxy_sequence_utils/fastq_groomer
-tool_collections/galaxy_sequence_utils/fastq_paired_end_interlacer
 tool_collections/galaxy_sequence_utils/fastq_paired_end_deinterlacer
 tool_collections/galaxy_sequence_utils/fastq_manipulation
 tool_collections/galaxy_sequence_utils/fastq_combiner

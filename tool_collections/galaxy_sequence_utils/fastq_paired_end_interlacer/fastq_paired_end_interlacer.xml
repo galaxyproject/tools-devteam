@@ -1,32 +1,64 @@
-<tool id="fastq_paired_end_interlacer" name="FASTQ interlacer" version="1.1">
+<tool id="fastq_paired_end_interlacer" name="FASTQ interlacer" version="1.2">
   <description>on paired end reads</description>
   <requirements>
-    <requirement type="package" version="1.0.0">galaxy_sequence_utils</requirement>
+    <requirement type="package" version="1.0.1">galaxy_sequence_utils</requirement>
   </requirements>
-  <command interpreter="python">fastq_paired_end_interlacer.py '$input1_file' '${input1_file.extension[len( 'fastq' ):]}' '$input2_file' '${input2_file.extension[len( 'fastq' ):]}' '$outfile_pairs' '$outfile_singles'</command>
+  <command>
+python $__tool_directory__/fastq_paired_end_interlacer.py
+#if $reads.reads_selector == 'paired'
+    '${reads.input1_file}' ${reads.input1_file.extension[len('fastq'):]} '${reads.input2_file}' ${reads.input2_file.extension[len('fastq'):]}
+#else
+    '${reads.reads_coll.forward}' ${reads.reads_coll.forward.extension[len('fastq'):]} '${reads.reads_coll.reverse}' ${reads.reads_coll.reverse.extension[len('fastq'):]}
+#end if
+'$outfile_pairs' '$outfile_singles'
+  </command>
   <inputs>
-    <param name="input1_file" type="data" format="fastqsanger,fastqcssanger" label="Left-hand mates" />
-    <param name="input2_file" type="data" format="fastqsanger,fastqcssanger" label="Right-hand mates" />
+    <conditional name="reads">
+      <param name="reads_selector" type="select" label="Type of paired-end datasets">
+        <option value="paired">2 separate datasets</option>
+        <option value="paired_collection">1 paired dataset collection</option>
+      </param>
+      <when value="paired">
+        <param name="input1_file" type="data" format="fastqsanger,fastqcssanger" label="Left-hand mates" />
+        <param name="input2_file" type="data" format="fastqsanger,fastqcssanger" label="Right-hand mates" />
+      </when>
+      <when value="paired_collection">
+        <param name="reads_coll" type="data_collection" collection_type="paired" format="fastqsanger,fastqcssanger" label="Paired-end reads collection" />
+      </when>
+    </conditional>
   </inputs>
   <outputs>
     <!-- $input1_file.name = filename  , e.g. paired_end_2_errors.fastqsanger -->
     <!-- $input1_file.id   = ID        , e.g. 10 -->
     <!-- $input1_file.hid  = history ID, e.g. 5  -->
-    <data name="outfile_pairs"   format="input" label="FASTQ interlacer pairs from data ${input1_file.hid} and data ${input2_file.hid}"/>
-    <data name="outfile_singles" format="input" label="FASTQ interlacer singles from data ${input1_file.hid} and data ${input2_file.hid}"/>
+    <data name="outfile_pairs" format="input" label="FASTQ interlacer pairs from ${on_string}"/>
+    <data name="outfile_singles" format="input" label="FASTQ interlacer singles from ${on_string}"/>
   </outputs>
   <tests>
     <test>
+      <param name="reads_selector" value="paired" />
       <param name="input1_file" value="paired_end_1.fastqsanger" ftype="fastqsanger" />
       <param name="input2_file" value="paired_end_2.fastqsanger" ftype="fastqsanger" />
-      <output name="outfile_pairs" file="paired_end_merged.fastqsanger" />
-      <output name="outfile_singles" file="paired_end_merged_singles.fastqsanger" />
+      <output name="outfile_pairs" file="paired_end_merged.fastqsanger" ftype="fastqsanger" />
+      <output name="outfile_singles" file="paired_end_merged_singles.fastqsanger" ftype="fastqsanger" />
     </test>
     <test>
+      <param name="reads_selector" value="paired" />
       <param name="input1_file" value="paired_end_1_errors.fastqsanger" ftype="fastqsanger" />
       <param name="input2_file" value="paired_end_2_errors.fastqsanger" ftype="fastqsanger" />
-      <output name="outfile_pairs" file="paired_end_merged_cleaned.fastqsanger" />
-      <output name="outfile_singles" file="paired_end_merged_cleaned_singles.fastqsanger" />
+      <output name="outfile_pairs" file="paired_end_merged_cleaned.fastqsanger" ftype="fastqsanger" />
+      <output name="outfile_singles" file="paired_end_merged_cleaned_singles.fastqsanger" ftype="fastqsanger" />
+    </test>
+    <test>
+      <param name="reads_selector" value="paired_collection" />
+      <param name="reads_coll">
+        <collection type="paired">
+          <element name="forward" value="paired_end_1.fastqsanger" ftype="fastqsanger" />
+          <element name="reverse" value="paired_end_2.fastqsanger" ftype="fastqsanger" />
+        </collection>
+      </param>
+      <output name="outfile_pairs" file="paired_end_merged.fastqsanger" ftype="fastqsanger" />
+      <output name="outfile_singles" file="paired_end_merged_singles.fastqsanger" ftype="fastqsanger" />
     </test>
   </tests>
   <help>
@@ -70,6 +102,7 @@ A multiple-fastq file containing interlaced left and right paired reads::
     WNUUZ\P^`BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
 
 A multiple-fastq file containing reads that have no mate is also produced.
-
   </help>
+  <citations>
+  </citations>
 </tool>
