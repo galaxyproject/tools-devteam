@@ -161,10 +161,6 @@ tool_collections/vcflib/vcfhethom
 tool_collections/hgv/hgv_hilbertvis
 tool_collections/hgv/snpfreq
 tool_collections/hgv/hgv_fundo
-tool_collections/kraken/kraken_translate
-tool_collections/kraken/kraken
-tool_collections/kraken/kraken_report
-tool_collections/kraken/kraken_filter
 tool_collections/vcftools/vcftools_compare
 tool_collections/vcftools/vcftools_slice
 tool_collections/vcftools/vcftools_merge
