@@ -1,4 +1,4 @@
-<tool id="kraken-report" name="Kraken-report" version="1.1.0">
+<tool id="kraken-report" name="Kraken-report" version="1.2.0">
     <description>
         view a sample report of your classification
     </description>

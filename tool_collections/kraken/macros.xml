@@ -2,7 +2,7 @@
 <macros>
     <xml name="requirements">
         <requirements>
-            <requirement type="package" version="0.10.5">kraken</requirement>
+            <requirement type="package" version="0.10.6-eaf8fb68">kraken</requirement>
         </requirements>
     </xml>
     <xml name="stdio">
