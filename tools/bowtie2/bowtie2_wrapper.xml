@@ -35,6 +35,9 @@
             #if str( $library.unaligned_file ) == "true":
                 --un $output_unaligned_reads_l
             #end if
+            #if str( $library.aligned_file ) == "true":
+                --al $output_aligned_reads_l
+            #end if
         #elif str( $library.type ) == "paired":
             -1 "${library.input_1}"
             -2 "${library.input_2}"
@@ -50,6 +53,9 @@
             #end if
             #if str( $library.unaligned_file ) == "true":
                 --un-conc $output_unaligned_reads_l
+            #end if
+            #if str( $library.aligned_file ) == "true":
+                --al-conc $output_aligned_reads_l
             #end if
         #else
             ## prepare collection
@@ -185,6 +191,12 @@
             &amp;&amp; mv "${ _unaligned_root }.1${_unaligned_ext}" "${ output_unaligned_reads_l }"
             &amp;&amp; mv "${ _unaligned_root }.2${_unaligned_ext}" "${ output_unaligned_reads_r }"
         #end if
+        #if $library.type == "paired" and $output_aligned_reads_l and $output_aligned_reads_r:
+            #from os.path import splitext
+            #set _aligned_root, _aligned_ext = splitext( str( $output_aligned_reads_l ) )
+            &amp;&amp; mv "${ _aligned_root }.1${_aligned_ext}" "${ output_aligned_reads_l }"
+            &amp;&amp; mv "${ _aligned_root }.2${_aligned_ext}" "${ output_aligned_reads_r }"
+        #end if
 
     </command>
     <!-- basic error handling -->
@@ -204,11 +216,13 @@
             <when value="single">
                 <param name="input_1" format="fastqsanger" type="data" label="FASTQ file" help="Must be of datatype &quot;fastqsanger&quot;" />
                 <param name="unaligned_file" type="boolean" truevalue="true" falsevalue="false" checked="False" label="Write unaligned reads (in fastq format) to separate file(s)" help="--un/--un-conc; This triggers --un parameter for single reads and --un-conc for paired reads" />
+                <param name="aligned_file" type="boolean" truevalue="true" falsevalue="false" checked="False" label="Write aligned reads (in fastq format) to separate file(s)" help="--al/--al-conc; This triggers --al parameter for single reads and --al-conc for paired reads" />
             </when>
             <when value="paired">
                 <param name="input_1" format="fastqsanger" type="data" label="FASTQ file #1" help="Must be of datatype &quot;fastqsanger&quot;" />
                 <param name="input_2" format="fastqsanger" type="data" label="FASTQ file #2" help="Must be of datatype &quot;fastqsanger&quot;" />
                 <param name="unaligned_file" type="boolean" truevalue="true" falsevalue="false" checked="False" label="Write unaligned reads (in fastq format) to separate file(s)" help="--un/--un-conc; This triggers --un parameter for single reads and --un-conc for paired reads" />
+                <param name="aligned_file" type="boolean" truevalue="true" falsevalue="false" checked="False" label="Write aligned reads (in fastq format) to separate file(s)" help="--al/--al-conc; This triggers --al parameter for single reads and --al-conc for paired reads" />
                 <conditional name="paired_options">
                     <param name="paired_options_selector" type="select" label="Do you want to set paired-end options?" help="See &quot;Alignment Options&quot; section of Help below for information">
                         <option value="no" selected="True">No</option>
@@ -236,6 +250,7 @@
             <when value="paired_collection">
                 <param name="input_1" format="fastqsanger" type="data_collection" collection_type="paired" label="FASTQ Paired Dataset" help="Must be of datatype &quot;fastqsanger&quot;" />
                 <param name="unaligned_file" type="boolean" truevalue="true" falsevalue="false" checked="False" label="Write unaligned reads (in fastq format) to separate file(s)" help="--un/--un-conc; This triggers --un parameter for single reads and --un-conc for paired reads" />
+                <param name="aligned_file" type="boolean" truevalue="true" falsevalue="false" checked="False" label="Write aligned reads (in fastq format) to separate file(s)" help="--al/--al-conc; This triggers --al parameter for single reads and --al-conc for paired reads" />
                 <conditional name="paired_options">
                     <param name="paired_options_selector" type="select" label="Do you want to set paired-end options?" help="See &quot;Alignment Options&quot; section of Help below for information">
                         <option value="no" selected="True">No</option>
@@ -458,6 +473,45 @@
                     <when value="paired_collection">
                         <action type="format">
                             <option type="from_param" name="library.input_1" param_attribute="forward.ext" />
+                        </action>
+                    </when>
+                </conditional>
+            </actions>
+        </data>
+        <data format="fastqsanger" name="output_aligned_reads_l" label="${tool.name} on ${on_string}: aligned reads (L)" >
+            <filter>library['aligned_file'] is True</filter>
+            <actions>
+                <conditional name="library.type">
+                    <when value="single">
+                        <action type="format">
+                            <option type="from_param" name="library.input_1" param_attribute="ext" />
+                        </action>
+                    </when>
+                    <when value="paired">
+                        <action type="format">
+                            <option type="from_param" name="library.input_1" param_attribute="ext" />
+                        </action>
+                    </when>
+                    <when value="paired_collection">
+                        <action type="format">
+                            <option type="from_param" name="library.input_1" param_attribute="forward.ext" />
+                        </action>
+                    </when>
+                </conditional>
+            </actions>
+        </data>
+        <data format="fastqsanger" name="output_aligned_reads_r" label="${tool.name} on ${on_string}: aligned reads (R)">
+            <filter>( library['type'] == "paired" or library['type'] == "paired_collection" ) and library['aligned_file'] is True</filter>
+            <actions>
+                <conditional name="library.type">
+                    <when value="paired">
+                        <action type="format">
+                            <option type="from_param" name="library.input_2" param_attribute="ext" />
+                        </action>
+                    </when>
+                    <when value="paired_collection">
+                        <action type="format">
+                            <option type="from_param" name="library.input_1" param_attribute="reverse.ext" />
                         </action>
                     </when>
                 </conditional>
