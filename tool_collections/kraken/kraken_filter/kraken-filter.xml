@@ -1,4 +1,4 @@
-<tool id="kraken-filter" name="Kraken-filter" version="1.2.0">
+<tool id="kraken-filter" name="Kraken-filter" version="1.2.1">
     <description>
         filter classification by confidence score
     </description>
