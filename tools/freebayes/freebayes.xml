@@ -11,22 +11,22 @@
     #set $reference_fasta_filename = "localref.fa"
     
     #if str( $reference_source.reference_source_selector ) == "history":
-        ln -s "${reference_source.ref_file}" "${reference_fasta_filename}" &amp;&amp;
+        ln -f -s "${reference_source.ref_file}" "${reference_fasta_filename}" &amp;&amp;
         samtools faidx "${reference_fasta_filename}" 2&gt;&amp;1 || echo "Error running samtools faidx for FreeBayes" &gt;&amp;2 &amp;&amp;
     #else:
         #set $reference_fasta_filename = str( $reference_source.ref_file.fields.path )
     #end if
     
     #for $bam_count, $input_bam in enumerate( $reference_source.input_bams ):
-        ln -s "${input_bam.input_bam}" "localbam_${bam_count}.bam" &amp;&amp;
-        ln -s "${input_bam.input_bam.metadata.bam_index}" "localbam_${bam_count}.bam.bai" &amp;&amp;
+        ln -f -s "${input_bam.input_bam}" "localbam_${bam_count}.bam" &amp;&amp;
+        ln -f -s "${input_bam.input_bam.metadata.bam_index}" "localbam_${bam_count}.bam.bai" &amp;&amp;
     #end for
     
     ## Tabixize optional input_varinat_vcf file (for --variant-input option)
     
     #if ( str( $options_type.options_type_selector ) == 'cline' or str( $options_type.options_type_selector ) == 'full' ) and $options_type.optional_inputs.optional_inputs_selector and str( $options_type.optional_inputs.input_variant_type.input_variant_type_selector ) == "provide_vcf":
-        ln -s "${options_type.optional_inputs.input_variant_type.input_variant_vcf}" "input_variant_vcf.vcf.gz" &amp;&amp;
-        ln -s "${Tabixized_input}" "input_variant_vcf.vcf.gz.tbi" &amp;&amp;
+        ln -f -s "${options_type.optional_inputs.input_variant_type.input_variant_vcf}" "input_variant_vcf.vcf.gz" &amp;&amp;
+        ln -f -s "${Tabixized_input}" "input_variant_vcf.vcf.gz.tbi" &amp;&amp;
     #end if
     
     ##finished setting up inputs
