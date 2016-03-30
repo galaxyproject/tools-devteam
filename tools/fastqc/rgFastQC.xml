@@ -1,4 +1,4 @@
-<tool id="fastqc" name="FastQC" version="0.64">
+<tool id="fastqc" name="FastQC" version="0.65">
     <description>Read Quality reports</description>
     <requirements>
         <requirement type="package" version="0.11.4">FastQC</requirement>
@@ -17,7 +17,6 @@
         -t "$text_file"
         -f "$input_file.ext"
         -j "$input_file.name"
-        -e "\$FASTQC_JAR_PATH/fastqc"
         #if $contaminants.dataset and str($contaminants) > ''
             -c "$contaminants"
         #end if
