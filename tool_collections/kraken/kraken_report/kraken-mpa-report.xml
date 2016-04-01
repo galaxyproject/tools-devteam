@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<tool id="kraken-mpa-report" name="Kraken-mpa-report" version="1.2.1">
+<tool id="kraken-mpa-report" name="Kraken-mpa-report" version="1.2.2">
     <description>view report of classification for multiple samples</description>
     <macros>
         <import>macros.xml</import>
@@ -10,14 +10,24 @@
     <command>
 <![CDATA[
 
+#set $names = []
+
 #for $input_count, $input_classification in enumerate( $classification ):
-    ln -s "${input_classification}" "sample_${input_count}" &&
+    #set $name_base = str( getattr( $input_classification, 'element_identifier', 'sample' ) ).replace( "/", '-' )
+    #set $name = $name_base
+    #set $i = 1
+    #while $name in $names:
+        #set $name = "%s_%s" % ( $name_base, $i )
+        #set $i = $i + 1
+    #end while
+    #silent $names.append( $name )
+    ln -s "${input_classification}" "${name}" &&
 #end for
 
 @SET_DATABASE_PATH@ && kraken-mpa-report @INPUT_DATABASE@
 
-#for $input_count, $input_classification in enumerate( $classification ):
-    "sample_${input_count}"
+#for $name in $names:
+    "${name}"
 #end for
 
 ${show_zeros}
@@ -55,7 +65,7 @@ ${header_line}
 
 **What is Does**
 
-Kraken-mpa-report summarizes read counts across taxonomic ranks for multiple samples. This is convenient for comparing results across multiple expreriments, conditions, locations, etc. It support sthe following parameters::
+Kraken-mpa-report summarizes read counts across taxonomic ranks for multiple samples. This is convenient for comparing results across multiple experiments, conditions, locations, etc. It supports the following parameters::
 
 --show-zeros    Display taxa even if they lack a read in any sample
 --header-line   Display a header line indicating sample IDs
