@@ -27,7 +27,7 @@
 
         ## Merge.
         vcf-merge
-        #echo ' '.join( dataset_names ) # > ${output}
+        #echo ' '.join( dataset_names ) # > '${output}'
     ]]>
     </command>
     <inputs>
