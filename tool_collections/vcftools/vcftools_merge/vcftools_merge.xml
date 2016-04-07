@@ -7,25 +7,28 @@
     </requirements>
 
     <command>
+    <![CDATA[
         ## Preprocessing for each dataset.
+        #import re
         #set dataset_names = []
         #for $i, $input in enumerate( $input_files ):
+            #set input_name = re.sub('[^\w\-_]', '_', $input.element_identifier)
             ## Sort file.
-            vcf-sort ${input} > ${i}.vcf.sorted ;
+            vcf-sort '${input}' > '${input_name}.vcf.sorted' &&
 
             ## Compress.
-            bgzip ${i}.vcf.sorted ;
+            bgzip '${input_name}.vcf.sorted' &&
 
             ## Index.
-            tabix -p vcf ${i}.vcf.sorted.gz ;
+            tabix -p vcf '${input_name}.vcf.sorted.gz' &&
 
-            #silent dataset_names.append( str($i) + '.vcf.sorted.gz' )
+            #silent dataset_names.append( "'%s.vcf.sorted.gz'" % $input_name )
         #end for
 
         ## Merge.
         vcf-merge
         #echo ' '.join( dataset_names ) # > ${output}
-
+    ]]>
     </command>
     <inputs>
         <param name="input_files" label="Datasets to Merge" type="data" format="vcf" min="2" multiple="True"/>
