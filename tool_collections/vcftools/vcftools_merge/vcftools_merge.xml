@@ -1,4 +1,4 @@
-<tool id="vcftools_merge" name="Merge" version="0.1.1">
+<tool id="vcftools_merge" name="Merge" version="0.1.11">
     <description>multiple VCF datasets</description>
 
     <requirements>
