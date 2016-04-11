@@ -154,7 +154,6 @@ if __name__ == '__main__':
     assert opts.input != None
     assert opts.inputfilename != None
     assert opts.htmloutput != None
-    assert os.path.isfile(opts.executable),'##rgFastQC.py error - cannot find executable %s' % opts.executable
     if not os.path.exists(opts.outputdir): 
         os.makedirs(opts.outputdir)
     
