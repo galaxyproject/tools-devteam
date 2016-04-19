@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<data_managers>
+
+    <data_manager tool_file="data_manager/tophat2_gene_annotation_fetcher.xml" id="tophat2_gene_annotation_fetcher" version="1.0.0">
+        <data_table name="tophat2_gene_annotation">
+            <output>
+                <column name="value" />
+                <column name="dbkey" />
+                <column name="name" />
+                <column name="path"/>
+            </output>
+        </data_table>
+    </data_manager>
+
+</data_managers>
