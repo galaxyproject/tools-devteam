@@ -61,7 +61,7 @@
             ## Supplying junctions parameters.
             #if $params.own_junctions.use_junctions == "Yes":
                 #if $params.own_junctions.gene_model_ann.use_annotations == "Yes":
-                    -G $params.own_junctions.gene_model_ann.gene_annotation_model
+                    -G $params.own_junctions.gene_model_ann.gene_annotation_model.fields.path
                 #end if
                 #if $params.own_junctions.raw_juncs.use_juncs == "Yes":
                     -j $params.own_junctions.raw_juncs.raw_juncs

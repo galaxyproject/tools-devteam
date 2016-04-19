@@ -42,7 +42,9 @@
           </param>
           <when value="No" />
           <when value="Yes">
-            <param format="gtf,gff3" name="gene_annotation_model" type="data" label="Gene Model Annotations" help="-G/--GTF; TopHat with a set of gene model annotations and/or known transcripts, as a GTF 2.2 or GFF3 formatted file. If this option is provided, TopHat will first extract the transcript sequences and use Bowtie to align reads to this virtual transcriptome first. Only the reads that do not fully map to the transcriptome will then be mapped on the genome. The reads that did map on the transcriptome will be converted to genomic mappings (spliced as needed) and merged with the novel mappings and junctions in the final tophat output. Please note that the values in the first column of the provided GTF/GFF file (column which indicates the chromosome or contig on which the feature is located), must match the name of the reference sequence in the Bowtie index you are using with TopHat."/>
+            <param format="gtf,gff3" name="gene_annotation_model" type="select" label="Gene Model Annotations" help="-G/--GTF; TopHat with a set of gene model annotations and/or known transcripts, as a GTF 2.2 or GFF3 formatted file. If this option is provided, TopHat will first extract the transcript sequences and use Bowtie to align reads to this virtual transcriptome first. Only the reads that do not fully map to the transcriptome will then be mapped on the genome. The reads that did map on the transcriptome will be converted to genomic mappings (spliced as needed) and merged with the novel mappings and junctions in the final tophat output. Please note that the values in the first column of the provided GTF/GFF file (column which indicates the chromosome or contig on which the feature is located), must match the name of the reference sequence in the Bowtie index you are using with TopHat.">
+               <options from_data_table="tophat2_gene_annotation"/>
+             </param>
           </when>
         </conditional>
         <expand macro="raw_juncsConditional" />
