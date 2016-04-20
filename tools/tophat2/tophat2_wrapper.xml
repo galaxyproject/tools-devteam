@@ -60,8 +60,10 @@
 
             ## Supplying junctions parameters.
             #if $params.own_junctions.use_junctions == "Yes":
-                #if $params.own_junctions.gene_model_ann.use_annotations == "Yes":
+                #if $params.own_junctions.gene_model_ann.use_annotations == "indexed"
                     -G $params.own_junctions.gene_model_ann.gene_annotation_model.fields.path
+                #elif $params.own_junctions.gene_model_ann.use_annotations == "history"
+                    -G $params.own_junctions.gene_model_ann.gene_annotation_model
                 #end if
                 #if $params.own_junctions.raw_juncs.use_juncs == "Yes":
                     -j $params.own_junctions.raw_juncs.raw_juncs
