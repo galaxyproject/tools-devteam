@@ -48,7 +48,7 @@
              </param>
           </when>
           <when value="Use a gene annotation from history">
-            <param name="ownFile" type="data" format="gtf,gff3" metadata_name="dbkey" label="Select the gene annotation from history" />
+            <param name="gene_annotation_model" type="data" format="gtf,gff3" metadata_name="dbkey" label="Select the gene annotation from history" />
           </when>  
         </conditional>
         <expand macro="raw_juncsConditional" />
