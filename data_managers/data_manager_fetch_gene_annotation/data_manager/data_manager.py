@@ -55,7 +55,7 @@ def main(args):
     data_manager_entry['value'] = args.name.lower()
     data_manager_entry['name'] = args.name
     data_manager_entry['path'] = '.'
-    data_manager_json = dict(data_tables=dict(tophat2_gene_annotation=data_manager_entry))
+    data_manager_json = dict(data_tables=dict(gene_annotation=data_manager_entry))
     params = json.loads(open(args.output).read())
     target_directory = params['output_data'][0]['extra_files_path']
     os.mkdir(target_directory)

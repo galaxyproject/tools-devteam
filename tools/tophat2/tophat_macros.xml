@@ -44,11 +44,11 @@
           <when value="No" />
           <when value="indexed">
             <param format="gtf,gff3" name="gene_annotation_model" type="select" label="Gene Model Annotations">
-                <options from_data_table="tophat2_gene_annotation"/>
+                <options from_data_table="gene_annotation"/>
              </param>
           </when>
           <when value="history">
-            <param name="gene_annotation_model" type="data" format="gtf,gff3" metadata_name="dbkey" label="Select the gene annotation from history" />
+            <param format="gtf,gff3" name="gene_annotation_model" type="data" label="Gene Model Annotations" metadata_name="dbkey" />
           </when>  
         </conditional>
         <expand macro="raw_juncsConditional" />

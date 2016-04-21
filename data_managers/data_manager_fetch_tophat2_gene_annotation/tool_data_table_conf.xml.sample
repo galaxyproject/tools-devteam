@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<tables>
-    <!-- Locations of tophat2 gene annotation data -->
-    <table name="tophat2_gene_annotation" comment_char="#">
-        <columns>value, dbkey, name, path</columns>
-        <file path="tool-data/tophat2_gene_annotation.loc" />
-    </table>
-</tables>

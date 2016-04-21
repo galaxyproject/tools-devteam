@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<tool id="tophat2_gene_annotation_fetcher_data_manager" name="Tophat2 Gene Annotation Fetch" tool_type="manage_data" version="1.0.0">
-    <description>tophat2 gene annotation fetcher</description>
+<tool id="gene_annotation_fetcher_data_manager" name="Gene Annotation Fetch" tool_type="manage_data" version="1.0.0">
+    <description>gene annotation fetcher</description>
     <stdio>
         <exit_code description="Error" level="fatal" range="1:" />
     </stdio>
@@ -17,7 +17,7 @@
     </command>
     <inputs>
         <param help="Enter a unique identifier, or leave blank for today's date" label="Name for this database" name="database_name" type="text" optional="True" />
-        <param label="Enter URL for Tophat2 gene annotation files" name="gene_annotation_url" type="text" />
+        <param label="Enter URL for gene annotation files" name="gene_annotation_url" type="text" />
     </inputs>
     <outputs>
         <data format="data_manager_json" name="out_file" />
