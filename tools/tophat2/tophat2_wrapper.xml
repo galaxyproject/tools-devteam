@@ -1,11 +1,46 @@
 <tool id="tophat2" name="TopHat" version="0.9">
     <!-- Wrapper compatible with Tophat version 2.0.0+ -->
     <description>Gapped-read mapper for RNA-seq data</description>
-    <version_command>tophat2 --version</version_command>
+    <macros>
+      <import>tophat_macros.xml</import>
+      <xml name="paired_parameters">
+        <param name="mate_inner_distance" type="integer" value="300" label="Mean Inner Distance between Mate Pairs" help="-r/--mate-inner-dist; This is the expected (mean) inner distance between mate pairs. For, example, for paired end runs with fragments selected at 300bp, where each end is 50bp, you should set -r to be 200. The default is 50bp."/>
+        <param name="mate_std_dev" type="integer" value="20" label="Std. Dev for Distance between Mate Pairs"  help="--mate-std-dev; The standard deviation for the distribution on inner distances between mate pairs. The default is 20bp."/>
+        <!-- Discordant pairs. -->
+        <param name="report_discordant_pairs" type="select" label="Report discordant pair alignments?" help="--no-discordant">
+            <option value="No">No</option>
+            <option selected="True" value="Yes">Yes</option>
+        </param>
+      </xml>
+      <macro name="dbKeyActions">
+        <actions>
+          <conditional name="refGenomeSource.genomeSource">
+            <when value="indexed">
+              <action type="metadata" name="dbkey">
+                <option type="from_data_table" name="tophat2_indexes" column="1" offset="0">
+                  <filter type="param_value" column="0" value="#" compare="startswith" keep="False"/>
+                  <filter type="param_value" ref="refGenomeSource.index" column="0"/>
+                </option>
+              </action>
+            </when>
+            <when value="history">
+              <action type="metadata" name="dbkey">
+                <option type="from_param" name="refGenomeSource.ownFile" param_attribute="dbkey" />
+              </action>
+            </when>
+          </conditional>
+        </actions>
+      </macro>
+    </macros>
     <requirements>
         <requirement type="package" version="2.2.5">bowtie2</requirement>
         <requirement type="package" version="2.0.14">tophat</requirement>
     </requirements>
+    <stdio>
+        <regex match="Exception|Error" source="both" level="fatal" description="Tool execution failed"/>
+        <regex match=".*" source="both" level="log" description="tool progress"/>
+    </stdio>
+    <version_command>tophat2 --version</version_command>
 
     <command>
         ##
@@ -270,11 +305,6 @@
       </conditional> <!-- readGroup -->
     </inputs>
 
-    <stdio>
-        <regex match="Exception|Error" source="both" level="fatal" description="Tool execution failed"/>
-        <regex match=".*" source="both" level="log" description="tool progress"/>
-    </stdio>
-
     <outputs>
         <data format="txt" name="align_summary" label="${tool.name} on ${on_string}: align_summary" from_work_dir="tophat_out/align_summary.txt"/>
         <data format="tabular" name="fusions" label="${tool.name} on ${on_string}: fusions" from_work_dir="tophat_out/fusions.out">
@@ -298,38 +328,6 @@
         </data>
 
     </outputs>
-
-    <macros>
-      <import>tophat_macros.xml</import>
-      <xml name="paired_parameters">
-        <param name="mate_inner_distance" type="integer" value="300" label="Mean Inner Distance between Mate Pairs" help="-r/--mate-inner-dist; This is the expected (mean) inner distance between mate pairs. For, example, for paired end runs with fragments selected at 300bp, where each end is 50bp, you should set -r to be 200. The default is 50bp."/>
-        <param name="mate_std_dev" type="integer" value="20" label="Std. Dev for Distance between Mate Pairs"  help="--mate-std-dev; The standard deviation for the distribution on inner distances between mate pairs. The default is 20bp."/>
-        <!-- Discordant pairs. -->
-        <param name="report_discordant_pairs" type="select" label="Report discordant pair alignments?" help="--no-discordant">
-            <option value="No">No</option>
-            <option selected="True" value="Yes">Yes</option>
-        </param>
-      </xml>
-      <macro name="dbKeyActions">
-        <actions>
-          <conditional name="refGenomeSource.genomeSource">
-            <when value="indexed">
-              <action type="metadata" name="dbkey">
-                <option type="from_data_table" name="tophat2_indexes" column="1" offset="0">
-                  <filter type="param_value" column="0" value="#" compare="startswith" keep="False"/>
-                  <filter type="param_value" ref="refGenomeSource.index" column="0"/>
-                </option>
-              </action>
-            </when>
-            <when value="history">
-              <action type="metadata" name="dbkey">
-                <option type="from_param" name="refGenomeSource.ownFile" param_attribute="dbkey" />
-              </action>
-            </when>
-          </conditional>
-        </actions>
-      </macro>
-    </macros>
 
     <tests>
         <!-- Test base-space single-end reads with pre-built index and preset parameters -->
