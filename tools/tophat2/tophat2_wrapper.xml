@@ -1,4 +1,4 @@
-<tool id="tophat2" name="TopHat" version="0.9">
+<tool id="tophat2" name="TopHat" version="2.0.14">
     <!-- Wrapper compatible with Tophat version 2.0.0+ -->
     <description>Gapped-read mapper for RNA-seq data</description>
     <macros>
@@ -110,7 +110,7 @@
                 --coverage-search
                 --min-coverage-intron $params.coverage_search.min_coverage_intron
                 --max-coverage-intron $params.coverage_search.max_coverage_intron
-            #else:
+            #elif $params.coverage_search.use_search == "No"
                 --no-coverage-search
             #end if
 
@@ -228,10 +228,12 @@
               <expand macro="own_junctionsConditional" />
               <!-- Coverage search. -->
               <conditional name="coverage_search">
-                <param name="use_search" type="select" label="Use Coverage Search" help="Enables the coverage based search for junctions. Use when coverage search is disabled by default (such as for reads 75bp or longer), for maximum sensitivity.">
-                    <option selected="true" value="No">No</option>
-                    <option value="Yes">Yes</option>
+                <param name="use_search" type="select" label="Use coverage-based search for junctions" help="Select 'Auto' to let TopHat decide when to enable coverage search (e.g. disable it for reads 75bp or longer). Select 'Yes' to enforce maximum sensitivity and to specify minimum and maximum intron length">
+                    <option selected="true" value="auto">Auto</option>
+                    <option value="No">No (--no-coverage-search)</option>
+                    <option value="Yes">Yes (--coverage-search)</option>
                 </param>
+                <when value="auto" />
                 <when value="Yes">
                     <param name="min_coverage_intron" type="integer" value="50" label="Minimum intron length that may be found during coverage search" help="--min-coverage-intron; The minimum intron length that may be found during coverage search. The default is 50."/>
                     <param name="max_coverage_intron" type="integer" value="20000" label="Maximum intron length that may be found during coverage search" help="--max-coverage-intron; The maximum intron length that may be found during coverage search. The default is 20000."/>
