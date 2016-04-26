@@ -1,4 +1,4 @@
-<tool id="bwa_mem_index_builder_data_manager" name="BWA-MEM index" tool_type="manage_data" version="0.0.1">
+<tool id="bwa_mem_index_builder_data_manager" name="BWA-MEM index" tool_type="manage_data" version="0.0.2">
     <description>builder</description>
     <requirements>
         <requirement type="package" version="0.7.12">bwa</requirement>
