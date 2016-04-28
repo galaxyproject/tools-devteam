@@ -16,13 +16,21 @@ parser.add_argument('--url', dest='url', action='store', help='Download URL')
 args = parser.parse_args()
 
 def url_download(url, workdir):
+    if not os.path.exists(workdir):
+        os.makedirs(workdir)
     file_path = os.path.join(workdir, 'download.dat')
     if not os.path.exists(workdir):
         os.makedirs(workdir)
     src = None
     dst = None
+    hdr = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11',
+       'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+       'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
+       'Accept-Encoding': 'none',
+       'Accept-Language': 'en-US,en;q=0.8',
+       'Connection': 'keep-alive'}
     try:
-        req = urllib2.Request(url)
+        req = urllib2.Request(url, headers=hdr)
         src = urllib2.urlopen(req)
         dst = open(file_path, 'wb')
         while True:
@@ -31,8 +39,8 @@ def url_download(url, workdir):
                 dst.write(chunk)
             else:
                 break
-    except Exception, e:
-        print >>sys.stderr, str(e)
+    except Exception as e:
+        print e, "FUCK"
     finally:
         if src:
             src.close()
@@ -54,7 +62,7 @@ def main(args):
     data_manager_entry = {}
     data_manager_entry['value'] = args.name.lower()
     data_manager_entry['name'] = args.name
-    data_manager_entry['path'] = '.'
+    data_manager_entry['path'] = args.output
     data_manager_json = dict(data_tables=dict(gene_annotation=data_manager_entry))
     params = json.loads(open(args.output).read())
     target_directory = params['output_data'][0]['extra_files_path']
