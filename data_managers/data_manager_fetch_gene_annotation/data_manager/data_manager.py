@@ -40,7 +40,7 @@ def url_download(url, workdir):
             else:
                 break
     except Exception as e:
-        print e, "FUCK"
+        print e
     finally:
         if src:
             src.close()
