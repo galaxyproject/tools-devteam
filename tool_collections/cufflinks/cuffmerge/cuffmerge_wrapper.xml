@@ -5,8 +5,8 @@
     <macros>
       <import>cuff_macros.xml</import>
     </macros>
-    <command interpreter="python">
-        cuffmerge_wrapper.py
+    <command>
+        python $__tool_directory__/cuffmerge_wrapper.py
             --num-threads="\${GALAXY_SLOTS:-4}"
             
             ## Use annotation reference?
