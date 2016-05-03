@@ -6,8 +6,8 @@
       <import>cuff_macros.xml</import>
     </macros>
     <version_command>cuffcompare 2>&amp;1 | head -n 1</version_command>
-    <command interpreter="python">
-        cuffcompare_wrapper.py 
+    <command>
+        python $__tool_directory__/cuffcompare_wrapper.py
             ## Use annotation reference?
             #if $annotation.use_ref_annotation == "Yes":
                 -r $annotation.reference_annotation
