@@ -1,4 +1,4 @@
-<tool id="tophat2" name="TopHat" version="2.0.14">
+<tool id="tophat2" name="TopHat" version="2.1.0">
     <!-- Wrapper compatible with Tophat version 2.0.0+ -->
     <description>Gapped-read mapper for RNA-seq data</description>
     <macros>
@@ -34,7 +34,7 @@
     </macros>
     <requirements>
         <requirement type="package" version="2.2.5">bowtie2</requirement>
-        <requirement type="package" version="2.0.14">tophat</requirement>
+        <requirement type="package" version="2.1.0">tophat</requirement>
     </requirements>
     <stdio>
         <regex match="Exception|Error" source="both" level="fatal" description="Tool execution failed"/>
