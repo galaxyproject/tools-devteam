@@ -52,7 +52,6 @@ tools/canonical_correlation_analysis
 tools/vcf_intersect
 tools/dwt_var_perfeature
 tools/best_regression_subsets
-tools/tophat2
 tools/plot_from_lda
 tools/count_gff_features
 tools/dwt_cor_avb_all
