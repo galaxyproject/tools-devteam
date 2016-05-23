@@ -1,7 +1,7 @@
 <tool id="tab2fasta" name="Tabular-to-FASTA" version="1.1.0">
 	<description>converts tabular file to FASTA format</description>
 	<command>
-		$__tool_directory__/tabular_to_fasta.py
+		python $__tool_directory__/tabular_to_fasta.py
 			'$input'
 			$title_col
 			$seq_col
