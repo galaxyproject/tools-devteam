@@ -1,6 +1,12 @@
 <tool id="fasta_filter_by_length" name="Filter sequences by length" version="1.1">
 	<description></description>
-	<command interpreter="python">fasta_filter_by_length.py $input $min_length $max_length $output </command>
+	<command>
+		python $__tool_directory__/fasta_filter_by_length.py
+			'$input'
+			$min_length
+			$max_length
+			'$output'
+	</command>
 	<inputs>
 		<param name="input" type="data" format="fasta" label="Fasta file"/>
 		<param name="min_length" type="integer" value="0" label="Minimal length" />

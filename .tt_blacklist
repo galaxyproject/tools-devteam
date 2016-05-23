@@ -33,7 +33,6 @@ tools/lda_analysis
 tools/ctd_batch
 tools/generate_pc_lda_matrix
 tools/convert_solid_color2nuc
-tools/tabular_to_fasta
 tools/getindelrates_3way
 tools/sam_merge
 tools/weblogo3
@@ -68,7 +67,6 @@ tools/merge_cols
 tools/microsats_alignment_level
 tools/bowtie_color_wrappers
 tools/vcf2pgsnp
-tools/fasta_concatenate_by_species
 tools/quality_filter
 tools/vcf_annotate
 tools/megablast_wrapper
@@ -92,10 +90,8 @@ tools/short_reads_figure_score
 tools/draw_stacked_barplots
 tools/pgsnp2gd_snp
 tools/pearson_correlation
-tools/fasta_filter_by_length
 tools/dwt_var_perclass
 tools/linear_regression
-tools/fasta_to_tabular
 tools/fastq_trimmer_by_quality
 tools/dgidb_annotator
 tools/clustalw
@@ -105,7 +101,6 @@ tools/multispecies_orthologous_microsats
 tools/vcf_extract
 tools/delete_overlapping_indels
 tools/freebayes
-tools/fasta_compute_length
 tools/histogram
 tool_collections/galaxy_sequence_utils/fastq_groomer
 tool_collections/galaxy_sequence_utils/fastq_paired_end_deinterlacer

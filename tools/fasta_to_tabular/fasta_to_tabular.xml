@@ -1,6 +1,12 @@
 <tool id="fasta2tab" name="FASTA-to-Tabular" version="1.1.0">
 	<description>converter</description>
-	<command interpreter="python">fasta_to_tabular.py $input $output $keep_first $descr_columns</command>
+	<command>
+		python $__tool_directory__/fasta_to_tabular.py
+			'$input'
+			'$output'
+			$keep_first
+			$descr_columns
+	</command>
 	<inputs>
 		<param name="input" type="data" format="fasta" label="Convert these sequences"/>
 		<param name="descr_columns" type="integer" value="1" label="How many columns to divide title string into?" help="Typically 2 to take the ID (first word) and decription (rest) as two columns, or 1 to give a single column">

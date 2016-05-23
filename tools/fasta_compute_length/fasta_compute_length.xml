@@ -1,6 +1,12 @@
 <tool id="fasta_compute_length" name="Compute sequence length" version="1.0.1">
     <description></description>
-    <command interpreter="python">fasta_compute_length.py $input $output $keep_first $keep_first_word</command>
+    <command>
+        python $__tool_directory__/fasta_compute_length.py
+            '$input'
+            '$output'
+            $keep_first
+            $keep_first_word
+    </command>
     <inputs>
         <param name="input" type="data" format="fasta" label="Compute length for these sequences"/>
         <param name="keep_first" type="integer" value="0" label="How many title characters to keep?" help="'0' = keep the whole thing"/>
