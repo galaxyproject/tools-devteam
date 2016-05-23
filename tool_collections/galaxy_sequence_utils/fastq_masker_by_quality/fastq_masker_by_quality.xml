@@ -1,14 +1,20 @@
 <tool id="fastq_masker_by_quality" name="FASTQ Masker" version="1.0.0">
   <description>by quality score</description>
   <requirements>
-    <requirement type="package" version="1.0.0">galaxy_sequence_utils</requirement>
+    <requirement type="package" version="1.0.1">galaxy_sequence_utils</requirement>
   </requirements>
-  <command interpreter="python">fastq_masker_by_quality.py '$input_file' '$output_file' -f '${input_file.extension[len( 'fastq' ):]}' -s '${quality_score}' -c '${score_comparison}'
-      #if $mask_type.value == 'lowercase'
-      --lowercase
-      #else
-      -m '${mask_type}'
-      #end if
+  <command>
+    python $__tool_directory__/fastq_masker_by_quality.py
+        '$input_file'
+        '$output_file'
+        -f '${input_file.extension[len( 'fastq' ):]}'
+        -s '${quality_score}'
+        -c '${score_comparison}'
+        #if $mask_type.value == 'lowercase'
+            --lowercase
+        #else
+            -m '${mask_type}'
+        #end if
   </command>
   <inputs>
     <param name="input_file" type="data" format="fastqsanger" label="File to mask" />
@@ -53,9 +59,7 @@ This tool allows masking base characters in FASTQ format files dependent upon us
 This tool is not available for use on color space (csSanger) formats.
 
   </help>
-  
   <citations>
     <citation type="doi">10.1093/bioinformatics/btq281</citation>
   </citations>
-  
 </tool>

@@ -1,9 +1,10 @@
 <tool id="tabular_to_fastq" name="Tabular to FASTQ" version="1.0.0">
   <description>converter</description>
   <requirements>
-    <requirement type="package" version="1.0.0">galaxy_sequence_utils</requirement>
+    <requirement type="package" version="1.0.1">galaxy_sequence_utils</requirement>
   </requirements>
-  <command interpreter="python">tabular_to_fastq.py '$input_file' '$output_file' '$identifier' '$sequence' '$quality'</command>
+  <command>
+    python $__tool_directory__/tabular_to_fastq.py '$input_file' '$output_file' '$identifier' '$sequence' '$quality'</command>
   <inputs>
     <param name="input_file" type="data" format="tabular" label="Tabular file to convert" />
     <param name="identifier" label="Identifier column" type="data_column" data_ref="input_file" />

@@ -1,19 +1,20 @@
 <tool id="fastq_groomer" name="FASTQ Groomer" version="1.0.4">
   <description>convert between various FASTQ quality formats</description>
   <requirements>
-    <requirement type="package" version="1.0.0">galaxy_sequence_utils</requirement>
+    <requirement type="package" version="1.0.1">galaxy_sequence_utils</requirement>
   </requirements>
-  <command interpreter="python">fastq_groomer.py '$input_file' '$input_type' '$output_file'
-#if str( $options_type['options_type_selector'] ) == 'basic':
-#if str( $input_type ) == 'cssanger':
-'cssanger'
-#else:
-'sanger'
-#end if
-'ascii' 'summarize_input'
-#else:
-'${options_type.output_type}' '${options_type.force_quality_encoding}' '${options_type.summarize_input}'
-#end if
+  <command>
+    python $__tool_directory__/fastq_groomer.py '$input_file' '$input_type' '$output_file'
+    #if str( $options_type['options_type_selector'] ) == 'basic':
+        #if str( $input_type ) == 'cssanger':
+            'cssanger'
+        #else:
+            'sanger'
+        #end if
+        'ascii' 'summarize_input'
+    #else:
+        '${options_type.output_type}' '${options_type.force_quality_encoding}' '${options_type.summarize_input}'
+    #end if
 </command>
   <inputs>
     <param name="input_file" type="data" format="fastq" label="File to groom" />

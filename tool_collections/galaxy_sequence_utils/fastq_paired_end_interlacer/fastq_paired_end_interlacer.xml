@@ -4,13 +4,20 @@
     <requirement type="package" version="1.0.1">galaxy_sequence_utils</requirement>
   </requirements>
   <command>
-python $__tool_directory__/fastq_paired_end_interlacer.py
-#if $reads.reads_selector == 'paired'
-    '${reads.input1_file}' ${reads.input1_file.extension[len('fastq'):]} '${reads.input2_file}' ${reads.input2_file.extension[len('fastq'):]}
-#else
-    '${reads.reads_coll.forward}' ${reads.reads_coll.forward.extension[len('fastq'):]} '${reads.reads_coll.reverse}' ${reads.reads_coll.reverse.extension[len('fastq'):]}
-#end if
-'$outfile_pairs' '$outfile_singles'
+    python $__tool_directory__/fastq_paired_end_interlacer.py
+        #if $reads.reads_selector == 'paired'
+            '${reads.input1_file}'
+            ${reads.input1_file.extension[len('fastq'):]}
+            '${reads.input2_file}'
+            ${reads.input2_file.extension[len('fastq'):]}
+        #else
+            '${reads.reads_coll.forward}'
+            ${reads.reads_coll.forward.extension[len('fastq'):]}
+            '${reads.reads_coll.reverse}'
+            ${reads.reads_coll.reverse.extension[len('fastq'):]}
+        #end if
+        '$outfile_pairs'
+        '$outfile_singles'
   </command>
   <inputs>
     <conditional name="reads">
@@ -31,8 +38,8 @@ python $__tool_directory__/fastq_paired_end_interlacer.py
     <!-- $input1_file.name = filename  , e.g. paired_end_2_errors.fastqsanger -->
     <!-- $input1_file.id   = ID        , e.g. 10 -->
     <!-- $input1_file.hid  = history ID, e.g. 5  -->
-    <data name="outfile_pairs" format="input" label="FASTQ interlacer pairs from ${on_string}"/>
-    <data name="outfile_singles" format="input" label="FASTQ interlacer singles from ${on_string}"/>
+    <data name="outfile_pairs" format_source="input" label="FASTQ interlacer pairs from ${on_string}"/>
+    <data name="outfile_singles" format_source="input" label="FASTQ interlacer singles from ${on_string}"/>
   </outputs>
   <tests>
     <test>
