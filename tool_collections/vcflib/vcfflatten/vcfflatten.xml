@@ -1,9 +1,9 @@
-<tool id="vcfflatten2" name="VCFflatten:" version="0.0.3">
+<tool id="vcfflatten2" name="VCFflatten:" version="@WRAPPER_VERSION@.0">
   <description>Removes multi-allelic sites by picking the most common alternate</description>
   <macros>
     <import>macros.xml</import>
   </macros>
-  <expand macro="requirements"></expand>
+  <expand macro="requirements"/>
   <expand macro="stdio" />
   <command>vcfflatten "${input1}" > "${out_file1}"</command>
   <inputs>

@@ -1,9 +1,9 @@
-<tool id="vcfrandomsample" name="VCFrandomSample:" version="0.0.3">
+<tool id="vcfrandomsample" name="VCFrandomSample:" version="@WRAPPER_VERSION@.0">
   <description>Randomly sample sites from VCF dataset</description>
   <macros>
     <import>macros.xml</import>
   </macros>
-  <expand macro="requirements"></expand>
+  <expand macro="requirements"/>
   <expand macro="stdio" />
   <command>
 
@@ -11,7 +11,7 @@
         vcfrandomsample -s "${adv_options.scale_by}" -p ${random_seed} -r ${rate} "${vcf_input}" > "${out_file1}"
     #else:
         vcfrandomsample -p ${random_seed} -r ${rate} "${vcf_input}" > "${out_file1}" 
-    #end if                                                                      
+    #end if
   </command>
   <inputs>
     <param format="vcf" name="vcf_input" type="data" label="Select random sites from"/>
@@ -20,7 +20,7 @@
     <conditional name="adv_options">
       <param name="adv_options_selector" type="boolean" truevalue="use_adv_controls" label="Advanced controls" help="Allows you to specify options that are not listed above"/>
       <when value="use_adv_controls">
-	<param name="scale_by" type="text" value="AF" label="scale sampling likelihood by this INFO field" help="-s, --scale-by; this only works for Float info fields such as AF" />
+        <param name="scale_by" type="text" value="AF" label="scale sampling likelihood by this INFO field" help="-s, --scale-by; this only works for Float info fields such as AF" />
       </when>
       </conditional>
   </inputs>

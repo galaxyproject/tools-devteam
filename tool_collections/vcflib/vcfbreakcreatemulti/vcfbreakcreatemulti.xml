@@ -1,20 +1,19 @@
-<tool id="vcfbreakcreatemulti" name="VCFbreakCreateMulti:" version="0.0.3">
-  <description>Break multiple alleles into multiple records, or combine overallpoing alleles into a single record</description>
-  <macros>
-    <import>macros.xml</import>
-  </macros>
-  <expand macro="requirements"></expand>
-  <expand macro="stdio" />
-  <command>
+<tool id="vcfbreakcreatemulti" name="VCFbreakCreateMulti:" version="@WRAPPER_VERSION@.0">
+    <description>Break multiple alleles into multiple records, or combine overallpoing alleles into a single record</description>
+    <macros>
+        <import>macros.xml</import>
+    </macros>
+    <expand macro="requirements"/>
+    <expand macro="stdio" />
+    <command>
 
-   #if str($break_or_create) == "break":
-       vcfbreakmulti "${input1}" > "${out_file1}"
-   #elif str($break_or_create) == "create": 
-       vcfcreatemulti "${input1}" > "${out_file1}"
-   #end if
+       #if str($break_or_create) == "break":
+           vcfbreakmulti "${input1}" > "${out_file1}"
+       #elif str($break_or_create) == "create": 
+           vcfcreatemulti "${input1}" > "${out_file1}"
+       #end if
 
-</command>
-
+    </command>
   <inputs>
     <param format="vcf" name="input1" type="data" label="Select VCF dataset"/>
     <param name="break_or_create" type="select" display="radio" label="Break or Create?">

@@ -1,4 +1,4 @@
-<tool id="vcffilter2" name="VCFfilter:" version="0.0.3">
+<tool id="vcffilter2" name="VCFfilter:" version="@WRAPPER_VERSION@.0">
   <description>filter VCF data in a variety of attributes</description>
   <macros>
     <import>macros.xml</import>
@@ -19,7 +19,7 @@
     <param name="filterList" type="text" value="-f &quot;DP &gt; 10&quot;" label="Specify filterting expression" help="See explanation of filtering options below">
       <sanitizer>
         <valid initial="string.printable">
-	  <remove value="&apos;"/>
+          <remove value="&apos;"/>
         </valid>
         <mapping initial="none">
           <add source="&apos;" target="__sq__"/>

@@ -1,4 +1,4 @@
-<tool id="vcfsort" name="VCFsort:" version="0.0.2">
+<tool id="vcfsort" name="VCFsort:" version="@WRAPPER_VERSION@.0">
   <description>Sort VCF dataset by coordinate</description>
   <command>(grep ^"#" "${input1}"; grep -v ^"#" "${input1}" | LC_ALL=C sort -k1,1 -k2,2n -V) > "${out_file1}"</command>
   <inputs>
