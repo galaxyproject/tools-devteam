@@ -1,7 +1,7 @@
-<tool id="cshl_fasta_formatter" version="1.0.0" name="FASTA Width">
+<tool id="cshl_fasta_formatter" version="1.14" name="FASTA Width">
     <description>formatter</description>
     <requirements>
-        <requirement type="package" version="0.0.13">fastx_toolkit</requirement>
+        <requirement type="package" version="0.0.14">fastx_toolkit</requirement>
     </requirements>
     <!--
         Note:
