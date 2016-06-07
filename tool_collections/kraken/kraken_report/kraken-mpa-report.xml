@@ -13,7 +13,7 @@
 #set $names = []
 
 #for $input_count, $input_classification in enumerate( $classification ):
-    #set $name_base = str( getattr( $input_classification, 'element_identifier', 'sample' ) ).replace( "/", '-' )
+    #set $name_base = str( getattr( $input_classification, 'element_identifier', 'sample' ) ).replace( "/", '-' ).replace( "\t", "-" )
     #set $name = $name_base
     #set $i = 1
     #while $name in $names:
