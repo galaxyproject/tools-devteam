@@ -3,17 +3,19 @@ import datetime
 import json
 import os
 import shutil
-import sys
 import tarfile
 import urllib2
 import zipfile
+import uuid
 
 parser = argparse.ArgumentParser(description='Create data manager json.')
 parser.add_argument('--out', dest='output', action='store', help='JSON filename')
 parser.add_argument('--name', dest='name', action='store', default=str(datetime.date.today()), help='Data table entry unique ID')
 parser.add_argument('--url', dest='url', action='store', help='Download URL')
 
+
 args = parser.parse_args()
+
 
 def url_download(url, workdir):
     if not os.path.exists(workdir):
@@ -57,17 +59,20 @@ def url_download(url, workdir):
 
 
 def main(args):
-    workdir = os.path.join(os.getcwd(), 'gene_annotation')
+    workdir = os.path.join(os.getcwd(), 'gff_gene_annotations')
     url_download(args.url, workdir)
-    data_manager_entry = {}
-    data_manager_entry['value'] = args.name.lower()
-    data_manager_entry['name'] = args.name
-    data_manager_entry['path'] = args.output
-    data_manager_json = dict(data_tables=dict(gene_annotation=data_manager_entry))
+    data_manager_entry = {
+        'value': args.name.lower(),
+        'name': args.name,
+        'path': args.output,
+        'dbkey': uuid.uuid4()
+    }
+
+    data_manager_json = dict(data_tables=dict(gff_gene_annotations=data_manager_entry))
     params = json.loads(open(args.output).read())
     target_directory = params['output_data'][0]['extra_files_path']
     os.mkdir(target_directory)
-    output_path = os.path.abspath(os.path.join(os.getcwd(), 'gene_annotation'))
+    output_path = os.path.abspath(os.path.join(os.getcwd(), 'gff_gene_annotations'))
     for filename in os.listdir(workdir):
         shutil.move(os.path.join(output_path, filename), target_directory)
     file(args.output, 'w').write(json.dumps(data_manager_json))
