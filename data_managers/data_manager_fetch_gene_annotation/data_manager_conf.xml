@@ -2,7 +2,7 @@
 <data_managers>
 
     <data_manager tool_file="data_manager/gene_annotation_fetcher.xml" id="gene_annotation_fetcher" version="1.0.0">
-        <data_table name="gene_annotation">
+        <data_table name="gff_gene_annotations">
             <output>
                 <column name="value" />
                 <column name="dbkey" />

@@ -44,7 +44,7 @@
           <when value="No" />
           <when value="indexed">
             <param format="gtf,gff3" name="gene_annotation_model" type="select" label="Gene Model Annotations">
-                <options from_data_table="gene_annotation"/>
+                <options from_data_table="gff_gene_annotations"/>
              </param>
           </when>
           <when value="history">
