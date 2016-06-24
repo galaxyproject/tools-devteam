@@ -1,81 +1,74 @@
+import os
+import sys
+import uuid
+import json
 import argparse
 import datetime
-import json
-import os
-import shutil
-import tarfile
-import urllib2
-import zipfile
-import uuid
-
-parser = argparse.ArgumentParser(description='Create data manager json.')
-parser.add_argument('--out', dest='output', action='store', help='JSON filename')
-parser.add_argument('--name', dest='name', action='store', default=str(datetime.date.today()), help='Data table entry unique ID')
-parser.add_argument('--url', dest='url', action='store', help='Download URL')
+import requests
+from requests.exceptions import ContentDecodingError
 
 
-args = parser.parse_args()
+def url_download(url):
+    """Attempt to download gene annotation file from a given url
+    :param url: full url to gene annotation file
+    :type url: str.
+    :returns: name of downloaded gene annotation file
+    :raises: ContentDecodingError, IOError
+    """
+    response = requests.get(url=url, stream=True)
+
+    # Generate file_name
+    file_name = response.url.split("/")[-1]
+
+    block_size = 10 * 1024 * 1024  # 10MB chunked download
+    with open(file_name, 'w+') as f:
+        try:
+            # Good to note here that requests' iter_content() will
+            # automatically handle decoding "gzip" and "deflate" encoding
+            # formats
+            for buf in response.iter_content(block_size):
+                f.write(buf)
+        except (ContentDecodingError, IOError) as e:
+            sys.stderr.write("Error occured downloading reference file: %s"
+                             % e)
+            os.remove(file_name)
+
+    return file_name
 
 
-def url_download(url, workdir):
-    if not os.path.exists(workdir):
-        os.makedirs(workdir)
-    file_path = os.path.join(workdir, 'download.dat')
-    if not os.path.exists(workdir):
-        os.makedirs(workdir)
-    src = None
-    dst = None
-    hdr = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11',
-       'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-       'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
-       'Accept-Encoding': 'none',
-       'Accept-Language': 'en-US,en;q=0.8',
-       'Connection': 'keep-alive'}
-    try:
-        req = urllib2.Request(url, headers=hdr)
-        src = urllib2.urlopen(req)
-        dst = open(file_path, 'wb')
-        while True:
-            chunk = src.read(2**10)
-            if chunk:
-                dst.write(chunk)
-            else:
-                break
-    except Exception as e:
-        print e
-    finally:
-        if src:
-            src.close()
-        if dst:
-            dst.close()
-    if tarfile.is_tarfile(file_path):
-        fh = tarfile.open(file_path, 'r:*')
-    elif zipfile.is_zipfile(file_path):
-        fh = zipfile.ZipFile(file_path, 'r')
-    else:
-        return
-    fh.extractall(workdir)
-    os.remove(file_path)
+def main():
 
+    # Generate and parse command line args
+    parser = argparse.ArgumentParser(description='Create data manager JSON.')
+    parser.add_argument('--out', dest='output', action='store',
+                        help='JSON filename')
+    parser.add_argument('--name', dest='name', action='store',
+                        default=uuid.uuid4(), help='Data table entry unique ID'
+                        )
+    parser.add_argument('--url', dest='url', action='store',
+                        help='Url to download gtf file from')
 
-def main(args):
-    workdir = os.path.join(os.getcwd(), 'gff_gene_annotations')
-    url_download(args.url, workdir)
+    args = parser.parse_args()
+
+    work_dir = os.getcwd()
+
+    # Attempt to download gene annotation file from given url
+    gene_annotation_file_name = url_download(args.url)
+
+    # Update Data Manager JSON and write to file
     data_manager_entry = {
-        'value': args.name.lower(),
-        'name': args.name,
-        'path': args.output,
-        'dbkey': uuid.uuid4()
+        'data_tables': {
+            'gene_annotation': {
+                'value': str(datetime.datetime.now()),
+                'dbkey': str(args.name),
+                'name': gene_annotation_file_name,
+                'path': os.path.join(work_dir, gene_annotation_file_name)
+            }
+        }
     }
 
-    data_manager_json = dict(data_tables=dict(gff_gene_annotations=data_manager_entry))
-    params = json.loads(open(args.output).read())
-    target_directory = params['output_data'][0]['extra_files_path']
-    os.mkdir(target_directory)
-    output_path = os.path.abspath(os.path.join(os.getcwd(), 'gff_gene_annotations'))
-    for filename in os.listdir(workdir):
-        shutil.move(os.path.join(output_path, filename), target_directory)
-    file(args.output, 'w').write(json.dumps(data_manager_json))
+    with open(os.path.join(args.output), "w+") as f:
+        f.write(json.dumps(data_manager_entry))
 
 if __name__ == '__main__':
-    main(args)
+    main()
