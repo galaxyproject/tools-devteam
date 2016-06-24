@@ -58,7 +58,7 @@ def main():
     # Update Data Manager JSON and write to file
     data_manager_entry = {
         'data_tables': {
-            'gene_annotation': {
+            'gff_gene_annotations': {
                 'value': str(datetime.datetime.now()),
                 'dbkey': str(args.name),
                 'name': gene_annotation_file_name,
