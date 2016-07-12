@@ -14,7 +14,7 @@
        #set $reference_fasta_filename = str( $reference_source.ref_file.fields.path )
     #end if
 
-    #if $adv_options.adv_options_selector == True:
+    #if $adv_options.adv_options_selector == "use_adv_controls":
         vcfintersect "${adv_options.adv_options_input}" ${loci} ${invert} -r "${reference_fasta_filename}" -w "${window_size}" ${isect_union} "${vcf_input1}" "${vcf_input2}" > "${out_file1}"
     #else:
         vcfintersect ${loci} ${invert} -r "${reference_fasta_filename}" -w "${window_size}" ${isect_union} "${vcf_input1}" "${vcf_input2}" > "${out_file1}"
