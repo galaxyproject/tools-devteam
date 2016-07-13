@@ -3,7 +3,7 @@
   <macros>
       <import>macros.xml</import>
   </macros>
-  <expand macro="requirements"></expand>
+  <expand macro="requirements"/>
   <expand macro="stdio" />
   <command>vcf2tsv ${g_option} -n '${null_filler}' '${input}' > '${out_file1}'</command>
   <inputs>
@@ -34,13 +34,12 @@
     </test>
     </tests>
   <help>
-
 Converts VCF dataset to tab-delimited format, using null string to replace empty values in the table.
 Specifying "**Report data per sample**" (-g) will output one line per sample with genotype information.
 
 ----
 
 Vcf2Tsv @IS_PART_OF_VCFLIB@
-</help>
+  </help>
   <expand macro="citations" />
 </tool>

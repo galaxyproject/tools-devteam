@@ -2,7 +2,7 @@
     <description>Intersect VCF and BED datasets</description>
     <macros>
         <import>macros.xml</import>
-   </macros>
+    </macros>
     <expand macro="requirements"/>
     <expand macro="stdio" />
     <command>
@@ -53,7 +53,7 @@ Computes intersection between a VCF dataset and a set of genomic intervals defin
 
 ----
 
-VCFBEDintersect is based on vcfintersect utility of VCFlib toolkit developed by Erik Garrison (https://github.com/ekg/vcflib).     
+VCFBEDintersect is based on vcfintersect utility of VCFlib toolkit developed by Erik Garrison (https://github.com/ekg/vcflib).
     </help>
     <expand macro="citations" />
 </tool>
