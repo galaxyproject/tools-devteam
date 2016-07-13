@@ -1,9 +1,9 @@
-<tool id="vcfhethom" name="VCFhetHomAlleles:" version="0.0.3">
+<tool id="vcfhethom" name="VCFhetHomAlleles:" version="@WRAPPER_VERSION@.0">
   <description>Count the number of heterozygotes and alleles, compute het/hom ratio</description>
   <macros>
     <import>macros.xml</import>
   </macros>
-  <expand macro="requirements"></expand>
+  <expand macro="requirements"/>
   <expand macro="stdio" />
   <command>
 
@@ -15,8 +15,7 @@
        vcfcountalleles "${vcf_input}" > "${out_file1}" 
    #end if
 
-</command>
-
+  </command>
   <inputs>
     <param name="analysis_type" type="select" display="radio" label="Select type of calculation:">
       <option value="count">Compute the number of heterozygotes</option>
