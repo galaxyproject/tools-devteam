@@ -27,7 +27,6 @@ tools/substitution_rates
 tools/principal_component_analysis
 tools/featurecounter
 tools/getindels_2way
-tools/emboss_5
 tools/scatterplot
 tools/lda_analysis
 tools/ctd_batch
