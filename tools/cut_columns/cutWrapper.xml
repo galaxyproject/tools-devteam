@@ -168,11 +168,13 @@ The output of this tool is always in tabular format (e.g., if your original deli
 
      apple,is,good
      windows,is,bad
+     linux,is,best
 
   will give::
 
     apple   good
     windows bad
+    linux   best
 
 -----
 
