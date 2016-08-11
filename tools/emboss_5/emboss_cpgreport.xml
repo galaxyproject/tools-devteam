@@ -1,7 +1,16 @@
 <tool id="EMBOSS: cpgreport16" name="cpgreport" version="5.0.0">
   <description>Reports all CpG rich regions</description>
   <requirements><requirement type="package" version="5.0.0">emboss</requirement></requirements>
-  <command>cpgreport -sequence $input1 -outfile $out_file1 -outfeat $out_file2 -offormat3 $out_format2 -score $score -auto</command>
+  <command><![CDATA[
+    cpgreport 
+      -sequence '$input1' 
+      -outfile '$out_file1' 
+      -outfeat '$out_file2'
+      -offormat3 '$out_format2'
+      -score '$score'
+      -auto
+  ]]>
+  </command>
   <inputs>
     <param format="fasta" name="input1" type="data">
       <label>On query</label>
@@ -9,8 +18,7 @@
     <param name="score" type="text" value="17">
       <label>Score for each CG sequence found (1-200)</label>
     </param>
-    <param name="out_format2" type="select">
-      <label>Output Feature File Format</label>
+    <param name="out_format2" type="select" label="Output Feature File Format">
       <option value="gff">GFF</option>
       <option value="embl">EMBL</option>
       <option value="swiss">SwissProt</option>
@@ -24,8 +32,8 @@
     <test>
       <param name="input1" value="2.fasta"/>
       <param name="score" value="17"/>
-      <param name="out_format2" value="gff"/>
-      <output name="out_file2" file="emboss_cpgreport_out2.cpgreport"/>
+      <param name="out_format2" value="embl"/>
+      <output name="out_file1" file="emboss_cpgreport_out2.cpgreport"/>
     </test>
     <!-- <test>
       <param name="input1" value="2.fasta"/>
