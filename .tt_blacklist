@@ -77,7 +77,6 @@ tools/show_tail
 tools/pileup_parser
 tools/table_annovar
 tools/lastz_paired_reads
-tools/bowtie_wrappers
 tools/t_test_two_samples
 tools/logistic_regression_vif
 tools/vcf_filter

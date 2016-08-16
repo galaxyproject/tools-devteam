@@ -2,7 +2,6 @@
 
 """
 Runs Bowtie on single-end or paired-end data.
-For use with Bowtie v. 0.12.7
 
 usage: bowtie_wrapper.py [options]
     -t, --threads=t: The number of threads to run

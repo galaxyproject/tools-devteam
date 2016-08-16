@@ -1,6 +1,6 @@
-<tool id="bowtie_wrapper" name="Map with Bowtie for Illumina" version="1.1.4">
+<tool id="bowtie_wrapper" name="Map with Bowtie for Illumina" version="1.1.5">
   <requirements>
-    <requirement type="package" version="0.12.7">bowtie</requirement>
+    <requirement type="package" version="1.1.2">bowtie</requirement>
   </requirements>
   <description></description>
   <version_command>bowtie --version</version_command>
