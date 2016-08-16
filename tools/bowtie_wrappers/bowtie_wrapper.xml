@@ -552,7 +552,9 @@
       <param name="sInput1" ftype="fastqsanger" value="bowtie_in2.fastqsanger" />
       <param name="sSettingsType" value="preSet" />
       <param name="suppressHeader" value="true" />
-      <output name="output" ftype="sam" file="bowtie_out6.sam" sort="True" />
+      <output name="output" ftype="sam" file="bowtie_out6.sam" sort="True">
+        <metadata name="dbkey" value="equCab2" />
+      </output>
     </test>
     <test>
       <!--
@@ -720,7 +722,9 @@
       <param name="sOffrate" value="-1" />
       <param name="sSeed" value="-1" />
       <param name="suppressHeader" value="true" />
-      <output name="output" ftype="sam" file="bowtie_out9.sam" sort="True" />
+      <output name="output" ftype="sam" file="bowtie_out9.sam" sort="True">
+        <metadata name="dbkey" value="equCab2" />
+      </output>
     </test>
     <test>
       <!--
