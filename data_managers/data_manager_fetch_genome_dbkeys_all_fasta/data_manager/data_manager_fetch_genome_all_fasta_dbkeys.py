@@ -6,7 +6,6 @@ import os
 import tempfile
 import shutil
 import optparse
-import time
 import urllib2
 from ftplib import FTP
 import tarfile
@@ -195,9 +194,10 @@ def _sort_fasta_custom( fasta_filename, params ):
         _write_sorted_fasta( sorted_names, fasta_offsets, fasta_filename, unsorted_filename )
 
 
-def _download_file(url):
+def _download_file(start, fh):
     tmp = tempfile.NamedTemporaryFile()
-    tmp.write(urllib2.urlopen(url).read())
+    tmp.write(start)
+    tmp.write(fh.read())
     tmp.flush()
     tmp.seek(0)
     return tmp
@@ -217,10 +217,7 @@ def get_stream_reader(fh, tmp_dir):
     try:
         fh.seek(0)
     except AttributeError:  # This is if fh has been created by urllib2.urlopen
-        url = fh.url
-        fh.close()
-        time.sleep(2)
-        fh = _download_file(url)
+        fh = _download_file(start_of_file, fh)
     for k,v in magic_dict.items():
         if start_of_file.startswith(k):
             return v(fh, tmp_dir)
@@ -252,12 +249,13 @@ def _get_ucsc_download_address(params, dbkey):
 
     ucsc_path = UCSC_DOWNLOAD_PATH % ucsc_dbkey
     path_contents = _get_files_in_ftp_path(ftp, ucsc_path)
+    ftp.close()
 
     for ucsc_chrom_fa_filename in UCSC_CHROM_FA_FILENAMES:
         for ext in COMPRESSED_EXTENSIONS:
             if "%s%s" % (ucsc_chrom_fa_filename, ext) in path_contents:
                 ucsc_file_name = "%s%s%s" % (ucsc_path, ucsc_chrom_fa_filename, ext)
-                return "ftp://%s" % ucsc_file_name
+                return "ftp://%s%s" % (UCSC_FTP_SERVER, ucsc_file_name)
 
     raise Exception('Unable to determine filename for UCSC Genome for %s: %s' % (ucsc_dbkey, path_contents))
 
@@ -270,7 +268,7 @@ def add_fasta_to_table(data_manager_dict, fasta_readers, target_directory, dbkey
 def download_from_ucsc( data_manager_dict, params, target_directory, dbkey, dbkey_name, sequence_id, sequence_name, tmp_dir ):
     url = _get_ucsc_download_address(params, dbkey)
     fasta_readers = get_stream_reader(urllib2.urlopen(url), tmp_dir)
-    add_fasta_to_table(data_manager_dict, fasta_readers, target_directory, dbkey, dbkey_name, sequence_id, sequence_name, params, tmp_dir)
+    add_fasta_to_table(data_manager_dict, fasta_readers, target_directory, dbkey, dbkey_name, sequence_id, sequence_name, params)
 
 
 def download_from_ncbi( data_manager_dict, params, target_directory, dbkey, dbkey_name, sequence_id, sequence_name, tmp_dir ):
@@ -283,7 +281,7 @@ def download_from_ncbi( data_manager_dict, params, target_directory, dbkey, dbke
 
 def download_from_url( data_manager_dict, params, target_directory, dbkey, dbkey_name, sequence_id, sequence_name, tmp_dir ):
     urls = filter( bool, map( lambda x: x.strip(), params['param_dict']['reference_source']['user_url'].split( '\n' ) ) )
-    fasta_readers = [ get_stream_reader(urllib2.urlopen( url )) for url in urls ]
+    fasta_readers = [ get_stream_reader(urllib2.urlopen( url ), tmp_dir) for url in urls ]
     add_fasta_to_table(data_manager_dict, fasta_readers, target_directory, dbkey, dbkey_name, sequence_id,sequence_name, params)
 
 
