@@ -256,7 +256,7 @@ def _get_ucsc_download_address(params, dbkey):
 
     ucsc_path = UCSC_DOWNLOAD_PATH % ucsc_dbkey
     path_contents = _get_files_in_ftp_path(ftp, ucsc_path)
-    ftp.close()
+    ftp.quit()
 
     for ucsc_chrom_fa_filename in UCSC_CHROM_FA_FILENAMES:
         for ext in COMPRESSED_EXTENSIONS:
