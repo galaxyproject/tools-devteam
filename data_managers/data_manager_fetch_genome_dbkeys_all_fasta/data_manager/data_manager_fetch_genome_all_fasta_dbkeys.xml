@@ -1,13 +1,13 @@
-<tool id="data_manager_fetch_genome_all_fasta_dbkey" name="Create DBKey and Reference Genome" version="0.0.1" tool_type="manage_data">
+<tool id="data_manager_fetch_genome_all_fasta_dbkey" name="Create DBKey and Reference Genome" version="0.0.2" tool_type="manage_data">
     <description>fetching</description>
-    <command interpreter="python">data_manager_fetch_genome_all_fasta_dbkeys.py "${out_file}" 
-    #if str( $dbkey_source.dbkey_source_selector ) == 'existing':
-    --dbkey_description ${ dbkey_source.dbkey.get_display_text() }
-    #else
-    --dbkey_description "${ dbkey_source.dbkey_name or $dbkey_source.dbkey }"
-    #end if
-    
-    </command>
+    <command><![CDATA[
+       python "$__tool_directory__"/data_manager_fetch_genome_all_fasta_dbkeys.py "${out_file}"
+       #if str( $dbkey_source.dbkey_source_selector ) == 'existing':
+       --dbkey_description ${ dbkey_source.dbkey.get_display_text() }
+       #else
+       --dbkey_description "${ dbkey_source.dbkey_name or $dbkey_source.dbkey }"
+       #end if
+    ]]></command>
     <inputs>
         <conditional name="dbkey_source">
           <param name="dbkey_source_selector" type="select" label="Use existing dbkey or create a new one.">
@@ -37,7 +37,7 @@
             <param type="text" name="requested_dbkey" value="" label="UCSC's DBKEY for source FASTA" optional="False" />
           </when>
           <when value="ncbi">
-            <param type="text" name="requested_identifier" value="" label="NCBI identifier" optional="False" />
+              <param type="text" name="requested_identifier" value="" label="NCBI identifier/accession" help="Identifiers (e.g 667699573) or accessions (e.g AC020606.7) may be used" optional="False" />
           </when>
           <when value="url">
             <param type="text" area="True" name="user_url" value="http://" label="URLs" optional="False" />
