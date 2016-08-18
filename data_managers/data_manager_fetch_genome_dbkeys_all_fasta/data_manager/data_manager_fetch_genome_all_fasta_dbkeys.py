@@ -6,14 +6,21 @@ import os
 import tempfile
 import shutil
 import optparse
-import urllib2
 from ftplib import FTP
 import tarfile
 import zipfile
 import gzip
 import bz2
-from StringIO import StringIO
-
+try:
+    # For Python 3.0 and later
+    from urllib.request import urlopen
+    from io import BytesIO as StringIO
+    from io import UnsupportedOperation
+except ImportError:
+    # Fall back to Python 2's urllib2
+    from urllib2 import urlopen
+    from StringIO import StringIO
+    UnsupportedOperation = AttributeError
 from json import loads, dumps
 
 
@@ -60,7 +67,7 @@ def _get_files_in_ftp_path( ftp, path ):
 
 def _get_stream_readers_for_tar( fh, tmp_dir ):
     fasta_tar = tarfile.open( fileobj=fh, mode='r:*' )
-    return filter( lambda x: x is not None, [ fasta_tar.extractfile( member ) for member in fasta_tar.getmembers() ] )
+    return [x for x in [fasta_tar.extractfile(member) for member in fasta_tar.getmembers()] if x]
 
 
 def _get_stream_readers_for_zip( fh, tmp_dir ):
@@ -209,14 +216,14 @@ def get_stream_reader(fh, tmp_dir):
     If file has to be downloaded, do it now.
     """
     magic_dict = {
-        "\x1f\x8b\x08": _get_stream_readers_for_gzip,
-        "\x42\x5a\x68": _get_stream_readers_for_bz2,
-        "\x50\x4b\x03\x04": _get_stream_readers_for_zip,
+        b"\x1f\x8b\x08": _get_stream_readers_for_gzip,
+        b"\x42\x5a\x68": _get_stream_readers_for_bz2,
+        b"\x50\x4b\x03\x04": _get_stream_readers_for_zip,
     }
     start_of_file = fh.read(CHUNK_SIZE)
     try:
         fh.seek(0)
-    except AttributeError:  # This is if fh has been created by urllib2.urlopen
+    except UnsupportedOperation:  # This is if fh has been created by urlopen
         fh = _download_file(start_of_file, fh)
     for k,v in magic_dict.items():
         if start_of_file.startswith(k):
@@ -267,7 +274,7 @@ def add_fasta_to_table(data_manager_dict, fasta_readers, target_directory, dbkey
 
 def download_from_ucsc( data_manager_dict, params, target_directory, dbkey, dbkey_name, sequence_id, sequence_name, tmp_dir ):
     url = _get_ucsc_download_address(params, dbkey)
-    fasta_readers = get_stream_reader(urllib2.urlopen(url), tmp_dir)
+    fasta_readers = get_stream_reader(urlopen(url), tmp_dir)
     add_fasta_to_table(data_manager_dict, fasta_readers, target_directory, dbkey, dbkey_name, sequence_id, sequence_name, params)
 
 
@@ -275,13 +282,13 @@ def download_from_ncbi( data_manager_dict, params, target_directory, dbkey, dbke
     NCBI_DOWNLOAD_URL = 'http://togows.dbcls.jp/entry/ncbi-nucleotide/%s.fasta' #FIXME: taken from dave's genome manager...why some japan site?
     requested_identifier = params['param_dict']['reference_source']['requested_identifier']
     url = NCBI_DOWNLOAD_URL % requested_identifier
-    fasta_readers = get_stream_reader(urllib2.urlopen(url), tmp_dir)
+    fasta_readers = get_stream_reader(urlopen(url), tmp_dir)
     add_fasta_to_table(data_manager_dict, fasta_readers, target_directory, dbkey, dbkey_name, sequence_id, sequence_name, params)
 
 
 def download_from_url( data_manager_dict, params, target_directory, dbkey, dbkey_name, sequence_id, sequence_name, tmp_dir ):
     urls = filter( bool, map( lambda x: x.strip(), params['param_dict']['reference_source']['user_url'].split( '\n' ) ) )
-    fasta_readers = [ get_stream_reader(urllib2.urlopen( url ), tmp_dir) for url in urls ]
+    fasta_readers = [ get_stream_reader(urlopen( url ), tmp_dir) for url in urls ]
     add_fasta_to_table(data_manager_dict, fasta_readers, target_directory, dbkey, dbkey_name, sequence_id,sequence_name, params)
 
 
@@ -329,8 +336,8 @@ def _stream_fasta_to_file( fasta_stream, target_directory, dbkey, dbkey_name, se
         if isinstance( fasta_stream, list ):
             last_char = None
             for fh in fasta_stream:
-                if last_char not in [ None, '\n', '\r' ]:
-                    fasta_writer.write( '\n' )
+                if last_char not in [ None, '\n', '\r', b'\n', b'\r' ]:
+                    fasta_writer.write( b'\n' )
                 while True:
                     data = fh.read( CHUNK_SIZE )
                     if data:
@@ -441,7 +448,7 @@ def main():
     finally:
         cleanup_before_exit(tmp_dir)
     #save info to json file
-    open( filename, 'wb' ).write( dumps( data_manager_dict ) )
+    open( filename, 'w' ).write( dumps( data_manager_dict ) )
         
 if __name__ == "__main__":
     main()
