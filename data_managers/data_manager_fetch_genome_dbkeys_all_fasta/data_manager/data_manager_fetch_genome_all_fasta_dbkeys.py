@@ -183,7 +183,7 @@ def _sort_fasta_custom( fasta_filename, params ):
     sorted_names = []
     for id_repeat in params['param_dict']['sorting']['sequence_identifiers']:
         sorted_names.append( id_repeat[ 'identifier' ] )
-    handle_not_listed = params['param_dict']['sorting']['handle_not_listed']['handle_not_listed_selector']
+    handle_not_listed = params['param_dict']['sorting']['handle_not_listed_selector']
     if handle_not_listed.startswith( 'keep' ):
         add_list = []
         for name in current_order:
@@ -242,7 +242,7 @@ def _get_ucsc_download_address(params, dbkey):
     """
     UCSC_FTP_SERVER = 'hgdownload.cse.ucsc.edu'
     UCSC_DOWNLOAD_PATH = '/goldenPath/%s/bigZips/'
-    COMPRESSED_EXTENSIONS = ['.tar.gz', '.tar.bz2', '.zip', '.fa.gz', '.fa.bz2']
+    COMPRESSED_EXTENSIONS = ['.tar.gz', '.tgz', '.tar.bz2', '.zip', '.fa.gz', '.fa.bz2']
 
     email = params['param_dict']['__user_email__']
     if not email:
@@ -448,7 +448,7 @@ def main():
     finally:
         cleanup_before_exit(tmp_dir)
     #save info to json file
-    open( filename, 'w' ).write( dumps( data_manager_dict ) )
+    open( filename, 'wb' ).write( dumps( data_manager_dict ).encode() )
         
 if __name__ == "__main__":
     main()

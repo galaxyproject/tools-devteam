@@ -66,19 +66,11 @@
                 <repeat name="sequence_identifiers" title="Sequence Identifiers" min="1" default="1">
                     <param type="text" name="identifier" value="" label="Sequence Identifier" optional="False" />
                 </repeat>
-                <conditional name="handle_not_listed">
-                    <param name="handle_not_listed_selector" type="select" label="How to handle non-specified Identifiers">
-                        <option value="discard" selected="True">Discard</option>
-                        <option value="keep_append">Keep and Append</option>
-                        <option value="keep_prepend">Keep and Prepend</option>
-                    </param>
-                    <when value="discard">
-                    </when>
-                    <when value="keep_append">
-                    </when>
-                    <when value="keep_prepend">
-                    </when>
-                </conditional>
+                <param name="handle_not_listed_selector" type="select" label="How to handle non-specified Identifiers">
+                    <option value="discard" selected="True">Discard</option>
+                    <option value="keep_append">Keep and Append</option>
+                    <option value="keep_prepend">Keep and Prepend</option>
+                </param>
             </when>
         </conditional>
     </inputs>
