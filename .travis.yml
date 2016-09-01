@@ -10,13 +10,14 @@ env:
 
 before_install:
   - export GALAXY_REPO=https://github.com/galaxyproject/galaxy
-  - export GALAXY_RELEASE=release_16.04
+  - export GALAXY_RELEASE=release_16.07
   - export CONDA_PREFIX="$HOME/conda"
 
 install:
   # html5lib (planemo dep) requires setuptools >= 18.5
   - pip install --upgrade setuptools
-  - pip install -q flake8 planemo
+  - pip install -q flake8
+  - pip install https://github.com/jmchilton/planemo/archive/conda_overhaul.zip
   - planemo conda_init --conda_prefix "$CONDA_PREFIX"
   - export PATH="$CONDA_PREFIX/bin:$PATH"
   - conda create -y -q -c bioconda --name iuc_conda samtools=0.1.19 bcftools
