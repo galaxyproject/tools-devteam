@@ -1,7 +1,10 @@
 <?xml version="1.0"?>
 <tool_dependency>
     <package name="numpy" version="1.9">
-        <repository name="package_python_2_7_numpy_1_9" owner="iuc" prior_installation_required="True" />
+        <repository name="package_python_2_7_numpy_1_9" owner="iuc" />
+    </package>
+    <package name="R" version="3.2.1">
+        <repository name="package_r_3_2_1" owner="iuc" />
     </package>
     <package name="rpy2" version="2.7.8">
         <repository name="package_rpy2_2_7_8" owner="iuc" />
