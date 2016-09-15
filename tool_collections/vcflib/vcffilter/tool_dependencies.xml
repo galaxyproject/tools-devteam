@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<tool_dependency>
-    <package name="vcflib" version="8a5602bf07">
-        <repository name="package_vcflib_8a5602bf07" owner="iuc" />
-    </package>
-    <package name="tabix" version="0.2.6">
-        <repository name="package_tabix_0_2_6" owner="iuc" />
-    </package>
-</tool_dependency>
