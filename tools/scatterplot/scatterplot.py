@@ -4,7 +4,12 @@
 import sys
 
 from numpy import array
-from rpy import r
+import rpy2.rpy_classic as rpy
+from rpy2.robjects.numpy2ri import numpy2ri
+
+
+rpy.set_default_mode(rpy.NO_CONVERSION)
+r = rpy.r
 
 
 def stop_err(msg):
@@ -65,8 +70,9 @@ def main():
 
     if skipped_lines < i:
         try:
+            a = numpy2ri(array( matrix ))
             r.pdf( out_fname, 8, 8 )
-            r.plot( array( matrix ), type="p", main=title, xlab=xlab, ylab=ylab, col="blue", pch=19 )
+            r.plot( a, type="p", main=title, xlab=xlab, ylab=ylab, col="blue", pch=19 )
             r.dev_off()
         except Exception, exc:
             stop_err( "%s" % str( exc ) )
@@ -76,8 +82,6 @@ def main():
     print "Scatter plot on columns %s, %s. " % ( sys.argv[3], sys.argv[4] )
     if skipped_lines > 0:
         print "Skipped %d lines starting with line #%d, value '%s' in column %d is not numeric." % ( skipped_lines, first_invalid_line, invalid_value, invalid_column )
-
-    r.quit( save="no" )
 
 if __name__ == "__main__":
     main()

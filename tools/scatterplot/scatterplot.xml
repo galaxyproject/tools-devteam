@@ -1,8 +1,10 @@
-<tool id="scatterplot_rpy" name="Scatterplot" version="1.0.1">
+<tool id="scatterplot_rpy" name="Scatterplot" version="1.0.2">
   <description>of two numeric columns</description>
   <requirements>
     <requirement type="package" version="1.9">numpy</requirement>
-    <requirement type="package" version="1.0.3">rpy</requirement>
+    <!-- explicit R requirement is necessary for toolshed package, conda rpy2 comes with R -->
+    <requirement type="package" version="3.2.1">R</requirement>
+    <requirement type="package" version="2.7.8">rpy2</requirement>
   </requirements>
   <command interpreter="python">scatterplot.py $input $out_file1 $col1 $col2 "$title" "$xlab" "$ylab"</command>
   <inputs>
@@ -16,8 +18,6 @@
   <outputs>
     <data format="pdf" name="out_file1" />
   </outputs>
-  <!-- TODO: uncomment the following test when we have tools.update_state() working for 
-       multiple dependents with the same dependency.
   <tests>
     <test>
       <param name="input" value="scatterplot_in1.tabular" ftype="tabular"/>
@@ -26,10 +26,9 @@
       <param name="title" value="Scatterplot"/>
       <param name="xlab" value="V1"/>
       <param name="ylab" value="V2"/>
-      <output name="out_file1" file="scatterplot_out1.pdf" />
+      <output name="out_file1" file="scatterplot_out1.pdf" compare="sim_size" />
     </test>
   </tests>
-  -->
   <help>
 .. class:: infomark
 
