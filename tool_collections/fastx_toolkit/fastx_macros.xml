@@ -1,0 +1,10 @@
+<macros>
+  <token name="@VERSION@">1.14</token>
+
+  <xml name="requirements">
+    <requirements>
+      <requirement type="package" version="0.0.14">fastx_toolkit</requirement>
+      <yield />
+    </requirements>
+  </xml>
+</macros>
