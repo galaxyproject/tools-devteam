@@ -1,4 +1,4 @@
-<tool id="freebayes" name="FreeBayes" version="1.0.2.29_galaxy1">
+<tool id="freebayes" name="FreeBayes" version="1.0.2.29--1">
     <description> - bayesian genetic variant detector</description>
     <requirements>
         <requirement type="package" version="1.0.2.29">freebayes</requirement>
