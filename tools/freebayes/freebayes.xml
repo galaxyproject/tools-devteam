@@ -1,4 +1,4 @@
-<tool id="freebayes" name="FreeBayes" version="1.0.2.29">
+<tool id="freebayes" name="FreeBayes" version="1.0.2.29--1">
     <description> - bayesian genetic variant detector</description>
     <requirements>
         <requirement type="package" version="1.0.2.29">freebayes</requirement>
@@ -28,7 +28,7 @@
     #end for
 
     ## Tabixize optional input_varinat_vcf file (for --variant-input option)
-    #if ( str( $options_type.options_type_selector ) == 'cline' or str( $options_type.options_type_selector ) == 'full' ) and $options_type.optional_inputs.optional_inputs_selector and str( $options_type.optional_inputs.input_variant_type.input_variant_type_selector ) == "provide_vcf":
+    #if ( str( $options_type.options_type_selector ) == 'cline' or str( $options_type.options_type_selector ) == 'full' ) and str( $options_type.optional_inputs.optional_inputs_selector ) == 'set' and str( $options_type.optional_inputs.input_variant_type.input_variant_type_selector ) == "provide_vcf":
         ln -s "${options_type.optional_inputs.input_variant_type.input_variant_vcf}" "input_variant_vcf.vcf.gz" &&
         ln -s "${Tabixized_input}" "input_variant_vcf.vcf.gz.tbi" &&
     #end if
@@ -96,7 +96,7 @@
 
     ## Command line direct text entry is not allowed at this time for security reasons
     #elif str( $options_type.options_type_selector ) == "full":
-        #if $options_type.optional_inputs.optional_inputs_selector:
+        #if str( $options_type.optional_inputs.optional_inputs_selector ) == 'set':
             ${options_type.optional_inputs.report_monomorphic}
 
             #if $options_type.optional_inputs.output_trace_option:
@@ -130,11 +130,11 @@
         #end if
 
     ## REPORTING
-        #if str( $options_type.reporting.reporting_selector ) == "True":
+        #if str( $options_type.reporting.reporting_selector ) == "set":
             --pvar ${options_type.reporting.pvar}
         #end if
     ## POPULATION MODEL
-        #if str( $options_type.population_model.population_model_selector ) == "True":
+        #if str( $options_type.population_model.population_model_selector ) == "set":
             --theta '${options_type.population_model.T}'
             --ploidy '${options_type.population_model.P}'
             ${options_type.population_model.J}
@@ -142,13 +142,13 @@
         #end if
 
     ## REFERENCE ALLELE
-        #if str( $options_type.reference_allele.reference_allele_selector ) == "True":
+        #if str( $options_type.reference_allele.reference_allele_selector ) == "set":
             ${options_type.reference_allele.Z}
             --reference-quality '${options_type.reference_allele.reference_quality}'
         #end if
 
     ## ALLELE SCOPE
-        #if str( $options_type.allele_scope.allele_scope_selector ) == "True":
+        #if str( $options_type.allele_scope.allele_scope_selector ) == "set":
             ${options_type.allele_scope.I}
             ${options_type.allele_scope.i}
             ${options_type.allele_scope.X}
@@ -164,14 +164,14 @@
         ${options_type.O}
 
     ##INPUT FILTERS
-        #if str( $options_type.input_filters.input_filters_selector ) == "True":
+        #if str( $options_type.input_filters.input_filters_selector ) == "set":
             ${options_type.input_filters.use_duplicate_reads}
             -m '${options_type.input_filters.m}'
             -q '${options_type.input_filters.q}'
             -R '${options_type.input_filters.R}'
             -Y '${options_type.input_filters.Y}'
 
-            #if str( $options_type.input_filters.mismatch_filters.mismatch_filters_selector ) == "True":
+            #if str( $options_type.input_filters.mismatch_filters.mismatch_filters_selector ) == "set":
               -Q '${options_type.input_filters.mismatch_filters.Q}'
               -U '${options_type.input_filters.mismatch_filters.U}'
               -z '${options_type.input_filters.mismatch_filters.z}'
@@ -187,7 +187,7 @@
         #end if
 
     ## POPULATION AND MAPPABILITY PRIORS
-        #if str( $options_type.population_mappability_priors.population_mappability_priors_selector ) == "True":
+        #if str( $options_type.population_mappability_priors.population_mappability_priors_selector ) == "set":
             ${options_type.population_mappability_priors.k}
             ${options_type.population_mappability_priors.w}
             ${options_type.population_mappability_priors.V}
@@ -195,21 +195,21 @@
         #end if
 
     ## GENOTYPE LIKELIHOODS
-        #if str( $options_type.genotype_likelihoods.genotype_likelihoods_selector ) == "True":
+        #if str( $options_type.genotype_likelihoods.genotype_likelihoods_selector ) == "set":
           --base-quality-cap '${$options_type.genotype_likelihoods.base_quality_cap}'
           ${$options_type.genotype_likelihoods.experimental_gls}
           --prob-contamination '${$options_type.genotype_likelihoods.prob_contamination}'
         #end if
 
     ## ALGORITHMIC FEATURES
-        #if str( $options_type.algorithmic_features.algorithmic_features_selector ) == "True":
+        #if str( $options_type.algorithmic_features.algorithmic_features_selector ) == "set":
             ${options_type.algorithmic_features.report_genotype_likelihood_max}
             -B '${options_type.algorithmic_features.B}'
             --genotyping-max-banddepth '${options_type.algorithmic_features.genotyping_max_banddepth}'
             -W '${options_type.algorithmic_features.W}'
             ${options_type.algorithmic_features.N}
 
-            #if str( $options_type.algorithmic_features.genotype_variant_threshold.genotype_variant_threshold_selector ) == "True":
+            #if str( $options_type.algorithmic_features.genotype_variant_threshold.genotype_variant_threshold_selector ) == "set":
                 -S '${options_type.algorithmic_features.genotype_variant_threshold.S}'
             #end if
 
@@ -236,7 +236,7 @@
     done | sort -k1,1 -k2,2n -k5,5 -u | cat header.txt - > "${output_vcf}"
 
     #if str( $options_type.options_type_selector ) == "full":
-        #if $options_type.optional_inputs.optional_inputs_selector:
+        #if str( $options_type.optional_inputs.optional_inputs_selector ) == 'set':
             #if $options_type.optional_inputs.output_failed_alleles_option:
                 &&
                 for i in `cat regions.bed | awk '{print $1":"$2".."$3}'`;
@@ -312,9 +312,12 @@
             </param>
             <when value="full">
                 <conditional name="optional_inputs">
-                    <param name="optional_inputs_selector" type="boolean" truevalue="set" falsevalue="do_not_set" label="Do you want to provide additional inputs?"
+                    <param name="optional_inputs_selector" type="select" label="Additional inputs"
                         help="Sets --samples, --populations, --cnv-map, --trace, --failed-alleles, --varinat-input, --only-use-input-alleles, --haplotype-basis-alleles,
-                        --report-all-haplotype-alleles, --report-monomorphic options, --observation-bias, and --contamination-estimates" />
+                        --report-all-haplotype-alleles, --report-monomorphic options, --observation-bias, and --contamination-estimates">
+                        <option value="do_not_set" selected="true">Do not provide additional inputs</option>
+                        <option value="set">Provide additional inputs</option>
+                    </param>
                     <when value="set">
                         <param name="output_failed_alleles_option" type="boolean" truevalue="--failed-alleles" falsevalue="" checked="False"
                             label="Write out failed alleles file" help="--failed-alleles" />
@@ -359,7 +362,10 @@
                 </conditional>
                 <!-- reporting -->
                 <conditional name="reporting">
-                  <param name="reporting_selector" type="boolean" truevalue="set" falsevalue="do_not_set" label="Set reporting option?" help="Sets -P --pvar option" />
+                  <param name="reporting_selector" type="select" label="Reporting options" help="Sets -P --pvar option">
+                        <option value="do_not_set" selected="True">Use defaults</option>
+                        <option value="set">Set reporting options</option>
+                  </param>
                   <when value="set">
                     <param name="pvar" type="float" value="0.0" label="Report sites if the probability that there is a polymorphism at the site is greater than"
                         help="-P --pvar; default=0.0. Note that post-filtering is generally recommended over the use of this parameter.  " />
@@ -370,8 +376,11 @@
                 </conditional>
                 <!-- population model -->
                 <conditional name="population_model">
-                    <param name="population_model_selector" type="boolean" truevalue="set" falsevalue="do_not_set" label="Set population model?"
-                        help="Sets --theta, --ploidy, --pooled-discrete, and --pooled-continuous options  " />
+                    <param name="population_model_selector" type="select" label="Population model options"
+                        help="Sets --theta, --ploidy, --pooled-discrete, and --pooled-continuous options  " >
+                        <option value="do_not_set" selected="true">Use defaults</option>
+                        <option value="set">Set population model options</option>
+                    </param>
                     <when value="set">
                         <param name="T" type="float" value="0.001" label="The expected mutation rate or pairwise nucleotide diversity among the population under analysis"
                             help="-T --theta; default = 0.001. This serves as the single parameter to the Ewens Sampling Formula prior model." />
@@ -388,8 +397,11 @@
                 </conditional>
                 <!-- reference allele -->
                 <conditional name="reference_allele">
-                    <param name="reference_allele_selector" type="boolean" truevalue="set" falsevalue="do_not_set" label="Use reference allele?"
-                        help="Sets --use-reference-allele and --reference-quality options." />
+                    <param name="reference_allele_selector" type="select" label="Reference allele options"
+                        help="Sets --use-reference-allele and --reference-quality options.">
+                        <option value="do_not_set" selected="true">Use defaults</option>
+                        <option value="set">Set reference allele options</option>
+                    </param>
                     <when value="set">
                         <param name="Z" type="boolean" truevalue="-Z" falsevalue="" checked="False" label="Include the reference allele in the analysis as if it is another sample from the same population"
                             help="-Z --use-reference-allele; default=False" />
@@ -402,8 +414,11 @@
                 </conditional>
                 <!-- allelic scope -->
                 <conditional name="allele_scope">
-                    <param name="allele_scope_selector" type="boolean" truevalue="set" falsevalue="do_not_set" label="Set allelic scope?"
-                        help="Sets -I, i, -X, -u, -n, --haplotype-length, --min-repeat-size, --min-repeat-entropy, and --no-partial-observations options." />
+                    <param name="allele_scope_selector" type="select" label="Allelic scope options"
+                        help="Sets -I, i, -X, -u, -n, --haplotype-length, --min-repeat-size, --min-repeat-entropy, and --no-partial-observations options.">
+                        <option value="do_not_set" selected="true">Use defaults</option>
+                        <option value="set">Set alleic scope options</option>
+                    </param>
                     <when value="set">
                         <param name="I" type="boolean" truevalue="-I" falsevalue="" checked="False" label="Ignore SNP alleles" help="-I --no-snps; default=False" />
                         <param name="i" type="boolean" truevalue="-i" falsevalue="" checked="False" label="Ignore indels alleles" help="-i --no-indels; default=False" />
@@ -431,8 +446,11 @@
                     help="-O --dont-left-align-indels; default=False (do left align)." />
                 <!-- input filters -->
                 <conditional name="input_filters">
-                    <param name="input_filters_selector" type="boolean" truevalue="set" falsevalue="do_not_set" label="Set input filters?"
-                        help="Sets -4, -m, -q, -R, -Y, -Q, -U, -z, -&#36;, -e, -0, -F, -C, -3, -G, and -&#33; options." />
+                    <param name="input_filters_selector" type="select" label="Input filters"
+                        help="Sets -4, -m, -q, -R, -Y, -Q, -U, -z, -&#36;, -e, -0, -F, -C, -3, -G, and -&#33; options.">
+                        <option value="do_not_set" selected="true">No input filters (default)</option>
+                        <option value="set">Set input filters</option>
+                    </param>
                     <when value="set">  
                         <param name="use_duplicate_reads" type="boolean" truevalue="--use-duplicate-reads" falsevalue="" checked="False"
                             label="Include duplicate-marked alignments in the analysis."
@@ -446,8 +464,11 @@
                         <param name="Y" type="integer" value="0" label="Consider any allele in which and the sum of mapping qualities of supporting reads is at least"
                             help="-Y --min-supporting-mapping-qsum; default=0" />
                         <conditional name="mismatch_filters">
-                            <param name="mismatch_filters_selector" type="boolean" truevalue="set" falsevalue="do_not_set" label="Perform mismatch filtering?"
-                                help="Sets -Q, -U, -z, and &#36; options" />
+                            <param name="mismatch_filters_selector" type="select" label="Mismatch filters"
+                                help="Sets -Q, -U, -z, and &#36; options">
+                                <option value="do_not_set" selected="true">No mismatch filters (default)</option>
+                                <option value="set">Set mismatch filters</option>
+                            </param>
                             <when value="set">
                                 <param name="Q" type="integer" value="10" label="Count mismatches toward -U (option below) if the base quality of the mismatch is >="
                                     help="-Q --mismatch-base-quality-threshold; default=10" />
@@ -489,8 +510,11 @@
                 </conditional>
                 <!-- population and mappability priors -->
                 <conditional name="population_mappability_priors">
-                    <param name="population_mappability_priors_selector" type="boolean" truevalue="set" falsevalue="do_not_set" label="Set population and mappability priors?"
-                        help="Sets -k, -w, -V, and -a options." />
+                    <param name="population_mappability_priors_selector" type="select" label="Population and mappability priors"
+                        help="Sets -k, -w, -V, and -a options.">
+                        <option value="do_not_set" selected="true">Use defaults</option>
+                        <option value="set">Set population and mappability priors</option>
+                    </param>
                     <when value="set">
                         <param name="k" type="boolean" truevalue="-k" falsevalue="" checked="False" label="No population priors"
                             help="-k --no-population-priors; default=False. Equivalent to --pooled-discrete --hwe-priors-off and removal of Ewens Sampling Formula component of priors." />
@@ -509,8 +533,11 @@
                   </conditional>
                 <!-- genotype likelihoods -->
                 <conditional name="genotype_likelihoods">
-                    <param name="genotype_likelihoods_selector" type="boolean" truevalue="set" falsevalue="do_not_set" label="Tweak genotype likelihoods?"
-                        help="Sets --base-quality-cap, --experimental-gls, and --prob-contamination options. " />
+                    <param name="genotype_likelihoods_selector" type="select" label="Genotype likelihood options"
+                        help="Sets --base-quality-cap, --experimental-gls, and --prob-contamination options.">
+                        <option value="do_not_set" selected="true">Use defaults</option>
+                        <option value="set">Set genotype likelihood options</option>
+                    </param>
                     <when value="set">
                         <param name="base_quality_cap" type="integer" value="0" label="Limit estimated observation quality by capping base quality at" help="--base-quality-cap" />
                         <param name="experimental_gls" type="boolean" truevalue="--experimental-gls" falsevalue="" checked="False"
@@ -525,8 +552,11 @@
                 </conditional>
                 <!-- algorithmic features -->
                 <conditional name="algorithmic_features">
-                    <param name="algorithmic_features_selector" type="boolean" truevalue="set" falsevalue="do_not_set" label="Tweak algorithmic features?"
-                        help="Sets --report-genotypes-likelihood-max, -B, --genotyping-max-banddepth, -W, -N, S, -j, -H, -D, -= options" />
+                    <param name="algorithmic_features_selector" type="select" label="Algorithmic features"
+                        help="Sets --report-genotypes-likelihood-max, -B, --genotyping-max-banddepth, -W, -N, S, -j, -H, -D, -= options">
+                        <option value="do_not_set" selected="true">Use defaults</option>
+                        <option value="set">Set algorithmic features</option>
+                    </param>
                     <when value="set">
                         <param name="report_genotype_likelihood_max" type="boolean" truevalue="--report-genotype-likelihood-max" falsevalue="" checked="False"
                             label="Report genotypes using the maximum-likelihood estimate provided from genotype likelihoods."
@@ -542,9 +572,12 @@
                             label="Skip sample genotypings for which the sample has no supporting reads"
                             help="-N --exclude-unobserved-genotypes; default=False" />
                         <conditional name="genotype_variant_threshold">
-                            <param name="genotype_variant_threshold_selector" type="boolean" truevalue="set" falsevalue="do_not_set"
-                                label="Do you want to to limit posterior integration"
-                                help="-S --genotype-variant-threshold" />
+                            <param name="genotype_variant_threshold_selector" type="select"
+                                label="Limit posterior integration"
+                                help="-S --genotype-variant-threshold">
+                                <option value="do_not_set" selected="true">Do not limit posterior integration</option>
+                                <option value="set">Set posterior integration limit</option>
+                            </param>
                             <when value="do_not_set">
                                 <!-- do nothing -->
                             </when>
@@ -589,10 +622,10 @@
     <outputs>
         <data format="vcf" name="output_vcf" label="${tool.name} on ${on_string} (variants)" />
         <data format="bed" name="output_failed_alleles_bed" label="${tool.name} on ${on_string} (failed alleles)">
-            <filter>( options_type['options_type_selector'] == 'cline' or options_type['options_type_selector'] == 'full' ) and options_type['optional_inputs']['optional_inputs_selector'] is True and options_type['optional_inputs']['output_failed_alleles_option'] is True</filter>
+            <filter>( options_type['options_type_selector'] == 'cline' or options_type['options_type_selector'] == 'full' ) and options_type['optional_inputs']['optional_inputs_selector'] == 'set' and options_type['optional_inputs']['output_failed_alleles_option'] is True</filter>
         </data>
         <data format="txt" name="output_trace" label="${tool.name} on ${on_string} (trace)">
-            <filter>( options_type['options_type_selector'] == 'cline' or options_type['options_type_selector'] == 'full' ) and options_type['optional_inputs']['optional_inputs_selector'] is True and options_type['optional_inputs']['output_trace_option'] is True</filter>
+            <filter>( options_type['options_type_selector'] == 'cline' or options_type['options_type_selector'] == 'full' ) and options_type['optional_inputs']['optional_inputs_selector'] == 'set' and options_type['optional_inputs']['output_trace_option'] is True</filter>
         </data>
     </outputs>
     <tests>
@@ -617,9 +650,17 @@
             <param name="input_bams" ftype="bam" value="freebayes-phix174.bam"/>
             <param name="options_type_selector" value="naive_w_filters"/>
             <param name="min_coverage" value="14"/>
-            <output name="output_vcf" file="freebayes-phix174-test3.vcf" lines_diff="2"/>
+            <output name="output_vcf" file="freebayes-phix174-test3.vcf" compare="contains"/>
         </test>
-
+        <test>
+            <param name="reference_source_selector" value="history" />
+            <param name="ref_file" ftype="fasta" value="freebayes-phix174.fasta"/>
+            <param name="input_bams" ftype="bam" value="freebayes-phix174.bam"/>
+            <param name="options_type_selector" value="full"/>
+            <param name="population_model_selector" value="set"/>
+            <param name="P" value="1"/>
+            <output name="output_vcf" file="freebayes-phix174-test4.vcf" compare="contains"/>
+        </test>
     </tests>
     <help>
 **What it does**
@@ -627,8 +668,6 @@
 FreeBayes is a Bayesian genetic variant detector designed to find small polymorphisms, specifically SNPs (single-nucleotide polymorphisms), indels (insertions and deletions), MNPs (multi-nucleotide polymorphisms), and complex events (composite insertion and substitution events) smaller than the length of a short-read sequencing alignment.
 
 See https://github.com/ekg/freebayes for details on FreeBayes.
-
-This Galaxy instance of FreeBayes corresponds to release 0.9.20
 
 ------
 

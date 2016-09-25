@@ -1,6 +1,4 @@
 ##fileformat=VCFv4.1
-##fileDate=20160716
-##source=freeBayes v1.0.2-29-g41c1313
 ##reference=localref.fa
 ##contig=<ID=phiX174,length=5386>
 ##phasing=none
