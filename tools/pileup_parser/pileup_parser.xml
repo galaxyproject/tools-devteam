@@ -53,6 +53,11 @@
         </change_format>
    </data>
   </outputs>
+  
+  <stdio>
+    <exit_code range="0" level="warning" description="Calling POSIX"/>
+  </stdio>  
+  
   <tests>
     <test>
       <param name="input" value="pileup_parser.6col.pileup"/>
