@@ -1,14 +1,15 @@
-<tool id="wtavg" name="Assign weighted-average" version="1.0.0">
+<tool id="wtavg" name="Assign weighted-average" version="1.0.1">
   <description> of the values of features overlapping an interval </description>
   <requirements>
     <requirement type="package" version="1.0.0">galaxy-ops</requirement>
     <requirement type="package" version="0.7.1">bx-python</requirement>
   </requirements>
-  <command interpreter="python">WeightedAverage.py  $genomic_interval $genomic_feature $out_file1 -1 ${genomic_interval.metadata.chromCol},${genomic_interval.metadata.startCol},${genomic_interval.metadata.endCol},${genomic_interval.metadata.strandCol} -2 ${genomic_feature.metadata.chromCol},${genomic_feature.metadata.startCol},${genomic_feature.metadata.endCol},${genomic_feature.metadata.strandCol},${genomic_feature.metadata.nameCol}</command>
+  <command interpreter="python">WeightedAverage.py  $genomic_interval $genomic_feature $out_file1 -1 ${genomic_interval.metadata.chromCol},${genomic_interval.metadata.startCol},${genomic_interval.metadata.endCol},${genomic_interval.metadata.strandCol} -2 ${genomic_feature.metadata.chromCol},${genomic_feature.metadata.startCol},${genomic_feature.metadata.endCol},${genomic_feature.metadata.strandCol},${genomic_feature.metadata.nameCol} ${allow_zeros}</command>
 
   <inputs>
     <param format="interval" name="genomic_interval" type="data" label="Genomic intervals (first dataset)" help="Dataset missing? See Note below."/>
     <param format="interval" name="genomic_feature" label="Genomic features (second dataset)" type="data" help="Make sure the value column is specified. See Note below." />
+    <param name="allow_zeros" label="Include zeros in calculations" type="boolean" help="Otherwise, skip them as bad values" truevalue="--allow_zeros" falsevalue="" checked="True" />
   </inputs>
   <outputs>
     <data format="input" name="out_file1" metadata_source="genomic_interval" />
@@ -18,9 +19,15 @@
     <test>
       <param name="genomic_interval" value="interval_interpolate.bed"/>
       <param name="genomic_feature" value="value_interpolate.bed"/>
+      <param name="allow_zeros" value="False" />
       <output name="out_file1" file="interpolate_result.bed"/>
     </test>
-    
+    <test>
+      <param name="genomic_interval" value="interval_interpolate.bed"/>
+      <param name="genomic_feature" value="value_interpolate.bed"/>
+      <param name="allow_zeros" value="True" />
+      <output name="out_file1" file="interpolate_result_zeros.bed"/>
+    </test>
   </tests>
   <help>
 
