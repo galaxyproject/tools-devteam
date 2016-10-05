@@ -1,5 +1,8 @@
 <tool id="pileup_parser" name="Filter pileup" version="1.0.2">>
   <description>on coverage and SNPs</description>
+  <requirements>
+        <requirement type="package" version="5.22.0">perl</requirement>
+   </requirements>
   <command interpreter="perl">
     #if   $pileup_type.type_select == "six"    #pileup_parser.pl $input "3" "5" "6" "4" $qv_cutoff $cvrg_cutoff $snps_only $interval "2" $out_file1 $diff $qc_base
     #elif $pileup_type.type_select == "ten"    #pileup_parser.pl $input "3" "9" "10" "8" $qv_cutoff $cvrg_cutoff $snps_only $interval "2" $out_file1 $diff $qc_base
@@ -53,10 +56,6 @@
         </change_format>
    </data>
   </outputs>
-  
-  <stdio>
-    <exit_code range="0" level="warning" description="Calling POSIX"/>
-  </stdio>  
   
   <tests>
     <test>
