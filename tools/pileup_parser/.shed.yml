@@ -1,6 +1,7 @@
 categories:
 - SAM
 description: Filter pileup on coverage and SNPs
+homepage_url: https://github.com/galaxyproject/tools-devteam/
 long_description: |
   Allows one to find sequence variants and/or sites covered by a
   specified number of reads with bases above a set quality threshold. The tool works
