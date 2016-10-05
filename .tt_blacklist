@@ -73,7 +73,6 @@ tools/compute_motif_frequencies_for_all_motifs
 tools/compute_motifs_frequency
 tools/rmapq
 tools/show_tail
-tools/pileup_parser
 tools/table_annovar
 tools/lastz_paired_reads
 tools/t_test_two_samples
