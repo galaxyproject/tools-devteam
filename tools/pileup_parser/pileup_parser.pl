@@ -37,7 +37,7 @@ while (<IN>) {
 	my @fields = split /\t/;
 	next if $fields[ $ref_base_column ] eq "*"; # skip indel lines
  	my $read_bases   = $fields[ $read_bases_column ];
- 	die "Coverage column" . ($cvrg_column+1) . " contains non-numeric values. Check your input parameters as well as format of input dataset." if ( not isdigit $fields[ $cvrg_column ] );
+ 	die "Coverage column" . ($cvrg_column+1) . " contains non-numeric values. Check your input parameters as well as format of input dataset." if ( not $fields[ $cvrg_column ] =~ qr/^[[:digit:]]+$/x );
     next if $fields[ $cvrg_column ] < $cvrg_cutoff;
 	my $base_quality = $fields[ $base_quality_column ];
 	if ($read_bases =~ m/[\$\^\+-]/) {
