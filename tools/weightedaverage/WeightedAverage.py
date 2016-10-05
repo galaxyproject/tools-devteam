@@ -3,6 +3,7 @@
 usage: %prog bed_file_1 bed_file_2 out_file
     -1, --cols1=N,N,N,N: Columns for chr, start, end, strand in first file
     -2, --cols2=N,N,N,N,N: Columns for chr, start, end, strand, name/value in second file
+    -z, --allow_zeros: Include zeros in calculations
 """
 
 import collections
@@ -42,6 +43,11 @@ def FindRate(chromosome, start_stop, dictType):
 def GetOverlap(a, b):
     return min(a[1], b[1])-max(a[0], b[0])
 
+def get_float_no_zero( field ):
+    rval = float( field )
+    assert rval
+    return rval
+
 
 options, args = doc_optparse.parse( __doc__ )
 
@@ -53,38 +59,37 @@ except Exception, eee:
     print eee
     stop_err( "Data issue: click the pencil icon in the history item to correct the metadata attributes." )
 
-fd2 = open(input2)
-lines2 = fd2.readlines()
+if options.allow_zeros:
+    get_value = float
+else:
+    get_value = get_float_no_zero
 RecombChrDict = collections.defaultdict(list)
 
 skipped = 0
-for line in lines2:
+for line in open( input2 ):
     temp = line.strip().split()
     try:
-        assert float(temp[int(name_col_2)])
-    except:
+        value = get_value( temp[ name_col_2 ] )
+    except Exception:
         skipped += 1
         continue
-    tempIndex = [int(temp[int(start_col_2)]), int(temp[int(end_col_2)]), float(temp[int(name_col_2)])]
-    RecombChrDict[temp[int(chr_col_2)]].append(tempIndex)
+    tempIndex = [ int( temp[ start_col_2 ] ), int( temp[ end_col_2 ] ), value ]
+    RecombChrDict[ temp[ chr_col_2 ] ].append( tempIndex )
 
 print "Skipped %d features with invalid values" % (skipped)
 
-fd1 = open(input1)
-lines = fd1.readlines()
-finalProduct = ''
-for line in lines:
-    temp = line.strip().split('\t')
-    chromosome = temp[int(chr_col_1)]
-    start = int(temp[int(start_col_1)])
-    stop = int(temp[int(end_col_1)])
+fdd = open( input3, 'w' )
+for line in open( input1 ):
+    line = line.strip()
+    temp = line.split('\t')
+    chromosome = temp[ chr_col_1 ]
+    start = int( temp[ start_col_1 ] )
+    stop = int( temp[ end_col_1 ] )
     start_stop = [start, stop]
     RecombRate = FindRate( chromosome, start_stop, RecombChrDict )
     try:
         RecombRate = "%.4f" % (float(RecombRate))
     except:
         RecombRate = RecombRate
-    finalProduct += line.strip()+'\t'+str(RecombRate)+'\n'
-fdd = open(input3, 'w')
-fdd.writelines(finalProduct)
+    fdd.write( "%s\t%s\n" % ( line, RecombRate ) )
 fdd.close()
