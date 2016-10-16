@@ -1,4 +1,4 @@
-<tool id="vcftools_consensus" name="Consensus" version="0.1.11" profile="15.04">
+<tool id="vcftools_consensus" name="Consensus" version="0.1.11">
     <description>VCF consensus</description>
 
     <requirements>
@@ -66,6 +66,7 @@
         <param name="ref_genome_source" value="history" />
         <param ftype="fasta" name="ref_file" value="reference.fasta" />
         <param ftype="vcf" name="variants" value="sample1.vcf" />
+        <output name="output" ftype="fasta" file="output1.fasta" />
       </test>
     </tests>
 
@@ -75,5 +76,6 @@
         .. __: http://vcftools.sourceforge.net/docs.html
     </help>
     <citations>
+      <citation type="doi">10.1093/bioinformatics/btr330</citation>
     </citations>
 </tool>
