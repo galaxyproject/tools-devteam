@@ -125,7 +125,7 @@
                         <option value="none">None</option>
                     </param>
                     <param name="labcol" type="boolean" truevalue="--labcol" falsevalue="" checked="True" label="Display column labels?"/>
-                    <param name="labrow" type="boolean" truevalue="--labrow" falsevalue="" checked="True" label="Display column labels?"/>
+                    <param name="labrow" type="boolean" truevalue="--labrow" falsevalue="" checked="True" label="Display row labels?"/>
                     <param name="border" type="boolean" truevalue="--border" falsevalue="" checked="False" label="Draw border around plot?"/>
                     <expand macro="log10_checkbox" />
                 </when>
