@@ -1,6 +1,6 @@
 #!/bin/sh
 
-### Run R providing the R script in $1 as standard input and passing 
+### Run R providing the R script in $1 as standard input and passing
 ### the remaining arguments on the command line
 
 # Function that writes a message to stderr and exits
@@ -11,7 +11,7 @@ function fail
 }
 
 # Ensure R executable is found
-which R > /dev/null || fail "'R' is required by this tool but was not found on path" 
+which R > /dev/null || fail "'R' is required by this tool but was not found on path"
 
 # Extract first argument
 infile=$1; shift

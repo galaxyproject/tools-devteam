@@ -1,8 +1,9 @@
-<tool id="XY_Plot_1" name="Plotting tool" version="1.0.1">
+<tool id="XY_Plot_1" name="Plotting tool" version="1.0.2">
   <description>for multiple series and graph types</description>
   <requirements>
-    <requirement type="package" version="2.11.0">R</requirement>
-  </requirements>
+    <requirement type="package" version="3.2.1">R</requirement>
+    <requirement type="package" version="2.11.1">fontconfig</requirement>
+   </requirements>
   <command interpreter="bash">r_wrapper.sh $script_file</command>
 
   <configfiles>
@@ -14,14 +15,18 @@
       xrange = c( NULL, NULL )
       yrange = c( NULL, NULL )
       #for $i, $s in enumerate( $series )
-        s${i} = read.table( "${s.input.file_name}" )
+        s${i} = read.table( "${s.input.file_name}", h=${s.header} )
         x${i} = s${i}[,${s.xcol}]
         y${i} = s${i}[,${s.ycol}]
-        xrange = range( x${i}, xrange )
-        yrange = range( y${i}, yrange )
+        xrange = range( x${i}, xrange, na.rm=TRUE )
+        yrange = range( y${i}, yrange, na.rm=TRUE )
       #end for
       ## Open output PDF file
-      pdf( "${out_file1}" )
+      #if $outftype.value == "pdf"
+        pdf("outfile.pdf")
+      #else
+        "${outftype}"( "outfile.${outftype}" , type="cairo")
+      #end if
       ## Dummy plot for axis / labels
       plot( NULL, type="n", xlim=xrange, ylim=yrange, main="${main}", xlab="${xlab}", ylab="${ylab}" )
       ## Plot each series
@@ -41,8 +46,13 @@
     <param name="main" type="text" value="" label="Plot Title"/>
     <param name="xlab" type="text" value="" label="Label for x axis"/>
     <param name="ylab" type="text" value="" label="Label for y axis"/>
+    <param name="outftype" type="select" label="Output File Type">
+      <option value="pdf">PDF</option>
+      <option value="png">PNG</option>
+    </param>
     <repeat name="series" title="Series">
       <param name="input" type="data" format="tabular" label="Dataset"/>
+      <param name="header" type="boolean" truevalue="TRUE" falsevalue="FALSE" checked="false" label="Header in first line?"/>
       <param name="xcol" type="data_column" data_ref="input" label="Column for x axis"/>
       <param name="ycol" type="data_column" data_ref="input" label="Column for y axis"/>
       <conditional name="series_type">
@@ -94,13 +104,19 @@
     </repeat>
   </inputs>
   <outputs>
-    <data format="pdf" name="out_file1" />
+    <data format="pdf" name="out_file_pdf" from_work_dir="outfile.pdf" >
+        <filter>(outftype == 'pdf')</filter>
+    </data>
+    <data format="png" name="out_file_png" from_work_dir="outfile.png">
+        <filter>(outftype == 'png')</filter>
+    </data>
   </outputs>
     <tests>
         <test>
             <param name="main" value="Example XY Plot"/>
             <param name="xlab" value="Column 1"/>
             <param name="ylab" value="Column 2"/>
+            <param name="outftype" value="pdf"/>
             <param name="input" value="2.tabular" ftype="tabular"/>
             <param name="xcol" value="1"/>
             <param name="ycol" value="2"/>
@@ -108,7 +124,23 @@
             <param name="lty" value="2"/>
             <param name="col" value="2"/>
             <param name="lwd" value="1.0"/>
-            <output name="out_file1" file="XY_Plot_1_out.pdf"/>
+            <output name="out_file_pdf" file="XY_Plot_1_out.pdf" ftype="pdf" compare="sim_size" />
+        </test>
+        <test><!-- test with file with header line, NA values and PNG output -->
+            <param name="main" value="Example XY Plot PNG"/>
+            <param name="xlab" value="xlab"/>
+            <param name="ylab" value="ylab"/>
+            <param name="outftype" value="png"/>
+            <param name="series_0|input" value="testinput2.tsv" ftype="tabular"/>
+            <param name="series_0|header" value="TRUE"/>
+            <param name="series_0|xcol" value="1"/>
+            <param name="series_0|xcol" value="1"/>
+            <param name="series_0|ycol" value="2"/>
+            <param name="series_0|type" value="line"/>
+            <param name="series_0|lty" value="2"/>
+            <param name="series_0|col" value="2"/>
+            <param name="series_0|lwd" value="1.0"/>
+            <output name="out_file_png" file="testoutput.png" compare="sim_size" />
         </test>
     </tests>
 <help>
