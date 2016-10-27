@@ -5,6 +5,38 @@
   </requirements>
   <command interpreter="bash">r_wrapper.sh $script_file</command>
 
+  <configfiles>
+    <configfile name="script_file">
+      ## Setup R error handling to go to stderr
+      options( show.error.messages=F,
+               error = function () { cat( geterrmessage(), file=stderr() ); q( "no", 1, F ) } )
+      ## Determine range of all series in the plot
+      xrange = c( NULL, NULL )
+      yrange = c( NULL, NULL )
+      #for $i, $s in enumerate( $series )
+        s${i} = read.table( "${s.input.file_name}" )
+        x${i} = s${i}[,${s.xcol}]
+        y${i} = s${i}[,${s.ycol}]
+        xrange = range( x${i}, xrange )
+        yrange = range( y${i}, yrange )
+      #end for
+      ## Open output PDF file
+      pdf( "${out_file1}" )
+      ## Dummy plot for axis / labels
+      plot( NULL, type="n", xlim=xrange, ylim=yrange, main="${main}", xlab="${xlab}", ylab="${ylab}" )
+      ## Plot each series
+      #for $i, $s in enumerate( $series )
+        #if $s.series_type['type'] == "line"
+          lines( x${i}, y${i}, lty=${s.series_type.lty}, lwd=${s.series_type.lwd}, col=${s.series_type.col} )
+        #elif $s.series_type.type == "points"
+          points( x${i}, y${i}, pch=${s.series_type.pch}, cex=${s.series_type.cex}, col=${s.series_type.col} )
+        #end if
+      #end for
+      ## Close the PDF file
+      devname = dev.off()
+    </configfile>
+  </configfiles>
+
   <inputs>
     <param name="main" type="text" value="" label="Plot Title"/>
     <param name="xlab" type="text" value="" label="Label for x axis"/>
@@ -61,43 +93,9 @@
       </conditional>
     </repeat>
   </inputs>
-
-  <configfiles>
-    <configfile name="script_file">
-      ## Setup R error handling to go to stderr
-      options( show.error.messages=F,
-               error = function () { cat( geterrmessage(), file=stderr() ); q( "no", 1, F ) } )
-      ## Determine range of all series in the plot
-      xrange = c( NULL, NULL )
-      yrange = c( NULL, NULL )
-      #for $i, $s in enumerate( $series )
-        s${i} = read.table( "${s.input.file_name}" )
-        x${i} = s${i}[,${s.xcol}]
-        y${i} = s${i}[,${s.ycol}]
-        xrange = range( x${i}, xrange )
-        yrange = range( y${i}, yrange )
-      #end for
-      ## Open output PDF file
-      pdf( "${out_file1}" )
-      ## Dummy plot for axis / labels
-      plot( NULL, type="n", xlim=xrange, ylim=yrange, main="${main}", xlab="${xlab}", ylab="${ylab}" )
-      ## Plot each series
-      #for $i, $s in enumerate( $series )
-        #if $s.series_type['type'] == "line"
-          lines( x${i}, y${i}, lty=${s.series_type.lty}, lwd=${s.series_type.lwd}, col=${s.series_type.col} )
-        #elif $s.series_type.type == "points"
-          points( x${i}, y${i}, pch=${s.series_type.pch}, cex=${s.series_type.cex}, col=${s.series_type.col} )
-        #end if
-      #end for
-      ## Close the PDF file
-      devname = dev.off()
-    </configfile>
-  </configfiles>
-
   <outputs>
     <data format="pdf" name="out_file1" />
   </outputs>
-
     <tests>
         <test>
             <param name="main" value="Example XY Plot"/>
@@ -148,4 +146,5 @@ Create a two series XY plot on the above data:
 
 .. image:: xy_example.jpg
 </help>
+<citations/>
 </tool>
