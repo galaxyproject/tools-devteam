@@ -44,7 +44,7 @@
             <option value="4">Diamond (hollow)</option>
             <option value="15">Square (filled)</option>
             <option value="16">Circle (filled)</option>
-            <option value="17">Triangle (filled)</option>  
+            <option value="17">Triangle (filled)</option>
           </param>
           <param name="col" type="select" label="Point Color">
             <option value="1">Black</option>
@@ -59,13 +59,13 @@
           <param name="cex" type="float" label="Point Scale" value="1.0"/>
         </when>
       </conditional>
-    </repeat>       
+    </repeat>
   </inputs>
 
   <configfiles>
     <configfile name="script_file">
       ## Setup R error handling to go to stderr
-      options( show.error.messages=F, 
+      options( show.error.messages=F,
                error = function () { cat( geterrmessage(), file=stderr() ); q( "no", 1, F ) } )
       ## Determine range of all series in the plot
       xrange = c( NULL, NULL )
@@ -88,9 +88,9 @@
         #elif $s.series_type.type == "points"
           points( x${i}, y${i}, pch=${s.series_type.pch}, cex=${s.series_type.cex}, col=${s.series_type.col} )
         #end if
-      #end for    
+      #end for
       ## Close the PDF file
-      devname = dev.off() 
+      devname = dev.off()
     </configfile>
   </configfiles>
 
@@ -139,12 +139,12 @@ Input file::
     7   67  3.8
     8   68  4.1
     9   71  4.3
-    10  69  3.7 
+    10  69  3.7
 
 Create a two series XY plot on the above data:
 
 - Series 1: Red Dashed-Line plot between columns 1 and 2
-- Series 2: Blue Circular-Point plot between columns 3 and 2 
+- Series 2: Blue Circular-Point plot between columns 3 and 2
 
 .. image:: xy_example.jpg
 </help>
