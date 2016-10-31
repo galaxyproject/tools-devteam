@@ -28,6 +28,7 @@ import glob
 import gzip
 import bz2
 import zipfile
+import mimetypes
 
 class FastQCRunner(object):
 
@@ -52,7 +53,8 @@ class FastQCRunner(object):
         trimext = False
         # decompression at upload currently does NOT remove this now bogus ending - fastqc will barf
         # patched may 29 2013 until this is fixed properly
-        if ( linf.endswith('.gz') or linf.endswith('.gzip') ):
+        type = mimetypes.guess_type(self.opts.input)
+        if ( linf.endswith('.gz') or linf.endswith('.gzip') or type[-1] == "gzip"):
             f = gzip.open(self.opts.input)
             try:
                 f.readline()
@@ -95,10 +97,12 @@ class FastQCRunner(object):
 	    command_line.append('--limits %s' % opts.limits)
         command_line.append('--quiet')
         command_line.append('--extract') # to access the output text file
+	if(type[-1] != "gzip"):
+            command_line.append('-f %s' % opts.informat)
+	else:
+	    self.fastqinfilename += ".gz"
         command_line.append(self.fastqinfilename)
-        command_line.append('-f %s' % opts.informat)
         self.command_line = ' '.join(command_line)
-
     def copy_output_file_to_dataset(self):
         '''
         Retrieves the output html and text files from the output directory and copies them to the Galaxy output files
