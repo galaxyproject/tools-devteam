@@ -1,7 +1,7 @@
-<tool id="fastqc" name="FastQC" version="0.65">
+<tool id="fastqc" name="FastQC" version="0.66">
     <description>Read Quality reports</description>
     <requirements>
-        <requirement type="package" version="0.11.4">FastQC</requirement>
+        <requirement type="package" version="0.11.5">fastqc</requirement>
     </requirements>
     <stdio>
         <exit_code range="1:" />
@@ -9,8 +9,8 @@
         <regex match="Error:" />
         <regex match="Exception:" />
     </stdio>
-    <command interpreter="python">
-    rgFastQC.py
+    <command><![CDATA[
+        python '$__tool_directory__'/rgFastQC.py
         -i "$input_file"
         -d "$html_file.files_path"
         -o "$html_file"
@@ -23,10 +23,10 @@
         #if $limits.dataset and str($limits) > ''
             -l "$limits"
         #end if
-    </command>
+    ]]></command>
     <inputs>
         <param format="fastqsanger,fastq,bam,sam" name="input_file" type="data" label="Short read data from your current history" />
-        <param name="contaminants" type="data" format="tabular" optional="true" label="Contaminant list" 
+        <param name="contaminants" type="data" format="tabular" optional="true" label="Contaminant list"
             help="tab delimited file with 2 columns: name and sequence.  For example: Illumina Small RNA RT Primer CAAGCAGAAGACGGCATACGA"/>
         <param name="limits" type="data" format="txt" optional="true" label="Submodule and Limit specifing file"
             help="a file that specifies which submodules are to be executed (default=all) and also specifies the thresholds for the each submodules warning parameter" />
@@ -45,8 +45,8 @@
         <test>
             <param name="input_file" value="1000gsample.fastq" />
             <param name="limits" value="fastqc_customlimits.txt" ftype="txt" />
-            <output name="html_file" file="fastqc_report2.html" ftype="html" lines_diff="100"/>
-            <output name="text_file" file="fastqc_data2.txt" ftype="txt" lines_diff="100"/>
+            <output name="html_file" file="fastqc_report2.html" ftype="html" compare="sim_size" delta="4096"/>
+            <output name="text_file" file="fastqc_data2.txt" ftype="txt" compare="sim_size"/>
         </test>
     </tests>
     <help>
@@ -56,9 +56,9 @@
 **Purpose**
 
 FastQC aims to provide a simple way to do some quality control checks on raw
-sequence data coming from high throughput sequencing pipelines. 
+sequence data coming from high throughput sequencing pipelines.
 It provides a modular set of analyses which you can use to give a quick
-impression of whether your data has any problems of 
+impression of whether your data has any problems of
 which you should be aware before doing any further analysis.
 
 The main functions of FastQC are:
@@ -91,7 +91,7 @@ Adaption to version 0.11.2 by T. McGowan.
 
 **Inputs and outputs**
 
-FastQC_ is the best place to look for documentation - it's very good. 
+FastQC_ is the best place to look for documentation - it's very good.
 A summary follows below for those in a tearing hurry.
 
 This wrapper will accept a Galaxy fastq, sam or bam as the input read file to check.

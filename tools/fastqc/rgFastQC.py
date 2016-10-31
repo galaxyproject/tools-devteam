@@ -30,12 +30,12 @@ import bz2
 import zipfile
 
 class FastQCRunner(object):
-    
+
     def __init__(self,opts=None):
         '''
         Initializes an object to run FastQC in Galaxy. To start the process, use the function run_fastqc()
         '''
-        
+
         # Check whether the options are specified and saves them into the object
         assert opts != None
         self.opts = opts
@@ -44,7 +44,7 @@ class FastQCRunner(object):
         '''
         Develops the Commandline to run FastQC in Galaxy
         '''
-        
+
         # Check whether a given file compression format is valid
         # This prevents uncompression of already uncompressed files
         infname = self.opts.inputfilename
@@ -52,7 +52,7 @@ class FastQCRunner(object):
         trimext = False
         # decompression at upload currently does NOT remove this now bogus ending - fastqc will barf
         # patched may 29 2013 until this is fixed properly
-        if ( linf.endswith('.gz') or linf.endswith('.gzip') ): 
+        if ( linf.endswith('.gz') or linf.endswith('.gzip') ):
             f = gzip.open(self.opts.input)
             try:
                 f.readline()
@@ -76,12 +76,12 @@ class FastQCRunner(object):
 	   except:
 	       raise Exception("Input file corruption, could not identify the filetype")
            infname = os.path.splitext(infname)[0]
-        
+
         # Replace unwanted or problematic charaters in the input file name
         self.fastqinfilename = re.sub(ur'[^a-zA-Z0-9_\-\.]', '_', os.path.basename(infname))
         # check that the symbolic link gets a proper ending, fastqc seems to ignore the given format otherwise
         if 'fastq' in opts.informat:
-            # with fastq the .ext is ignored, but when a format is actually passed it must comply with fastqc's 
+            # with fastq the .ext is ignored, but when a format is actually passed it must comply with fastqc's
             # accepted formats..
             opts.informat = 'fastq'
         elif not self.fastqinfilename.endswith(opts.informat):
@@ -103,13 +103,13 @@ class FastQCRunner(object):
         '''
         Retrieves the output html and text files from the output directory and copies them to the Galaxy output files
         '''
-        
+
         # retrieve html file
         result_file = glob.glob(opts.outputdir + '/*html')
         with open(result_file[0], 'rb') as fsrc:
             with open(self.opts.htmloutput, 'wb') as fdest:
                 shutil.copyfileobj(fsrc, fdest)
-        
+
         # retrieve text file
         text_file = glob.glob(opts.outputdir + '/*/fastqc_data.txt')
         with open(text_file[0], 'rb') as fsrc:
@@ -120,11 +120,11 @@ class FastQCRunner(object):
         '''
         Executes FastQC. Make sure the mandatory import parameters input, inputfilename, outputdir and htmloutput have been specified in the options (opts)
         '''
-        
+
         # Create a log file
         dummy,tlog = tempfile.mkstemp(prefix='rgFastQC',suffix=".log",dir=self.opts.outputdir)
         sout = open(tlog, 'w')
-        
+
         self.prepare_command_line()
         sout.write(self.command_line)
         sout.write('\n')
@@ -150,12 +150,12 @@ if __name__ == '__main__':
     op.add_option('-l', '--limits', default=None)
     op.add_option('-e', '--executable', default='fastqc')
     opts, args = op.parse_args()
-    
+
     assert opts.input != None
     assert opts.inputfilename != None
     assert opts.htmloutput != None
-    if not os.path.exists(opts.outputdir): 
+    if not os.path.exists(opts.outputdir):
         os.makedirs(opts.outputdir)
-    
+
     fastqc_runner = FastQCRunner(opts)
     fastqc_runner.run_fastqc()
