@@ -17,9 +17,12 @@
       #for $i, $s in enumerate( $series )
         s${i} = read.table( "${s.input.file_name}", h=${s.header} )
         x${i} = s${i}[,${s.xcol}]
-        y${i} = s${i}[,${s.ycol}]
+        yrange = 0
+        #for $column in str($s.ycol).split(','):
+          y${i}${column} = s${i}[,${column}]
+          yrange = range(y${i}${column}, yrange, na.rm=TRUE )
+        #end for
         xrange = range( x${i}, xrange, na.rm=TRUE )
-        yrange = range( y${i}, yrange, na.rm=TRUE )
       #end for
       ## Open output PDF file
       #if $outftype.value == "pdf"
@@ -32,9 +35,13 @@
       ## Plot each series
       #for $i, $s in enumerate( $series )
         #if $s.series_type['type'] == "line"
-          lines( x${i}, y${i}, lty=${s.series_type.lty}, lwd=${s.series_type.lwd}, col=${s.series_type.col} )
+          #for $column in str($s.ycol).split(','):
+            lines( x${i}, y${i}${column}, lty=${s.series_type.lty}, lwd=${s.series_type.lwd}, col=${s.series_type.col} )
+          #end for
         #elif $s.series_type.type == "points"
-          points( x${i}, y${i}, pch=${s.series_type.pch}, cex=${s.series_type.cex}, col=${s.series_type.col} )
+          #for $column in str($s.ycol).split(','):
+            points( x${i}, y${i}${column}, pch=${s.series_type.pch}, cex=${s.series_type.cex}, col=${s.series_type.col} )
+          #end for
         #end if
       #end for
       ## Close the PDF file
@@ -54,7 +61,7 @@
       <param name="input" type="data" format="tabular" label="Dataset"/>
       <param name="header" type="boolean" truevalue="TRUE" falsevalue="FALSE" checked="false" label="Header in first line?"/>
       <param name="xcol" type="data_column" data_ref="input" label="Column for x axis"/>
-      <param name="ycol" type="data_column" data_ref="input" label="Column for y axis"/>
+      <param name="ycol" type="data_column" data_ref="input" multiple="true" label="Column for y axis"/>
       <conditional name="series_type">
         <param name="type" type="select" label="Series Type">
           <option value="line" selected="true">Line</option>
@@ -126,7 +133,7 @@
             <param name="lwd" value="1.0"/>
             <output name="out_file_pdf" file="XY_Plot_1_out.pdf" ftype="pdf" compare="sim_size" />
         </test>
-        <test><!-- test with file with header line, NA values and PNG output -->
+        <test><!-- test with file with header line, NA values, multiple ycols and PNG output -->
             <param name="main" value="Example XY Plot PNG"/>
             <param name="xlab" value="xlab"/>
             <param name="ylab" value="ylab"/>
@@ -134,13 +141,12 @@
             <param name="series_0|input" value="testinput2.tsv" ftype="tabular"/>
             <param name="series_0|header" value="TRUE"/>
             <param name="series_0|xcol" value="1"/>
-            <param name="series_0|xcol" value="1"/>
-            <param name="series_0|ycol" value="2"/>
-            <param name="series_0|type" value="line"/>
-            <param name="series_0|lty" value="2"/>
+            <param name="series_0|ycol" value="2,3"/>
+            <param name="series_0|type" value="points"/>
+            <param name="series_0|pch" value="1"/>
             <param name="series_0|col" value="2"/>
-            <param name="series_0|lwd" value="1.0"/>
-            <output name="out_file_png" file="testoutput.png" compare="sim_size" />
+            <param name="series_0|cex" value="1.0"/>
+            <output name="out_file_png" ftype="png" file="testoutput.png" />
         </test>
     </tests>
 <help>
