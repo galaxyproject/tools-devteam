@@ -103,6 +103,7 @@ class FastQCRunner(object):
 	    self.fastqinfilename += ".gz"
         command_line.append(self.fastqinfilename)
         self.command_line = ' '.join(command_line)
+
     def copy_output_file_to_dataset(self):
         '''
         Retrieves the output html and text files from the output directory and copies them to the Galaxy output files
