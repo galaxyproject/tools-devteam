@@ -3,6 +3,7 @@
 
     <requirements>
         <requirement type="package">samtools</requirement>
+        <requirement type="package">htslib</requirement>
         <requirement type="package" version="0.1.11">vcftools</requirement>
     </requirements>
 
