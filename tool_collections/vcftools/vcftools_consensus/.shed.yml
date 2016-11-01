@@ -1,0 +1,8 @@
+categories:
+- Variant Analysis
+description: Apply VCF variants to a fasta file to create consensus sequence
+name: vcftools_consensus
+owner: devteam
+homepage_url: https://vcftools.github.io/
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/vcftools/vcftools_consensus
+type: unrestricted

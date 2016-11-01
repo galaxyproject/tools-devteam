@@ -1,5 +1,5 @@
 <tool id="vcftools_consensus" name="Consensus" version="0.1.11">
-    <description>VCF consensus</description>
+    <description>Apply VCF variants to a fasta file to create consensus sequence</description>
 
     <requirements>
         <requirement type="package">samtools</requirement>
