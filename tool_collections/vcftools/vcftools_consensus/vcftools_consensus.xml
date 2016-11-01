@@ -63,7 +63,7 @@
 
     <tests>
       <test>
-        <param name="ref_genome_source" value="history" />
+        <param name="index_source" value="history" />
         <param ftype="fasta" name="ref_file" value="reference.fasta" />
         <param ftype="vcf" name="variants" value="sample1.vcf" />
         <output name="output" ftype="fasta" file="output1.fasta" />
