@@ -1,4 +1,4 @@
-<tool id="fastqc" name="FastQC" version="0.66">
+<tool id="fastqc" name="FastQC" version="0.67">
     <description>Read Quality reports</description>
     <requirements>
         <requirement type="package" version="0.11.5">fastqc</requirement>
@@ -48,6 +48,12 @@
             <output name="html_file" file="fastqc_report2.html" ftype="html" compare="sim_size" delta="4096"/>
             <output name="text_file" file="fastqc_data2.txt" ftype="txt" compare="sim_size"/>
         </test>
+        <test>
+            <param name="input_file" value="1000gsample.fastq.gz" />
+            <param name="contaminants" value="fastqc_contaminants.txt" ftype="tabular" />
+            <output name="html_file" file="fastqc_report.html" ftype="html" lines_diff="100"/>
+            <output name="text_file" file="fastqc_data.txt" ftype="txt" lines_diff="100"/>
+        </test>
     </tests>
     <help>
 
@@ -63,7 +69,7 @@ which you should be aware before doing any further analysis.
 
 The main functions of FastQC are:
 
-- Import of data from BAM, SAM or FastQ files (any variant)
+- Import of data from BAM, SAM or FastQ/FastQ.gz files (any variant), 
 - Providing a quick overview to tell you in which areas there may be problems
 - Summary graphs and tables to quickly assess your data
 - Export of results to an HTML based permanent report
@@ -94,7 +100,7 @@ Adaption to version 0.11.2 by T. McGowan.
 FastQC_ is the best place to look for documentation - it's very good.
 A summary follows below for those in a tearing hurry.
 
-This wrapper will accept a Galaxy fastq, sam or bam as the input read file to check.
+This wrapper will accept a Galaxy fastq, fastq.gz, sam or bam as the input read file to check.
 It will also take an optional file containing a list of contaminants information, in the form of
 a tab-delimited file with 2 columns, name and sequence. As another option the tool takes a custom
 limits.txt file that allows setting the warning thresholds for the different modules and also specifies
