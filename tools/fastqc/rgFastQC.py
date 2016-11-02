@@ -54,7 +54,7 @@ class FastQCRunner(object):
         # decompression at upload currently does NOT remove this now bogus ending - fastqc will barf
         # patched may 29 2013 until this is fixed properly
         type = mimetypes.guess_type(self.opts.input)
-        if ( linf.endswith('.gz') or linf.endswith('.gzip') or type[-1] == "gzip"):
+        if linf.endswith('.gz') or linf.endswith('.gzip') or type[-1] == "gzip":
             f = gzip.open(self.opts.input)
             try:
                 f.readline()
@@ -97,7 +97,7 @@ class FastQCRunner(object):
 	    command_line.append('--limits %s' % opts.limits)
         command_line.append('--quiet')
         command_line.append('--extract') # to access the output text file
-	if(type[-1] != "gzip"):
+	if type[-1] != "gzip":
             command_line.append('-f %s' % opts.informat)
 	else:
 	    self.fastqinfilename += ".gz"
