@@ -14,23 +14,23 @@
 
     <command>
     <![CDATA[
-        ln -s "${variants}" variants.vcf &&
+        ln -s '${variants}' variants.vcf &&
         vcf-sort variants.vcf | bgzip -c > variants.sorted.vcf.gz &&
 
         tabix -p vcf variants.sorted.vcf.gz  &&
 
         #if $ref_genome_source.index_source == 'history':
-          ln -s $ref_genome_source.ref_file reference.fasta &&
+          ln -s '${ref_genome_source.ref_file}' reference.fasta &&
           samtools faidx reference.fasta &&
         #end if
 
         cat
         #if $ref_genome_source.index_source == 'builtin'
-          "${ ref_genome_source.reference_genome.fields.path }"
+          '${ ref_genome_source.reference_genome.fields.path }'
         #else
           reference.fasta
         #end if
-        | vcf-consensus variants.sorted.vcf.gz > ${output}
+        | vcf-consensus variants.sorted.vcf.gz > '${output}'
     ]]>
     </command>
     <inputs>
