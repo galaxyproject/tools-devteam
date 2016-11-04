@@ -2,8 +2,8 @@
     <description>Apply VCF variants to a fasta file to create consensus sequence</description>
 
     <requirements>
-        <requirement type="package">samtools</requirement>
-        <requirement type="package">htslib</requirement>
+        <requirement type="package" version="0.1.19">samtools</requirement>
+        <requirement type="package" version="1.3.2">htslib</requirement>
         <requirement type="package" version="0.1.11">vcftools</requirement>
     </requirements>
 
