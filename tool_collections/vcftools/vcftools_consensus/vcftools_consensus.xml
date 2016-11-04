@@ -15,10 +15,8 @@
     <command>
     <![CDATA[
         ln -s "${variants}" variants.vcf &&
-        # Sort and compress
         vcf-sort variants.vcf | bgzip -c > variants.sorted.vcf.gz &&
 
-        ## Index.
         tabix -p vcf variants.sorted.vcf.gz  &&
 
         #if $ref_genome_source.index_source == 'history':
