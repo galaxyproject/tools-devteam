@@ -15,10 +15,8 @@
     <command>
     <![CDATA[
         ln -s "${variants}" variants.vcf &&
-        vcf-sort variants.vcf >variants.sorted.vcf &&
-
-        ## Compress.
-        bgzip variants.sorted.vcf &&
+        # Sort and compress
+        vcf-sort variants.vcf | bgzip -c > variants.sorted.vcf.gz &&
 
         ## Index.
         tabix -p vcf variants.sorted.vcf.gz  &&
