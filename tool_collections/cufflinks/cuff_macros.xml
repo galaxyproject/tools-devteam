@@ -28,21 +28,21 @@
         </param>
         <when value="BAM">
             <repeat name="conditions" title="Condition" min="2">
-                <param name="name" title="Condition name" type="text" label="Name"/>
+                <param name="name" label="Condition name" type="text"/>
                 <param name="samples" label="Replicates" type="data" format="sam,bam" multiple="true"/>
             </repeat>
         </when>
         <when value="CXB">
             <repeat name="conditions" title="Condition" min="2">
-                <param name="name" title="Condition name" type="text" label="Name"/>
+                <param name="name" label="Condition name" type="text"/>
                 <param name="samples" label="Replicates" type="data" format="cxb" multiple="true"/>
             </repeat>
         </when>
         <when value="CONDITION_LIST">
-            <param name="conditions" title="List of Conditions" type="data_collection" collection_type="list" />
+            <param name="conditions" label="List of Conditions" type="data_collection" collection_type="list" />
         </when>
         <when value="CONDITION_REPLICATE_LIST">
-            <param name="conditions" title="List of Conditions" type="data_collection" collection_type="list:list" />
+            <param name="conditions" label="List of Conditions" type="data_collection" collection_type="list:list" />
         </when>
     </conditional>
   </xml>

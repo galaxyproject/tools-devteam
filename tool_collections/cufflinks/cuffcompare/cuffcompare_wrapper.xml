@@ -1,10 +1,10 @@
 <tool id="cuffcompare" name="Cuffcompare" version="2.2.1.0">
     <description>compare assembled transcripts to a reference annotation and track Cufflinks transcripts across multiple experiments</description>
-    <expand macro="requirements" />
-    <expand macro="stdio" />
     <macros>
       <import>cuff_macros.xml</import>
     </macros>
+    <expand macro="requirements" />
+    <expand macro="stdio" />
     <version_command>cuffcompare 2>&amp;1 | head -n 1</version_command>
     <command>
         python $__tool_directory__/cuffcompare_wrapper.py

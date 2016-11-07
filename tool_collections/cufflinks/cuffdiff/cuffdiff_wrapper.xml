@@ -1,13 +1,13 @@
 <tool id="cuffdiff" name="Cuffdiff" version="@VERSION@.4">
     <description>find significant changes in transcript expression, splicing, and promoter use</description>
+    <macros>
+      <import>cuff_macros.xml</import>
+    </macros>
     <requirements>
         <requirement type="package" version="2.2.1">cufflinks</requirement>
         <requirement type="package" version="2.8.2">bioconductor-cummerbund</requirement>
     </requirements>
     <expand macro="stdio" />
-    <macros>
-      <import>cuff_macros.xml</import>
-    </macros>
     <version_command>cuffdiff 2>&amp;1 | head -n 1</version_command>
     <command><![CDATA[
         cuffdiff
