@@ -1,4 +1,4 @@
-<tool id="cufflinks" name="Cufflinks" version="@VERSION@.0">
+<tool id="cufflinks" name="Cufflinks" version="@VERSION@.1">
     <description>transcript assembly and FPKM (RPKM) estimates for RNA-Seq data</description>
     <requirements>
       <requirement type="package" version="0.7.3">bx-python</requirement>
