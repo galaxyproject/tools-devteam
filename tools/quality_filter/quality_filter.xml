@@ -34,8 +34,8 @@
         <filter type="data_meta" ref="input" key="species" />
       </options>  
 	</param>
-	<param name="score" size="10" type="integer" value="20" label="Quality score cut-off" help="Cut-off value of 20 means mask all nucleotides having quality score less than or equal to 20"/>
-	<param name="mask_char" size="5" type="select" label="Mask character">
+	<param name="score" type="integer" value="20" label="Quality score cut-off" help="Cut-off value of 20 means mask all nucleotides having quality score less than or equal to 20"/>
+	<param name="mask_char" type="select" label="Mask character">
       <option value="0" selected="true">#</option>
       <option value="1">$</option>
       <option value="2">^</option>
@@ -53,14 +53,14 @@
       <when value="0">
       </when>
       <when value="1">
-        <param name="length" size="10" type="integer" value="2" label="Number of right-side neighbors"/>
+        <param name="length" type="integer" value="2" label="Number of right-side neighbors"/>
       </when>
       <when value="2">
-        <param name="length" size="10" type="integer" value="2" label="Number of left-side neighbors"/>
+        <param name="length" type="integer" value="2" label="Number of left-side neighbors"/>
       </when>
       <when value="3">
-        <param name="lengthr" size="10" type="integer" value="2" label="Number of neighbors on right-side" />
-        <param name="lengthl" size="10" type="integer" value="2" label="Number of neighbors on left-side" />
+        <param name="lengthr" type="integer" value="2" label="Number of neighbors on right-side" />
+        <param name="lengthl" type="integer" value="2" label="Number of neighbors on left-side" />
       </when>
     </conditional>
   </inputs>

@@ -1,4 +1,10 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/emboss_datatypes
-owner: devteam
+categories:
+- Sequence Analysis
+description: Galaxy applicable data formats used by Emboss tools.
+long_description: |
+    Galaxy applicable data formats used by Emboss tools. This repository
+    contains no tools.
 name: emboss_datatypes
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/datatypes/emboss_datatypes
+type: unrestricted

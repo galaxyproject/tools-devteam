@@ -1,12 +1,18 @@
 <tool id="fasta2tab" name="FASTA-to-Tabular" version="1.1.0">
 	<description>converter</description>
-	<command interpreter="python">fasta_to_tabular.py $input $output $keep_first $descr_columns</command>
+	<command>
+		python $__tool_directory__/fasta_to_tabular.py
+			'$input'
+			'$output'
+			$keep_first
+			$descr_columns
+	</command>
 	<inputs>
 		<param name="input" type="data" format="fasta" label="Convert these sequences"/>
-		<param name="descr_columns" type="integer" size="2" value="1" label="How many columns to divide title string into?" help="Typically 2 to take the ID (first word) and decription (rest) as two columns, or 1 to give a single column">
+		<param name="descr_columns" type="integer" value="1" label="How many columns to divide title string into?" help="Typically 2 to take the ID (first word) and decription (rest) as two columns, or 1 to give a single column">
 			<validator type="in_range" min="1" />
 		</param>
-		<param name="keep_first" type="integer" size="5" value="0" label="How many title characters to keep?" help="Applies only to the first column taken from the title string ('0' = keep the whole thing), useful when your sequence identifiers are all the same length.">
+		<param name="keep_first" type="integer" value="0" label="How many title characters to keep?" help="Applies only to the first column taken from the title string ('0' = keep the whole thing), useful when your sequence identifiers are all the same length.">
 			<validator type="in_range" min="0" />
 		</param>
 	</inputs>

@@ -1,0 +1,10 @@
+categories:
+- Variant Analysis
+description: A suite of Galaxy tools associated with version 1.0.0-rc1 of the vcflib.
+long_description: |
+  A simple C++ library for parsing and manipulating VCF files.
+name: suite_vcflib_1_0_0_rc1
+owner: devteam
+homepage_url: https://github.com/ekg/vcflib
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/suites/suite_vcflib_1_0_0_rc1
+type: repository_suite_definition

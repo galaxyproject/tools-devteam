@@ -1,36 +1,47 @@
 <tool id="winSplitter" name="Make windows" version="1.0.0">
-  <description></description>
-  <command interpreter="python">windowSplitter.py $input $size $out_file1 ${wintype.choice} ${wintype.offset} -l ${input.metadata.chromCol},${input.metadata.startCol},${input.metadata.endCol},${input.metadata.strandCol}</command>
-  <inputs>
-    <!--<param label="Genome" name="dbkey" type="genomebuild"/>-->
-    <param format="interval" name="input" type="data" label="Select data"/>
-    <param name="size" size="10" type="integer" value="500" label="Window size"/>
-    <conditional name="wintype">
-	    <param name="choice" type="select" label="Make sliding windows?">
-	    	<option value="0" selected="true">No</option>
-	    	<option value="1">Yes</option>
-		</param>
-		<when value="0">
-    		<param name="offset" type="hidden" value="0" />
-    	</when>
-    	<when value="1">
-    		<param name="offset" size="10" type="integer" value="10" label="Offset size"/>
-    	</when>
-	</conditional>
-  </inputs>
-  <outputs>
-    <data format="interval" name="out_file1" metadata_source="input"/>
-  </outputs>
-  <tests>
-    <test>
-      <param name="input" value="4.bed"/>
-      <param name="size" value="5000"/>
-      <param name="choice" value="1"/>
-      <param name="offset" value="4000"/>
-      <output name="out_file1" file="4_windows.bed"/>
-    </test>
-  </tests>
- <help> 
+    <description></description>
+    <requirements>
+        <requirement type="package" version="0.7.2">bx-python</requirement>
+    </requirements>
+    <command>
+        python $__tool_directory__/windowSplitter.py
+            $input
+            $size
+            $out_file1
+            ${wintype.choice}
+            ${wintype.offset}
+            -l ${input.metadata.chromCol},${input.metadata.startCol},${input.metadata.endCol},${input.metadata.strandCol}
+    </command>
+    <inputs>
+        <!--<param label="Genome" name="dbkey" type="genomebuild"/>-->
+        <param format="interval" name="input" type="data" label="Select data"/>
+        <param name="size" type="integer" value="500" label="Window size"/>
+        <conditional name="wintype">
+            <param name="choice" type="select" label="Make sliding windows?">
+                <option value="0" selected="true">No</option>
+                <option value="1">Yes</option>
+            </param>
+            <when value="0">
+                <param name="offset" type="hidden" value="0" />
+            </when>
+            <when value="1">
+                <param name="offset" type="integer" value="10" label="Offset size"/>
+            </when>
+        </conditional>
+    </inputs>
+    <outputs>
+        <data format="interval" name="out_file1" metadata_source="input"/>
+    </outputs>
+    <tests>
+        <test>
+          <param name="input" value="4.bed"/>
+          <param name="size" value="5000"/>
+          <param name="choice" value="1"/>
+          <param name="offset" value="4000"/>
+          <output name="out_file1" file="4_windows.bed"/>
+        </test>
+    </tests>
+    <help>
 
 .. class:: infomark
 
@@ -98,7 +109,5 @@ The additional BED fields (optional) are::
    chr22  3000  4000  NM_174568 0 +
    chr22  3500	4500  NM_174568	0 +
   
-  </help>  
-
-
+    </help>
 </tool>

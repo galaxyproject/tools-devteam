@@ -1,4 +1,10 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/fastq_stats
-owner: devteam
+homepage_url: https://github.com/galaxyproject/sequence_utils
+categories:
+- Fastq Manipulation
+description: FASTQ Summary Statistics by column
+long_description: |
+  This tool creates summary statistics on a FASTQ file.
 name: fastq_stats
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/galaxy_sequence_utils/fastq_stats
+type: unrestricted

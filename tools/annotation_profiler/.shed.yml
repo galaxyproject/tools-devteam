@@ -1,4 +1,13 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/annotation_profiler
-owner: devteam
+categories:
+- Genomic Interval Operations
+description: Profile Annotations for a set of genomic intervals
+long_description: |
+  Takes an input set of intervals and for each interval determines
+  the base coverage of the interval by a set of features (tables) available from UCSC.
+  Genomic regions from the input feature data have been merged by overlap / direct
+  adjacency (e.g. a table having ranges of: 1-10, 6-12, 12-20 and 25-28 results in
+  two merged ranges of: 1-20 and 25-28).
 name: annotation_profiler
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/annotation_profiler
+type: unrestricted

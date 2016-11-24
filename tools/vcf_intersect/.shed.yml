@@ -1,4 +1,9 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/vcf_intersect
-owner: devteam
+categories:
+- Variant Analysis
+description: Generate the intersection of two VCF files
+long_description: |
+  This tool uses vcfPytools' intersect command to generate the intersection of two VCF files
 name: vcf_intersect
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/vcf_intersect
+type: unrestricted

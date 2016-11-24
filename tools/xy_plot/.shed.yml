@@ -1,4 +1,12 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/xy_plot
-owner: devteam
+categories:
+- Graphics
+- Statistics
+description: Plotting tool for multiple series and graph types
+long_description: |
+  This tool allows you to plot values contained in columns of a dataset
+  against each other and also allows you to have different series corresponding to
+  the same or different datasets in one plot.
 name: xy_plot
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/xy_plot
+type: unrestricted

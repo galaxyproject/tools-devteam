@@ -19,9 +19,9 @@
         </param>
         <param name="input_seq" type="data" format="fasta" label="Sequence file"/>
         <param name="input_score" type="data" format="qualsolexa" label="Quality score file"/>
-        <param name="high_score" type="float" size="15" value="40" label="Minimum score for high-quality base (-q)"/>
-        <param name="high_len" type="integer" size="15" value="36" label="Minimal high-quality bases (-M)"/>
-        <param name="align_len" type="integer" size="15" value="11" label="Minimal length of a hit (-h)" help="seed"/>
+        <param name="high_score" type="float" value="40" label="Minimum score for high-quality base (-q)"/>
+        <param name="high_len" type="integer" value="36" label="Minimal high-quality bases (-M)"/>
+        <param name="align_len" type="integer" value="11" label="Minimal length of a hit (-h)" help="seed"/>
         <param name="mismatch" type="select" label="Number of mismatches allowed (-m)">
             <option value="0">0</option>
             <option value="1">1</option>
@@ -36,7 +36,7 @@
             <when value="No">
             </when>
             <when value="Yes">
-                <param name="read_len" type="integer" size="15" value="36" label="Read length (-w)" /> 
+                <param name="read_len" type="integer" value="36" label="Read length (-w)" /> 
             </when>
         </conditional>
     </inputs>

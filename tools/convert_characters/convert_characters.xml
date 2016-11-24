@@ -1,36 +1,41 @@
 <tool id="Convert characters1" name="Convert"  version="1.0.0">
-  <description>delimiters to TAB</description>
-  <command interpreter="python">convert_characters.py "${input}" "${convert_from}" "${out_file1}"</command>
-  <inputs>
-    <param name="convert_from" type="select" label="Convert all">
-      <option value="s">Whitespaces</option>
-      <option value="T">Tabs</option>
-      <!--<option value="Sp">Spaces</option>-->
-      <option value="Dt">Dots</option>
-      <option value="C">Commas</option>
-      <option value="D">Dashes</option>
-      <option value="U">Underscores</option>
-      <option value="P">Pipes</option>
-      <option value="Co">Colons</option>
-    </param>
-    <param format="txt" name="input" type="data" label="in Query"/>
-  </inputs>
-  <outputs>
-    <data format="tabular" name="out_file1" />
-  </outputs>
-  <tests>
-    <test>
-      <param name="convert_from" value="s"/>
-      <param name="input" value="1.bed"/>
-      <output name="out_file1" file="eq-convert.dat"/>
-    </test>
-    <test>
-      <param name="convert_from" value="s"/>
-      <param name="input" value="a.txt"/>
-      <output name="out_file1" file="a.tab"/>
-    </test>
-  </tests>
-  <help>
+    <description>delimiters to TAB</description>
+    <command>
+        python $__tool_directory__/convert_characters.py
+            "${input}"
+            "${convert_from}"
+            "${out_file1}"
+    </command>
+    <inputs>
+        <param name="convert_from" type="select" label="Convert all">
+            <option value="s">Whitespaces</option>
+            <option value="T">Tabs</option>
+            <!--<option value="Sp">Spaces</option>-->
+            <option value="Dt">Dots</option>
+            <option value="C">Commas</option>
+            <option value="D">Dashes</option>
+            <option value="U">Underscores</option>
+            <option value="P">Pipes</option>
+            <option value="Co">Colons</option>
+        </param>
+        <param format="txt" name="input" type="data" label="in Query"/>
+    </inputs>
+    <outputs>
+        <data format="tabular" name="out_file1" />
+    </outputs>
+    <tests>
+        <test>
+            <param name="convert_from" value="s"/>
+            <param name="input" value="1.bed"/>
+            <output name="out_file1" file="eq-convert.dat"/>
+        </test>
+        <test>
+            <param name="convert_from" value="s"/>
+            <param name="input" value="a.txt"/>
+            <output name="out_file1" file="a.tab"/>
+        </test>
+    </tests>
+    <help>
 
 **What it does**
 
@@ -54,5 +59,5 @@ Converts all delimiters of a specified type into TABs.  Consecutive characters a
     chrX  151559494  151559583  NM_018558_exon_1_0_chrX_151559495_f  0  +
     chrX  151564643  151564711  NM_018558_exon_2_0_chrX_151564644_f  0  +
 
-</help>
+    </help>
 </tool>

@@ -1,4 +1,12 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/dwt_cor_ava_perclass
-owner: devteam
+categories:
+- Statistics
+description: Compute P-values and Correlation Coefficients for Feature Occurrences
+long_description: |
+  This program generates plots and computes table matrix of coefficient
+  correlations and p-values at multiple scales for the correlation between the occurrences
+  of features in one dataset and their occurrences in another using multiscale wavelet
+  analysis technique.
 name: dwt_cor_ava_perclass
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/dwt_cor_ava_perclass
+type: unrestricted

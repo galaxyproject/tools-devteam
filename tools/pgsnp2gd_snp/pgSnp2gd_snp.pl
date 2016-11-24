@@ -59,7 +59,7 @@ if ($tab) {
 }
 
 if ($in =~ /.gz$/) { 
-   open(FH, "zcat $in |") or die "Couldn't open $in, $!\n";
+   open(FH, "zcat < $in |") or die "Couldn't open $in, $!\n";
 }elsif ($in =~ /.bz2$/) {
    open(FH, "bzcat $in |") or die "Couldn't open $in, $!\n";
 }else {

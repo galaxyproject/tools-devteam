@@ -1,4 +1,4 @@
-<tool id="Kraken2Tax" name="Convert Kraken" version="1.0">
+<tool id="Kraken2Tax" name="Convert Kraken" version="1.1">
   <description>data to Galaxy taxonomy representation</description>
     <requirements>
         <requirement type="package" version="4.1.0">gnu_awk</requirement>
@@ -6,7 +6,7 @@
     </requirements>
   <command>
 <![CDATA[
-  awk '{ print \$${read_name}, \$${tax_id} }' OFS="\t" "${input}" | taxonomy-reader ${ncbi_taxonomy.fields.path}/names.dmp ${ncbi_taxonomy.fields.path}/nodes.dmp 1 > "${out_file}"
+  awk '{ print \$${read_name}, \$${tax_id} }' OFS="\t" "${input}" | taxonomy-reader "${ncbi_taxonomy.fields.path}/names.dmp" "${ncbi_taxonomy.fields.path}/nodes.dmp" 1 > "${out_file}"
 ]]>
   </command>
   <inputs>
@@ -96,7 +96,7 @@ Be aware that the NCBI taxonomy (ftp://ftp.ncbi.nih.gov/pub/taxonomy/) this tool
   </help>
   <citations>
     <citation type="doi">10.1186/gb-2014-15-3-r46</citation>
-    <citation type="doi"> 10.1101/gr.094508.109</citation>
+    <citation type="doi">10.1101/gr.094508.109</citation>
   </citations>
 </tool>
 

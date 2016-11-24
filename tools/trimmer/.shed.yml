@@ -1,4 +1,10 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/trimmer
-owner: devteam
+categories:
+- Text Manipulation
+description: Trim leading or trailing characters.
+long_description: |
+  Remove the specified number of characters from the beginning or
+  end of each line or a single column in the input dataset.
 name: trimmer
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/trimmer
+type: unrestricted

@@ -6,9 +6,9 @@
   <command interpreter="bash">r_wrapper.sh $script_file</command>
 
   <inputs>
-    <param name="main" type="text" value="" size="30" label="Plot Title"/>
-    <param name="xlab" type="text" value="" size="30" label="Label for x axis"/>
-    <param name="ylab" type="text" value="" size="30" label="Label for y axis"/>
+    <param name="main" type="text" value="" label="Plot Title"/>
+    <param name="xlab" type="text" value="" label="Label for x axis"/>
+    <param name="ylab" type="text" value="" label="Label for y axis"/>
     <repeat name="series" title="Series">
       <param name="input" type="data" format="tabular" label="Dataset"/>
       <param name="xcol" type="data_column" data_ref="input" label="Column for x axis"/>

@@ -1,10 +1,13 @@
-<tool id="kraken-translate" name="Kraken-translate" version="1.1.0">
+<tool id="kraken-translate" name="Kraken-translate" version="1.2.1">
     <description>
         convert taxonomy IDs to names
     </description>
     <macros>
         <import>macros.xml</import>
     </macros>
+    <expand macro="requirements" />
+    <expand macro="stdio" />
+    <expand macro="version_command" />
     <command>
         <![CDATA[
         @SET_DATABASE_PATH@ &&
@@ -19,6 +22,14 @@
     <outputs>
         <data format="tabular" label="${tool.name} on ${on_string}: Translated classification" name="translated" />
     </outputs>
+    <tests>
+        <test>
+            <param name="input" value="kraken_translate_test1.tab" ftype="tabular"/>
+            <param name="mpa-format" value="false"/>
+            <param name="kraken_database" value="test_db"/>
+            <output name="translated" file="kraken_translate_test1_output.tab" ftype="tabular"/>
+        </test>
+    </tests>
     <help>
         <![CDATA[
 
@@ -45,8 +56,5 @@ Alternatively, kraken-translate accepts the option ``--mpa-format`` which will r
 Taxonomy assignments above the superkingdom rank are represented as just "root" when using the ``--mpa-report`` option with kraken-translate.
         ]]>
     </help>
-    <expand macro="requirements" />
-    <expand macro="stdio" />
-    <expand macro="version_command" />
     <expand macro="citations" />
 </tool>

@@ -1,4 +1,10 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/maf_cpg_filter
-owner: devteam
+categories:
+- Sequence Analysis
+- Variant Analysis
+description: Mask CpG/non-CpG sites from MAF file
+long_description: |
+  This tool takes a MAF file as input and masks CpG sites in every alignment block of the MAF file.
 name: maf_cpg_filter
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/maf_cpg_filter
+type: unrestricted

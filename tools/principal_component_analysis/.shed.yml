@@ -1,4 +1,13 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/principal_component_analysis
-owner: devteam
+categories:
+  - Statistics
+description: Principal Component Analysis
+long_description: |
+  This tool performs Principal Component Analysis on the given numeric
+  input data using functions from R statistical package - ''princomp'' function (for
+  Eigenvector based solution) and ''prcomp'' function (for Singular value decomposition
+  based solution). It outputs two files, one containing the summary statistics of
+  PCA, and the other containing biplots of the observations and principal components.
 name: principal_component_analysis
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/principal_component_analysis
+type: unrestricted

@@ -3,6 +3,8 @@
     <repository name="data_manager_sam_fasta_index_builder" owner="devteam" />
     <repository name="bam_to_sam" owner="devteam" />
     <repository name="sam_to_bam" owner="devteam" />
+    <repository name="samtools_bam_to_cram" owner="devteam" />
+    <repository name="samtools_cram_to_bam" owner="devteam" />
     <repository name="samtools_bedcov" owner="devteam" />
     <repository name="samtools_calmd" owner="devteam" />
     <repository name="samtools_flagstat" owner="devteam" />

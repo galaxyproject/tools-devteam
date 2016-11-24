@@ -1,4 +1,9 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/fasta_filter_by_length
-owner: devteam
+categories:
+ - Fasta Manipulation
+description: Filter sequences by length
+long_description: |
+  Outputs sequences between Minimal length and Maximum length.
 name: fasta_filter_by_length
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/fasta_filter_by_length
+type: unrestricted

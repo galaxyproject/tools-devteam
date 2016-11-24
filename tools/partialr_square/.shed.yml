@@ -1,4 +1,13 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/partialr_square
-owner: devteam
+categories:
+- Statistics
+description: Compute partial R square
+long_description: |
+  This tool computes the Partial R squared for all possible variable
+  subsets using the following formula:
+  Partial R squared = [SSE(without i: 1,2,...,p-1) - SSE (full: 1,2,..,i..,p-1) /
+  SSE(without i: 1,2,...,p-1)], which denotes the case where the ''i''th predictor
+  is dropped.
 name: partialr_square
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/partialr_square
+type: unrestricted

@@ -6,8 +6,8 @@
     <inputs>
         <param format="tabular,txt" name="input1" type="data" label="this dataset"/>
         <param name="col" type="integer" value="0" label="Trim this column only" help="0 = process entire line" />
-        <param name="start" type="integer" size="10" value="1" label="Trim from the beginning to this position" help="1 = do not trim the beginning"/>
-        <param name="end" type="integer" size="10" value="0" label="Remove everything from this position to the end" help="0 = do not trim the end"/>
+        <param name="start" type="integer" value="1" label="Trim from the beginning to this position" help="1 = do not trim the beginning"/>
+        <param name="end" type="integer" value="0" label="Remove everything from this position to the end" help="0 = do not trim the end"/>
         <param name="fastq" type="select" label="Is input dataset in fastq format?" help="If set to YES, the tool will not trim evenly numbered lines (0, 2, 4, etc...)">
             <option selected="true" value="">No</option>
             <option value="-q">Yes</option>

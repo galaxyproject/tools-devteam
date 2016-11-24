@@ -6,7 +6,7 @@
     <requirement type="package" version="2.15.0">R</requirement>
   </requirements>
   <inputs>
-    <param name="experiment_name" type="text" value="MACS in Galaxy" size="50" label="Experiment Name"/>
+    <param name="experiment_name" type="text" value="MACS in Galaxy" label="Experiment Name"/>
     <conditional name="input_type">
       <param name="input_type_selector" type="select" label="Paired End Sequencing">
         <option value="paired_end">Paired End (requires elandmulti format)</option>
@@ -44,7 +44,7 @@
       </when>
     </conditional>
     <param name="nolambda" label="Use fixed background lambda as local lambda for every peak region" type="boolean" truevalue="--nolambda" falsevalue="" checked="False" help="up to 9X more time consuming"/>
-    <param name="lambdaset" type="text" label="3 levels of regions around the peak region to calculate the maximum lambda as local lambda" value="1000,5000,10000" size="50"/>
+    <param name="lambdaset" type="text" label="3 levels of regions around the peak region to calculate the maximum lambda as local lambda" value="1000,5000,10000"/>
     <conditional name="nomodel_type">
       <param name="nomodel_type_selector" type="select" label="Build Model">
         <option value="nomodel">Do not build the shifting model</option>

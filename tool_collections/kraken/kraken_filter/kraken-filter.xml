@@ -1,10 +1,13 @@
-<tool id="kraken-filter" name="Kraken-filter" version="1.1.0">
+<tool id="kraken-filter" name="Kraken-filter" version="1.2.1">
     <description>
         filter classification by confidence score
     </description>
     <macros>
         <import>macros.xml</import>
     </macros>
+    <expand macro="requirements" />
+    <expand macro="stdio" />
+    <expand macro="version_command" />
     <command>
         <![CDATA[
         @SET_DATABASE_PATH@ &&
@@ -19,6 +22,15 @@
     <outputs>
         <data format="tabular" name="filtered_output" />
     </outputs>
+    <tests>
+        <test>
+            <param name="input" value="kraken_filter_test1.tab"/>
+            <param name="threshold" value="0"/>
+            <param name="kraken_database" value="test_db"/>
+            <output name="output" file="kraken_filter_test1_output.tab" ftype="tabular"/>
+        </test>
+    </tests>
+
     <help>
 <![CDATA[
 
@@ -47,8 +59,5 @@ would indicate that::
 In this case, ID #561 is the parent node of #562. Here, a label of #562 for this sequence would have a score of C/Q = (13+3)/(13+4+1+3) = 16/21. A label of #561 would have a score of C/Q = (13+4+3)/(13+4+1+3) = 20/21. If a user specified a threshold over 16/21, kraken-filter would adjust the original label from #562 to #561; if the threshold was greater than 20/21, the sequence would become unclassified.
     ]]>
     </help>
-    <expand macro="version_command" />
-    <expand macro="requirements" />
-    <expand macro="stdio" />
     <expand macro="citations" />
 </tool>

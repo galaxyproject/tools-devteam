@@ -24,8 +24,8 @@
             <option value="28">28</option>
             <option value="16">16</option>
         </param>
-        <param name="iden_cutoff" type="float" size="15" value="90.0" label="report hits above this identity (-perc_identity)" help="no cutoff if 0" />
-        <param name="evalue_cutoff" type="float" size="15" value="0.001" label="set expectation value cutoff (-evalue)" />
+        <param name="iden_cutoff" type="float" value="90.0" label="report hits above this identity (-perc_identity)" help="no cutoff if 0" />
+        <param name="evalue_cutoff" type="float" value="0.001" label="set expectation value cutoff (-evalue)" />
         <param name="filter_query" type="select" label="Filter out low complexity regions? (-dust)">
             <option value="yes">Yes</option>
             <option value="no">No</option>

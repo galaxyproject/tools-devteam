@@ -1,36 +1,37 @@
-<tool id="vcftools_merge" name="Merge" version="0.1">
+<tool id="vcftools_merge" name="Merge" version="0.1.11">
     <description>multiple VCF datasets</description>
 
     <requirements>
         <requirement type="package">tabix</requirement>
         <requirement type="package" version="0.1.11">vcftools</requirement>
     </requirements>
-    
+
     <command>
+    <![CDATA[
         ## Preprocessing for each dataset.
+        #import re
         #set dataset_names = []
-        #for i, $input in enumerate( $inputs ):
-            ## Sort file.         
-            vcf-sort ${input.file} > ${i}.vcf.sorted ;
+        #for $i, $input in enumerate( $input_files ):
+            #set input_name = re.sub('[^\w\-_]', '_', $input.element_identifier)
+            ## Sort file.
+            vcf-sort '${input}' > '${input_name}.vcf.sorted' &&
 
             ## Compress.
-            bgzip ${i}.vcf.sorted ;
+            bgzip '${input_name}.vcf.sorted' &&
 
             ## Index.
-            tabix -p vcf ${i}.vcf.sorted.gz ;
+            tabix -p vcf '${input_name}.vcf.sorted.gz' &&
 
-            #silent dataset_names.append( str($i) + '.vcf.sorted.gz' )
+            #silent dataset_names.append( "'%s.vcf.sorted.gz'" % $input_name )
         #end for
 
         ## Merge.
         vcf-merge
-        #echo ' '.join( dataset_names ) # > ${output}
-        
+        #echo ' '.join( dataset_names ) # > '${output}'
+    ]]>
     </command>
     <inputs>
-        <repeat name="inputs" title="Datasets to Merge" min="2">
-            <param name="file" label="Dataset" type="data" format="vcf"/>
-        </repeat>
+        <param name="input_files" label="Datasets to Merge" type="data" format="vcf" min="2" multiple="True"/>
     </inputs>
 
     <outputs>

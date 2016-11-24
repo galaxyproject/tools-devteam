@@ -1,48 +1,48 @@
 <tool id="cshl_fastq_quality_filter" version="1.0.0" name="Filter by quality">
-	<description></description>
+    <description></description>
     <requirements>
         <requirement type="package" version="0.0.13">fastx_toolkit</requirement>
     </requirements>
-	<command>zcat -f '$input' | fastq_quality_filter -q $quality -p $percent -v -o $output
+    <command>
+<![CDATA[
+zcat -f < '$input' | fastq_quality_filter -q $quality -p $percent -v -o '$output'
 #if $input.ext == "fastqsanger":
--Q 33
+    -Q 33
 #end if
-	</command>
+]]>
+    </command>
 
-	<inputs>
-		<param format="fastqsolexa,fastqsanger" name="input" type="data" label="Library to filter" />
+    <inputs>
+        <param format="fastqsolexa,fastqsanger" name="input" type="data" label="Library to filter" />
 
-		<param name="quality" size="4" type="integer" value="20">
-			<label>Quality cut-off value</label>
-		</param>
+        <param name="quality" type="integer" value="20">
+            <label>Quality cut-off value</label>
+        </param>
 
-		<param name="percent" size="4" type="integer" value="90">
-			<label>Percent of bases in sequence that must have quality equal to / higher than cut-off value</label>
-		</param>
-	</inputs>
-
-	<tests>
-		<test>
-			<!-- Test1:  100% of bases with quality 33 or higher (pretty steep requirement...) -->
-			<param name="input" value="fastq_qual_filter1.fastq" ftype="fastqsolexa" />
-			<param name="quality" value="33"/>
-			<param name="percent" value="100"/>
-			<param name="output" file="fastq_qual_filter1a.out" />
-		</test>
-		<test>
-			<!-- Test2:  80% of bases with quality 20 or higher -->
-			<param name="input" value="fastq_qual_filter1.fastq" ftype="fastqsolexa"/>
-			<param name="quality" value="20"/>
-			<param name="percent" value="80"/>
-			<param name="output" file="fastq_qual_filter1b.out" />
-		</test>
-	</tests>
-
-	<outputs>
-		<data format="input" name="output" metadata_source="input" />
-	</outputs>
-
-	<help>
+        <param name="percent" type="integer" value="90">
+            <label>Percent of bases in sequence that must have quality equal to / higher than cut-off value</label>
+        </param>
+    </inputs>
+    <outputs>
+        <data format_source="input" name="output" metadata_source="input" />
+    </outputs>
+    <tests>
+        <test>
+            <!-- Test1:  100% of bases with quality 33 or higher (pretty steep requirement...) -->
+            <param name="input" value="fastq_qual_filter1.fastq" ftype="fastqsolexa" />
+            <param name="quality" value="33"/>
+            <param name="percent" value="100"/>
+            <output name="output" ftype="fastqsolexa" file="fastq_qual_filter1a.out" />
+        </test>
+        <test>
+            <!-- Test2:  80% of bases with quality 20 or higher -->
+            <param name="input" value="fastq_qual_filter1.fastq" ftype="fastqsolexa"/>
+            <param name="quality" value="20"/>
+            <param name="percent" value="80"/>
+            <output name="output" ftype="fastqsolexa" file="fastq_qual_filter1b.out" />
+        </test>
+    </tests>
+    <help>
 **What it does**
 
 This tool filters reads based on quality scores.
@@ -77,7 +77,7 @@ Using **percent = 100** and **cut-off = 20** - This read will be discarded (not 
 
 This tool is based on `FASTX-toolkit`__ by Assaf Gordon.
 
- .. __: http://hannonlab.cshl.edu/fastx_toolkit/	    
-	</help>
+ .. __: http://hannonlab.cshl.edu/fastx_toolkit/
+    </help>
 <!-- FASTQ-Quality-Filter is part of the FASTX-toolkit, by A.Gordon (gordon@cshl.edu) -->
 </tool>

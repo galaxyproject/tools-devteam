@@ -1,0 +1,78 @@
+<tool id="vcftools_consensus" name="Consensus" version="0.1.11">
+    <description>Apply VCF variants to a fasta file to create consensus sequence</description>
+
+    <requirements>
+        <requirement type="package" version="0.1.19">samtools</requirement>
+        <requirement type="package" version="1.3.2">htslib</requirement>
+        <requirement type="package" version="0.1.11">vcftools</requirement>
+    </requirements>
+
+    <stdio>
+        <!--<regex match=".*" source="both" level="log" description="tool progress"/>-->
+        <exit_code range="1:" level="fatal" />
+    </stdio>
+
+    <command>
+    <![CDATA[
+        ln -s '${variants}' variants.vcf &&
+        vcf-sort variants.vcf | bgzip -c > variants.sorted.vcf.gz &&
+
+        tabix -p vcf variants.sorted.vcf.gz  &&
+
+        #if $ref_genome_source.index_source == 'history':
+          ln -s '${ref_genome_source.ref_file}' reference.fasta &&
+          samtools faidx reference.fasta &&
+        #end if
+
+        cat
+        #if $ref_genome_source.index_source == 'builtin'
+          '${ ref_genome_source.reference_genome.fields.path }'
+        #else
+          reference.fasta
+        #end if
+        | vcf-consensus variants.sorted.vcf.gz > '${output}'
+    ]]>
+    </command>
+    <inputs>
+      <conditional name="ref_genome_source">
+        <param name="index_source" type="select" label="Reference genome source">
+          <option value="builtin">Built-in genome</option>
+          <option value="history">History</option>
+        </param>
+        <when value="builtin">
+          <param name="reference_genome" type="select">
+            <options from_data_table="fasta_indexes">
+              <filter column="2" type="sort_by" />
+              <validator message="No suitable reference genomes found" type="no_options" />
+            </options>
+          </param>
+        </when>
+        <when value="history">
+          <param name="ref_file" type="data" format="fasta" label="Reference genome" />
+        </when>
+      </conditional>
+      <param name="variants" label="Datasets containing Variants" type="data" format="vcf" />
+    </inputs>
+
+    <outputs>
+        <data name="output" format="fasta"/>
+    </outputs>
+
+    <tests>
+      <test>
+        <param name="index_source" value="history" />
+        <param ftype="fasta" name="ref_file" value="reference.fasta" />
+        <param ftype="vcf" name="variants" value="sample1.vcf" />
+        <output name="output" ftype="fasta" file="output1.fasta" />
+      </test>
+    </tests>
+
+    <help>
+        Please see the VCFtools `documentation`__ for help and further information.
+
+        .. __: http://vcftools.sourceforge.net/docs.html
+    </help>
+    <citations>
+      <citation type="doi">10.1093/bioinformatics/btr330</citation>
+    </citations>
+</tool>

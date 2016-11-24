@@ -1,4 +1,8 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/cluster
-owner: devteam
+categories:
+- Genomic Interval Operations
+description: Cluster the intervals of a dataset
 name: cluster
-    
+owner: devteam
+homepage_url: https://github.com/galaxyproject/gops
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/gops/cluster
+type: unrestricted

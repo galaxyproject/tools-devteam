@@ -1,4 +1,11 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/substitution_rates
-owner: devteam
+categories:
+- Sequence Analysis
+- Variant Analysis
+description: Estimate substitution rates for non-coding regions
+long_description: |
+  This tool takes a pairwise MAF file as input and estimates substitution
+  rate according to Jukes-Cantor JC69 model.
 name: substitution_rates
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/substitution_rates
+type: unrestricted

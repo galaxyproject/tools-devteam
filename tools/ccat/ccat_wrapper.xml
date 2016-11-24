@@ -2,15 +2,24 @@
   <description>Control-based ChIP-seq Analysis Tool</description>
   <requirements>
     <requirement type="package" version="3.0">CCAT</requirement>
+    <requirement type="package" version="3.0">ccat</requirement>
   </requirements>
-  <command interpreter="python">ccat_wrapper.py '$input_tag_file' '$input_control_file' '$chromInfo' 
-  #if str( $options_type[ 'options_type_selector' ] ) == 'advanced':
-  '$input_advanced_config_file' 
-  #else:
-  '${ options_type.input_config_file.fields.path }'
-  #end if
-  'CCAT in Galaxy' 
-  '$output_peak_file' '$output_region_file' '$output_top_file' '$output_log_file'</command>
+  <command>
+    python $__tool_directory__/ccat_wrapper.py
+        '$input_tag_file'
+        '$input_control_file'
+        '$chromInfo'
+        #if str( $options_type[ 'options_type_selector' ] ) == 'advanced':
+            '$input_advanced_config_file' 
+        #else:
+            '${ options_type.input_config_file.fields.path }'
+        #end if
+        'CCAT in Galaxy'
+        '$output_peak_file'
+        '$output_region_file'
+        '$output_top_file'
+        '$output_log_file'
+  </command>
   <inputs>
     <param name="input_tag_file" type="data" format="bed" label="ChIP-Seq Tag File" >
       <validator type="unspecified_build" />

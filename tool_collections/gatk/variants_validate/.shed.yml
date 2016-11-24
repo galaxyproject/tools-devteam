@@ -1,4 +1,10 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/variants_validate
-owner: devteam
+homepage_url: https://www.broadinstitute.org/gatk/
+categories:
+- Variant Analysis
+description: Validate Variants
+long_description: |
+  Validates a variants file.
 name: variants_validate
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/gatk/variants_validate
+type: unrestricted

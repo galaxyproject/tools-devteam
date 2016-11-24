@@ -1,4 +1,12 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/hgv_fundo
-owner: devteam
+categories:
+- Sequence Analysis
+description: FunDO human genes associated with disease terms
+long_description: |
+  This tool searches the disease-term field of the DOLite mappings
+  used by the FunDO project and returns a set of genes that are associated with terms
+  matching the specified pattern.  (This is the reverse of what FunDO''s own server
+  does.)
 name: hgv_fundo
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/hgv/hgv_fundo
+type: unrestricted

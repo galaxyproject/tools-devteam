@@ -1,4 +1,13 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/dgidb_annotator
-owner: devteam
+categories:
+- Systems Biology
+- Variant Analysis
+description: 'Annotates a tabular file with information from the Drug-Gene Interaction Database (http://dgidb.genome.wustl.edu/)'
+long_description: |
+  Given a tabular file and a column of gene names, adds columns with
+  the following information from the Drug-Gene Interaction database (http://dgidb.genome.wustl.edu/):
+  (a) geneName; (b) geneLongName; (c) gene categories; (d) interaction type; (e) drugName;
+  (f) source.
 name: dgidb_annotator
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/dgidb_annotator
+type: unrestricted

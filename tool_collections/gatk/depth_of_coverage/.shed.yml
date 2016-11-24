@@ -1,4 +1,15 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/depth_of_coverage
-owner: devteam
+homepage_url: https://www.broadinstitute.org/gatk/
+categories:
+- Variant Analysis
+description: Depth of Coverage on BAM files
+long_description: |
+  DepthOfCoverage processes a set of bam files to determine coverage
+  at different levels of partitioning and aggregation. Coverage can be analyzed per
+  locus, per interval, per gene, or in total; can be partitioned by sample, by read
+  group, by technology, by center, or by library; and can be summarized by mean, median,
+  quartiles, and/or percentage of bases covered to or beyond a threshold. Additionally,
+  reads and bases can be filtered by mapping or base quality score.
 name: depth_of_coverage
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/gatk/depth_of_coverage
+type: unrestricted

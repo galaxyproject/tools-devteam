@@ -1,4 +1,11 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/scatterplot
-owner: devteam
+categories:
+- Graphics
+- Statistics
+description: Scatterplot of two numeric columns
+long_description: |
+  This tool creates a simple scatter plot between two variables containing
+  numeric values of a selected dataset.
 name: scatterplot
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/scatterplot
+type: unrestricted

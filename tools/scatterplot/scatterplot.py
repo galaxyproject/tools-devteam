@@ -1,12 +1,21 @@
 #!/usr/bin/env python
-#Greg Von Kuster
+# Greg Von Kuster
 
 import sys
-from rpy import *
+
+from numpy import array
+import rpy2.rpy_classic as rpy
+from rpy2.robjects.numpy2ri import numpy2ri
+
+
+rpy.set_default_mode(rpy.NO_CONVERSION)
+r = rpy.r
+
 
 def stop_err(msg):
     sys.stderr.write(msg)
     sys.exit()
+
 
 def main():
 
@@ -29,13 +38,13 @@ def main():
     for i, line in enumerate( file( in_fname ) ):
         valid = True
         line = line.rstrip( '\r\n' )
-        if line and not line.startswith( '#' ): 
+        if line and not line.startswith( '#' ):
             row = []
             fields = line.split( "\t" )
             for column in columns:
                 try:
                     val = fields[column]
-                    if val.lower() == "na": 
+                    if val.lower() == "na":
                         row.append( float( "nan" ) )
                     else:
                         row.append( float( fields[column] ) )
@@ -54,26 +63,25 @@ def main():
             valid = False
             skipped_lines += 1
             if not first_invalid_line:
-                first_invalid_line = i+1
+                first_invalid_line = i + 1
 
         if valid:
             matrix.append( row )
 
     if skipped_lines < i:
         try:
+            a = numpy2ri(array( matrix ))
             r.pdf( out_fname, 8, 8 )
-            r.plot( array( matrix ), type="p", main=title, xlab=xlab, ylab=ylab, col="blue", pch=19 )
+            r.plot( a, type="p", main=title, xlab=xlab, ylab=ylab, col="blue", pch=19 )
             r.dev_off()
         except Exception, exc:
-            stop_err( "%s" %str( exc ) )
+            stop_err( "%s" % str( exc ) )
     else:
         stop_err( "All values in both columns %s and %s are non-numeric or empty." % ( sys.argv[3], sys.argv[4] ) )
 
     print "Scatter plot on columns %s, %s. " % ( sys.argv[3], sys.argv[4] )
     if skipped_lines > 0:
         print "Skipped %d lines starting with line #%d, value '%s' in column %d is not numeric." % ( skipped_lines, first_invalid_line, invalid_value, invalid_column )
-
-    r.quit( save="no" )
 
 if __name__ == "__main__":
     main()

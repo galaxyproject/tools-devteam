@@ -1,4 +1,11 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/samtools_flagstat
-owner: devteam
+categories:
+- SAM
+- Statistics
+description: Provides simple stats on BAM files.
+long_description: |
+  This tool uses the SAMtools toolkit to produce simple stats on a BAM file.
 name: samtools_flagstat
-    
+owner: devteam
+homepage_url: http://www.htslib.org/
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/samtools/samtools_flagstat
+type: unrestricted

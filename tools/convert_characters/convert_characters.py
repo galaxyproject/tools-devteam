@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 #By, Guruprasad Ananda.
 
-from galaxy import eggs
 import sys, re
 
 def stop_err(msg):
@@ -16,9 +15,9 @@ def main():
         fin = open(sys.argv[1],'r')
     except:
         stop_err("Input file cannot be opened for reading.")
-    
+
     from_char = sys.argv[2]
-    
+
     try:
         fout = open(sys.argv[3],'w')
     except:
@@ -31,7 +30,7 @@ def main():
     for line in fin:
         line = line.strip()
         try:
-            fout.write("%s\n" %(re.sub(from_ch,'\t',line)))     
+            fout.write("%s\n" %(re.sub(from_ch,'\t',line)))
         except:
             skipped += 1
             

@@ -1,4 +1,11 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/fastqsolexa_to_fasta_qual
-owner: devteam
+categories:
+  - Convert Formats
+  - Fastq Manipulation
+description: 'FASTQSOLEXA-to-FASTA-QUAL extracts sequences and quality scores from FASTQSOLEXA data'
+long_description: |
+  This tool extracts sequences and quality scores from FASTQ data
+  ( Solexa variant ), producing a FASTA dataset and a QUAL dataset.
 name: fastqsolexa_to_fasta_qual
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/fastqsolexa_to_fasta_qual
+type: unrestricted

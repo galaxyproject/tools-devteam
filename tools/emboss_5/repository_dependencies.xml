@@ -1,4 +1,0 @@
-<?xml version="1.0"?>
-<repositories description="Emboss 5 requires the Galaxy applicable data formats used by Emboss tools.">
-    <repository name="emboss_datatypes" owner="devteam" />
-</repositories>

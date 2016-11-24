@@ -24,7 +24,7 @@
   <inputs>
    <page>
     <param format="fasta" name="input" type="data" label="Fasta File" />
-    <param name="outname" label="Name for output files to make it easy to remember what you did" type="text" size="50" value="Clustal_run" />
+    <param name="outname" label="Name for output files to make it easy to remember what you did" type="text" value="Clustal_run" />
     <param name="dnarna" type="select" label="Data Type">
       <option value="DNA" selected="True">DNA nucleotide sequences</option>
       <option value="PROTEIN">Protein sequences</option>
@@ -57,9 +57,9 @@
         <when value="complete">
         </when>
         <when value="part">    
-           <param name="seq_range_start" size="5" type="integer" value="1" label="start point" help="sequence range to write">
+           <param name="seq_range_start" type="integer" value="1" label="start point" help="sequence range to write">
            </param>
-           <param name="seq_range_end" size="5" type="integer" value="99999" label="end point" >
+           <param name="seq_range_end" type="integer" value="99999" label="end point" >
            </param> 
         </when>
     </conditional>

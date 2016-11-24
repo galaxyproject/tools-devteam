@@ -1,4 +1,11 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/megablast_wrapper
-owner: devteam
+categories:
+- Next Gen Mappers
+- Sequence Analysis
+description: 'Megablast compare short reads against htgs, nt, and wgs databases'
+long_description: |
+  This tool runs megablast function of BLAST+ blastn tool - a high
+  performance nucleotide local aligner developed by Webb Miller and colleagues.
 name: megablast_wrapper
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/megablast_wrapper
+type: unrestricted

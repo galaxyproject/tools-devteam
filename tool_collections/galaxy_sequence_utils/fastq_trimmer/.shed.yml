@@ -1,4 +1,14 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/fastq_trimmer
-owner: devteam
+homepage_url: https://github.com/galaxyproject/sequence_utils
+categories:
+- Fastq Manipulation
+description: FASTQ Trimmer by quality
+long_description: |
+  This tool allows you to trim the ends of reads.
+
+  You can specify either absolute or percent-based offsets. Offsets are calculated,
+  starting at 0, from the respective end to be trimmed. When using the percent-based
+  method, offsets are rounded to the nearest integer.
 name: fastq_trimmer
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/galaxy_sequence_utils/fastq_trimmer
+type: unrestricted

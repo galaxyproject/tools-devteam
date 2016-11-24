@@ -1,4 +1,12 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/fasta_compute_length
-owner: devteam
+categories:
+ - Fasta Manipulation
+description: Compute sequence length
+long_description: |
+  This tool counts the length of each fasta sequence in the file.
+  The output file has two columns per line (separated by tab): fasta titles and lengths
+  of the sequences. The option *How many characters to keep?* allows to select a specified
+  number of letters from the beginning of each FASTA entry.
 name: fasta_compute_length
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/fasta_compute_length
+type: unrestricted

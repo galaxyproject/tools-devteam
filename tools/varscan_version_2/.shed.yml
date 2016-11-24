@@ -1,4 +1,9 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/varscan_version_2
-owner: devteam
+categories:
+- Variant Analysis
+description: VarScan wrapper
+long_description: |
+  VarScan is a variant caller for high-throughput sequencing data.
 name: varscan_version_2
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/varscan_version_2
+type: unrestricted

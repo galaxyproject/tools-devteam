@@ -2,7 +2,6 @@
 
 """
 Runs Bowtie on single-end or paired-end data.
-For use with Bowtie v. 0.12.7
 
 usage: bowtie_wrapper.py [options]
     -t, --threads=t: The number of threads to run
@@ -13,6 +12,7 @@ usage: bowtie_wrapper.py [options]
     --output_suppressed_reads=: File name for suppressed reads because of max setting (single-end)
     --output_suppressed_reads_l=: File name for suppressed reads because of max setting (left, paired-end)
     --output_suppressed_reads_r=: File name for suppressed reads because of max setting (right, paired-end)
+    --output_mapping_stats=: File name for mapping statistics (output on stderr by bowtie)
     -i, --input1=i: The (forward or single-end) reads file in Sanger FASTQ format
     -I, --input2=I: The reverse reads file in Sanger FASTQ format
     -4, --dataType=4: The type of data (SOLiD or Solexa)
@@ -86,6 +86,7 @@ def __main__():
     parser.add_option( '', '--output_suppressed_reads', dest='output_suppressed_reads', help='File name for suppressed reads because of max setting (single-end)' )
     parser.add_option( '', '--output_suppressed_reads_l', dest='output_suppressed_reads_l', help='File name for suppressed reads because of max setting (left, paired-end)' )
     parser.add_option( '', '--output_suppressed_reads_r', dest='output_suppressed_reads_r', help='File name for suppressed reads because of max setting (right, paired-end)' )
+    parser.add_option( '', '--output_mapping_stats', dest='output_mapping_stats', help='File for mapping statistics (i.e. stderr from bowtie)' )
     parser.add_option( '-4', '--dataType', dest='dataType', help='The type of data (SOLiD or Solexa)' )
     parser.add_option( '-i', '--input1', dest='input1', help='The (forward or single-end) reads file in Sanger FASTQ format' )
     parser.add_option( '-I', '--input2', dest='input2', help='The reverse reads file in Sanger FASTQ format' )
@@ -415,7 +416,7 @@ def __main__():
             # align
             tmp = tempfile.NamedTemporaryFile( dir=tmp_index_dir ).name
             tmp_stderr = open( tmp, 'wb' )
-            proc = subprocess.Popen( args=cmd2, shell=True, cwd=tmp_index_dir, stderr=tmp_stderr.fileno() )
+            proc = subprocess.Popen( args=cmd2, shell=True, cwd=tmp_index_dir, stdout=sys.stdout, stderr=tmp_stderr.fileno() )
             returncode = proc.wait()
             tmp_stderr.close()
             # get stderr, allowing for case where it's very large
@@ -432,6 +433,10 @@ def __main__():
             tmp_stderr.close()
             if returncode != 0:
                 raise Exception, stderr
+            elif options.output_mapping_stats is not None:
+                # Write stderr (containing the mapping statistics) to a named file
+                with open(options.output_mapping_stats, 'w') as mapping_stats:
+                    mapping_stats.write( stderr )
             # get suppressed and unmapped reads output files in place if appropriate
             if options.paired == 'paired' and tmp_suppressed_file_name and \
                                options.output_suppressed_reads_l and options.output_suppressed_reads_r:

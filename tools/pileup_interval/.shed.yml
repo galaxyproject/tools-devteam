@@ -1,4 +1,14 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/pileup_interval
-owner: devteam
+categories:
+- SAM
+description: Pileup-to-Interval condenses pileup format into ranges of bases
+long_description: |
+  Reduces the size of a results set by taking a pileup file and producing
+  a condensed version showing consecutive sequences of bases meeting coverage criteria.
+  The tool works on six and ten column pileup formats produced with *samtools pileup*
+  command. You also can specify columns for the input file manually. The tool assumes
+  that the pileup dataset was produced by *samtools pileup* command (although you
+  can override this by setting column assignments manually).
 name: pileup_interval
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/pileup_interval
+type: unrestricted

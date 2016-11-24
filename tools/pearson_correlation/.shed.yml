@@ -1,4 +1,10 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/pearson_correlation
-owner: devteam
+categories:
+- Statistics
+description: Pearson and apos Correlation between any two numeric columns
+long_description: |
+  Computes Pearsons correlation coefficient between any two numerical
+  columns. Column numbers start at 1.
 name: pearson_correlation
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/pearson_correlation
+type: unrestricted

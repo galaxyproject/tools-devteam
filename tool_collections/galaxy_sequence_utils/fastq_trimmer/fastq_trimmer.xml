@@ -1,4 +1,4 @@
-<tool id="fastq_trimmer" name="FASTQ Trimmer" version="1.0.0">
+<tool id="fastq_trimmer" name="FASTQ Trimmer" version="1.0.1">
   <description>by column</description>
   <requirements>
     <requirement type="package" version="1.0.0">galaxy_sequence_utils</requirement>
@@ -16,8 +16,7 @@
           <validator type="in_range" message="Base Offsets must be positive" min="0" max="inf"/>
           <validator type="expression" message="An integer is required.">int( float( value ) ) == float( value )</validator>
         </param>
-        <param name="right_column_offset" label="Offset from 3' end" value="0" type="integer" help="Values start at 0, increasing from the right">
-          <validator type="in_range" message="Base Offsets must be positive" min="0" max="inf"/>
+        <param name="right_column_offset" label="Offset from 3' end" value="0" type="integer" help="Values start at 0, increasing from the right; use a negative value to remove everything to the right of the absolute value of the position">
           <validator type="expression" message="An integer is required.">int( float( value ) ) == float( value )</validator>
         </param>
       </when>

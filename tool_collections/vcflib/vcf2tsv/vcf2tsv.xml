@@ -1,11 +1,11 @@
-<tool id="vcf2tsv" name="VCFtoTab-delimited:" version="0.0.3">
+<tool id="vcf2tsv" name="VCFtoTab-delimited:" version="@WRAPPER_VERSION@.0">
   <description>Convert VCF data into TAB-delimited format</description>
   <macros>
       <import>macros.xml</import>
   </macros>
-  <expand macro="requirements"></expand>
+  <expand macro="requirements"/>
   <expand macro="stdio" />
-  <command>vcf2tsv ${g_option} -n "${null_filler}" "${input}" > "${out_file1}"</command>
+  <command>vcf2tsv ${g_option} -n '${null_filler}' '${input}' > '${out_file1}'</command>
   <inputs>
     <param format="vcf" name="input" type="data" label="Select VCF dataset to convert"/>
     <param name="g_option" type="boolean" checked="true" truevalue="-g" falsevalue="" label="Report data per sample" help="-g option"/>
@@ -34,13 +34,12 @@
     </test>
     </tests>
   <help>
-
 Converts VCF dataset to tab-delimited format, using null string to replace empty values in the table.
 Specifying "**Report data per sample**" (-g) will output one line per sample with genotype information.
 
 ----
 
 Vcf2Tsv @IS_PART_OF_VCFLIB@
-</help>
+  </help>
   <expand macro="citations" />
 </tool>

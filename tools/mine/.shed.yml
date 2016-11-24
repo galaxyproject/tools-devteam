@@ -1,4 +1,10 @@
-# repository published to https://toolshed.g2.bx.psu.edu/repos/devteam/mine
-owner: devteam
+categories:
+- Variant Analysis
+description: Maximal Information-based Nonparametric Exploration
+long_description: |
+  Applies the Maximal Information-based Nonparametric Exploration strategy to an input dataset.
+  See http://www.exploredata.net/ for more information.
 name: mine
-    
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/mine
+type: unrestricted

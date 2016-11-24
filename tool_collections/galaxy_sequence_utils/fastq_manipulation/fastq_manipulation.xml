@@ -1,10 +1,98 @@
-<tool id="fastq_manipulation" name="Manipulate FASTQ" version="1.0.1">
+<tool id="fastq_manipulation" name="Manipulate FASTQ" version="1.0.3">
   <options sanitize="False" /> <!-- This tool uses a file to rely all parameter information (actually a dynamically generated python module), we can safely not sanitize any parameters -->
-  <requirements>
-    <requirement type="package" version="1.0.0">galaxy_sequence_utils</requirement>
-  </requirements>
   <description>reads on various attributes</description>
-  <command interpreter="python">fastq_manipulation.py $input_file $fastq_manipulation_file $output_file $output_file.files_path '${input_file.extension[len( 'fastq' ):]}'</command>
+  <requirements>
+    <requirement type="package" version="1.0.1">galaxy_sequence_utils</requirement>
+  </requirements>
+  <command>python $__tool_directory__/fastq_manipulation.py '$input_file' '$fastq_manipulation_file' '$output_file' '$output_file.files_path' '${input_file.extension[len( 'fastq' ):]}'</command>
+  <configfiles>
+    <configfile name="fastq_manipulation_file">##create an importable module
+#import binascii
+import re
+import binascii
+from string import maketrans
+##does read match
+def match_read( fastq_read ):
+    #for $match_block in $match_blocks:
+        #if $match_block['match_type']['match_type_selector'] == 'identifier':
+    search_target = fastq_read.identifier[1:] ##don't include @
+        #elif $match_block['match_type']['match_type_selector'] == 'sequence':
+    search_target = fastq_read.sequence
+        #elif $match_block['match_type']['match_type_selector'] == 'quality':
+    search_target = fastq_read.quality
+        #else:
+        #continue
+        #end if
+    if not re.search( binascii.unhexlify( "${ binascii.hexlify( str( match_block['match_type']['match']['match_by'] ) ) }" ), search_target  ):
+        return False
+    #end for
+    return True
+##modify matched reads
+def manipulate_read( fastq_read ):
+    new_read = fastq_read.clone()
+    #for $manipulate_block in $manipulate_blocks:
+        #if $manipulate_block['manipulation_type']['manipulation_type_selector'] == 'identifier':
+            #if $manipulate_block['manipulation_type']['manipulation']['manipulation_selector'] == 'translate':
+    new_read.identifier = "@%s" % new_read.identifier[1:].translate( maketrans( binascii.unhexlify( "${ binascii.hexlify( str( manipulate_block['manipulation_type']['manipulation']['from'] ) ) }" ), binascii.unhexlify( "${ binascii.hexlify( str( manipulate_block['manipulation_type']['manipulation']['to'] ) ) }" ) ) )
+            #end if
+        #elif $manipulate_block['manipulation_type']['manipulation_type_selector'] == 'sequence':
+            #if $manipulate_block['manipulation_type']['manipulation']['manipulation_selector'] == 'translate':
+    new_read.sequence = new_read.sequence.translate( maketrans( binascii.unhexlify( "${ binascii.hexlify( str( manipulate_block['manipulation_type']['manipulation']['from'] ) ) }" ), binascii.unhexlify( "${ binascii.hexlify( str( manipulate_block['manipulation_type']['manipulation']['to'] ) ) }" ) ) )
+            #elif $manipulate_block['manipulation_type']['manipulation']['manipulation_selector'] == 'rev_comp':
+    new_read = new_read.reverse_complement()
+            #elif $manipulate_block['manipulation_type']['manipulation']['manipulation_selector'] == 'rev_no_comp':
+    new_read = new_read.reverse()
+            #elif $manipulate_block['manipulation_type']['manipulation']['manipulation_selector'] == 'no_rev_comp':
+    new_read = new_read.complement()
+            #elif $manipulate_block['manipulation_type']['manipulation']['manipulation_selector'] == 'trim':
+                #if $manipulate_block['manipulation_type']['manipulation']['offset_type']['base_offset_type'] == 'offsets_percent':
+    left_column_offset = int( round( float( ${ manipulate_block['manipulation_type']['manipulation']['offset_type']['left_column_offset'] } ) / 100.0 * float( len( new_read ) ) ) )
+    right_column_offset = int( round( float( ${ manipulate_block['manipulation_type']['manipulation']['offset_type']['right_column_offset'] } ) / 100.0 * float( len( new_read ) ) ) )
+                #else
+    left_column_offset = ${ manipulate_block['manipulation_type']['manipulation']['offset_type']['left_column_offset'] }
+    right_column_offset = ${ manipulate_block['manipulation_type']['manipulation']['offset_type']['right_column_offset'] }
+                #end if
+    if right_column_offset != 0:
+        right_column_offset = -right_column_offset
+    else:
+        right_column_offset = None
+    new_read = new_read.slice( left_column_offset, right_column_offset )
+    if not ( ${str( manipulate_block['manipulation_type']['manipulation']['keep_zero_length'] ) == 'keep_zero_length'} or len( new_read ) ):
+        return None
+            #elif $manipulate_block['manipulation_type']['manipulation']['manipulation_selector'] == 'dna_to_rna':
+    new_read = new_read.sequence_as_DNA()
+            #elif $manipulate_block['manipulation_type']['manipulation']['manipulation_selector'] == 'rna_to_dna':
+    new_read = new_read.sequence_as_RNA()
+            #elif $manipulate_block['manipulation_type']['manipulation']['manipulation_selector'] == 'change_adapter':
+    if new_read.sequence_space == 'color':
+        new_read = new_read.change_adapter( binascii.unhexlify( "${ binascii.hexlify( str( manipulate_block['manipulation_type']['manipulation']['new_adapter'] ) ) }" ) )
+            #end if
+        #elif $manipulate_block['manipulation_type']['manipulation_type_selector'] == 'quality':
+            #if $manipulate_block['manipulation_type']['manipulation']['manipulation_selector'] == 'translate':
+    new_read.quality = new_read.quality.translate( maketrans( binascii.unhexlify( "${ binascii.hexlify( str( manipulate_block['manipulation_type']['manipulation']['from'] ) ) }" ), binascii.unhexlify( "${ binascii.hexlify( str( manipulate_block['manipulation_type']['manipulation']['to'] ) ) }" ) ) )
+            #elif $manipulate_block['manipulation_type']['manipulation']['manipulation_selector'] == 'map_score':
+    def score_method( score ):
+        raise Exception, "Unimplemented" ##This option is not yet available, need to abstract out e.g. column adding tool action: preventing users from using 'harmful' actions
+        new_read.quality_map( score_method )
+            #end if
+        #elif $manipulate_block['manipulation_type']['manipulation_type_selector'] == 'miscellaneous':
+            #if $manipulate_block['manipulation_type']['manipulation']['manipulation_selector'] == 'remove':
+    return None
+            #end if
+        #else:
+        #continue
+        #end if
+    #end for
+    if new_read.description != "+":
+        new_read.description = "+%s" % new_read.identifier[1:] ##ensure description is still valid
+    return new_read
+def match_and_manipulate_read( fastq_read ):
+    new_read = fastq_read
+    if match_read( fastq_read ):
+        new_read = manipulate_read( fastq_read )
+    return new_read
+</configfile>
+  </configfiles>
   <inputs>
     <!-- This tool is purposely over-engineered (e.g. Single option conditionals) to allow easy enhancement with workflow/rerun compatibility -->
     <page>
@@ -101,8 +189,7 @@
                       <validator type="in_range" message="Base Offsets must be positive" min="0" max="inf"/>
                       <validator type="expression" message="An integer is required.">int( float( value ) ) == float( value )</validator>
                     </param>
-                    <param name="right_column_offset" label="Offset from 3' end" value="0" type="integer" help="Values start at 0, increasing from the right">
-                      <validator type="in_range" message="Base Offsets must be positive" min="0" max="inf"/>
+                    <param name="right_column_offset" label="Offset from 3' end" value="0" type="integer" help="Values start at 0, increasing from the right; use a negative value to remove everything to the right of the absolute value of the position">
                       <validator type="expression" message="An integer is required.">int( float( value ) ) == float( value )</validator>
                     </param>
                   </when>
@@ -142,9 +229,9 @@
                 <param name="from" type="text" label="From" value="" />
                 <param name="to" type="text" label="To" value="" />
               </when>
-              <when value="modify_each_score">
+              <!-- <when value="modify_each_score">
                 <param name="map_score" type="text" label="Modify Score by" value="$score + 1" />
-              </when>
+              </when> -->
             </conditional>
           </when>
           <when value="miscellaneous">
@@ -161,96 +248,8 @@
       </repeat>
     </page>
   </inputs>
-  <configfiles>
-    <configfile name="fastq_manipulation_file">##create an importable module
-#import binascii
-import re
-import binascii
-from string import maketrans
-##does read match
-def match_read( fastq_read ):
-    #for $match_block in $match_blocks:
-        #if $match_block['match_type']['match_type_selector'] == 'identifier':
-    search_target = fastq_read.identifier[1:] ##don't include @
-        #elif $match_block['match_type']['match_type_selector'] == 'sequence':
-    search_target = fastq_read.sequence
-        #elif $match_block['match_type']['match_type_selector'] == 'quality':
-    search_target = fastq_read.quality
-        #else:
-        #continue
-        #end if
-    if not re.search( binascii.unhexlify( "${ binascii.hexlify( str( match_block['match_type']['match']['match_by'] ) ) }" ), search_target  ):
-        return False
-    #end for
-    return True
-##modify matched reads
-def manipulate_read( fastq_read ):
-    new_read = fastq_read.clone()
-    #for $manipulate_block in $manipulate_blocks:
-        #if $manipulate_block['manipulation_type']['manipulation_type_selector'] == 'identifier':
-            #if $manipulate_block['manipulation_type']['manipulation']['manipulation_selector'] == 'translate':
-    new_read.identifier = "@%s" % new_read.identifier[1:].translate( maketrans( binascii.unhexlify( "${ binascii.hexlify( str( manipulate_block['manipulation_type']['manipulation']['from'] ) ) }" ), binascii.unhexlify( "${ binascii.hexlify( str( manipulate_block['manipulation_type']['manipulation']['to'] ) ) }" ) ) )
-            #end if
-        #elif $manipulate_block['manipulation_type']['manipulation_type_selector'] == 'sequence':
-            #if $manipulate_block['manipulation_type']['manipulation']['manipulation_selector'] == 'translate':
-    new_read.sequence = new_read.sequence.translate( maketrans( binascii.unhexlify( "${ binascii.hexlify( str( manipulate_block['manipulation_type']['manipulation']['from'] ) ) }" ), binascii.unhexlify( "${ binascii.hexlify( str( manipulate_block['manipulation_type']['manipulation']['to'] ) ) }" ) ) )
-            #elif $manipulate_block['manipulation_type']['manipulation']['manipulation_selector'] == 'rev_comp':
-    new_read = new_read.reverse_complement()
-            #elif $manipulate_block['manipulation_type']['manipulation']['manipulation_selector'] == 'rev_no_comp':
-    new_read = new_read.reverse()
-            #elif $manipulate_block['manipulation_type']['manipulation']['manipulation_selector'] == 'no_rev_comp':
-    new_read = new_read.complement()
-            #elif $manipulate_block['manipulation_type']['manipulation']['manipulation_selector'] == 'trim':
-                #if $manipulate_block['manipulation_type']['manipulation']['offset_type']['base_offset_type'] == 'offsets_percent':
-    left_column_offset = int( round( float( ${ manipulate_block['manipulation_type']['manipulation']['offset_type']['left_column_offset'] } ) / 100.0 * float( len( new_read ) ) ) )
-    right_column_offset = int( round( float( ${ manipulate_block['manipulation_type']['manipulation']['offset_type']['right_column_offset'] } ) / 100.0 * float( len( new_read ) ) ) )
-                #else
-    left_column_offset = ${ manipulate_block['manipulation_type']['manipulation']['offset_type']['left_column_offset'] }
-    right_column_offset = ${ manipulate_block['manipulation_type']['manipulation']['offset_type']['right_column_offset'] }
-                #end if
-    if right_column_offset > 0:
-        right_column_offset = -right_column_offset
-    else:
-        right_column_offset = None
-    new_read = new_read.slice( left_column_offset, right_column_offset )
-    if not ( ${str( manipulate_block['manipulation_type']['manipulation']['keep_zero_length'] ) == 'keep_zero_length'} or len( new_read ) ):
-        return None
-            #elif $manipulate_block['manipulation_type']['manipulation']['manipulation_selector'] == 'dna_to_rna':
-    new_read = new_read.sequence_as_DNA()
-            #elif $manipulate_block['manipulation_type']['manipulation']['manipulation_selector'] == 'rna_to_dna':
-    new_read = new_read.sequence_as_RNA()
-            #elif $manipulate_block['manipulation_type']['manipulation']['manipulation_selector'] == 'change_adapter':
-    if new_read.sequence_space == 'color':
-        new_read = new_read.change_adapter( binascii.unhexlify( "${ binascii.hexlify( str( manipulate_block['manipulation_type']['manipulation']['new_adapter'] ) ) }" ) )
-            #end if
-        #elif $manipulate_block['manipulation_type']['manipulation_type_selector'] == 'quality':
-            #if $manipulate_block['manipulation_type']['manipulation']['manipulation_selector'] == 'translate':
-    new_read.quality = new_read.quality.translate( maketrans( binascii.unhexlify( "${ binascii.hexlify( str( manipulate_block['manipulation_type']['manipulation']['from'] ) ) }" ), binascii.unhexlify( "${ binascii.hexlify( str( manipulate_block['manipulation_type']['manipulation']['to'] ) ) }" ) ) )
-            #elif $manipulate_block['manipulation_type']['manipulation']['manipulation_selector'] == 'map_score':
-    def score_method( score ):
-        raise Exception, "Unimplemented" ##This option is not yet available, need to abstract out e.g. column adding tool action: preventing users from using 'harmful' actions
-        new_read.quality_map( score_method )
-            #end if
-        #elif $manipulate_block['manipulation_type']['manipulation_type_selector'] == 'miscellaneous':
-            #if $manipulate_block['manipulation_type']['manipulation']['manipulation_selector'] == 'remove':
-    return None
-            #end if
-        #else:
-        #continue
-        #end if
-    #end for
-    if new_read.description != "+":
-        new_read.description = "+%s" % new_read.identifier[1:] ##ensure description is still valid
-    return new_read
-def match_and_manipulate_read( fastq_read ):
-    new_read = fastq_read
-    if match_read( fastq_read ):
-        new_read = manipulate_read( fastq_read )
-    return new_read
-</configfile>
-  </configfiles>
   <outputs>
-    <data format="input" name="output_file" />
+    <data format_source="input_file" name="output_file" />
   </outputs>
   <tests>
     <!-- match all and do nothing -->

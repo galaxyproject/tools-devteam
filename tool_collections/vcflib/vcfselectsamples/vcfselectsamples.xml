@@ -1,9 +1,9 @@
-<tool id="vcfselectsamples" name="VCFselectsamples:" version="0.0.3">
+<tool id="vcfselectsamples" name="VCFselectsamples:" version="@WRAPPER_VERSION@.0">
   <description>Select samples from a VCF dataset</description>
   <macros>
     <import>macros.xml</import>
   </macros>
-  <expand macro="requirements"></expand>
+  <expand macro="requirements"/>
   <expand macro="stdio" />
   <command>vcfkeepsamples "${input1}" ${ ' '.join( map( lambda x:'"%s"' % ( x ), str($vcf_samples ).split(",") ) ) } > "${out_file1}"</command>
   <inputs>
@@ -12,7 +12,7 @@
       <options>
         <filter type="data_meta" ref="input1" key="sample_names" />
       </options>
-</param>
+    </param>
   </inputs>
   <outputs>
     <data format="vcf" name="out_file1" />

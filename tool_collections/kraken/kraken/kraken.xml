@@ -1,22 +1,19 @@
 <?xml version="1.0"?>
-<tool id="kraken" name="Kraken" version="1.1.0">
+<tool id="kraken" name="Kraken" version="1.2.1">
     <description>
         assign taxonomic labels to sequencing reads
     </description>
     <macros>
         <import>macros.xml</import>
     </macros>
+    <expand macro="requirements" />
+    <expand macro="stdio" />
+    <expand macro="version_command" />
     <command>
         <![CDATA[
         @SET_DATABASE_PATH@ &&
         kraken --threads \${GALAXY_SLOTS:-1} @INPUT_DATABASE@ 
         
-        #if $input_sequences.is_of_type( 'fastq' ):
-            --fastq-input
-        #else:
-            --fasta-input
-        #end if
-
         ${only_classified_output}
 
         #if str( $quick_operation.quick ) == "yes":
@@ -25,17 +22,62 @@
 
         #end if
 
-        "$input_sequences"
+        #if $single_paired.single_paired_selector == "yes":
+            #if $forward_input.is_of_type( 'fastq' ):
+                --fastq-input
+            #else:
+                --fasta-input
+            #end if
+            "$forward_input" "$reverse_input"
+            ${single_paired.check_names}
+        #elif $single_paired.single_paired_selector == "collection":
+            #if $single_paired.input_pair.forward.is_of_type( 'fastq' ):
+                --fastq-input
+            #else:
+                --fasta-input
+            #end if
+            "${single_paired.input_pair.forward}" "${single_paired.input_pair.reverse}"
+            ${single_paired.check_names}
+        #else:
+            #if $input_sequences.is_of_type( 'fastq' ):
+                --fastq-input
+            #else:
+                --fasta-input
+            #end if
+            "$input_sequences"
+        #end if
 
         #if $split_reads:
             --classified-out "${classified_out}" --unclassified-out "${unclassified_out}"
         #end if
-        --output "${output}"
+
+        ## The --output option was changed to redirect as it does not work properly is some situations. For example, on test database the tool classifies 4 reads but does not write them into a file if --output is specified. It does however print correct output into STDOUT. This behavior can be re-created with test database provided in test-data/test_db/ folder. This is the reason for incrementing version number from 1.1.2 to 1.1.3
+
+        > "${output}"
         ##kraken-translate --db ${kraken_database.fields.name} "${output}" > "${translated}"
         ]]>
     </command>
     <inputs>
-        <param format="fasta,fastq" label="Input sequences" name="input_sequences" type="data" help="FASTA or FASTQ datasets"/>
+        <conditional name="single_paired">
+            <param name="single_paired_selector" type="select" label="Single or paired reads" help="--paired">
+                <option value="collection">Collection</option>
+                <option value="yes">Paired</option>
+                <option selected="True" value="no">Single</option>
+            </param>
+            <when value="collection">
+                <param format="fasta,fastq" label="Collection of paired reads" name="input_pair" type="data_collection" collection_type="paired" help="FASTA or FASTQ datasets" />
+                <param name="check_names" type="boolean" checked="False" truevalue="--paired --check-names" falsevalue="--paired" label="Verify read names match" help="--check-names" />
+            </when>
+            <when value="yes">
+                <param format="fasta,fastq" label="Forward strand" name="forward_input" type="data" help="FASTA or FASTQ dataset"/>
+                <param format="fasta,fastq" label="Reverse strand" name="reverse_input" type="data" help="FASTA or FASTQ dataset"/>
+                <param name="check_names" type="boolean" checked="False" truevalue="--paired --check-names" falsevalue="--paired" label="Verify read names match" help="--check-names" />
+            </when>
+            <when value="no">
+                <param format="fasta,fastq" label="Input sequences" name="input_sequences" type="data" help="FASTA or FASTQ datasets"/>
+            </when>
+
+        </conditional>
         <param label="Output classified and unclassified reads?" name="split_reads" type="boolean" help="Sets --unclassified-out and --classified-out"/>
   
         <conditional name="quick_operation">
@@ -56,15 +98,27 @@
         <expand macro="input_database" />
     </inputs>
     <outputs>
-        <data format="tabular" label="${tool.name} on ${on_string}: Classified reads" name="classified_out">
+        <data format_source="input_sequences" label="${tool.name} on ${on_string}: Classified reads" name="classified_out">
             <filter>(split_reads)</filter>
         </data>
-        <data format="tabular" label="${tool.name} on ${on_string}: Unclassified reads" name="unclassified_out">
+        <data format_source="input_sequences" label="${tool.name} on ${on_string}: Unclassified reads" name="unclassified_out">
             <filter>(split_reads)</filter>
         </data>
         <data format="tabular" label="${tool.name} on ${on_string}: Classification" name="output" />
         <!--<data format="tabular" label="${tool.name} on ${on_string}: Translated classification" name="translated" />-->
     </outputs>
+
+    <tests>
+        <test>
+            <param name="single_paired_selector" value="no"/>
+            <param name="input_sequences" value="kraken_test1.fa" ftype="fasta"/>
+            <param name="split_reads" value="false"/>
+            <param name="quick" value="no"/>
+            <param name="only-classified-output" value="false"/>
+            <param name="kraken_database" value="test_db"/>
+            <output name="output" file="kraken_test1_output.tab" ftype="tabular"/>
+        </test>
+    </tests>
     <help>
         <![CDATA[
 **What it does**
@@ -106,8 +160,5 @@ Each sequence classified by Kraken results in a single line of output. Output li
             e) the last 3 k-mers mapped to taxonomy ID #562
         ]]>
     </help>
-    <expand macro="requirements" />
-    <expand macro="stdio" />
-    <expand macro="version_command" />
     <expand macro="citations" />
 </tool>
