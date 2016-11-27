@@ -6,7 +6,7 @@
     <expand macro="requirements">
         <requirement type="package" version="3.3.1">r</requirement>
     </expand>
-    <command detect_errors="exit_code">
+    <command detect_errors="exit_code"><![CDATA[
 
       ## Set up input files
       
@@ -15,7 +15,7 @@
       #set $reference_fasta_filename = "localref.fa"
     
       #if str( $reference_source.reference_source_selector ) == "history":
-        ln -s "${reference_source.ref_file}" "${reference_fasta_filename}" &amp;&amp;
+        ln -s "${reference_source.ref_file}" "${reference_fasta_filename}" &&
       #else:
         #set $reference_fasta_filename = str( $reference_source.ref_file.fields.path )
       #end if
@@ -23,7 +23,7 @@
       ## refFlat data
       ## The awk line below converts a file obtained from UCSC as specified in the tool help to refFlat format
       
-      grep -v '^#' ${refFlat} | awk '{print $11"\t"$1"\t"$2"\t"$3"\t"$4"\t"$5"\t"$6"\t"$7"\t"$8"\t"$9"\t"$10}' > refFlat.tab &amp;&amp;
+      grep -v '^#' ${refFlat} | awk '{print $11"\t"$1"\t"$2"\t"$3"\t"$4"\t"$5"\t"$6"\t"$7"\t"$8"\t"$9"\t"$10}' > refFlat.tab &&
       
       ## Start picard command
       
@@ -55,7 +55,7 @@
       VERBOSITY=ERROR
       VALIDATION_STRINGENCY=${validation_stringency}
     
-   </command>
+   ]]></command>
    
    <inputs>
       <param format="sam,bam" type="data" name="inputFile" label="Select SAM/BAM dataset or dataset collection" help="If empty, upload or import a SAM/BAM dataset" />

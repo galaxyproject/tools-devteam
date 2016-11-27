@@ -4,7 +4,7 @@
     <import>picard_macros.xml</import>
   </macros>
   <expand macro="requirements" />
-  <command detect_errors="exit_code">
+  <command detect_errors="exit_code"><![CDATA[
     @java_options@
     
     picard
@@ -19,7 +19,7 @@
     QUIET=true
     VERBOSITY=ERROR
   
-  </command>
+  ]]></command>
   <inputs>
     <param name="inputFile" multiple="True" type="data" format="sam,bam" label="Select SAM/BAM dataset or dataset collection" help="If empty, upload or import a SAM/BAM dataset"/>
     <param name="add_mate_cigar" type="boolean" checked="true" truevalue="True" falsevalue="False" label="Adds the mate CIGAR tag (MC) if true, does not if false" help="ADD_MATE_CIGAR; default=True"/>

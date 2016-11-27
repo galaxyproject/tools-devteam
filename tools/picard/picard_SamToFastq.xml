@@ -4,9 +4,9 @@
     <import>picard_macros.xml</import>
   </macros>
   <expand macro="requirements" />
-  <command detect_errors="exit_code">
+  <command detect_errors="exit_code"><![CDATA[
      
-    echo "BAM" > $report &amp;&amp;    ## This is necessary for output dataset detection (see output tags below)
+    echo "BAM" > $report &&    ## This is necessary for output dataset detection (see output tags below)
     
     @java_options@
     
@@ -50,7 +50,7 @@
     QUIET=true
     VERBOSITY=ERROR
   
-  </command>
+  ]]></command>
   <inputs>
     
     <param format="sam,bam" name="inputFile" type="data" label="Select SAM/BAM dataset or dataset collection" help="If empty, upload or import a SAM/BAM dataset"/>

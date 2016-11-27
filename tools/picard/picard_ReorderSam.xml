@@ -4,12 +4,12 @@
     <import>picard_macros.xml</import>
   </macros>
   <expand macro="requirements" />
-  <command detect_errors="exit_code">
+  <command detect_errors="exit_code"><![CDATA[
     @java_options@
     #set $picard_dict = "localref.dict"
     #set $ref_fasta = "localref.fa"     ## This is done because picards "likes" .fa extension
     
-    ln -s "${reference_source.ref_file}" "${ref_fasta}" &amp;&amp;
+    ln -s "${reference_source.ref_file}" "${ref_fasta}" &&
        
     #if str( $reference_source.reference_source_selector ) == "history":
         
@@ -17,7 +17,7 @@
       QUIET=true
       VERBOSITY=ERROR
       
-      &amp;&amp;
+      &&
       
     #else:
     
@@ -37,7 +37,7 @@
       QUIET=true
       VERBOSITY=ERROR
       
-  </command>
+  ]]></command>
   
   <inputs>
     

@@ -4,7 +4,7 @@
     <import>picard_macros.xml</import>
   </macros>
   <expand macro="requirements" />
-  <command detect_errors="exit_code">
+  <command detect_errors="exit_code"><![CDATA[
     @java_options@
     
     ##Sam Sorting is performed here because FilterSamReads requires input to be in query-sorted order
@@ -18,7 +18,7 @@
     QUIET=true
     VERBOSITY=ERROR
     
-    &amp;&amp;
+    &&
     
     picard
     FilterSamReads
@@ -35,7 +35,7 @@
     QUIET=true
     VERBOSITY=ERROR
   
-  </command>
+  ]]></command>
   <inputs>
     <param name="inputFile" type="data" format="sam,bam" label="Select SAM/BAM dataset or dataset collection" help="If empty, upload or import a SAM/BAM dataset"/>
     <conditional name="filter_type">

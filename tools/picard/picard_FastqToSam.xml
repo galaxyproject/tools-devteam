@@ -4,7 +4,7 @@
     <import>picard_macros.xml</import>
   </macros>
   <expand macro="requirements" />
-  <command detect_errors="exit_code">
+  <command detect_errors="exit_code"><![CDATA[
     @java_options@
     
     picard
@@ -67,7 +67,7 @@
     QUIET=true
     VERBOSITY=ERROR
   
-  </command>
+  ]]></command>
   <inputs>
     <conditional name="input_type">
       <param name="input_type_selector" type="select" label="What is your input data" help="Select between single end, paired end, and collections. See help below for full explanation of dataset types">

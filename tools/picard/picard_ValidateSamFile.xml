@@ -7,20 +7,20 @@
   <stdio>
     <exit_code range="1:"  level="warning"/>
   </stdio>
-  <command>
+  <command><![CDATA[
 
     ##set the maximum number of open file to hard maximum or 4096 if on a mac (mac gives 'unlimited' as output of `ulimit -Hn` command
 
-    [ `ulimit -Hn` = unlimited ] &amp;&amp; ulimit -Sn 4096 || ulimit -Sn `ulimit -Hn`
+    [ `ulimit -Hn` = unlimited ] && ulimit -Sn 4096 || ulimit -Sn `ulimit -Hn`
 
-    &amp;&amp;
+    &&
 
     ##set up input files
 
     #set $reference_fasta_filename = "localref.fa"
 
     #if str( $reference_source.reference_source_selector ) == "history":
-        ln -s "${reference_source.ref_file}" "${reference_fasta_filename}" &amp;&amp;
+        ln -s "${reference_source.ref_file}" "${reference_fasta_filename}" &&
     #else:
         #set $reference_fasta_filename = str( $reference_source.ref_file.fields.path )
     #end if
@@ -49,7 +49,7 @@
     VERBOSITY=ERROR
     QUIET=true
 
-  </command>
+  ]]></command>
   <inputs>
     <param format="sam,bam" name="inputFile" type="data" label="SAM/BAM dataset or dataset collection" help="If empty, upload or import a SAM/BAM dataset." />
      <conditional name="reference_source">

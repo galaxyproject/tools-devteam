@@ -4,13 +4,13 @@
     <import>picard_macros.xml</import>
   </macros>
   <expand macro="requirements" />
-  <command detect_errors="exit_code">
+  <command detect_errors="exit_code"><![CDATA[
     @java_options@
     
   
     ## Two lines below are due to the fact that picard likes fasta files to have extension .fa  
     #set $fasta_file="local_fasta.fa"
-    ln -s "${inputFile}" "${fasta_file}" &amp;&amp;    
+    ln -s "${inputFile}" "${fasta_file}" &&    
     
     picard
     NormalizeFasta
@@ -23,7 +23,7 @@
     QUIET=true
     VERBOSITY=ERROR
   
-  </command>
+  ]]></command>
   <inputs>
     <param format="fasta" name="inputFile" type="data" label="FASTA dataset or dataset collection" help="If empty, upload or import a FASTA dataset" />
     <param name="line_length" type="integer" value="100" min="1" max="200" label="The line length to be used for the output fasta file" help="LINE_LENGTH; default=100"/>
