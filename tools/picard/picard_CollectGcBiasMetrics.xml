@@ -6,7 +6,7 @@
   <expand macro="requirements">
     <requirement type="package" version="3.3.1">r</requirement>
   </expand>
-  <command>
+  <command detect_errors="exit_code">
     @java_options@
     ##set up input files
 
@@ -81,9 +81,6 @@
     </test>
   </tests>
 
-  <stdio>
-    <exit_code range="1:"  level="fatal"/>
-  </stdio>
 
   <help>
 

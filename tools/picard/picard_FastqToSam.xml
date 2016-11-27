@@ -4,10 +4,7 @@
     <import>picard_macros.xml</import>
   </macros>
   <expand macro="requirements" />
-  <stdio>
-    <exit_code range="1:" level="fatal"/>
-  </stdio>
-  <command>
+  <command detect_errors="exit_code">
     @java_options@
     
     picard

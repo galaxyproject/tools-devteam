@@ -4,7 +4,7 @@
     <import>picard_macros.xml</import>
   </macros>
   <expand macro="requirements" />
-  <command>
+  <command detect_errors="exit_code">
     @java_options@
     #set $picard_dict = "localref.dict"
     #set $ref_fasta = "localref.fa"     ## This is done because picards "likes" .fa extension
@@ -80,9 +80,6 @@
     </test>
   </tests>
   
-  <stdio>
-    <exit_code range="1:"  level="fatal"/>
-  </stdio>
   
   <help>
 

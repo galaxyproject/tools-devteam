@@ -4,7 +4,7 @@
     <import>picard_macros.xml</import>
   </macros>
   <expand macro="requirements" />
-  <command><![CDATA[
+  <command detect_errors="exit_code"><![CDATA[
     #if $sort_order == "queryname":
         #set $output = "output.sam"
         ln -s '${outFile}' output.sam &&
@@ -39,9 +39,6 @@
     </data>
   </outputs>
 
-  <stdio>
-    <exit_code range="1:"  level="fatal"/>
-  </stdio>
 
   <tests>
       <!-- This test fails when setting metadata on non-coordinate sorted bam files.
