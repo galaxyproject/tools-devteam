@@ -4,10 +4,10 @@
     <import>picard_macros.xml</import>
   </macros>
   <expand macro="requirements" />
-  <command>
+  <command detect_errors="exit_code"><![CDATA[
     @java_options@
     
-    java -jar \$JAVA_JAR_PATH/picard.jar
+    picard
     RevertOriginalBaseQualitiesAndAddMateCigar
     
     INPUT="${inputFile}"
@@ -21,7 +21,7 @@
     QUIET=true
     VERBOSITY=ERROR
   
-  </command>
+  ]]></command>
   <inputs>
     <param format="sam,bam" name="inputFile" type="data" multiple="True" label="Select SAM/BAM dataset or dataset collection" help="If empty, upload or import a SAM/BAM dataset"/>
     <param name="restore_original_qualities" type="boolean" checked="True" label="Restore original qualities from the OQ field to the QUAL field if available" help="RESTORE_ORIGINAL_QUALITIES; default=True"/>
@@ -41,13 +41,10 @@
       <param name="restore_original_qualities" value="True"/>
       <param name="max_records_to_examine" value="10000"/>
       <param name="validation_stringency" value="LENIENT"/>
-      <output name="outFile" file="picard_RevertOriginalBaseQualitiesAndAddMateCigar_test1.bam" ftype="bam" lines_diff="2"/>
+      <output name="outFile" file="picard_RevertOriginalBaseQualitiesAndAddMateCigar_test1.bam" ftype="bam" lines_diff="4"/>
     </test>
   </tests>
   
-  <stdio>
-    <exit_code range="1:"  level="fatal"/>
-  </stdio>
   
   <help>
 

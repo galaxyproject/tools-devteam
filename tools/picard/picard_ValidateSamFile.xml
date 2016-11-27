@@ -4,49 +4,52 @@
     <import>picard_macros.xml</import>
   </macros>
   <expand macro="requirements" />
-  <command>
-    
+  <stdio>
+    <exit_code range="1:"  level="warning"/>
+  </stdio>
+  <command><![CDATA[
+
     ##set the maximum number of open file to hard maximum or 4096 if on a mac (mac gives 'unlimited' as output of `ulimit -Hn` command
-    
-    [ `ulimit -Hn` = unlimited ] &amp;&amp; ulimit -Sn 4096 || ulimit -Sn `ulimit -Hn`
-    
-    &amp;&amp;
-    
+
+    [ `ulimit -Hn` = unlimited ] && ulimit -Sn 4096 || ulimit -Sn `ulimit -Hn`
+
+    &&
+
     ##set up input files
 
     #set $reference_fasta_filename = "localref.fa"
-    
+
     #if str( $reference_source.reference_source_selector ) == "history":
-        ln -s "${reference_source.ref_file}" "${reference_fasta_filename}" &amp;&amp;
+        ln -s "${reference_source.ref_file}" "${reference_fasta_filename}" &&
     #else:
         #set $reference_fasta_filename = str( $reference_source.ref_file.fields.path )
     #end if
-    
+
     @java_options@
-    
-    java -jar \$JAVA_JAR_PATH/picard.jar
+
+    picard
     ValidateSamFile
-    
+
     INPUT="${inputFile}"
     OUTPUT="${outFile}"
     MODE="${mode}"
-    
+
     #if str( $ignore ) != "None":
       #for $element in str( $ignore ).split(','):   ## See trello card https://trello.com/c/9nW02Zhd
         IGNORE="${element}"
       #end for
     #end if
-    
+
     MAX_OUTPUT="${max_output}"
     REFERENCE_SEQUENCE="${reference_fasta_filename}"
     IGNORE_WARNINGS="${ignore_warnings}"
     IS_BISULFITE_SEQUENCED="${is_bisulfite_sequenced}"
     MAX_OPEN_TEMP_FILES=`ulimit -Sn`
-     
+
     VERBOSITY=ERROR
     QUIET=true
-   
-  </command>
+
+  ]]></command>
   <inputs>
     <param format="sam,bam" name="inputFile" type="data" label="SAM/BAM dataset or dataset collection" help="If empty, upload or import a SAM/BAM dataset." />
      <conditional name="reference_source">
@@ -63,11 +66,11 @@
           <validator type="no_options" message="A built-in dictionary is not available for the build associated with the selected input file"/>
         </param>
       </when>
-      <when value="history"> 
+      <when value="history">
         <param name="ref_file" type="data" format="fasta" label="Use the following dataset to create dictionary" help="You can upload a FASTA sequence to the history from which Picard will automatically generate dictionary using CreateSequenceDictionary command" />
       </when>
     </conditional>
-     
+
     <param name="mode" type="select" label="Select output mode" help="MODE">
       <option value="VERBOSE">Verbose</option>
       <option value="SUMMARY">Summary</option>
@@ -135,13 +138,13 @@
     <param name="ignore_warnings" type="boolean" label="If true, only report errors and ignore warnings" help="IGNORE_WARNINGS; default=False"/>
     <param name="validate_index" type="boolean" checked="True" label="If true and input is a BAM file with an index file, also validates the index" help="VALIDATE_INDEX; default=True"/>
     <param name="is_bisulfite_sequenced" type="boolean" label="Whether the SAM or BAM file consists of bisulfite sequenced reads" help="IS_BISULFITE_SEQUENCED; If so, C->T is not counted as an error in computing the value of the NM tag; default=False"/>
-    
-  </inputs> 
-  
+
+  </inputs>
+
   <outputs>
     <data format="txt" name="outFile" label="${tool.name} on ${on_string}: BAM validation summary"/>
   </outputs>
-  
+
   <tests>
     <test>
       <param name="inputFile" value="picard_ValidateSamFile.bam" ftype="bam"/>
@@ -156,11 +159,7 @@
       <output name="outFile" file="picard_ValidateSamFile_test1.txt" ftype="txt"/>
     </test>
   </tests>
-  
-  <stdio>
-    <exit_code range="1:"  level="warning"/>
-  </stdio>
-  
+
   <help>
 
 **Purpose**
@@ -172,52 +171,52 @@ Reads a SAM/BAM dataset and report on its validity.
 @description@
 
   MODE=Mode
-  M=Mode                        Mode of output  Default value: VERBOSE. This option can be set to 'null' to clear the 
-                                default value. Possible values: {VERBOSE, SUMMARY} 
-  
-  IGNORE=Type                   List of validation error types to ignore.  Possible values: {INVALID_QUALITY_FORMAT, 
-                                INVALID_FLAG_PROPER_PAIR, INVALID_FLAG_MATE_UNMAPPED, MISMATCH_FLAG_MATE_UNMAPPED, 
-                                INVALID_FLAG_MATE_NEG_STRAND, MISMATCH_FLAG_MATE_NEG_STRAND, INVALID_FLAG_FIRST_OF_PAIR, 
-                                INVALID_FLAG_SECOND_OF_PAIR, PAIRED_READ_NOT_MARKED_AS_FIRST_OR_SECOND, 
-                                INVALID_FLAG_NOT_PRIM_ALIGNMENT, INVALID_FLAG_SUPPLEMENTARY_ALIGNMENT, 
-                                INVALID_FLAG_READ_UNMAPPED, INVALID_INSERT_SIZE, INVALID_MAPPING_QUALITY, INVALID_CIGAR, 
-                                ADJACENT_INDEL_IN_CIGAR, INVALID_MATE_REF_INDEX, MISMATCH_MATE_REF_INDEX, 
-                                INVALID_REFERENCE_INDEX, INVALID_ALIGNMENT_START, MISMATCH_MATE_ALIGNMENT_START, 
-                                MATE_FIELD_MISMATCH, INVALID_TAG_NM, MISSING_TAG_NM, MISSING_HEADER, 
-                                MISSING_SEQUENCE_DICTIONARY, MISSING_READ_GROUP, RECORD_OUT_OF_ORDER, 
-                                READ_GROUP_NOT_FOUND, RECORD_MISSING_READ_GROUP, INVALID_INDEXING_BIN, 
-                                MISSING_VERSION_NUMBER, INVALID_VERSION_NUMBER, TRUNCATED_FILE, 
-                                MISMATCH_READ_LENGTH_AND_QUALS_LENGTH, EMPTY_READ, CIGAR_MAPS_OFF_REFERENCE, 
-                                MISMATCH_READ_LENGTH_AND_E2_LENGTH, MISMATCH_READ_LENGTH_AND_U2_LENGTH, 
-                                E2_BASE_EQUALS_PRIMARY_BASE, BAM_FILE_MISSING_TERMINATOR_BLOCK, UNRECOGNIZED_HEADER_TYPE, 
-                                POORLY_FORMATTED_HEADER_TAG, HEADER_TAG_MULTIPLY_DEFINED, 
-                                HEADER_RECORD_MISSING_REQUIRED_TAG, INVALID_DATE_STRING, TAG_VALUE_TOO_LARGE, 
-                                INVALID_INDEX_FILE_POINTER, INVALID_PREDICTED_MEDIAN_INSERT_SIZE, 
-                                DUPLICATE_READ_GROUP_ID, MISSING_PLATFORM_VALUE, INVALID_PLATFORM_VALUE, 
-                                DUPLICATE_PROGRAM_GROUP_ID, MATE_NOT_FOUND, MATES_ARE_SAME_END, 
-                                MISMATCH_MATE_CIGAR_STRING, MATE_CIGAR_STRING_INVALID_PRESENCE} This option may be 
-                                specified 0 or more times. 
-  
+  M=Mode                        Mode of output  Default value: VERBOSE. This option can be set to 'null' to clear the
+                                default value. Possible values: {VERBOSE, SUMMARY}
+
+  IGNORE=Type                   List of validation error types to ignore.  Possible values: {INVALID_QUALITY_FORMAT,
+                                INVALID_FLAG_PROPER_PAIR, INVALID_FLAG_MATE_UNMAPPED, MISMATCH_FLAG_MATE_UNMAPPED,
+                                INVALID_FLAG_MATE_NEG_STRAND, MISMATCH_FLAG_MATE_NEG_STRAND, INVALID_FLAG_FIRST_OF_PAIR,
+                                INVALID_FLAG_SECOND_OF_PAIR, PAIRED_READ_NOT_MARKED_AS_FIRST_OR_SECOND,
+                                INVALID_FLAG_NOT_PRIM_ALIGNMENT, INVALID_FLAG_SUPPLEMENTARY_ALIGNMENT,
+                                INVALID_FLAG_READ_UNMAPPED, INVALID_INSERT_SIZE, INVALID_MAPPING_QUALITY, INVALID_CIGAR,
+                                ADJACENT_INDEL_IN_CIGAR, INVALID_MATE_REF_INDEX, MISMATCH_MATE_REF_INDEX,
+                                INVALID_REFERENCE_INDEX, INVALID_ALIGNMENT_START, MISMATCH_MATE_ALIGNMENT_START,
+                                MATE_FIELD_MISMATCH, INVALID_TAG_NM, MISSING_TAG_NM, MISSING_HEADER,
+                                MISSING_SEQUENCE_DICTIONARY, MISSING_READ_GROUP, RECORD_OUT_OF_ORDER,
+                                READ_GROUP_NOT_FOUND, RECORD_MISSING_READ_GROUP, INVALID_INDEXING_BIN,
+                                MISSING_VERSION_NUMBER, INVALID_VERSION_NUMBER, TRUNCATED_FILE,
+                                MISMATCH_READ_LENGTH_AND_QUALS_LENGTH, EMPTY_READ, CIGAR_MAPS_OFF_REFERENCE,
+                                MISMATCH_READ_LENGTH_AND_E2_LENGTH, MISMATCH_READ_LENGTH_AND_U2_LENGTH,
+                                E2_BASE_EQUALS_PRIMARY_BASE, BAM_FILE_MISSING_TERMINATOR_BLOCK, UNRECOGNIZED_HEADER_TYPE,
+                                POORLY_FORMATTED_HEADER_TAG, HEADER_TAG_MULTIPLY_DEFINED,
+                                HEADER_RECORD_MISSING_REQUIRED_TAG, INVALID_DATE_STRING, TAG_VALUE_TOO_LARGE,
+                                INVALID_INDEX_FILE_POINTER, INVALID_PREDICTED_MEDIAN_INSERT_SIZE,
+                                DUPLICATE_READ_GROUP_ID, MISSING_PLATFORM_VALUE, INVALID_PLATFORM_VALUE,
+                                DUPLICATE_PROGRAM_GROUP_ID, MATE_NOT_FOUND, MATES_ARE_SAME_END,
+                                MISMATCH_MATE_CIGAR_STRING, MATE_CIGAR_STRING_INVALID_PRESENCE} This option may be
+                                specified 0 or more times.
+
   MAX_OUTPUT=Integer
-  MO=Integer                    The maximum number of lines output in verbose mode  Default value: 100. This option can 
-                                be set to 'null' to clear the default value. 
-  
+  MO=Integer                    The maximum number of lines output in verbose mode  Default value: 100. This option can
+                                be set to 'null' to clear the default value.
+
   REFERENCE_SEQUENCE=File
-  R=File                        Reference sequence file, the NM tag check will be skipped if this is missing  Default 
-                                value: null. 
-  
-  IGNORE_WARNINGS=Boolean       If true, only report errors and ignore warnings.  Default value: false. This option can 
-                                be set to 'null' to clear the default value. Possible values: {true, false} 
-  
-  VALIDATE_INDEX=Boolean        If true and input is a BAM file with an index file, also validates the index.  Default 
-                                value: true. This option can be set to 'null' to clear the default value. Possible 
-                                values: {true, false} 
-  
+  R=File                        Reference sequence file, the NM tag check will be skipped if this is missing  Default
+                                value: null.
+
+  IGNORE_WARNINGS=Boolean       If true, only report errors and ignore warnings.  Default value: false. This option can
+                                be set to 'null' to clear the default value. Possible values: {true, false}
+
+  VALIDATE_INDEX=Boolean        If true and input is a BAM file with an index file, also validates the index.  Default
+                                value: true. This option can be set to 'null' to clear the default value. Possible
+                                values: {true, false}
+
   IS_BISULFITE_SEQUENCED=Boolean
-  BISULFITE=Boolean             Whether the SAM or BAM file consists of bisulfite sequenced reads. If so, C->T is not 
-                                counted as an error in computing the value of the NM tag.  Default value: false. This 
-                                option can be set to 'null' to clear the default value. Possible values: {true, false} 
-  
+  BISULFITE=Boolean             Whether the SAM or BAM file consists of bisulfite sequenced reads. If so, C->T is not
+                                counted as an error in computing the value of the NM tag.  Default value: false. This
+                                option can be set to 'null' to clear the default value. Possible values: {true, false}
+
 @more_info@
 
   </help>

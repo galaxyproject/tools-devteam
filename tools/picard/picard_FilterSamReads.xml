@@ -4,12 +4,12 @@
     <import>picard_macros.xml</import>
   </macros>
   <expand macro="requirements" />
-  <command>
+  <command detect_errors="exit_code"><![CDATA[
     @java_options@
     
     ##Sam Sorting is performed here because FilterSamReads requires input to be in query-sorted order
     
-    java -jar \$JAVA_JAR_PATH/picard.jar
+    picard
     SortSam
     INPUT="${inputFile}"
     OUTPUT=query_sorted_bam.bam
@@ -18,9 +18,9 @@
     QUIET=true
     VERBOSITY=ERROR
     
-    &amp;&amp;
+    &&
     
-    java -jar \$JAVA_JAR_PATH/picard.jar
+    picard
     FilterSamReads
     INPUT=query_sorted_bam.bam
     FILTER="${filter_type.filter}"
@@ -35,7 +35,7 @@
     QUIET=true
     VERBOSITY=ERROR
   
-  </command>
+  ]]></command>
   <inputs>
     <param name="inputFile" type="data" format="sam,bam" label="Select SAM/BAM dataset or dataset collection" help="If empty, upload or import a SAM/BAM dataset"/>
     <conditional name="filter_type">
@@ -69,20 +69,17 @@
       <param name="filter" value="includeReadList"/>
       <param name="read_list_file" value="picard_FilterSamReads_read_list_file.tab" ftype="tabular"/>
       <param name="validation_stringency" value="LENIENT"/>
-      <output name="outFile" file="picard_FilterSamReads_include_reads_test1.bam" ftype="bam" lines_diff="2"/>
+      <output name="outFile" file="picard_FilterSamReads_include_reads_test1.bam" ftype="bam" lines_diff="4"/>
     </test>
     <test>
       <param name="inputFile" value="picard_FilterSamReads.bam" ftype="bam"/>
       <param name="filter" value="excludeReadList"/>
       <param name="read_list_file" value="picard_FilterSamReads_read_list_file.tab" ftype="tabular"/>
       <param name="validation_stringency" value="LENIENT"/>
-      <output name="outFile" file="picard_FilterSamReads_exclude_reads_test2.bam" ftype="bam" lines_diff="2"/>
+      <output name="outFile" file="picard_FilterSamReads_exclude_reads_test2.bam" ftype="bam" lines_diff="4"/>
     </test>
   </tests>
   
-  <stdio>
-    <exit_code range="1:"  level="fatal"/>
-  </stdio>
   
   <help>
 

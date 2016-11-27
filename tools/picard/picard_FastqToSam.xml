@@ -4,13 +4,10 @@
     <import>picard_macros.xml</import>
   </macros>
   <expand macro="requirements" />
-  <stdio>
-    <exit_code range="1:" level="fatal"/>
-  </stdio>
-  <command>
+  <command detect_errors="exit_code"><![CDATA[
     @java_options@
     
-    java -jar \$JAVA_JAR_PATH/picard.jar
+    picard
     FastqToSam
     
     #if str( $input_type.input_type_selector ) == "se":
@@ -70,7 +67,7 @@
     QUIET=true
     VERBOSITY=ERROR
   
-  </command>
+  ]]></command>
   <inputs>
     <conditional name="input_type">
       <param name="input_type_selector" type="select" label="What is your input data" help="Select between single end, paired end, and collections. See help below for full explanation of dataset types">

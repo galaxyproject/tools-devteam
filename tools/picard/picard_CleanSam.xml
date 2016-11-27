@@ -4,16 +4,16 @@
     <import>picard_macros.xml</import>
   </macros>
   <expand macro="requirements" />
-  <command>
+  <command detect_errors="exit_code"><![CDATA[
     @java_options@
-    java -jar \$JAVA_JAR_PATH/picard.jar
+    picard
     CleanSam
     INPUT="${inputFile}"
     OUTPUT="${outFile}"
     QUIET=true
     VERBOSITY=ERROR
     VALIDATION_STRINGENCY=${validation_stringency}
-  </command>
+  ]]></command>
   
   <inputs>
     <param name="inputFile" type="data" format="sam,bam" label="Select SAM/BAM dataset or dataset collection" help="If empty, upload or import a SAM/BAM dataset"/>
@@ -27,9 +27,6 @@
     </data>
   </outputs>
   
-  <stdio>
-    <exit_code range="1:"  level="fatal"/>
-  </stdio>
   
   <tests>
     <test>

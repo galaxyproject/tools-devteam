@@ -4,20 +4,20 @@
     <import>picard_macros.xml</import>
   </macros>
   <expand macro="requirements" />
-  <command>
+  <command detect_errors="exit_code"><![CDATA[
     @java_options@
     #set $picard_dict = "localref.dict"
     #set $ref_fasta = "localref.fa"     ## This is done because picards "likes" .fa extension
     
-    ln -s "${reference_source.ref_file}" "${ref_fasta}" &amp;&amp;
+    ln -s "${reference_source.ref_file}" "${ref_fasta}" &&
        
     #if str( $reference_source.reference_source_selector ) == "history":
         
-      java -jar \$JAVA_JAR_PATH/picard.jar CreateSequenceDictionary REFERENCE="${ref_fasta}" OUTPUT="${picard_dict}"
+      picard CreateSequenceDictionary REFERENCE="${ref_fasta}" OUTPUT="${picard_dict}"
       QUIET=true
       VERBOSITY=ERROR
       
-      &amp;&amp;
+      &&
       
     #else:
     
@@ -25,7 +25,7 @@
     
     #end if
     
-    java -jar \$JAVA_JAR_PATH/picard.jar
+    picard
     ReorderSam
       INPUT="${inputFile}"
       OUTPUT="${outFile}"
@@ -37,7 +37,7 @@
       QUIET=true
       VERBOSITY=ERROR
       
-  </command>
+  ]]></command>
   
   <inputs>
     
@@ -76,13 +76,10 @@
       <param name="inputFile" value="picard_ReorderSam.bam" ftype="bam"/>
       <param name="allow_incomplete_dict_concordance" value="false"/>
       <param name="allow_contig_length_discordance" value="false"/>
-      <output name="outFile" file="picard_ReorderSam_test1.bam" ftype="bam" lines_diff="2"/>
+      <output name="outFile" file="picard_ReorderSam_test1.bam" ftype="bam" lines_diff="4"/>
     </test>
   </tests>
   
-  <stdio>
-    <exit_code range="1:"  level="fatal"/>
-  </stdio>
   
   <help>
 

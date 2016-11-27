@@ -4,10 +4,10 @@
     <import>picard_macros.xml</import>
   </macros>
   <expand macro="requirements" />
-  <command>
+  <command detect_errors="exit_code"><![CDATA[
     @java_options@
     
-    java -jar \$JAVA_JAR_PATH/picard.jar
+    picard
     MarkDuplicatesWithMateCigar
     
     INPUT="${inputFile}"
@@ -35,7 +35,7 @@
     QUIET=true
     VERBOSITY=ERROR
   
-  </command>
+  ]]></command>
   <inputs>
     <param format="bam" name="inputFile" type="data" label="Select SAM/BAM dataset or dataset collection" help="If empty, upload or import a SAM/BAM dataset"/>
       <param name="comment" type="text" label="Add this comment to BAM dataset"/>
@@ -46,7 +46,7 @@
     <param name="assume_sorted" type="boolean" label="Assume the input file is already sorted" checked="true" truevalue="true" falsevalue="false" help="ASSUME_SORTED; default=True"/>
 
     <param name="duplicate_scoring_strategy" type="select" label="The scoring strategy for choosing the non-duplicate among candidates" help="DUPLICATE_SCORING_STRATEGY; default=TOTAL_MAPPED_REFERENCE_LENGTH">
-      <option value="TOTAL_MAPPED_REFERENCE_LENGTH" select="True">TOTAL_MAPPED_REFERENCE_LENGTH</option>
+      <option value="TOTAL_MAPPED_REFERENCE_LENGTH" selected="True">TOTAL_MAPPED_REFERENCE_LENGTH</option>
       <option value="SUM_OF_BASE_QUALITIES">SUM_OF_BASE_QUALITIES</option>
     </param>
 
@@ -84,9 +84,6 @@
     </test>
   </tests>
   
-  <stdio>
-    <exit_code range="1:"  level="fatal"/>
-  </stdio>
   
   <help>
 

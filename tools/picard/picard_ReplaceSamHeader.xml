@@ -4,15 +4,15 @@
     <import>picard_macros.xml</import>
   </macros>
   <expand macro="requirements" />
-  <command>
+  <command detect_errors="exit_code"><![CDATA[
     @java_options@
     
   
     ## Two lines below are due to the fact that picard likes fasta files to have extension .fa  
     #set $fasta_file="local_fasta.fa"
-    ln -s "${inputFile}" "${fasta_file}" &amp;&amp;    
+    ln -s "${inputFile}" "${fasta_file}" &&    
     
-    java -jar \$JAVA_JAR_PATH/picard.jar
+    picard
     ReplaceSamHeader
     
     INPUT="${inputFile}"
@@ -22,7 +22,7 @@
     QUIET=true
     VERBOSITY=ERROR
   
-  </command>
+  ]]></command>
   <inputs>
     <param format="sam,bam" name="inputFile" type="data" label="Select SAM/BAM dataset or dataset collection (header recepient dataset)" help="If empty, upload or import a SAM/BAM dataset"/>
     <param name="header" type="data" format="sam,bam" label="SAM/BAM dataset from which Header will be read (header source dataset)" help="HEADER; If empty, upload or import a SAM/BAM dataset"/>
@@ -40,9 +40,6 @@
     </test>
   </tests>
   
-  <stdio>
-    <exit_code range="1:"  level="fatal"/>
-  </stdio>
   
   <help>
 

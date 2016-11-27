@@ -4,10 +4,10 @@
     <import>picard_macros.xml</import>
   </macros>
   <expand macro="requirements" />
-  <command>
+  <command detect_errors="exit_code"><![CDATA[
     @java_options@
     
-    java -jar \$JAVA_JAR_PATH/picard.jar
+    picard
     EstimateLibraryComplexity
     
     INPUT="${inputFile}"
@@ -25,7 +25,7 @@
     QUIET=true
     VERBOSITY=ERROR
   
-  </command>
+  ]]></command>
   <inputs>
     <param format="bam" name="inputFile" type="data" label="Select SAM/BAM dataset or dataset collection" help="If empty, upload or import a SAM/BAM dataset" />
     <param name="min_identical_bases" type="integer" value="5" label="The minimum number of bases at the starts of reads that must be identical for reads to be grouped together for duplicate detection" help="MIN_IDENTICAL_BASES; In effect total_reads / 4^max_id_bases reads will be compared at a time, so lower numbers will produce more accurate results but consume exponentially more memory and CPU; default=5"/>
@@ -63,9 +63,6 @@
     </test>
   </tests>
   
-  <stdio>
-    <exit_code range="1:"  level="fatal"/>
-  </stdio>
   
   <help>
 

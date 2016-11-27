@@ -4,10 +4,10 @@
     <import>picard_macros.xml</import>
   </macros>
   <expand macro="requirements" />
-  <command>
+  <command detect_errors="exit_code"><![CDATA[
     @java_options@
     
-    java -jar \$JAVA_JAR_PATH/picard.jar
+    picard
     MergeSamFiles
     
     #for $element in $inputFile:
@@ -28,7 +28,7 @@
     QUIET=true
     VERBOSITY=ERROR
   
-  </command>
+  ]]></command>
   <inputs>
     <param format="sam,bam" name="inputFile" type="data" multiple="True" label="Select SAM/BAM dataset or dataset collection" help="If empty, upload or import a SAM/BAM dataset"/>
     <param name="merge_sequence_dictionaries" type="boolean" label="Merge the sequence dictionaries of the datasets being merged" help="MERGE_SEQUENCE_DICTIONARIES; default=False"/>
@@ -52,13 +52,10 @@
       <param name="assume_sorted" value="False"/>
       <param name="merge_sequence_dictionaries" value="False"/>
       <param name="validation_stringency" value="LENIENT"/>
-      <output name="outFile" file="picard_MergeSamFiles_test1.bam" ftype="bam" lines_diff="2"/>
+      <output name="outFile" file="picard_MergeSamFiles_test1.bam" ftype="bam" lines_diff="4"/>
     </test>
   </tests>
   
-  <stdio>
-    <exit_code range="1:"  level="fatal"/>
-  </stdio>
   
   <help>
 

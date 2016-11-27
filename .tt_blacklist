@@ -40,7 +40,6 @@ tools/macs
 tools/microsats_mutability
 tools/cummerbund
 tools/fastqsolexa_to_fasta_qual
-tools/picard
 tools/pileup_interval
 tools/velvet
 tools/microsatellite_birthdeath

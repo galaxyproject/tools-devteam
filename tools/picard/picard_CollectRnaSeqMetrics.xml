@@ -4,9 +4,9 @@
         <import>picard_macros.xml</import>
     </macros>
     <expand macro="requirements">
-        <requirement type="package" version="3.1.2">R</requirement>
+        <requirement type="package" version="3.3.1">r</requirement>
     </expand>
-    <command>
+    <command detect_errors="exit_code"><![CDATA[
 
       ## Set up input files
       
@@ -15,7 +15,7 @@
       #set $reference_fasta_filename = "localref.fa"
     
       #if str( $reference_source.reference_source_selector ) == "history":
-        ln -s "${reference_source.ref_file}" "${reference_fasta_filename}" &amp;&amp;
+        ln -s "${reference_source.ref_file}" "${reference_fasta_filename}" &&
       #else:
         #set $reference_fasta_filename = str( $reference_source.ref_file.fields.path )
       #end if
@@ -23,12 +23,12 @@
       ## refFlat data
       ## The awk line below converts a file obtained from UCSC as specified in the tool help to refFlat format
       
-      grep -v '^#' ${refFlat} | awk '{print $11"\t"$1"\t"$2"\t"$3"\t"$4"\t"$5"\t"$6"\t"$7"\t"$8"\t"$9"\t"$10}' > refFlat.tab &amp;&amp;
+      grep -v '^#' ${refFlat} | awk '{print $11"\t"$1"\t"$2"\t"$3"\t"$4"\t"$5"\t"$6"\t"$7"\t"$8"\t"$9"\t"$10}' > refFlat.tab &&
       
       ## Start picard command
       
       @java_options@
-      java -jar \$JAVA_JAR_PATH/picard.jar
+      picard
       CollectRnaSeqMetrics
       REF_FLAT=refFlat.tab
       
@@ -55,7 +55,7 @@
       VERBOSITY=ERROR
       VALIDATION_STRINGENCY=${validation_stringency}
     
-   </command>
+   ]]></command>
    
    <inputs>
       <param format="sam,bam" type="data" name="inputFile" label="Select SAM/BAM dataset or dataset collection" help="If empty, upload or import a SAM/BAM dataset" />
@@ -77,7 +77,7 @@
       <param format="tabular" name="refFlat" type="data" label="Gene annotations in refFlat form" help="See &quot;Obtaining gene annotations in refFlat format&quot; below for help" />
       <param name="ribosomal_intervals" format="picard_interval_list" type="data" optional="True" label="Location of rRNA sequences in genome, in interval_list format" help="RIBOSOMAL_INTERVALS; If not specified no bases will be identified as being ribosomal. The list of intervals can be geberated from BED or Interval datasets using Galaxy BedToIntervalList tool"/>
       <param name="strand_specificity" type="select" label="What is the RNA-seq library strand specificity" help="STRAND_SPECIFICITY; For unpaired reads, use FIRST_READ_TRANSCRIPTION_STRAND if the reads are expected to be on the transcription strand.">
-	 <option value="NONE" select="True">None</option>
+	 <option value="NONE" selected="True">None</option>
 	 <option value="FIRST_READ_TRANSCRIPTION_STRAND">First read transcription strand</option>
 	 <option value="SECOND_READ_TRANSCRIPTION_STRAND">Second read transcription strand</option>
       </param>
@@ -102,9 +102,6 @@
       <data format="tabular" name="outFile" label="${tool.name} on ${on_string}: Summary stats"/>
   </outputs>
   
-   <stdio>
-    <exit_code range="1:"  level="fatal"/>
-  </stdio>
   <tests>
     <test>
       <param name="reference_source_selector" value="history"/>
