@@ -10,7 +10,7 @@
     
     @java_options@
     
-    java -jar \$JAVA_JAR_PATH/picard.jar
+    picard
     SamToFastq
     
     INPUT="${inputFile}"

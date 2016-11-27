@@ -7,11 +7,11 @@
         </param>
     </xml>
 
-    <token name="@TOOL_VERSION@">1.136</token>
+    <token name="@TOOL_VERSION@">2.7.1</token>
 
     <xml name="requirements">
         <requirements>
-            <requirement type="package" version="1.136">picard</requirement>
+            <requirement type="package" version="2.7.1">picard</requirement>
             <yield/>
         </requirements>
     </xml>
@@ -20,7 +20,7 @@
     _JAVA_OPTIONS=\${_JAVA_OPTIONS:-'-Xmx2048m -Xms256m'} &amp;&amp;
     export _JAVA_OPTIONS &amp;&amp;
     </token>
-    
+
     <token name="@more_info@">
 ------
 
@@ -28,7 +28,7 @@
 
 Additional information about Picard tools is available from Picard web site at http://broadinstitute.github.io/picard/.
     </token>
-    
+
 
     <token name="@description@">
 ------
@@ -49,7 +49,7 @@ Setting read groups correctly from the start will simplify your life greatly bec
 
 .. csv-table::
    :header-rows: 1
-    
+
     Tag,Importance,Definition,Meaning
     "ID","Required","Read group identifier. Each @RG line must have a unique ID. The value of ID is used in the RG tags of alignment records. Must be unique among all read groups in header section. Read group IDs may be modified when merging SAM files in order to handle collisions.","Ideally, this should be a globally unique identify across all sequencing data in the world, such as the Illumina flowcell + lane name and number.  Will be referenced by each read with the RG:Z field, allowing tools to determine the read group information associated with each read, including the sample from which the read came.  Also, a read group is effectively treated as a separate run of the NGS instrument in tools like base quality score recalibration (a GATK component) -- all reads within a read group are assumed to come from the same instrument run and to therefore share the same error model."
     "SM","Sample. Use pool name where a pool is being sequenced.","Required.  As important as ID.","The name of the sample sequenced in this read group.  GATK tools treat all read groups with the same SM value as containing sequencing data for the same sample.  Therefore it's critical that the SM field be correctly specified, especially when using multi-sample tools like the Unified Genotyper (a GATK component)."
@@ -65,13 +65,13 @@ Support we have a trio of samples: MOM, DAD, and KID.  Each has two DNA librarie
  @RG     ID:FLOWCELL1.LANE2      PL:illumina     LB:LIB-DAD-1 SM:DAD      PI:200
  @RG     ID:FLOWCELL1.LANE3      PL:illumina     LB:LIB-DAD-2 SM:DAD      PI:400
  @RG     ID:FLOWCELL1.LANE4      PL:illumina     LB:LIB-DAD-2 SM:DAD      PI:400
-  
+
  Mom's data:
  @RG     ID:FLOWCELL1.LANE5      PL:illumina     LB:LIB-MOM-1 SM:MOM      PI:200
  @RG     ID:FLOWCELL1.LANE6      PL:illumina     LB:LIB-MOM-1 SM:MOM      PI:200
  @RG     ID:FLOWCELL1.LANE7      PL:illumina     LB:LIB-MOM-2 SM:MOM      PI:400
  @RG     ID:FLOWCELL1.LANE8      PL:illumina     LB:LIB-MOM-2 SM:MOM      PI:400
- 
+
  Kid's data:
  @RG     ID:FLOWCELL2.LANE1      PL:illumina     LB:LIB-KID-1 SM:KID      PI:200
  @RG     ID:FLOWCELL2.LANE2      PL:illumina     LB:LIB-KID-1 SM:KID      PI:200
@@ -89,6 +89,6 @@ This will be added shortly
 
 
     </token>
-    
+
 
 </macros>

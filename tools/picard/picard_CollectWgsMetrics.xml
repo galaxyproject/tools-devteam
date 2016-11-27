@@ -16,7 +16,7 @@
         #set $reference_fasta_filename = str( $reference_source.ref_file.fields.path )
     #end if
     
-    java -jar \$JAVA_JAR_PATH/picard.jar
+    picard
     CollectWgsMetrics
     INPUT="${inputFile}"
     OUTPUT="${outFile}"

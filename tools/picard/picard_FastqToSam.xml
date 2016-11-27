@@ -10,7 +10,7 @@
   <command>
     @java_options@
     
-    java -jar \$JAVA_JAR_PATH/picard.jar
+    picard
     FastqToSam
     
     #if str( $input_type.input_type_selector ) == "se":

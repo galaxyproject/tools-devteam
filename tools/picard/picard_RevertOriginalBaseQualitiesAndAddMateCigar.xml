@@ -7,7 +7,7 @@
   <command>
     @java_options@
     
-    java -jar \$JAVA_JAR_PATH/picard.jar
+    picard
     RevertOriginalBaseQualitiesAndAddMateCigar
     
     INPUT="${inputFile}"
@@ -41,7 +41,7 @@
       <param name="restore_original_qualities" value="True"/>
       <param name="max_records_to_examine" value="10000"/>
       <param name="validation_stringency" value="LENIENT"/>
-      <output name="outFile" file="picard_RevertOriginalBaseQualitiesAndAddMateCigar_test1.bam" ftype="bam" lines_diff="2"/>
+      <output name="outFile" file="picard_RevertOriginalBaseQualitiesAndAddMateCigar_test1.bam" ftype="bam" lines_diff="4"/>
     </test>
   </tests>
   

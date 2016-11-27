@@ -6,7 +6,7 @@
   <expand macro="requirements" />
   <command>
     @java_options@
-    java -jar \$JAVA_JAR_PATH/picard.jar
+    picard
     CleanSam
     INPUT="${inputFile}"
     OUTPUT="${outFile}"

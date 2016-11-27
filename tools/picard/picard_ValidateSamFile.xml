@@ -24,7 +24,7 @@
     
     @java_options@
     
-    java -jar \$JAVA_JAR_PATH/picard.jar
+    picard
     ValidateSamFile
     
     INPUT="${inputFile}"

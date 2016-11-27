@@ -7,7 +7,7 @@
   <command>
     @java_options@
     
-    java -jar \$JAVA_JAR_PATH/picard.jar
+    picard
     FixMateInformation
     INPUT="${inputFile}"
     OUTPUT="${outFile}"
@@ -39,7 +39,7 @@
       <param name="add_mate_cigar" value="True"/>
       <param name="assume_sorted" value="False"/>
       <param name="validation_stringency" value="LENIENT"/>
-      <output name="outFile" file="picard_FixMateInformation_test1.bam" ftype="bam" lines_diff="2"/>
+      <output name="outFile" file="picard_FixMateInformation_test1.bam" ftype="bam" lines_diff="4"/>
     </test>
   </tests>
   

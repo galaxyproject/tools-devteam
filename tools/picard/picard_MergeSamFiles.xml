@@ -7,7 +7,7 @@
   <command>
     @java_options@
     
-    java -jar \$JAVA_JAR_PATH/picard.jar
+    picard
     MergeSamFiles
     
     #for $element in $inputFile:
@@ -52,7 +52,7 @@
       <param name="assume_sorted" value="False"/>
       <param name="merge_sequence_dictionaries" value="False"/>
       <param name="validation_stringency" value="LENIENT"/>
-      <output name="outFile" file="picard_MergeSamFiles_test1.bam" ftype="bam" lines_diff="2"/>
+      <output name="outFile" file="picard_MergeSamFiles_test1.bam" ftype="bam" lines_diff="4"/>
     </test>
   </tests>
   

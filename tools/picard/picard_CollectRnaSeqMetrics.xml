@@ -4,7 +4,7 @@
         <import>picard_macros.xml</import>
     </macros>
     <expand macro="requirements">
-        <requirement type="package" version="3.1.2">R</requirement>
+        <requirement type="package" version="3.3.1">r</requirement>
     </expand>
     <command>
 
@@ -28,7 +28,7 @@
       ## Start picard command
       
       @java_options@
-      java -jar \$JAVA_JAR_PATH/picard.jar
+      picard
       CollectRnaSeqMetrics
       REF_FLAT=refFlat.tab
       
@@ -77,7 +77,7 @@
       <param format="tabular" name="refFlat" type="data" label="Gene annotations in refFlat form" help="See &quot;Obtaining gene annotations in refFlat format&quot; below for help" />
       <param name="ribosomal_intervals" format="picard_interval_list" type="data" optional="True" label="Location of rRNA sequences in genome, in interval_list format" help="RIBOSOMAL_INTERVALS; If not specified no bases will be identified as being ribosomal. The list of intervals can be geberated from BED or Interval datasets using Galaxy BedToIntervalList tool"/>
       <param name="strand_specificity" type="select" label="What is the RNA-seq library strand specificity" help="STRAND_SPECIFICITY; For unpaired reads, use FIRST_READ_TRANSCRIPTION_STRAND if the reads are expected to be on the transcription strand.">
-	 <option value="NONE" select="True">None</option>
+	 <option value="NONE" selected="True">None</option>
 	 <option value="FIRST_READ_TRANSCRIPTION_STRAND">First read transcription strand</option>
 	 <option value="SECOND_READ_TRANSCRIPTION_STRAND">Second read transcription strand</option>
       </param>

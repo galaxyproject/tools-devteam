@@ -12,7 +12,7 @@
     #set $fasta_file="local_fasta.fa"
     ln -s "${inputFile}" "${fasta_file}" &amp;&amp;    
     
-    java -jar \$JAVA_JAR_PATH/picard.jar
+    picard
     NormalizeFasta
     
     INPUT="${fasta_file}"

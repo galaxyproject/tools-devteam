@@ -7,7 +7,7 @@
   <command>
     @java_options@
     
-    java -jar \$JAVA_JAR_PATH/picard.jar
+    picard
     MarkDuplicatesWithMateCigar
     
     INPUT="${inputFile}"
@@ -46,7 +46,7 @@
     <param name="assume_sorted" type="boolean" label="Assume the input file is already sorted" checked="true" truevalue="true" falsevalue="false" help="ASSUME_SORTED; default=True"/>
 
     <param name="duplicate_scoring_strategy" type="select" label="The scoring strategy for choosing the non-duplicate among candidates" help="DUPLICATE_SCORING_STRATEGY; default=TOTAL_MAPPED_REFERENCE_LENGTH">
-      <option value="TOTAL_MAPPED_REFERENCE_LENGTH" select="True">TOTAL_MAPPED_REFERENCE_LENGTH</option>
+      <option value="TOTAL_MAPPED_REFERENCE_LENGTH" selected="True">TOTAL_MAPPED_REFERENCE_LENGTH</option>
       <option value="SUM_OF_BASE_QUALITIES">SUM_OF_BASE_QUALITIES</option>
     </param>
 

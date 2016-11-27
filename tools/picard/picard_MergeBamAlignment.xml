@@ -13,7 +13,7 @@
        
     #if str( $reference_source.reference_source_selector ) == "history":
         
-      java -jar \$JAVA_JAR_PATH/picard.jar CreateSequenceDictionary REFERENCE="${ref_fasta}" OUTPUT="${picard_dict}"
+      picard CreateSequenceDictionary REFERENCE="${ref_fasta}" OUTPUT="${picard_dict}"
       QUIET=true
       VERBOSITY=ERROR
       
@@ -25,7 +25,7 @@
     
     #end if
     
-    java -jar \$JAVA_JAR_PATH/picard.jar
+    picard
     MergeBamAlignment
       UNMAPPED_BAM="${unmapped_bam}"
       
@@ -194,7 +194,7 @@
       <param name="clip_overlapping_reads" value="True"/>
       <param name="include_secondary_alignments" value="True"/>
       <param name="add_mate_cigar" value="True"/>
-      <output name="outFile" file="picard_MergeBamAlignment_test1.bam" ftype="bam" lines_diff="2"/>
+      <output name="outFile" file="picard_MergeBamAlignment_test1.bam" ftype="bam" lines_diff="4"/>
     </test>
   </tests>
   

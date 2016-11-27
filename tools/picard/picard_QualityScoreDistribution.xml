@@ -4,7 +4,7 @@
     <import>picard_macros.xml</import>
   </macros>
   <expand macro="requirements">
-    <requirement type="package" version="3.1.2">R</requirement>
+    <requirement type="package" version="3.3.1">r</requirement>
   </expand>
   <command>
     @java_options@
@@ -18,7 +18,7 @@
         #set $reference_fasta_filename = str( $reference_source.ref_file.fields.path )
     #end if
     
-    java -jar \$JAVA_JAR_PATH/picard.jar
+    picard
     QualityScoreDistribution
     INPUT="${inputFile}"
     OUTPUT="${outFile}"
