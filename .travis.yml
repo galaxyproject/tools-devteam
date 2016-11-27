@@ -12,6 +12,7 @@ before_install:
   - export GALAXY_REPO=https://github.com/galaxyproject/galaxy
   - export GALAXY_RELEASE=release_16.07
   - export PLANEMO_CONDA_PREFIX="$HOME/conda"
+  - unset JAVA_HOME  # Interferes with java tools installed through conda
 
 install:
   # html5lib (planemo dep) requires setuptools >= 18.5
