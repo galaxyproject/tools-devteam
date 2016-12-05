@@ -32,7 +32,7 @@
   <tests>
     <test>
       <param name="inputFile" ftype="bam" value="picard_CleanSam.bam" />
-      <output name="outFile" file="picard_CleanSam_test1.bam" ftype="bam" />
+      <output name="outFile" file="picard_CleanSam_test1.bam" ftype="bam" lines_diff="4"/>
     </test>
   </tests>
 
