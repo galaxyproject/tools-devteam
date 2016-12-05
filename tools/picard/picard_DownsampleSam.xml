@@ -52,7 +52,7 @@ Randomly down-sample a SAM or BAM file to retain a random subset of the reads. M
 
 @description@
 
-  INPUT=$inputFile.element_identifierFile
+  INPUT=File
   I=File              The input SAM or BAM file to downsample.  Required.
 
   OUTPUT=File

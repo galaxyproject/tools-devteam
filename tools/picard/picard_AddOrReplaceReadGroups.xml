@@ -66,7 +66,7 @@ Add or Replace Read Groups in an input BAM or SAM file.
 
 @description@
 
-  INPUT=$inputFile.element_identifierFile
+  INPUT=File
   I=File                  Input file (bam or sam).  Required.
 
   OUTPUT=File
