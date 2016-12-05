@@ -8,6 +8,7 @@
   </expand>
   <command detect_errors="exit_code"><![CDATA[
     @java_options@
+    @symlink_element_identifier@
     ##set up input files
 
     #set $reference_fasta_filename = "localref.fa"
@@ -20,7 +21,7 @@
 
     picard
     CollectGcBiasMetrics
-    INPUT="${inputFile}"
+    INPUT='$inputFile.element_identifier'
     OUTPUT="${outFile}"
     CHART_OUTPUT="${pdfFile}"
     SUMMARY_OUTPUT="${summaryFile}"

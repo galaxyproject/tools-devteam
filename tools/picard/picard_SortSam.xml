@@ -12,9 +12,10 @@
         #set $output = $outFile
     #end if
     @java_options@
+    @symlink_element_identifier@
     picard
     SortSam
-    INPUT="${inputFile}"
+    INPUT='$inputFile.element_identifier'
     OUTPUT='${output}'
     SORT_ORDER="${sort_order}"
     QUIET=true

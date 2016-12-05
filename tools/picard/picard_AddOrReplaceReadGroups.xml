@@ -10,9 +10,10 @@
     #set $rg_auto_name = $read_group_name_default($inputFile)
     @set_read_group_vars@
     @java_options@
+    @symlink_element_identifier@
     picard
       AddOrReplaceReadGroups
-      INPUT="${inputFile}"
+      INPUT='$inputFile.element_identifier'
       $format_read_group("RGLB=", $rg_lb, '"')
       $format_read_group("RGPL=", $rg_pl, '"')
       $format_read_group("RGPU=", $rg_pu, '"')
@@ -25,21 +26,21 @@
       QUIET=true
       VERBOSITY=ERROR
       OUTPUT="${outFile}"
-      
+
   </command>
-  
+
   <inputs>
     <param format="bam,sam" name="inputFile" type="data" label="Select SAM/BAM dataset or dataset collection" help="If empty, upload or import a SAM/BAM dataset" />
     <expand macro="read_group_inputs_picard" />
     <expand macro="VS" />
-    
+
   </inputs>
-  
+
   <outputs>
     <data name="outFile" format="bam" label="${tool.name} on ${on_string}: BAM with replaced/modified readgroups"/>
   </outputs>
-  
-  
+
+
   <tests>
     <test>
       <param name="inputFile" value="picard_ARRG.bam" />
@@ -65,43 +66,43 @@ Add or Replace Read Groups in an input BAM or SAM file.
 
 @description@
 
-  INPUT=File
-  I=File                  Input file (bam or sam).  Required. 
+  INPUT=$inputFile.element_identifierFile
+  I=File                  Input file (bam or sam).  Required.
 
   OUTPUT=File
-  O=File                  Output file (bam or sam).  Required. 
+  O=File                  Output file (bam or sam).  Required.
 
   SORT_ORDER=SortOrder
-  SO=SortOrder            Optional sort order to output in. If not supplied OUTPUT is in the same order as INPUT.  
-                          Default value: null. Possible values: {unsorted, queryname, coordinate} 
+  SO=SortOrder            Optional sort order to output in. If not supplied OUTPUT is in the same order as INPUT.
+                          Default value: null. Possible values: {unsorted, queryname, coordinate}
 
   RGID=String
-  ID=String               Read Group ID  Default value: 1. This option can be set to 'null' to clear the default 
-                          value. 
+  ID=String               Read Group ID  Default value: 1. This option can be set to 'null' to clear the default
+                          value.
 
   RGLB=String
-  LB=String               Read Group Library  Required. 
-  
+  LB=String               Read Group Library  Required.
+
   RGPL=String
-  PL=String               Read Group platform (e.g. illumina, solid)  Required. 
+  PL=String               Read Group platform (e.g. illumina, solid)  Required.
 
   RGPU=String
-  PU=String               Read Group platform unit (eg. run barcode)  Required. 
+  PU=String               Read Group platform unit (eg. run barcode)  Required.
 
   RGSM=String
-  SM=String               Read Group sample name  Required. 
+  SM=String               Read Group sample name  Required.
 
   RGCN=String
-  CN=String               Read Group sequencing center name  Default value: null. 
+  CN=String               Read Group sequencing center name  Default value: null.
 
   RGDS=String
-  DS=String               Read Group description  Default value: null. 
+  DS=String               Read Group description  Default value: null.
 
   RGDT=Iso8601Date
-  DT=Iso8601Date          Read Group run date  Default value: null. 
+  DT=Iso8601Date          Read Group run date  Default value: null.
 
   RGPI=Integer
-  PI=Integer              Read Group predicted insert size  Default value: null. 
+  PI=Integer              Read Group predicted insert size  Default value: null.
 
 @more_info@
   </help>

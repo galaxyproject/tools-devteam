@@ -6,11 +6,11 @@
   <expand macro="requirements" />
   <command detect_errors="exit_code"><![CDATA[
     @java_options@
-
+    @symlink_element_identifier@
     picard
     MarkDuplicates
 
-    INPUT="${inputFile}"
+    INPUT='$inputFile.element_identifier'
     OUTPUT="${outFile}"
 
     METRICS_FILE="${metrics_file}"

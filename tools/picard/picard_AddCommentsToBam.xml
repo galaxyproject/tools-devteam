@@ -6,9 +6,10 @@
   <expand macro="requirements" />
   <command detect_errors="exit_code"><![CDATA[
     @java_options@
+    @symlink_element_identifier@
     picard
       AddCommentsToBam
-      INPUT="${inputFile}"
+      INPUT='$inputFile.element_identifier'
       OUTPUT="${outFile}"
       #for $element in $comments:
         COMMENT="${element.comment}"

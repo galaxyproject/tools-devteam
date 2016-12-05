@@ -16,7 +16,7 @@
     &&
 
     ##set up input files
-
+    @symlink_element_identifier@
     #set $reference_fasta_filename = "localref.fa"
 
     #if str( $reference_source.reference_source_selector ) == "history":
@@ -30,7 +30,7 @@
     picard
     ValidateSamFile
 
-    INPUT="${inputFile}"
+    INPUT='$inputFile.element_identifier'
     OUTPUT="${outFile}"
     MODE="${mode}"
 
