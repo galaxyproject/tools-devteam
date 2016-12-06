@@ -6,40 +6,40 @@
   <expand macro="requirements" />
   <command detect_errors="exit_code"><![CDATA[
     @java_options@
-    
+    @symlink_element_identifier@
     #set $picard_dict = "localref.dict"
     #set $ref_fasta = "localref.fa"     ## This is done because picards "likes" .fa extension
-    
+
     ln -s "${reference_source.ref_file}" "${ref_fasta}" &&
-       
+
     #if str( $reference_source.reference_source_selector ) == "history":
-        
+
       picard CreateSequenceDictionary REFERENCE="${ref_fasta}" OUTPUT="${picard_dict}"
       QUIET=true
       VERBOSITY=ERROR
-      
+
       &&
-      
+
     #else:
-    
+
       #set $ref_fasta = str( $reference_source.ref_file.fields.path ) ## getting path of reference fasta file (must end with .fa)
       #set $picard_dict=$ref_fasta[:-2]+"dict"                        ## replacing .fa with .dict
-    
-    #end if 
-    
+
+    #end if
+
     picard
       BedToIntervalList
-      INPUT="${inputFile}"
+      INPUT='$inputFile.element_identifier'
       OUTPUT="${outFile}"
-      
+
       SEQUENCE_DICTIONARY="${picard_dict}"
       QUIET=true
       VERBOSITY=ERROR
-      
+
   ]]></command>
-  
+
   <inputs>
-    
+
      <conditional name="reference_source">
       <param name="reference_source_selector" type="select" label="Load picard dictionary file from">
         <option value="cached">Local cache</option>
@@ -54,11 +54,11 @@
           <validator type="no_options" message="A built-in dictionary is not available for the build associated with the selected input file"/>
         </param>
       </when>
-      <when value="history"> 
+      <when value="history">
         <param name="ref_file" type="data" format="fasta" label="Use the following dataset to create dictionary" help="You can upload a FASTA sequence to the history from which Picard will automatically generate dictionary using CreateSequenceDictionary command" />
       </when>
     </conditional>
-    
+
     <param format="bed" name="inputFile" type="data" label="Select coordinate dataset or dataset collection" help="This can be a bed or interval dataset" />
 
   </inputs>
@@ -74,8 +74,8 @@
       <output name="outFile" file="picard_BedToIntervalList_test1.pif" ftype="picard_interval_list" lines_diff="8" />
     </test>
   </tests>
-  
-  
+
+
   <help>
 
 .. class:: infomark

@@ -16,6 +16,10 @@
         </requirements>
     </xml>
 
+    <token name="@symlink_element_identifier@"><![CDATA[
+    ln -f -s '$inputFile' '$inputFile.element_identifier' &&
+    ]]></token>
+
     <token name="@java_options@"><![CDATA[
     _JAVA_OPTIONS=\${_JAVA_OPTIONS:-'-Xmx2048m -Xms256m'} &&
     export _JAVA_OPTIONS &&

@@ -6,9 +6,10 @@
   <expand macro="requirements" />
   <command detect_errors="exit_code"><![CDATA[
     @java_options@
+    @symlink_element_identifier@
     picard
     DownsampleSam
-      INPUT="${inputFile}"
+      INPUT='$inputFile.element_identifier'
       OUTPUT="${outFile}"
       PROBABILITY=${probability}
       RANDOM_SEED=${seed}
@@ -20,16 +21,16 @@
     <param format="sam,bam" name="inputFile" type="data" label="Select SAM/BAM dataset or dataset collection" help="If empty, upload or import a SAM or BAM dataset" />
     <param name="probability" type="float" min="0.0" max="1.0" label="Probability (between 0 and 1) that any given read will be kept" help="PROBABILITY; specify 1 to keep all reads, 0.1 to keep 10% of the reads" value="1" />
     <param name="seed" type="integer" label="Random seed value" help="RANDOM_SEED; default=1" value="1" />
-    
+
     <expand macro="VS" />
-    
+
   </inputs>
-  
-  
+
+
   <outputs>
     <data name="outFile" format="bam" label="${tool.name} on ${on_string}: downsampled BAM"/>
   </outputs>
-  
+
   <tests>
     <test>
       <param name="inputFile" value="picard_DownsampleSam.bam"  ftype="bam" />
@@ -52,18 +53,18 @@ Randomly down-sample a SAM or BAM file to retain a random subset of the reads. M
 @description@
 
   INPUT=File
-  I=File              The input SAM or BAM file to downsample.  Required. 
+  I=File              The input SAM or BAM file to downsample.  Required.
 
   OUTPUT=File
-  O=File              The output, downsampled, SAM or BAM file to write.  Required. 
+  O=File              The output, downsampled, SAM or BAM file to write.  Required.
 
   RANDOM_SEED=Long
   R=Long              Random seed to use if reproducibilty is desired.  Setting to null will cause multiple
                       invocations to produce different results.
-                      
+
   PROBABILITY=Double
-  P=Double            The probability of keeping any individual read, between 0 and 1. 
-                       
+  P=Double            The probability of keeping any individual read, between 0 and 1.
+
 
 
 @more_info@
