@@ -28,7 +28,7 @@
 
     picard
     ReorderSam
-      INPUT='$inputFile.element_identifier'
+      INPUT='$escaped_element_identifier'
       OUTPUT="${outFile}"
       REFERENCE="${ref_fasta}"
       ALLOW_INCOMPLETE_DICT_CONCORDANCE="${allow_incomplete_dict_concordance}"

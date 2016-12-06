@@ -10,7 +10,7 @@
     picard
     MarkDuplicatesWithMateCigar
 
-    INPUT='$inputFile.element_identifier'
+    INPUT='$escaped_element_identifier'
     OUTPUT="${outFile}"
 
     METRICS_FILE="${metrics_file}"

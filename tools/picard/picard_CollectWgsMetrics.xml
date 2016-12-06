@@ -19,7 +19,7 @@
 
     picard
     CollectWgsMetrics
-    INPUT='$inputFile.element_identifier'
+    INPUT='$escaped_element_identifier'
     OUTPUT="${outFile}"
     REFERENCE_SEQUENCE="${reference_fasta_filename}"
     MINIMUM_MAPPING_QUALITY="${minimum_mapping_quality}"

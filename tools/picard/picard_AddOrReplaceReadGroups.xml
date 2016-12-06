@@ -13,7 +13,7 @@
     @symlink_element_identifier@
     picard
       AddOrReplaceReadGroups
-      INPUT='$inputFile.element_identifier'
+      INPUT='$escaped_element_identifier'
       $format_read_group("RGLB=", $rg_lb, '"')
       $format_read_group("RGPL=", $rg_pl, '"')
       $format_read_group("RGPU=", $rg_pu, '"')

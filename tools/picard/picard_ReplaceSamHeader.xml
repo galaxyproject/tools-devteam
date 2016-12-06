@@ -15,7 +15,7 @@
     picard
     ReplaceSamHeader
 
-    INPUT='$inputFile.element_identifier'
+    INPUT='$escaped_element_identifier'
     HEADER="${header}"
     OUTPUT="${outFile}"
 

@@ -20,7 +20,7 @@
 
     picard
     QualityScoreDistribution
-    INPUT='$inputFile.element_identifier'
+    INPUT='$escaped_element_identifier'
     OUTPUT="${outFile}"
     CHART_OUTPUT="${pdfFile}"
     REFERENCE_SEQUENCE="${reference_fasta_filename}"

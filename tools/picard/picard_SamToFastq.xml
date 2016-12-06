@@ -14,7 +14,7 @@
     picard
     SamToFastq
 
-    INPUT='$inputFile.element_identifier'
+    INPUT='$escaped_element_identifier'
 
     #if str( $output_per_rg ) == "true":
       OUTPUT_PER_RG=true

@@ -30,7 +30,7 @@
     picard
     ValidateSamFile
 
-    INPUT='$inputFile.element_identifier'
+    INPUT='$escaped_element_identifier'
     OUTPUT="${outFile}"
     MODE="${mode}"
 

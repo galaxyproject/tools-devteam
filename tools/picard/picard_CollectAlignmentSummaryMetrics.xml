@@ -19,7 +19,7 @@
 
     picard
     CollectAlignmentSummaryMetrics
-    INPUT='$inputFile.element_identifier'
+    INPUT='$escaped_element_identifier'
     OUTPUT="${outFile}"
     MAX_INSERT_SIZE=${maxinsert}
     #for $sequence in $adapters:

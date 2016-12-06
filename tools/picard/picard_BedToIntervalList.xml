@@ -29,7 +29,7 @@
 
     picard
       BedToIntervalList
-      INPUT='$inputFile.element_identifier'
+      INPUT='$escaped_element_identifier'
       OUTPUT="${outFile}"
 
       SEQUENCE_DICTIONARY="${picard_dict}"
