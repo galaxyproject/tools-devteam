@@ -34,7 +34,6 @@ tools/convert_solid_color2nuc
 tools/getindelrates_3way
 tools/sam_merge
 tools/weblogo3
-tools/xy_plot
 tools/indels_3way
 tools/macs
 tools/microsats_mutability
