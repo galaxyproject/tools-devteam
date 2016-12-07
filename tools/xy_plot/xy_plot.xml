@@ -1,11 +1,10 @@
 <tool id="XY_Plot_1" name="Plotting tool" version="1.0.2">
-  <description>for multiple series and graph types</description>
-  <requirements>
-    <requirement type="package" version="3.2.1">R</requirement>
-    <requirement type="package" version="2.11.1">fontconfig</requirement>
-   </requirements>
-  <command interpreter="bash">r_wrapper.sh $script_file</command>
-
+    <description>for multiple series and graph types</description>
+    <requirements>
+        <requirement type="package" version="3.2.1">R</requirement>
+        <requirement type="package" version="2.11.1">fontconfig</requirement>
+    </requirements>
+    <command interpreter="bash">r_wrapper.sh $script_file</command>
   <configfiles>
     <configfile name="script_file">
       ## Setup R error handling to go to stderr
@@ -146,7 +145,7 @@
             <param name="series_0|pch" value="1"/>
             <param name="series_0|col" value="2"/>
             <param name="series_0|cex" value="1.0"/>
-            <output name="out_file_png" ftype="png" file="testoutput.png" />
+            <output name="out_file_png" ftype="png" file="testoutput.png" compare="sim_size" />
         </test>
     </tests>
 <help>
