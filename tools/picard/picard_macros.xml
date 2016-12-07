@@ -18,7 +18,7 @@
 
     <token name="@symlink_element_identifier@"><![CDATA[
     #import re
-    #set escaped_element_identifier = re.sub('[^\w\-_]', '_', str($inputFile.element_identifier))
+    #set escaped_element_identifier = re.sub('[^\w\-]', '_', str($inputFile.element_identifier))
     ln -f -s '$inputFile' '$escaped_element_identifier' &&
     ]]></token>
 

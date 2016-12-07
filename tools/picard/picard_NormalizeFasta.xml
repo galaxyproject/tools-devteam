@@ -8,8 +8,9 @@
     @java_options@
 
     ## Two lines below are due to the fact that picard likes fasta files to have extension .fa
-    ln -s '$inputFile' '$escaped_element_identifier'.fa &&
-
+    #import re
+    #set escaped_element_identifier = re.sub('[^\w\-]', '_', str($inputFile.element_identifier))
+    ln -f -s '$inputFile' '$escaped_element_identifier'.fa &&
     picard
     NormalizeFasta
 
