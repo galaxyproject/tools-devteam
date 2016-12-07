@@ -9,7 +9,7 @@
     @symlink_element_identifier@
     picard
     CleanSam
-    INPUT='$inputFile.element_identifier'
+    INPUT='$escaped_element_identifier'
     OUTPUT="${outFile}"
     QUIET=true
     VERBOSITY=ERROR

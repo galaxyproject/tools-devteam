@@ -15,7 +15,7 @@
     @symlink_element_identifier@
     picard
     SortSam
-    INPUT='$inputFile.element_identifier'
+    INPUT='$escaped_element_identifier'
     OUTPUT='${output}'
     SORT_ORDER="${sort_order}"
     QUIET=true

@@ -17,7 +17,9 @@
     </xml>
 
     <token name="@symlink_element_identifier@"><![CDATA[
-    ln -f -s '$inputFile' '$inputFile.element_identifier' &&
+    #import re
+    #set escaped_element_identifier = re.sub('[^\w\-]', '_', str($inputFile.element_identifier))
+    ln -f -s '$inputFile' '$escaped_element_identifier' &&
     ]]></token>
 
     <token name="@java_options@"><![CDATA[

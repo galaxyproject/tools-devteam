@@ -9,7 +9,7 @@
     @symlink_element_identifier@
     picard
       AddCommentsToBam
-      INPUT='$inputFile.element_identifier'
+      INPUT='$escaped_element_identifier'
       OUTPUT="${outFile}"
       #for $element in $comments:
         COMMENT="${element.comment}"

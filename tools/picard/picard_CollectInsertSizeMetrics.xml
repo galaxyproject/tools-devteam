@@ -21,7 +21,7 @@
 
     picard
     CollectInsertSizeMetrics
-    INPUT='$inputFile.element_identifier'
+    INPUT='$escaped_element_identifier'
     OUTPUT="${outFile}"
     HISTOGRAM_FILE="${histFile}"
     DEVIATIONS="${deviations}"

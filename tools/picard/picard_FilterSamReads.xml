@@ -11,7 +11,7 @@
 
     picard
     SortSam
-    INPUT='$inputFile.element_identifier'
+    INPUT='$escaped_element_identifier'
     OUTPUT=query_sorted_bam.bam
     SORT_ORDER=queryname
     VALIDATION_STRINGENCY=LENIENT

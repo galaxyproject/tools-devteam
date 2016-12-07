@@ -46,7 +46,7 @@
 
       RRNA_FRAGMENT_PERCENTAGE="${rrna_fragment_percentage}"
       METRIC_ACCUMULATION_LEVEL="${metric_accumulation_level}"
-      INPUT='$inputFile.element_identifier'
+      INPUT='$escaped_element_identifier'
       OUTPUT="${outFile}"
       REFERENCE_SEQUENCE="${reference_fasta_filename}"
       ASSUME_SORTED="${assume_sorted}"

@@ -21,7 +21,7 @@
 
     picard
     CollectBaseDistributionByCycle
-    INPUT='$inputFile.element_identifier'
+    INPUT='$escaped_element_identifier'
     OUTPUT="${outFile}"
     CHART_OUTPUT="${pdfFile}"
     ALIGNED_READS_ONLY="${aligned_reads_only}"
