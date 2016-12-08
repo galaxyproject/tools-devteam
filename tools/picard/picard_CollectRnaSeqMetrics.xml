@@ -5,6 +5,8 @@
     </macros>
     <expand macro="requirements">
         <requirement type="package" version="3.3.1">r</requirement>
+        <requirement type="package" version="324">ucsc-gff3togenepred</requirement>
+        <requirement type="package" version="324">ucsc-gtftogenepred</requirement>
     </expand>
     <command detect_errors="exit_code"><![CDATA[
       ## Set up input files
