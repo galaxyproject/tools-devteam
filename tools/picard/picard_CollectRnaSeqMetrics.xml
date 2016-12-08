@@ -1,13 +1,14 @@
-<tool name="CollectRnaSeqMetrics" id="picard_CollectRnaSeqMetrics" version="@TOOL_VERSION@.0">
+<tool name="CollectRnaSeqMetrics" id="picard_CollectRnaSeqMetrics" version="@TOOL_VERSION@.1">
     <description> collect metrics about the alignment of RNA to various functional classes of loci in the genome</description>
     <macros>
         <import>picard_macros.xml</import>
     </macros>
     <expand macro="requirements">
         <requirement type="package" version="3.3.1">r</requirement>
+        <requirement type="package" version="324">ucsc-gff3togenepred</requirement>
+        <requirement type="package" version="324">ucsc-gtftogenepred</requirement>
     </expand>
     <command detect_errors="exit_code"><![CDATA[
-
       ## Set up input files
       @symlink_element_identifier@
       ## Reference sequences
@@ -23,7 +24,18 @@
       ## refFlat data
       ## The awk line below converts a file obtained from UCSC as specified in the tool help to refFlat format
 
-      grep -v '^#' ${refFlat} | awk '{print $11"\t"$1"\t"$2"\t"$3"\t"$4"\t"$5"\t"$6"\t"$7"\t"$8"\t"$9"\t"$10}' > refFlat.tab &&
+      #if str($gene_reference_source.gene_reference_source_selector) == "gtf"
+        #if $gene_reference_source.refFlat.ext != 'gff3'
+            gtfToGenePred '${gene_reference_source.refFlat}' refFlat.tab.raw &&
+        #else
+            gff3ToGenePred '${gene_reference_source.refFlat}' refFlat.tab.raw &&
+        #end if
+
+        grep -v '^#' refFlat.tab.raw | awk '{print $12"\t"$1"\t"$2"\t"$3"\t"$4"\t"$5"\t"$6"\t"$7"\t"$8"\t"$9"\t"$10}' > refFlat.tab &&
+      #else
+        grep -v '^#' ${refFlat} | awk '{print $11"\t"$1"\t"$2"\t"$3"\t"$4"\t"$5"\t"$6"\t"$7"\t"$8"\t"$9"\t"$10}' > refFlat.tab &&
+      #end if
+
 
       ## Start picard command
 
@@ -33,7 +45,7 @@
       REF_FLAT=refFlat.tab
 
       #if str( $ribosomal_intervals ) != "None":
-	 RIBOSOMAL_INTERVALS="${ribosomal_intervals}"
+        RIBOSOMAL_INTERVALS="${ribosomal_intervals}"
       #end if
 
       STRAND_SPECIFICITY="${strand_specificity}"
@@ -41,7 +53,7 @@
       CHART_OUTPUT="${pdfFile}"
 
       #for $sequence_to_ignore in $ignore_list:
-	 IGNORE_SEQUENCE="${sequence_to_ignore.sequence}"
+        IGNORE_SEQUENCE="${sequence_to_ignore.sequence}"
       #end for
 
       RRNA_FRAGMENT_PERCENTAGE="${rrna_fragment_percentage}"
@@ -50,9 +62,7 @@
       OUTPUT="${outFile}"
       REFERENCE_SEQUENCE="${reference_fasta_filename}"
       ASSUME_SORTED="${assume_sorted}"
-
-      QUIET=true
-      VERBOSITY=ERROR
+     
       VALIDATION_STRINGENCY=${validation_stringency}
 
    ]]></command>
@@ -60,21 +70,42 @@
    <inputs>
       <param format="sam,bam" type="data" name="inputFile" label="Select SAM/BAM dataset or dataset collection" help="If empty, upload or import a SAM/BAM dataset" />
       <conditional name="reference_source">
-	 <param name="reference_source_selector" type="select" label="Load reference genome from">
-	    <option value="cached">Local cache</option>
-	    <option value="history">History</option>
-	 </param>
-	 <when value="cached">
-	    <param name="ref_file" type="select" label="Using reference genome" help="REFERENCE_SEQUENCE">
-	       <options from_data_table="all_fasta"></options>
-	       <validator type="no_options" message="A built-in reference genome is not available for the build associated with the selected input file"/>
-	    </param>
-	 </when>
-	 <when value="history">
-	    <param name="ref_file" type="data" format="fasta" label="Use the folloing dataset as the reference sequence" help="REFERENCE_SEQUENCE; You can upload a FASTA sequence to the history and use it as reference" />
-	 </when>
+         <param name="reference_source_selector" type="select" label="Load reference genome from">
+            <option value="cached">Local cache</option>
+            <option value="history">History</option>
+         </param>
+         <when value="cached">
+            <param name="ref_file" type="select" label="Using reference genome" help="REFERENCE_SEQUENCE">
+               <options from_data_table="all_fasta"></options>
+               <validator type="no_options" message="A built-in reference genome is not available for the build associated with the selected input file"/>
+            </param>
+         </when>
+         <when value="history">
+            <param name="ref_file" type="data" format="fasta" label="Use the folloing dataset as the reference sequence" help="REFERENCE_SEQUENCE; You can upload a FASTA sequence to the history and use it as reference" />
+         </when>
       </conditional>
-      <param format="tabular" name="refFlat" type="data" label="Gene annotations in refFlat form" help="See &quot;Obtaining gene annotations in refFlat format&quot; below for help" />
+
+      <conditional name="gene_reference_source">
+         <param name="gene_reference_source_selector" type="select" label="Load gene annotation from">
+            <option value="gtf">GTF/GFF3</option>
+            <option value="refflat">refFlat</option>
+         </param>
+         <when value="gtf">
+              <param name="refFlat"
+                     format="gtf,gff3"
+                     type="data"
+                     label="Gene annotation (GTF/GFF3)"/>
+         </when>
+         <when value="refflat">
+              <param name="refFlat"
+                     format="tabular"
+                     type="data"
+                     label="Gene annotations in refFlat form"
+                     help="See &quot;Obtaining gene annotations in refFlat format&quot; below for help"/>
+         </when>
+      </conditional>
+
+
       <param name="ribosomal_intervals" format="picard_interval_list" type="data" optional="True" label="Location of rRNA sequences in genome, in interval_list format" help="RIBOSOMAL_INTERVALS; If not specified no bases will be identified as being ribosomal. The list of intervals can be geberated from BED or Interval datasets using Galaxy BedToIntervalList tool"/>
       <param name="strand_specificity" type="select" label="What is the RNA-seq library strand specificity" help="STRAND_SPECIFICITY; For unpaired reads, use FIRST_READ_TRANSCRIPTION_STRAND if the reads are expected to be on the transcription strand.">
 	 <option value="NONE" selected="True">None</option>
@@ -108,6 +139,8 @@
       <param name="ref_file" value="picard_CollectRnaSeqMetrics_ref.fa" ftype="fasta"/>
       <param name="inputFile" value="picard_CollectRnaSeqMetrics.bam" ftype="bam"/>
       <param name="assume_sorted" value="true" />
+      
+      <param name="gene_reference_source_selector" value="refflat" />
       <param name="refFlat" value="picard_CollectRnaSeqMetrics.refFlat" />
       <param name="metric_accumulation_level" value="ALL_READS" />
       <param name="minimum_length" value="500" />
@@ -116,6 +149,35 @@
       <output name="outFile" file="picard_CollectRnaSeqMetrics_test1.tab" ftype="tabular" lines_diff="4"/>
     </test>
 
+    <test>
+      <param name="reference_source_selector" value="history"/>
+      <param name="ref_file" value="picard_CollectRnaSeqMetrics_ref.fa" ftype="fasta"/>
+      <param name="inputFile" value="picard_CollectRnaSeqMetrics.bam" ftype="bam"/>
+      <param name="assume_sorted" value="true" />
+      
+      <param name="gene_reference_source_selector" value="gtf" />
+      <param name="refFlat" value="picard_CollectRnaSeqMetrics.gtf" ftype="gtf" />
+      <param name="metric_accumulation_level" value="ALL_READS" />
+      <param name="minimum_length" value="500" />
+      <param name="strand_specificity" value="NONE" />
+      <param name="rrna_fragment_percentage" value="0.8" />
+      <output name="outFile" file="picard_CollectRnaSeqMetrics_test2.tab" ftype="tabular" lines_diff="4"/>
+    </test>
+
+    <test>
+      <param name="reference_source_selector" value="history"/>
+      <param name="ref_file" value="picard_CollectRnaSeqMetrics_ref.fa" ftype="fasta"/>
+      <param name="inputFile" value="picard_CollectRnaSeqMetrics.bam" ftype="bam"/>
+      <param name="assume_sorted" value="true" />
+      
+      <param name="gene_reference_source_selector" value="gtf" />
+      <param name="refFlat" value="picard_CollectRnaSeqMetrics.gff3" ftype="gff3" />
+      <param name="metric_accumulation_level" value="ALL_READS" />
+      <param name="minimum_length" value="500" />
+      <param name="strand_specificity" value="NONE" />
+      <param name="rrna_fragment_percentage" value="0.8" />
+      <output name="outFile" file="picard_CollectRnaSeqMetrics_test3.tab" ftype="tabular" lines_diff="4"/>
+    </test>
   </tests>
   <help>
 
