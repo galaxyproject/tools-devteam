@@ -218,9 +218,7 @@
       "${reference_fasta_filename}" first.sai "${input_type.bam_input}"
     #end if
 
-    | samtools view -Sb - > temporary_bam_file.bam &&
-
-    samtools sort -f temporary_bam_file.bam ${bam_output}
+    | samtools sort -O bam -o '$bam_output'
 ]]>
   </command>
 

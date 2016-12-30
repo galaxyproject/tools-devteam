@@ -26,6 +26,10 @@
 
     #if str( $analysis_type.analysis_type_selector ) == "pacbio":
       -x pacbio
+    #elif str( $analysis_type.analysis_type_selector ) == "ont2d":
+      -x ont2d
+    #elif str( $analysis_type.analysis_type_selector ) == "intractg":
+      -x intractg
     #elif str( $analysis_type.analysis_type_selector ) == "full":
       #if str( $analysis_type.algorithmic_options.algorithmic_options_selector ) == "set":    ## Algorithmic options
         -k "${analysis_type.algorithmic_options.k}"
@@ -96,9 +100,7 @@
       "${fastq_input.fastq_input1}"
     #end if
 
-    | samtools view -Sb - > temporary_bam_file.bam &&
-
-    samtools sort -f temporary_bam_file.bam ${bam_output}
+    | samtools sort -O bam -o '$bam_output'
 ]]>
   </command>
 
@@ -147,12 +149,20 @@
       <param name="analysis_type_selector" type="select" label="Select analysis mode">
         <option value="illumina">1.Simple Illumina mode</option>
         <option value="pacbio">2.PacBio mode (-x pacbio)</option>
-        <option value="full">3.Full list of options</option>
+        <option value="ont2d">3.Nanopore 2D-reads mode (-x ont2d)</option>
+        <option value="intractg">4.Intra-species contigs mode (-x intractg)</option>
+        <option value="full">5.Full list of options</option>
       </param>
       <when value="illumina">
         <!-- do nothing -->
       </when>
       <when value="pacbio">
+        <!-- do nothing. all magic happens within <command> tag -->
+      </when>
+      <when value="ont2d">
+        <!-- do nothing. all magic happens within <command> tag -->
+      </when>
+      <when value="intractg">
         <!-- do nothing. all magic happens within <command> tag -->
       </when>
       <when value="full">
