@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<tool id="cummeRbund" name="cummeRbund" version="1.0.1">
+<tool id="cummeRbund" name="cummeRbund" version="1.0.2">
     <description>visualize Cuffdiff output</description>
     <requirements>
         <requirement type="set_environment">CUMMERBUND_SCRIPT_PATH</requirement>
@@ -40,6 +40,7 @@
     #elif $p.plot.type == "heatmap":
         --clustering "$p.plot.clustering" $p.plot.labcol $p.plot.labrow $p.plot.border --features $p.plot.features $p.plot.log10
         #if len($p.plot.genes) > 0:
+            --gene_selector
             #for gene in $p.plot.genes:
                 --genes ${gene.gene_id}
             #end for
@@ -124,7 +125,7 @@
                         <option value="none">None</option>
                     </param>
                     <param name="labcol" type="boolean" truevalue="--labcol" falsevalue="" checked="True" label="Display column labels?"/>
-                    <param name="labrow" type="boolean" truevalue="--labrow" falsevalue="" checked="True" label="Display column labels?"/>
+                    <param name="labrow" type="boolean" truevalue="--labrow" falsevalue="" checked="True" label="Display row labels?"/>
                     <param name="border" type="boolean" truevalue="--border" falsevalue="" checked="False" label="Draw border around plot?"/>
                     <expand macro="log10_checkbox" />
                 </when>
