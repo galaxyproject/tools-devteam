@@ -4,9 +4,6 @@
     <macros>
         <import>fastx_macros.xml</import>
     </macros>
-    <macros>
-        <import>fastx_macros.xml</import>
-    </macros>
     <command><![CDATA[
         command -v perl5.22.0 &&
         perl5.22.0 `command -v fasta_clipping_histogram.pl` '$input' '$outfile' ||
