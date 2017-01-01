@@ -166,12 +166,12 @@
         </data>
     </outputs>
     <tests>
+        <!-- 
         <test>
-            <!-- 
                 NOTE: as of version 0.0.6 of the wrapper, tests cannot be run because multiple inputs to a repeat
                 element are not supported.
-            -->
         </test>
+        -->
     </tests>
 
     <help>
