@@ -16,7 +16,7 @@
             ln -s -f '$reference_genome.own_file' genome.fa &&
             #set index_path = 'genome'
         #else:
-            #set index_path = '$reference_genome.index.fields.path'
+            #set index_path = $reference_genome.index.fields.path
         #end if
 
         ## execute bowtie2
