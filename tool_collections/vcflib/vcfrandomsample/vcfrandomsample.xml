@@ -24,7 +24,7 @@
                 <option value="no">Don't use advanced options</option>
                 <option value="use_adv_controls">Use advanced options</option>
             </param>
-            <when value="" />
+            <when value="no" />
             <when value="use_adv_controls">
                 <param name="scale_by" type="text" value="AF" label="scale sampling likelihood by this INFO field" help="-s, --scale-by; this only works for Float info fields such as AF" />
             </when>
@@ -43,7 +43,6 @@
         </test>
     </tests>
     <help>
-
 Randomly sample sites from an input VCF dataset. Scale the sampling probability by the field specified by --scale-by (see advanced controls).  This may be
 used to provide uniform sampling across allele frequencies, for instance (AF field in this case).
 
