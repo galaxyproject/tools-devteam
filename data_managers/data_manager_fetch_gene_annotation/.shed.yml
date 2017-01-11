@@ -6,6 +6,6 @@ homepage_url: https://github.com/galaxyproject/tools-devteam/
 long_description: |
     Download the Gene Annotation .gff files and add their paths to a data table
 name: data_manager_fetch_gene_annotation
-owner: devteam
+owner: scottx611x
 remote_repository_url: https://github.com/galaxyproject/tools-devteam/blob/master/data_managers/data_manager_fetch_gene_annotation/
 type: unrestricted
