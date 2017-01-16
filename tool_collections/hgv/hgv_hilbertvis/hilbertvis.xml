@@ -4,9 +4,9 @@
     <requirement type="package" version="2.11.0">R</requirement>
     <requirement type="package" version="1.18.0">bioc_hilbertvis</requirement>
   </requirements>
-  <command interpreter="bash">
-    hilbertvis.sh $input $output $chromInfo "$chrom" $plot_value.score_col $level $mode
-    #if isinstance( $input.datatype, $__app__.datatypes_registry.get_datatype_by_extension('gff').__class__)
+  <command>
+    bash '$__tool_directory__/hilbertvis.sh' '$input' '$output' '$chromInfo' '$chrom' '$plot_value.score_col' $level $mode
+    #if $input.is_of_type('gff')
       1 4 5 7
     #else
       ${input.metadata.chromCol} ${input.metadata.startCol} ${input.metadata.endCol} ${input.metadata.strandCol}
@@ -107,14 +107,8 @@ Here are some examples from the HilbertVis homepage, using ChIP-Seq data.
 -----
 
 .. image:: hilbertvis2.png
-
------
-
-**Reference**
-
-Anders S. (2009)
-Visualization of genomic data with the Hilbert curve.
-Bioinformatics. 25(10):1231-5. Epub 2009 Mar 17.
-
   </help>
+  <citations>
+    <citation type="doi">10.1093/bioinformatics/btp152</citation>
+  </citations>
 </tool>
