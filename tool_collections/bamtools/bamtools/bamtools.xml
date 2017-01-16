@@ -5,14 +5,13 @@
     <requirement type="package" version="2.4.0">bamtools</requirement>
     <requirement type="package" version="1.3.1">samtools</requirement>
   </requirements>
-
   <command>
-   ##set up input files
+    ##set up input files
 
-  #for $bam_count, $input_bam in enumerate( $input_bams ):
-    ln -s "${input_bam}" "localbam_${bam_count}.bam" &amp;&amp;
-    ln -s "${input_bam.metadata.bam_index}" "localbam_${bam_count}.bam.bai" &amp;&amp;
-  #end for
+    #for $bam_count, $input_bam in enumerate( $input_bams ):
+      ln -s "${input_bam}" "localbam_${bam_count}.bam" &amp;&amp;
+      ln -s "${input_bam.metadata.bam_index}" "localbam_${bam_count}.bam.bai" &amp;&amp;
+    #end for
 
   #if str( $analysis_type.analysis_type_selector ) == "convert":
     #if str( $analysis_type.format_type.format_type_selector ) == "pileup":
