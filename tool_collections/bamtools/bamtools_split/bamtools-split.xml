@@ -4,7 +4,7 @@
     <requirement type="package" version="2.3.0_2d7685d2ae">bamtools</requirement>
   </requirements>
   <command>
-
+      
     echo "BAM" > $report &amp;&amp;
 
     #for $bam_count, $input_bam in enumerate( $input_bams ):
@@ -52,9 +52,9 @@
   </inputs>
 
   <outputs>
-    <data format="txt" name="report" label="BAMSplitter Run" hidden="true">
-      <discover_datasets pattern="split_bam\.(?P&lt;designation&gt;.+)\.bam" ext="bam" visible="true"/>
-    </data>
+    <collection name="report" type="list" label="BAMSplitter Run">
+        <discover_datasets pattern="split_bam\.(?P&lt;designation&gt;.+)\.bam" ext="bam"/>
+    </collection>
   </outputs>
     <tests>
         <test>
@@ -66,23 +66,12 @@
               </assert_contents>
               <discovered_dataset designation="MAPPED" file="bamtools-split-test1.bam" ftype="bam"/>
             </output>
-
         </test>
     </tests>
 <help>
 **What is does**
 
 BAMTools split is a utility for splitting BAM files. It is based on BAMtools suite of tools by Derek Barnett (https://github.com/pezmaster31/bamtools).
-
------
-
-.. class:: warningmark
-
-**DANGER: Multiple Outputs**
-
-As described below, splitting a BAM dataset(s) on reference name or a tag value can produce very large numbers of outputs. Read below and know what you are doing.
-
------
 
 **How it works**
 
