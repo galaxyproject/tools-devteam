@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<tool_dependency>
-    <package name="bamtools" version="2.3.0_2d7685d2ae">
-        <repository name="package_bamtools_2_3_0_2d7685d2ae" owner="devteam" />
-    </package>
-    <package name="samtools" version="0.1.18">
-        <repository name="package_samtools_0_1_18" owner="devteam" />
-     </package>
-</tool_dependency>

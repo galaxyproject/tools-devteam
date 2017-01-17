@@ -168,6 +168,3 @@ tool_collections/taxonomy/gi2taxonomy
 tool_collections/taxonomy/kraken2tax
 tool_collections/taxonomy/t2ps
 tool_collections/taxonomy/find_diag_hits
-tool_collections/bamtools/bamtools_split
-tool_collections/bamtools/bamtools_filter
-tool_collections/bamtools/bamtools

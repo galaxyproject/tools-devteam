@@ -1,7 +1,7 @@
-<tool id="bamFilter" name="Filter" version="0.0.2">
+<tool id="bamFilter" name="Filter" version="0.0.3">
   <description>BAM datasets on a variety of attributes</description>
   <requirements>
-    <requirement type="package" version="2.3.0_2d7685d2ae">bamtools</requirement>
+    <requirement type="package" version="2.4.0">bamtools</requirement>
   </requirements>
   <command>
     cat $script_file > $out_file2;

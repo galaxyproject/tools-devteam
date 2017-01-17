@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
-<tool id="bamtools" name="Convert, Merge, Randomize" version="0.0.2">
+<tool id="bamtools" name="Convert, Merge, Randomize" version="0.0.3">
   <description>BAM datasets and perform other transformations</description>
   <requirements>
-    <requirement type="package" version="2.3.0_2d7685d2ae">bamtools</requirement>
-    <requirement type="package" version="0.1.18">samtools</requirement>
+    <requirement type="package" version="2.4.0">bamtools</requirement>
+    <requirement type="package" version="1.3.1">samtools</requirement>
   </requirements>
 
   <command>

@@ -1,7 +1,7 @@
-<tool id="bamSplit" name="Split" version="0.0.2" force_history_refresh="True">
+<tool id="bamSplit" name="Split" version="0.0.3" force_history_refresh="True">
   <description>BAM datasets on variety of attributes</description>
   <requirements>
-    <requirement type="package" version="2.3.0_2d7685d2ae">bamtools</requirement>
+    <requirement type="package" version="2.4.0">bamtools</requirement>
   </requirements>
   <command>
 
