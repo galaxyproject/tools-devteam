@@ -85,7 +85,7 @@
                 <!-- To enable sort option simply uncomment the line below: -->
                 <!--  <option value="sort">Sort</option> -->
             </param>
-     .      <when value="convert">
+            <when value="convert">
                 <conditional name="format_type">
                     <param name="format_type_selector" type="select" help="Select what to convert your BAM to">
                         <option value="bed">BED</option>
