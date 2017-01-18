@@ -7,8 +7,8 @@
         <![CDATA[
             cat $script_file > $out_file2;
             #for $bam_count, $input_bam in enumerate( $input_bams ):
-                ln -s "${input_bam}" "localbam_${bam_count}.bam" &amp;&amp;
-                ln -s "${input_bam.metadata.bam_index}" "localbam_${bam_count}.bam.bai" &amp;&amp;
+                ln -s "${input_bam}" "localbam_${bam_count}.bam" &&
+                ln -s "${input_bam.metadata.bam_index}" "localbam_${bam_count}.bam.bai" &&
             #end for
             bamtools
             filter
