@@ -1,215 +1,212 @@
 <tool id="bamFilter" name="Filter" version="0.0.3">
-  <description>BAM datasets on a variety of attributes</description>
-  <requirements>
-    <requirement type="package" version="2.4.0">bamtools</requirement>
-  </requirements>
-  <command>
-    cat $script_file > $out_file2;
-
-    #for $bam_count, $input_bam in enumerate( $input_bams ):
-      ln -s "${input_bam}" "localbam_${bam_count}.bam" &amp;&amp;
-      ln -s "${input_bam.metadata.bam_index}" "localbam_${bam_count}.bam.bai" &amp;&amp;
-    #end for
-
-    bamtools
-    filter
-    -script $script_file
-
-    #for $bam_count, $input_bam in enumerate( $input_bams ):
-        -in "localbam_${bam_count}.bam"
-    #end for
-    -out $out_file1
-  </command>
-  <inputs>
-    <param name="input_bams" type="data" format="bam" label="BAM dataset(s) to filter" min="1" multiple="True"/>
-    <repeat name="conditions" title="Condition" min="1">
-      <repeat name="filters" title="Filter" min="1">
-        <conditional name="bam_property">
-          <param name="bam_property_selector" type="select" label="Select BAM property to filter on">
-            <option value="alignmentFlag"/>
-            <option value="cigar"/>
-            <option value="insertSize"/>
-            <option value="isDuplicate"/>
-            <option value="isFailedQC"/>
-            <option value="isFirstMate"/>
-            <option value="isMapped"/>
-            <option value="isMateMapped"/>
-            <option value="isMateReverseStrand"/>
-            <option value="isPaired"/>
-            <option value="isPrimaryAlignment"/>
-            <option value="isProperPair"/>
-            <option value="isReverseStrand"/>
-            <option value="isSecondMate"/>
-            <option selected="True" value="mapQuality"/>
-            <option value="matePosition"/>
-            <option value="mateReference"/>
-            <option value="name"/>
-            <option value="position"/>
-            <option value="queryBases"/>
-            <option value="reference"/>
-            <option value="tag"/>
-          </param>
-          <!-- would be fanstastic to have AND and OR constructs in when statements -->
-          <when value="alignmentFlag">
-            <param name="bam_property_value" type="integer" value="3" label="Filter on this alignment flag" help="Default (3) is for a paired read mapped in a proper pair"/>
-          </when>
-          <when value="cigar">
-            <param name="bam_property_value" type="text" value="101M" label="Filter on this CIGAR string" help="Default (101M) is for 101 continuously matched bases"/>
-          </when>
-          <when value="insertSize">
-            <param name="bam_property_value" type="text" value=">=250" label="Filter on insert size" help="You can use &gt;, &lt;, =, and ! (not) in your expression. E.g., to select pairs with insert size above 250 nt use &quot;>=250&quot;">
-              <sanitizer invalid_char="">
-                <valid initial="string.letters,string.digits"><add value="&gt;"/><add value="&lt;"/><add value="!="/><add value="-"/></valid>
-              </sanitizer>
-            </param>
-          </when>
-          <when value="isDuplicate">
-            <param name="bam_property_value" type="boolean" truevalue="true" falsevalue="false" label="Select reads makwed as duplicates" help="Checked = Read IS Duplicate, Empty = Read is NOT Duplicate" />
-          </when>
-          <when value="isFailedQC">
-            <param name="bam_property_value" type="boolean" truevalue="true" falsevalue="false" label="Select reads failing QC" help="Checked = Failed QC, Empty = Passed QC"/>
-          </when>
-          <when value="isFirstMate">
-            <param name="bam_property_value" type="boolean" truevalue="true" falsevalue="false" label="Select first mate in a read pair" help="Checked = is first mate, Empty = is NOT first mate"/>
-          </when>
-          <when value="isMapped">
-            <param name="bam_property_value" type="boolean" truevalue="true" falsevalue="false" label="Selected mapped reads" help="Checked = Mapped, Empty = NOT mapped"/>
-          </when>
-          <when value="isMateMapped">
-            <param name="bam_property_value" type="boolean" truevalue="true" falsevalue="false" label="Select reads with mapped mate" help="Checked = Mate IS mapped Empty = Mate is NOT mapped"/>
-          </when>
-          <when value="isMateReverseStrand">
-            <param name="bam_property_value" type="boolean" truevalue="true" falsevalue="false" label="Select reads with mate on the reverse strand" help="Checked = Mate IS on reverse strand, Empty = Mate is NOT on the reverse strand"/>
-          </when>
-          <when value="isPaired">
-            <param name="bam_property_value" type="boolean" truevalue="true" falsevalue="false" label="Select paired reads" help="Checked = Read IS paired, Empty = Read is NOT paired"/>
-          </when>
-          <when value="isPrimaryAlignment">
-            <param name="bam_property_value" type="boolean" truevalue="true" falsevalue="false" label="Select BAM records for primary alignments" help="Checked = Alignment IS primary, Empty = Alignment is NOT primary"/>
-          </when>
-          <when value="isProperPair">
-            <param name="bam_property_value" type="boolean" truevalue="true" falsevalue="false" label="Select properly paired reads" help="Checked = Read IS in proper pair, Empty = Read is NOT in the proper pair"/>
-          </when>
-          <when value="isReverseStrand">
-            <param name="bam_property_value" type="boolean" truevalue="true" falsevalue="false" label="Select reads in the reverse strand only" help="Checked = Read IS on the reverse strand, Empty = Read is NOT on the reverse strand"/>
-          </when>
-          <when value="isSecondMate">
-            <param name="bam_property_value" type="boolean" truevalue="true" falsevalue="false" label="Select second mate in a read pair" help="Checked = Read IS second mate, Empty = Read is NOT second mate"/>
-          </when>
-          <when value="mapQuality">
-            <param name="bam_property_value" type="text" value="20" label="Filter on read mapping quality (phred scale)" help="You can use &gt;, &lt;, =, and ! (not) in your expression. E.g., to select reads with mapping quality of at least 30 use &quot;>=30&quot;">
-              <sanitizer invalid_char="">
-                <valid initial="string.letters,string.digits"><add value="&gt;"/><add value="&lt;"/><add value="!="/></valid>
-              </sanitizer>
-            </param>
-          </when>
-          <when value="matePosition">
-            <param name="bam_property_value" type="text" value="1000000" label="Filter on the position of the mate" help="You can use &gt;, &lt;, =, and ! (not) in your expression. E.g., to select reads with mate (second end) mapping after position 1,000,000 use &quot;&gt;1000000&quot;">
-              <sanitizer invalid_char="">
-                <valid initial="string.letters,string.digits"><add value="&gt;"/><add value="&lt;"/><add value="!="/></valid>
-              </sanitizer>
-            </param>
-          </when>
-          <when value="mateReference">
-            <param name="bam_property_value" type="text" value="chr22" label="Filter on reference name for the mate" help="You can use = and ! (not) in your expression. E.g., to select reads with mates mapping to chrM use &quot;chr22&quot;">
-              <sanitizer invalid_char="">
-                <valid initial="string.letters,string.digits"><add value="&gt;"/><add value="&lt;"/><add value="!="/></valid>
-              </sanitizer>
-            </param>
-          </when>
-          <when value="name">
-            <param name="bam_property_value" type="text" label="Filter on read name" help="You can use = and ! (not) in your expression.">
-              <sanitizer invalid_char="">
-                <valid initial="string.letters,string.digits"><add value="&gt;"/><add value="&lt;"/><add value="!="/></valid>
-              </sanitizer>
-            </param>
-          </when>
-          <when value="position">
-            <param name="bam_property_value" type="text" value="500000" label="Filter on the position of the read" help="You can use &gt;, &lt;, =, and ! (not) in your expression. E.g., to select reads mapping after position 5,000 use &quot;&gt;5000&quot;">
-              <sanitizer invalid_char="">
-                <valid initial="string.letters,string.digits"><add value="&gt;"/><add value="&lt;"/><add value="!="/></valid>
-              </sanitizer>
-            </param>
-          </when>
-          <when value="queryBases">
-            <param name="bam_property_value" type="text" value="ttagggttagg" label="Filter on a sequence motif" help="You can use ! (not) in your expression">
-              <sanitizer invalid_char="">
-                <valid initial="string.letters,string.digits"><add value="&gt;"/><add value="&lt;"/><add value="!="/></valid>
-              </sanitizer>
-            </param>
-          </when>
-          <when value="reference">
-            <param name="bam_property_value" type="text" value="chr22" label="Filter on the reference name for the read" help="You can use ! (not) in your expression">
-              <sanitizer invalid_char="">
-                <valid initial="string.letters,string.digits"><add value="&gt;"/><add value="&lt;"/><add value="!="/></valid>
-              </sanitizer>
-            </param>
-          </when>
-          <when value="tag">
-            <param name="bam_property_value" type="text" value="NM:&gt;1" label="Filter on a particular tag" help="You can use &gt;, &lt;, =, and ! (not).
-            Tag name and its value must be separated by &quot;:&quot;. E.g., to obtain reads with at least one mismatch use &quot;NM:&gt;1&quot;">
-              <sanitizer invalid_char="">
-                <valid initial="string.letters,string.digits"><add value="&gt;"/><add value="&lt;"/><add value=":!="/></valid>
-              </sanitizer>
-            </param>
-          </when>
-        </conditional>
-      </repeat>
-    </repeat>
-    <conditional name="rule_configuration">
-      <param name="rules_selector" type="boolean" truevalue="true" falsevalue="false" label="Would you like to set rules?" help="Allows complex logical constructs. See Example 4 below." />
-      <when value="true">
-        <param name="rules" type="text" label="Enter rules here" help="This option can only be used with at least two conditions. Read help below (Example 4) to understand how it works." >
-          <sanitizer invalid_char="">
-            <valid initial="string.printable"/>
-          </sanitizer>
-        </param>
-      </when>
-    </conditional>
-  </inputs>
-
-  <configfiles>
-    <configfile name="script_file">
-      ##Sets up a json configfile for bamtools filter
-      ##If there is more than one condition prints brackets and "filters:"
-      #if len( $conditions ) > 1
-      {
-        "filters":
-        [
-      #end if
-      #for $i, $c in enumerate( $conditions, start=1 )
-          { "id": "$i",
-          #for $j, $s in enumerate( $c.filters, start=1 )
-          ##The if below takes care of the comma at the end of last condition within group
-            #if $j != len( $c.filters)
-            "${s.bam_property.bam_property_selector}":"${s.bam_property.bam_property_value}",
-            #else
-            "${s.bam_property.bam_property_selector}":"${s.bam_property.bam_property_value}"
+    <description>BAM datasets on a variety of attributes</description>
+    <requirements>
+        <requirement type="package" version="2.4.0">bamtools</requirement>
+    </requirements>
+    <command>
+        <![CDATA[
+            cat $script_file > $out_file2;
+            #for $bam_count, $input_bam in enumerate( $input_bams ):
+                ln -s "${input_bam}" "localbam_${bam_count}.bam" &amp;&amp;
+                ln -s "${input_bam.metadata.bam_index}" "localbam_${bam_count}.bam.bai" &amp;&amp;
+            #end for
+            bamtools
+            filter
+            -script $script_file
+            #for $bam_count, $input_bam in enumerate( $input_bams ):
+                -in "localbam_${bam_count}.bam"
+            #end for
+            -out $out_file1
+        ]]>
+    </command>
+    <configfiles>
+        <configfile name="script_file">
+            ##Sets up a json configfile for bamtools filter
+            ##If there is more than one condition prints brackets and "filters:"
+            #if len( $conditions ) > 1
+            {
+                "filters":
+                  [
+                  #end if
+                  #for $i, $c in enumerate( $conditions, start=1 )
+                  { "id": "$i",
+                      #for $j, $s in enumerate( $c.filters, start=1 )
+                      ##The if below takes care of the comma at the end of last condition within group
+                      #if $j != len( $c.filters)
+                          "${s.bam_property.bam_property_selector}":"${s.bam_property.bam_property_value}",
+                      #else
+                          "${s.bam_property.bam_property_selector}":"${s.bam_property.bam_property_value}"
+                      #end if
+                      #end for
+                      ##The if below takes care of the comma at the end of last condition within group
+                      #if $i != len( $conditions )
+                  },
+                  #else
+            }
             #end if
-          #end for
-          ##The if below takes care of the comma at the end of last condition within group
-          #if $i != len( $conditions )
-          },
-          #else
-          }
-          #end if
-      #end for
-      #if len( $conditions ) > 1
-      #if str( $rule_configuration.rules_selector ) == "True":
-        ],
-          "rule" : "${rule_configuration.rules}"
-        #else
-        ]
-        #end if
-      }
-      #end if
-    </configfile>
-  </configfiles>
-
-  <outputs>
-    <data format="txt" name="out_file2" />
-    <data format="bam" name="out_file1" />
-  </outputs>
+            #end for
+            #if len( $conditions ) > 1
+                #if str( $rule_configuration.rules_selector ) == "True":
+                    ],
+                    "rule" : "${rule_configuration.rules}"
+                #else
+                    ]
+                #end if
+            }
+            #end if
+        </configfile>
+    </configfiles>
+    <inputs>
+        <param name="input_bams" type="data" format="bam" label="BAM dataset(s) to filter" min="1" multiple="True"/>
+        <repeat name="conditions" title="Condition" min="1">
+            <repeat name="filters" title="Filter" min="1">
+                <conditional name="bam_property">
+                    <param name="bam_property_selector" type="select" label="Select BAM property to filter on">
+                        <option value="alignmentFlag"/>
+                        <option value="cigar"/>
+                        <option value="insertSize"/>
+                        <option value="isDuplicate"/>
+                        <option value="isFailedQC"/>
+                        <option value="isFirstMate"/>
+                        <option value="isMapped"/>
+                        <option value="isMateMapped"/>
+                        <option value="isMateReverseStrand"/>
+                        <option value="isPaired"/>
+                        <option value="isPrimaryAlignment"/>
+                        <option value="isProperPair"/>
+                        <option value="isReverseStrand"/>
+                        <option value="isSecondMate"/>
+                        <option selected="True" value="mapQuality"/>
+                        <option value="matePosition"/>
+                        <option value="mateReference"/>
+                        <option value="name"/>
+                        <option value="position"/>
+                        <option value="queryBases"/>
+                        <option value="reference"/>
+                        <option value="tag"/>
+                    </param>
+                    <!-- would be fanstastic to have AND and OR constructs in when statements -->
+                    <when value="alignmentFlag">
+                        <param name="bam_property_value" type="integer" value="3" label="Filter on this alignment flag" help="Default (3) is for a paired read mapped in a proper pair"/>
+                    </when>
+                    <when value="cigar">
+                        <param name="bam_property_value" type="text" value="101M" label="Filter on this CIGAR string" help="Default (101M) is for 101 continuously matched bases"/>
+                    </when>
+                    <when value="insertSize">
+                        <param name="bam_property_value" type="text" value=">=250" label="Filter on insert size" help="You can use &gt;, &lt;, =, and ! (not) in your expression. E.g., to select pairs with insert size above 250 nt use &quot;>=250&quot;">
+                            <sanitizer invalid_char="">
+                                <valid initial="string.letters,string.digits"><add value="&gt;"/><add value="&lt;"/><add value="!="/><add value="-"/></valid>
+                            </sanitizer>
+                        </param>
+                    </when>
+                    <when value="isDuplicate">
+                        <param name="bam_property_value" type="boolean" truevalue="true" falsevalue="false" label="Select reads makwed as duplicates" help="Checked = Read IS Duplicate, Empty = Read is NOT Duplicate" />
+                    </when>
+                    <when value="isFailedQC">
+                        <param name="bam_property_value" type="boolean" truevalue="true" falsevalue="false" label="Select reads failing QC" help="Checked = Failed QC, Empty = Passed QC"/>
+                    </when>
+                    <when value="isFirstMate">
+                        <param name="bam_property_value" type="boolean" truevalue="true" falsevalue="false" label="Select first mate in a read pair" help="Checked = is first mate, Empty = is NOT first mate"/>
+                    </when>
+                    <when value="isMapped">
+                        <param name="bam_property_value" type="boolean" truevalue="true" falsevalue="false" label="Selected mapped reads" help="Checked = Mapped, Empty = NOT mapped"/>
+                    </when>
+                    <when value="isMateMapped">
+                        <param name="bam_property_value" type="boolean" truevalue="true" falsevalue="false" label="Select reads with mapped mate" help="Checked = Mate IS mapped Empty = Mate is NOT mapped"/>
+                    </when>
+                    <when value="isMateReverseStrand">
+                        <param name="bam_property_value" type="boolean" truevalue="true" falsevalue="false" label="Select reads with mate on the reverse strand" help="Checked = Mate IS on reverse strand, Empty = Mate is NOT on the reverse strand"/>
+                    </when>
+                    <when value="isPaired">
+                        <param name="bam_property_value" type="boolean" truevalue="true" falsevalue="false" label="Select paired reads" help="Checked = Read IS paired, Empty = Read is NOT paired"/>
+                    </when>
+                    <when value="isPrimaryAlignment">
+                        <param name="bam_property_value" type="boolean" truevalue="true" falsevalue="false" label="Select BAM records for primary alignments" help="Checked = Alignment IS primary, Empty = Alignment is NOT primary"/>
+                    </when>
+                    <when value="isProperPair">
+                        <param name="bam_property_value" type="boolean" truevalue="true" falsevalue="false" label="Select properly paired reads" help="Checked = Read IS in proper pair, Empty = Read is NOT in the proper pair"/>
+                    </when>
+                    <when value="isReverseStrand">
+                        <param name="bam_property_value" type="boolean" truevalue="true" falsevalue="false" label="Select reads in the reverse strand only" help="Checked = Read IS on the reverse strand, Empty = Read is NOT on the reverse strand"/>
+                    </when>
+                    <when value="isSecondMate">
+                        <param name="bam_property_value" type="boolean" truevalue="true" falsevalue="false" label="Select second mate in a read pair" help="Checked = Read IS second mate, Empty = Read is NOT second mate"/>
+                    </when>
+                    <when value="mapQuality">
+                        <param name="bam_property_value" type="text" value="20" label="Filter on read mapping quality (phred scale)" help="You can use &gt;, &lt;, =, and ! (not) in your expression. E.g., to select reads with mapping quality of at least 30 use &quot;>=30&quot;">
+                            <sanitizer invalid_char="">
+                                <valid initial="string.letters,string.digits"><add value="&gt;"/><add value="&lt;"/><add value="!="/></valid>
+                            </sanitizer>
+                        </param>
+                    </when>
+                    <when value="matePosition">
+                        <param name="bam_property_value" type="text" value="1000000" label="Filter on the position of the mate" help="You can use &gt;, &lt;, =, and ! (not) in your expression. E.g., to select reads with mate (second end) mapping after position 1,000,000 use &quot;&gt;1000000&quot;">
+                            <sanitizer invalid_char="">
+                                <valid initial="string.letters,string.digits"><add value="&gt;"/><add value="&lt;"/><add value="!="/></valid>
+                            </sanitizer>
+                        </param>
+                    </when>
+                    <when value="mateReference">
+                        <param name="bam_property_value" type="text" value="chr22" label="Filter on reference name for the mate" help="You can use = and ! (not) in your expression. E.g., to select reads with mates mapping to chrM use &quot;chr22&quot;">
+                            <sanitizer invalid_char="">
+                                <valid initial="string.letters,string.digits"><add value="&gt;"/><add value="&lt;"/><add value="!="/></valid>
+                            </sanitizer>
+                        </param>
+                    </when>
+                    <when value="name">
+                        <param name="bam_property_value" type="text" label="Filter on read name" help="You can use = and ! (not) in your expression.">
+                            <sanitizer invalid_char="">
+                                <valid initial="string.letters,string.digits"><add value="&gt;"/><add value="&lt;"/><add value="!="/></valid>
+                            </sanitizer>
+                        </param>
+                    </when>
+                    <when value="position">
+                        <param name="bam_property_value" type="text" value="500000" label="Filter on the position of the read" help="You can use &gt;, &lt;, =, and ! (not) in your expression. E.g., to select reads mapping after position 5,000 use &quot;&gt;5000&quot;">
+                            <sanitizer invalid_char="">
+                                <valid initial="string.letters,string.digits"><add value="&gt;"/><add value="&lt;"/><add value="!="/></valid>
+                            </sanitizer>
+                        </param>
+                    </when>
+                    <when value="queryBases">
+                        <param name="bam_property_value" type="text" value="ttagggttagg" label="Filter on a sequence motif" help="You can use ! (not) in your expression">
+                            <sanitizer invalid_char="">
+                                <valid initial="string.letters,string.digits"><add value="&gt;"/><add value="&lt;"/><add value="!="/></valid>
+                            </sanitizer>
+                        </param>
+                    </when>
+                    <when value="reference">
+                        <param name="bam_property_value" type="text" value="chr22" label="Filter on the reference name for the read" help="You can use ! (not) in your expression">
+                            <sanitizer invalid_char="">
+                                <valid initial="string.letters,string.digits"><add value="&gt;"/><add value="&lt;"/><add value="!="/></valid>
+                            </sanitizer>
+                        </param>
+                    </when>
+                    <when value="tag">
+                        <param name="bam_property_value" type="text" value="NM:&gt;1" label="Filter on a particular tag" help="You can use &gt;, &lt;, =, and ! (not).  Tag name and its value must be separated by &quot;:&quot;. E.g., to obtain reads with at least one mismatch use &quot;NM:&gt;1&quot;">
+                            <sanitizer invalid_char="">
+                                <valid initial="string.letters,string.digits"><add value="&gt;"/><add value="&lt;"/><add value=":!="/></valid>
+                            </sanitizer>
+                        </param>
+                    </when>
+                </conditional>
+            </repeat>
+        </repeat>
+        <conditional name="rule_configuration">
+            <param name="rules_selector" type="boolean" truevalue="true" falsevalue="false" label="Would you like to set rules?" help="Allows complex logical constructs. See Example 4 below." />
+            <when value="false"/>
+            <when value="true">
+                <param name="rules" type="text" label="Enter rules here" help="This option can only be used with at least two conditions. Read help below (Example 4) to understand how it works." >
+                    <sanitizer invalid_char="">
+                        <valid initial="string.printable"/>
+                    </sanitizer>
+                </param>
+            </when>
+        </conditional>
+    </inputs>
+    <outputs>
+        <data format="txt" name="out_file2" />
+        <data format="bam" name="out_file1" />
+    </outputs>
     <tests>
         <test>
             <param name="input_bams" ftype="bam" value="bamtools-input1.bam"/>
@@ -218,7 +215,7 @@
             <output name="out_file1" file="bamtools-test1.bam" ftype="bam"/>
         </test>
     </tests>
-<help>
+    <help>
 **What is does**
 
 BAMTools filter is a very powerful utility to perform complex filtering of BAM files. It is based on BAMtools suite of tools by Derek Barnett (https://github.com/pezmaster31/bamtools).
@@ -318,8 +315,8 @@ For instance, the example 4 looks like this in the JSON form::
 Additional information about BAMtools can be found at https://github.com/pezmaster31/bamtools/wiki
 
 
-</help>
-  <citations>
-    <citation type="doi">10.1093/bioinformatics/btr174</citation>
-  </citations>
+    </help>
+    <citations>
+        <citation type="doi">10.1093/bioinformatics/btr174</citation>
+    </citations>
 </tool>
