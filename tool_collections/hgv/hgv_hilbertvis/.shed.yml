@@ -2,6 +2,7 @@ categories:
 - Graphics
 - Visualization
 description: HVIS visualization of genomic data with the Hilbert curve
+homepage_url: https://www.ebi.ac.uk/huber-srv/hilbert/
 long_description: |
   HilbertVis uses the Hilbert space-filling curve to visualize the
   structure of position-dependent data.  It maps the traditional one-dimensional line
