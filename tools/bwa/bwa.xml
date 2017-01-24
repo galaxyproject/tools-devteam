@@ -233,8 +233,8 @@
         <option value="single_bam">Single BAM</option>
       </param>
       <when value="paired">
-        <param name="fastq_input1" type="data" format="fastqsanger" label="Select first set of reads" help="Specify dataset with forward reads"/>
-        <param name="fastq_input2" type="data" format="fastqsanger" label="Select second set of reads" help="Specify dataset with reverse reads"/>
+        <param name="fastq_input1" type="data" format="fastqsanger,fastqsanger.gz" label="Select first set of reads" help="Specify dataset with forward reads"/>
+        <param name="fastq_input2" type="data" format="fastqsanger,fastqsanger.gz" label="Select second set of reads" help="Specify dataset with reverse reads"/>
         <conditional name="adv_pe_options">
 
           <expand macro="advanced_pe_options" />
@@ -243,7 +243,7 @@
       </when>
 
       <when value="paired_collection">
-        <param name="fastq_input1" format="fastqsanger" type="data_collection" collection_type="paired" label="Select a paired collection" help="See help section for an explanation of dataset collections"/>
+        <param name="fastq_input1" format="fastqsanger,fastqsanger.gz" type="data_collection" collection_type="paired" label="Select a paired collection" help="See help section for an explanation of dataset collections"/>
         <conditional name="adv_pe_options">
 
           <expand macro="advanced_pe_options" />
@@ -252,7 +252,7 @@
       </when>
 
       <when value="single">
-        <param name="fastq_input1" type="data" format="fastqsanger" label="Select fastq dataset" help="Specify dataset with single reads"/>
+        <param name="fastq_input1" type="data" format="fastqsanger,fastqsanger.gz" label="Select fastq dataset" help="Specify dataset with single reads"/>
         <conditional name="adv_se_options">
 
           <expand macro="advanced_se_options" />
@@ -324,6 +324,15 @@
       <param name="ref_file" ftype="fasta" value="bwa-mem-mt-genome.fa"/>
       <param name="input_type_selector" value="paired"/>
       <param name="fastq_input1" ftype="fastqsanger" value="bwa-mem-fastq1.fq"/>
+      <param name="fastq_input2" ftype="fastqsanger" value="bwa-mem-fastq2.fq"/>
+      <param name="analysis_type_selector" value="illumina"/>
+      <output name="bam_output" ftype="bam" file="bwa-aln-test1.bam" lines_diff="2" />
+    </test>
+    <test>
+      <param name="reference_source_selector" value="history" />
+      <param name="ref_file" ftype="fasta" value="bwa-mem-mt-genome.fa"/>
+      <param name="input_type_selector" value="paired"/>
+      <param name="fastq_input1" ftype="fastqsanger.gz" value="bwa-mem-fastq1.fq.gz"/>
       <param name="fastq_input2" ftype="fastqsanger" value="bwa-mem-fastq2.fq"/>
       <param name="analysis_type_selector" value="illumina"/>
       <output name="bam_output" ftype="bam" file="bwa-aln-test1.bam" lines_diff="2" />
