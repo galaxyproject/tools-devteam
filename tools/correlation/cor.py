@@ -6,7 +6,9 @@ usage: %prog infile output.txt columns method
 """
 
 import sys
-from rpy import *
+#from rpy import *
+import rpy2.robjects as robjects
+r = robjects.r
 
 def stop_err(msg):
     sys.stderr.write(msg)
@@ -60,7 +62,8 @@ def main():
                 first_invalid_line = i+1
 
         if valid:
-            matrix.append( row )
+            # matrix.append( row )
+            matrix += row 
 
     if skipped_lines < i:
         try:
@@ -69,8 +72,19 @@ def main():
             stop_err( "Unable to open output file" )
 
         # Run correlation
+        # print >> sys.stderr, "matrix: %s" % matrix
+        # print >> sys.stderr, "array: %s" % array( matrix )
         try:
-            value = r.cor( array( matrix ), use="pairwise.complete.obs", method=method )
+            # value = r.cor( array( matrix ), use="pairwise.complete.obs", method=method )
+            fv = robjects.FloatVector(matrix)
+            m = r['matrix'](fv, ncol=len(columns),byrow=True)
+            rslt_mat = r.cor(m, use="pairwise.complete.obs", method=method )
+            value = []
+            for ri in range(1, rslt_mat.nrow + 1):
+                row = []
+                for ci in range(1, rslt_mat.ncol + 1):
+                    row.append(rslt_mat.rx(ri,ci)[0])
+                value.append(row)
         except Exception, exc:
             out.close()
             stop_err("%s" %str( exc ))
