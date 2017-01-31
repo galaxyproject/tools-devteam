@@ -1,17 +1,17 @@
-<tool id="fastq_quality_trimmer" name="FASTQ Quality Trimmer" version="1.0.0">
+<tool id="fastq_quality_trimmer" name="FASTQ Quality Trimmer" version="1.0.1">
   <description>by sliding window</description>
   <requirements>
-    <requirement type="package" version="1.0.0">galaxy_sequence_utils</requirement>
+    <requirement type="package" version="1.0.1">galaxy_sequence_utils</requirement>
   </requirements>
-  <command interpreter="python">fastq_trimmer_by_quality.py '$input_file' '$output_file' -f '${input_file.extension[len( 'fastq' ):]}' -s '$window_size' 
-    -t '$step_size' -e '$trim_ends' -a '$aggregation_action' -x '$exclude_count' -c '$score_comparison' -q '$quality_score' 
-    #if $keep_zero_length.value:
+  <command>python '$__tool_directory__/fastq_trimmer_by_quality.py' '$input_file' '$output_file' -f '${input_file.extension[len( 'fastq' ):]}' -s $window_size
+    -t $step_size -e $trim_ends -a $aggregation_action -x $exclude_count -c '$score_comparison' -q $quality_score
+    #if $keep_zero_length:
         -k
     #end if
   </command>
   <inputs>
     <param name="input_file" type="data" format="fastqsanger,fastqcssanger" label="FASTQ File"/>
-    <param name="keep_zero_length" label="Keep reads with zero length" type="boolean" truevalue="keep_zero_length" falsevalue="exclude_zero_length" selected="False"/>
+    <param name="keep_zero_length" label="Keep reads with zero length" type="boolean" checked="false"/>
     <param name="trim_ends" type="select" label="Trim ends">
       <option value="53" selected="True">5' and 3'</option>
       <option value="5">5' only</option>
@@ -42,13 +42,13 @@
     <param name="quality_score" label="Quality Score" value="0" type="float" />
   </inputs>
   <outputs>
-    <data name="output_file" format="input" />
+    <data name="output_file" format_source="input_file" />
   </outputs>
   <tests>
     <test>
       <!-- Trim until window size 1 >= 20;both ends -->
       <param name="input_file" value="sanger_full_range_original_sanger.fastqsanger" ftype="fastqsanger" />
-      <param name="keep_zero_length" value="exclude_zero_length" />
+      <param name="keep_zero_length" value="false" />
       <param name="trim_ends" value="53"/>
       <param name="window_size" value="1"/>
       <param name="step_size" value="1"/>
@@ -61,7 +61,7 @@
     <test>
       <!-- Trim until window size 1 >= 20; 5' end only -->
       <param name="input_file" value="sanger_full_range_original_sanger.fastqsanger" ftype="fastqsanger" />
-      <param name="keep_zero_length" value="exclude_zero_length" />
+      <param name="keep_zero_length" value="false" />
       <param name="trim_ends" value="5"/>
       <param name="window_size" value="1"/>
       <param name="step_size" value="1"/>
@@ -74,7 +74,7 @@
     <test>
       <!-- Trim until window size 1 >= 20; 3' end only -->
       <param name="input_file" value="sanger_full_range_original_sanger.fastqsanger" ftype="fastqsanger" />
-      <param name="keep_zero_length" value="exclude_zero_length" />
+      <param name="keep_zero_length" value="false" />
       <param name="trim_ends" value="3"/>
       <param name="window_size" value="1"/>
       <param name="step_size" value="1"/>
@@ -87,7 +87,7 @@
     <test>
       <!-- Trim until window size 2 >= 1;both ends, 1 deviant score -->
       <param name="input_file" value="sanger_full_range_original_sanger.fastqsanger" ftype="fastqsanger" />
-      <param name="keep_zero_length" value="exclude_zero_length" />
+      <param name="keep_zero_length" value="false" />
       <param name="trim_ends" value="53"/>
       <param name="window_size" value="2"/>
       <param name="step_size" value="1"/>
@@ -113,7 +113,7 @@
     <test>
       <!-- Trim entire sequences; discard empty reads -->
       <param name="input_file" value="sanger_full_range_original_sanger.fastqsanger" ftype="fastqsanger" />
-      <param name="keep_zero_length"/>
+      <param name="keep_zero_length" value="false" />
       <param name="trim_ends" value="53"/>
       <param name="window_size" value="1"/>
       <param name="step_size" value="1"/>
@@ -127,7 +127,7 @@
   <help>
 **What it does**
 
-This tool allows you to trim the ends of reads based upon the aggregate value of quality scores found within a sliding window; a sliding window of size 1 is equivalent to 'simple' trimming of the ends. 
+This tool allows you to trim the ends of reads based upon the aggregate value of quality scores found within a sliding window; a sliding window of size 1 is equivalent to 'simple' trimming of the ends.
 
 The user specifies the aggregating action (min, max, sum, mean) to perform on the quality score values found within the sliding window to be used with the user defined comparison operation and comparison value.
 
@@ -138,10 +138,6 @@ The user can provide a maximum count of bases that can be excluded from the aggr
 .. class:: warningmark
 
 Trimming a color space read will cause any adapter base to be lost.
-
-------
-
-
   </help>
   <citations>
     <citation type="doi">10.1093/bioinformatics/btq281</citation>

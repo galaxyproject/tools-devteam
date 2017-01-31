@@ -87,7 +87,6 @@ tools/pgsnp2gd_snp
 tools/pearson_correlation
 tools/dwt_var_perclass
 tools/linear_regression
-tools/fastq_trimmer_by_quality
 tools/dgidb_annotator
 tools/clustalw
 tools/cummerbund_to_tabular
