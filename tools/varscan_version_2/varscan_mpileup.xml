@@ -1,8 +1,8 @@
-<tool id="varscan" name="Varscan" version="0.1">
+<tool id="varscan" name="VarScan" version="2.4.2">
     <description>for variant detection</description>
 
     <requirements>
-        <requirement type="package" version="2.3.6">varscan</requirement>
+        <requirement type="package" version="2.4.2">varscan</requirement>
     </requirements>
 
     <stdio>
@@ -10,16 +10,18 @@
         <regex match=".*" source="both" level="log" description="tool progress"/>
     </stdio>
 
-    <version_command>java -jar $JAVA_JAR_PATH/VarScan.v2.3.6.jar 2>&amp;1 | head -n 1</version_command>
+    <version_command><![CDATA[
+varscan 2>&1 | head -n 1
+    ]]></version_command>
 
-    <command>
+    <command><![CDATA[
         ## Set up samples list file.
         #if $sample_names.strip() != '':
-           echo $sample_names | awk -F ',' '{ for (i = 1; i &lt;= NF; i++) { print \$i; } }' > samples_list.txt;
+           echo $sample_names | awk -F ',' '{ for (i = 1; i <= NF; i++) { print \$i; } }' > samples_list.txt &&
         #end if
 
         ## Set up command + input.
-        java -jar \$JAVA_JAR_PATH/VarScan.v2.3.6.jar ${cmd} ${input}
+        varscan ${cmd} ${input}
         --min-coverage ${min_coverage} 
         --min-reads2 ${min_supporting_reads} 
         --min-avg-qual ${min_avg_qual}
@@ -41,7 +43,7 @@
         #if $sample_names.strip() != '':
             --vcf-sample-list samples_list.txt
         #end if
-    </command>
+    ]]></command>
 
     <inputs>
         <param format="pileup" name="input" type="data" label="Pileup dataset" help=""/>
@@ -68,10 +70,6 @@
     <outputs>
         <data name="output" format="vcf"/>
     </outputs>
-
-    <trackster_conf>
-    </trackster_conf>
-
     <tests>
         <test>
             <param name="input" value="test_in1.pileup" />

@@ -5,7 +5,6 @@ tools/dwt_cor_ava_perclass
 tools/trimmer
 tools/gmaj
 tools/dna_filtering
-tools/varscan_version_2
 tools/compute_q_values
 tools/change_case
 tools/maf_cpg_filter
