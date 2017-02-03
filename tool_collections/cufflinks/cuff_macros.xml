@@ -49,7 +49,7 @@
   <token name="@CONDITION_SAMPLES@">
             #if $in_type.set_in_type in ['BAM', 'CXB']
                 #for $condition in $in_type.conditions:
-                    #set samples = ','.join( [ str( $sample ) for $sample in $condition.samples ] )
+                    #set samples = ','.join( [ "'%s'" % str( $sample ) for $sample in $condition.samples ] )
                     $samples
                 #end for
             #elif $in_type.set_in_type == 'CONDITION_LIST'
@@ -58,7 +58,7 @@
                 #end for
             #elif $in_type.set_in_type == 'CONDITION_REPLICATE_LIST'
                 #for $condition_list in $in_type.conditions:
-                    #set samples = ','.join( [ str( $sample ) for $sample in $condition_list ] )
+                    #set samples = ','.join( [ "'%s'" % str( $sample ) for $sample in $condition_list ] )
                     $samples
                 #end for
             #end if
@@ -66,9 +66,9 @@
   <token name="@CONDITION_LABELS@">
             #import re
             #if $in_type.set_in_type in ['BAM', 'CXB']
-                #set labels = '\'' + '\',\''.join( [ str( $condition.name ) for $condition in $in_type.conditions ] ) + '\''
+                #set labels = '\'' + ','.join( [ "'%s'" % str( $condition.name ) for $condition in $in_type.conditions ] ) + '\''
             #elif $in_type.set_in_type in ['CONDITION_LIST', 'CONDITION_REPLICATE_LIST']
-                #set labels = '\'' + '\',\''.join( map(lambda x: re.sub('[^\w\-_]', '_', x), $in_type.conditions.keys() ) ) + '\''
+                #set labels = '\'' + ','.join( map(lambda x: "'%s'" %s re.sub('[^\w\-_]', '_', x), $in_type.conditions.keys() ) ) + '\''
             #end if
             --labels $labels
   </token>
