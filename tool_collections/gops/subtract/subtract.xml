@@ -34,7 +34,6 @@
   <outputs>
     <data format_source="input1" name="output" metadata_source="input1"/>
   </outputs>
-  <trackster_conf/>
   <tests>
     <test>
       <param name="input1" value="1.bed" />

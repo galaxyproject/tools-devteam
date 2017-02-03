@@ -1,13 +1,13 @@
 <tool id="gatk_unified_genotyper" name="Unified Genotyper" version="0.0.6">
   <description>SNP and indel caller</description>
+  <macros>
+    <import>gatk_macros.xml</import>
+  </macros>
   <requirements>
       <requirement type="package" version="1.4">gatk</requirement>
       <requirement type="package" version="0.1.18">samtools</requirement>
   </requirements>
-  <macros>
-    <import>gatk_macros.xml</import>
-  </macros>
-  <command interpreter="python">gatk_wrapper.py
+  <command>python '$__tool_directory__/gatk_wrapper.py'
    --max_jvm_heap_fraction "1"
    --stdout "${output_log}"
    #for $i, $input_bam in enumerate( $reference_source.input_bams ):
@@ -236,7 +236,6 @@
     <data format="txt" name="output_metrics" label="${tool.name} on ${on_string} (metrics)" />
     <data format="txt" name="output_log" label="${tool.name} on ${on_string} (log)" />
   </outputs>
-  <trackster_conf/>
   <tests>
       <test>
           <param name="reference_source_selector" value="history" />
