@@ -6,28 +6,28 @@
     <expand macro="requirements" />
     <expand macro="stdio" />
     <command>
-        python $__tool_directory__/cuffmerge_wrapper.py
+        python '$__tool_directory__/cuffmerge_wrapper.py'
             --num-threads="\${GALAXY_SLOTS:-4}"
             
             ## Use annotation reference?
             #if $annotation.use_ref_annotation == "Yes":
-                -g "${annotation.reference_annotation}"
+                -g '${annotation.reference_annotation}'
             #end if
             
             ## Use sequence data?
             #if $seq_data.use_seq_data == "Yes":
                 -s
                 #if $seq_data.seq_source.index_source == "history":
-                    --ref_file="${seq_data.seq_source.ref_file}"
+                    --ref_file '${seq_data.seq_source.ref_file}'
                 #else:
-                    --index="${seq_data.seq_source.index.fields.path}"
+                    --index '${seq_data.seq_source.index.fields.path}'
                 #end if
             #end if
 
             --min-isoform-fraction="${min_isoform_fraction}"
 
             ## Outputs.
-            --merged-transcripts="${merged_transcripts}"
+            --merged-transcripts '${merged_transcripts}'
 
             @CUFFLINKS_GTF_INPUTS@
     </command>

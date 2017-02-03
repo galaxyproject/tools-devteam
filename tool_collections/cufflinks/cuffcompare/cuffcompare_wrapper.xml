@@ -7,10 +7,10 @@
     <expand macro="stdio" />
     <version_command>cuffcompare 2>&amp;1 | head -n 1</version_command>
     <command>
-        python $__tool_directory__/cuffcompare_wrapper.py
+        python '$__tool_directory__/cuffcompare_wrapper.py'
             ## Use annotation reference?
             #if $annotation.use_ref_annotation == "Yes":
-                -r $annotation.reference_annotation
+                -r '$annotation.reference_annotation'
                 #if $annotation.ignore_nonoverlapping_reference:
                     -R
                 #end if
@@ -24,9 +24,9 @@
             #if $seq_data.use_seq_data == "Yes":
             -s
                 #if $seq_data.seq_source.index_source == "history":
-                    --ref_file=$seq_data.seq_source.ref_file
+                    --ref_file '$seq_data.seq_source.ref_file'
                 #else:
-                    --index=${seq_data.seq_source.index.fields.path}
+                    --index '${seq_data.seq_source.index.fields.path}'
                 #end if
             #end if
             
@@ -40,7 +40,7 @@
             #end if 
 
             ## Outputs.
-            --combined-transcripts=${transcripts_combined}
+            --combined-transcripts '${transcripts_combined}'
 
             @CUFFLINKS_GTF_INPUTS@
     </command>
