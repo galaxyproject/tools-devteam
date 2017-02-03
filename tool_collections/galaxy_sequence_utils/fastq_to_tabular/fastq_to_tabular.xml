@@ -1,11 +1,11 @@
 <tool id="fastq_to_tabular" name="FASTQ to Tabular" version="1.1.0">
   <description>converter</description>
   <requirements>
-    <requirement type="package" version="1.0.0">galaxy_sequence_utils</requirement>
+    <requirement type="package" version="1.1.0">galaxy_sequence_utils</requirement>
   </requirements>
-  <command interpreter="python">fastq_to_tabular.py '$input_file' '$output_file' $descr_columns '${input_file.extension[len( 'fastq' ):]}'</command>
+  <command>gx-fastq-to-tabular '$input_file' '$output_file' $descr_columns '${input_file.extension[len( 'fastq' ):]}'</command>
   <inputs>
-    <param name="input_file" type="data" format="fastqsanger,fastqcssanger,fastqillumina,fastqsolexa" label="FASTQ file to convert" />
+    <param name="input_file" type="data" format="fastqsanger,fastqcssanger,fastqillumina,fastqsolexa,fastqsanger.gz,fastqcssanger.gz,fastqillumina.gz,fastqsolexa.gz,fastqsanger.bz2,fastqcssanger.bz2,fastqillumina.bz2,fastqsolexa.bz2" label="FASTQ file to convert" />
     <param name="descr_columns" type="integer" value="1" label="How many columns to divide title string into?" help="Typically 2 to take the ID (first word) and decription (rest) as two columns, or 1 to give a single column">
       <validator type="in_range" min="1" />
     </param>
@@ -17,6 +17,12 @@
     <!-- basic test -->
     <test>
       <param name="input_file" value="sanger_full_range_original_sanger.fastqsanger" ftype="fastqsanger" />
+      <param name="descr_columns" value="1"/>
+      <output name="output_file" file="fastq_to_tabular_out_1.tabular" />
+    </test>
+    <!-- compression test -->
+    <test>
+      <param name="input_file" value="sanger_full_range_original_sanger.fastqsanger.gz" ftype="fastqsanger.gz" />
       <param name="descr_columns" value="1"/>
       <output name="output_file" file="fastq_to_tabular_out_1.tabular" />
     </test>

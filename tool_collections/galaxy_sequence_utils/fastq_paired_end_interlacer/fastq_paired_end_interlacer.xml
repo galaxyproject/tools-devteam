@@ -3,8 +3,7 @@
   <requirements>
     <requirement type="package" version="1.0.1">galaxy_sequence_utils</requirement>
   </requirements>
-  <command>
-python $__tool_directory__/fastq_paired_end_interlacer.py
+  <command>gx-fastq-paired-end-interlacer
 #if $reads.reads_selector == 'paired'
     '${reads.input1_file}' ${reads.input1_file.extension[len('fastq'):]} '${reads.input2_file}' ${reads.input2_file.extension[len('fastq'):]}
 #else
@@ -19,11 +18,11 @@ python $__tool_directory__/fastq_paired_end_interlacer.py
         <option value="paired_collection">1 paired dataset collection</option>
       </param>
       <when value="paired">
-        <param name="input1_file" type="data" format="fastqsanger,fastqcssanger" label="Left-hand mates" />
-        <param name="input2_file" type="data" format="fastqsanger,fastqcssanger" label="Right-hand mates" />
+        <param name="input1_file" type="data" format="fastqsanger,fastqcssanger,fastqsanger.gz,fastqcssanger.gz,fastqsanger.bz2,fastqcssanger.bz2" label="Left-hand mates" />
+        <param name="input2_file" type="data" format="fastqsanger,fastqcssanger,fastqsanger.gz,fastqcssanger.gz,fastqsanger.bz2,fastqcssanger.bz2" label="Right-hand mates" />
       </when>
       <when value="paired_collection">
-        <param name="reads_coll" type="data_collection" collection_type="paired" format="fastqsanger,fastqcssanger" label="Paired-end reads collection" />
+        <param name="reads_coll" type="data_collection" collection_type="paired" format="fastqsanger,fastqcssanger,fastqsanger.gz,fastqcssanger.gz,fastqsanger.bz2,fastqcssanger.bz2" label="Paired-end reads collection" />
       </when>
     </conditional>
   </inputs>

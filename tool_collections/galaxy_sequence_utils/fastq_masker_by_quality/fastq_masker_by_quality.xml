@@ -3,7 +3,7 @@
   <requirements>
     <requirement type="package" version="1.0.0">galaxy_sequence_utils</requirement>
   </requirements>
-  <command interpreter="python">fastq_masker_by_quality.py '$input_file' '$output_file' -f '${input_file.extension[len( 'fastq' ):]}' -s '${quality_score}' -c '${score_comparison}'
+  <command>gx-fastq-masker-by-quality '$input_file' '$output_file' -f '${input_file.extension[len( 'fastq' ):]}' -s '${quality_score}' -c '${score_comparison}'
       #if $mask_type.value == 'lowercase'
       --lowercase
       #else
@@ -11,7 +11,7 @@
       #end if
   </command>
   <inputs>
-    <param name="input_file" type="data" format="fastqsanger" label="File to mask" />
+    <param name="input_file" type="data" format="fastqsanger,fastqsanger.gz,fastqsanger.bz2" label="File to mask" />
     <param name="mask_type" type="select" label="Mask input with">
       <option value="N">N's</option>
       <option value="lowercase">Lowercase</option>
@@ -27,7 +27,7 @@
     <param name="quality_score" type="integer" value="0" label="Quality score"/>
   </inputs>
   <outputs>
-    <data name="output_file" format="fastqsanger" />
+    <data name="output_file" format_source="input_file" />
   </outputs>
   <tests>
     <test>

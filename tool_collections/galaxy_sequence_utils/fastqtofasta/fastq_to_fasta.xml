@@ -3,9 +3,9 @@
   <requirements>
     <requirement type="package" version="1.0.0">galaxy_sequence_utils</requirement>
   </requirements>
-  <command interpreter="python">fastq_to_fasta.py '$input_file' '$output_file' '${input_file.extension[len( 'fastq' ):]}'</command>
+  <command>gx-fastq-to-fasta '$input_file' '$output_file' '${input_file.extension[len( 'fastq' ):]}'</command>
   <inputs>
-    <param name="input_file" type="data" format="fastq" label="FASTQ file to convert" />
+    <param name="input_file" type="data" format="fastq,fastq.gz,fastq.bz2" label="FASTQ file to convert" />
   </inputs>
   <outputs>
     <data name="output_file" format="fasta" />

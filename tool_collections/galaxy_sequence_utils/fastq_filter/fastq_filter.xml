@@ -3,10 +3,10 @@
   <requirements>
     <requirement type="package" version="1.0.0">galaxy_sequence_utils</requirement>
   </requirements>
-  <command interpreter="python">fastq_filter.py $input_file $fastq_filter_file $output_file $output_file.files_path '${input_file.extension[len( 'fastq' ):]}'</command>
+  <command>gx-fastq-filter $input_file $fastq_filter_file $output_file $output_file.files_path '${input_file.extension[len( 'fastq' ):]}'</command>
   <inputs>
     <page>
-      <param name="input_file" type="data" format="fastqsanger,fastqcssanger" label="FASTQ File" help="Requires groomed data: if your data does not appear here try using the FASTQ groomer."/>
+      <param name="input_file" type="data" format="fastqsanger,fastqcssanger,fastqsanger.gz,fastqcssanger.gz,fastqsanger.bz2,fastqcssanger.bz2" label="FASTQ File" help="Requires groomed data: if your data does not appear here try using the FASTQ groomer."/>
        <param name="min_size" label="Minimum Size" value="0" type="integer">
         <validator type="in_range" message="Minimum size must be positive" min="0"/>
       </param>
@@ -102,7 +102,7 @@ def fastq_read_pass_filter( fastq_read ):
 </configfile>
   </configfiles>
   <outputs>
-    <data format="input" name="output_file" />
+    <data format_source="input_file" name="output_file" />
   </outputs>
   <tests>
     <!-- Do nothing filter -->
@@ -121,6 +121,23 @@ def fastq_read_pass_filter( fastq_read ):
       <param name="score_comparison" value="&gt;="/>
       <param name="score" value="0"/>
       <output name="out_file1" file="sanger_full_range_original_sanger.fastqsanger"/>
+    </test>
+    <!-- Do nothing filter compressed -->
+    <test>
+      <param name="input_file" value="sanger_full_range_original_sanger.fastqsanger.gz" ftype="fastqsanger.gz"/>
+      <param name="min_size" value="0"/>
+      <param name="max_size" value="0"/>
+      <param name="min_quality" value="0"/>
+      <param name="max_quality" value="0"/>
+      <param name="max_num_deviants" value="0"/>
+      <param name="paired_end" value="False"/>
+      <param name="base_offset_type" value="offsets_absolute"/>
+      <param name="left_column_offset" value="0"/>
+      <param name="right_column_offset" value="0"/>
+      <param name="score_operation" value="min"/>
+      <param name="score_comparison" value="&gt;="/>
+      <param name="score" value="0"/>
+      <output name="out_file1" file="sanger_full_range_original_sanger.fastqsanger.gz" decompress="true"/>
     </test>
     <!-- crippled input types prevent this test <test>
       <param name="input_file" value="solexa_full_range_original_solexa.fastqsolexa" ftype="fastqsolexa"/>

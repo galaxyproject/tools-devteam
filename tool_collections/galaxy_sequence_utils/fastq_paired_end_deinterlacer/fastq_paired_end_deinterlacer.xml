@@ -3,15 +3,15 @@
   <requirements>
     <requirement type="package" version="1.0.0">galaxy_sequence_utils</requirement>
   </requirements>
-  <command interpreter="python">fastq_paired_end_deinterlacer.py '$input_file' '${input_file.extension[len( 'fastq' ):]}' '$output1_pairs_file' '$output2_pairs_file' '$output1_singles_file' '$output2_singles_file'</command>
+  <command>fastq-paired-end-deinterlacer '$input_file' '${input_file.extension[len( 'fastq' ):]}' '$output1_pairs_file' '$output2_pairs_file' '$output1_singles_file' '$output2_singles_file'</command>
   <inputs>
-    <param name="input_file" type="data" format="fastqsanger,fastqcssanger" label="FASTQ reads" />
+    <param name="input_file" type="data" format="fastqsanger,fastqcssanger,fastqsanger.gz,fastqcssanger.gz,fastqsanger.bz2,fastqcssanger.bz2" label="FASTQ reads" />
   </inputs>
   <outputs>
-    <data name="output1_pairs_file" format="input" label="FASTQ de-interlacer left mates from data ${input_file.hid}" />
-    <data name="output2_pairs_file" format="input" label="FASTQ de-interlacer right mates from data ${input_file.hid}"/>
-    <data name="output1_singles_file" format="input" label="FASTQ de-interlacer left singles from data ${input_file.hid}"/>
-    <data name="output2_singles_file" format="input" label="FASTQ de-interlacer right singles from data ${input_file.hid}"/>
+    <data name="output1_pairs_file" format_source="input_file" label="FASTQ de-interlacer left mates from data ${input_file.hid}" />
+    <data name="output2_pairs_file" format_source="input_file" label="FASTQ de-interlacer right mates from data ${input_file.hid}"/>
+    <data name="output1_singles_file" format_source="input_file" label="FASTQ de-interlacer left singles from data ${input_file.hid}"/>
+    <data name="output2_singles_file" format_source="input_file" label="FASTQ de-interlacer right singles from data ${input_file.hid}"/>
   </outputs>
   <tests>
     <test>

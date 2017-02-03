@@ -3,9 +3,9 @@
   <requirements>
     <requirement type="package" version="1.0.0">galaxy_sequence_utils</requirement>
   </requirements>
-  <command interpreter="python">fastq_paired_end_splitter.py '$input1_file' '${input1_file.extension[len( 'fastq' ):]}' '$output1_file' '$output2_file'</command>
+  <command>gx-fastq-paired-end-splitter '$input1_file' '${input1_file.extension[len( 'fastq' ):]}' '$output1_file' '$output2_file'</command>
   <inputs>
-    <param name="input1_file" type="data" format="fastqsanger,fastqcssanger" label="FASTQ reads" />
+    <param name="input1_file" type="data" format="fastqsanger,fastqcssanger,fastqsanger.gz,fastqcssanger.gz,fastqsanger.bz2,fastqcssanger.bz2" label="FASTQ reads" />
   </inputs>
   <outputs>
     <data name="output1_file" format="input" />

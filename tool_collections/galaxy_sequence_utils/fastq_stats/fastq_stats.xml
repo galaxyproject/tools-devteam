@@ -3,9 +3,9 @@
   <requirements>
     <requirement type="package" version="1.0.0">galaxy_sequence_utils</requirement>
   </requirements>
-  <command interpreter="python">fastq_stats.py '$input_file' '$output_file' '${input_file.extension[len( 'fastq' ):]}'</command>
+  <command>gx-fastq-stats '$input_file' '$output_file' '${input_file.extension[len( 'fastq' ):]}'</command>
   <inputs>
-    <param name="input_file" type="data" format="fastqsanger,fastqillumina,fastqsolexa,fastqcssanger" label="FASTQ File"/>
+    <param name="input_file" type="data" format="fastqsanger,fastqillumina,fastqsolexa,fastqcssanger,fastqsanger.gz,fastqillumina.gz,fastqsolexa.gz,fastqcssanger.gz,fastqsanger.bz2,fastqillumina.bz2,fastqsolexa.bz2,fastqcssanger.bz2" label="FASTQ File"/>
   </inputs>
   <outputs>
     <data name="output_file" format="tabular" />

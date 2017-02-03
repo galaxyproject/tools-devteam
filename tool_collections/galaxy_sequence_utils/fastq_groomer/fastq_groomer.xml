@@ -3,7 +3,15 @@
   <requirements>
     <requirement type="package" version="1.0.0">galaxy_sequence_utils</requirement>
   </requirements>
-  <command interpreter="python">fastq_groomer.py '$input_file' '$input_type' '$output_file'
+  <command>gx-fastq-groomer '$input_file' 
+#if $input_file.extension.endswith(".gz"):
+#set $suffix = ".gz"
+#elif $input_file.extension.endswith(".bz2"):
+#set $suffix = ".bz2"
+#else:
+#set $suffix = ""
+#end if
+'$input_type$suffix' '$output_file'
 #if str( $options_type['options_type_selector'] ) == 'basic':
 #if str( $input_type ) == 'cssanger':
 'cssanger'
@@ -16,7 +24,7 @@
 #end if
 </command>
   <inputs>
-    <param name="input_file" type="data" format="fastq" label="File to groom" />
+    <param name="input_file" type="data" format="fastq,fastq.gz,fastq.bz2" label="File to groom" />
     <param name="input_type" type="select" label="Input FASTQ quality scores type">
       <option value="solexa">Solexa</option>
       <option value="illumina">Illumina 1.3-1.7</option>
@@ -35,8 +43,16 @@
       <param name="output_type" type="select" label="Output FASTQ quality scores type" help="Galaxy tools are designed to work with the Sanger Quality score format.">
         <option value="solexa">Solexa</option>
         <option value="illumina">Illumina 1.3-1.7</option>
-        <option value="sanger" selected="True">Sanger (recommended)</option>
+        <option value="sanger" selected="True">Sanger</option>
         <option value="cssanger">Color Space Sanger</option>
+        <option value="solexa.gz">Solexa (gz compressed)</option>
+        <option value="illumina.gz">Illumina 1.3-1.7 (gz compressed)</option>
+        <option value="sanger.gz">Sanger (gz compressed - recommended)</option>
+        <option value="cssanger.gz">Color Space Sanger (gz compressed)</option>
+        <option value="solexa.bz2">Solexa (bz2 compressed)</option>
+        <option value="illumina.bz2">Illumina 1.3-1.7 (bz2 compressed)</option>
+        <option value="sanger.bz2">Sanger (bz2 compressed)</option>
+        <option value="cssanger.bz2">Color Space Sanger (bz2 compressed)</option>
       </param>
       <param name="force_quality_encoding" type="select" label="Force Quality Score encoding">
         <option value="None">Use Source Encoding</option>
@@ -58,6 +74,14 @@
         <when input="options_type.output_type" value="illumina" format="fastqillumina" />
         <when input="options_type.output_type" value="sanger" format="fastqsanger" />
         <when input="options_type.output_type" value="cssanger" format="fastqcssanger" />
+        <when input="options_type.output_type" value="solexa.gz" format="fastqsolexa.gz" />
+        <when input="options_type.output_type" value="illumina.gz" format="fastqillumina.gz" />
+        <when input="options_type.output_type" value="sanger.gz" format="fastqsanger.gz" />
+        <when input="options_type.output_type" value="cssanger.gz" format="fastqcssanger.gz" />
+        <when input="options_type.output_type" value="solexa.bz2" format="fastqsolexa.bz2" />
+        <when input="options_type.output_type" value="illumina.bz2" format="fastqillumina.bz2" />
+        <when input="options_type.output_type" value="sanger.bz2" format="fastqsanger.bz2" />
+        <when input="options_type.output_type" value="cssanger.bz2" format="fastqcssanger.bz2" />
       </change_format>
     </data>
   </outputs>
@@ -327,6 +351,19 @@
       <param name="force_quality_encoding" value="decimal" />
       <param name="summarize_input" value="summarize_input" />
       <output name="output_file" file="solexa_full_range_as_decimal_solexa.fastqsolexa" />
+    </test>
+    <!-- compressed formats -->
+    <test>
+      <param name="input_file" value="sanger_full_range_original_sanger.fastqsanger.gz" ftype="fastq.gz" />
+      <param name="input_type" value="sanger" />
+      <param name="options_type_selector" value="basic" />
+      <output name="output_file" file="sanger_full_range_original_sanger.fastqsanger" decompress="true" />
+    </test>
+    <test>
+      <param name="input_file" value="sanger_full_range_as_cssanger.fastqcssanger.bz2" ftype="fastq.bz2" />
+      <param name="input_type" value="cssanger" />
+      <param name="options_type_selector" value="basic" />
+      <output name="output_file" file="sanger_full_range_as_cssanger.fastqcssanger" decompress="True" />
     </test>
   </tests>
   <help>

@@ -3,14 +3,14 @@
   <requirements>
     <requirement type="package" version="1.0.1">galaxy_sequence_utils</requirement>
   </requirements>
-  <command>python '$__tool_directory__/fastq_trimmer_by_quality.py' '$input_file' '$output_file' -f '${input_file.extension[len( 'fastq' ):]}' -s $window_size
+  <command>gx-fastq-trimmer-by-quality '$input_file' '$output_file' -f '${input_file.extension[len( 'fastq' ):]}' -s $window_size
     -t $step_size -e $trim_ends -a $aggregation_action -x $exclude_count -c '$score_comparison' -q $quality_score
     #if $keep_zero_length:
         -k
     #end if
   </command>
   <inputs>
-    <param name="input_file" type="data" format="fastqsanger,fastqcssanger" label="FASTQ File"/>
+    <param name="input_file" type="data" format="fastqsanger,fastqcssanger,fastqsanger.gz,fastqcssanger.gz,fastqsanger.bz2,fastqcssanger.bz2" label="FASTQ File"/>
     <param name="keep_zero_length" label="Keep reads with zero length" type="boolean" checked="false"/>
     <param name="trim_ends" type="select" label="Trim ends">
       <option value="53" selected="True">5' and 3'</option>
