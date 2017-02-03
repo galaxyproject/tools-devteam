@@ -1,7 +1,5 @@
 <tool id="gffread" name="gffread" version="@VERSION@.0">
     <description>Filters and/or converts GFF3/GTF2 records</description>
-    <expand macro="requirements" />
-    <expand macro="stdio" />
     <macros>
         <import>cuff_macros.xml</import>
         <xml name="fasta_output_select">
@@ -49,6 +47,8 @@
             </param>
         </xml>
     </macros>
+    <expand macro="requirements" />
+    <expand macro="stdio" />
     <command>
 <![CDATA[
     #if $reference_genome.source == 'history':
@@ -141,7 +141,7 @@
                     </help>
                     <validator type="regex">(([+-])?(\w+:))?\d+\.\.\d+</validator>
                 </param>
-                <param name="discard_partial" type="boolean" truevalue="-R" falsevalue="" check="false"
+                <param name="discard_partial" type="boolean" truevalue="-R" falsevalue="" checked="false"
                        label="discard all transcripts that are not fully contained within the given range" help="(-R)"/>
             </when>
         </conditional>
@@ -218,7 +218,7 @@
             </when>
             <when value="gff">
                 <param name="output_cmd" type="hidden" value="-o output.gff3"/>
-                <param name="ensembl" type="boolean" truevalue="-L" falsevalue="" check="false" label="Ensembl GTF to GFF3 conversion" help="(-L)"/>
+                <param name="ensembl" type="boolean" truevalue="-L" falsevalue="" checked="false" label="Ensembl GTF to GFF3 conversion" help="(-L)"/>
                 <expand macro="trackname" />
             </when>
             <when value="gtf">
@@ -227,11 +227,11 @@
             </when>
         </conditional>
 
-        <param name="full_gff_attribute_preservation" type="boolean" truevalue="-F" falsevalue="" check="false"
+        <param name="full_gff_attribute_preservation" type="boolean" truevalue="-F" falsevalue="" checked="false"
                        label="full GFF attribute preservation (all attributes are shown)" help="(-F)"/>
-        <param name="decode_url" type="boolean" truevalue="-D" falsevalue="" check="false"
+        <param name="decode_url" type="boolean" truevalue="-D" falsevalue="" checked="false"
                        label="decode url encoded characters within attributes" help="(-D)"/>
-        <param name="expose" type="boolean" truevalue="-E" falsevalue="" check="false"
+        <param name="expose" type="boolean" truevalue="-E" falsevalue="" checked="false"
                        label="warn about duplicate transcript IDs and other potential problems with the given GFF/GTF records" help="(-E)"/>
 
     </inputs>
