@@ -189,7 +189,7 @@
     </outputs>
 
     <trackster_conf>
-        <action type="set_param" name="global_model" output_name="total_map_mass"/>
+        <action name="global_model" output_name="total_map_mass"/>
     </trackster_conf>
     <tests>
         <!--
