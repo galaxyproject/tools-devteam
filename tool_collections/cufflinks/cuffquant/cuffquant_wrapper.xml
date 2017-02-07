@@ -1,11 +1,11 @@
 <tool id="cuffquant" name="Cuffquant" version="@VERSION@.0">
     <!-- Wrapper supports Cuffdiff versions 2.2.1 -->
     <description>Precompute gene expression levels</description>
-    <expand macro="requirements" />
-    <expand macro="stdio" />
     <macros>
       <import>cuff_macros.xml</import>
     </macros>
+    <expand macro="requirements" />
+    <expand macro="stdio" />
     <version_command>cuffquant 2>&amp;1 | head -n 1</version_command>
     <command>
         cuffquant
@@ -27,10 +27,10 @@
                -b
                 #if $bias_correction.seq_source.index_source == "history":
                     ## Custom genome from history.
-                    $bias_correction.seq_source.ref_file
+                    '$bias_correction.seq_source.ref_file'
                 #else:
                     ## Built-in genome.
-                     "${ bias_correction.seq_source.index.fields.path }"
+                    '${bias_correction.seq_source.index.fields.path}'
                 #end if
             #end if
 
@@ -42,15 +42,15 @@
                     --library-type=$advanced_settings.library_type
                 #end if
                 #if $advanced_settings.mask_file:
-                    --mask-file=$advanced_settings.mask_file
+                    --mask-file '$advanced_settings.mask_file'
                 #end if
                 --max-mle-iterations=$advanced_settings.max_mle_iterations
                 --max-bundle-frags=$advanced_settings.max_bundle_frags
             #end if
             ## Inputs.
-            $gtf_input
+            '$gtf_input'
             #set samplestring = ','.join( [ str( $sample.sample ) for $sample in $samples ] )
-            $samplestring
+            '$samplestring'
     </command>
     <inputs>
         <param format="gtf,gff3" name="gtf_input" type="data" label="Transcripts"

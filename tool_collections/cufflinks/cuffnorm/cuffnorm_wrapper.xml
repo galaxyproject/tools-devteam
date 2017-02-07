@@ -1,10 +1,10 @@
 <tool id="cuffnorm" name="Cuffnorm" version="@VERSION@.1">
     <description>Create normalized expression levels</description>
-    <expand macro="requirements" />
-    <expand macro="stdio" />
     <macros>
       <import>cuff_macros.xml</import>
     </macros>
+    <expand macro="requirements" />
+    <expand macro="stdio" />
     <version_command>cuffnorm 2>&amp;1 | head -n 1</version_command>
     <command>
         cuffnorm
@@ -42,7 +42,7 @@
             <option value="Yes">Yes</option>
         </param>
 
-        <param name="output_format" type="select" lable="Output format" 
+        <param name="output_format" type="select" label="Output format" 
             help="By default, Cuffnorm reports expression levels in the 'simple-table' tab-delimted text files. The program also reports information about your samples and about the genes, transcripts, TSS groups, and CDS groups as tab delimited text files. Note that these files have a different format than the files used by Cuffdiff. However, you can direct Cuffnorm to report its output in the same format as used by Cuffdiff if you wish" >
                 <option value="simple-table" selected="True">Simple Table</option>
                 <option value="cuffdiff">Cuffdiff format</option>
@@ -166,12 +166,12 @@
         </data>
     </outputs>
     <tests>
+        <!-- 
         <test>
-            <!-- 
                 NOTE: as of version 0.0.6 of the wrapper, tests cannot be run because multiple inputs to a repeat
                 element are not supported.
-            -->
         </test>
+        -->
     </tests>
 
     <help>
