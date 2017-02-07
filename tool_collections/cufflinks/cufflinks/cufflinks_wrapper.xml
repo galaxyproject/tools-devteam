@@ -49,7 +49,7 @@
 
             ## Include global model if available.
             #if $global_model:
-                --global_model $global_model
+                --global_model '$global_model'
             #end if
 
             ## advanced settings
