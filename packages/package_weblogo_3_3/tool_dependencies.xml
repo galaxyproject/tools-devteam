@@ -3,7 +3,7 @@
     <package name="weblogo" version="3.3">
         <install version="1.0">
             <actions>
-                <action type="download_by_url">http://weblogo.googlecode.com/files/weblogo-3.3.tar.gz</action>
+                <action type="download_by_url" sha256sum="68731e46e627c312bf61ddadb755f4b9fb7c1352b8c4087cfb42dce541ceb96b">https://github.com/WebLogo/weblogo/archive/3.3.0.tar.gz</action>
                 <!-- Use screen instead of printer to work around a color bug in ghostscript. -->
                 <action type="shell_command">sed -i.bak 's#"-dPDFSETTINGS=/printer",#"-dPDFSETTINGS=/screen",#' weblogolib/__init__.py</action>
                 <action type="move_directory_files">
