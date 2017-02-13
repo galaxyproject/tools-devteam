@@ -1,17 +1,20 @@
 #!/usr/bin/env python
 """
-Merge overlaping regions.
+Merge overlapping regions.
 
 usage: %prog in_file out_file
     -1, --cols1=N,N,N,N: Columns for start, end, strand in first file
     -m, --mincols=N: Require this much overlap (default 1bp)
     -3, --threecol: Output 3 column bed
 """
+from __future__ import print_function
+
 import fileinput
 import sys
+
+from bx.cookbook import doc_optparse
 from bx.intervals.io import GenomicInterval, NiceReaderWrapper
 from bx.intervals.operations.merge import merge
-from bx.cookbook import doc_optparse
 from bx.tabular.io import ParseError
 from galaxy.tools.util.galaxyops import fail, parse_cols_arg, skipped
 
@@ -55,14 +58,15 @@ def main():
                     out_file.write( "%s\n" % "\t".join( line ) )
                 else:
                     out_file.write( "%s\n" % line )
-    except ParseError, exc:
+    except ParseError as exc:
         out_file.close()
         fail( "Invalid file format: %s" % str( exc ) )
 
     out_file.close()
 
     if g1.skipped > 0:
-        print skipped( g1, filedesc=" of 1st dataset" )
+        print(skipped( g1, filedesc=" of 1st dataset" ))
+
 
 if __name__ == "__main__":
     main()

@@ -32,7 +32,7 @@
     <param name="min" type="integer" value="1" min="1" label="where minimal overlap is" help="(bp)" />
   </inputs>
   <outputs>
-    <data format_source="input1" name="output" metadata_source="input1"/>
+    <data name="output" format_source="input1" metadata_source="input1"/>
   </outputs>
   <tests>
     <test>

@@ -4,28 +4,22 @@
     <requirement type="package" version="0.7.1">bx-python</requirement>
     <requirement type="package" version="1.0.0">galaxy-ops</requirement>
   </requirements>
-  <command interpreter="python">gops_join.py $input1 $input2 $output -1 ${input1.metadata.chromCol},${input1.metadata.startCol},${input1.metadata.endCol},${input1.metadata.strandCol} -2 ${input2.metadata.chromCol},${input2.metadata.startCol},${input2.metadata.endCol},${input2.metadata.strandCol} -m $min -f $fill</command>
-  <inputs>
-    <param format="interval" name="input1" type="data" help="First dataset">
-      <label>Join</label>
-    </param>
-    <param format="interval" name="input2" type="data" help="Second dataset">
-      <label>with</label>
-    </param>
-    <param name="min" type="integer" value="1" help="(bp)">
-      <label>with min overlap</label>
-    </param>
-  <param name="fill" type="select" label="Return">
-    <option value="none">Only records that are joined (INNER JOIN)</option>
-    <option value="right">All records of first dataset (fill null with ".")</option>
-    <option value="left">All records of second dataset (fill null with ".")</option>
-    <option value="both">All records of both datasets (fill nulls with ".")</option>
-  </param>
-   </inputs>
-  <outputs>
-    <data format="interval" name="output" metadata_source="input1" />
-  </outputs>
   <code file="operation_filter.py"/>
+  <command>python '$__tool_directory__/gops_join.py' '$input1' '$input2' '$output' -1 ${input1.metadata.chromCol},${input1.metadata.startCol},${input1.metadata.endCol},${input1.metadata.strandCol} -2 ${input2.metadata.chromCol},${input2.metadata.startCol},${input2.metadata.endCol},${input2.metadata.strandCol} -m $min -f $fill</command>
+  <inputs>
+    <param name="input1" type="data" format="interval" label="Join" help="First dataset" />
+    <param name="input2" type="data" format="interval" label="With" help="Second dataset" />
+    <param name="min" type="integer" value="1" label="With min overlap" help="(bp)" />
+    <param name="fill" type="select" label="Return">
+      <option value="none">Only records that are joined (INNER JOIN)</option>
+      <option value="right">All records of first dataset (fill null with ".")</option>
+      <option value="left">All records of second dataset (fill null with ".")</option>
+      <option value="both">All records of both datasets (fill nulls with ".")</option>
+    </param>
+  </inputs>
+  <outputs>
+    <data name="output" format="interval" metadata_source="input1" />
+  </outputs>
   <tests>
     <test>
       <param name="input1" value="1.bed" />
@@ -71,7 +65,6 @@
     </test>
   </tests>
   <help>
-
 .. class:: infomark
 
 **TIP:** If your dataset does not appear in the pulldown menu, it means that it is not in interval format. Use "edit attributes" to set chromosome, start, end, and strand columns.
@@ -115,7 +108,5 @@ All records of second dataset:
 All records of both datasets:
 
 .. image:: gops_joinFullOuter.gif
-
-
-</help>
+  </help>
 </tool>

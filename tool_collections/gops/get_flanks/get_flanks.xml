@@ -4,9 +4,9 @@
     <requirement type="package" version="0.7.1">bx-python</requirement>
     <requirement type="package" version="1.0.0">galaxy-ops</requirement>
   </requirements>
-  <command interpreter="python">get_flanks.py $input $out_file1 $size $direction $region -o $offset -l ${input.metadata.chromCol},${input.metadata.startCol},${input.metadata.endCol},${input.metadata.strandCol}</command>
+  <command>python '$__tool_directory__/get_flanks.py' '$input' '$out_file1' $size $direction $region -o $offset -l ${input.metadata.chromCol},${input.metadata.startCol},${input.metadata.endCol},${input.metadata.strandCol}</command>
   <inputs>
-    <param format="interval" name="input" type="data" label="Select data"/>
+    <param name="input" type="data" format="interval" label="Select data"/>
     <param name="region" type="select" label="Region">
       <option value="whole" selected="true">Whole feature</option>
       <option value="start">Around Start</option>
@@ -19,11 +19,9 @@
     </param>
     <param name="offset" type="integer" value="0" label="Offset" help="Use positive values to offset co-ordinates in the direction of transcription and negative values to offset in the opposite direction."/>
     <param name="size" type="integer" value="50" label="Length of the flanking region(s)" help="Use non-negative value for length"/>
-    
-    
   </inputs>
   <outputs>
-    <data format="interval" name="out_file1" metadata_source="input"/>
+    <data name="out_file1" format="interval" metadata_source="input"/>
   </outputs>
   <tests>
     <test>
@@ -43,14 +41,12 @@
       <output name="out_file1" file="flanks_out2.bed"/>
     </test>
   </tests>
- <help> 
-
-This tool finds the upstream and/or downstream flanking region(s) of all the selected regions in the input file. 
+  <help>
+This tool finds the upstream and/or downstream flanking region(s) of all the selected regions in the input file.
 
 **Note:** Every line should contain at least 3 columns: Chromosome number, Start and Stop co-ordinates. If any of these columns is missing or if start and stop co-ordinates are not numerical, the tool may encounter exceptions and such lines are skipped as invalid. The number of invalid skipped lines is documented in the resulting history item as a "Data issue".
 
 -----
-
 
 **Example 1**
 
@@ -75,8 +71,5 @@ This tool finds the upstream and/or downstream flanking region(s) of all the sel
    chr22  500  800  NM_028946 0 -
 
 .. image:: flanks_ex2.gif
-
-</help>  
-
-
+  </help>
 </tool>

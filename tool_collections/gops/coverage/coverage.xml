@@ -4,19 +4,15 @@
     <requirement type="package" version="0.7.1">bx-python</requirement>
     <requirement type="package" version="1.0.0">galaxy-ops</requirement>
   </requirements>
-  <command interpreter="python">gops_coverage.py $input1 $input2 $output -1 ${input1.metadata.chromCol},${input1.metadata.startCol},${input1.metadata.endCol},${input1.metadata.strandCol} -2 ${input2.metadata.chromCol},${input2.metadata.startCol},${input2.metadata.endCol},${input2.metadata.strandCol}</command>
-  <inputs>
-    <param format="interval" name="input1" type="data" help="First dataset">
-      <label>What portion of</label>
-    </param>
-    <param format="interval" name="input2" type="data" help="Second dataset">
-      <label>is covered by</label>
-    </param>
-   </inputs>
-  <outputs>
-    <data format="interval" name="output" metadata_source="input1" />
-  </outputs>
   <code file="operation_filter.py"/>
+  <command>python '$__tool_directory__/gops_coverage.py' '$input1' '$input2' '$output' -1 ${input1.metadata.chromCol},${input1.metadata.startCol},${input1.metadata.endCol},${input1.metadata.strandCol} -2 ${input2.metadata.chromCol},${input2.metadata.startCol},${input2.metadata.endCol},${input2.metadata.strandCol}</command>
+  <inputs>
+    <param name="input1" type="data" format="interval" label="What portion of" help="First dataset" />
+    <param name="input2" type="data" format="interval" label="Is covered by" help="Second dataset" />
+  </inputs>
+  <outputs>
+    <data name="output" format="interval" metadata_source="input1" />
+  </outputs>
   <tests>
     <test>
       <param name="input1" value="1.bed" />
@@ -35,7 +31,6 @@
     </test>
   </tests>
   <help>
-
 .. class:: infomark
 
 **TIP:** If your dataset does not appear in the pulldown menu -> it is not in interval format. Use "edit attributes" to set chromosome, start, end, and strand columns.
@@ -53,7 +48,6 @@ See Galaxy Interval Operation Screencasts_ (right click to open this link in ano
 -----
 
 **Example**
-
 
     if **First dataset** are genes ::
 
@@ -90,6 +84,5 @@ See Galaxy Interval Operation Screencasts_ (right click to open this link in ano
       chr11 5203271 5204877 NM_000518 0 - 172   0.107098
 
    implies that 172 nucleotides accounting for 10.7% of the this interval (chr11:5203271-5204877) overlap with repetitive elements.
-
-</help>
+  </help>
 </tool>

@@ -20,8 +20,8 @@
       #end if
   </command>
   <inputs>
-    <param format="interval,gff" name="input1" type="data" label="For every interval in"/>
-    <param format="interval,gff" name="input2" type="data" label="Fetch closest feature(s) from"/>
+    <param name="input1" type="data" format="interval,gff" label="For every interval in"/>
+    <param name="input2" type="data" format="interval,gff" label="Fetch closest feature(s) from"/>
     <param name="direction" type="select" label="Located">
       <option value="Either">Either Upstream or Downstream</option>
       <option value="Both">Both Upstream and Downstream</option>
@@ -30,7 +30,7 @@
     </param>
   </inputs>
   <outputs>
-    <data format_source="input1" name="out_file1" metadata_source="input1"/>
+    <data name="out_file1" format_source="input1" metadata_source="input1"/>
   </outputs>
   <tests>
     <test>
@@ -66,13 +66,13 @@
     <!-- Tests for GFF functionality. -->
     <test>
       <param name="input1" value="4_windows.bed"/>
-      <param name="input2" value="4_windows_2.gff"/>
+      <param name="input2" value="4_windows_2.gff" ftype="gff" />
       <param name="direction" value="Either"/>
       <output name="out_file1" file="closest_features_both.gff"/>
     </test>
     <test>
-      <param name="input1" value="4_windows.gff"/>
-      <param name="input2" value="4_windows_2.gff"/>
+      <param name="input1" value="4_windows.gff" ftype="gff" />
+      <param name="input2" value="4_windows_2.gff" ftype="gff" />
       <param name="direction" value="Either"/>
       <output name="out_file1" file="closest_features_both2.gff"/>
     </test>

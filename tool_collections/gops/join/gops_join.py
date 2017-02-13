@@ -8,11 +8,14 @@ usage: %prog bed_file_1 bed_file_2 out_file
     -m, --mincols=N: Require this much overlap (default 1bp)
     -f, --fill=N: none, right, left, both
 """
+from __future__ import print_function
+
 import fileinput
 import sys
+
+from bx.cookbook import doc_optparse
 from bx.intervals.io import NiceReaderWrapper
 from bx.intervals.operations.join import join
-from bx.cookbook import doc_optparse
 from bx.tabular.io import ParseError
 from galaxy.tools.util.galaxyops import fail, parse_cols_arg, skipped
 
@@ -61,7 +64,7 @@ def main():
                 out_file.write( "%s\n" % "\t".join( outfields ) )
             else:
                 out_file.write( "%s\n" % outfields )
-    except ParseError, exc:
+    except ParseError as exc:
         out_file.close()
         fail( "Invalid file format: %s" % str( exc ) )
     except MemoryError:
@@ -71,9 +74,10 @@ def main():
     out_file.close()
 
     if g1.skipped > 0:
-        print skipped( g1, filedesc=" of 1st dataset" )
+        print(skipped( g1, filedesc=" of 1st dataset" ))
     if g2.skipped > 0:
-        print skipped( g2, filedesc=" of 2nd dataset" )
+        print(skipped( g2, filedesc=" of 2nd dataset" ))
+
 
 if __name__ == "__main__":
     main()

@@ -7,13 +7,15 @@ usage: %prog in_file out_file
     -l, --lengths=N: Filename of .len file for species (chromosome lengths)
     -a, --all: Complement all chromosomes (Genome-wide complement)
 """
+from __future__ import print_function
 
-import sys
 import fileinput
+import sys
+
+from bx.cookbook import doc_optparse
 from bx.intervals.io import GenomicInterval, GenomicIntervalReader, NiceReaderWrapper
 from bx.intervals.operations.complement import complement
 from bx.intervals.operations.subtract import subtract
-from bx.cookbook import doc_optparse
 from bx.tabular.io import ParseError
 from galaxy.tools.util.galaxyops import fail, parse_cols_arg, skipped
 
@@ -83,14 +85,15 @@ def main():
                 out_file.write( "%s\n" % "\t".join( interval ) )
             else:
                 out_file.write( "%s\n" % interval )
-    except ParseError, exc:
+    except ParseError as exc:
         out_file.close()
         fail( "Invalid file format: %s" % str( exc ) )
 
     out_file.close()
 
     if g1.skipped > 0:
-        print skipped( g1, filedesc="" )
+        print(skipped( g1, filedesc="" ))
+
 
 if __name__ == "__main__":
     main()
