@@ -1,4 +1,4 @@
-<tool id="gffread" name="gffread" version="@VERSION@.0">
+<tool id="gffread" name="gffread" version="@VERSION@">
     <description>Filters and/or converts GFF3/GTF2 records</description>
     <macros>
         <import>cuff_macros.xml</import>
@@ -48,8 +48,7 @@
         </xml>
     </macros>
     <expand macro="requirements" />
-    <expand macro="stdio" />
-    <command>
+    <command detect_errors="aggressive">
 <![CDATA[
     #if $reference_genome.source == 'history':
         ln -s '$reference_genome.genome_fasta' genomeref.fa &&

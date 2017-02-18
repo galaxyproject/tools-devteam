@@ -1,4 +1,4 @@
-<tool id="cuffnorm" name="Cuffnorm" version="@VERSION@.1">
+<tool id="cuffnorm" name="Cuffnorm" version="@VERSION@">
     <description>Create normalized expression levels</description>
     <macros>
       <import>cuff_macros.xml</import>

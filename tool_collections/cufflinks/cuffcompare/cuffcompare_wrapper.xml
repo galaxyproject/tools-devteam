@@ -1,12 +1,11 @@
-<tool id="cuffcompare" name="Cuffcompare" version="2.2.1.0">
+<tool id="cuffcompare" name="Cuffcompare" version="@VERSION@">
     <description>compare assembled transcripts to a reference annotation and track Cufflinks transcripts across multiple experiments</description>
     <macros>
       <import>cuff_macros.xml</import>
     </macros>
     <expand macro="requirements" />
-    <expand macro="stdio" />
     <version_command>cuffcompare 2>&amp;1 | head -n 1</version_command>
-    <command>
+    <command detect_errors="aggressive"><![CDATA[
         python '$__tool_directory__/cuffcompare_wrapper.py'
             ## Use annotation reference?
             #if $annotation.use_ref_annotation == "Yes":
@@ -43,7 +42,7 @@
             --combined-transcripts '${transcripts_combined}'
 
             @CUFFLINKS_GTF_INPUTS@
-    </command>
+    ]]></command>
     <inputs>
         <expand macro="cufflinks_gtf_inputs" />
         <conditional name="annotation">
