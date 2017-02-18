@@ -1,5 +1,5 @@
 <macros>
-  <token name="@VERSION@">2.2.1</token>
+  <token name="@VERSION@">2.2.1.1</token>
 
   <xml name="requirements">
     <requirements>
@@ -8,14 +8,6 @@
     </requirements>
   </xml>
 
-  <xml name="stdio">
-    <stdio>
-        <exit_code range="1:" />
-        <exit_code range=":-1" />
-        <regex match="Error" />
-        <regex match="Exception" />
-    </stdio>
-  </xml>
   <xml name="condition_inputs">
     <!-- DEFAULT : use BAM/SAM files -->
     <conditional name="in_type">

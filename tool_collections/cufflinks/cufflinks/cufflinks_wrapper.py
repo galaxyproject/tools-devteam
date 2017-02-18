@@ -7,7 +7,71 @@ import subprocess
 import sys
 import tempfile
 
-from galaxy.datatypes.util.gff_util import gff_attributes_to_str, parse_gff_attributes
+
+def parse_gff_attributes( attr_str ):
+    """
+    Parses a GFF/GTF attribute string and returns a dictionary of name-value
+    pairs. The general format for a GFF3 attributes string is
+
+        name1=value1;name2=value2
+
+    The general format for a GTF attribute string is
+
+        name1 "value1" ; name2 "value2"
+
+    The general format for a GFF attribute string is a single string that
+    denotes the interval's group; in this case, method returns a dictionary
+    with a single key-value pair, and key name is 'group'
+    """
+    attributes_list = attr_str.split(";")
+    attributes = {}
+    for name_value_pair in attributes_list:
+        # Try splitting by '=' (GFF3) first because spaces are allowed in GFF3
+        # attribute; next, try double quotes for GTF.
+        pair = name_value_pair.strip().split("=")
+        if len( pair ) == 1:
+            pair = name_value_pair.strip().split("\"")
+        if len( pair ) == 1:
+            # Could not split for some reason -- raise exception?
+            continue
+        if pair == '':
+            continue
+        name = pair[0].strip()
+        if name == '':
+            continue
+        # Need to strip double quote from values
+        value = pair[1].strip(" \"")
+        attributes[ name ] = value
+
+    if len( attributes ) == 0:
+        # Could not split attributes string, so entire string must be
+        # 'group' attribute. This is the case for strictly GFF files.
+        attributes['group'] = attr_str
+    return attributes
+
+
+def gff_attributes_to_str( attrs, gff_format ):
+    """
+    Convert GFF attributes to string. Supported formats are GFF3, GTF.
+    """
+    if gff_format == 'GTF':
+        format_string = '%s "%s"'
+        # Convert group (GFF) and ID, parent (GFF3) attributes to transcript_id, gene_id
+        id_attr = None
+        if 'group' in attrs:
+            id_attr = 'group'
+        elif 'ID' in attrs:
+            id_attr = 'ID'
+        elif 'Parent' in attrs:
+            id_attr = 'Parent'
+        if id_attr:
+            attrs['transcript_id'] = attrs['gene_id'] = attrs[id_attr]
+    elif gff_format == 'GFF3':
+        format_string = '%s=%s'
+    attrs_strs = []
+    for name, value in attrs.items():
+        attrs_strs.append( format_string % ( name, value ) )
+    return " ; ".join( attrs_strs )
 
 
 def stop_err(msg):
@@ -69,23 +133,6 @@ def __main__():
     parser.add_option('', '--global_model', dest='global_model_file', help='Global model used for computing on local data')
 
     (options, args) = parser.parse_args()
-
-    # output version # of tool
-    try:
-        with tempfile.NamedTemporaryFile() as tmp_stdout:
-            returncode = subprocess.call(args='cufflinks --no-update-check 2>&1', stdout=tmp_stdout, shell=True)
-            stdout = None
-            with open(tmp_stdout.name) as tmp_stdout2:
-                for line in tmp_stdout2:
-                    if line.lower().find('cufflinks v') >= 0:
-                        stdout = line.strip()
-                        break
-        if stdout:
-            sys.stdout.write('%s\n' % stdout)
-        else:
-            raise Exception
-    except:
-        sys.stdout.write('Could not determine Cufflinks version\n')
 
     # If doing bias correction, set/link to sequence file.
     if options.do_bias_correction:

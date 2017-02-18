@@ -1,6 +1,0 @@
-<?xml version="1.0"?>
-<tool_dependency>
-    <package name="cufflinks" version="2.2.1">
-        <repository name="package_cufflinks_2_2_1" owner="devteam" />
-    </package>
-</tool_dependency> 

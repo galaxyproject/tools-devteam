@@ -7,7 +7,7 @@
     <expand macro="requirements" />
     <expand macro="stdio" />
     <version_command>cuffquant 2>&amp;1 | head -n 1</version_command>
-    <command>
+    <command detect_errors="aggressive"><![CDATA[
         cuffquant
             --no-update-check
             --num-threads=\${GALAXY_SLOTS:-4}
@@ -51,7 +51,7 @@
             '$gtf_input'
             #set samplestring = ','.join( [ str( $sample.sample ) for $sample in $samples ] )
             '$samplestring'
-    </command>
+    ]]></command>
     <inputs>
         <param format="gtf,gff3" name="gtf_input" type="data" label="Transcripts"
             help="A transcript annotation (GFF3 or GTF) file produced by cufflinks, cuffcompare, or other source."/>
