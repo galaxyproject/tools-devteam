@@ -38,23 +38,6 @@ def __main__():
 
     (options, args) = parser.parse_args()
 
-    # output version # of tool
-    try:
-        with tempfile.NamedTemporaryFile() as tmp_stdout:
-            returncode = subprocess.call(args='cuffcompare 2>&1', stdout=tmp_stdout, shell=True)
-            stdout = None
-            with open(tmp_stdout.name) as tmp_stdout2:
-                for line in tmp_stdout2:
-                    if line.lower().find('cuffcompare v') >= 0:
-                        stdout = line.strip()
-                        break
-        if stdout:
-            sys.stdout.write('%s\n' % stdout)
-        else:
-            raise Exception
-    except:
-        sys.stdout.write('Could not determine Cuffcompare version\n')
-
     # Set/link to sequence file.
     if options.use_seq_data:
         if options.ref_file:

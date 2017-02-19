@@ -1,14 +1,13 @@
-<tool id="cuffdiff" name="Cuffdiff" version="@VERSION@.4">
+<tool id="cuffdiff" name="Cuffdiff" version="@VERSION@.5">
     <description>find significant changes in transcript expression, splicing, and promoter use</description>
     <macros>
       <import>cuff_macros.xml</import>
     </macros>
     <expand macro="requirements">
-        <requirement type="package" version="2.8.2">bioconductor-cummerbund</requirement>
+        <requirement type="package" version="2.16.0">bioconductor-cummerbund</requirement>
     </expand>
-    <expand macro="stdio" />
     <version_command>cuffdiff 2>&amp;1 | head -n 1</version_command>
-    <command><![CDATA[
+    <command detect_errors="aggressive"><![CDATA[
         cuffdiff
             --no-update-check
             --quiet
@@ -69,7 +68,7 @@
             @CONDITION_SAMPLES@
             #if $generate_sqlite:
                 &&
-                R --vanilla --no-save -f '$__tool_directory__/cummeRbund.R' && mv cummeRbund.sqlite '${output_cummerbund}'
+                Rscript '$__tool_directory__/cummeRbund.R' && mv cummeRbund.sqlite '${output_cummerbund}'
             #end if
             ]]>
     </command>
@@ -92,13 +91,13 @@
         </param>
 
         <param name="fdr" type="float" value="0.05" label="False Discovery Rate" help="The allowed false discovery rate."/>
-        <param name="min_alignment_count" type="integer" value="10" label="Min Alignment Count" 
+        <param name="min_alignment_count" type="integer" value="10" label="Min Alignment Count"
             help="The minimum number of alignments in a locus for needed to conduct significance testing on changes in that locus observed between samples."/>
-        <param name="multiread_correct" type="boolean" label="Use multi-read correct" 
+        <param name="multiread_correct" type="boolean" label="Use multi-read correct"
             help="Tells Cufflinks to do an initial estimation procedure to more accurately weight reads mapping to multiple locations in the genome." />
 
         <conditional name="bias_correction">
-            <param name="do_bias_correction" type="select" label="Perform Bias Correction" 
+            <param name="do_bias_correction" type="select" label="Perform Bias Correction"
                 help="Bias detection and correction can significantly improve accuracy of transcript abundance estimates.">
                 <option value="No">No</option>
                 <option value="Yes">Yes</option>
@@ -129,8 +128,8 @@
             <option value="No" selected="true">No</option>
             <option value="Yes">Yes</option>
         </param>
-        
-        <param name="include_count_files" type="select" label="Include Count Based output files" 
+
+        <param name="include_count_files" type="select" label="Include Count Based output files"
             help="Cuffdiff estimates the number of fragments that originated from each transcript, primary transcript, and gene in each sample. Primary transcript and gene counts are computed by summing the counts of transcripts in each primary transcript group or gene group.">
             <option value="No" selected="true">No</option>
             <option value="Yes">Yes</option>
@@ -172,16 +171,16 @@
                     <option value="transfrags">transfrags</option>
                 </param>
                 <param name="mask_file" type="data" format="gtf,gff3" label="Mask File" help="Ignore all alignment within transcripts in this file" optional="True" />
-                <param name="time_series" type="boolean" label="Perform Time Series analysis" 
+                <param name="time_series" type="boolean" label="Perform Time Series analysis"
                     help="Instructs Cuffdiff to analyze the provided samples as a time series, rather than testing for differences between all pairs of samples. Samples should be provided in increasing time order at the command line (e.g first time point SAM, second timepoint SAM, etc.)" />
                 <param name="max_mle_iterations" value="5000" type="integer" label="Max MLE iterations" help="Maximum iterations allowed for Maximal Likelyhood Estimation calculations" />
                 <param name="hits_norm" type="select" label="Hits included in normalization" help="All Hits: With this option, Cufflinks counts all fragments, including those not compatible with any reference transcript, towards the number of mapped fragments used in the FPKM denominator. Compatible Hits: With this option, Cufflinks counts only those fragments compatible with some reference transcript towards the number of mapped fragments used in the FPKM denominator. Using this mode is generally recommended in Cuffdiff to reduce certain types of bias caused by differential amounts of ribosomal reads which can create the impression of falsely differentially expressed genes. It is active by default." >
                         <option value="--compatible-hits-norm" selected="True">Compatible Hits</option>
                         <option value="--total-hits-norm">All Hits</option>
                 </param>
-                <param name="max_bundle_frags" type="integer" value="500000" label="Maximum number of fragments per locus" 
+                <param name="max_bundle_frags" type="integer" value="500000" label="Maximum number of fragments per locus"
                     help="Sets the maximum number of fragments a locus may have before being skipped. Skipped loci are listed in skipped.gtf. Default: 500,000" />
-                <param name="num_frag_count_draws" type="integer" value="100" label="Number of fragment generation samples" 
+                <param name="num_frag_count_draws" type="integer" value="100" label="Number of fragment generation samples"
                     help="Cuffdiff will make this many draws from each transcript's predicted negative binomial random numbder generator. Each draw is a number of fragments that will be probabilistically assigned to the transcripts in the transcriptome. Used to estimate the variance-covariance matrix on assigned fragment counts. Default: 100."/>
                 <param name="num_frag_assign_draws" type="integer" value="50" label="Number of fragment assignment samples per generation" help="For each fragment drawn from a transcript, Cuffdiff will assign it this many times (probabilistically), thus estimating the assignment uncertainty for each transcript. Used to estimate the variance-covariance matrix on assigned fragment counts. Default: 50."/>
                 <param name="min_reps_for_js_test" type="integer" value="3" label="Minimal Replicates for isoform shift testing" help="Cuffdiff won't test genes for differential regulation unless the conditions in question have at least this many replicates. Default: 3." />
@@ -265,7 +264,7 @@
     <tests>
         <test>
                 <!--
-                    cuffdiff cuffcompare_out5.gtf cuffdiff_in1.sam cuffdiff_in2.sam 
+                    cuffdiff cuffcompare_out5.gtf cuffdiff_in1.sam cuffdiff_in2.sam
                 -->
                 <param name="gtf_input" value="cuffdiff_in1.gtf" ftype="gtf" />
                 <param name="generate_sqlite" value="yes" />
@@ -291,7 +290,7 @@
         </test>
         <test>
                 <!--
-                    cuffdiff cuffcompare_out5.gtf cuffdiff_in1.sam cuffdiff_in2.sam 
+                    cuffdiff cuffcompare_out5.gtf cuffdiff_in1.sam cuffdiff_in2.sam
                 -->
                 <param name="gtf_input" value="cuffdiff_in1.gtf" ftype="gtf" />
                 <param name="omit_tabular_output" value="no" />
@@ -365,7 +364,7 @@ Cuffdiff produces many output files:
 9. Differential splicing tests: this tab delimited file lists, for each primary transcript, the amount of overloading detected among its isoforms, i.e. how much differential splicing exists between isoforms processed from a single primary transcript. Only primary transcripts from which two or more isoforms are spliced are listed in this file.
 10. Differential promoter tests: this tab delimited file lists, for each gene, the amount of overloading detected among its primary transcripts, i.e. how much differential promoter use exists between samples. Only genes producing two or more distinct primary transcripts (i.e. multi-promoter genes) are listed here.
 11. Differential CDS tests: this tab delimited file lists, for each gene, the amount of overloading detected among its coding sequences, i.e. how much differential CDS output exists between samples. Only genes producing two or more distinct CDS (i.e. multi-protein genes) are listed here.
-    
+
 -------
 
 **Settings**
@@ -393,7 +392,7 @@ This is a list of implemented Cuffdiff options::
   --mask-file (gff3/gtf)         Ignore all alignment within transcripts in this file
   --time-series                  Treat provided sam files as time series
   --compatible-hits-norm         With this option, Cufflinks counts only those fragments compatible with some reference transcript towards the number of mapped fragments used in the FPKM denominator. Using this mode is generally recommended in Cuffdiff to reduce certain types of bias caused by differential amounts of ribosomal reads which can create the impression of falsely differentially expressed genes.
-  --total-hits-norm              With this option, Cufflinks counts all fragments, including those not compatible with any reference transcript, towards the number of mapped fragments used in the FPKM denominator  
+  --total-hits-norm              With this option, Cufflinks counts all fragments, including those not compatible with any reference transcript, towards the number of mapped fragments used in the FPKM denominator
   --max-bundle-frags             Sets the maximum number of fragments a locus may have before being skipped. Skipped loci are listed in skipped.gtf.
   --num-frag-count-draws         Cuffdiff will make this many draws from each transcript's predicted negative binomial random numbder generator. Each draw is a number of fragments that will be probabilistically assigned to the transcripts in the transcriptome. Used to estimate the variance-covariance matrix on assigned fragment counts.
   --num-frag-assign-draws        For each fragment drawn from a transcript, Cuffdiff will assign it this many times (probabilistically), thus estimating the assignment uncertainty for each transcript. Used to estimate the variance-covariance matrix on assigned fragment counts.

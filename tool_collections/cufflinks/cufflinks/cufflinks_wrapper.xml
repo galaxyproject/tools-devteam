@@ -1,16 +1,11 @@
-<tool id="cufflinks" name="Cufflinks" version="@VERSION@.1">
+<tool id="cufflinks" name="Cufflinks" version="@VERSION@.2">
     <description>transcript assembly and FPKM (RPKM) estimates for RNA-Seq data</description>
     <macros>
       <import>cuff_macros.xml</import>
     </macros>
-    <requirements>
-      <requirement type="package" version="0.7.3">bx-python</requirement>
-      <requirement type="package" version="1.9.0">six</requirement>
-      <requirement type="package" version="2.2.1">cufflinks</requirement>
-    </requirements>
-    <expand macro="stdio" />
+    <expand macro="requirements" />
     <version_command>cufflinks 2>&amp;1 | head -n 1</version_command>
-    <command>
+    <command detect_errors="aggressive">
         python '$__tool_directory__/cufflinks_wrapper.py'
             --input '$input'
             --assembled-isoforms-output '$assembled_isoforms'

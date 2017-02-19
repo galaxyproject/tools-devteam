@@ -1,11 +1,11 @@
-<tool id="cuffmerge" name="Cuffmerge" version="@VERSION@.0">
+<tool id="cuffmerge" name="Cuffmerge" version="@VERSION@.1">
     <description>merge together several Cufflinks assemblies</description>
     <macros>
       <import>cuff_macros.xml</import>
     </macros>
     <expand macro="requirements" />
-    <expand macro="stdio" />
-    <command>
+     <version_command>cuffmerge -v</version_command>
+    <command detect_errors="aggressive">
         python '$__tool_directory__/cuffmerge_wrapper.py'
             --num-threads="\${GALAXY_SLOTS:-4}"
             
