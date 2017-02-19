@@ -1,4 +1,4 @@
-<tool id="cuffcompare" name="Cuffcompare" version="@VERSION@">
+<tool id="cuffcompare" name="Cuffcompare" version="@VERSION@.1">
     <description>compare assembled transcripts to a reference annotation and track Cufflinks transcripts across multiple experiments</description>
     <macros>
       <import>cuff_macros.xml</import>
@@ -18,7 +18,7 @@
                 #end if
 
             #end if
-            
+
             ## Use sequence data?
             #if $seq_data.use_seq_data == "Yes":
             -s
@@ -28,7 +28,7 @@
                     --index '${seq_data.seq_source.index.fields.path}'
                 #end if
             #end if
-            
+
             $discard_single_exon
 
             -e $max_dist_exon
@@ -36,7 +36,7 @@
 
             #if $discard_intron_redundant_transfrags:
                 -F
-            #end if 
+            #end if
 
             ## Outputs.
             --combined-transcripts '${transcripts_combined}'
@@ -59,7 +59,7 @@
             </when>
         </conditional>
         <conditional name="seq_data">
-            <param name="use_seq_data" type="select" label="Use Sequence Data" 
+            <param name="use_seq_data" type="select" label="Use Sequence Data"
                 help="Use sequence data for some optional classification functions, including the addition of the p_id attribute required by Cuffdiff.">
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>
@@ -90,29 +90,29 @@
                 <option value="-M">Discard single-exon transfrags and reference transcripts</option>
                 <option value="-N">Discard single-exon reference transcripts</option>
         </param>
-        <param type="integer" name="max_dist_exon" value="100" label="Max. Distance for assessing exon accuracy" 
+        <param type="integer" name="max_dist_exon" value="100" label="Max. Distance for assessing exon accuracy"
             help="max. distance (range) allowed from free ends of terminal exons of reference transcripts when assessing exon accuracy. Default: 100" />
-        <param type="integer" name="max_dist_group" value="100" label="Max.Distance for transcript grouping" 
+        <param type="integer" name="max_dist_group" value="100" label="Max.Distance for transcript grouping"
             help="max. distance (range) for grouping transcript start sites. Default: 100" />
-        <param type="boolean" name="discard_intron_redundant_transfrags" label="discard intron-redundant transfrags sharing 5'" 
+        <param type="boolean" name="discard_intron_redundant_transfrags" label="discard intron-redundant transfrags sharing 5'"
             help="Discard intron-redundant transfrags if they share the 5' end (if they differ only at the 3' end)" />
     </inputs>
 
     <outputs>
-        <data format="txt" name="transcripts_accuracy" label="${tool.name} on ${on_string}: transcript accuracy" 
+        <data format="txt" name="transcripts_accuracy" label="${tool.name} on ${on_string}: transcript accuracy"
             from_work_dir="cc_output.stats" />
         <data format="tabular" name="input1_tmap" label="${tool.name} on ${on_string}: data ${inputs[0].hid} tmap file"
             from_work_dir="cc_output.input1.tmap" />
-        <data format="tabular" name="input1_refmap" 
-              label="${tool.name} on ${on_string}: data ${inputs[0].hid} refmap file" 
+        <data format="tabular" name="input1_refmap"
+              label="${tool.name} on ${on_string}: data ${inputs[0].hid} refmap file"
               from_work_dir="cc_output.input1.refmap">
             <filter>annotation['use_ref_annotation'] == 'Yes'</filter>
         </data>
         <data format="tabular" name="input2_tmap" label="${tool.name} on ${on_string}: data ${inputs[1].hid} tmap file" from_work_dir="cc_output.input2.tmap">
             <filter>@HAS_MULTIPLE_INPUTS@</filter>
         </data>
-        <data format="tabular" name="input2_refmap" 
-              label="${tool.name} on ${on_string}: data ${inputs[1].hid} refmap file" 
+        <data format="tabular" name="input2_refmap"
+              label="${tool.name} on ${on_string}: data ${inputs[1].hid} refmap file"
               from_work_dir="cc_output.input2.refmap">
             <filter>annotation['use_ref_annotation'] == 'Yes' and @HAS_MULTIPLE_INPUTS@</filter>
         </data>
@@ -123,7 +123,7 @@
     </outputs>
 
     <tests>
-        <!-- 
+        <!--
             cuffcompare -r cuffcompare_in3.gtf -R cuffcompare_in1.gtf cuffcompare_in2.gtf
         -->
         <test>
@@ -172,7 +172,7 @@ There is no such thing (yet) as an automated gearshift in expression analysis. I
 
 Cuffcompare takes Cufflinks' GTF output as input, and optionally can take a "reference" annotation (such as from Ensembl_)
 
-.. _Ensembl: http://www.ensembl.org 
+.. _Ensembl: http://www.ensembl.org
 
 ------
 
@@ -186,7 +186,7 @@ Cuffcompare reports various statistics related to the "accuracy" of the transcri
 
 Transcripts Combined File:
 
-Cuffcompare reports a GTF file containing the "union" of all transfrags in each sample. If a transfrag is present in both samples, it is thus reported once in the combined gtf. 
+Cuffcompare reports a GTF file containing the "union" of all transfrags in each sample. If a transfrag is present in both samples, it is thus reported once in the combined gtf.
 
 Transcripts Tracking File:
 
@@ -208,7 +208,7 @@ In this example, a transcript present in the two input files, called exp.115.0 i
   3               Reference gene id         Tcea             The gene_name attribute of the reference GTF record for this transcript, or '-' if no reference transcript overlaps this Cufflinks transcript
   4               Reference transcript id   uc007afj.1       The transcript_id attribute of the reference GTF record for this transcript, or '-' if no reference transcript overlaps this Cufflinks transcript
   5               Class code                c                The type of match between the Cufflinks transcripts in column 6 and the reference transcript. See class codes
-  
+
 Each of the columns after the fifth have the following format:
   qJ:gene_id|transcript_id|FMI|FPKM|conf_lo|conf_hi
 
@@ -221,18 +221,18 @@ If you ran cuffcompare with the -r option, tracking rows will contain the follow
   Priority         Code           Description
   ---------------------------------
   1                 =               Match
-  2                 c               Contained        
-  3                 j               New isoform        
-  4                 e               A single exon transcript overlapping a reference exon and at least 10 bp of a reference intron, indicating a possible pre-mRNA fragment.        
+  2                 c               Contained
+  3                 j               New isoform
+  4                 e               A single exon transcript overlapping a reference exon and at least 10 bp of a reference intron, indicating a possible pre-mRNA fragment.
   5                 i               A single exon transcript falling entirely with a reference intron
   6                 o               Generic exonic overlap with a reference transcript
-  7                 p               Possible polymerase run-on fragment  
-  8                 r               Repeat. Currently determined by looking at the soft-masked reference sequence and applied to transcripts where at least 50% of the bases are lower case  
+  7                 p               Possible polymerase run-on fragment
+  8                 r               Repeat. Currently determined by looking at the soft-masked reference sequence and applied to transcripts where at least 50% of the bases are lower case
   9                 u               Unknown, intergenic transcript
   10                x               Exonic overlap with reference on the opposite strand
   11                s               An intron of the transfrag overlaps a reference intron on the opposite strand (likely due to read mapping errors)
   12                .               (.tracking file only, indicates multiple classifications)
-    
+
 -------
 
 **Settings**

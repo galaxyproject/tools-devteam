@@ -1,4 +1,4 @@
-<tool id="cufflinks" name="Cufflinks" version="@VERSION@">
+<tool id="cufflinks" name="Cufflinks" version="@VERSION@.2">
     <description>transcript assembly and FPKM (RPKM) estimates for RNA-Seq data</description>
     <macros>
       <import>cuff_macros.xml</import>

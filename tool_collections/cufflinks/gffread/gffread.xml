@@ -1,4 +1,4 @@
-<tool id="gffread" name="gffread" version="@VERSION@">
+<tool id="gffread" name="gffread" version="@VERSION@.1">
     <description>Filters and/or converts GFF3/GTF2 records</description>
     <macros>
         <import>cuff_macros.xml</import>
