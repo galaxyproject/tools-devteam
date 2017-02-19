@@ -68,7 +68,7 @@
             @CONDITION_SAMPLES@
             #if $generate_sqlite:
                 &&
-                R --vanilla --no-save -f '$__tool_directory__/cummeRbund.R' && mv cummeRbund.sqlite '${output_cummerbund}'
+                Rscript '$__tool_directory__/cummeRbund.R' && mv cummeRbund.sqlite '${output_cummerbund}'
             #end if
             ]]>
     </command>
@@ -286,7 +286,7 @@
                 <param name="do_normalization" value="No" />
                 <param name="multiread_correct" value="No"/>
                 <param name="sAdditional" value="No"/>
-                <output name="output_cummerbund" ftype="sqlite" file="cuffdiff_out.sqlite" compare="sim_size" />
+                <output name="output_cummerbund" ftype="sqlite" file="cuffdiff_out.sqlite" compare="sim_size" delta="20000" />
         </test>
         <test>
                 <!--
