@@ -2,7 +2,8 @@
 <tool id="cummeRbund" name="cummeRbund" version="2.16.2">
     <description>visualize Cuffdiff output</description>
     <requirements>
-        <requirement type="package" version="2.16.2">cummeRbund</requirement>
+        <requirement type="package" version="1.0.1">r-argparse</requirement>
+        <requirement type="package" version="2.16.2">bioconductor-cummerbund</requirement>
     </requirements>
     <macros>
         <import>cummeRbund_macros.xml</import>
