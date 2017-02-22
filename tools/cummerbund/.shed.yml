@@ -8,6 +8,6 @@ long_description: |
   functions for commonly used visualizations.
 name: cummerbund
 owner: devteam
-homepage_url: http://compbio.mit.edu/cummeRbund
+homepage_url: https://bioconductor.org/packages/release/bioc/html/cummeRbund.html
 remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/cummerbund
 type: unrestricted

@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
-<tool id="cummeRbund" name="cummeRbund" version="2.16.2">
+<tool id="cummeRbund" name="cummeRbund" version="2.16.0">
     <description>visualize Cuffdiff output</description>
     <macros>
         <import>cummeRbund_macros.xml</import>
     </macros>
     <requirements>
         <requirement type="package" version="1.0.1">r-argparse</requirement>
-        <requirement type="package" version="2.16.2">bioconductor-cummerbund</requirement>
+        <requirement type="package" version="2.16.0">bioconductor-cummerbund</requirement>
     </requirements>
     <code file="cummeRbund_options.py"/>
     <command detect_errors="aggressive">
@@ -352,7 +352,7 @@ This tool allows for persistent storage, access, exploration, and manipulation o
 
 ------
 
-Based on the `cummeRbund wrapper <http://toolshed.bx.psu.edu/view/jjohnson/cummerbund>`_ written by James E. Johnson of the Minnesota Supercomputing Institute.
+Based on the `cummeRbund wrapper <https://toolshed.g2.bx.psu.edu/view/jjohnson/cummerbund>`_ written by James E. Johnson of the Minnesota Supercomputing Institute.
     ]]></help>
     <citations>
         <citation type="doi">doi:10.1038/nprot.2012.016</citation>
