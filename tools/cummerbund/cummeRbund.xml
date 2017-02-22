@@ -12,7 +12,7 @@
     <command detect_errors="aggressive">
 <![CDATA[
 #for i, p in enumerate($plots):
-    Rscript $__tool_directory__/cummeRbund.R --args
+    Rscript $__tool_directory__/cummeRbund.R
     --input "${input_database}" --width $p.width --height $p.height --type "${p.plot.type}"
     --outfile plot-${p.plot.type}-${i}.png
     #if $p.plot.type in ["density", "boxplot", "mds", "pca", "dendrogram"]:
