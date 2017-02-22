@@ -68,7 +68,7 @@ This tool finds the coverage of intervals in the first dataset on intervals in t
                          a    b      c d
     chrX 1 10001 seg 0 - 3001 0.3001 2 1
                                   
-  implies that 2 exons (c) fall fully in this window (chrX:1-10001), 1 exon (d) partially overlaps this window, and these 3 exons cover 30.01% (c) of the window size, spanning 3001 nucleotides (a).
+  implies that 2 exons (c) fall fully in this window (chrX:1-10001), 1 exon (d) partially overlaps this window, and these 3 exons cover 30.01% (b) of the window size, spanning 3001 nucleotides (a).
 
   * a: number of nucleotides in this window covered by the features in (c) and (d) - features overlapping with each other will be merged to calculate (a)
   * b: fraction of window size covered by features in (c) and (d) - features overlapping with each other will be merged to calculate (b)
