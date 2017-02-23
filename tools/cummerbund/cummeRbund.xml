@@ -271,7 +271,10 @@
                 <conditional name="plot">
                     <param name="type" value="heatmap" />
                     <repeat name="genes">
-                        <param name="gene_id" value="XLOC_000078" />
+                        <param name="gene_id" value="XLOC_000030" />
+                    </repeat>
+                    <repeat name="genes">
+                        <param name="gene_id" value="XLOC_000037" />
                     </repeat>
                 </conditional>
             </repeat>

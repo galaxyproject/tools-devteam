@@ -11,7 +11,8 @@
         <param name="y" type="select" label="Sample name for y axis" dynamic_options="get_samples(input_database.dataset.file_name)" />
     </macro>
     <macro name="genes_selector">
-        <repeat name="genes" title="Genes">
+        <repeat name="genes" title="Genes" min="2">
+            <!-- Cannot create a heatmap for less than two genes -->
             <param name="gene_id" type="select" label="Gene ID" dynamic_options="get_genes(input_database.dataset.file_name)" />
         </repeat>
     </macro>
