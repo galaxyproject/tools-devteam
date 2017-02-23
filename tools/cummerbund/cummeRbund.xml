@@ -1,20 +1,18 @@
 <?xml version="1.0"?>
-<tool id="cummeRbund" name="cummeRbund" version="1.0.2">
+<tool id="cummeRbund" name="cummeRbund" version="2.16.0">
     <description>visualize Cuffdiff output</description>
-    <requirements>
-        <requirement type="set_environment">CUMMERBUND_SCRIPT_PATH</requirement>
-        <requirement type="package" version="3.1.2">R</requirement>
-        <requirement type="package" version="2.8.2">cummeRbund</requirement>
-    </requirements>
-    <expand macro="stdio" />
     <macros>
         <import>cummeRbund_macros.xml</import>
     </macros>
+    <requirements>
+        <requirement type="package" version="1.0.1">r-argparse</requirement>
+        <requirement type="package" version="2.16.0">bioconductor-cummerbund</requirement>
+    </requirements>
     <code file="cummeRbund_options.py"/>
-    <command>
+    <command detect_errors="aggressive">
 <![CDATA[
 #for i, p in enumerate($plots):
-    R --vanilla --no-save -f \$CUMMERBUND_SCRIPT_PATH/cummeRbund.R --args
+    Rscript $__tool_directory__/cummeRbund.R
     --input "${input_database}" --width $p.width --height $p.height --type "${p.plot.type}"
     --outfile plot-${p.plot.type}-${i}.png
     #if $p.plot.type in ["density", "boxplot", "mds", "pca", "dendrogram"]:
@@ -273,7 +271,10 @@
                 <conditional name="plot">
                     <param name="type" value="heatmap" />
                     <repeat name="genes">
-                        <param name="gene_id" value="XLOC_000078" />
+                        <param name="gene_id" value="XLOC_000030" />
+                    </repeat>
+                    <repeat name="genes">
+                        <param name="gene_id" value="XLOC_000037" />
                     </repeat>
                 </conditional>
             </repeat>
@@ -354,7 +355,7 @@ This tool allows for persistent storage, access, exploration, and manipulation o
 
 ------
 
-Based on the `cummeRbund wrapper <http://toolshed.bx.psu.edu/view/jjohnson/cummerbund>`_ written by James E. Johnson of the Minnesota Supercomputing Institute.
+Based on the `cummeRbund wrapper <https://toolshed.g2.bx.psu.edu/view/jjohnson/cummerbund>`_ written by James E. Johnson of the Minnesota Supercomputing Institute.
     ]]></help>
     <citations>
         <citation type="doi">doi:10.1038/nprot.2012.016</citation>

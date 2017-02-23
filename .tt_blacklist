@@ -37,7 +37,6 @@ tools/weblogo3
 tools/indels_3way
 tools/macs
 tools/microsats_mutability
-tools/cummerbund
 tools/fastqsolexa_to_fasta_qual
 tools/pileup_interval
 tools/velvet

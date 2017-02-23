@@ -1,13 +1,5 @@
 <?xml version="1.0"?>
 <macros>
-    <macro name="stdio">
-        <stdio>
-            <exit_code range="1:" />
-            <exit_code range=":-1" />
-            <regex match="Error:" />
-            <regex match="Exception:" />
-        </stdio>
-    </macro>
     <macro name="replicates_checkbox">
         <param name="replicates" type="boolean" truevalue="--replicates" falsevalue="" checked="True" label="Replicates?"/>
     </macro>
@@ -19,7 +11,8 @@
         <param name="y" type="select" label="Sample name for y axis" dynamic_options="get_samples(input_database.dataset.file_name)" />
     </macro>
     <macro name="genes_selector">
-        <repeat name="genes" title="Genes">
+        <repeat name="genes" title="Genes" min="2">
+            <!-- Cannot create a heatmap for less than two genes -->
             <param name="gene_id" type="select" label="Gene ID" dynamic_options="get_genes(input_database.dataset.file_name)" />
         </repeat>
     </macro>

@@ -1,4 +1,5 @@
 ## Feature Selection ##
+options(echo=TRUE)
 get_features <- function(myGenes, f="gene") {
     if (f == "isoforms")
         return(isoforms(myGenes))
