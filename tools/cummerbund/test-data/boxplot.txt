@@ -1,23 +1,3 @@
-
-R version 3.1.2 (2014-10-31) -- "Pumpkin Helmet"
-Copyright (C) 2014 The R Foundation for Statistical Computing
-Platform: x86_64-unknown-linux-gnu (64-bit)
-
-R is free software and comes with ABSOLUTELY NO WARRANTY.
-You are welcome to redistribute it under certain conditions.
-Type 'license()' or 'licence()' for distribution details.
-
-  Natural language support but running in an English locale
-
-R is a collaborative project with many contributors.
-Type 'contributors()' for more information and
-'citation()' on how to cite R or R packages in publications.
-
-Type 'demo()' for some demos, 'help()' for on-line help, or
-'help.start()' for an HTML browser interface to help.
-Type 'q()' to quit R.
-
-> ## Feature Selection ##
 > get_features <- function(myGenes, f="gene") {
 +     if (f == "isoforms")
 +         return(isoforms(myGenes))
@@ -61,79 +41,10 @@ Loading required package: proto
 > 
 > args <- parser$parse_args()
 > 
-> print(args)
-$border
-[1] FALSE
-
-$clustering
-[1] "both"
-
-$count
-[1] FALSE
-
-$error_bars
-[1] FALSE
-
-$features
-[1] "genes"
-
-$filename
-[1] "plot-boxplot-0.png"
-
-$gene_selector
-[1] FALSE
-
-$genes
-NULL
-
-$height
-[1] 960
-
-$input_database
-[1] "/tmp/tmpCu9yWT/tmpPy7OpW/database/files/000/dataset_34.dat"
-
-$iter_max
-NULL
-
-$k
-NULL
-
-$labcol
-[1] FALSE
-
-$labrow
-[1] FALSE
-
-$log10
-[1] FALSE
-
-$plotType
-[1] "boxplot"
-
-$replicates
-[1] TRUE
-
-$smooth
-[1] FALSE
-
-$summary
-[1] FALSE
-
-$width
-[1] 1280
-
-$x
-NULL
-
-$y
-NULL
-
-> 
-> #q()
-> 
 > ## Load cummeRbund library
 > library("cummeRbund")
 Loading required package: BiocGenerics
+Loading required package: methods
 Loading required package: parallel
 
 Attaching package: ‘BiocGenerics’
@@ -144,18 +55,18 @@ The following objects are masked from ‘package:parallel’:
     clusterExport, clusterMap, parApply, parCapply, parLapply,
     parLapplyLB, parRapply, parSapply, parSapplyLB
 
-The following object is masked from ‘package:stats’:
+The following objects are masked from ‘package:stats’:
 
-    xtabs
+    IQR, mad, xtabs
 
 The following objects are masked from ‘package:base’:
 
-    anyDuplicated, append, as.data.frame, as.vector, cbind, colnames,
-    do.call, duplicated, eval, evalq, Filter, Find, get, intersect,
-    is.unsorted, lapply, Map, mapply, match, mget, order, paste, pmax,
-    pmax.int, pmin, pmin.int, Position, rank, rbind, Reduce, rep.int,
-    rownames, sapply, setdiff, sort, table, tapply, union, unique,
-    unlist, unsplit
+    anyDuplicated, append, as.data.frame, cbind, colnames, do.call,
+    duplicated, eval, evalq, Filter, Find, get, grep, grepl, intersect,
+    is.unsorted, lapply, lengths, Map, mapply, match, mget, order,
+    paste, pmax, pmax.int, pmin, pmin.int, Position, rank, rbind,
+    Reduce, rownames, sapply, setdiff, sort, table, tapply, union,
+    unique, unsplit, which, which.max, which.min
 
 Loading required package: RSQLite
 Loading required package: DBI
@@ -171,12 +82,75 @@ The following object is masked from ‘package:stats’:
 
 Loading required package: rtracklayer
 Loading required package: GenomicRanges
-Loading required package: S4Vectors
 Loading required package: stats4
+Loading required package: S4Vectors
+
+Attaching package: ‘S4Vectors’
+
+The following objects are masked from ‘package:base’:
+
+    colMeans, colSums, expand.grid, rowMeans, rowSums
+
 Loading required package: IRanges
 Loading required package: GenomeInfoDb
 Loading required package: Gviz
 Loading required package: grid
+Warning: namespace ‘AnnotationHub’ is not available and has been replaced
+by .GlobalEnv when processing object ‘plot.index’
+Warning: namespace ‘AnnotationHub’ is not available and has been replaced
+by .GlobalEnv when processing object ‘plot.index’
+Warning: namespace ‘AnnotationHub’ is not available and has been replaced
+by .GlobalEnv when processing object ‘plot.index’
+Warning: namespace ‘AnnotationHub’ is not available and has been replaced
+by .GlobalEnv when processing object ‘plot.index’
+Warning: namespace ‘ensembldb’ is not available and has been replaced
+by .GlobalEnv when processing object ‘plot.index’
+Warning: namespace ‘ensembldb’ is not available and has been replaced
+by .GlobalEnv when processing object ‘plot.index’
+Warning: namespace ‘ensembldb’ is not available and has been replaced
+by .GlobalEnv when processing object ‘plot.index’
+Warning: namespace ‘ensembldb’ is not available and has been replaced
+by .GlobalEnv when processing object ‘plot.index’
+Warning: namespace ‘AnnotationHub’ is not available and has been replaced
+by .GlobalEnv when processing object ‘plot.index’
+Warning: namespace ‘AnnotationHub’ is not available and has been replaced
+by .GlobalEnv when processing object ‘plot.index’
+Warning: namespace ‘AnnotationHub’ is not available and has been replaced
+by .GlobalEnv when processing object ‘plot.index’
+Warning: namespace ‘AnnotationHub’ is not available and has been replaced
+by .GlobalEnv when processing object ‘plot.index’
+Warning: namespace ‘ensembldb’ is not available and has been replaced
+by .GlobalEnv when processing object ‘plot.index’
+Warning: namespace ‘ensembldb’ is not available and has been replaced
+by .GlobalEnv when processing object ‘plot.index’
+Warning: namespace ‘ensembldb’ is not available and has been replaced
+by .GlobalEnv when processing object ‘plot.index’
+Warning: namespace ‘ensembldb’ is not available and has been replaced
+by .GlobalEnv when processing object ‘plot.index’
+Warning: namespace ‘ensembldb’ is not available and has been replaced
+by .GlobalEnv when processing object ‘plot.index’
+Warning: namespace ‘ensembldb’ is not available and has been replaced
+by .GlobalEnv when processing object ‘plot.index’
+Warning: namespace ‘AnnotationHub’ is not available and has been replaced
+by .GlobalEnv when processing object ‘plot.index’
+Warning: namespace ‘ensembldb’ is not available and has been replaced
+by .GlobalEnv when processing object ‘plot.index’
+Warning: namespace ‘AnnotationHub’ is not available and has been replaced
+by .GlobalEnv when processing object ‘plot.index’
+Warning: namespace ‘ensembldb’ is not available and has been replaced
+by .GlobalEnv when processing object ‘plot.index’
+Warning: namespace ‘ensembldb’ is not available and has been replaced
+by .GlobalEnv when processing object ‘plot.index’
+Warning: namespace ‘ensembldb’ is not available and has been replaced
+by .GlobalEnv when processing object ‘plot.index’
+Warning: namespace ‘ensembldb’ is not available and has been replaced
+by .GlobalEnv when processing object ‘plot.index’
+Warning: namespace ‘ensembldb’ is not available and has been replaced
+by .GlobalEnv when processing object ‘plot.index’
+Warning: namespace ‘AnnotationHub’ is not available and has been replaced
+by .GlobalEnv when processing object ‘plot.index’
+Warning: namespace ‘AnnotationHub’ is not available and has been replaced
+by .GlobalEnv when processing object ‘plot.index’
 
 Attaching package: ‘cummeRbund’
 
@@ -301,8 +275,5 @@ CuffSet instance with:
 +     write(paste("Failed:", e, sep=" "), stderr())
 +     q("no", 1, TRUE)
 + })
-Fontconfig error: Cannot load default config file
 > devname = dev.off()
-> 
-> #end for
 > 
