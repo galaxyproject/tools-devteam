@@ -1,10 +1,11 @@
-<tool id="count_gff_features" name="Count GFF Features" version="0.1">
+<tool id="count_gff_features" name="Count GFF Features" version="0.2">
     <description></description>
     <requirements>
-        <requirement type="package" version="0.7.1">bx-python</requirement>
+        <requirement type="package" version="0.7.3">bx-python</requirement>
     </requirements>
-    <command interpreter="python">
-        count_gff_features.py $input &gt; $output
+    <command><![CDATA[
+        python '$__tool_directory__/count_gff_features.py' '$input' > '$output'
+    ]]>
     </command>
     <inputs>
         <param format="gff" name="input" type="data" label="GFF Dataset to Filter"/>
