@@ -2,7 +2,7 @@
 # This tool takes a gff file as input and counts the number of features in it.
 
 import sys
-improt fileinput
+import fileinput
 
 from galaxy.datatypes.util.gff_util import GFFReaderWrapper
 from bx.intervals.io import GenomicInterval
