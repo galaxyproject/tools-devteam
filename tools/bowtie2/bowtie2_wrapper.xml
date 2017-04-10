@@ -1,4 +1,4 @@
-<tool id="bowtie2" name="Bowtie2" version="2.3.0" profile="17.01">
+<tool id="bowtie2" name="Bowtie2" version="2.3.0.1" profile="17.01">
     <description>- map reads against reference genome</description>
     <macros>
         <import>read_group_macros.xml</import>
