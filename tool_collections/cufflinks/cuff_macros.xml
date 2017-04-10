@@ -66,7 +66,7 @@
   </token>
   <xml name="cufflinks_gtf_inputs">
     <param format="gtf" name="inputs" type="data" label="GTF file(s) produced by Cufflinks" help="" multiple="true" />
-    <repeat name="additional_inputs" title="Additional GTF Inputs (Lists)">
+    <repeat name="additional_inputs" title="Additional GTF Inputs (type Dataset Collection Lists)">
       <param format="gtf" name="additional_inputs" type="data_collection" label="GTF file(s) produced by Cufflinks" help="" />
     </repeat>
   </xml>
