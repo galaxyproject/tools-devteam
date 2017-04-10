@@ -43,7 +43,7 @@
             #else:
                 #set read2 = "input_r.fastq"
             #end if
-            ln -f -s "${library.input_2.reads_r}" "${read2}" &&
+            ln -f -s "${library.input_2}" "${read2}" &&
         #else if str($library.type) == 'paired_collection':
             #if $library.input_1.forward.is_of_type("fastq.gz", "fastqsanger.gz"):
                 #set read1 = "input_f.fastq.gz"
