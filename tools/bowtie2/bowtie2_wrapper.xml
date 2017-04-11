@@ -32,7 +32,7 @@
             #else:
                 #set read1 = "input_f.fastq"
             #end if
-            ln -f -s "${library.input_1}" "${read1}" &&
+            ln -f -s '${library.input_1}' ${read1} &&
 
             #if $library.input_2.is_of_type("fastq.gz", "fastqsanger.gz"):
                 #set read2 = "input_r.fastq.gz"
@@ -43,7 +43,7 @@
             #else:
                 #set read2 = "input_r.fastq"
             #end if
-            ln -f -s "${library.input_2}" "${read2}" &&
+            ln -f -s '${library.input_2}' ${read2} &&
         #else if str($library.type) == 'paired_collection':
             #if $library.input_1.forward.is_of_type("fastq.gz", "fastqsanger.gz"):
                 #set read1 = "input_f.fastq.gz"
@@ -54,7 +54,7 @@
             #else:
                 #set read1 = "input_f.fastq"
             #end if
-            ln -s "${library.input_1.forward}" "${read1}" &&
+            ln -s '${library.input_1.forward}' ${read1} &&
 
             #if $library.input_1.reverse.is_of_type("fastq.gz", "fastqsanger.gz"):
                 #set read2 = "input_r.fastq.gz"
@@ -65,7 +65,7 @@
             #else:
                 #set read2 = "input_r.fastq"
             #end if
-            ln -s "${library.input_1.reverse}" "${read2}" &&
+            ln -s '${library.input_1.reverse}' ${read2} &&
         #else:
             #if $library.input_1.is_of_type("fastq.gz", "fastqsanger.gz"):
                 #set read1 = "input_f.fastq.gz"
@@ -76,7 +76,7 @@
             #else:
                 #set read1 = "input_f.fastq"
             #end if
-            ln -s "${library.input_1}" "${read1}" &&
+            ln -s '${library.input_1}' ${read1} &&
         #end if
 
         ## execute bowtie2
@@ -140,12 +140,6 @@
                 ${library.paired_options.dovetail}
                 ${library.paired_options.no_contain}
                 ${library.paired_options.no_overlap}
-            #end if
-            #if str( $library.unaligned_file ) == "true":
-                --un-conc $output_unaligned_reads_l
-            #end if
-            #if str( $library.aligned_file ) == "true":
-                --al-conc $output_aligned_reads_l
             #end if
         #end if
 
