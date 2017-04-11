@@ -91,23 +91,23 @@
 
         ## Fastq inputs
         #if str( $library.type ) == "single":
-            -U '${read_1}'
+            -U '${read1}'
             #if str( $library.unaligned_file ) == "true":
                 #if $compressed == "GZ":
-                    --un-conc-gz '${output_unaligned_reads_l}'
+                    --un-gz '${output_unaligned_reads_l}'
                 #else if $compressed == "BZ2":
-                    --un-conc-bz2 '${output_unaligned_reads_l}'
+                    --un-bz2 '${output_unaligned_reads_l}'
                 #else:
-                    --un-conc '${output_unaligned_reads_l}'
+                    --un '${output_unaligned_reads_l}'
                 #end if
             #end if
             #if str( $library.aligned_file ) == "true":
                 #if $compressed == "GZ":
-                    --al-conc-gz '${output_aligned_reads_l}'
+                    --al-gz '${output_aligned_reads_l}'
                 #else if $compressed == "BZ2":
-                    --al-conc-bz2 '${output_aligned_reads_l}'
+                    --al-bz2 '${output_aligned_reads_l}'
                 #else:
-                    --al-conc '${output_aligned_reads_l}'
+                    --al '${output_aligned_reads_l}'
                 #end if
             #end if
         #else:
