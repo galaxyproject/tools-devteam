@@ -1,4 +1,4 @@
-<tool id="hisat" name="HISAT" version="1.0.3">
+<tool id="hisat" name="HISAT" version="1.0.4">
     <description>spliced aligner</description>
     <macros>
         <import>hisat_macros.xml</import>
@@ -24,18 +24,49 @@
             #set index_path = $reference_genome.index.fields.path
         #end if
         hisat -p \${GALAXY_SLOTS:-1} -x "${index_path}"
+
         #if str($input_format.paired.paired_selector) == 'paired':
             -1 "${reads_f}" -2 "${reads_r}"
+            
+            #if str($spliced_options.spliced_options_selector) == "advanced":
+                #if str($spliced_options.rna_strandness).strip() != '':
+                    --rna-strandness $spliced_options.rna_strandness
+                #end if
+            #end if
+
+            @paired_end_options@
+
         #else if str($input_format.paired.paired_selector) == 'paired_collection':
             -1 "${input_format.paired.reads.forward}" -2 "${input_format.paired.reads.reverse}"
+
+            #if str($spliced_options.spliced_options_selector) == "advanced":
+                #if str($spliced_options.rna_strandness).strip() != '':
+                    --rna-strandness $spliced_options.rna_strandness
+                #end if
+            #end if
+
+            @paired_end_options@
+
         #else:
             -U "${reads}"
+
+            #if str($spliced_options.spliced_options_selector) == "advanced":
+                #if str($spliced_options.rna_strandness).strip() != '':
+                    ## In single end mode the option should be either F or R, this is the first letter.
+                    --rna-strandness str($spliced_options.rna_strandness)[0]
+                #end if
+            #end if
+
         #end if
         #if $input_format.input_format_selector == 'fasta':
             -f
         #end if
         #if str($input_options.input_options_selector) == "advanced":
-            -s ${input_options.skip} -u ${input_options.stop_after} -5 ${input_options.trim_five} -3 ${input_options.trim_three}
+            -s ${input_options.skip}
+            #if ${input_options.stop_after}:
+                -u ${input_options.stop_after}
+            #end if
+            -5 ${input_options.trim_five} -3 ${input_options.trim_three}
         #end if
         #if str($scoring_options.scoring_options_selector) == "advanced":
             --ma ${scoring_options.match_bonus} --mp ${scoring_options.max_mismatch},${scoring_options.min_mismatch}
@@ -52,6 +83,9 @@
             #if str($spliced_options.known_splice_gtf) != 'None':
                 --known-splicesite-infile splice_sites.txt
             #end if
+            ${spliced_options.no_spliced_alignment}
+            --min-intronlen ${spliced_options.min_intron}
+            --max-intronlen ${spliced_options.max_intron}
         #end if
         | samtools view -bS - | samtools sort - -o hsbam > "${output_alignments}"
     ]]></command>
@@ -66,13 +100,16 @@
                     <expand macro="single_paired_selector" />
                     <when value="paired_collection">
                         <param format="fasta" name="reads" type="data_collection" collection_type="paired" label="Paired reads" />
+                        <expand macro="paired_end_conditional" />
                     </when>
                     <when value="paired_list">
                         <param format="fasta" name="reads" type="data_collection" collection_type="list:paired" label="Paired reads" />
+                        <expand macro="paired_end_conditional" />
                     </when>
                     <when value="paired">
                         <param label="Forward reads" type="data" name="reads_f" multiple="true" format="fasta" />
                         <param label="Reverse reads" type="data" name="reads_r" multiple="true" format="fasta" />
+                        <expand macro="paired_end_conditional" />
                     </when>
                     <when value="single">
                         <param label="Reads" type="data" name="reads" multiple="true" format="fasta" />
@@ -84,10 +121,12 @@
                     <expand macro="single_paired_selector" />
                     <when value="paired_collection">
                         <param format="fastq" name="reads" type="data_collection" collection_type="paired" label="Paired reads" />
+                        <expand macro="paired_end_conditional" />
                     </when>
                     <when value="paired">
                         <param label="Forward reads" type="data" name="reads_f" multiple="true" format="fastq" />
                         <param label="Reverse reads" type="data" name="reads_r" multiple="true" format="fastq" />
+                        <expand macro="paired_end_conditional" />
                     </when>
                     <when value="single">
                         <param label="Reads" type="data" name="reads" multiple="true" format="fastq" />
@@ -135,7 +174,8 @@
             <when value="defaults" />
             <when value="advanced">
                 <param name="skip" label="Skip the first N reads or pairs in the input" help="-s" type="integer" value="0" default="0" />
-                <param name="stop_after" label="Stop after aligning N reads" help="(-u) Align the first N reads or read pairs from the input (after the first N reads or pairs have been skipped), then stop." type="integer" value="0" default="0" />
+                <param name="stop_after" type="integer" value="" min="1" optional="True" label="Stop after aligning N reads"
+                    help="(-u) Align the first N reads or read pairs from the input (after the first N reads or pairs have been skipped), then stop." />
                 <param name="trim_five" label="Trim 5' end" help="(-5) Trim N bases from 5' (left) end of each read before alignment" type="integer" value="0" default="0" />
                 <param name="trim_three" label="Trim 3' end" help="(-3) Trim N bases from 3' (right) end of each read before alignment" type="integer" value="0" default="0" />
             </when>
@@ -169,6 +209,14 @@
                 <expand macro="function">
                     <label>Sets the penalty for long introns so that alignments with shorter introns are preferred to those with longer ones.</label>
                 </expand>
+                <param name="rna_strandness" type="select" label="Specify strand-specific information"
+                    help="'F' means a read corresponds to a transcript. 'R' means a read corresponds to the reverse complemented counterpart of a transcript. (--rna-strandness)">
+                    <option value="">FR Unstranded</option>
+                    <option value="RF">First Strand (R/RF)</option>
+                    <option value="FR">Second Strand (F/FR)</option>
+                </param>
+                <param name="no_spliced_alignment" type="boolean" truevalue="--ignore-quals" falsevalue="" 
+                    label="Disable spliced alignment" help="(--no-spliced-alignment)" />
                 <param name="min_intron" label="Minimum intron length" type="integer" value="20" />
                 <param name="max_intron" label="Maximum intron length" type="integer" value="500000" />
                 <param name="known_splice_gtf" label="GTF file with known splice sites" type="data" format="gtf" optional="True" />
@@ -181,8 +229,8 @@
             <param name="paired_selector" value="paired" />
             <param name="reference_genome_source" value="history" />
             <param name="history_item" value="phiX.fa" ftype="fasta" />
-            <param name="reads_f" ftype="fastqsanger" value="hisat_input_1_forward.fastq" /> 
-            <param name="reads_r" ftype="fastqsanger" value="hisat_input_1_reverse.fastq" /> 
+            <param name="reads_f" ftype="fastqsanger" value="hisat_input_1_forward.fastq" />
+            <param name="reads_r" ftype="fastqsanger" value="hisat_input_1_reverse.fastq" />
             <output name="output_alignments" ftype="bam" file="hisat_output_1.bam" />
         </test>
         <test>
@@ -193,9 +241,24 @@
             <param name="input_options_selector" value="advanced" />
             <param name="trim_three" value="15" />
             <param name="trim_five" value="15" />
-            <param name="reads_f" ftype="fastqsanger" value="hisat_input_2_forward.fastq" /> 
-            <param name="reads_r" ftype="fastqsanger" value="hisat_input_2_reverse.fastq" /> 
+            <param name="reads_f" ftype="fastqsanger" value="hisat_input_2_forward.fastq" />
+            <param name="reads_r" ftype="fastqsanger" value="hisat_input_2_reverse.fastq" />
             <output name="output_alignments" ftype="bam" file="hisat_output_2.bam" />
+        </test>
+        <test>
+            <param name="input_format_selector" value="fastq" />
+            <param name="paired_selector" value="paired" />
+            <param name="reference_genome_source" value="history" />
+            <param name="history_item" value="phiX.fa" ftype="fasta" />
+            <param name="input_options_selector" value="advanced" />
+            <param name="trim_three" value="15" />
+            <param name="trim_five" value="15" />
+            <param name="reads_f" ftype="fastqsanger" value="hisat_input_2_forward.fastq" />
+            <param name="reads_r" ftype="fastqsanger" value="hisat_input_2_reverse.fastq" />
+            <param name="paired_end_options_selector" value="advanced" />
+            <param name="no_mixed" value="True" />
+            <param name="no_discordant" value="True" />
+            <output name="output_alignments" ftype="bam" file="hisat_output_3.bam" />
         </test>
     </tests>
     <outputs>
