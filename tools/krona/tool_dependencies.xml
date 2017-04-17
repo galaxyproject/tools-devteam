@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<tool_dependency>
+	<package name="perl" version="5.18.1">
+        <repository name="package_perl_5_18" owner="iuc" prior_installation_required="True" />
+    </package>
+    <package name="krona" version="2.5">
+        <repository name="package_krona_2_5" owner="iuc" prior_installation_required="True" />
+    </package>
+</tool_dependency>

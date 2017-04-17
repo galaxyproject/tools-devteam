@@ -1,0 +1,11 @@
+categories:
+- Visualization
+description: Creates an ineractive Krona chart based on Galaxy taxonomic representations.
+long_description: |
+  Krona Tools is a set of scripts to create Krona charts from several
+  Bioinformatics tools as well as from text and XML files.
+name: krona
+owner: devteam
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/krona
+type: unrestricted
+
