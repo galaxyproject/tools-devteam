@@ -1,0 +1,53 @@
+<tool id="bam_len_nm_filter" name="Filter SAM/BAM" version="1.0">
+  <description>on read length and mismatches</description>
+  <command interpreter="python">
+    bam_len_nm_filter.py "${infile}" "${outfile}" "${threshold}" "${min_length}" "${p_s}"
+  </command>
+  <inputs>
+
+    <param name="p_s" type="select" label="Is this a paired or a single dataset?">
+      <option value="paired">Paired</option>
+      <option value="single">Single</option>
+    </param>
+
+    <param name="infile" type="data" format="bam" label="Select SAM/BAM dataset" />
+    <param name="min_length" type="integer" value="0" min="0" max="1000" label="Select minimal length of a read (bp)" help="Setting this to 0 eliminated filtering"/>
+    <param name="threshold" type="float" value="0" min="0" max="1" label="Select maximum mismatch ratio (fraction of length)" help="For example, seetting this to 0.02 will allow a maximum of 2 mismatches per 100 bp"/>
+  </inputs>
+  <outputs>
+    <data format="bam" name="outfile" />
+  </outputs>
+  <tests>
+    <test>
+      <param name="infile" ftype="bam" value="bam_len_nm_filter_input.bam"/>
+      <param name="min_length" value="100"/>
+      <param name="threshold" value="0.02"/>
+      <param name="p_s" value="paired"/>
+      <output name="outfile" file="bam_len_nm_filter_output.bam" ftype="bam" />
+    </test>
+  </tests> 
+  <help>
+    	
+**What is does**
+
+This tools filters reads on length and on mismatch ratio.
+
+
+To filter on length, set **Select minimal length of a read** to a non-zero value. 
+
+To filter on mismatch ratio, set **Select maximum mismatch ratio** to a value between 0 and 1. For example, setting it to `0.02` will only output reads where the number of mismatches (identified from **MN** tag) is smaller or equal to, in this case, 0.02 multiplied by the length of a read. 
+
+The actual expression used to evalute the raio is::
+
+ if ( NM &lt;= Threshold * Length ) and ( Length &gt;= Min_Length)
+
+
+where *NM* is the NM tag value, *Length* is the read length, *Threshold* is a value set by **Select maximum mismatch ratio** and *Min_Length* is a value set by **Select minimal length of a read**.
+
+In case of paired reads both reads must pass length and mismatch ratio filters. 
+
+  </help>
+   <citations>
+    <citation type="doi">10.1073/pnas.1409328111</citation>
+  </citations>
+</tool>
