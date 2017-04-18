@@ -9,7 +9,7 @@
     <command>
         ## Convert VCF to AV input format.
         #if str($out_format) == "tabular":
-            convert2annovar.pl -format vcf4 -includeinfo ${input} > input.avinput ;
+            \${SCRIPT_PATH}/convert2annovar.pl -format vcf4 -includeinfo ${input} > input.avinput ;
             #set tab_anno_input = "input.avinput"
         #else:
             #set tab_anno_input = $input
@@ -42,7 +42,7 @@
         #set operation = ','.join( $operation )
 
         ## Annotate variants.
-        table_annovar.pl ${tab_anno_input} ${__get_data_table_entry__('annovar_indexes', 'dbkey', $input.dbkey, 'path')} -protocol ${protocol} -operation ${operation} -nastring '.' -buildver ${input.dbkey} --outfile output
+        \${SCRIPT_PATH}/table_annovar.pl ${tab_anno_input} ${__get_data_table_entry__('annovar_indexes', 'dbkey', $input.dbkey, 'path')} -protocol ${protocol} -operation ${operation} -nastring '.' -buildver ${input.dbkey} --outfile output
 
         ## Add option to consume/produce VCF.
         #if str($out_format) == "vcf":
@@ -52,7 +52,7 @@
         ## Post-processing: process annotated table to remove "NA" strings from numerical columns if
         ## tabular. Copy to output.
         #if str($out_format) == "tabular":
-            ; cat output.${input.dbkey}_multianno.txt | python \${SCRIPT_PATH}/replace_NA.py > ${output}
+            ; cat output.${input.dbkey}_multianno.txt | python ${__tool_directory__}/replace_NA.py > ${output}
         #else:
             ; cp output.${input.dbkey}_multianno.vcf ${output}
         #end if
