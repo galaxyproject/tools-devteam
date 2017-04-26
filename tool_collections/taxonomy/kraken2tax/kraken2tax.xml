@@ -1,8 +1,8 @@
 <tool id="Kraken2Tax" name="Convert Kraken" version="1.1">
   <description>data to Galaxy taxonomy representation</description>
     <requirements>
-        <requirement type="package" version="4.1.0">gnu_awk</requirement>
-        <requirement type="package" version="8d245994d7">gb_taxonomy</requirement>
+        <requirement type="package" version="4.1.0">gawk</requirement>
+        <requirement type="package" version="1.0.0">gb_taxonomy_tools</requirement>
     </requirements>
   <command>
 <![CDATA[
