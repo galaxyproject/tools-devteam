@@ -1,8 +1,8 @@
 <tool id="bowtie_wrapper" name="Map with Bowtie for Illumina" version="1.2.0">
+  <description></description>
   <requirements>
     <requirement type="package" version="1.2.0">bowtie</requirement>
   </requirements>
-  <description></description>
   <version_command>bowtie --version</version_command>
   <command>
     python '$__tool_directory__/bowtie_wrapper.py'
@@ -167,7 +167,7 @@
         </param>
       </when>
       <when value="history">
-        <param name="ownFile" type="data" format="bowtie_base_index,fasta" metadata_name="dbkey" label="Select the reference genome" />
+        <param name="ownFile" type="data" format="bowtie_base_index,fasta" label="Select the reference genome" />
         <conditional name="indexParams">
           <param name="indexSettings" type="select" label="Choose whether to use Default options for building indices or to Set your own" help="These settings are ignored when using a prebuilt index">
             <option value="indexPreSet">Default</option>
@@ -313,7 +313,7 @@
       <when value="paired">
         <param name="pInput1" type="data" format="fastqsanger,fastqillumina,fastqsolexa" label="Forward FASTQ file" help="Must have ASCII encoded quality scores"/>
         <param name="pInput2" type="data" format="fastqsanger,fastqillumina,fastqsolexa" label="Reverse FASTQ file" help="File format must match the Forward FASTQ file">
-            <options options_filter_attribute="ext" from_parameter="tool.app.datatypes_registry.datatypes_by_extension" transform_lines="obj.keys()">>
+            <options options_filter_attribute="ext" from_parameter="tool.app.datatypes_registry.datatypes_by_extension" transform_lines="obj.keys()">
                <column name="name" index="0"/>
                <column name="value" index="0"/>
                <filter type="param_value" ref="pInput1" ref_attribute="ext" column="0"/>

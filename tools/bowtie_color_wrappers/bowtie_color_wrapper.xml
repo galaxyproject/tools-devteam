@@ -1,8 +1,8 @@
 <tool id="bowtie_color_wrapper" name="Map with Bowtie for SOLiD" version="1.1.2">
+  <description></description>
   <requirements>
     <requirement type='package' version="0.12.7">bowtie</requirement>
   </requirements>
-  <description></description>
   <command interpreter="python">
     bowtie_wrapper.py 
     ## Set number of threads
@@ -147,7 +147,7 @@
         </param>
       </when>
       <when value="history">
-        <param name="ownFile" type="data" format="bowtie_color_index,fasta" metadata_name="dbkey" label="Select the reference genome" />
+        <param name="ownFile" type="data" format="bowtie_color_index,fasta" label="Select the reference genome" />
         <conditional name="indexParams">
           <param name="indexSettings" type="select" label="Choose whether to use Default options for building indices or to Set your own" help="These settings are ignored when using a prebuilt index">
             <option value="indexPreSet">Default</option>
@@ -347,7 +347,7 @@
           <when value="indexed">
             <action type="metadata" name="dbkey">
               <option type="from_data_table" name="bowtie_indexes_color" column="1" offset="0">
-                <filter type="param_value" column="0" value="#" filter_by="startswith" keep="False"/>
+                <filter type="param_value" column="0" value="#" compare="startswith" keep="False"/>
                 <filter type="param_value" ref="refGenomeSource.index" column="0"/>
               </option>
             </action>
