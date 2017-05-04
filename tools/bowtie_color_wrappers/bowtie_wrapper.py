@@ -65,19 +65,24 @@ usage: bowtie_wrapper.py [options]
     --do_not_build_index: Flag to specify that provided file is already indexed and to just use 'as is'
 """
 
-import optparse, os, shutil, subprocess, sys, tempfile
+import optparse
+import os
+import shutil
+import subprocess
+import sys
+import tempfile
 
-#Allow more than Sanger encoded variants
+# Allow more than Sanger encoded variants
 DEFAULT_ASCII_ENCODING = '--phred33-quals'
-GALAXY_FORMAT_TO_QUALITY_SCORE_ENCODING_ARG = { 'fastqsanger':'--phred33-quals', 'fastqillumina':'--phred64-quals', 'fastqsolexa':'--solexa-quals' }
-#FIXME: Integer quality scores are supported only when the '--integer-quals' argument is specified to bowtie; this is not currently able to be set in the tool/wrapper/config
+GALAXY_FORMAT_TO_QUALITY_SCORE_ENCODING_ARG = {'fastqsanger': '--phred33-quals', 'fastqillumina': '--phred64-quals', 'fastqsolexa': '--solexa-quals'}
+# FIXME: Integer quality scores are supported only when the '--integer-quals' argument is specified to bowtie; this is not currently able to be set in the tool/wrapper/config
+
 
 def stop_err( msg ):
-    sys.stderr.write( '%s\n' % msg )
-    sys.exit()
+    sys.exit('%s\n' % msg)
+
 
 def __main__():
-    #Parse Command Line
     parser = optparse.OptionParser()
     parser.add_option( '-t', '--threads', dest='threads', help='The number of threads to run' )
     parser.add_option( '-o', '--output', dest='output', help='The output file' )
@@ -151,7 +156,7 @@ def __main__():
     # index if necessary
     if options.genomeSource == 'history' and not options.do_not_build_index:
         # set up commands
-        if options.index_settings =='indexPreSet':
+        if options.index_settings == 'indexPreSet':
             indexing_cmds = '%s' % colorspace
         else:
             try:
@@ -164,7 +169,7 @@ def __main__():
                 else:
                     ipacked = ''
                 if options.ibmax and int( options.ibmax ) >= 1:
-                    ibmax = '--bmax %s' % options.ibmax 
+                    ibmax = '--bmax %s' % options.ibmax
                 else:
                     ibmax = ''
                 if options.ibmaxdivn and int( options.ibmaxdivn ) >= 0:
@@ -204,10 +209,10 @@ def __main__():
                 else:
                     icutoff = ''
                 indexing_cmds = '%s %s %s %s %s %s %s --offrate %s %s %s %s %s %s %s' % \
-                                ( iautoB, ipacked, ibmax, ibmaxdivn, idcv, inodc, 
-                                  inoref, options.ioffrate, iftab, intoa, iendian, 
+                                ( iautoB, ipacked, ibmax, ibmaxdivn, idcv, inodc,
+                                  inoref, options.ioffrate, iftab, intoa, iendian,
                                   iseed, icutoff, colorspace )
-            except ValueError, e:
+            except ValueError as e:
                 # clean up temp dir
                 if os.path.exists( tmp_index_dir ):
                     shutil.rmtree( tmp_index_dir )
@@ -219,25 +224,22 @@ def __main__():
         cmd1 = 'bowtie-build %s -f %s %s' % ( indexing_cmds, ref_file_name, ref_file_name )
         try:
             tmp = tempfile.NamedTemporaryFile( dir=tmp_index_dir ).name
-            tmp_stderr = open( tmp, 'wb' )
-            proc = subprocess.Popen( args=cmd1, shell=True, cwd=tmp_index_dir, stderr=tmp_stderr.fileno() )
-            returncode = proc.wait()
-            tmp_stderr.close()
-            # get stderr, allowing for case where it's very large
-            tmp_stderr = open( tmp, 'rb' )
-            stderr = ''
-            buffsize = 1048576
-            try:
-                while True:
-                    stderr += tmp_stderr.read( buffsize )
-                    if not stderr or len( stderr ) % buffsize != 0:
-                        break
-            except OverflowError:
-                pass
-            tmp_stderr.close()
+            with open(tmp, 'w') as tmp_stderr:
+                returncode = subprocess.call(args=cmd1, shell=True, cwd=tmp_index_dir, stderr=tmp_stderr.fileno())
             if returncode != 0:
-                raise Exception, stderr
-        except Exception, e:
+                # get stderr, allowing for case where it's very large
+                stderr = ''
+                buffsize = 1048576
+                with open(tmp, 'r') as tmp_stderr:
+                    try:
+                        while True:
+                            stderr += tmp_stderr.read(buffsize)
+                            if not stderr or len(stderr) % buffsize != 0:
+                                break
+                    except OverflowError:
+                        pass
+                raise Exception(stderr)
+        except Exception as e:
             # clean up temp dir
             if os.path.exists( tmp_index_dir ):
                 shutil.rmtree( tmp_index_dir )
@@ -264,7 +266,7 @@ def __main__():
     quality_score_encoding = GALAXY_FORMAT_TO_QUALITY_SCORE_ENCODING_ARG.get( options.galaxy_input_format, DEFAULT_ASCII_ENCODING )
     if options.params == 'preSet':
         aligning_cmds = '-q %s %s -p %s -S %s %s %s ' % \
-                ( maxInsert, mateOrient, options.threads, suppressHeader, colorspace, quality_score_encoding )
+            (maxInsert, mateOrient, options.threads, suppressHeader, colorspace, quality_score_encoding)
     else:
         try:
             if options.skip and int( options.skip ) > 0:
@@ -287,8 +289,8 @@ def __main__():
                 maqSoapAlign = '-v %s' % options.maqSoapAlign
             else:
                 maqSoapAlign = ''
-            if options.mismatchSeed and (options.mismatchSeed == '0' or options.mismatchSeed == '1' \
-                        or options.mismatchSeed == '2' or options.mismatchSeed == '3'):
+            if options.mismatchSeed and (options.mismatchSeed == '0' or options.mismatchSeed == '1' or
+                                         options.mismatchSeed == '2' or options.mismatchSeed == '3'):
                 mismatchSeed = '-n %s' % options.mismatchSeed
             else:
                 mismatchSeed = ''
@@ -396,13 +398,13 @@ def __main__():
                             '%s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s ' % \
                             ( maxInsert, mateOrient, options.threads, suppressHeader,
                               colorspace, skip, alignLimit, trimH, trimL, maqSoapAlign,
-                              mismatchSeed, mismatchQual, seedLen, rounding, minInsert, 
+                              mismatchSeed, mismatchQual, seedLen, rounding, minInsert,
                               maxAlignAttempt, forwardAlign, reverseAlign, maxBacktracks,
                               tryHard, valAlign, allValAligns, suppressAlign, best,
                               strata, offrate, seed, snpphred, snpfrac, keepends,
                               output_unmapped_reads, output_suppressed_reads,
                               quality_score_encoding )
-        except ValueError, e:
+        except ValueError as e:
             # clean up temp dir
             if os.path.exists( tmp_index_dir ):
                 shutil.rmtree( tmp_index_dir )
@@ -417,47 +419,44 @@ def __main__():
                 cmd2 = 'bowtie %s %s %s > %s' % ( aligning_cmds, ref_file_name, options.input1, options.output )
             # align
             tmp = tempfile.NamedTemporaryFile( dir=tmp_index_dir ).name
-            tmp_stderr = open( tmp, 'wb' )
-            proc = subprocess.Popen( args=cmd2, shell=True, cwd=tmp_index_dir, stderr=tmp_stderr.fileno() )
-            returncode = proc.wait()
-            tmp_stderr.close()
-            # get stderr, allowing for case where it's very large
-            tmp_stderr = open( tmp, 'rb' )
-            stderr = ''
-            buffsize = 1048576
-            try:
-                while True:
-                    stderr += tmp_stderr.read( buffsize )
-                    if not stderr or len( stderr ) % buffsize != 0:
-                        break
-            except OverflowError:
-                pass
-            tmp_stderr.close()
+            with open(tmp, 'w') as tmp_stderr:
+                returncode = subprocess.call(args=cmd2, shell=True, cwd=tmp_index_dir, stderr=tmp_stderr.fileno())
             if returncode != 0:
-                raise Exception, stderr
+                # get stderr, allowing for case where it's very large
+                stderr = ''
+                buffsize = 1048576
+                with open(tmp, 'r') as tmp_stderr:
+                    try:
+                        while True:
+                            stderr += tmp_stderr.read(buffsize)
+                            if not stderr or len(stderr) % buffsize != 0:
+                                break
+                    except OverflowError:
+                        pass
+                raise Exception(stderr)
             # get suppressed and unmapped reads output files in place if appropriate
             if options.paired == 'paired' and tmp_suppressed_file_name and \
-                               options.output_suppressed_reads_l and options.output_suppressed_reads_r:
+                    options.output_suppressed_reads_l and options.output_suppressed_reads_r:
                 try:
                     left = tmp_suppressed_file_name.replace( '.fastq', '_1.fastq' )
                     right = tmp_suppressed_file_name.replace( '.fastq', '_1.fastq' )
                     shutil.move( left, options.output_suppressed_reads_l )
                     shutil.move( right, options.output_suppressed_reads_r )
-                except Exception, e:
+                except Exception as e:
                     sys.stdout.write( 'Error producing the suppressed output file.\n' )
             if options.paired == 'paired' and tmp_unmapped_file_name and \
-                               options.output_unmapped_reads_l and options.output_unmapped_reads_r:
+                    options.output_unmapped_reads_l and options.output_unmapped_reads_r:
                 try:
                     left = tmp_unmapped_file_name.replace( '.fastq', '_1.fastq' )
                     right = tmp_unmapped_file_name.replace( '.fastq', '_2.fastq' )
                     shutil.move( left, options.output_unmapped_reads_l )
                     shutil.move( right, options.output_unmapped_reads_r )
-                except Exception, e:
+                except Exception as e:
                     sys.stdout.write( 'Error producing the unmapped output file.\n' )
             # check that there are results in the output file
             if os.path.getsize( options.output ) == 0:
-                raise Exception, 'The output file is empty, there may be an error with your input file or settings.'
-        except Exception, e:
+                raise Exception('The output file is empty, there may be an error with your input file or settings.')
+        except Exception as e:
             stop_err( 'Error aligning sequence. ' + str( e ) )
     finally:
         # clean up temp dir
@@ -466,4 +465,6 @@ def __main__():
     stdout += 'Sequence file aligned.\n'
     sys.stdout.write( stdout )
 
-if __name__=="__main__": __main__()
+
+if __name__ == "__main__":
+    __main__()
