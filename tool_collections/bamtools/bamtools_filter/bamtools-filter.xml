@@ -6,21 +6,9 @@
     <command>
         <![CDATA[
             cat $script_file > $out_file2;
-            #if $inputs.type == 'individual':
-                mkdir outputs &&
-                #for $bam_count, $input_bam in enumerate( $inputs.input_bams ):
-                    ln -s "${input_bam}" "localbam_${bam_count}.bam" &&
-                    ln -s "${input_bam.metadata.bam_index}" "localbam_${bam_count}.bam.bai" &&
-                    bamtools filter -script $script_file -in "localbam_${bam_count}.bam" -out "outputs/filtered_${input_bam.dataset.hid}.bam" &&
-                #end for
-            #else:
-                #for $key in $filtered_bams.keys():
-                    ln -s "$inputs.bam_collection[$key]" "localbam_${inputs.bam_collection[$key].dataset.hid}.bam" &&
-                    ln -s "$inputs.bam_collection[$key].metadata.bam_index" "localbam_${inputs.bam_collection[$key].dataset.hid}.bam.bai" &&
-                    bamtools filter -script $script_file -in "localbam_${inputs.bam_collection[$key].dataset.hid}.bam" -out "$filtered_bams[$key]" &&
-                #end for
-            #end if
-            touch $out_file2
+            ln -s "${input_bams}" "localbam.bam" &&
+            ln -s "${input_bams.metadata.bam_index}" "localbam.bam.bai" &&
+            bamtools filter -script $script_file -in "localbam.bam" -out "$out_file1"
         ]]>
     </command>
     <configfiles>
@@ -46,18 +34,7 @@ $json.dumps( $config, indent=4 )
         </configfile>
     </configfiles>
     <inputs>
-        <conditional name="inputs">
-            <param label="Select file format" name="type" type="select">
-                <option value="individual">Individual files</option>
-                <option value="list">List</option>
-            </param>
-            <when value="individual">
-                <param name="input_bams" type="data" format="bam" label="BAM dataset(s) to filter" multiple="True"/>
-            </when>
-            <when value="list">
-                <param collection_type="list" format="bam" help="BAM format" label="Paired-end reads collection" name="bam_collection" optional="false" type="data_collection" />
-            </when>
-        </conditional>
+        <param name="input_bams" type="data" format="bam" label="BAM dataset(s) to filter" />
         <repeat name="conditions" title="Condition" min="1">
             <repeat name="filters" title="Filter" min="1">
                 <conditional name="bam_property">
@@ -204,39 +181,15 @@ $json.dumps( $config, indent=4 )
         </conditional>
     </inputs>
     <outputs>
-        <data format="txt" name="out_file2" />
-        <data name="out_file1" format="bam" label="${tool.name} on ${on_string}">
-            <discover_datasets assign_primary_output="true" directory="outputs" pattern="filtered_(?P&lt;designation&gt;.+)\.bam" ext="bam" visible="true" />
-            <filter>inputs['type'] == 'individual'</filter>
-        </data>
-        <collection name="filtered_bams" type="list" structured_like="bam_collection" inherit_format="true">
-             <filter>inputs['type'] == 'list'</filter>
-        </collection>
+        <data format="txt" name="out_file2" label="${tool.name} on ${on_string}: JSON filter rules" />
+        <data name="out_file1" format="bam" label="${tool.name} on ${on_string}: Filtered BAM" />
     </outputs>
     <tests>
         <test>
-            <param name="inputs|type" value="individual" />
-            <param name="inputs|input_bams" ftype="bam" value="bamtools-input1.bam"/>
+            <param name="input_bams" ftype="bam" value="bamtools-input1.bam"/>
             <param name="bam_property_selector" value="mapQuality"/>
             <param name="bam_property_value" value=">20"/>
-            <output name="out_file1" ftype="bam">
-                <discovered_dataset designation="1" file="bamtools-test1.bam" ftype="bam" />
-            </output>
-        </test>
-        <test>
-            <param name="inputs|type" value="list" />
-            <param name="bam_collection">
-                <collection type="list">
-                    <element name="mouse_1" value="mm10_1.bam" />
-                    <element name="mouse_2" value="mm10_2.bam" />
-                </collection>
-            </param>
-            <param name="bam_property_selector" value="mapQuality"/>
-            <param name="bam_property_value" value=">20"/>
-            <output_collection name="filtered_bams" type="list" count="2">
-                <element name="mouse_1" file="mm10_out_1.bam" />
-                <element name="mouse_2" file="mm10_out_2.bam" />
-            </output_collection>
+            <output name="out_file1" ftype="bam" file="bamtools-test1.bam" />
         </test>
     </tests>
     <help>
