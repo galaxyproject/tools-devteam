@@ -206,7 +206,7 @@ $json.dumps( $config, indent=4 )
     <outputs>
         <data format="txt" name="out_file2" />
         <data name="out_file1" format="bam" label="${tool.name} on ${on_string}">
-            <discover_datasets assign_primary_output="True" directory="outputs" pattern="filtered_(?P&lt;designation&gt;.+)\.bam" ext="bam" visible="true" />
+            <discover_datasets assign_primary_output="true" directory="outputs" pattern="filtered_(?P&lt;designation&gt;.+)\.bam" ext="bam" visible="true" />
             <filter>inputs['type'] == 'individual'</filter>
         </data>
         <collection name="filtered_bams" type="list" structured_like="bam_collection" inherit_format="true">
