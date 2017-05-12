@@ -6,9 +6,9 @@
     <command>
         <![CDATA[
             cat $script_file > $out_file2;
-            ln -s "${input_bams}" "localbam.bam" &&
-            ln -s "${input_bams.metadata.bam_index}" "localbam.bam.bai" &&
-            bamtools filter -script $script_file -in "localbam.bam" -out "$out_file1"
+            ln -s '${input_bam}' localbam.bam &&
+            ln -s '${input_bam.metadata.bam_index}' localbam.bam.bai &&
+            bamtools filter -script $script_file -in localbam.bam -out '$out_file1'
         ]]>
     </command>
     <configfiles>
@@ -34,7 +34,7 @@ $json.dumps( $config, indent=4 )
         </configfile>
     </configfiles>
     <inputs>
-        <param name="input_bams" type="data" format="bam" label="BAM dataset(s) to filter" />
+        <param name="input_bam" type="data" format="bam" label="BAM dataset(s) to filter" />
         <repeat name="conditions" title="Condition" min="1">
             <repeat name="filters" title="Filter" min="1">
                 <conditional name="bam_property">
@@ -186,7 +186,7 @@ $json.dumps( $config, indent=4 )
     </outputs>
     <tests>
         <test>
-            <param name="input_bams" ftype="bam" value="bamtools-input1.bam"/>
+            <param name="input_bam" ftype="bam" value="bamtools-input1.bam"/>
             <param name="bam_property_selector" value="mapQuality"/>
             <param name="bam_property_value" value=">20"/>
             <output name="out_file1" ftype="bam" file="bamtools-test1.bam" />
