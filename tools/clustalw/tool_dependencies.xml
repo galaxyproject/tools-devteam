@@ -1,6 +1,0 @@
-<?xml version="1.0"?>
-<tool_dependency>
-  <package name="clustalw2" version="2.1">
-      <repository name="package_clustalw_2_1" owner="devteam" prior_installation_required="False" />
-    </package>
-</tool_dependency>
