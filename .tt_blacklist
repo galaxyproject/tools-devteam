@@ -86,7 +86,6 @@ tools/pearson_correlation
 tools/dwt_var_perclass
 tools/linear_regression
 tools/dgidb_annotator
-tools/clustalw
 tools/cummerbund_to_tabular
 tools/kernel_principal_component_analysis
 tools/multispecies_orthologous_microsats
