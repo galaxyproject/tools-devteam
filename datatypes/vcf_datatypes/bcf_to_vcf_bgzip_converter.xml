@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<tool id="CONVERTER_bcf_to_vcf_bgzip" name="BCF to VCF-BGZip" version="1.0.0">
+    <description></description>
+    <requirements>
+        <requirement type="package" version="1.2">bcftools</requirement>
+    </requirements>
+    <command>bcftools view "${input}" -o "${output}" -O z</command>
+    <inputs>
+        <param name="input" type="data" format="bcf" label="BCF file" />
+    </inputs>
+    <outputs>
+        <data name="output" format="vcf_bgzip" />
+    </outputs>
+    <tests>
+        <test>
+            <param name="input" value="test_converter.bcf" ftype="bcf" />
+            <output file="test_converter.vcf_bgzip" ftype="vcf_bgzip" name="output" lines_diff="5" />
+        </test>
+    </tests>
+    <help />
+</tool>

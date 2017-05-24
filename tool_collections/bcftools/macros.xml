@@ -1,0 +1,83 @@
+<macros>
+    <xml name="citations">
+        <citations>
+            <citation type="doi">10.1093/bioinformatics/btp352</citation>
+        </citations>
+    </xml>
+    <xml name="filter_conditional">
+        <conditional name="filter_calls">
+            <param label="Filter by regions" name="filter_calls_selector" type="select">
+                <option selected="True" value="no_filter">Do not filter regions</option>
+                <option value="regions">Filter by regions (-R)</option>
+                <option value="samples">Filter samples (-S)</option>
+                <option value="targets">Filter targets (-T)</option>
+            </param>
+            <when value="no_filter" />
+            <when value="regions">
+                <param format="bed,vcf,tabular" label="File listing regions to include" name="input_regions" type="data" />
+            </when>
+            <when value="samples">
+                <param label="Output ploidy" name="output_ploidy" type="select">
+                    <option selected="True" value="">Diploid output</option>
+                    <option value="-X">Haploid output for male samples (-X)</option>
+                    <option value="-Y">Haploid output for male samples, skip female (-Y)</option>
+                </param>
+                <param format="ped" label="PED file with regions to include" name="input_regions" type="data" />
+            </when>
+            <when value="targets">
+                <param format="bed,vcf,tabular" label="File listing regions to include" name="input_regions" type="data" />
+            </when>
+        </conditional>
+    </xml>
+    <xml name="output_dataset">
+        <data format="vcf" label="${tool.name} on ${on_string}" name="output">
+            <change_format>
+                <when format="bcf" input="output_format" value="u" />
+                <when format="vcf_bgzip" input="output_format" value="z" />
+                <when format="bcf_bgzip" input="output_format" value="b" />                
+            </change_format>
+        </data>
+    </xml>
+    <xml name="output_format_selector">
+        <param help="-O" label="Output format" name="output_format" type="select">
+            <option selected="selected" value="v">Uncompressed VCF</option>
+            <option value="z">Compressed VCF</option>
+            <option value="u">Uncompressed BCF</option>
+            <option value="b">Compressed BCF</option>
+        </param>
+    </xml>
+    <xml name="requirements">
+        <requirements>
+            <requirement type="package" version="1.2">bcftools</requirement>
+            <requirement type="package" version="0.2.6">tabix</requirement>
+        </requirements>
+    </xml>
+    <xml name="stdio">
+        <stdio>
+            <exit_code description="Error" level="fatal" range="1:" />
+        </stdio>
+    </xml>
+    <xml name="vcf_input">
+              <param format="bcf,bcf_bgzip,vcf,vcf_bgzip" label="VCF/BCF dataset" name="input" optional="false" type="data" />
+     </xml>
+    <xml name="version_command">
+        <version_command>bcftools --version | head -n 1 | awk '{ print $2 }'</version_command>
+    </xml>
+    <token name="@INPUT_FORMAT@">
+        <![CDATA[
+            #if str($input.ext) == 'vcf':
+                ln -s "${input}" input.vcf &&
+                #set $input="input.vcf"
+            #elif str($input.ext) == 'vcf_bgzip':
+                ln -s "${input}" input.vcf.gz  &&
+                #set $input="input.vcf.gz"
+            #elif str($input.ext) == 'bcf':
+                ln -s "${input}" input.bcf &&
+                #set $input="input.bcf"
+            #elif str($input.ext) == 'bcf_bgzip':
+                ln -s "${input}" input.bcf.gz  &&
+                #set $input="input.bcf.gz"
+            #end if
+        ]]>
+    </token>
+</macros>

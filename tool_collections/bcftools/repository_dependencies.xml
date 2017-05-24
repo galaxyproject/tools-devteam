@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<repositories description="The BCFTools suite requires datatype definitions.">
+    <repository name="vcf_datatypes" owner="devteam" />
+</repositories>

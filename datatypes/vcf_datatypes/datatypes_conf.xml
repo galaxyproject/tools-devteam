@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<datatypes>
+    <datatype_files>
+        <datatype_file name="vcf_bgzip.py" />
+    </datatype_files>
+    <registration>
+        <datatype extension="vcf_bgzip" type="galaxy.datatypes.vcf_bgzip:VcfBgzip" display_in_upload="True">
+            <converter file="vcf_bgzip_to_vcf_converter.xml" target_datatype="vcf" />
+            <converter file="vcf_bgzip_to_bcf_converter.xml" target_datatype="bcf" />
+        </datatype>
+        <datatype extension="vcf" type="galaxy.datatypes.tabular:Vcf" display_in_upload="True">
+            <converter file="vcf_to_vcf_bgzip_converter.xml" target_datatype="vcf_bgzip" />
+            <converter file="vcf_to_bcf_converter.xml" target_datatype="bcf" />
+        </datatype>
+        <datatype extension="bcf" type="galaxy.datatypes.binary:Bcf" display_in_upload="True">
+            <converter file="bcf_to_vcf_bgzip_converter.xml" target_datatype="vcf_bgzip" />
+            <converter file="bcf_to_vcf_converter.xml" target_datatype="vcf" />
+        </datatype>
+    </registration>
+    <sniffers>
+        <sniffer type="galaxy.datatypes.vcf_bgzip:VcfBgzip" />
+    </sniffers>
+</datatypes>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<tool id="CONVERTER_bcf_to_vcf" name="BCF to VCF" version="1.0.0">
+    <description></description>
+    <requirements>
+        <requirement type="package" version="1.2">bcftools</requirement>
+    </requirements>
+    <command>bcftools view "${input}" -o "${output}" -O v</command>
+    <inputs>
+        <param name="input" type="data" format="bcf" label="BCF file" />
+    </inputs>
+    <outputs>
+        <data name="output" format="vcf" />
+    </outputs>
+    <tests>
+        <test>
+            <param name="input" value="test_converter.bcf" ftype="bcf" />
+            <output file="test_converter.vcf" ftype="vcf" name="output" lines_diff="4" />
+        </test>
+    </tests>
+    <help />
+</tool>
