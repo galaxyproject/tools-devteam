@@ -1,63 +1,40 @@
-<tool id="bamFilter" name="Filter" version="2.4.0">
+<tool id="bamFilter" name="Filter" version="2.4.1">
     <description>BAM datasets on a variety of attributes</description>
     <requirements>
         <requirement type="package" version="2.4.0">bamtools</requirement>
     </requirements>
     <command>
         <![CDATA[
-            cat $script_file > $out_file2;
-            #for $bam_count, $input_bam in enumerate( $input_bams ):
-                ln -s "${input_bam}" "localbam_${bam_count}.bam" &&
-                ln -s "${input_bam.metadata.bam_index}" "localbam_${bam_count}.bam.bai" &&
-            #end for
-            bamtools
-            filter
-            -script $script_file
-            #for $bam_count, $input_bam in enumerate( $input_bams ):
-                -in "localbam_${bam_count}.bam"
-            #end for
-            -out $out_file1
+            cp '$script_file' '$out_file2' &&
+            ln -s '${input_bam}' localbam.bam &&
+            ln -s '${input_bam.metadata.bam_index}' localbam.bam.bai &&
+            bamtools filter -script '$script_file' -in localbam.bam -out '$out_file1'
         ]]>
     </command>
     <configfiles>
         <configfile name="script_file">
-            ##Sets up a json configfile for bamtools filter
-            ##If there is more than one condition prints brackets and "filters:"
-            #if len( $conditions ) > 1
-            {
-                "filters":
-                  [
-                  #end if
-                  #for $i, $c in enumerate( $conditions, start=1 )
-                  { "id": "$i",
-                      #for $j, $s in enumerate( $c.filters, start=1 )
-                      ##The if below takes care of the comma at the end of last condition within group
-                      #if $j != len( $c.filters)
-                          "${s.bam_property.bam_property_selector}":"${s.bam_property.bam_property_value}",
-                      #else
-                          "${s.bam_property.bam_property_selector}":"${s.bam_property.bam_property_value}"
-                      #end if
-                      #end for
-                      ##The if below takes care of the comma at the end of last condition within group
-                      #if $i != len( $conditions )
-                  },
-                  #else
-            }
-            #end if
-            #end for
-            #if len( $conditions ) > 1
-                #if str( $rule_configuration.rules_selector ) == "True":
-                    ],
-                    "rule" : "${rule_configuration.rules}"
-                #else
-                    ]
-                #end if
-            }
-            #end if
+<![CDATA[
+<% import json %>
+#set $config = dict()
+#if $conditions:
+    #set $config[ 'filters' ] = []
+    #for $i, $condition in enumerate( $conditions, start=1 ):
+        #set $filter = dict( id=str( $i ) )
+        #for $j, $s in enumerate( $condition.filters, start=1 ):
+            #set $filter[ $str( s[ 'bam_property' ][ 'bam_property_selector' ] ) ] = $str( s[ 'bam_property' ][ 'bam_property_value' ] )
+        #end for
+        $(config[ 'filters' ].append( $filter ))
+    #end for
+    #if str( $rule_configuration.rules_selector ) == "true":
+        #set $config[ 'rule' ] = $rule_configuration.rules
+    #end if
+#end if
+$json.dumps( $config, indent=4 )
+]]>
         </configfile>
     </configfiles>
     <inputs>
-        <param name="input_bams" type="data" format="bam" label="BAM dataset(s) to filter" min="1" multiple="True"/>
+        <param name="input_bam" type="data" format="bam" label="BAM dataset(s) to filter" />
         <repeat name="conditions" title="Condition" min="1">
             <repeat name="filters" title="Filter" min="1">
                 <conditional name="bam_property">
@@ -204,15 +181,15 @@
         </conditional>
     </inputs>
     <outputs>
-        <data format="txt" name="out_file2" />
-        <data format="bam" name="out_file1" />
+        <data format="txt" name="out_file2" label="${tool.name} on ${on_string}: JSON filter rules" />
+        <data name="out_file1" format="bam" label="${tool.name} on ${on_string}: Filtered BAM" />
     </outputs>
     <tests>
         <test>
-            <param name="input_bams" ftype="bam" value="bamtools-input1.bam"/>
+            <param name="input_bam" ftype="bam" value="bamtools-input1.bam"/>
             <param name="bam_property_selector" value="mapQuality"/>
             <param name="bam_property_value" value=">20"/>
-            <output name="out_file1" file="bamtools-test1.bam" ftype="bam"/>
+            <output name="out_file1" ftype="bam" file="bamtools-test1.bam" />
         </test>
     </tests>
     <help>
