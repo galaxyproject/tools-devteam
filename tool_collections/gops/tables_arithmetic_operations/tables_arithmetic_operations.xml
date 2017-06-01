@@ -1,48 +1,55 @@
 <tool id="tables_arithmetic_operations" name="Arithmetic Operations" version="1.0.0">
-  <description>on tables</description>
-  <command>
-    perl '$__tool_directory__/tables_arithmetic_operations.pl' '$inputFile1' '$inputFile2' $inputArithmeticOperation3 '$outputFile1'
-  </command>
-  <inputs>
-    <param name="inputFile1" type="data" format="tabular" label="Select the first input tabular file"/>
-    <param name="inputFile2" type="data" format="tabular" label="Select the second input tabular file"/>
-    <param name="inputArithmeticOperation3" type="select" label="Choose the arithmetic operation:">
-      <option value="Addition">Addition</option>
-      <option value="Subtraction">Subtraction</option>
-      <option value="Multiplication">Multiplication</option>
-      <option value="Division">Division</option>
-    </param>
-  </inputs>
-  <outputs>
-    <data name="outputFile1" format="tabular" />
-  </outputs>
-  <tests>
-    <test>
-      <param name="inputFile1" value="numericalTable1.tabular" />
-      <param name="inputFile2" value="numericalTable1.tabular" />
-      <param name="inputArithmeticOperation3" value="Addition" />
-      <output name="outputFile1" file="table_addition_result.tabular" />
-    </test>
-    <test>
-      <param name="inputFile1" value="numericalTable1.tabular" />
-      <param name="inputFile2" value="numericalTable1.tabular" />
-      <param name="inputArithmeticOperation3" value="Subtraction" />
-      <output name="outputFile1" file="table_subtraction_result.tabular" />
-    </test>
-    <test>
-      <param name="inputFile1" value="numericalTable1.tabular" />
-      <param name="inputFile2" value="numericalTable1.tabular" />
-      <param name="inputArithmeticOperation3" value="Multiplication" />
-      <output name="outputFile1" file="table_multiplication_result.tabular" />
-    </test>
-    <test>
-      <param name="inputFile1" value="numericalTable1.tabular" />
-      <param name="inputFile2" value="numericalTable1.tabular" />
-      <param name="inputArithmeticOperation3" value="Division" />
-      <output name="outputFile1" file="table_division_result.tabular" />
-    </test>
-  </tests>
-  <help>
+    <description>on tables</description>
+    <requirements>
+        <requirement type="package" version="5.22.2.1">perl</requirement>
+    </requirements>
+    <command><![CDATA[
+perl '$__tool_directory__/tables_arithmetic_operations.pl'
+'$inputFile1'
+'$inputFile2'
+$inputArithmeticOperation3
+'$outputFile1'
+    ]]></command>
+    <inputs>
+        <param name="inputFile1" type="data" format="tabular" label="Select the first input tabular file"/>
+        <param name="inputFile2" type="data" format="tabular" label="Select the second input tabular file"/>
+        <param name="inputArithmeticOperation3" type="select" label="Choose the arithmetic operation:">
+            <option value="Addition">Addition</option>
+            <option value="Subtraction">Subtraction</option>
+            <option value="Multiplication">Multiplication</option>
+            <option value="Division">Division</option>
+        </param>
+    </inputs>
+    <outputs>
+        <data name="outputFile1" format="tabular" />
+    </outputs>
+    <tests>
+        <test>
+            <param name="inputFile1" value="numericalTable1.tabular" />
+            <param name="inputFile2" value="numericalTable1.tabular" />
+            <param name="inputArithmeticOperation3" value="Addition" />
+            <output name="outputFile1" file="table_addition_result.tabular" />
+        </test>
+        <test>
+            <param name="inputFile1" value="numericalTable1.tabular" />
+            <param name="inputFile2" value="numericalTable1.tabular" />
+            <param name="inputArithmeticOperation3" value="Subtraction" />
+            <output name="outputFile1" file="table_subtraction_result.tabular" />
+        </test>
+        <test>
+            <param name="inputFile1" value="numericalTable1.tabular" />
+            <param name="inputFile2" value="numericalTable1.tabular" />
+            <param name="inputArithmeticOperation3" value="Multiplication" />
+            <output name="outputFile1" file="table_multiplication_result.tabular" />
+        </test>
+        <test>
+            <param name="inputFile1" value="numericalTable1.tabular" />
+            <param name="inputFile2" value="numericalTable1.tabular" />
+            <param name="inputArithmeticOperation3" value="Division" />
+            <output name="outputFile1" file="table_division_result.tabular" />
+        </test>
+    </tests>
+    <help><![CDATA[
 .. class:: infomark
 
 **What it does**
@@ -86,5 +93,5 @@ Running the program and choosing "Addition" as an arithmetic operation will give
    2   5   2
    4   4   6
    4   4   8
-  </help>
+    ]]></help>
 </tool>
