@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<tool id="bwa" name="Map with BWA" version="@VERSION@.1">
+<tool id="bwa" name="Map with BWA" version="@VERSION@.2">
   <description>- map short reads (&lt; 100 bp) against reference genome</description>
   <macros>
     <import>read_group_macros.xml</import>
@@ -233,8 +233,8 @@
         <option value="single_bam">Single BAM</option>
       </param>
       <when value="paired">
-        <param name="fastq_input1" type="data" format="fastqsanger,fastqsanger.gz" label="Select first set of reads" help="Specify dataset with forward reads"/>
-        <param name="fastq_input2" type="data" format="fastqsanger,fastqsanger.gz" label="Select second set of reads" help="Specify dataset with reverse reads"/>
+        <param name="fastq_input1" type="data" format="fastqsanger,fastqsanger.gz,fasta" label="Select first set of reads" help="Specify dataset with forward reads"/>
+        <param name="fastq_input2" type="data" format="fastqsanger,fastqsanger.gz,fasta" label="Select second set of reads" help="Specify dataset with reverse reads"/>
         <conditional name="adv_pe_options">
 
           <expand macro="advanced_pe_options" />
@@ -252,7 +252,7 @@
       </when>
 
       <when value="single">
-        <param name="fastq_input1" type="data" format="fastqsanger,fastqsanger.gz" label="Select fastq dataset" help="Specify dataset with single reads"/>
+        <param name="fastq_input1" type="data" format="fastqsanger,fastqsanger.gz,fasta" label="Select fastq dataset" help="Specify dataset with single reads"/>
         <conditional name="adv_se_options">
 
           <expand macro="advanced_se_options" />
@@ -319,6 +319,14 @@
   </outputs>
 
   <tests>
+    <test>
+      <param name="reference_source_selector" value="history" />
+      <param name="ref_file" ftype="fasta" value="bwa-mem-mt-genome.fa"/>
+      <param name="input_type_selector" value="single"/>
+      <param name="fastq_input1" ftype="fasta" value="bwa-mem-fasta1.fa"/>
+      <param name="analysis_type_selector" value="illumina"/>
+      <output name="bam_output" ftype="bam" file="bwa-aln-test1-fasta.bam" lines_diff="2" />
+    </test>
     <test>
       <param name="reference_source_selector" value="history" />
       <param name="ref_file" ftype="fasta" value="bwa-mem-mt-genome.fa"/>
