@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<tool id="bwa_mem" name="Map with BWA-MEM" version="@VERSION@.1">
+<tool id="bwa_mem" name="Map with BWA-MEM" version="@VERSION@.2">
   <description>- map medium and long reads (&gt; 100 bp) against reference genome</description>
   <macros>
     <import>read_group_macros.xml</import>
@@ -114,8 +114,8 @@
         <option value="paired_iv">Paired Interleaved</option>
       </param>
       <when value="paired">
-        <param name="fastq_input1" type="data" format="fastqsanger,fastqsanger.gz" label="Select first set of reads" help="Specify dataset with forward reads"/>
-        <param name="fastq_input2" type="data" format="fastqsanger,fastqsanger.gz" label="Select second set of reads" help="Specify dataset with reverse reads"/>
+        <param name="fastq_input1" type="data" format="fastqsanger,fastqsanger.gz,fasta" label="Select first set of reads" help="Specify dataset with forward reads"/>
+        <param name="fastq_input2" type="data" format="fastqsanger,fastqsanger.gz,fasta" label="Select second set of reads" help="Specify dataset with reverse reads"/>
         <param name="iset_stats" type="text" optional="True" label="Enter mean, standard deviation, max, and min for insert lengths." help="-I; This parameter is only used for paired reads. Only mean is required while sd, max, and min will be inferred. Examples: both &quot;250&quot; and &quot;250,25&quot; will work while &quot;250,,10&quot; will not. See below for details.">
           <sanitizer invalid_char="">
             <valid initial="string.digits"><add value=","/> </valid>
@@ -123,10 +123,10 @@
         </param>
       </when>
       <when value="single">
-        <param name="fastq_input1" type="data" format="fastqsanger,fastqsanger.gz" label="Select fastq dataset" help="Specify dataset with single reads"/>
+        <param name="fastq_input1" type="data" format="fastqsanger,fastqsanger.gz,fasta" label="Select fastq dataset" help="Specify dataset with single reads"/>
       </when>
       <when value="paired_collection">
-        <param name="fastq_input1" format="fastqsanger,fastqsanger.gz" type="data_collection" collection_type="paired" label="Select a paired collection" help="See help section for an explanation of dataset collections"/>
+        <param name="fastq_input1" format="fastqsanger,fastqsanger.gz,fasta" type="data_collection" collection_type="paired" label="Select a paired collection" help="See help section for an explanation of dataset collections"/>
         <param name="iset_stats" type="text" optional="True" label="Enter mean, standard deviation, max, and min for insert lengths." help="-I; This parameter is only used for paired reads. Only mean is required while sd, max, and min will be inferred. Examples: both &quot;250&quot; and &quot;250,25&quot; will work while &quot;250,,10&quot; will not. See below for details.">
           <sanitizer invalid_char="">
             <valid initial="string.digits"><add value=","/> </valid>
@@ -134,7 +134,7 @@
         </param>
       </when>
       <when value="paired_iv">
-        <param name="fastq_input1" type="data" format="fastqsanger,fastqsanger.gz" label="Select fastq dataset" help="Specify dataset with interleaved reads"/>
+        <param name="fastq_input1" type="data" format="fastqsanger,fastqsanger.gz,fasta" label="Select fastq dataset" help="Specify dataset with interleaved reads"/>
         <param name="iset_stats" type="text" optional="True" label="Enter mean, standard deviation, max, and min for insert lengths." help="-I; This parameter is only used for paired reads. Only mean is required while sd, max, and min will be inferred. Examples: both &quot;250&quot; and &quot;250,25&quot; will work while &quot;250,,10&quot; will not. See below for details.">
           <sanitizer invalid_char="">
             <valid initial="string.digits"><add value=","/> </valid>
@@ -257,6 +257,14 @@
       <param name="fastq_input2" ftype="fastqsanger" value="bwa-mem-fastq2.fq"/>
       <param name="analysis_type_selector" value="illumina"/>
       <output name="bam_output" ftype="bam" file="bwa-mem-test1.bam" lines_diff="2" />
+    </test>
+    <test>
+      <param name="reference_source_selector" value="history" />
+      <param name="ref_file" ftype="fasta" value="bwa-mem-mt-genome.fa"/>
+      <param name="fastq_input_selector" value="single"/>
+      <param name="fastq_input1" ftype="fastqsanger" value="bwa-mem-fasta1.fa"/>
+      <param name="analysis_type_selector" value="illumina"/>
+      <output name="bam_output" ftype="bam" file="bwa-mem-test1-fasta.bam" lines_diff="2" />
     </test>
     <test>
       <param name="reference_source_selector" value="history" />
