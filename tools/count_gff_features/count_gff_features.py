@@ -1,11 +1,13 @@
 #!/usr/bin/env python
 # This tool takes a gff file as input and counts the number of features in it.
 
-import sys
-import fileinput
+from __future__ import print_function
 
-from galaxy.datatypes.util.gff_util import GFFReaderWrapper
+import fileinput
+import sys
+
 from bx.intervals.io import GenomicInterval
+from galaxy.datatypes.util.gff_util import GFFReaderWrapper
 
 # Get args.
 input_file = sys.argv[1:]
