@@ -74,7 +74,7 @@ def main():
             r.pdf( out_fname, 8, 8 )
             r.plot( a, type="p", main=title, xlab=xlab, ylab=ylab, col="blue", pch=19 )
             r.dev_off()
-        except Exception, exc:
+        except Exception as exc:
             stop_err( "%s" % str( exc ) )
     else:
         stop_err( "All values in both columns %s and %s are non-numeric or empty." % ( sys.argv[3], sys.argv[4] ) )
