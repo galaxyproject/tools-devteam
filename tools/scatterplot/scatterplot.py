@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # Greg Von Kuster
 
+from __future__ import print_function
+
 import sys
 
 from numpy import array
@@ -35,7 +37,7 @@ def main():
     invalid_value = ''
     invalid_column = 0
     i = 0
-    for i, line in enumerate( file( in_fname ) ):
+    for i, line in enumerate( open( in_fname ) ):
         valid = True
         line = line.rstrip( '\r\n' )
         if line and not line.startswith( '#' ):
@@ -74,14 +76,14 @@ def main():
             r.pdf( out_fname, 8, 8 )
             r.plot( a, type="p", main=title, xlab=xlab, ylab=ylab, col="blue", pch=19 )
             r.dev_off()
-        except Exception, exc:
+        except Exception as exc:
             stop_err( "%s" % str( exc ) )
     else:
         stop_err( "All values in both columns %s and %s are non-numeric or empty." % ( sys.argv[3], sys.argv[4] ) )
 
-    print "Scatter plot on columns %s, %s. " % ( sys.argv[3], sys.argv[4] )
+    print("Scatter plot on columns %s, %s. " % ( sys.argv[3], sys.argv[4] ))
     if skipped_lines > 0:
-        print "Skipped %d lines starting with line #%d, value '%s' in column %d is not numeric." % ( skipped_lines, first_invalid_line, invalid_value, invalid_column )
+        print("Skipped %d lines starting with line #%d, value '%s' in column %d is not numeric." % ( skipped_lines, first_invalid_line, invalid_value, invalid_column ))
 
 if __name__ == "__main__":
     main()
