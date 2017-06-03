@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # Greg Von Kuster
 
+from __future__ import print_function
+
 import sys
 
 from numpy import array
@@ -81,7 +83,7 @@ def main():
 
     print "Scatter plot on columns %s, %s. " % ( sys.argv[3], sys.argv[4] )
     if skipped_lines > 0:
-        print "Skipped %d lines starting with line #%d, value '%s' in column %d is not numeric." % ( skipped_lines, first_invalid_line, invalid_value, invalid_column )
+        print("Skipped %d lines starting with line #%d, value '%s' in column %d is not numeric." % ( skipped_lines, first_invalid_line, invalid_value, invalid_column ))
 
 if __name__ == "__main__":
     main()
