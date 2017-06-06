@@ -1,9 +1,17 @@
-<tool id="fastq_combiner" name="Combine FASTA and QUAL" version="1.0.1">
+<tool id="fastq_combiner" name="Combine FASTA and QUAL" version="1.0.1.1">
   <description>into FASTQ</description>
   <requirements>
-    <requirement type="package" version="1.0.0">galaxy_sequence_utils</requirement>
+    <requirement type="package" version="1.0.1">galaxy_sequence_utils</requirement>
   </requirements>
-  <command interpreter="python">fastq_combiner.py '$fasta_file' '${fasta_file.extension}' '$qual_file' '${qual_file.extension}' '$output_file' '$force_quality_encoding'</command>
+  <command>
+    python $__tool_directory__/fastq_combiner.py
+      '$fasta_file'
+      '${fasta_file.extension}'
+      '$qual_file'
+      '${qual_file.extension}'
+      '$output_file'
+      '$force_quality_encoding'
+  </command>
   <inputs>
     <param name="fasta_file" type="data" format="fasta,csfasta" label="FASTA File" />
     <param name="qual_file" type="data" format="qual" label="Quality Score File" optional="True" />
@@ -71,9 +79,7 @@ Specifying a set of quality scores is optional; when not provided, the output wi
 Use this tool, for example, to convert 454-type output to FASTQ.
 
   </help>
-  
   <citations>
     <citation type="doi">10.1093/bioinformatics/btq281</citation>
   </citations>
-  
 </tool>

@@ -1,9 +1,10 @@
 <tool id="fastq_trimmer" name="FASTQ Trimmer" version="1.0.1">
   <description>by column</description>
   <requirements>
-    <requirement type="package" version="1.0.0">galaxy_sequence_utils</requirement>
+    <requirement type="package" version="1.0.1">galaxy_sequence_utils</requirement>
   </requirements>
-  <command interpreter="python">fastq_trimmer.py '$input_file' '$output_file' '${offset_type['left_column_offset']}' '${offset_type['right_column_offset']}' '${offset_type['base_offset_type']}' '${input_file.extension[len( 'fastq' ):]}' '$keep_zero_length'</command>
+  <command>
+    python $__tool_directory__/fastq_trimmer.py '$input_file' '$output_file' '${offset_type['left_column_offset']}' '${offset_type['right_column_offset']}' '${offset_type['base_offset_type']}' '${input_file.extension[len( 'fastq' ):]}' '$keep_zero_length'</command>
   <inputs>
     <param name="input_file" type="data" format="fastqsanger,fastqcssanger" label="FASTQ File"/>
     <conditional name="offset_type">
@@ -32,7 +33,7 @@
   <param name="keep_zero_length" label="Keep reads with zero length" type="boolean" truevalue="keep_zero_length" falsevalue="exclude_zero_length" selected="False"/>
   </inputs>
   <outputs>
-    <data name="output_file" format="input" />
+    <data name="output_file" format_source="input" />
   </outputs>
   <tests>
     <test>

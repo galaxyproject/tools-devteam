@@ -1,9 +1,57 @@
 <tool id="fastq_filter" name="Filter FASTQ" version="1.0.0">
   <description>reads by quality score and length</description>
   <requirements>
-    <requirement type="package" version="1.0.0">galaxy_sequence_utils</requirement>
+    <requirement type="package" version="1.0.1">galaxy_sequence_utils</requirement>
   </requirements>
-  <command interpreter="python">fastq_filter.py $input_file $fastq_filter_file $output_file $output_file.files_path '${input_file.extension[len( 'fastq' ):]}'</command>
+  <command>
+    python $__tool_directory__/fastq_filter.py
+        '$input_file'
+        '$fastq_filter_file'
+        '$output_file'
+        '$output_file.files_path'
+        '${input_file.extension[len( 'fastq' ):]}'
+  </command>
+ <configfiles>
+    <configfile name="fastq_filter_file">
+def fastq_read_pass_filter( fastq_read ):
+    def mean( score_list ):
+        return float( sum( score_list ) ) / float( len( score_list ) )
+    if len( fastq_read ) &lt; $min_size:
+        return False
+    if $max_size &gt; 0 and len( fastq_read ) &gt; $max_size:
+        return False
+    num_deviates = $max_num_deviants
+    qual_scores = fastq_read.get_decimal_quality_scores()
+    for qual_score in qual_scores:
+        if qual_score &lt; $min_quality or ( $max_quality &gt; 0 and qual_score &gt; $max_quality ):
+            if num_deviates == 0:
+                return False
+            else:
+                num_deviates -= 1
+#if not $paired_end:
+    qual_scores_split = [ qual_scores ]
+#else:
+    qual_scores_split = [ qual_scores[ 0:int( len( qual_scores ) / 2 ) ], qual_scores[ int( len( qual_scores ) / 2 ): ] ]
+#end if
+#for $fastq_filter in $fastq_filters:
+    for split_scores in qual_scores_split:
+        left_column_offset = $fastq_filter[ 'offset_type' ][ 'left_column_offset' ]
+        right_column_offset = $fastq_filter[ 'offset_type' ][ 'right_column_offset' ]
+#if $fastq_filter[ 'offset_type' ]['base_offset_type'] == 'offsets_percent':
+        left_column_offset = int( round( float( left_column_offset ) / 100.0 * float( len( split_scores ) ) ) )
+        right_column_offset = int( round( float( right_column_offset ) / 100.0 * float( len( split_scores ) ) ) )
+#end if
+        if right_column_offset > 0:
+            split_scores = split_scores[ left_column_offset:-right_column_offset]
+        else:
+            split_scores = split_scores[ left_column_offset:]
+        if split_scores: ##if a read doesn't have enough columns, it passes by default 
+            if not ( ${fastq_filter[ 'score_operation' ]}( split_scores ) $fastq_filter[ 'score_comparison' ] $fastq_filter[ 'score' ]  ):
+                return False
+#end for
+    return True
+</configfile>
+  </configfiles>
   <inputs>
     <page>
       <param name="input_file" type="data" format="fastqsanger,fastqcssanger" label="FASTQ File" help="Requires groomed data: if your data does not appear here try using the FASTQ groomer."/>
@@ -60,49 +108,8 @@
       </repeat>
     </page>
   </inputs>
-  <configfiles>
-    <configfile name="fastq_filter_file">
-def fastq_read_pass_filter( fastq_read ):
-    def mean( score_list ):
-        return float( sum( score_list ) ) / float( len( score_list ) )
-    if len( fastq_read ) &lt; $min_size:
-        return False
-    if $max_size &gt; 0 and len( fastq_read ) &gt; $max_size:
-        return False
-    num_deviates = $max_num_deviants
-    qual_scores = fastq_read.get_decimal_quality_scores()
-    for qual_score in qual_scores:
-        if qual_score &lt; $min_quality or ( $max_quality &gt; 0 and qual_score &gt; $max_quality ):
-            if num_deviates == 0:
-                return False
-            else:
-                num_deviates -= 1
-#if not $paired_end:
-    qual_scores_split = [ qual_scores ]
-#else:
-    qual_scores_split = [ qual_scores[ 0:int( len( qual_scores ) / 2 ) ], qual_scores[ int( len( qual_scores ) / 2 ): ] ]
-#end if
-#for $fastq_filter in $fastq_filters:
-    for split_scores in qual_scores_split:
-        left_column_offset = $fastq_filter[ 'offset_type' ][ 'left_column_offset' ]
-        right_column_offset = $fastq_filter[ 'offset_type' ][ 'right_column_offset' ]
-#if $fastq_filter[ 'offset_type' ]['base_offset_type'] == 'offsets_percent':
-        left_column_offset = int( round( float( left_column_offset ) / 100.0 * float( len( split_scores ) ) ) )
-        right_column_offset = int( round( float( right_column_offset ) / 100.0 * float( len( split_scores ) ) ) )
-#end if
-        if right_column_offset > 0:
-            split_scores = split_scores[ left_column_offset:-right_column_offset]
-        else:
-            split_scores = split_scores[ left_column_offset:]
-        if split_scores: ##if a read doesn't have enough columns, it passes by default 
-            if not ( ${fastq_filter[ 'score_operation' ]}( split_scores ) $fastq_filter[ 'score_comparison' ] $fastq_filter[ 'score' ]  ):
-                return False
-#end for
-    return True
-</configfile>
-  </configfiles>
   <outputs>
-    <data format="input" name="output_file" />
+    <data format_source="input" name="output_file" />
   </outputs>
   <tests>
     <!-- Do nothing filter -->

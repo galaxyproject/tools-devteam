@@ -4,7 +4,14 @@
   <requirements>
     <requirement type="package" version="1.0.1">galaxy_sequence_utils</requirement>
   </requirements>
-  <command>python $__tool_directory__/fastq_manipulation.py '$input_file' '$fastq_manipulation_file' '$output_file' '$output_file.files_path' '${input_file.extension[len( 'fastq' ):]}'</command>
+  <command>
+    python $__tool_directory__/fastq_manipulation.py
+        '$input_file'
+        '$fastq_manipulation_file'
+        '$output_file'
+        '$output_file.files_path'
+        '${input_file.extension[len( 'fastq' ):]}'
+  </command>
   <configfiles>
     <configfile name="fastq_manipulation_file">##create an importable module
 #import binascii
@@ -229,9 +236,9 @@ def match_and_manipulate_read( fastq_read ):
                 <param name="from" type="text" label="From" value="" />
                 <param name="to" type="text" label="To" value="" />
               </when>
-              <!-- <when value="modify_each_score">
+              <!--when value="modify_each_score">
                 <param name="map_score" type="text" label="Modify Score by" value="$score + 1" />
-              </when> -->
+              </when-->
             </conditional>
           </when>
           <when value="miscellaneous">

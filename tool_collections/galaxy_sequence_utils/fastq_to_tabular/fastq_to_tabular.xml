@@ -1,9 +1,10 @@
 <tool id="fastq_to_tabular" name="FASTQ to Tabular" version="1.1.0">
   <description>converter</description>
   <requirements>
-    <requirement type="package" version="1.0.0">galaxy_sequence_utils</requirement>
+    <requirement type="package" version="1.0.1">galaxy_sequence_utils</requirement>
   </requirements>
-  <command interpreter="python">fastq_to_tabular.py '$input_file' '$output_file' $descr_columns '${input_file.extension[len( 'fastq' ):]}'</command>
+  <command>
+    python $__tool_directory__/fastq_to_tabular.py '$input_file' '$output_file' $descr_columns '${input_file.extension[len( 'fastq' ):]}'</command>
   <inputs>
     <param name="input_file" type="data" format="fastqsanger,fastqcssanger,fastqillumina,fastqsolexa" label="FASTQ file to convert" />
     <param name="descr_columns" type="integer" value="1" label="How many columns to divide title string into?" help="Typically 2 to take the ID (first word) and decription (rest) as two columns, or 1 to give a single column">
