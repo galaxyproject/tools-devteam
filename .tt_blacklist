@@ -47,7 +47,6 @@ tools/vcf_intersect
 tools/dwt_var_perfeature
 tools/best_regression_subsets
 tools/plot_from_lda
-tools/count_gff_features
 tools/dwt_cor_avb_all
 tools/partialr_square
 tools/blat_mapping
