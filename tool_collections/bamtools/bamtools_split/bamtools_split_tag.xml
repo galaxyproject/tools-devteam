@@ -1,4 +1,4 @@
-<tool id="bamSplitTag" name="Split BAM by Tag" version="2.4.0">
+<tool id="bamtools_split_tag" name="Split BAM by Tag" version="2.4.0">
     <description>into dataset list collection</description>
     <requirements>
         <requirement type="package" version="2.4.0">bamtools</requirement>

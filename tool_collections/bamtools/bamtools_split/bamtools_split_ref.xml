@@ -1,4 +1,4 @@
-<tool id="bamSplitRef" name="Split BAM by Reference" version="2.4.0">
+<tool id="bamtools_split_ref" name="Split BAM by Reference" version="2.4.0">
     <description>into dataset list collection</description>
     <requirements>
         <requirement type="package" version="2.4.0">bamtools</requirement>
