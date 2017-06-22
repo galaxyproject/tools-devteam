@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-#By: Guruprasad Ananda
+# By: Guruprasad Ananda
 """
 Fetch closest up/downstream interval from features corresponding to every interval in primary
 
@@ -9,23 +9,26 @@ usage: %prog primary_file features_file out_file direction
     -G, --gff1: input 1 is GFF format, meaning start and end coordinates are 1-based, closed interval
     -H, --gff2: input 2 is GFF format, meaning start and end coordinates are 1-based, closed interval
 """
+from __future__ import print_function
 
 import fileinput
 import sys
+
 from bx.cookbook import doc_optparse
 from bx.intervals.io import Comment, GenomicInterval, Header, NiceReaderWrapper
 from bx.intervals.operations import quicksect
 from bx.tabular.io import ParseError
 from galaxy.tools.util.galaxyops import fail, parse_cols_arg, skipped
+
 from utils.gff_util import convert_bed_coords_to_gff, GFFIntervalToBEDReaderWrapper
 
 assert sys.version_info[:2] >= ( 2, 4 )
 
 
 def get_closest_feature(node, direction, threshold_up, threshold_down, report_func_up, report_func_down):
-    #direction=1 for +ve strand upstream and -ve strand downstream cases; and it is 0 for +ve strand downstream and -ve strand upstream cases
-    #threhold_Up is equal to the interval start for +ve strand, and interval end for -ve strand
-    #threhold_down is equal to the interval end for +ve strand, and interval start for -ve strand
+    # direction=1 for +ve strand upstream and -ve strand downstream cases; and it is 0 for +ve strand downstream and -ve strand upstream cases
+    # threhold_Up is equal to the interval start for +ve strand, and interval end for -ve strand
+    # threhold_down is equal to the interval end for +ve strand, and interval start for -ve strand
     if direction == 1:
         if node.maxend <= threshold_up:
             if node.end == node.maxend:
@@ -103,11 +106,11 @@ def proximal_region_finder(readers, region, comments=True):
                 result_up = []
                 result_down = []
                 if (strand == '+' and up) or (strand == '-' and down):
-                    #upstream +ve strand and downstream -ve strand cases
+                    # upstream +ve strand and downstream -ve strand cases
                     get_closest_feature(root, 1, start, None, lambda node: result_up.append( node ), None)
 
                 if (strand == '+' and down) or (strand == '-' and up):
-                    #downstream +ve strand and upstream -ve strand case
+                    # downstream +ve strand and upstream -ve strand case
                     get_closest_feature(root, 0, None, end - 1, None, lambda node: result_down.append( node ))
 
                 if result_up:
@@ -123,7 +126,7 @@ def proximal_region_finder(readers, region, comments=True):
 
                 if result_down:
                     if not(either):
-                        #The last element of result_down will be the closest element to the given interval
+                        # The last element of result_down will be the closest element to the given interval
                         yield [ interval, result_down[-1].other ]
 
                 if either and (result_up or result_down):
@@ -132,12 +135,12 @@ def proximal_region_finder(readers, region, comments=True):
                         if abs(start - int(result_up[res_ind].end)) <= abs(end - int(result_down[-1].start)):
                             iter_val = [ interval, result_up[res_ind].other ]
                         else:
-                            #The last element of result_down will be the closest element to the given interval
+                            # The last element of result_down will be the closest element to the given interval
                             iter_val = [ interval, result_down[-1].other ]
                     elif result_up:
                         iter_val = [ interval, result_up[res_ind].other ]
                     elif result_down:
-                        #The last element of result_down will be the closest element to the given interval
+                        # The last element of result_down will be the closest element to the given interval
                         iter_val = [ interval, result_down[-1].other ]
                     yield iter_val
 
@@ -203,14 +206,15 @@ def main():
                     out_file.write( "%s\n" % ( "\t".join( output_line_fields ) ) )
             else:
                 out_file.write( "%s\n" % result )
-    except ParseError, exc:
+    except ParseError as exc:
         fail( "Invalid file format: %s" % str( exc ) )
 
-    print "Direction: %s" % (direction)
+    print("Direction: %s" % (direction))
     if g1.skipped > 0:
-        print skipped( g1, filedesc=" of 1st dataset" )
+        print(skipped( g1, filedesc=" of 1st dataset" ))
     if g2.skipped > 0:
-        print skipped( g2, filedesc=" of 2nd dataset" )
+        print(skipped( g2, filedesc=" of 2nd dataset" ))
+
 
 if __name__ == "__main__":
     main()

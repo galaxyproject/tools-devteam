@@ -1,7 +1,6 @@
 # runs after the job (and after the default post-filter)
-from galaxy.tools.parameters import DataToolParameter
-
 from galaxy.jobs.handler import JOB_ERROR
+from galaxy.tools.parameters import DataToolParameter
 
 # Older py compatibility
 try:
@@ -14,7 +13,7 @@ def validate_input( trans, error_map, param_values, page_param_map ):
     dbkeys = set()
     data_param_names = set()
     data_params = 0
-    for name, param in page_param_map.iteritems():
+    for name, param in page_param_map.items():
         if isinstance( param, DataToolParameter ):
             # for each dataset parameter
             if param_values.get(name, None) is not None:
@@ -53,7 +52,6 @@ def exec_after_process(app, inp_data, out_data, param_dict, tool=None, stdout=No
         try:
             if stderr and len( stderr ) > 0:
                 raise Exception( stderr )
-
         except Exception:
             data.blurb = JOB_ERROR
             data.state = JOB_ERROR

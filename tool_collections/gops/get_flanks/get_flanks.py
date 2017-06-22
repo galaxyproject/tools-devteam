@@ -1,6 +1,5 @@
 #!/usr/bin/env python
-#Done by: Guru
-
+# Done by: Guru
 """
 Get Flanking regions.
 
@@ -8,8 +7,10 @@ usage: %prog input out_file size direction region
    -l, --cols=N,N,N,N: Columns for chrom, start, end, strand in file
    -o, --off=N: Offset
 """
+from __future__ import print_function
 
 import sys
+
 from bx.cookbook import doc_optparse
 from galaxy.tools.util.galaxyops import parse_cols_arg
 
@@ -54,12 +55,12 @@ def main():
             j += 1
             try:
                 elems = line.split('\t')
-                #if the start and/or end columns are not numbers, skip that line.
+                # if the start and/or end columns are not numbers, skip that line.
                 assert int(elems[start_col_1])
                 assert int(elems[end_col_1])
                 if strand_col_1 != -1:
                     strand = elems[strand_col_1]
-                #if the stand value is not + or -, skip that line.
+                # if the stand value is not + or -, skip that line.
                 assert strand in ['+', '-']
                 if direction == 'Upstream':
                     if strand == '+':
@@ -184,8 +185,9 @@ def main():
     if skipped_lines == j:
         stop_err( "Data issue: click the pencil icon in the history item to correct the metadata attributes." )
     if skipped_lines > 0:
-        print 'Skipped %d invalid lines starting with #%dL "%s"' % ( skipped_lines, first_invalid_line, invalid_line )
-    print 'Location: %s, Region: %s, Flank-length: %d, Offset: %d ' % ( direction, region, size, offset )
+        print('Skipped %d invalid lines starting with #%dL "%s"' % ( skipped_lines, first_invalid_line, invalid_line ))
+    print('Location: %s, Region: %s, Flank-length: %d, Offset: %d ' % ( direction, region, size, offset ))
+
 
 if __name__ == "__main__":
     main()

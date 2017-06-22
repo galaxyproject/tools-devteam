@@ -1,59 +1,52 @@
 <tool id="gops_coverage_1" name="Coverage" version="1.0.0">
-  <description>of a set of intervals on second set of intervals</description>
-  <requirements>
-    <requirement type="package" version="0.7.1">bx-python</requirement>
-    <requirement type="package" version="1.0.0">galaxy-ops</requirement>
-  </requirements>
-  <command interpreter="python">gops_coverage.py $input1 $input2 $output -1 ${input1.metadata.chromCol},${input1.metadata.startCol},${input1.metadata.endCol},${input1.metadata.strandCol} -2 ${input2.metadata.chromCol},${input2.metadata.startCol},${input2.metadata.endCol},${input2.metadata.strandCol}</command>
-  <inputs>
-    <param format="interval" name="input1" type="data" help="First dataset">
-      <label>What portion of</label>
-    </param>
-    <param format="interval" name="input2" type="data" help="Second dataset">
-      <label>is covered by</label>
-    </param>
-   </inputs>
-  <outputs>
-    <data format="interval" name="output" metadata_source="input1" />
-  </outputs>
-  <code file="operation_filter.py"/>
-  <tests>
-    <test>
-      <param name="input1" value="1.bed" />
-      <param name="input2" value="2.bed" />
-      <output name="output" file="gops_coverage_out.interval" />
-    </test>
-    <test>
-      <param name="input1" value="1.bed" />
-      <param name="input2" value="2_mod.bed" ftype="interval"/>
-      <output name="output" file="gops_coverage_out_diffCols.interval" />
-    </test>
-    <test>
-      <param name="input1" value="gops_bigint.interval" />
-      <param name="input2" value="gops_bigint2.interval" />
-      <output name="output" file="gops_coverage_out2.interval" />
-    </test>
-  </tests>
-  <help>
-
+    <description>of a set of intervals on second set of intervals</description>
+    <macros>
+        <import>macros.xml</import>
+    </macros>
+    <expand macro="requirements" />
+    <code file="operation_filter.py"/>
+    <command><![CDATA[
+python '$__tool_directory__/gops_coverage.py'
+'$input1'
+'$input2'
+'$output'
+-1 ${input1.metadata.chromCol},${input1.metadata.startCol},${input1.metadata.endCol},${input1.metadata.strandCol}
+-2 ${input2.metadata.chromCol},${input2.metadata.startCol},${input2.metadata.endCol},${input2.metadata.strandCol}
+    ]]></command>
+    <inputs>
+        <param name="input1" type="data" format="interval" label="What portion of" help="First dataset" />
+        <param name="input2" type="data" format="interval" label="Is covered by" help="Second dataset" />
+    </inputs>
+    <outputs>
+        <data name="output" format_source="input1" metadata_source="input1" />
+    </outputs>
+    <tests>
+        <test>
+            <param name="input1" value="1.bed" />
+            <param name="input2" value="2.bed" />
+        <output name="output" file="gops_coverage_out.interval" />
+        </test>
+        <test>
+            <param name="input1" value="1.bed" />
+            <param name="input2" value="2_mod.bed" ftype="interval"/>
+            <output name="output" file="gops_coverage_out_diffCols.interval" />
+        </test>
+        <test>
+            <param name="input1" value="gops_bigint.interval" />
+            <param name="input2" value="gops_bigint2.interval" />
+            <output name="output" file="gops_coverage_out2.interval" />
+        </test>
+    </tests>
+    <help><![CDATA[
 .. class:: infomark
 
 **TIP:** If your dataset does not appear in the pulldown menu -> it is not in interval format. Use "edit attributes" to set chromosome, start, end, and strand columns.
 
 Find the coverage of intervals in the first dataset on intervals in the second dataset.  The coverage is added as two columns, the first being bases covered, and the second being the fraction of bases covered by that interval.
 
------
-
-**Screencasts!**
-
-See Galaxy Interval Operation Screencasts_ (right click to open this link in another window).
-
-.. _Screencasts: http://wiki.g2.bx.psu.edu/Learn/Interval%20Operations
-
------
+@SCREENCASTS@
 
 **Example**
-
 
     if **First dataset** are genes ::
 
@@ -90,6 +83,5 @@ See Galaxy Interval Operation Screencasts_ (right click to open this link in ano
       chr11 5203271 5204877 NM_000518 0 - 172   0.107098
 
    implies that 172 nucleotides accounting for 10.7% of the this interval (chr11:5203271-5204877) overlap with repetitive elements.
-
-</help>
+    ]]></help>
 </tool>

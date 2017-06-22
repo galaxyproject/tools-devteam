@@ -1,12 +1,14 @@
 #!/usr/bin/env python
 # Greg Von Kuster
-
 """
 Subtract an entire query from another query
 usage: %prog in_file_1 in_file_2 begin_col end_col output
     --ignore-empty-end-cols: ignore empty end columns when subtracting
 """
+from __future__ import print_function
+
 import sys
+
 from bx.cookbook import doc_optparse
 
 # Older py compatibility
@@ -81,7 +83,7 @@ def main():
     try:
         fo = open(out_file, 'w')
     except:
-        print >> sys.stderr, "Unable to open output file"
+        print("Unable to open output file", file=sys.stderr)
         sys.exit()
 
     """
@@ -97,7 +99,7 @@ def main():
     """lines1 is now the set of unique lines in inp1_file - the set of unique lines in inp2_file"""
 
     for line in lines1:
-        print >> fo, line
+        print(line, file=fo)
 
     fo.close()
 
@@ -109,7 +111,8 @@ def main():
     if diff1 > 0:
         info_msg += 'Eliminated %d duplicate/blank/comment/invalid lines from first query.' % diff1
 
-    print info_msg
+    print(info_msg)
+
 
 if __name__ == "__main__":
     main()

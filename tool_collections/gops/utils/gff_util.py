@@ -1,11 +1,12 @@
 """
 Provides utilities for working with GFF files.
 """
-
 import copy
+
 from bx.intervals.io import GenomicInterval, GenomicIntervalReader, MissingFieldError, NiceReaderWrapper
-from bx.tabular.io import Header, Comment, ParseError
-from utils.odict import odict
+from bx.tabular.io import Comment, Header, ParseError
+
+from .odict import odict
 
 
 class GFFInterval( GenomicInterval ):
@@ -144,7 +145,7 @@ class GFFReaderWrapper( NiceReaderWrapper ):
                                 self.default_strand, fix_strand=self.fix_strand )
         return interval
 
-    def next( self ):
+    def __next__( self ):
         """ Returns next GFFFeature. """
 
         #
@@ -177,10 +178,10 @@ class GFFReaderWrapper( NiceReaderWrapper ):
             while not self.seed_interval:
                 try:
                     self.seed_interval = GenomicIntervalReader.next( self )
-                except ParseError, e:
+                except ParseError as e:
                     handle_parse_error( e )
                 # TODO: When no longer supporting python 2.4 use finally:
-                #finally:
+                # finally:
                 raw_size += len( self.current_line )
 
         # If header or comment, clear seed interval and return it with its size.
@@ -205,19 +206,19 @@ class GFFReaderWrapper( NiceReaderWrapper ):
             try:
                 interval = GenomicIntervalReader.next( self )
                 raw_size += len( self.current_line )
-            except StopIteration, e:
+            except StopIteration as e:
                 # No more intervals to read, but last feature needs to be
                 # returned.
                 interval = None
                 raw_size += len( self.current_line )
                 break
-            except ParseError, e:
+            except ParseError as e:
                 handle_parse_error( e )
                 raw_size += len( self.current_line )
                 continue
             # TODO: When no longer supporting python 2.4 use finally:
-            #finally:
-            #raw_size += len( self.current_line )
+            # finally:
+            # raw_size += len( self.current_line )
 
             # Ignore comments.
             if isinstance( interval, Comment ):
@@ -263,6 +264,7 @@ class GFFReaderWrapper( NiceReaderWrapper ):
             convert_gff_coords_to_bed( feature )
 
         return feature
+    next = __next__  # This line should be removed once the bx-python port to Python3 is finished
 
 
 def convert_bed_coords_to_gff( interval ):
@@ -374,7 +376,9 @@ def read_unordered_gtf( iterator, strict=False ):
 
     # -- Get function that generates line/feature key. --
 
-    get_transcript_id = lambda fields: parse_gff_attributes( fields[8] )[ 'transcript_id' ]
+    def get_transcript_id(fields):
+        return parse_gff_attributes( fields[8] )[ 'transcript_id' ]
+
     if strict:
         # Strict GTF parsing uses transcript_id only to group lines into feature.
         key_fn = get_transcript_id
@@ -382,7 +386,8 @@ def read_unordered_gtf( iterator, strict=False ):
         # Use lenient parsing where chromosome + transcript_id is the key. This allows
         # transcripts with same ID on different chromosomes; this occurs in some popular
         # datasources, such as RefGenes in UCSC.
-        key_fn = lambda fields: fields[0] + '_' + get_transcript_id( fields )
+        def key_fn(fields):
+            return fields[0] + '_' + get_transcript_id( fields )
 
     # Aggregate intervals by transcript_id and collect comments.
     feature_intervals = odict()

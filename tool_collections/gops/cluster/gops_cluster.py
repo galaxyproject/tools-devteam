@@ -9,11 +9,14 @@ usage: %prog in_file out_file
     -m, --minregions=N: Minimum regions per cluster
     -o, --output=N: 1)merged 2)filtered 3)clustered 4) minimum 5) maximum
 """
+from __future__ import print_function
+
 import fileinput
 import sys
+
+from bx.cookbook import doc_optparse
 from bx.intervals.io import GenomicInterval, NiceReaderWrapper
 from bx.intervals.operations.find_clusters import find_clusters
-from bx.cookbook import doc_optparse
 from bx.tabular.io import ParseError
 from galaxy.tools.util.galaxyops import fail, parse_cols_arg, skipped
 
@@ -50,7 +53,7 @@ def main():
     # Get the cluster tree
     try:
         clusters, extra = find_clusters( g1, mincols=distance, minregions=minregions)
-    except ParseError, exc:
+    except ParseError as exc:
         fail( "Invalid file format: %s" % str( exc ) )
 
     f1 = open( in_fname, "r" )
@@ -109,8 +112,8 @@ def main():
                                                             g1.strand_col,
                                                             g1.default_strand,
                                                             g1.fix_strand )
-                    except Exception, exc:
-                        print >> sys.stderr, str( exc )
+                    except Exception as exc:
+                        print(str( exc ), file=sys.stderr)
                         f1.close()
                         sys.exit()
                     interval_size = cluster_interval.end - cluster_interval.start
@@ -125,7 +128,8 @@ def main():
     out_file.close()
 
     if g1.skipped > 0:
-        print skipped( g1, filedesc="" )
+        print(skipped( g1, filedesc="" ))
+
 
 if __name__ == "__main__":
     main()

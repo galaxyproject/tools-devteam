@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<macros>
+    <xml name="requirements">
+        <requirements>
+            <requirement type="package" version="0.7.1">bx-python</requirement>
+            <requirement type="package" version="1.0.0">galaxy-ops</requirement>
+        </requirements>
+    </xml>
+    <token name="@SCREENCASTS@">
+-----
+
+**Screencasts!**
+
+See Galaxy Interval Operation Screencasts_ (right click to open this link in another window).
+
+.. _Screencasts: https://galaxyproject.org/learn/interval-operations/
+
+-----
+    </token>
+</macros>
