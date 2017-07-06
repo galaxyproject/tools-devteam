@@ -5,60 +5,58 @@
   </requirements>
   <command>gx-fastq-filter $input_file $fastq_filter_file $output_file $output_file.files_path '${input_file.extension[len( 'fastq' ):]}'</command>
   <inputs>
-    <page>
-      <param name="input_file" type="data" format="fastqsanger,fastqcssanger,fastqsanger.gz,fastqcssanger.gz,fastqsanger.bz2,fastqcssanger.bz2" label="FASTQ File" help="Requires groomed data: if your data does not appear here try using the FASTQ groomer."/>
-       <param name="min_size" label="Minimum Size" value="0" type="integer">
-        <validator type="in_range" message="Minimum size must be positive" min="0"/>
-      </param>
-      <param name="max_size" label="Maximum Size" value="0" type="integer" help="A maximum size less than 1 indicates no limit."/>
-      <param name="min_quality" label="Minimum Quality" value="0" type="float"/>
-      <param name="max_quality" label="Maximum Quality" value="0" type="float" help="A maximum quality less than 1 indicates no limit."/>
-      <param name="max_num_deviants" label="Maximum number of bases allowed outside of quality range" value="0" type="integer">
-        <validator type="in_range" message="Maximum number of deviate bases must be positive" min="0"/>
-      </param>
-     <param name="paired_end" label="This is paired end data" type="boolean" truevalue="paired_end" falsevalue="single_end" checked="False"/>
-      <repeat name="fastq_filters" title="Quality Filter on a Range of Bases" help="The above settings do not apply to these filters.">
-        <conditional name="offset_type">
-          <param name="base_offset_type" type="select" label="Define Base Offsets as" help="Use Absolute for fixed length reads (Illumina, SOLiD)&lt;br&gt;Use Percentage for variable length reads (Roche/454)">
-            <option value="offsets_absolute" selected="true">Absolute Values</option>
-            <option value="offsets_percent">Percentage of Read Length</option>
+    <param name="input_file" type="data" format="fastqsanger,fastqcssanger,fastqsanger.gz,fastqcssanger.gz,fastqsanger.bz2,fastqcssanger.bz2" label="FASTQ File" help="Requires groomed data: if your data does not appear here try using the FASTQ groomer."/>
+     <param name="min_size" label="Minimum Size" value="0" type="integer">
+      <validator type="in_range" message="Minimum size must be positive" min="0"/>
+    </param>
+    <param name="max_size" label="Maximum Size" value="0" type="integer" help="A maximum size less than 1 indicates no limit."/>
+    <param name="min_quality" label="Minimum Quality" value="0" type="float"/>
+    <param name="max_quality" label="Maximum Quality" value="0" type="float" help="A maximum quality less than 1 indicates no limit."/>
+    <param name="max_num_deviants" label="Maximum number of bases allowed outside of quality range" value="0" type="integer">
+      <validator type="in_range" message="Maximum number of deviate bases must be positive" min="0"/>
+    </param>
+   <param name="paired_end" label="This is paired end data" type="boolean" truevalue="paired_end" falsevalue="single_end" checked="False"/>
+    <repeat name="fastq_filters" title="Quality Filter on a Range of Bases" help="The above settings do not apply to these filters.">
+      <conditional name="offset_type">
+        <param name="base_offset_type" type="select" label="Define Base Offsets as" help="Use Absolute for fixed length reads (Illumina, SOLiD)&lt;br&gt;Use Percentage for variable length reads (Roche/454)">
+          <option value="offsets_absolute" selected="true">Absolute Values</option>
+          <option value="offsets_percent">Percentage of Read Length</option>
+        </param>
+        <when value="offsets_absolute">
+          <param name="left_column_offset" label="Offset from 5' end" value="0" type="integer" help="Values start at 0, increasing from the left">
+            <validator type="in_range" message="Base Offsets must be positive" min="0"/>
+            <validator type="expression" message="An integer is required.">int( float( value ) ) == float( value )</validator>
           </param>
-          <when value="offsets_absolute">
-            <param name="left_column_offset" label="Offset from 5' end" value="0" type="integer" help="Values start at 0, increasing from the left">
-              <validator type="in_range" message="Base Offsets must be positive" min="0" max="inf"/>
-              <validator type="expression" message="An integer is required.">int( float( value ) ) == float( value )</validator>
-            </param>
-            <param name="right_column_offset" label="Offset from 3' end" value="0" type="integer" help="Values start at 0, increasing from the right">
-              <validator type="in_range" message="Base Offsets must be positive" min="0" max="inf"/>
-              <validator type="expression" message="An integer is required.">int( float( value ) ) == float( value )</validator>
-            </param>
-          </when>
-          <when value="offsets_percent">
-            <param name="left_column_offset" label="Offset from 5' end" value="0" type="float">
-              <validator type="in_range" message="Base Offsets must be between 0 and 100" min="0" max="100"/>
-            </param>
-            <param name="right_column_offset" label="Offset from 3' end" value="0" type="float">
-              <validator type="in_range" message="Base Offsets must be between 0 and 100" min="0" max="100"/>
-            </param>
-          </when>
-        </conditional>
-        <param name="score_operation" type="select" label="Aggregate read score for specified range">
-          <option value="min" selected="True">min score</option>
-          <option value="max">max score</option>
-          <option value="sum">sum of scores</option>
-          <option value="mean">mean of scores</option>
-        </param>
-        <param name="score_comparison" type="select" label="Keep read when aggregate score is">
-          <option value="&gt;">&gt;</option>
-          <option value="&gt;=" selected="true">&gt;=</option>
-          <option value="==">==</option>
-          <option value="&lt;">&lt;</option>
-          <option value="&lt;=">&lt;=</option>
-          <sanitizer sanitize="False"/>
-        </param>
-        <param name="score" label="Quality Score" value="0" type="float" />
-      </repeat>
-    </page>
+          <param name="right_column_offset" label="Offset from 3' end" value="0" type="integer" help="Values start at 0, increasing from the right">
+            <validator type="in_range" message="Base Offsets must be positive" min="0"/>
+            <validator type="expression" message="An integer is required.">int( float( value ) ) == float( value )</validator>
+          </param>
+        </when>
+        <when value="offsets_percent">
+          <param name="left_column_offset" label="Offset from 5' end" value="0" type="float">
+            <validator type="in_range" message="Base Offsets must be between 0 and 100" min="0" max="100"/>
+          </param>
+          <param name="right_column_offset" label="Offset from 3' end" value="0" type="float">
+            <validator type="in_range" message="Base Offsets must be between 0 and 100" min="0" max="100"/>
+          </param>
+        </when>
+      </conditional>
+      <param name="score_operation" type="select" label="Aggregate read score for specified range">
+        <option value="min" selected="True">min score</option>
+        <option value="max">max score</option>
+        <option value="sum">sum of scores</option>
+        <option value="mean">mean of scores</option>
+      </param>
+      <param name="score_comparison" type="select" label="Keep read when aggregate score is">
+        <option value="&gt;">&gt;</option>
+        <option value="&gt;=" selected="true">&gt;=</option>
+        <option value="==">==</option>
+        <option value="&lt;">&lt;</option>
+        <option value="&lt;=">&lt;=</option>
+        <sanitizer sanitize="False"/>
+      </param>
+      <param name="score" label="Quality Score" value="0" type="float" />
+    </repeat>
   </inputs>
   <configfiles>
     <configfile name="fastq_filter_file">

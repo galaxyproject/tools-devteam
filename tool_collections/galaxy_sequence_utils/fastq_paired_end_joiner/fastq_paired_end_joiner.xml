@@ -14,7 +14,7 @@
     <param name="paste_sequence" type="text" label="Bases to insert between joined reads" value="" help="Values are in Base-space and quality scores of maximal value will be used"/>
   </inputs>
   <outputs>
-    <data name="output_file" format="input" />
+    <data name="output_file" format_source="input" />
   </outputs>
   <tests>
     <test>

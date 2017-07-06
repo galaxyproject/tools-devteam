@@ -13,7 +13,7 @@
       </param>
       <when value="offsets_absolute">
         <param name="left_column_offset" label="Offset from 5' end" value="0" type="integer" help="Values start at 0, increasing from the left">
-          <validator type="in_range" message="Base Offsets must be positive" min="0" max="inf"/>
+          <validator type="in_range" message="Base Offsets must be positive" min="0"/>
           <validator type="expression" message="An integer is required.">int( float( value ) ) == float( value )</validator>
         </param>
         <param name="right_column_offset" label="Offset from 3' end" value="0" type="integer" help="Values start at 0, increasing from the right; use a negative value to remove everything to the right of the absolute value of the position">
@@ -29,10 +29,10 @@
         </param>
       </when>
     </conditional>
-  <param name="keep_zero_length" label="Keep reads with zero length" type="boolean" truevalue="keep_zero_length" falsevalue="exclude_zero_length" selected="False"/>
+  <param name="keep_zero_length" label="Keep reads with zero length" type="boolean" truevalue="keep_zero_length" falsevalue="exclude_zero_length" checked="False"/>
   </inputs>
   <outputs>
-    <data name="output_file" format="input" />
+    <data name="output_file" format_source="input" />
   </outputs>
   <tests>
     <test>

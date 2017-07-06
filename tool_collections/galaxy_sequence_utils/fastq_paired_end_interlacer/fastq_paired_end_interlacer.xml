@@ -30,8 +30,8 @@
     <!-- $input1_file.name = filename  , e.g. paired_end_2_errors.fastqsanger -->
     <!-- $input1_file.id   = ID        , e.g. 10 -->
     <!-- $input1_file.hid  = history ID, e.g. 5  -->
-    <data name="outfile_pairs" format="input" label="FASTQ interlacer pairs from ${on_string}"/>
-    <data name="outfile_singles" format="input" label="FASTQ interlacer singles from ${on_string}"/>
+    <data name="outfile_pairs" format_source="input" label="FASTQ interlacer pairs from ${on_string}"/>
+    <data name="outfile_singles" format_source="input" label="FASTQ interlacer singles from ${on_string}"/>
   </outputs>
   <tests>
     <test>
@@ -103,6 +103,6 @@ A multiple-fastq file containing interlaced left and right paired reads::
 A multiple-fastq file containing reads that have no mate is also produced.
   </help>
   <citations>
-    <citation doi="10.1093/bioinformatics/btq281" />
+    <citation type="doi">10.1093/bioinformatics/btq281</citation>
   </citations>
 </tool>

@@ -16,10 +16,10 @@
   <outputs>
     <data name="output_file" format="fastqsanger">
       <change_format>
-        <when input_dataset="fasta_file" attribute="extension" value="csfasta" format="fastqcssanger" />
-        <when input_dataset="qual_file" attribute="extension" value="qualsolid" format="fastqcssanger" />
-        <when input_dataset="qual_file" attribute="extension" value="qualsolexa" format="fastqsolexa" />
-        <when input_dataset="qual_file" attribute="extension" value="qualillumina" format="fastqillumina" />
+        <when input="fasta_file" value="csfasta" format="fastqcssanger" />
+        <when input="qual_file" value="qualsolid" format="fastqcssanger" />
+        <when input="qual_file" value="qualsolexa" format="fastqsolexa" />
+        <when input="qual_file" value="qualillumina" format="fastqillumina" />
       </change_format>
     </data>
   </outputs>
@@ -71,9 +71,9 @@ Specifying a set of quality scores is optional; when not provided, the output wi
 Use this tool, for example, to convert 454-type output to FASTQ.
 
   </help>
-  
+
   <citations>
     <citation type="doi">10.1093/bioinformatics/btq281</citation>
   </citations>
-  
+
 </tool>
