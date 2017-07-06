@@ -1,7 +1,7 @@
 <tool id="fastq_masker_by_quality" name="FASTQ Masker" version="1.0.0">
   <description>by quality score</description>
   <requirements>
-    <requirement type="package" version="1.0.0">galaxy_sequence_utils</requirement>
+    <requirement type="package" version="1.1.0">galaxy_sequence_utils</requirement>
   </requirements>
   <command>gx-fastq-masker-by-quality '$input_file' '$output_file' -f '${input_file.extension[len( 'fastq' ):]}' -s '${quality_score}' -c '${score_comparison}'
       #if $mask_type.value == 'lowercase'

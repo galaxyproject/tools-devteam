@@ -1,9 +1,9 @@
 <tool id="fastq_groomer" name="FASTQ Groomer" version="1.0.4">
   <description>convert between various FASTQ quality formats</description>
   <requirements>
-    <requirement type="package" version="1.0.0">galaxy_sequence_utils</requirement>
+    <requirement type="package" version="1.1.0">galaxy_sequence_utils</requirement>
   </requirements>
-  <command>gx-fastq-groomer '$input_file' 
+  <command>gx-fastq-groomer '$input_file'
 #if $input_file.extension.endswith(".gz"):
 #set $suffix = ".gz"
 #elif $input_file.extension.endswith(".bz2"):

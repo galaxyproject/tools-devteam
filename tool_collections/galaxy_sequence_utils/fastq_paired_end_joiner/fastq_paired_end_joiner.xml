@@ -1,7 +1,7 @@
 <tool id="fastq_paired_end_joiner" name="FASTQ joiner" version="2.0.1">
   <description>on paired end reads</description>
   <requirements>
-    <requirement type="package" version="1.0.1">galaxy_sequence_utils</requirement>
+    <requirement type="package" version="1.1.0">galaxy_sequence_utils</requirement>
   </requirements>
   <command>gx-fastq-paired-end-joiner '$input1_file' '${input1_file.extension[len( 'fastq' ):]}' '$input2_file' '${input2_file.extension[len( 'fastq' ):]}' '$output_file' '$style' '${paste_sequence}'</command>
   <inputs>

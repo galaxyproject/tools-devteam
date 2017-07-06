@@ -1,7 +1,7 @@
 <tool id="fastq_to_fasta_python" name="FASTQ to FASTA" version="1.0.0">
   <description>converter</description>
   <requirements>
-    <requirement type="package" version="1.0.0">galaxy_sequence_utils</requirement>
+    <requirement type="package" version="1.1.0">galaxy_sequence_utils</requirement>
   </requirements>
   <command>gx-fastq-to-fasta '$input_file' '$output_file' '${input_file.extension[len( 'fastq' ):]}'</command>
   <inputs>
