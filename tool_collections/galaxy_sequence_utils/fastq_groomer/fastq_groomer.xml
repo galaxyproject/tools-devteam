@@ -1,7 +1,7 @@
-<tool id="fastq_groomer" name="FASTQ Groomer" version="1.0.4">
+<tool id="fastq_groomer" name="FASTQ Groomer" version="1.0.5">
   <description>convert between various FASTQ quality formats</description>
   <requirements>
-    <requirement type="package" version="1.0.0">galaxy_sequence_utils</requirement>
+    <requirement type="package" version="1.1.0">galaxy_sequence_utils</requirement>
   </requirements>
   <command interpreter="python">fastq_groomer.py '$input_file' '$input_type' '$output_file'
 #if str( $options_type['options_type_selector'] ) == 'basic':
