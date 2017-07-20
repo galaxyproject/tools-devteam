@@ -1,4 +1,4 @@
-<tool id="bamSplit" name="Split" version="2.4.0">
+<tool id="bamtools_split" name="Split" version="2.4.0">
     <description>BAM datasets on variety of attributes</description>
     <requirements>
         <requirement type="package" version="2.4.0">bamtools</requirement>
