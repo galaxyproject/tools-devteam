@@ -33,7 +33,7 @@
 
 **What it does**
 	
-Outputs sequences between *Minimal length* and *Maximum length*.
+Outputs sequences greater than or equal to *Minimal length* and less than or equal to *Maximum length*. 
  
 -----
 
