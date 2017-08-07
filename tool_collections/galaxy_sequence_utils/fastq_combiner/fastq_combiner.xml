@@ -1,7 +1,7 @@
-<tool id="fastq_combiner" name="Combine FASTA and QUAL" version="1.0.1">
+<tool id="fastq_combiner" name="Combine FASTA and QUAL" version="1.0.2">
   <description>into FASTQ</description>
   <requirements>
-    <requirement type="package" version="1.0.0">galaxy_sequence_utils</requirement>
+    <requirement type="package" version="1.0.1">galaxy_sequence_utils</requirement>
   </requirements>
   <command interpreter="python">fastq_combiner.py '$fasta_file' '${fasta_file.extension}' '$qual_file' '${qual_file.extension}' '$output_file' '$force_quality_encoding'</command>
   <inputs>

@@ -1,7 +1,7 @@
-<tool id="fastq_paired_end_splitter" name="FASTQ splitter" version="1.0.0">
+<tool id="fastq_paired_end_splitter" name="FASTQ splitter" version="1.0.1">
   <description>on joined paired end reads</description>
   <requirements>
-    <requirement type="package" version="1.0.0">galaxy_sequence_utils</requirement>
+    <requirement type="package" version="1.0.1">galaxy_sequence_utils</requirement>
   </requirements>
   <command interpreter="python">fastq_paired_end_splitter.py '$input1_file' '${input1_file.extension[len( 'fastq' ):]}' '$output1_file' '$output2_file'</command>
   <inputs>
