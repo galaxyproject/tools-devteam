@@ -1,4 +1,4 @@
-<tool id="fastq_trimmer" name="FASTQ Trimmer" version="1.0.1">
+<tool id="fastq_trimmer" name="FASTQ Trimmer" version="1.0.2">
   <description>by column</description>
   <requirements>
     <requirement type="package" version="1.0.1">galaxy_sequence_utils</requirement>
