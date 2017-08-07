@@ -1,4 +1,4 @@
-<tool id="fastq_groomer" name="FASTQ Groomer" version="1.0.4">
+<tool id="fastq_groomer" name="FASTQ Groomer" version="1.0.5">
   <description>convert between various FASTQ quality formats</description>
   <requirements>
     <requirement type="package" version="1.0.1">galaxy_sequence_utils</requirement>
