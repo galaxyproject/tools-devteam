@@ -1,7 +1,7 @@
 <tool id="fastq_stats" name="FASTQ Summary Statistics" version="1.0.0">
   <description>by column</description>
   <requirements>
-    <requirement type="package" version="1.0.0">galaxy_sequence_utils</requirement>
+    <requirement type="package" version="1.0.1">galaxy_sequence_utils</requirement>
   </requirements>
   <command interpreter="python">fastq_stats.py '$input_file' '$output_file' '${input_file.extension[len( 'fastq' ):]}'</command>
   <inputs>
