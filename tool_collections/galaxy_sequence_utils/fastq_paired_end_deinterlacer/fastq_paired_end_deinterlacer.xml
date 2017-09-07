@@ -1,35 +1,37 @@
-<tool id="fastq_paired_end_deinterlacer" name="FASTQ de-interlacer" version="1.1">
-  <description>on paired end reads</description>
-  <requirements>
-    <requirement type="package" version="1.1.0">galaxy_sequence_utils</requirement>
-  </requirements>
-  <command>fastq-paired-end-deinterlacer '$input_file' '${input_file.extension[len( 'fastq' ):]}' '$output1_pairs_file' '$output2_pairs_file' '$output1_singles_file' '$output2_singles_file'</command>
-  <inputs>
-    <param name="input_file" type="data" format="fastqsanger,fastqcssanger,fastqsanger.gz,fastqcssanger.gz,fastqsanger.bz2,fastqcssanger.bz2" label="FASTQ reads" />
-  </inputs>
-  <outputs>
-    <data name="output1_pairs_file" format_source="input_file" label="FASTQ de-interlacer left mates from data ${input_file.hid}" />
-    <data name="output2_pairs_file" format_source="input_file" label="FASTQ de-interlacer right mates from data ${input_file.hid}"/>
-    <data name="output1_singles_file" format_source="input_file" label="FASTQ de-interlacer left singles from data ${input_file.hid}"/>
-    <data name="output2_singles_file" format_source="input_file" label="FASTQ de-interlacer right singles from data ${input_file.hid}"/>
-  </outputs>
-  <tests>
-    <test>
-      <param name="input_file" value="paired_end_merged.fastqsanger" ftype="fastqsanger" />
-      <output name="output1_pairs_file" file="paired_end_1.fastqsanger" />
-      <output name="output2_pairs_file" file="paired_end_2.fastqsanger" />
-      <output name="output1_singles_file" file="paired_end_1_singles.fastqsanger" />
-      <output name="output2_singles_file" file="paired_end_2_singles.fastqsanger" />
-    </test>
-    <test>
-      <param name="input_file" value="paired_end_merged_errors.fastqsanger" ftype="fastqsanger" />
-      <output name="output1_pairs_file" file="paired_end_1_cleaned.fastqsanger" />
-      <output name="output2_pairs_file" file="paired_end_2_cleaned.fastqsanger" />
-      <output name="output1_singles_file" file="paired_end_1_cleaned_singles.fastqsanger" />
-      <output name="output2_singles_file" file="paired_end_2_cleaned_singles.fastqsanger" />
-    </test>
-  </tests>
-  <help>
+<tool id="fastq_paired_end_deinterlacer" name="FASTQ de-interlacer" version="1.1.0">
+    <description>on paired end reads</description>
+    <requirements>
+        <requirement type="package" version="1.1.0">galaxy_sequence_utils</requirement>
+    </requirements>
+    <command><![CDATA[
+gx-fastq-paired-end-deinterlacer '$input_file' '${input_file.extension[len('fastq'):]}' '$output1_pairs_file' '$output2_pairs_file' '$output1_singles_file' '$output2_singles_file'
+    ]]></command>
+    <inputs>
+        <param name="input_file" type="data" format="fastqsanger,fastqcssanger,fastqsanger.gz,fastqcssanger.gz,fastqsanger.bz2,fastqcssanger.bz2" label="FASTQ reads" />
+    </inputs>
+    <outputs>
+        <data name="output1_pairs_file" format_source="input_file" label="FASTQ de-interlacer left mates from data ${input_file.hid}" />
+        <data name="output2_pairs_file" format_source="input_file" label="FASTQ de-interlacer right mates from data ${input_file.hid}"/>
+        <data name="output1_singles_file" format_source="input_file" label="FASTQ de-interlacer left singles from data ${input_file.hid}"/>
+        <data name="output2_singles_file" format_source="input_file" label="FASTQ de-interlacer right singles from data ${input_file.hid}"/>
+    </outputs>
+    <tests>
+        <test>
+            <param name="input_file" value="paired_end_merged.fastqsanger" ftype="fastqsanger" />
+            <output name="output1_pairs_file" file="paired_end_1.fastqsanger" ftype="fastqsanger" />
+            <output name="output2_pairs_file" file="paired_end_2.fastqsanger" ftype="fastqsanger" />
+            <output name="output1_singles_file" file="paired_end_1_singles.fastqsanger" ftype="fastqsanger" />
+            <output name="output2_singles_file" file="paired_end_2_singles.fastqsanger" ftype="fastqsanger" />
+        </test>
+        <test>
+            <param name="input_file" value="paired_end_merged_errors.fastqsanger" ftype="fastqsanger" />
+            <output name="output1_pairs_file" file="paired_end_1_cleaned.fastqsanger" ftype="fastqsanger" />
+            <output name="output2_pairs_file" file="paired_end_2_cleaned.fastqsanger" ftype="fastqsanger" />
+            <output name="output1_singles_file" file="paired_end_1_cleaned_singles.fastqsanger" ftype="fastqsanger" />
+            <output name="output2_singles_file" file="paired_end_2_cleaned_singles.fastqsanger" ftype="fastqsanger" />
+        </test>
+    </tests>
+    <help><![CDATA[
 **What it does**
 
 De-interlaces a single fastq dataset representing paired-end run into two fastq datasets containing only the first or second mate read. Reads without mate are saved in separate output files.
@@ -68,9 +70,8 @@ Multi-fastq file with right-hand mate only::
     CGCCATTCCGAATCGTAGTTGTCGGCGTCTTCCAGTGCGGCAAGGCATCGT
     +1539:931/2
     WNUUZ\P^`BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
-
-  </help>
-  <citations>
-    <citation type="doi">10.1093/bioinformatics/btq281</citation>
-  </citations>
+    ]]></help>
+    <citations>
+        <citation type="doi">10.1093/bioinformatics/btq281</citation>
+    </citations>
 </tool>
