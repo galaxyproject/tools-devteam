@@ -1,0 +1,16 @@
+owner: nate
+name: trinity_psc
+description: Trinity for large shared memory systems at the Pittsburgh Supercomputing Center
+categories:
+- Transcriptomics
+- RNA
+long_description: |
+  This repository provides a modified version of the Trinity wrapper from Brian
+  Haas, as used on the Galaxy public server at usegalaxy.org. It relies on
+  versions of Trinity and other dependencies available through the modules
+  system on the large shared memory system, Bridges, at the Pittsburgh
+  Supercomputing Center. This is not designed to be a generally consumable
+  version of the Trinity tool but may be useful as a reference.
+homepage_url: https://github.com/trinityrnaseq/trinityrnaseq
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/trinity_psc
+type: unrestricted
