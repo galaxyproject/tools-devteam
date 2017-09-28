@@ -1,7 +1,7 @@
-<tool id="fastq_groomer" name="FASTQ Groomer" version="1.1.0">
+<tool id="fastq_groomer" name="FASTQ Groomer" version="1.1.1">
     <description>convert between various FASTQ quality formats</description>
     <requirements>
-        <requirement type="package" version="1.1.0">galaxy_sequence_utils</requirement>
+        <requirement type="package" version="1.1.1">galaxy_sequence_utils</requirement>
     </requirements>
     <command><![CDATA[
 gx-fastq-groomer '$input_file'
