@@ -1,29 +1,31 @@
-<tool id="fastq_paired_end_joiner" name="FASTQ joiner" version="2.0.1">
-  <description>on paired end reads</description>
-  <requirements>
-    <requirement type="package" version="1.0.1">galaxy_sequence_utils</requirement>
-  </requirements>
-  <command interpreter="python">fastq_paired_end_joiner.py '$input1_file' '${input1_file.extension[len( 'fastq' ):]}' '$input2_file' '${input2_file.extension[len( 'fastq' ):]}' '$output_file' '$style' '${paste_sequence}'</command>
-  <inputs>
-    <param name="input1_file" type="data" format="fastqsanger,fastqcssanger" label="Left-hand Reads" />
-    <param name="input2_file" type="data" format="fastqsanger,fastqcssanger" label="Right-hand Reads" />
-    <param name="style" type="select" label="FASTQ Header Style">
-      <option value="old" selected="true">old</option>
-      <option value="new">new</option>
-    </param>
-    <param name="paste_sequence" type="text" label="Bases to insert between joined reads" value="" help="Values are in Base-space and quality scores of maximal value will be used"/>
-  </inputs>
-  <outputs>
-    <data name="output_file" format="input" />
-  </outputs>
-  <tests>
-    <test>
-      <param name="input1_file" value="split_pair_reads_1.fastqsanger" ftype="fastqsanger" />
-      <param name="input2_file" value="split_pair_reads_2.fastqsanger" ftype="fastqsanger" />
-      <output name="output_file" file="3.fastqsanger" />
-    </test>
-  </tests>
-  <help>
+<tool id="fastq_paired_end_joiner" name="FASTQ joiner" version="2.0.1.0">
+    <description>on paired end reads</description>
+    <requirements>
+        <requirement type="package" version="1.1.1">galaxy_sequence_utils</requirement>
+    </requirements>
+    <command><![CDATA[
+gx-fastq-paired-end-joiner '$input1_file' '${input1_file.extension[len('fastq'):]}' '$input2_file' '${input2_file.extension[len('fastq'):]}' '$output_file' $style '${paste_sequence}'
+    ]]></command>
+    <inputs>
+        <param name="input1_file" type="data" format="fastqsanger,fastqcssanger,fastqsanger.gz,fastqcssanger.gz,fastqsanger.bz2,fastqcssanger.bz2" label="Left-hand Reads" />
+        <param name="input2_file" type="data" format="fastqsanger,fastqcssanger,fastqsanger.gz,fastqcssanger.gz,fastqsanger.bz2,fastqcssanger.bz2" label="Right-hand Reads" />
+        <param name="style" type="select" label="FASTQ Header Style">
+            <option value="old" selected="true">old</option>
+            <option value="new">new</option>
+        </param>
+        <param name="paste_sequence" type="text" value="" label="Bases to insert between joined reads" help="Values are in Base-space and quality scores of maximal value will be used"/>
+    </inputs>
+    <outputs>
+        <data name="output_file" format_source="input1_file" />
+    </outputs>
+    <tests>
+        <test>
+            <param name="input1_file" value="split_pair_reads_1.fastqsanger" ftype="fastqsanger" />
+            <param name="input2_file" value="split_pair_reads_2.fastqsanger" ftype="fastqsanger" />
+            <output name="output_file" file="3.fastqsanger" ftype="fastqsanger" />
+        </test>
+    </tests>
+    <help><![CDATA[
 **What it does**
 
 This tool joins paired end FASTQ reads from two separate files into a
@@ -81,16 +83,9 @@ a space or a tab.
 
 **Credits**
 
-This is an extended version (adds support for "new" style FASTQ headers)
-of D. Blankenberg's fastq joiner:
-
-`Blankenberg D, Gordon A, Von Kuster G, Coraor N, Taylor J, Nekrutenko A; Galaxy Team. Manipulation of FASTQ data with Galaxy. Bioinformatics. 2010 Jul 15;26(14):1783-5. &lt;http://www.ncbi.nlm.nih.gov/pubmed/20562416&gt;`_
-
-New style header support added by Simone Leo &lt;simone.leo@crs4.it&gt;
-  </help>
-  
-  <citations>
-    <citation type="doi">10.1093/bioinformatics/btq281</citation>
-  </citations>
-  
+New style header support added by Simone Leo <simone.leo@crs4.it> .
+    ]]></help>
+    <citations>
+        <citation type="doi">10.1093/bioinformatics/btq281</citation>
+    </citations>
 </tool>

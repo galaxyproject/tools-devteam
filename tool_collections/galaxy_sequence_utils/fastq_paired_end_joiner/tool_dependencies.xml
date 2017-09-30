@@ -1,6 +1,0 @@
-<?xml version="1.0"?>
-<tool_dependency>
-  <package name="galaxy_sequence_utils" version="1.0.1">
-      <repository name="package_galaxy_sequence_utils_1_0_1" owner="iuc" />
-    </package>
-</tool_dependency>
