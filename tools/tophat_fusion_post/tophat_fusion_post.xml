@@ -1,56 +1,88 @@
-<tool id="tophat_fusion_post" name="Tophat Fusion Post" version="0.1">
+<tool id="tophat_fusion_post" name="Tophat Fusion Post" version="0.2">
     <description>post-processing to identify fusion genes</description>
-    <version_command>tophat-fusion-post --version</version_command>
     <requirements>
         <requirement type="package" version="2.2.28">blast+</requirement>
         <requirement type="package" version="0.12.7">bowtie</requirement>
         <requirement type="package" version="2.0.9">tophat2</requirement>
     </requirements>
-    <command>
-        ## Set up tophat_out structure.
-        mkdir tophat_out; ln -s $accepted_hits tophat_out/accepted_hits.bam; ln -s $fusions tophat_out/fusions.out;
-
-        ## Set up blast directory structure.
-        #set blast_db_path = $__get_data_table_entry__('tophat_fusion_blastdb_indexes', 'dbkey', $accepted_hits.dbkey, 'path')
-        ln -s ${blast_db_path}/ blast;
-
-        ## Set up additional files:
-	    ln -s ${blast_db_path}/refGene.txt .;
-	    ln -s ${blast_db_path}/ensGene.txt .;
-        ln -s ${blast_db_path}/mcl .;
-
-        ## Run tophat-fusion-post
-        tophat-fusion-post -p \${GALAXY_SLOTS:-4}
-        --num-fusion-reads $num_fusion_reads --num-fusion-pairs $num_fusion_pairs --num-fusion-both $num_fusion_both --fusion-read-mismatches $fusion_read_mismatches --fusion-multireads $fusion_multireads
-        #if str($is_human) == 'No':
-              --non-human
-        #end if
-
-	    ## Bowtie indices.
-	    ${__get_data_table_entry__('bowtie_indexes', 'value', $accepted_hits.dbkey, 'path')}
-    </command>
-
-    <inputs>
-        <param format="bam" name="accepted_hits" type="data" label="BAM file of aligned RNA-Seq reads" help=""/>
-        <param format="tabular" name="fusions" type="data" label="Tabular file of potential fusions" help=""/>
-        <param name="num_fusion_reads" type="integer" value="3" label="Num Fusion Reads" help="Fusions with at least this many supporting reads will be reported."/>
-        <param name="num_fusion_pairs" type="integer" value="2" label="Num Fusion Pairs" help="Fusions with at least this many supporting pairs will be reported."/>
-        <param name="num_fusion_both" type="integer" value="0" label="Num Fusion Reads + Pairs" help="The sum of supporting reads and pairs is at least this number for a fusion to be reported."/>
-        <param name="fusion_read_mismatches" type="integer" value="2" label="Fusion Read Mismatches" help="Reads support fusions if they map across fusion with at most this many mismatches."/>
-        <param name="fusion_multireads" type="integer" value="2" label="Reads that map to more than this many places will be ignored." help=""/>
-        <param name="is_human" type="select" label="Is your data from humans?">
-            <option value="Yes" selected="True">Yes</option>
-            <option value="No">No</option>
-        </param>
-    </inputs>
-
     <stdio>
         <regex match=".*" source="both" level="log" description="tool progress"/>
     </stdio>
+    <version_command>tophat-fusion-post --version</version_command>
+
+    <command><![CDATA[
+        ## Set up tophat_out structure.
+        mkdir tophat_out &&
+        ln -s $accepted_hits tophat_out/accepted_hits.bam &&
+        ln -s $fusions tophat_out/fusions.out &&
+
+        ## Set up blast directory structure.
+        #set blast_db_path = $__get_data_table_entry__('tophat_fusion_blastdb_indexes', 'dbkey', $accepted_hits.dbkey, 'path')
+        ln -s ${blast_db_path}/ blast &&
+
+        ## Set up additional files:
+        ln -s ${blast_db_path}/refGene.txt . &&
+        ln -s ${blast_db_path}/ensGene.txt . &&
+        ln -s ${blast_db_path}/mcl . &&
+
+        ## Run tophat-fusion-post
+        tophat-fusion-post -p \${GALAXY_SLOTS:-4}
+        --num-fusion-reads $num_fusion_reads
+        --num-fusion-pairs $num_fusion_pairs
+        --num-fusion-both $num_fusion_both
+        --fusion-read-mismatches $fusion_read_mismatches
+        --fusion-multireads $fusion_multireads
+        $non_human
+        $filter_annotation
+        $skip_fusion_kmer
+        $skip_filter_fusion
+        $skip_blast
+        $skip_read_dist
+
+        ## Bowtie indices.
+        ${__get_data_table_entry__('bowtie_indexes', 'value', $accepted_hits.dbkey, 'path')}
+    ]]></command>
+
+    <inputs>
+        <param format="bam" name="accepted_hits" type="data" label="RNA-seq reads aligned by Tophat" help=""/>
+        <param format="tabular" name="fusions" type="data" label="Potential fusions from Tophat" help=""/>
+        <param name="num_fusion_reads" type="integer" value="3" label="Minimum number of supporting reads to report a fusion" help="(--num-fusion-reads)"/>
+        <param name="num_fusion_pairs" type="integer" value="2" label="Minimum number of supporting pairs to report a fusion" help="(--num-fusion-pairs)"/>
+        <param name="num_fusion_both" type="integer" value="0" label="Minimum sum of supporting reads and supporting pairs to report a fusion" help="(--num-fusion-both)"/>
+        <param name="fusion_read_mismatches" type="integer" value="2" label="Maximum number of mismatches for a read to support a fusion" help="(--fusion-read-mismatches)"/>
+        <param name="fusion_multireads" type="integer" value="2" label="Maximum number of alignments" help="Reads that map to more than this many places will be ignored (--fusion-multireads)"/>
+        <param name="non_human" type="boolean" truevalue="" falsevalue="--non-human" checked="true" label="Is your data from humans?" help="(--non-human)"/>
+        <param name="filter_annotation" type="boolean" truevalue="" falsevalue="--no-filter-by-annotation" checked="true" label="Processing: filter by annotation?" help="(--no-filter-by-annotation)"/>
+        <param name="skip_fusion_kmer" type="boolean" truevalue="--skip-fusion-kmer" falsevalue="" checked="false" label="Processing: skip fusion kmer?" help="(--skip-fusion-kmer)"/>
+        <param name="skip_filter_fusion" type="boolean" truevalue="--skip-filter-fusion" falsevalue="" checked="false" label="Processing: skip filter fusion?" help="(--skip-filter-fusion)"/>
+        <param name="skip_blast" type="boolean" truevalue="--skip-blast" falsevalue="" checked="false" label="Processing: skip BLAST?" help="(--skip-blast)"/>
+        <param name="skip_read_dist" type="boolean" truevalue="--skip-read-dist" falsevalue="" checked="false" label="Processing: skip read dist?" help="(--skip-read-dist)"/>
+    </inputs>
 
     <outputs>
         <data format="tabular" name="results_txt" label="${tool.name} on ${on_string}: text results" from_work_dir="tophatfusion_out/result.txt"/>
         <data format="html" name="results_html" label="${tool.name} on ${on_string}: html results" from_work_dir="tophatfusion_out/result.html"/>
     </outputs>
-    
+
+    <tests>
+        <test>
+            <!-- Test does not work because of failure to set $accepted_hits.dbkey-->
+            <param name="accepted_hits" value="accepted_hits.bam"/>
+            <param name="dbkey" value="hg19"/>
+            <param name="fusions" value="fusions.txt"/>
+            <param name="skip_blast" value="--skip-blast"/>
+            <param name="num_fusion_pairs" value="0"/>
+            <output name="result.txt" file="output.txt" compare="diff"/>
+        </test>
+    </tests>
+
+    <help>
+This tool runs tophat-fusion-post_.
+
+.. _tophat-fusion-post: http://tophat-fusion.sourceforge.net/manual.html
+    </help>    
+
+    <citations>
+        <citation type="doi">10.1186/gb-2011-12-8-r72</citation>
+    </citations>
 </tool>
