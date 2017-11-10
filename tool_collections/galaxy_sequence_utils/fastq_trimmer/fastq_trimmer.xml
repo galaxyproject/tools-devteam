@@ -7,7 +7,7 @@
 gx-fastq-trimmer '$input_file' '$output_file' ${offset_type['left_column_offset']} ${offset_type['right_column_offset']} ${offset_type['base_offset_type']} '${input_file.extension[len('fastq'):]}' $keep_zero_length
     ]]></command>
     <inputs>
-        <param name="input_file" type="data" format="fastqsanger,fastqcssanger,fastqsanger.gz,fastqcssanger.gz,fastqsanger.bz2,fastqcssanger.bz" label="FASTQ file"/>
+        <param name="input_file" type="data" format="fastqsanger,fastqcssanger,fastqsanger.gz,fastqcssanger.gz,fastqsanger.bz2,fastqcssanger.bz2" label="FASTQ file"/>
         <conditional name="offset_type">
             <param name="base_offset_type" type="select" label="Define Base Offsets as" help="Use Absolute for fixed length reads (Illumina, SOLiD)&lt;br&gt;Use Percentage for variable length reads (Roche/454)">
                 <option value="offsets_absolute" selected="true">Absolute Values</option>
