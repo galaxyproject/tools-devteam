@@ -1,19 +1,19 @@
 <?xml version="1.0"?>
 <repositories description="A suite of Galaxy tools designed to work with version 1.2 of the SAMtools package.">
-    <repository name="data_manager_sam_fasta_index_builder" owner="devteam" />
-    <repository name="bam_to_sam" owner="devteam" />
-    <repository name="sam_to_bam" owner="devteam" />
-    <repository name="samtools_bam_to_cram" owner="devteam" />
-    <repository name="samtools_cram_to_bam" owner="devteam" />
-    <repository name="samtools_bedcov" owner="devteam" />
-    <repository name="samtools_calmd" owner="devteam" />
-    <repository name="samtools_flagstat" owner="devteam" />
-    <repository name="samtools_idxstats" owner="devteam" />
-    <repository name="samtools_mpileup" owner="devteam" />
-    <repository name="samtools_reheader" owner="devteam" />
-    <repository name="samtools_rmdup" owner="devteam" />
-    <repository name="samtools_slice_bam" owner="devteam" />
-    <repository name="samtools_sort" owner="devteam" />
-    <repository name="samtools_split" owner="devteam" />
-    <repository name="samtools_stats" owner="devteam" />
+    <repository changeset_revision="1865e693d8b2" name="data_manager_sam_fasta_index_builder" owner="devteam" />
+    <repository changeset_revision="f57df915aa10" name="bam_to_sam" owner="devteam" />
+    <repository changeset_revision="f7a0d41036c7" name="sam_to_bam" owner="devteam" />
+    <repository changeset_revision="b5dc4f88fb2d" name="samtools_bam_to_cram" owner="devteam" />
+    <repository changeset_revision="0637018367e0" name="samtools_cram_to_bam" owner="devteam" />
+    <repository changeset_revision="12749212f61b" name="samtools_bedcov" owner="devteam" />
+    <repository changeset_revision="33208952b99d" name="samtools_calmd" owner="devteam" />
+    <repository changeset_revision="cc61ade70eb8" name="samtools_flagstat" owner="devteam" />
+    <repository changeset_revision="71afa65f444a" name="samtools_idxstats" owner="devteam" />
+    <repository changeset_revision="583abf29fc8e" name="samtools_mpileup" owner="devteam" />
+    <repository changeset_revision="db000c6007a0" name="samtools_reheader" owner="devteam" />
+    <repository changeset_revision="9129584416e2" name="samtools_rmdup" owner="devteam" />
+    <repository changeset_revision="a4a10c7924d1" name="samtools_slice_bam" owner="devteam" />
+    <repository changeset_revision="cab3f8d35989" name="samtools_sort" owner="devteam" />
+    <repository changeset_revision="b7f7826ef1cd" name="samtools_split" owner="devteam" />
+    <repository changeset_revision="24c5d43cb545" name="samtools_stats" owner="devteam" />
 </repositories>
