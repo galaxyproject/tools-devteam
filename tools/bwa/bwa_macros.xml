@@ -1,7 +1,7 @@
 <macros>
   <import>read_group_macros.xml</import>
 
-  <token name="@VERSION@">0.7.16</token>
+  <token name="@VERSION@">0.7.17</token>
 
   <token name="@set_rg_string@">
       #set $rg_string = "@RG\\tID:" + str($rg_id)

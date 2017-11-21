@@ -64,6 +64,7 @@
         ${analysis_type.io_options.Y}
         ${analysis_type.io_options.M}
         ${analysis_type.io_options.five}
+        ${analysis_type.io_options.q}
       #end if
 
     #end if
@@ -228,6 +229,7 @@
           </param>
           <when value="set">
             <param name="five" argument="-5" type="boolean" truevalue="-5" falsevalue="" label="For split alignment, take alignment with smallest coordinate as primary" help="Useful for HiC data"/>
+            <param argument="-q" type="boolean" truevalue="-q" falsevalue="" label="Don't lower MAPQ for split alignment" help="By default the MAPQ score of a supplementary alignment will be lowered to the primary alignment score."/>
             <param name="T" type="integer" value="30" label="Minimum score to output" help="-T; default=30"/>
             <param name="h" type="integer" value="5" label="If there are less than THIS VALUE hits with score &gt;80% of the max score, output them all in the XA tag" help="-h; default=5" />
             <param name="a" type="boolean" truevalue="-a" falsevalue="" label="Output all alignments for single-ends or unpaired paired-ends" help="-a; These alignments will be flagged as secondary alignments"/>
