@@ -2,7 +2,7 @@
     <description>multiple VCF datasets</description>
 
     <requirements>
-        <requirement type="package">tabix</requirement>
+        <requirement type="package" version="0.2.5">tabix</requirement>
         <requirement type="package" version="0.1.11">vcftools</requirement>
     </requirements>
     
