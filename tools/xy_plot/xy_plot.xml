@@ -1,10 +1,10 @@
 <tool id="XY_Plot_1" name="Plotting tool" version="1.0.2">
     <description>for multiple series and graph types</description>
     <requirements>
-        <requirement type="package" version="3.4.1">r-base</requirement>
-        <requirement type="package" version="2.11.1">fontconfig</requirement>
+        <requirement type="package" version="3.3.1">r-base</requirement>
+        <requirement type="package" version="2.12.1">fontconfig</requirement>
     </requirements>
-    <command interpreter="bash">r_wrapper.sh $script_file</command>
+    <command>Rscript $script_file</command>
   <configfiles>
     <configfile name="script_file">
       ## Setup R error handling to go to stderr
