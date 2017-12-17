@@ -1,6 +1,0 @@
-<?xml version="1.0"?>
-<tool_dependency>
-    <package name="R" version="2.11.0">
-        <repository name="package_r_2_11_0" owner="devteam" />
-    </package>
-</tool_dependency>
