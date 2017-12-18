@@ -44,7 +44,8 @@
           <exit_code range="1:" />
           <exit_code range=":-1" />
           <regex match="Error:" />
-          <regex match="Exception:" />
+	  <regex match="Exception:" />
+	  <regex match="[bns_restore_core] Parse error reading" />
       </stdio>
   </xml>
 
