@@ -1,70 +1,97 @@
 <tool id="velveth" name="velveth" version="@WRAPPER_VERSION@.0">
   <description>Prepare a dataset for the Velvet velvetg Assembler</description>
-  <version_command>velveth 2&gt;&amp;1 | grep "Version" | sed -e 's/Version //'</version_command>
   <macros>
     <import>macros.xml</import>
   </macros>
   <expand macro="requirements"/>
   <expand macro="stdio"/>
-  <command interpreter="python">
-    velveth_wrapper.py
-           '$out_file1' '$out_file1.extra_files_path'
-           $hash_length
-           $strand_specific
-           #for $i in $inputs
-                ${i.file_format}
-                ${i.read_type}
-                ${i.input}
-           #end for
-  </command>
+  <version_command>velveth 2&gt;&amp;1 | grep "Version" | sed -e 's/Version //'</version_command>
+  <command><![CDATA[
+    export OMP_NUM_THREADS="\${GALAXY_SLOTS:-1}" &&
+    export OMP_THREAD_LIMIT="\${GALAXY_SLOTS:-1}" &&
+    velveth
+      '$out_file1.extra_files_path'
+      $hash_length
+      #for $i in $inputs
+          ${i.file_format}
+          ${i.read_type}
+          #if str( $i.input_type.input_type_selector ) == "paireds":
+              -separate $i.input1 $i.input2
+          #else if str( $i.input_type.input_type_selector ) == "pairedi":
+              -interleaved ${i.input}
+          #else:
+              ${i.input}
+          #end if
+      #end for
+      $strand_specific
+  ]]></command>
   <inputs>
-    <param label="Hash Length" name="hash_length" type="select" help="k-mer length in base pairs of the words being hashed.">
-      <option value="11">11</option>
-      <option value="13">13</option>
-      <option value="15">15</option>
-      <option value="17">17</option>
-      <option value="19">19</option>
-      <option value="21" selected="yes">21</option>
-      <option value="23">23</option>
-      <option value="25">25</option>
-      <option value="27">27</option>
-      <option value="29">29</option>
-    </param>
+      <param label="Hash Length" name="hash_length" type="integer" value="21" min="11" max="191" help="k-mer length in base pairs of the words being hashed."/>
     <param name="strand_specific" type="boolean" checked="false" truevalue="-strand_specific" falsevalue="" label="Use strand specific transcriptome sequencing" help="If you are using a strand specific transcriptome sequencing protocol, you may wish to use this option for better results."/>
     <repeat name="inputs" title="Input Files">
       <param label="file format" name="file_format" type="select">
-        <option value="-fasta" selected="yes">fasta</option>
+        <option value="-fasta" selected="true">fasta</option>
         <option value="-fastq">fastq</option>
-        <option value="-eland">eland</option>
-        <option value="-gerald">gerald</option>
+        <!--<option value="-raw">raw</option>-->
+        <option value="-fasta.gz">fasta.gz</option>
+        <option value="-fastq.gz">fastq.gz</option>
+        <!--<option value="-raw.gz">raw</option>-->
+        <option value="-fmtAuto">auto detect</option>
       </param>
-      <param label="read type" name="read_type" type="select">
-        <option value="-short" selected="yes">short reads</option>
-        <option value="-shortPaired">shortPaired reads</option>
-        <option value="-short2">short2 reads</option>
-        <option value="-shortPaired2">shortPaired2 reads</option>
-        <option value="-long">long reads</option>
-        <option value="-longPaired">longPaired reads</option>
-      </param>
-
-      <param name="input" type="data" format="fasta,fastq,eland,gerald" label="Dataset"/>
+      <conditional name="input_type">
+          <param name="input_type_selector" type="select" label="Choose the input type">
+              <option value="single" selected="true">Single ended</option>
+              <option value="paireds">separate paired end</option>
+              <option value="pairedi">interleaved paired end</option>
+          </param>
+          <when value="single">
+            <param label="read type" name="read_type" type="select">
+              <option value="-short" selected="true">short reads</option>
+              <option value="-short2">short2 reads</option>
+              <option value="-short3">short3 reads</option>
+              <option value="-short4">short4 reads</option>
+              <option value="-long">long reads</option>
+            </param>
+            <param name="input" type="data" format="fasta,fastq,fasta.gz,fastq.gz" label="Dataset"/>
+          </when>
+          <when value="paireds">
+            <param label="read type" name="read_type" type="select">
+              <option value="-shortPaired" selected="true">shortPaired reads</option>
+              <option value="-shortPaired2">shortPaired2 reads</option>
+              <option value="-shortPaired3">shortPaired3 reads</option>
+              <option value="-shortPaired4">shortPaired4 reads</option>
+              <option value="-longPaired">longPaired reads</option>
+            </param>
+            <param name="input1" type="data" format="fasta,fastq,fasta.gz,fastq.gz" label="Dataset"/>
+            <param name="input2" type="data" format="fasta,fastq,fasta.gz,fastq.gz" label="Dataset"/>
+          </when>
+          <when value="pairedi">
+            <param label="read type" name="read_type" type="select">
+              <option value="-shortPaired" selected="true">shortPaired reads</option>
+              <option value="-shortPaired2">shortPaired2 reads</option>
+              <option value="-shortPaired3">shortPaired3 reads</option>
+              <option value="-shortPaired4">shortPaired4 reads</option>
+              <option value="-longPaired">longPaired reads</option>
+            </param>
+            <param name="input" type="data" format="fasta,fastq,fasta.gz,fastq.gz" label="Dataset"/>
+          </when>
+      </conditional>
     </repeat>
   </inputs>
   <outputs>
     <data format="velvet" name="out_file1" />
   </outputs>
-  <requirements>
-    <requirement type="package">velvet</requirement>
-  </requirements>
   <tests>
     <test>
       <param name="hash_length" value="21" />
-      <param name="read_type" value="-shortPaired" />
-      <!-- <repeat name="inputs"> -->
-      <param name="file_format" value="fasta" />
-      <param name="read_type" value="shortPaired reads" />
-      <param name="input" value="velvet_test_reads.fa" ftype="fasta" />
-      <!-- </repeat> -->
+      <repeat name="inputs">
+        <param name="file_format" value="fasta" />
+        <conditional name="input_type">
+          <param name="input_type_selector" value="paired" />
+          <param name="read_type" value="-shortPaired" />
+          <param name="input" value="velvet_test_reads.fa" ftype="fasta" />
+        </conditional>
+      </repeat>
       <param name="strand_specific" value="" />
       <output name="out_file1" file="velveth_test1/output.html" lines_diff="4">
         <extra_files type="file" name='Sequences' value="velveth_test1/Sequences" compare="diff" />
