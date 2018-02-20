@@ -5,22 +5,21 @@
   </macros>
   <expand macro="requirements"/>
   <expand macro="stdio"/>
-  <version_command>velveth 2&gt;&amp;1 | grep "Version" | sed -e 's/Version //'</version_command>
+  <version_command><![CDATA[velveth 2>&1 | grep "Version" | sed -e 's/Version //']]></version_command>
   <command><![CDATA[
     export OMP_NUM_THREADS="\${GALAXY_SLOTS:-1}" &&
-    export OMP_THREAD_LIMIT="\${GALAXY_SLOTS:-1}" &&
     velveth
-      '$out_file1.extra_files_path'
+      '$outfile.extra_files_path'
       $hash_length
       #for $i in $inputs
           ${i.file_format}
-          ${i.read_type}
+          ${i.input_type.read_type}
           #if str( $i.input_type.input_type_selector ) == "paireds":
-              -separate $i.input1 $i.input2
+              -separate '${i.input_type.input1}' '${i.input_type.input2}'
           #else if str( $i.input_type.input_type_selector ) == "pairedi":
-              -interleaved ${i.input}
+              -interleaved '${i.input_type.input}'
           #else:
-              ${i.input}
+              '${i.input_type.input}'
           #end if
       #end for
       $strand_specific
@@ -55,7 +54,7 @@
             <param name="input" type="data" format="fasta,fastq,fasta.gz,fastq.gz" label="Dataset"/>
           </when>
           <when value="paireds">
-            <param label="read type" name="read_type" type="select">
+            <param label="read type" name="read_type" type="select" >
               <option value="-shortPaired" selected="true">shortPaired reads</option>
               <option value="-shortPaired2">shortPaired2 reads</option>
               <option value="-shortPaired3">shortPaired3 reads</option>
@@ -79,23 +78,64 @@
     </repeat>
   </inputs>
   <outputs>
-    <data format="velvet" name="out_file1" />
+    <data format="velvet" name="outfile" />
   </outputs>
   <tests>
     <test>
       <param name="hash_length" value="21" />
       <repeat name="inputs">
-        <param name="file_format" value="fasta" />
+        <param name="file_format" value="fastq" />
         <conditional name="input_type">
-          <param name="input_type_selector" value="paired" />
+          <param name="input_type_selector" value="paireds" />
           <param name="read_type" value="-shortPaired" />
-          <param name="input" value="velvet_test_reads.fa" ftype="fasta" />
+          <param name="input1" value="R1.fastq" ftype="fastq" />
+          <param name="input2" value="R2.fastq" ftype="fastq" />
         </conditional>
       </repeat>
       <param name="strand_specific" value="" />
-      <output name="out_file1" file="velveth_test1/output.html" lines_diff="4">
-        <extra_files type="file" name='Sequences' value="velveth_test1/Sequences" compare="diff" />
-        <extra_files type="file" name='Roadmaps' value="velveth_test1/Roadmaps" compare="diff" />
+      <output name="outfile" file="velveth_paireds.out">
+        <extra_files type="file" name='Sequences' value="velveth_paireds/Sequences" compare="diff" />
+        <extra_files type="file" name='Roadmaps' value="velveth_paireds/Roadmaps" compare="diff" />
+      </output>
+    </test>
+    <test>
+      <param name="hash_length" value="21" />
+      <repeat name="inputs">
+        <param name="file_format" value="fastq" />
+        <conditional name="input_type">
+          <param name="input_type_selector" value="single" />
+          <param name="read_type" value="-short" />
+          <param name="input" value="R1.fastq" ftype="fastq" />
+        </conditional>
+      </repeat>
+      <param name="strand_specific" value="" />
+      <output name="outfile" file="velveth_single.out">
+        <extra_files type="file" name='Sequences' value="velveth_single/Sequences" compare="diff" />
+        <extra_files type="file" name='Roadmaps' value="velveth_single/Roadmaps" compare="diff" />
+      </output>
+    </test>
+    <test>
+      <param name="hash_length" value="21" />
+      <repeat name="inputs">
+        <param name="file_format" value="fastq" />
+        <conditional name="input_type">
+          <param name="input_type_selector" value="single" />
+          <param name="read_type" value="-short" />
+          <param name="input" value="R1.fastq" ftype="fastq" />
+        </conditional>
+      </repeat>
+      <repeat name="inputs">
+        <param name="file_format" value="fastq" />
+        <conditional name="input_type">
+          <param name="input_type_selector" value="single" />
+          <param name="read_type" value="-short2" />
+          <param name="input" value="R2.fastq" ftype="fastq" />
+        </conditional>
+      </repeat>
+      <param name="strand_specific" value="" />
+      <output name="outfile" file="velveth_single.out">
+        <extra_files type="file" name='Sequences' value="velveth_single2/Sequences" compare="diff" />
+        <extra_files type="file" name='Roadmaps' value="velveth_single2/Roadmaps" compare="diff" />
       </output>
     </test>
   </tests>
