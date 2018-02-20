@@ -176,7 +176,7 @@
             <param name="max_divergence" value="-1." label="Maximum max_divergence (between .0 and 1., ignored when -1.)" type="float" help="maximum divergence rate between two branches in a bubble (default: .2)"/>
             <param name="max_gap_count" value="-1" label="Maximum gap count (ignored when -1)" type="integer" help="maximum number of gaps allowed in the alignment of the two branches of a bubble (default: 3)"/>
             <param name="min_pair_count" value="-1" label="Minimum read-pair count (ignored when -1)" type="integer" help="minimum number of paired end connections to justify the scaffolding of two long contigs (default: 10)"/>
-            <param name="coverage_mask" value="-1" label="Minimum coverage required for confident regions of contigs (ignored when -1)" type="integer" help=" minimum coverage required for confident regions of contigs (default: 1)"/>
+            <param name="max_coverage" value="-1." label="Maximum coverage exclusion(ignored when -1.)" type="float" help="Exclude data that has coverage more than this maximum coverage value"/>
             <param name="long_mult_cutoff" value="-1" label="Minimum number of long reads required to merge contigs (ignored when -1)" type="integer" help="minimum number of long reads required to merge contigs (default: 2)"/>
             <param name="scaffolding" type="boolean" checked="true" truevalue="-scaffolding yes" falsevalue="-scaffolding no" label="Use Scaffolding" help="Scaffold contigs that it cannot quite be connected (This results in sequences of Ns in the contigs)"/>
           </when>
