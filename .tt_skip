@@ -39,7 +39,6 @@ tools/macs
 tools/microsats_mutability
 tools/fastqsolexa_to_fasta_qual
 tools/pileup_interval
-tools/velvet
 tools/microsatellite_birthdeath
 tools/express
 tools/canonical_correlation_analysis
