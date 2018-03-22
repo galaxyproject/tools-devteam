@@ -1,15 +1,19 @@
-<tool id="cshl_fastq_quality_filter" version="1.0.0" name="Filter by quality">
+<tool id="cshl_fastq_quality_filter" version="@VERSION@" name="Filter by quality">
     <description></description>
-    <requirements>
-        <requirement type="package" version="0.0.13">fastx_toolkit</requirement>
-    </requirements>
+    <expand macro="requirements" />
+    <macros>
+        <import>fastx_macros.xml</import>
+    </macros>
     <command>
-<![CDATA[
-zcat -f < '$input' | fastq_quality_filter -q $quality -p $percent -v -o '$output'
-#if $input.ext == "fastqsanger":
-    -Q 33
-#end if
-]]>
+        <![CDATA[
+        zcat -f < '$input' | fastq_quality_filter -q $quality -p $percent -v -o '$output'
+        ## fastqsanger uses offset 33, illumina and solexa offset 64 (https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2847217/table/T1/)
+        #if $input.is_of_type(fastqsanger):
+            -Q 33
+        #elif $input.is_of_type(fastqillumina" or $input.is_of_type(fastqsolexa):
+            -Q 64
+        #end if
+        ]]>
     </command>
 
     <inputs>
