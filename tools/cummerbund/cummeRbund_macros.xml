@@ -6,14 +6,33 @@
     <macro name="log10_checkbox">
         <param name="log10" type="boolean" truevalue="--log10" falsevalue="" checked="True" label="Apply log10 transformation on FPKM values?"/>
     </macro>
+    <macro name="samples_meta">
+        <options>
+            <filter type="data_meta" ref="input_database" key="samples" />
+        </options>
+    </macro>
+    <macro name="genes_meta">
+        <options>
+            <filter type="data_meta" ref="input_database" key="genes" />
+        </options>
+    </macro>
+    <macro name="gene_selector">
+        <param name="gene_id" type="select" label="Gene ID">
+            <expand macro="genes_meta" />
+        </param>
+    </macro>
     <macro name="xy_selector">
-        <param name="x" type="select" label="Sample name for x axis" dynamic_options="get_samples(input_database.dataset.file_name)" />
-        <param name="y" type="select" label="Sample name for y axis" dynamic_options="get_samples(input_database.dataset.file_name)" />
+        <param name="x" type="select" label="Sample name for x axis">
+            <expand macro="samples_meta" />
+        </param>
+        <param name="y" type="select" label="Sample name for y axis">
+            <expand macro="samples_meta" />
+        </param>
     </macro>
     <macro name="genes_selector">
         <repeat name="genes" title="Genes" min="2">
             <!-- Cannot create a heatmap for less than two genes -->
-            <param name="gene_id" type="select" label="Gene ID" dynamic_options="get_genes(input_database.dataset.file_name)" />
+            <expand macro="gene_selector" />
         </repeat>
     </macro>
     <macro name="features_selector">
