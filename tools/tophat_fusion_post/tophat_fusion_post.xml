@@ -12,7 +12,7 @@
 
         ## Set up blast directory structure.
         #set blast_db_path = $__get_data_table_entry__('tophat_fusion_blastdb_indexes', 'dbkey', $accepted_hits.dbkey, 'path')
-        ln -s ${blast_db_path}/ blast;
+        ln -s '${blast_db_path}' ./blast;
 
         ## Set up additional files:
 	    ln -s ${blast_db_path}/refGene.txt .;
