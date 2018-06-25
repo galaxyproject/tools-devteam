@@ -1,6 +1,6 @@
 categories:
 - Genomic Interval Operations
-description: Concatenate two datasets into one dataset
+description: Concatenate two bed files
 name: concat
 owner: devteam
 homepage_url: https://github.com/galaxyproject/gops

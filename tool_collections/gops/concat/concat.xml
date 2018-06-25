@@ -1,5 +1,5 @@
-<tool id="gops_concat_1" name="Concatenate" version="1.0.1">
-    <description>two datasets into one dataset</description>
+<tool id="gops_concat_1" name="Concatenate" version="1.0.2">
+    <description>two BED files</description>
     <macros>
         <import>macros.xml</import>
     </macros>
