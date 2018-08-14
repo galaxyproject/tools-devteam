@@ -3,6 +3,10 @@
     <requirements>
         <requirement type="package" version="5.26.2.1">perl</requirement>
         <requirement type="package" version="3.4.1">r-base</requirement>
+        <requirement type="package" version="1.0_6">r-bitops</requirement>
+        <requirement type="package" version="1.7.5">r-waveslim</requirement>
+        <requirement type="package" version="4.6.8">r-wavethresh</requirement>
+        <requirement type="package" version="2.4_5">r-rwave</requirement>
     </requirements>
     <command>
       perl '$__tool_directory__/execute_dwt_var_perFeature.pl'
