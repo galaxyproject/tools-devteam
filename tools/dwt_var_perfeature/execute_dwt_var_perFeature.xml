@@ -2,6 +2,7 @@
     <description>using Discrete Wavelet Transfoms</description>
     <requirements>
         <requirement type="package" version="5.26.2.1">perl</requirement>
+        <requirement type="package" version="3.4.1">r-base</requirement>
     </requirements>
     <command>
       perl '$__tool_directory__/execute_dwt_var_perFeature.pl'
