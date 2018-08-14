@@ -4,7 +4,7 @@
         <requirement type="package" version="5.26.2.1">perl</requirement>
     </requirements>
     <command>
-      perl '$__tool__directory__/execute_dwt_var_perFeature.pl'
+      perl '$__tool_directory__/execute_dwt_var_perFeature.pl'
       '$inputFile'
         $feature
         $alpha
