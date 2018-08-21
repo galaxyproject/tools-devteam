@@ -16,7 +16,7 @@
         </param>
     </inputs>
     <outputs>
-        <data format="txt" name="out_file1" />
+        <data format="tabular" name="out_file1" />
     </outputs>
     <tests>
         <!--
