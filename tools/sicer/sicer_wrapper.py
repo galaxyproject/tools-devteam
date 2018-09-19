@@ -7,10 +7,11 @@ A wrapper script for running SICER (spatial clustering approach for the identifi
 
 import sys, optparse, os, tempfile, subprocess, shutil
 
+print(os.getcwd())
 CHUNK_SIZE = 2**20 #1mb
 
 #HACK! FIXME: allow using all specified builds, would currently require hacking SICER's "GenomeData.py" on the fly.
-VALID_BUILDS = [ 'mm8', 'mm9', 'hg18', 'hg19', 'dm2', 'dm3', 'sacCer1', 'pombe', 'rn4', 'tair8' ] 
+VALID_BUILDS = [ 'mm8', 'mm9', 'mm10', 'hg18', 'hg19', 'dm2', 'dm3', 'sacCer1', 'pombe', 'rn4', 'tair8' ] 
 
 def cleanup_before_exit( tmp_dir ):
     if tmp_dir and os.path.exists( tmp_dir ):
