@@ -5,10 +5,11 @@
   </macros>
   <expand macro="requirements"/>
   <expand macro="stdio"/>
-  <version_command><![CDATA[velvetg 2>&1 | grep "Version" | sed -e 's/Version //']]></version_command>
+  <version_command><![CDATA[velvetg 2>1 | grep "Version" | sed -e 's/Version //']]></version_command>
   <command><![CDATA[
+    cp -r '$input.extra_files_path' input && 
     velvetg
-           '$input.extra_files_path'
+           input
            #if $generate_amos.afg  == "yes":
                -amos_file $generate_amos.afg
            #end if
@@ -183,7 +184,8 @@
         </conditional>
       </when>
     </conditional>
-<!-- TODO	-coverage_mask
+<!-- TODO
+-coverage_mask
 -paired_exp_fraction
 -alignments
 -exportFiltered
@@ -192,27 +194,27 @@
 -shortMatePaired-->
   </inputs>
   <outputs>
-    <data format="txt" name="Graph2" label="${tool.name} on ${on_string}: Graph2" from_work_dir="Graph2">
+    <data format="txt" name="Graph2" label="${tool.name} on ${on_string}: Graph2" from_work_dir="input/Graph2">
       <filter>read_trkg is True</filter>
     </data>
-    <data format="txt" name="LastGraph" label="${tool.name} on ${on_string}: LastGraph" from_work_dir="LastGraph">
+    <data format="txt" name="LastGraph" label="${tool.name} on ${on_string}: LastGraph" from_work_dir="input/LastGraph">
       <filter>last_graph['generate_graph'] == "yes"</filter>
     </data>
-    <data format="afg" name="velvet_asm" label="${tool.name} on ${on_string}: AMOS.afg" from_work_dir="velvet_asm.afg">
+    <data format="afg" name="velvet_asm" label="${tool.name} on ${on_string}: AMOS.afg" from_work_dir="input/velvet_asm.afg">
       <filter>generate_amos['afg'] == "yes"</filter>
     </data>
-    <data format="fasta" name="unused_reads_fasta" label="${tool.name} on ${on_string}: Unused Reads" from_work_dir="UnusedReads.fa">
+    <data format="fasta" name="unused_reads_fasta" label="${tool.name} on ${on_string}: Unused Reads" from_work_dir="input/UnusedReads.fa">
       <filter>unused_reads['generate_unused'] == "yes"</filter>
     </data>
-    <data format="tabular" name="stats" label="${tool.name} on ${on_string}: Stats" from_work_dir="stats.txt" />
-    <data format="fasta" name="contigs" label="${tool.name} on ${on_string}: Contigs" from_work_dir="contigs.fa" />
+    <data format="tabular" name="stats" label="${tool.name} on ${on_string}: Stats" from_work_dir="input/stats.txt" />
+    <data format="fasta" name="contigs" label="${tool.name} on ${on_string}: Contigs" from_work_dir="input/contigs.fa" />
   </outputs>
   <tests>
     <test>
-      <param name="input" value="velveth_paireds.out" ftype="velvet" >
-        <composite_data value='velveth_paireds/Sequences'/>
-        <composite_data value='velveth_paireds/Roadmaps'/>
-        <composite_data value='velveth_paireds/Log'/>
+      <param name="input" value="velvetg_paired.out" ftype="velvet" >
+        <composite_data value='velvetg_paired/Sequences'/>
+        <composite_data value='velvetg_paired/Roadmaps'/>
+        <composite_data value='velvetg_paired/Log'/>
       </param>
       <param name="afg" value="yes" />
       <param name="generate_unused" value="yes" />
@@ -225,9 +227,9 @@
       <!--
       <output name="LastGraph" file="velvetg_test1/lastgraph.txt" compare="diff"/>
       -->
-      <output name="velvet_asm" file="velvetg_paired/amos.afg" compare="diff"/>
-      <output name="unused_reads_fasta" file="velvetg_paired/unusedreads.fa" compare="diff"/>
-      <output name="stats" file="velvetg_paired/stats.csv" compare="diff"/>
+      <output name="velvet_asm" file="velvetg_paired/velvet_asm.afg" compare="diff"/>
+      <output name="unused_reads_fasta" file="velvetg_paired/UnusedReads.fa" compare="diff"/>
+      <output name="stats" file="velvetg_paired/stats.txt" compare="diff"/>
       <output name="contigs" file="velvetg_paired/contigs.fa" compare="diff"/>
     </test>
   </tests>

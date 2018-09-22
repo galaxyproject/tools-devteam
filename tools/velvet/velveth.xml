@@ -5,7 +5,7 @@
   </macros>
   <expand macro="requirements"/>
   <expand macro="stdio"/>
-  <version_command><![CDATA[velveth 2>&1 | grep "Version" | sed -e 's/Version //']]></version_command>
+  <version_command><![CDATA[velveth 2>1 | grep "Version" | sed -e 's/Version //']]></version_command>
   <command><![CDATA[
     export OMP_NUM_THREADS="\${GALAXY_SLOTS:-1}" &&
     velveth
