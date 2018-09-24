@@ -27,7 +27,7 @@ python '$__tool_directory__/gops_join.py'
         </param>
     </inputs>
     <outputs>
-        <data name="output" format_source="input1" metadata_source="input1" />
+        <data name="output" format="interval" metadata_source="input1" />
     </outputs>
     <tests>
         <test>
