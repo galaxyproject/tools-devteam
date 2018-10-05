@@ -6,7 +6,7 @@
     </requirements>
     <command detect_errors="aggressive"><![CDATA[
         #if int($header_lines) > 0:
-            (sed -n '1,${header_lines}p' $input | sed  $"s/$/%${cond}/" | tr "%" "\t") > header &&
+            (sed -n '1,${header_lines}p' $input | sed  "s|$|%${cond}|" | tr "%" "\t") > header &&
             sed '1,${header_lines}d' $input > data &&
         #else:
             touch header &&
