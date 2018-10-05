@@ -5,13 +5,14 @@
         <requirement type="package" version="4.4">sed</requirement>
     </requirements>
     <command detect_errors="aggressive"><![CDATA[
-        #if int($header_lines) > 0:
-            (sed -n '1,${header_lines}p' $input | sed  "s|$|%${cond}|" | tr "%" "\t") > header &&
-            sed '1,${header_lines}d' $input > data &&
+        #if $header_lines_conditional.header_lines_select == "yes":
+            (sed -n '1,1p' $input | sed  "s|$|%${header_lines_conditional.header_new_colonne_name}|" | tr "%" "\t") > header &&
+            sed '1,1d' $input > data &&
         #else:
             touch header &&
             ln -s $input data &&
         #end if
+
         python $__tool_directory__/column_maker.py
             data column_maker_output
             "$cond"
@@ -27,7 +28,17 @@
             <option value="no">NO</option>
             <option value="yes">YES</option>
         </param>
-        <param name="header_lines" type="integer" value="0" label="Number of header lines to skip" />
+        <conditional name="header_lines_conditional">
+            <param name="header_lines_select" type="select" label="Skip a header line" help="# characters are already considered as comments and kept" >
+                <option value="no" >no</option>
+                <option value="yes" >yes</option>
+            </param>
+            <when value="no">
+            </when>
+            <when value="yes">
+                <param name="header_new_colonne_name" type="text" value="New Column" label="The new column name" />
+            </when>
+        </conditional>
     </inputs>
     <outputs>
         <data format_source="input" name="out_file1" metadata_source="input"/>
@@ -49,7 +60,10 @@
             <param name="cond" value="c4*1"/>
             <param name="input" value="1.header.tsv"/>
             <param name="round" value="no"/>
-            <param name="header_lines" value="1"/>
+            <conditional name="header_lines_conditional">
+                <param name="header_lines_select" value="yes" />
+                <param name="header_new_colonne_name" value="value1_again" />
+            </conditional>
             <output name="out_file1" file="column_maker_out2.header.tsv"/>
         </test>
         <test>
