@@ -28,7 +28,7 @@
   </command>
   <requirements>
     <requirement type="package" version="1.1">SICER</requirement>
-    <requirement type="package" version="1.1.0=py27hd20e5f9_0">scipy</requirement>
+    <requirement type="package" version="1.1.0">scipy</requirement>
   </requirements>
   <inputs>
     <param name="input_bed_file" type="data" format="bed" label="ChIP-Seq Tag File" >
