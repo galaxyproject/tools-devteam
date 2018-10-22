@@ -1,4 +1,4 @@
-<tool id="peakcalling_sicer" name="SICER" version="0.0.1">
+<tool id="peakcalling_sicer" name="SICER" version="0.0.2">
   <description>Statistical approach for the Identification of ChIP-Enriched Regions</description>
   <command interpreter="python">sicer_wrapper.py 
   --bed_file '${input_bed_file}' 
