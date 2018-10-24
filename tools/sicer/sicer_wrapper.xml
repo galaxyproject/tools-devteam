@@ -78,13 +78,13 @@
       <param name="effective_genome_fraction" value="0.74" />
       <param name="gap_size" value="600" />
       <param name="error_cut_off" value="0.01" />
-      <output name="redundancy_removed_test_bed_output_file" file="peakcalling_sicer/test_1/test-1-removed.bed" />
-      <output name="summary_graph_output_file" file="peakcalling_sicer/test_1/test-W200.graph" />
-      <output name="test_normalized_wig_output_file" file="peakcalling_sicer/test_1/test-W200-normalized.wig" />
-      <output name="island_filtered_output_file" file="peakcalling_sicer/test_1/test-W200-G600-E0.01-islandfiltered.bed" />
-      <output name="island_filtered_normalized_wig_output_file" file="peakcalling_sicer/test_1/test-W200-G600-E0.01-islandfiltered-normalized.wig" />
-      <output name="score_island_output_file" file="peakcalling_sicer/test_1/test-W200-G600-E0.01.scoreisland" />
-      <output name="output_log_file" file="peakcalling_sicer/test_1/output_log_file.contains" compare="contains"/>
+      <output name="redundancy_removed_test_bed_output_file" file="test-1-removed.bed" />
+      <output name="summary_graph_output_file" file="test_1_test-W200.graph" />
+      <output name="test_normalized_wig_output_file" file="test-W200-normalized.wig" />
+      <output name="island_filtered_output_file" file="test-W200-G600-E0.01-islandfiltered.bed" />
+      <output name="island_filtered_normalized_wig_output_file" file="test-W200-G600-E0.01-islandfiltered-normalized.wig" />
+      <output name="score_island_output_file" file="test_1_test-W200-G600-E0.01.scoreisland" />
+      <output name="output_log_file" file="test_1_output_log_file.contains" compare="contains"/>
     </test>
     <test>
       <param name="input_bed_file" value="chipseq_enriched.bed.gz" ftype="bed" dbkey="mm8" />
@@ -96,17 +96,17 @@
       <param name="effective_genome_fraction" value="0.74" />
       <param name="gap_size" value="600" />
       <param name="error_cut_off" value="0.01" />
-      <output name="redundancy_removed_test_bed_output_file" file="peakcalling_sicer/test_2/test-1-removed.bed" />
-      <output name="redundancy_removed_control_bed_output_file" file="peakcalling_sicer/test_2/control-1-removed.bed" />
-      <output name="summary_graph_output_file" file="peakcalling_sicer/test_2/test-W200.graph" />
-      <output name="test_normalized_wig_output_file" file="peakcalling_sicer/test_2/test-W200-normalized.wig" />
-      <output name="significant_islands_output_file" file="peakcalling_sicer/test_2/test-W200-G600-FDR0.01-island.bed" />
-      <output name="island_filtered_output_file" file="peakcalling_sicer/test_2/test-W200-G600-FDR0.01-islandfiltered.bed" />
-      <output name="island_filtered_normalized_wig_output_file" file="peakcalling_sicer/test_2/test-W200-G600-FDR0.01-islandfiltered-normalized.wig" />
-      <output name="score_island_output_file" file="peakcalling_sicer/test_2/test-W200-G600.scoreisland" />
-      <output name="islands_summary_output_file" file="peakcalling_sicer/test_2/test-W200-G600-islands-summary" />
-      <output name="significant_islands_summary_output_file" file="peakcalling_sicer/test_2/test-W200-G600-islands-summary-FDR0.01" />
-      <output name="output_log_file" file="peakcalling_sicer/test_2/output_log_file.contains" compare="contains"/>
+      <output name="redundancy_removed_test_bed_output_file" file="test-1-removed.bed" />
+      <output name="redundancy_removed_control_bed_output_file" file="control-1-removed.bed" />
+      <output name="summary_graph_output_file" file="test_1_test-W200.graph" />
+      <output name="test_normalized_wig_output_file" file="test-W200-normalized.wig" />
+      <output name="significant_islands_output_file" file="test_2_test-W200-G600-FDR0.01-island.bed" />
+      <output name="island_filtered_output_file" file="test-W200-G600-FDR0.01-islandfiltered.bed" />
+      <output name="island_filtered_normalized_wig_output_file" file="test-W200-G600-FDR0.01-islandfiltered-normalized.wig" />
+      <output name="score_island_output_file" file="test_2_test-W200-G600.scoreisland" />
+      <output name="islands_summary_output_file" file="test_2_test-W200-G600-islands-summary" />
+      <output name="significant_islands_summary_output_file" file="test_2_test-W200-G600-islands-summary-FDR0.01" />
+      <output name="output_log_file" file="test_2_output_log_file.contains" compare="contains"/>
     </test>
     <test>
       <param name="input_bed_file" value="chipseq_enriched.bed.gz" ftype="bed" dbkey="mm8" />
@@ -118,17 +118,17 @@
       <param name="effective_genome_fraction" value="0.74" />
       <param name="gap_size" value="600" />
       <param name="error_cut_off" value="0.01" />
-      <output name="redundancy_removed_test_bed_output_file" file="peakcalling_sicer/test_2/test-1-removed.bed" />
-      <output name="redundancy_removed_control_bed_output_file" file="peakcalling_sicer/test_2/control-1-removed.bed" />
-      <output name="summary_graph_output_file" file="peakcalling_sicer/test_3/test-W200.graph" />
-      <output name="test_normalized_wig_output_file" file="peakcalling_sicer/test_2/test-W200-normalized.wig" />
-      <output name="significant_islands_output_file" file="peakcalling_sicer/test_3/test-W200-G600-FDR0.01-island.bed" />
-      <output name="island_filtered_output_file" file="peakcalling_sicer/test_2/test-W200-G600-FDR0.01-islandfiltered.bed" />
-      <output name="island_filtered_normalized_wig_output_file" file="peakcalling_sicer/test_2/test-W200-G600-FDR0.01-islandfiltered-normalized.wig" />
-      <output name="score_island_output_file" file="peakcalling_sicer/test_3/test-W200-G600.scoreisland" />
-      <output name="islands_summary_output_file" file="peakcalling_sicer/test_3/test-W200-G600-islands-summary" />
-      <output name="significant_islands_summary_output_file" file="peakcalling_sicer/test_3/test-W200-G600-islands-summary-FDR0.01" />
-      <output name="output_log_file" file="peakcalling_sicer/test_2/output_log_file.contains" compare="contains"/>
+      <output name="redundancy_removed_test_bed_output_file" file="test-1-removed.bed" />
+      <output name="redundancy_removed_control_bed_output_file" file="control-1-removed.bed" />
+      <output name="summary_graph_output_file" file="test_3_test-W200.graph" />
+      <output name="test_normalized_wig_output_file" file="test-W200-normalized.wig" />
+      <output name="significant_islands_output_file" file="test_3_test-W200-G600-FDR0.01-island.bed" />
+      <output name="island_filtered_output_file" file="test-W200-G600-FDR0.01-islandfiltered.bed" />
+      <output name="island_filtered_normalized_wig_output_file" file="test-W200-G600-FDR0.01-islandfiltered-normalized.wig" />
+      <output name="score_island_output_file" file="test_3_test-W200-G600.scoreisland" />
+      <output name="islands_summary_output_file" file="test_3_test-W200-G600-islands-summary" />
+      <output name="significant_islands_summary_output_file" file="test_3_test-W200-G600-islands-summary-FDR0.01" />
+      <output name="output_log_file" file="test_2_output_log_file.contains" compare="contains"/>
     </test>
     <test>
       <param name="input_bed_file" value="chipseq_enriched.bed.gz" ftype="bed" dbkey="mm8" />
@@ -140,13 +140,13 @@
       <param name="effective_genome_fraction" value="0.74" />
       <param name="gap_size" value="600" />
       <param name="error_cut_off" value="0.01" />
-      <output name="redundancy_removed_test_bed_output_file" file="peakcalling_sicer/test_1/test-1-removed.bed" />
-      <output name="summary_graph_output_file" file="peakcalling_sicer/test_4/test-W200.graph" />
-      <output name="test_normalized_wig_output_file" file="peakcalling_sicer/test_1/test-W200-normalized.wig" />
-      <output name="island_filtered_output_file" file="peakcalling_sicer/test_1/test-W200-G600-E0.01-islandfiltered.bed" />
-      <output name="island_filtered_normalized_wig_output_file" file="peakcalling_sicer/test_1/test-W200-G600-E0.01-islandfiltered-normalized.wig" />
-      <output name="score_island_output_file" file="peakcalling_sicer/test_4/test-W200-G600-E0.01.scoreisland" />
-      <output name="output_log_file" file="peakcalling_sicer/test_1/output_log_file.contains" compare="contains"/>
+      <output name="redundancy_removed_test_bed_output_file" file="test-1-removed.bed" />
+      <output name="summary_graph_output_file" file="test_3_test-W200.graph" />
+      <output name="test_normalized_wig_output_file" file="test-W200-normalized.wig" />
+      <output name="island_filtered_output_file" file="test-W200-G600-E0.01-islandfiltered.bed" />
+      <output name="island_filtered_normalized_wig_output_file" file="test-W200-G600-E0.01-islandfiltered-normalized.wig" />
+      <output name="score_island_output_file" file="test_4_test-W200-G600-E0.01.scoreisland" />
+      <output name="output_log_file" file="test_1_output_log_file.contains" compare="contains"/>
     </test>
   </tests>
   <help>
