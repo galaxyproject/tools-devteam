@@ -63,7 +63,6 @@ tools/vcf2pgsnp
 tools/quality_filter
 tools/vcf_annotate
 tools/megablast_wrapper
-tools/sicer
 tools/compute_motif_frequencies_for_all_motifs
 tools/compute_motifs_frequency
 tools/rmapq
