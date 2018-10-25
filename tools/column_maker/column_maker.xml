@@ -1,13 +1,26 @@
-<tool id="Add_a_column1" name="Compute" version="1.1.0">
+<tool id="Add_a_column1" name="Compute" version="1.2.0">
     <description>an expression on every row</description>
-    <command>
-        python $__tool_directory__/column_maker.py
-            $input $out_file1
+    <requirements>
+        <requirement type="package" version="2.7.13">python</requirement>
+        <requirement type="package" version="4.4">sed</requirement>
+    </requirements>
+    <command detect_errors="aggressive"><![CDATA[
+        #if $header_lines_conditional.header_lines_select == "yes":
+            (sed -n '1,1p' '$input' | sed  "s|$|%${header_lines_conditional.header_new_column_name}|" | tr "%" "\t") > header &&
+            sed '1,1d' '$input' > data &&
+        #else:
+            touch header &&
+            ln -s '$input' data &&
+        #end if
+
+        python '$__tool_directory__/column_maker.py'
+            data column_maker_output
             "$cond"
             $round
             ${input.metadata.columns}
-            "${input.metadata.column_types}"
-    </command>
+            "${input.metadata.column_types}" &&
+        cat header column_maker_output > '$out_file1'
+    ]]></command>
     <inputs>
         <param name="cond" type="text" value="c3-c2" label="Add expression"/>
         <param format="tabular" name="input" type="data" label="as a new column to" help="Dataset missing? See TIP below"/>
@@ -15,9 +28,20 @@
             <option value="no">NO</option>
             <option value="yes">YES</option>
         </param>
+        <conditional name="header_lines_conditional">
+            <param name="header_lines_select" type="select" label="Skip a header line" help="# characters are already considered as comments and kept" >
+                <option value="no" >no</option>
+                <option value="yes" >yes</option>
+            </param>
+            <when value="no">
+            </when>
+            <when value="yes">
+                <param name="header_new_column_name" type="text" value="New Column" label="The new column name" />
+            </when>
+        </conditional>
     </inputs>
     <outputs>
-        <data format="input" name="out_file1" metadata_source="input"/>
+        <data format_source="input" name="out_file1" metadata_source="input"/>
     </outputs>
     <tests>
         <test>
@@ -31,6 +55,16 @@
             <param name="input" value="1.interval"/>
             <param name="round" value="no"/>
             <output name="out_file1" file="column_maker_out2.interval"/>
+        </test>
+        <test>
+            <param name="cond" value="c4*1"/>
+            <param name="input" value="1.header.tsv"/>
+            <param name="round" value="no"/>
+            <conditional name="header_lines_conditional">
+                <param name="header_lines_select" value="yes" />
+                <param name="header_new_column_name" value="value1_again" />
+            </conditional>
+            <output name="out_file1" file="column_maker_out2.header.tsv"/>
         </test>
         <test>
             <param name="cond" value="c4*1"/>
@@ -68,7 +102,7 @@ computing "c4*c5" will produce::
 
    chr1  151077881  151077918  2  200  -   400.0
    chr1  151081985  151082078  3  500  +  1500.0
-    
+
 if, at the same time, "Round result?" is set to **YES** results will look like this::
 
    chr1  151077881  151077918  2  200  -   400
@@ -96,4 +130,5 @@ The following build-in functions are available::
   round | sorted | sqrt | str | sum | type | unichr | unicode |
 
     </help>
+    <citations />
 </tool>
