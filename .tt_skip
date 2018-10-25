@@ -55,7 +55,6 @@ tools/rmap
 tools/weightedaverage
 tools/annotation_profiler
 tools/megablast_xml_parser
-tools/correlation
 tools/merge_cols
 tools/microsats_alignment_level
 tools/bowtie_color_wrappers
