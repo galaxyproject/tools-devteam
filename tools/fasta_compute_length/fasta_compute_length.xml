@@ -1,18 +1,50 @@
-<tool id="fasta_compute_length" name="Compute sequence length" version="1.0.1">
+<?xml version="1.0"?>
+<tool id="fasta_compute_length" name="Compute sequence length" version="1.0.2">
     <description></description>
     <command>
+    #if $ref.ref_source == 'dbkey':
+        cp '${ref.index.fields.len_path}' '$output'
+    #else:
         python $__tool_directory__/fasta_compute_length.py
+          #if $ref.ref_source == 'history':
             '$input'
+          #else:
+            '${ref.index.fields.path}'
+          #end if
             '$output'
-            $keep_first
-            $keep_first_word
+            $ref.keep_first
+            $ref.keep_first_word
+    #end if
     </command>
     <inputs>
-        <param name="input" type="data" format="fasta" label="Compute length for these sequences"/>
-        <param name="keep_first" type="integer" value="0" label="How many title characters to keep?" help="'0' = keep the whole thing"/>
-        <param name="keep_first_word" type="boolean" truevalue="id_only" falsevalue="id_and_desc"
-            selected="false" label="Strip fasta description from header?"
-            help="Stripping the description will truncate the fasta header to just the sequence ID. Otherwise the header description will be kept. This step is done before the 'How many characters to keep' option."/>
+        <conditional name="ref">
+            <param name="ref_source" type="select" label="Sequences">
+                <option value="history" selected="True">From History</option>
+                <option value="dbkey">Locally Cached (pre-built length files)</option>
+                <option value="fasta">Locally Cached (full genomes)</option>
+            </param>
+            <when value="history">
+                <param name="input" type="data" format="fasta" label="Compute length for these sequences"/>
+                <param name="keep_first" type="integer" value="0" label="How many title characters to keep?" help="'0' = keep the whole thing"/>
+                <param name="keep_first_word" type="boolean" truevalue="id_only" falsevalue="id_and_desc"
+                    selected="false" label="Strip fasta description from header?"
+                    help="Stripping the description will truncate the fasta header to just the sequence ID. Otherwise the header description will be kept. This step is done before the 'How many characters to keep' option."/>
+            </when>
+            <when value="dbkey">
+                <param name="index" type="select" label="Source Genome Build">
+                    <options from_data_table="__dbkeys__"/>
+                </param>
+            </when>
+            <when value="fasta">
+                <param name="index" type="select" label="Source Genome Build">
+                    <options from_data_table="all_fasta"/>
+                </param>
+                <param name="keep_first" type="integer" value="0" label="How many title characters to keep?" help="'0' = keep the whole thing"/>
+                <param name="keep_first_word" type="boolean" truevalue="id_only" falsevalue="id_and_desc"
+                    selected="false" label="Strip fasta description from header?"
+                    help="Stripping the description will truncate the fasta header to just the sequence ID. Otherwise the header description will be kept. This step is done before the 'How many characters to keep' option."/>
+            </when>
+        </conditional>
 
     </inputs>
     <outputs>
@@ -20,23 +52,23 @@
     </outputs>
     <tests>
         <test>
-            <param name="input" value="454.fasta" />
-            <param name="keep_first" value="0"/>
-            <param name="keep_first_word" value="id_and_desc" />
+            <param name="ref|input" value="454.fasta" />
+            <param name="ref|keep_first" value="0"/>
+            <param name="ref|keep_first_word" value="id_and_desc" />
             <output name="output" file="fasta_tool_compute_length_1.out" />
         </test>
 
         <test>
-            <param name="input" value="extract_genomic_dna_out1.fasta" />
-            <param name="keep_first" value="0"/>
-            <param name="keep_first_word" value="id_and_desc" />
+            <param name="ref|input" value="extract_genomic_dna_out1.fasta" />
+            <param name="ref|keep_first" value="0"/>
+            <param name="ref|keep_first_word" value="id_and_desc" />
             <output name="output" file="fasta_tool_compute_length_2.out" />
         </test>
 
         <test>
-            <param name="input" value="454.fasta" />
-            <param name="keep_first" value="14"/>
-            <param name="keep_first_word" value="id_and_desc" />
+            <param name="ref|input" value="454.fasta" />
+            <param name="ref|keep_first" value="14"/>
+            <param name="ref|keep_first_word" value="id_and_desc" />
             <output name="output" file="fasta_tool_compute_length_3.out" />
         </test>
     </tests>
