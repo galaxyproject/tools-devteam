@@ -71,6 +71,13 @@
             <param name="ref|keep_first_word" value="id_and_desc" />
             <output name="output" file="fasta_tool_compute_length_3.out" />
         </test>
+
+        <test>
+            <param name="ref|ref_source" value="fasta" />
+            <param name="ref|index" value="test_id"/>
+            <param name="ref|keep_first_word" value="id_only" />
+            <output name="output" file="merged.tab" />
+        </test>
     </tests>
     <help>
 
