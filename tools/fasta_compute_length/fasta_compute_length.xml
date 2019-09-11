@@ -27,7 +27,7 @@
                 <param name="input" type="data" format="fasta" label="Compute length for these sequences"/>
                 <param name="keep_first" type="integer" value="0" label="How many title characters to keep?" help="'0' = keep the whole thing"/>
                 <param name="keep_first_word" type="boolean" truevalue="id_only" falsevalue="id_and_desc"
-                    selected="false" label="Strip fasta description from header?"
+                    label="Strip fasta description from header?"
                     help="Stripping the description will truncate the fasta header to just the sequence ID. Otherwise the header description will be kept. This step is done before the 'How many characters to keep' option."/>
             </when>
             <when value="dbkey">
@@ -41,7 +41,7 @@
                 </param>
                 <param name="keep_first" type="integer" value="0" label="How many title characters to keep?" help="'0' = keep the whole thing"/>
                 <param name="keep_first_word" type="boolean" truevalue="id_only" falsevalue="id_and_desc"
-                    selected="false" label="Strip fasta description from header?"
+                    label="Strip fasta description from header?"
                     help="Stripping the description will truncate the fasta header to just the sequence ID. Otherwise the header description will be kept. This step is done before the 'How many characters to keep' option."/>
             </when>
         </conditional>
