@@ -78,6 +78,12 @@
             <param name="ref|keep_first_word" value="id_only" />
             <output name="output" file="merged.tab" />
         </test>
+
+        <test>
+            <param name="ref|ref_source" value="dbkey" />
+            <param name="ref|index" value="test_id"/>
+            <output name="output" file="merged.tab" />
+        </test>
     </tests>
     <help>
 
