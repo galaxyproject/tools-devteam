@@ -1,24 +1,27 @@
-<tool id="velveth" name="velveth" version="@WRAPPER_VERSION@.0">
+<tool id="velveth" name="velveth" version="@WRAPPER_VERSION@.1">
   <description>Prepare a dataset for the Velvet velvetg Assembler</description>
-  <version_command>velveth 2&gt;&amp;1 | grep "Version" | sed -e 's/Version //'</version_command>
   <macros>
     <import>macros.xml</import>
   </macros>
   <expand macro="requirements"/>
   <expand macro="stdio"/>
-  <command interpreter="python">
-    velveth_wrapper.py
-           '$out_file1' '$out_file1.extra_files_path'
-           $hash_length
-           $strand_specific
-           #for $i in $inputs
-                ${i.file_format}
-                ${i.read_type}
-                ${i.input}
-           #end for
-  </command>
+  <version_command><![CDATA[
+    velveth 2>&1 | grep "Version" | sed -e 's/Version //'
+  ]]></version_command>
+  <command><![CDATA[
+mkdir -p '${out_file1.extra_files_path}' &&
+velveth
+'${out_file1.extra_files_path}'
+$hash_length
+$strand_specific
+#for $i in $inputs
+    ${i.file_format}
+    ${i.read_type}
+    '${i.input}'
+#end for
+  ]]></command>
   <inputs>
-    <param label="Hash Length" name="hash_length" type="select" help="k-mer length in base pairs of the words being hashed.">
+    <param name="hash_length" type="select" label="Hash length" help="k-mer length in base pairs of the words being hashed">
       <option value="11">11</option>
       <option value="13">13</option>
       <option value="15">15</option>
@@ -111,11 +114,8 @@
     </repeat>
   </inputs>
   <outputs>
-    <data format="velvet" name="out_file1" />
+    <data name="out_file1" format="velvet" />
   </outputs>
-  <requirements>
-    <requirement type="package">velvet</requirement>
-  </requirements>
   <tests>
     <test>
       <param name="hash_length" value="21" />
@@ -127,13 +127,12 @@
       <!-- </repeat> -->
       <param name="strand_specific" value="" />
       <output name="out_file1" file="velveth_test1/output.html" lines_diff="4">
-        <extra_files type="file" name='Sequences' value="velveth_test1/Sequences" compare="diff" />
-        <extra_files type="file" name='Roadmaps' value="velveth_test1/Roadmaps" compare="diff" />
+        <extra_files type="file" name="Sequences" value="velveth_test1/Sequences" />
+        <extra_files type="file" name="Roadmaps" value="velveth_test1/Roadmaps" />
       </output>
     </test>
   </tests>
-  <help>
-
+  <help><![CDATA[
 **What it does**
 
 Velvet_ is a de novo genomic assembler specially designed for short read sequencing technologies, such as Solexa or 454, developed by Daniel Zerbino and Ewan Birney at the European Bioinformatics Institute (EMBL-EBI), near Cambridge, in the United Kingdom.
@@ -190,7 +189,6 @@ Read categories are::
   shortPaired2 (see above)
   long (for Sanger, 454 or even reference sequences)
   longPaired
-
-  </help>
+  ]]></help>
   <expand macro="citation"/>
 </tool>
