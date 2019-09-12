@@ -92,6 +92,27 @@ $strand_specific
       <option value="145">145</option>
       <option value="147">147</option>
       <option value="149">149</option>
+      <option value="151">151</option>
+      <option value="153">153</option>
+      <option value="155">155</option>
+      <option value="157">157</option>
+      <option value="159">159</option>
+      <option value="161">161</option>
+      <option value="163">163</option>
+      <option value="165">165</option>
+      <option value="167">167</option>
+      <option value="169">169</option>
+      <option value="171">171</option>
+      <option value="173">173</option>
+      <option value="175">175</option>
+      <option value="177">177</option>
+      <option value="179">179</option>
+      <option value="181">181</option>
+      <option value="183">183</option>
+      <option value="185">185</option>
+      <option value="187">187</option>
+      <option value="189">189</option>
+      <option value="191">191</option>
     </param>
     <param name="strand_specific" type="boolean" checked="false" truevalue="-strand_specific" falsevalue="" label="Use strand specific transcriptome sequencing" help="If you are using a strand specific transcriptome sequencing protocol, you may wish to use this option for better results."/>
     <repeat name="inputs" title="Input Files">
