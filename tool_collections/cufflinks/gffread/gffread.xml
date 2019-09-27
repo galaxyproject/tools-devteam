@@ -1,4 +1,4 @@
-<tool id="gffread" name="gffread" version="@VERSION@.1">
+<tool id="gffread" name="gffread" version="@VERSION@.2">
     <description>Filters and/or converts GFF3/GTF2 records</description>
     <macros>
         <import>cuff_macros.xml</import>
@@ -84,6 +84,11 @@
     #if $chr_replace:
         -m '$chr_replace'
     #end if
+
+    $full_gff_attribute_preservation
+    $decode_url
+    $expose
+
     ##
     ## Although documented, does not appear to be used in the gffread code
     ## #if $seq_info:
