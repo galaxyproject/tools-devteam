@@ -267,6 +267,13 @@
         </test>
 
         <test>
+            <param name="input" ftype="gtf" value="ecoli-k12.gff3"/>
+            <param name="gff_fmt" value="gff"/>
+            <param name="full_gff_attribute_preservation" value="-F"/>
+            <output name="output_gff" file="ecoli-k12.processed.gff3" ftype="gff3" lines_diff="2" />
+        </test>
+
+        <test>
             <param name="input" ftype="gtf" value="Homo_sapiens.GRCh37_19.71.gtf"/>
             <param name="filtering" value="--no-pseudo"/>
             <param name="gff_fmt" value="gtf"/>
