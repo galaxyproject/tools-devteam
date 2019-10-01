@@ -1,4 +1,4 @@
-<tool id="gffread" name="gffread" version="@VERSION@.1">
+<tool id="gffread" name="gffread" version="@VERSION@.2">
     <description>Filters and/or converts GFF3/GTF2 records</description>
     <macros>
         <import>cuff_macros.xml</import>
@@ -84,6 +84,11 @@
     #if $chr_replace:
         -m '$chr_replace'
     #end if
+
+    $full_gff_attribute_preservation
+    $decode_url
+    $expose
+
     ##
     ## Although documented, does not appear to be used in the gffread code
     ## #if $seq_info:
@@ -259,6 +264,13 @@
             <param name="input" ftype="gtf" value="Homo_sapiens.GRCh37_19.71.gtf"/>
             <param name="gff_fmt" value="gff"/>
             <output name="output_gff" file="Homo_sapiens.GRCh37_19.71.gff3" ftype="gff3" lines_diff="2" />
+        </test>
+
+        <test>
+            <param name="input" ftype="gtf" value="ecoli-k12.gff3"/>
+            <param name="gff_fmt" value="gff"/>
+            <param name="full_gff_attribute_preservation" value="-F"/>
+            <output name="output_gff" file="ecoli-k12.processed.gff3" ftype="gff3" lines_diff="2" />
         </test>
 
         <test>
