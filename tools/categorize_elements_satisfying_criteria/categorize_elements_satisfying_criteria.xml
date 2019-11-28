@@ -33,7 +33,7 @@ The program takes as input a set of categories, such that each category contains
 
 - The first input is a TABULAR format file, such that the left column represents the names of categories and, all other columns represent the names of elements in each category.
 - The second input is a TABULAR format file relating elements with criteria, such that the first line represents the names of criteria and the left column represents the names of elements.
-- The output is a TABULAR format file relating catergories with criteria, such that each categoy is assigned a number representing the total number of times its elements satisfies a certain criterion.. Each category is assigned as many numbers as criteria.
+- The output is a TABULAR format file relating categories with criteria, such that each categoy is assigned a number representing the total number of times its elements satisfies a certain criterion.. Each category is assigned as many numbers as criteria.
 
 
 **Example**
