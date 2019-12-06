@@ -25,7 +25,7 @@
 		<test>
 			<param name="input" value="4.fasta" />
 			<param name="min_length" value="0" />
-			<param name="max_length" value="60" />
+			<param name="max_length" value="54" />
 			<output name="output" file="fasta_tool_filter_length_2.out" />
 		</test>
 	</tests>
