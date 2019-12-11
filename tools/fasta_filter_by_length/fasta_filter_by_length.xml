@@ -1,4 +1,4 @@
-<tool id="fasta_filter_by_length" name="Filter sequences by length" version="1.2">
+<tool id="fasta_filter_by_length" name="Filter sequences by length" version="1.1">
 	<description></description>
 	<command>
 		python $__tool_directory__/fasta_filter_by_length.py
