@@ -38,7 +38,7 @@ def __main__():
             tmp_buf = line
             tmp_size = 0                                                       
         else:
-            if max_length == 0 or tmp_size < max_length:
+            if max_length == 0 or tmp_size <= max_length:
                 tmp_size += len(line.rstrip('\r\n'))
                 tmp_buf += line
     # final flush of buffer
