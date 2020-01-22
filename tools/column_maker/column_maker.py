@@ -7,6 +7,7 @@ import sys, re
 # These functions may be used in compute expression:
 from math import log,exp,sqrt,ceil,floor
 
+from numpy import format_float_positional
 
 assert sys.version_info[:2] >= ( 2, 4 )
 
@@ -31,6 +32,7 @@ except:
     stop_err( "Missing or invalid 'column_types' metadata value, click the pencil icon in the history item and select the Auto-detect option to correct it.  This tool can only be used with tab-delimited data." )
 if len( in_column_types ) != in_columns:
     stop_err( "The 'columns' metadata setting does not conform to the 'column_types' metadata setting, click the pencil icon in the history item and select the Auto-detect option to correct it.  This tool can only be used with tab-delimited data." )
+avoid_scientific_notation = sys.argv[7]
     
 # Unescape if input has been escaped
 mapped_str = {
@@ -52,6 +54,8 @@ string_and_list_methods = [ name for name in dir('') + dir([]) if not name.start
 whitelist = "^([c0-9\+\-\*\/\(\)\.\'\"><=,:! ]|%s|%s|%s)*$" % (operators, builtin_and_math_functions, '|'.join(string_and_list_methods))
 if not re.compile(whitelist).match(expr):
     stop_err("Invalid expression")
+if avoid_scientific_notation == "yes":
+    expr = "format_float_positional(%s)" % expr
 
 # Prepare the column variable names and wrappers for column data types
 cols, type_casts = [], []
