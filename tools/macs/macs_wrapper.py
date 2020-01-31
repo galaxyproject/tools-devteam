@@ -122,14 +122,14 @@ def main():
             os.rmdir( wig_base_dir )
     
     #move all remaining files to extra files path of html file output to allow user download
-    out_html = open( output_extra_html, 'wb' )
+    out_html = open( output_extra_html, 'w' )
     out_html.write( '<html><head><title>Additional output created by MACS (%s)</title></head><body><h3>Additional Files:</h3><p><ul>\n' % experiment_name )
     os.mkdir( output_extra_path )
     for filename in sorted( os.listdir( tmp_dir ) ):
         shutil.move( os.path.join( tmp_dir, filename ), os.path.join( output_extra_path, filename ) )
         out_html.write( '<li><a href="%s">%s</a></li>\n' % ( filename, filename ) )
     out_html.write( '</ul></p>\n' )
-    out_html.write( '<h3>Messages from MACS:</h3>\n<p><pre>%s</pre></p>\n' % open( stderr_name, 'rb' ).read() )
+    out_html.write( '<h3>Messages from MACS:</h3>\n<p><pre>%s</pre></p>\n' % open( stderr_name, 'r' ).read() )
     out_html.write( '</body></html>\n' )
     out_html.close()
     
