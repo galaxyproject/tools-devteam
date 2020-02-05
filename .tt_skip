@@ -73,7 +73,6 @@ tools/t_test_two_samples
 tools/logistic_regression_vif
 tools/vcf_filter
 tools/hisat
-tools/sam2interval
 tools/tophat_fusion_post
 tools/short_reads_figure_high_quality_length
 tools/short_reads_figure_score
