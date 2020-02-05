@@ -1,5 +1,8 @@
 <tool id="sam2interval" name="Convert SAM" version="1.0.2" profile="16.04">
   <description>to interval</description>
+  <requirements>
+    <requirement type="package" version="3.7">python</requirement>
+  </requirements>
   <command>
     python '$__tool_directory__/sam2interval.py' --input_sam_file='$input1' $print_all > '$out_file1'
   </command>
