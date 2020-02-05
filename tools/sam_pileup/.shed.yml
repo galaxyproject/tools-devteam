@@ -9,6 +9,6 @@ long_description: |
   dataset with consensus is generated.
 name: sam_pileup
 owner: devteam
-homepage_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/sam_pileup
+homepage_url: https://www.htslib.org/
 remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/sam_pileup
 type: unrestricted
