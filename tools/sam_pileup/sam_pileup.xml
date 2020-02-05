@@ -53,7 +53,7 @@
       </when>
       <when value="history">
         <param name="input1" type="data" format="bam" label="Select the BAM file to generate the pileup file for" />
-        <param name="ownFile" type="data" format="fasta" metadata_name="dbkey" label="Select a reference genome" />
+        <param name="ownFile" type="data" format="fasta" label="Select a reference genome" />
       </when>
     </conditional>
     <param name="lastCol" type="select" label="Whether or not to print the mapping quality as the last column" help="Makes the output easier to parse, but is space inefficient">
