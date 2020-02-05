@@ -30,9 +30,10 @@ from bx.cookbook import doc_optparse
 
 
 def stop_err(msg, e=None):
+    sys.stderr.write('%s\n' % msg)
     if e is not None:
         raise e
-    sys.exit('%s\n' % msg)
+    sys.exit(1)
 
 
 def __main__():
@@ -55,7 +56,7 @@ def __main__():
         else:
             raise Exception
     except Exception:
-        sys.stdout.write('Could not determine Samtools version\n')
+        stop_err('Could not determine Samtools version\n')
     # prepare file names
     tmpDir = tempfile.mkdtemp()
     tmpf0 = tempfile.NamedTemporaryFile(dir=tmpDir)
