@@ -63,7 +63,7 @@ temp_name = temp_out.name
 temp_out.close()
 
 # Get column type based on label or consensus.
-col_types = range(len(col_type_counts))
+col_types = list(range(len(col_type_counts)))
 for i, counts in enumerate(col_type_counts):
     if i in numerical_cols:
         col_type = 'number'
@@ -79,7 +79,7 @@ for line in open(temp_name, 'r'):
     for i, f in enumerate(fields):
         if fields[i] == TARGET and col_types[i] == 'number':
             fields[i] = str(REPLACEMENT)
-    print SEPARATOR.join(fields)
+    print(SEPARATOR.join(fields))
 
 # Clean up temp file.
 temp_out.close()
