@@ -1,76 +1,79 @@
-<tool id="velvetg" name="velvetg" version="@WRAPPER_VERSION@.0">
+<tool id="velvetg" name="velvetg" version="@WRAPPER_VERSION@.1">
   <description>Velvet sequence assembler for very short reads</description>
-  <version_command>velvetg 2&gt;&amp;1 | grep "Version" | sed -e 's/Version //'</version_command>
   <macros>
     <import>macros.xml</import>
   </macros>
   <expand macro="requirements"/>
   <expand macro="stdio"/>
-  <command interpreter="python">
-    velvetg_wrapper.py
-           '$input.extra_files_path'
-           #if $generate_amos.afg  == "yes":
-               -amos_file $generate_amos.afg
-           #end if
-           #if $unused_reads.generate_unused  == "yes":
-               -unused_reads $unused_reads.generate_unused
-           #end if
-           $read_trkg
-           #if $coverage.cutoff == "auto":
-               -cov_cutoff auto
-           #elif $coverage.cutoff == "value":
-               -cov_cutoff $coverage.cov_cutoff
-           #end if
-           #if $expected.coverage == "auto":
-               -exp_cov auto
-           #elif $expected.coverage == "value":
-               -exp_cov $expected.exp_cov
-           #end if
-           #if $contig_lgth.use_contig_lgth == "yes":
-               -min_contig_lgth $contig_lgth.min_contig_lgth
-           #end if
-           #if $reads.paired == "yes":
-               #if int($reads.ins_length) > 0:
-                   -ins_length $reads.ins_length
-               #end if
-               #if $reads.options.advanced == "yes":
-                   #if int($reads.options.ins_length_sd) > 0:
-                       -ins_length_sd $reads.options.ins_length_sd
-                   #end if
-                   #if int($reads.options.ins_length2) > 0:
-                       -ins_length2 $reads.options.ins_length2
-                   #end if
-                   #if int($reads.options.ins_length2_sd) > 0:
-                       -ins_length2_sd $reads.options.ins_length2_sd
-                   #end if
-                   #if int($reads.options.ins_length_long) > 0:
-                       -ins_length_long $reads.options.ins_length_long
-                   #end if
-                   #if int($reads.options.ins_length_long_sd) > 0:
-                       -ins_length_long_sd $reads.options.ins_length_long_sd
-                   #end if
-                   #if int($reads.options.max_branch_length) > 0:
-                       -max_branch_length $reads.options.max_branch_length
-                   #end if
-                   #if int($reads.options.max_divergence) > 0:
-                       -max_divergence $reads.options.max_divergence
-                   #end if
-                   #if int($reads.options.max_gap_count) > 0:
-                       -max_gap_count $reads.options.max_gap_count
-                   #end if
-                   #if int($reads.options.min_pair_count) > 0:
-                       -min_pair_count $reads.options.min_pair_count
-                   #end if
-                   #if int($reads.options.max_coverage) > 0:
-                       -max_coverage $reads.options.max_coverage
-                   #end if
-                   #if int($reads.options.long_mult_cutoff) > 0:
-                       -long_mult_cutoff $reads.options.long_mult_cutoff
-                   #end if
-                   $reads.options.scaffolding
-               #end if
-           #end if
-  </command>
+  <version_command><![CDATA[
+    velvetg 2>&1 | grep "Version" | sed -e 's/Version //'
+  ]]></version_command>
+  <command><![CDATA[
+ln -s '$input.extra_files_path'/Roadmaps &&
+ln -s '$input.extra_files_path'/Sequences &&
+velvetg .
+#if $generate_amos.afg  == "yes":
+    -amos_file $generate_amos.afg
+#end if
+#if $unused_reads.generate_unused  == "yes":
+    -unused_reads $unused_reads.generate_unused
+#end if
+$read_trkg
+#if $coverage.cutoff == "auto":
+    -cov_cutoff auto
+#elif $coverage.cutoff == "value":
+    -cov_cutoff $coverage.cov_cutoff
+#end if
+#if $expected.coverage == "auto":
+    -exp_cov auto
+#elif $expected.coverage == "value":
+    -exp_cov $expected.exp_cov
+#end if
+#if $contig_lgth.use_contig_lgth == "yes":
+    -min_contig_lgth $contig_lgth.min_contig_lgth
+#end if
+#if $reads.paired == "yes":
+    #if int($reads.ins_length) > 0:
+        -ins_length $reads.ins_length
+    #end if
+    #if $reads.options.advanced == "yes":
+        #if int($reads.options.ins_length_sd) > 0:
+            -ins_length_sd $reads.options.ins_length_sd
+        #end if
+        #if int($reads.options.ins_length2) > 0:
+            -ins_length2 $reads.options.ins_length2
+        #end if
+        #if int($reads.options.ins_length2_sd) > 0:
+            -ins_length2_sd $reads.options.ins_length2_sd
+        #end if
+        #if int($reads.options.ins_length_long) > 0:
+            -ins_length_long $reads.options.ins_length_long
+        #end if
+        #if int($reads.options.ins_length_long_sd) > 0:
+            -ins_length_long_sd $reads.options.ins_length_long_sd
+        #end if
+        #if int($reads.options.max_branch_length) > 0:
+            -max_branch_length $reads.options.max_branch_length
+        #end if
+        #if int($reads.options.max_divergence) > 0:
+            -max_divergence $reads.options.max_divergence
+        #end if
+        #if int($reads.options.max_gap_count) > 0:
+            -max_gap_count $reads.options.max_gap_count
+        #end if
+        #if int($reads.options.min_pair_count) > 0:
+            -min_pair_count $reads.options.min_pair_count
+        #end if
+        #if int($reads.options.max_coverage) > 0:
+            -max_coverage $reads.options.max_coverage
+        #end if
+        #if int($reads.options.long_mult_cutoff) > 0:
+            -long_mult_cutoff $reads.options.long_mult_cutoff
+        #end if
+        $reads.options.scaffolding
+    #end if
+#end if
+  ]]></command>
   <inputs>
     <param name="input" type="data" format="velvet" label="Velvet Dataset" help="Prepared by velveth."/>
     <conditional name="generate_amos">
@@ -142,7 +145,7 @@
     <conditional name="reads">
       <param name="paired" type="select" label="Using Paired Reads">
         <option value="no">No</option>
-        <option value="yes" selected="${input.metadata.paired_end_reads}">Yes</option>
+        <option value="yes">Yes</option>
       </param>
       <when value="no"/>
       <when value="yes">
@@ -188,15 +191,12 @@
     <data format="tabular" name="stats" label="${tool.name} on ${on_string}: Stats" from_work_dir="stats.txt" />
     <data format="fasta" name="contigs" label="${tool.name} on ${on_string}: Contigs" from_work_dir="contigs.fa" />
   </outputs>
-  <requirements>
-    <requirement type="package">velvet</requirement>
-  </requirements>
   <tests>
     <test>
-      <param name="input" value="velveth_test1/output.html" ftype="velvet" >
-        <composite_data value='velveth_test1/Sequences' ftype="Sequences"/>
-        <composite_data value='velveth_test1/Roadmaps' ftype="Roadmaps"/>
-        <composite_data value='velveth_test1/Log'/>
+      <param name="input" value="velveth_test1/output.html" ftype="velvet">
+        <composite_data value="velveth_test1/Sequences" />
+        <composite_data value="velveth_test1/Roadmaps" />
+        <composite_data value="velveth_test1/Log"/>
       </param>
       <param name="afg" value="yes" />
       <param name="generate_unused" value="yes" />
@@ -207,15 +207,15 @@
       <param name="use_contig_lgth" value="no" />
       <param name="paired" value="no" />
       <!--
-      <output name="LastGraph" file="velvetg_test1/lastgraph.txt" compare="diff"/>
+      <output name="LastGraph" file="velvetg_test1/lastgraph.txt"/>
       -->
-      <output name="velvet_asm" file="velvetg_test1/amos.afg" compare="diff"/>
-      <output name="unused_reads_fasta" file="velvetg_test1/unusedreads.fa" compare="diff"/>
-      <output name="stats" file="velvetg_test1/stats.csv" compare="diff"/>
-      <output name="contigs" file="velvetg_test1/contigs.fa" compare="diff"/>
+      <output name="velvet_asm" file="velvetg_test1/amos.afg" />
+      <output name="unused_reads_fasta" file="velvetg_test1/unusedreads.fa" />
+      <output name="stats" file="velvetg_test1/stats.csv" />
+      <output name="contigs" file="velvetg_test1/contigs.fa" />
     </test>
   </tests>
-  <help>
+  <help><![CDATA[
 **What it does**
 
 Velvet_ is a de novo genomic assembler specially designed for short read sequencing technologies, such as Solexa or 454, developed by Daniel Zerbino and Ewan Birney at the European Bioinformatics Institute (EMBL-EBI), near Cambridge, in the United Kingdom.
@@ -302,6 +302,6 @@ This is a list of implemented Velvetg options::
         directory/LastGraph              : special formatted file with all the information on the final graph
         directory/velvet_asm.afg         : (if requested) AMOS compatible assembly file
 
-  </help>
+  ]]></help>
   <expand macro="citation"/>
 </tool>
