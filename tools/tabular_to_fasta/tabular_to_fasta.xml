@@ -3,17 +3,17 @@
     <requirements>
         <requirement type="package" version="3.7">python</requirement>
     </requirements>
-    <command>
-        python '$__tool_directory__/tabular_to_fasta.py'
-            '$input'
-            $title_col
-            $seq_col
-            '$output'
-    </command>
+    <command><![CDATA[
+python '$__tool_directory__/tabular_to_fasta.py'
+'$input'
+$title_col
+$seq_col
+'$output'
+    ]]></command>
     <inputs>
         <param name="input" type="data" format="tabular" label="Tab-delimited file"/>
-        <param name="title_col" type="data_column" data_ref="input" multiple="True" numerical="False" label="Title column(s)" help="Multi-select list - hold the appropriate key while clicking to select multiple columns"/>
-        <param name="seq_col" type="data_column" data_ref="input" numerical="False" label="Sequence column" />
+        <param name="title_col" type="data_column" data_ref="input" multiple="true" numerical="false" label="Title column(s)" help="Multi-select list - hold the appropriate key while clicking to select multiple columns"/>
+        <param name="seq_col" type="data_column" data_ref="input" numerical="false" label="Sequence column" />
     </inputs>
     <outputs>
         <data name="output" format="fasta"/>
@@ -26,8 +26,7 @@
             <output name="output" file="tabular_to_fasta_out1.fasta" />
         </test>
     </tests>
-    <help>
-
+    <help><![CDATA[
 **What it does**
 
 Converts tab delimited data into FASTA formatted sequences.
@@ -43,10 +42,9 @@ Suppose this is a sequence file produced by Illumina (Solexa) sequencer::
 
 Selecting **c3** and **c4** as the **Title column(s)** and **c5** as the **Sequence column** will result in::
 
-    &gt;902_419
+    >902_419
     GACTCATGATTTCTTACCTATTAGTGGTTGAACATC
-    &gt;880_431
+    >880_431
     GTGATATGTATGTTGACGGCCATAAGGCTGCTTCTT
-
-    </help>
+    ]]></help>
 </tool>
