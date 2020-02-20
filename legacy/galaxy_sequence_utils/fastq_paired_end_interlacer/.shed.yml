@@ -1,4 +1,3 @@
-homepage_url: https://github.com/galaxyproject/sequence_utils
 categories:
 - Fastq Manipulation
 description: FASTQ interlacer on paired end reads
@@ -10,5 +9,6 @@ long_description: |
   identifier does not appear in both files, it is included in a separate file.
 name: fastq_paired_end_interlacer
 owner: devteam
-remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/galaxy_sequence_utils/fastq_paired_end_interlacer
+homepage_url: https://github.com/galaxyproject/sequence_utils
+remote_repository_url: https://github.com/galaxyproject/tools-iuc/tree/master/tool_collections/galaxy_sequence_utils/fastq_paired_end_interlacer
 type: unrestricted

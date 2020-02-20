@@ -1,4 +1,3 @@
-homepage_url: https://github.com/galaxyproject/sequence_utils
 categories:
 - Fastq Manipulation
 description: FASTQ Trimmer by quality
@@ -10,5 +9,6 @@ long_description: |
   method, offsets are rounded to the nearest integer.
 name: fastq_trimmer
 owner: devteam
-remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/galaxy_sequence_utils/fastq_trimmer
+homepage_url: https://github.com/galaxyproject/sequence_utils
+remote_repository_url: https://github.com/galaxyproject/tools-iuc/tree/master/tool_collections/galaxy_sequence_utils/fastq_trimmer
 type: unrestricted

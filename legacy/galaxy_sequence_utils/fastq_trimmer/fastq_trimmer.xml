@@ -1,8 +1,9 @@
-<tool id="fastq_trimmer" name="FASTQ Trimmer" version="1.1.1">
+<tool id="fastq_trimmer" name="FASTQ Trimmer" version="@TOOL_VERSION@">
     <description>by column</description>
-    <requirements>
-        <requirement type="package" version="1.1.1">galaxy_sequence_utils</requirement>
-    </requirements>
+    <macros>
+        <import>macros.xml</import>
+    </macros>
+    <expand macro="requirements"/>
     <edam_topics>
         <edam_topic>topic_0622</edam_topic>
     </edam_topics>
@@ -10,7 +11,7 @@
         <edam_operation>operation_3192</edam_operation>
     </edam_operations>
     <command><![CDATA[
-gx-fastq-trimmer '$input_file' '$output_file' ${offset_type['left_column_offset']} ${offset_type['right_column_offset']} ${offset_type['base_offset_type']} '${input_file.extension[len('fastq'):]}' $keep_zero_length
+gx-fastq-trimmer '$input_file' '$output_file' ${offset_type.left_column_offset} ${offset_type.right_column_offset} ${offset_type.base_offset_type} '${input_file.extension[len('fastq'):]}' $keep_zero_length
     ]]></command>
     <inputs>
         <param name="input_file" type="data" format="fastqsanger,fastqcssanger,fastqsanger.gz,fastqcssanger.gz,fastqsanger.bz2,fastqcssanger.bz2" label="FASTQ file"/>

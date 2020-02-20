@@ -1,4 +1,3 @@
-homepage_url: https://github.com/galaxyproject/sequence_utils
 categories:
 - Fastq Manipulation
 description: Tabular to FASTQ converter
@@ -8,5 +7,6 @@ long_description: |
   on the output of this tool.
 name: tabular_to_fastq
 owner: devteam
-remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/galaxy_sequence_utils/tabular_to_fastq
+homepage_url: https://github.com/galaxyproject/sequence_utils
+remote_repository_url: https://github.com/galaxyproject/tools-iuc/tree/master/tool_collections/galaxy_sequence_utils/tabular_to_fastq
 type: unrestricted

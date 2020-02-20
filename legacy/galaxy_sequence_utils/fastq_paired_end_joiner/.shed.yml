@@ -1,4 +1,3 @@
-homepage_url: https://github.com/galaxyproject/sequence_utils
 categories:
 - Fastq Manipulation
 description: FASTQ joiner on paired end reads
@@ -9,5 +8,6 @@ long_description: |
   not appear in both files, it is excluded from the output.
 name: fastq_paired_end_joiner
 owner: devteam
-remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/galaxy_sequence_utils/fastq_paired_end_joiner
+homepage_url: https://github.com/galaxyproject/sequence_utils
+remote_repository_url: https://github.com/galaxyproject/tools-iuc/tree/master/tool_collections/galaxy_sequence_utils/fastq_paired_end_joiner
 type: unrestricted

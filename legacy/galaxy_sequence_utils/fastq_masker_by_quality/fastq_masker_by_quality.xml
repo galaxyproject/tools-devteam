@@ -1,8 +1,9 @@
-<tool id="fastq_masker_by_quality" name="FASTQ Masker" version="1.1.1">
+<tool id="fastq_masker_by_quality" name="FASTQ Masker" version="@TOOL_VERSION@">
     <description>by quality score</description>
-    <requirements>
-        <requirement type="package" version="1.1.1">galaxy_sequence_utils</requirement>
-    </requirements>
+    <macros>
+        <import>macros.xml</import>
+    </macros>
+    <expand macro="requirements"/>
     <edam_topics>
         <edam_topic>topic_0622</edam_topic>
     </edam_topics>
@@ -10,8 +11,8 @@
         <edam_operation>operation_0368</edam_operation>
     </edam_operations>
     <command><![CDATA[
-gx-fastq-masker-by-quality '$input_file' '$output_file' -f '${input_file.extension[len( 'fastq' ):]}' -s ${quality_score} -c ${score_comparison}
-#if $mask_type.value == 'lowercase'
+gx-fastq-masker-by-quality '$input_file' '$output_file' -f '${input_file.extension[len('fastq'):]}' -s ${quality_score} -c ${score_comparison}
+#if $mask_type == 'lowercase'
     --lowercase
 #else
     -m ${mask_type}
