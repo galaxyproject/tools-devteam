@@ -13,6 +13,7 @@ jobs:
       addons: {}
       before_install: skip
       install:
+        - pip install planemo
         - planemo --version
         - git diff --quiet "$TRAVIS_COMMIT_RANGE" -- ; GIT_DIFF_EXIT_CODE=$?
         - |
