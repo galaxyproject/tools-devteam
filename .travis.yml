@@ -2,8 +2,10 @@
 sudo: required
 language: python
 cache: pip
+services:
+  - docker
 
-python: 2.7
+python: 3.7
 
 jobs:
   include:
@@ -11,8 +13,15 @@ jobs:
       addons: {}
       before_install: skip
       install:
-        - pip install flake8 flake8-import-order planemo
+        - pip install planemo
         - planemo --version
+        - git diff --quiet "$TRAVIS_COMMIT_RANGE" -- ; GIT_DIFF_EXIT_CODE=$?
+        - |
+          if [ "$GIT_DIFF_EXIT_CODE" -gt 1 ] ; then
+              git remote set-branches --add origin master
+              git fetch
+              TRAVIS_COMMIT_RANGE=origin/master...
+          fi
         - echo $TRAVIS_COMMIT_RANGE
         - |
           planemo ci_find_repos --exclude_from .tt_skip \
@@ -33,12 +42,23 @@ jobs:
     - stage: test
       env: CHUNK=2
 
+    - stage: test
+      env: CHUNK=3
+
     - stage: deploy
+      if: (type = push) AND (branch = master)
       addons: {}
       before_install: skip
       install:
         - pip install planemo
         - planemo --version
+        - git diff --quiet "$TRAVIS_COMMIT_RANGE" -- ; GIT_DIFF_EXIT_CODE=$?
+        - |
+          if [ "$GIT_DIFF_EXIT_CODE" -gt 1 ] ; then
+              git remote set-branches --add origin master
+              git fetch
+              TRAVIS_COMMIT_RANGE=origin/master...
+          fi
         - echo $TRAVIS_COMMIT_RANGE
         - |
           planemo ci_find_repos --exclude_from .tt_skip \
@@ -55,16 +75,17 @@ jobs:
 
 before_install:
   - export GALAXY_REPO=https://github.com/galaxyproject/galaxy
-  - export GALAXY_RELEASE=release_19.09
-  - export PLANEMO_CONDA_PREFIX="$HOME/conda"
+  - export GALAXY_RELEASE=release_20.01
+  # - export PLANEMO_CONDA_PREFIX="$HOME/conda"
   - unset JAVA_HOME
 
 install:
   - pip install planemo
-  - planemo conda_init
-  - export PATH="$PLANEMO_CONDA_PREFIX/bin:$PATH"
+  # - planemo conda_init
+  # - export PATH="$PLANEMO_CONDA_PREFIX/bin:$PATH"
+  # - conda install -y -c conda-forge conda=4.6.8
   - planemo --version
-  - conda --version
+  # - conda --version
   - git diff --quiet "$TRAVIS_COMMIT_RANGE" -- ; GIT_DIFF_EXIT_CODE=$?
   - |
     if [ "$GIT_DIFF_EXIT_CODE" -gt 1 ] ; then
@@ -74,8 +95,7 @@ install:
     fi
   - echo $TRAVIS_COMMIT_RANGE
   - |
-    planemo ci_find_repos --exclude data_managers \
-                          --exclude packages \
+    planemo ci_find_repos  --exclude packages \
                           --exclude_from .tt_skip \
                           --changed_in_commit_range "$TRAVIS_COMMIT_RANGE" \
                           --output changed_repositories.list
@@ -83,11 +103,11 @@ install:
   - |
     if [ -s changed_repositories.list ]; then
         if [ $(wc -l < changed_repositories.list) -eq 1 ]; then
-            planemo ci_find_tools --chunk_count 3 --chunk "${CHUNK}" \
+            planemo ci_find_tools --chunk_count 4 --chunk "${CHUNK}" \
                                   --output changed_tools_chunk.list \
                                   $(cat changed_repositories.list)
         else
-            planemo ci_find_repos --chunk_count 3 --chunk "${CHUNK}" \
+            planemo ci_find_repos --chunk_count 4 --chunk "${CHUNK}" \
                                   --output changed_repositories_chunk.list \
                                   $(cat changed_repositories.list)
         fi
@@ -100,9 +120,14 @@ script:
   - set -e
   - |
     if [ -s changed_tools_chunk.list ]; then
-        planemo test --conda_dependency_resolution --conda_auto_install --galaxy_branch "$GALAXY_RELEASE" --galaxy_source "$GALAXY_REPO" $(cat changed_tools_chunk.list)
+        planemo test --biocontainers --no_conda_auto_init --galaxy_python_version "$TRAVIS_PYTHON_VERSION" --galaxy_branch "$GALAXY_RELEASE" --galaxy_source "$GALAXY_REPO" $(cat changed_tools_chunk.list)
     elif [ -s changed_repositories_chunk.list ]; then
         while read -r DIR; do
-            planemo test --conda_dependency_resolution --conda_auto_install --galaxy_branch "$GALAXY_RELEASE" --galaxy_source "$GALAXY_REPO" "$DIR"
+            if [[ "$DIR" =~ ^data_managers.* ]]; then
+                TESTPATH=$(planemo ci_find_tools "$DIR")
+            else
+                TESTPATH="$DIR"
+            fi
+            planemo test --biocontainers --no_conda_auto_init --galaxy_python_version "$TRAVIS_PYTHON_VERSION" --galaxy_branch "$GALAXY_RELEASE" --galaxy_source "$GALAXY_REPO" "$TESTPATH"
         done < changed_repositories_chunk.list
     fi
