@@ -1,10 +1,10 @@
-<tool id="fasta_concatenate0" name="Concatenate" version="0.0.0">
+<tool id="fasta_concatenate0" name="Concatenate" version="0.0.1" profile="16.04">
   <description>FASTA alignment by species</description>
   <requirements>
-    <requirement type="package" version="0.7.1">bx-python</requirement>
+    <requirement type="package" version="0.8.8">bx-python</requirement>
   </requirements>
   <command>
-    python $__tool_directory__/fasta_concatenate_by_species.py
+    python '$__tool_directory__/fasta_concatenate_by_species.py'
       '$input1'
       '$out_file1'
   </command>
@@ -20,7 +20,7 @@
       <output name="out_file1" file="fasta_concatenate_out.fasta" />
     </test>
   </tests>
-  <help>
+  <help><![CDATA[
   
 **What it does**
   
@@ -75,5 +75,5 @@ becomes::
 
  This tool will only work properly on files with Galaxy style FASTA headers.
 
-</help>
+   ]]></help>
 </tool>
