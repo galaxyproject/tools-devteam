@@ -1,70 +1,67 @@
-<tool id="fasta2tab" name="FASTA-to-Tabular" version="1.1.0">
-	<description>converter</description>
-	<command>
-		python $__tool_directory__/fasta_to_tabular.py
-			'$input'
-			'$output'
-			$keep_first
-			$descr_columns
-	</command>
-	<inputs>
-		<param name="input" type="data" format="fasta" label="Convert these sequences"/>
-		<param name="descr_columns" type="integer" value="1" label="How many columns to divide title string into?" help="Typically 2 to take the ID (first word) and decription (rest) as two columns, or 1 to give a single column">
-			<validator type="in_range" min="1" />
-		</param>
-		<param name="keep_first" type="integer" value="0" label="How many title characters to keep?" help="Applies only to the first column taken from the title string ('0' = keep the whole thing), useful when your sequence identifiers are all the same length.">
-			<validator type="in_range" min="0" />
-		</param>
-	</inputs>
-	<outputs>
-		<data name="output" format="tabular"/>
-	</outputs>
-	<tests>
-		<test>
-			<param name="input" value="454.fasta" />
-			<param name="descr_columns" value="1"/>
-			<param name="keep_first" value="0"/>
-			<output name="output" file="fasta_to_tabular_out1.tabular" />
-		</test>
-		
-		<test>
-			<param name="input" value="4.fasta" />
-			<param name="descr_columns" value="1"/>
-			<param name="keep_first" value="0"/>
-			<output name="output" file="fasta_to_tabular_out2.tabular" />
-		</test>
-		
-		<test>
-			<param name="input" value="454.fasta" />
-			<param name="descr_columns" value="1"/>
-			<param name="keep_first" value="14"/>
-			<output name="output" file="fasta_to_tabular_out3.tabular" />
-		</test>
+<tool id="fasta2tab" name="FASTA-to-Tabular" version="1.1.1" profile="16.04">
+    <description>converter</description>
+    <requirements>
+        <requirement type="package" version="3.7">python</requirement>
+    </requirements>
+    <command>
+python '$__tool_directory__/fasta_to_tabular.py' '$input' '$output' $keep_first $descr_columns
+    </command>
+    <inputs>
+        <param name="input" type="data" format="fasta" label="Convert these sequences"/>
+        <param name="descr_columns" type="integer" value="1" min="1" label="How many columns to divide title string into?" help="Typically 2 to take the ID (first word) and decription (rest) as two columns, or 1 to give a single column">
+        </param>
+        <param name="keep_first" type="integer" value="0" min="0" label="How many title characters to keep?" help="Applies only to the first column taken from the title string ('0' = keep the whole thing), useful when your sequence identifiers are all the same length.">
+        </param>
+    </inputs>
+    <outputs>
+        <data name="output" format="tabular"/>
+    </outputs>
+    <tests>
+        <test>
+            <param name="input" value="454.fasta" />
+            <param name="descr_columns" value="1"/>
+            <param name="keep_first" value="0"/>
+            <output name="output" file="fasta_to_tabular_out1.tabular" />
+        </test>
 
-		<test>
-			<param name="input" value="454.fasta" />
-			<param name="descr_columns" value="2"/>
-			<param name="keep_first" value="0"/>
-			<output name="output" file="fasta_to_tabular_out4.tabular" />
-		</test>
+        <test>
+            <param name="input" value="4.fasta" />
+            <param name="descr_columns" value="1"/>
+            <param name="keep_first" value="0"/>
+            <output name="output" file="fasta_to_tabular_out2.tabular" />
+        </test>
 
-		<test>
-			<param name="input" value="454.fasta" />
-			<param name="descr_columns" value="5"/>
-			<param name="keep_first" value="0"/>
-			<output name="output" file="fasta_to_tabular_out5.tabular" />
-		</test>
+        <test>
+            <param name="input" value="454.fasta" />
+            <param name="descr_columns" value="1"/>
+            <param name="keep_first" value="14"/>
+            <output name="output" file="fasta_to_tabular_out3.tabular" />
+        </test>
 
-		<test>
-			<param name="input" value="454.fasta" />
-			<param name="descr_columns" value="5"/>
-			<param name="keep_first" value="10"/>
-			<output name="output" file="fasta_to_tabular_out6.tabular" />
-		</test>
+        <test>
+            <param name="input" value="454.fasta" />
+            <param name="descr_columns" value="2"/>
+            <param name="keep_first" value="0"/>
+            <output name="output" file="fasta_to_tabular_out4.tabular" />
+        </test>
 
-	</tests>
-	<help>
-	
+        <test>
+            <param name="input" value="454.fasta" />
+            <param name="descr_columns" value="5"/>
+            <param name="keep_first" value="0"/>
+            <output name="output" file="fasta_to_tabular_out5.tabular" />
+        </test>
+
+        <test>
+            <param name="input" value="454.fasta" />
+            <param name="descr_columns" value="5"/>
+            <param name="keep_first" value="10"/>
+            <output name="output" file="fasta_to_tabular_out6.tabular" />
+        </test>
+
+    </tests>
+    <help><![CDATA[
+
 **What it does**
 
 This tool converts FASTA formatted sequences to TAB-delimited format.
@@ -76,16 +73,16 @@ In some cases the description can be usefully broken up into more columns -- see
 The option *How many characters to keep?* allows to select a specified number of letters from the beginning of each FASTA entry.
 With the introduction of the **How many columns to divide title string into?** option this setting is of limited use, but does still allow you to truncate the identifier.
 
------	
+-----
 
 **Example**
 
 Suppose you have the following FASTA formatted sequences from a Roche (454) FLX sequencing run::
 
-    &gt;EYKX4VC02EQLO5 length=108 xy=1826_0455 region=2 run=R_2007_11_07_16_15_57_
+    >EYKX4VC02EQLO5 length=108 xy=1826_0455 region=2 run=R_2007_11_07_16_15_57_
     TCCGCGCCGAGCATGCCCATCTTGGATTCCGGCGCGATGACCATCGCCCGCTCCACCACG
     TTCGGCCGGCCCTTCTCGTCGAGGAATGACACCAGCGCTTCGCCCACG
-    &gt;EYKX4VC02D4GS2 length=60 xy=1573_3972 region=2 run=R_2007_11_07_16_15_57_
+    >EYKX4VC02D4GS2 length=60 xy=1573_3972 region=2 run=R_2007_11_07_16_15_57_
     AATAAAACTAAATCAGCAAAGACTGGCAAATACTCACAGGCTTATACAATACAAATGTAA
 
 Running this tool with the default settings will produce this (2 column output):
@@ -130,5 +127,5 @@ EYKX4VC02D length=60  xy=1573_3972 region=2 run=R_2007_11_07_16_15_57_ AATAAAACT
 
 Note the sequences have been truncated for display purposes in the above tables.
 
-	</help>
+    ]]></help>
 </tool>

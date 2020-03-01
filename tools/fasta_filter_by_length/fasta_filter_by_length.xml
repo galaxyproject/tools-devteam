@@ -1,35 +1,34 @@
-<tool id="fasta_filter_by_length" name="Filter sequences by length" version="1.1">
-	<description></description>
-	<command>
-		python $__tool_directory__/fasta_filter_by_length.py
-			'$input'
-			$min_length
-			$max_length
-			'$output'
-	</command>
-	<inputs>
-		<param name="input" type="data" format="fasta" label="Fasta file"/>
-		<param name="min_length" type="integer" value="0" label="Minimal length" />
-		<param name="max_length" type="integer" value="0" label="Maximum length" help="Setting to '0' will return all sequences longer than the 'Minimal length'"/> 
-	</inputs>
-	<outputs>
-		<data name="output" format="fasta"/>
-	</outputs>
-	<tests>
-		<test>
-			<param name="input" value="454.fasta" />
-			<param name="min_length" value="10" />
-			<param name="max_length" value="0" />
-			<output name="output" file="fasta_tool_filter_length_1.out" />
-		</test>
-		<test>
-			<param name="input" value="4.fasta" />
-			<param name="min_length" value="0" />
-			<param name="max_length" value="60" />
-			<output name="output" file="fasta_tool_filter_length_2.out" />
-		</test>
-	</tests>
-	<help>
+<tool id="fasta_filter_by_length" name="Filter sequences by length" version="1.2" profile="16.04">
+    <description></description>
+    <requirements>
+        <requirement type="package" version="3.7">python</requirement>
+    </requirements>
+    <command>
+python '$__tool_directory__/fasta_filter_by_length.py' '$input' $min_length $max_length '$output'
+    </command>
+    <inputs>
+        <param name="input" type="data" format="fasta" label="Fasta file"/>
+        <param name="min_length" type="integer" value="0" label="Minimal length" />
+        <param name="max_length" type="integer" value="0" label="Maximum length" help="Setting to '0' will return all sequences longer than the 'Minimal length'"/> 
+    </inputs>
+    <outputs>
+        <data name="output" format="fasta"/>
+    </outputs>
+    <tests>
+        <test>
+            <param name="input" value="454.fasta" />
+            <param name="min_length" value="10" />
+            <param name="max_length" value="0" />
+            <output name="output" file="fasta_tool_filter_length_1.out" />
+        </test>
+        <test>
+            <param name="input" value="4.fasta" />
+            <param name="min_length" value="0" />
+            <param name="max_length" value="60" />
+            <output name="output" file="fasta_tool_filter_length_2.out" />
+        </test>
+    </tests>
+    <help><![CDATA[
 
 .. class:: infomark
 
@@ -38,7 +37,7 @@
 -----
 
 **What it does**
-	
+
 Outputs sequences greater than or equal to *Minimal length* and less than or equal to *Maximum length*. 
  
 -----
@@ -47,22 +46,22 @@ Outputs sequences greater than or equal to *Minimal length* and less than or equ
 
 Suppose you have the following FASTA formatted sequences::
 
-	&gt;seq1
-	TCATTTAATGAC
-	&gt;seq2
-	ATGGC
-	&gt;seq3
-	TCACATGATGCCG
-	&gt;seq4
-	ATGGAAGC
+    >seq1
+    TCATTTAATGAC
+    >seq2
+    ATGGC
+    >seq3
+    TCACATGATGCCG
+    >seq4
+    ATGGAAGC
 
 Setting the **Minimal length** to **10**, and the **Maximum length** to **0** will return all sequences longer than 10 bp::
 
- 	&gt;seq1
-	TCATTTAATGAC
-	&gt;seq3
-	TCACATGATGCCG
+    >seq1
+    TCATTTAATGAC
+    >seq3
+    TCACATGATGCCG
 
 
-	</help>
+    ]]></help>
 </tool>

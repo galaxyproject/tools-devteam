@@ -1,11 +1,13 @@
-<?xml version="1.0"?>
-<tool id="fasta_compute_length" name="Compute sequence length" version="1.0.2">
+<tool id="fasta_compute_length" name="Compute sequence length" version="1.0.2" profile="16.04">
     <description></description>
+    <requirements>
+        <requirement type="package" version="3.7">python</requirement>
+    </requirements>
     <command>
     #if $ref.ref_source == 'dbkey':
         cp '${ref.index.fields.len_path}' '$output'
     #else:
-        python $__tool_directory__/fasta_compute_length.py
+        python '$__tool_directory__/fasta_compute_length.py'
           #if $ref.ref_source == 'history':
             '$input'
           #else:
@@ -85,7 +87,7 @@
             <output name="output" file="merged.tab" />
         </test>
     </tests>
-    <help>
+    <help><![CDATA[
 
 **What it does**
 
@@ -97,7 +99,7 @@ This tool counts the length of each fasta sequence in the file. The output file 
 
 Suppose you have the following FASTA formatted sequences from a Roche (454) FLX sequencing run::
 
-    &gt;EYKX4VC02EQLO5 length=108 xy=1826_0455 region=2 run=R_2007_11_07_16_15_57_
+    >EYKX4VC02EQLO5 length=108 xy=1826_0455 region=2 run=R_2007_11_07_16_15_57_
     TCCGCGCCGAGCATGCCCATCTTGGATTCCGGCGCGATGACCATCGCCCGCTCCACCACG
     TTCGGCCGGCCCTTCTCGTCGAGGAATGACACCAGCGCTTCGCCCACG
     &gt;EYKX4VC02D4GS2 length=60 xy=1573_3972 region=2 run=R_2007_11_07_16_15_57_
@@ -110,10 +112,10 @@ Running this tool while setting **How many characters to keep?** to **14** will 
 
 However, if your IDs are not all the same length, you may wish to just keep the fasta ID, and not the description::
 
-    &gt;EYKX4VC02EQLO5 length=108 xy=1826_0455 region=2 run=R_2007_11_07_16_15_57_
+    >EYKX4VC02EQLO5 length=108 xy=1826_0455 region=2 run=R_2007_11_07_16_15_57_
     TCCGCGCCGAGCATGCCCATCTTGGATTCCGGCGCGATGACCATCGCCCGCTCCACCACG
     TTCGGCCGGCCCTTCTCGTCGAGGAATGACACCAGCGCTTCGCCCACG
-    &gt;EYKX4VC length=60 xy=1573_3972 region=2 run=R_2007_11_07_16_15_57_
+    >EYKX4VC length=60 xy=1573_3972 region=2 run=R_2007_11_07_16_15_57_
     AATAAAACTAAATCAGCAAAGACTGGCAAATACTCACAGGCTTATACAATACAAATGTAAfa
 
 Running this tool with **Strip fasta description from header** set to **True** and **How many characters to keep?** set to **0** will produce::
@@ -122,7 +124,7 @@ Running this tool with **Strip fasta description from header** set to **True** a
     EYKX4VC     60
 
 
-    </help>
+    ]]></help>
     <citations>
         <citation type="doi">10.1093/bioinformatics/btq281</citation>
     </citations>
