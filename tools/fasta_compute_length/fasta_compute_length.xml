@@ -1,4 +1,4 @@
-<tool id="fasta_compute_length" name="Compute sequence length" version="1.0.2" profile="16.04">
+<tool id="fasta_compute_length" name="Compute sequence length" version="1.0.3" profile="16.04">
     <description></description>
     <requirements>
         <requirement type="package" version="3.7">python</requirement>

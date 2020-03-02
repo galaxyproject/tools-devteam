@@ -17,8 +17,6 @@ try:
 except AttributeError:
     from string import maketrans
 
-assert sys.version_info[:2] >= (2, 4)
-
 log = logging.getLogger(__name__)
 
 
