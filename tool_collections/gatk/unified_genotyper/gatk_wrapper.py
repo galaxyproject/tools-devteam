@@ -112,7 +112,7 @@ def __main__():
     while True:
         chunk = stderr.read( CHUNK_SIZE )
         if chunk:
-            stderr_target.write( chunk )
+            stderr_target.write( chunk.decode('utf-8') )
         else:
             break
     stderr.close()
