@@ -49,7 +49,6 @@ tools/dwt_cor_avb_all
 tools/partialr_square
 tools/blat_mapping
 tools/mapping_to_ucsc
-tools/sam_bitwise_flag_filter
 tools/rmap
 tools/weightedaverage
 tools/annotation_profiler
