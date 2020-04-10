@@ -109,7 +109,7 @@ options (listed below) default to 'None' if omitted
     options, args = parser.parse_args()
 
     if options.input_sam:
-        infile = open ( options.input_sam, 'r')
+        infile = open(options.input_sam, 'r')
     else:
     	infile = sys.stdin
         
@@ -147,4 +147,3 @@ options (listed below) default to 'None' if omitted
                 print(line)
 
 if __name__ == "__main__": main()
-
