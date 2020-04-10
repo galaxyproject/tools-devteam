@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # Refactored on 11/13/2010 by Kanwei Li
+from __future__ import print_function
 
 import sys
 import optparse
@@ -108,7 +109,7 @@ options (listed below) default to 'None' if omitted
     options, args = parser.parse_args()
 
     if options.input_sam:
-		infile = open ( options.input_sam, 'r')
+        infile = open ( options.input_sam, 'r')
     else:
     	infile = sys.stdin
         
@@ -143,7 +144,7 @@ options (listed below) default to 'None' if omitted
                     break
                     
             if valid_line:
-                print line
+                print(line)
 
 if __name__ == "__main__": main()
 
