@@ -8,7 +8,7 @@ env:
 jobs:
   setup:
     name: Setup cache
-    if: github.repository == 'galaxyproject/tools-iuc'
+    if: github.repository == 'galaxyproject/tools-devteam'
     runs-on: ubuntu-latest
     strategy:
       matrix:
