@@ -1,33 +1,47 @@
 <tool id="compute_p-values_correlation_coefficients_feature_occurrences_between_two_datasets_using_discrete_wavelet_transfom" name="Compute P-values and Correlation Coefficients for Feature Occurrences" version="1.0.0">
   <description>between two datasets using Discrete Wavelet Transfoms</description>
-  
-  <command interpreter="perl">
-  	execute_dwt_cor_aVa_perClass.pl $inputFile1 $inputFile2 $outputFile1 $outputFile2
+  <requirements>
+    <requirement type="package" version="1.7.5">r-waveslim</requirement>
+    <requirement type="package" version="4.6.8">r-wavethresh</requirement>
+  </requirements>
+  <command detect_errors="exit_code">
+    Rscript --vanilla '$__tool_directory__/execute_dwt_cor_aVa_perClass.R'
+      '$inputFile1'
+      '$inputFile2'
+      '$outputFile2'
+      '$outputFile1'
   </command>
-
   <inputs>
-  	<param format="tabular" name="inputFile1" type="data" label="Select the first input file"/>	
-  	<param format="tabular" name="inputFile2" type="data" label="Select the second input file"/>
+    <param format="tabular" name="inputFile1" type="data" label="Select the first input file"/>
+  <param format="tabular" name="inputFile2" type="data" label="Select the second input file"/>
   </inputs>
-  
   <outputs>
-    <data format="tabular" name="outputFile1"/> 
-    <data format="pdf" name="outputFile2"/>
+    <data format="tabular" name="outputFile1" label="${tool.name} on ${on_string}: statistics"/>
+    <data format="pdf" name="outputFile2" label="${tool.name} on ${on_string}: pdf"/>
   </outputs>
-  	
-  <help> 
-
+  <tests>
+    <test>
+      <param ftype="tabular" name="inputFile1" value="in1.tsv"/>
+      <param ftype="tabular" name="inputFile2" value="in2.tsv"/>
+      <output name="outputFile1" ftype="tabular">
+        <assert_contents><has_line_matching expression="^translinTarget.*"/></assert_contents>
+        <assert_contents><has_line_matching expression="^deletionHoptspot.*" /></assert_contents>
+      </output>
+      <output name="outputFile2" ftype="pdf" file="out2.pdf" compare="sim_size"/>
+    </test>
+  </tests>
+  <help>
 .. class:: infomark
 
 **What it does**
 
-This program generates plots and computes table matrix of coefficient correlations and p-values at multiple scales for the correlation between the occurrences of features in one dataset and their occurrences in another using multiscale wavelet analysis technique. 
+This program generates plots and computes table matrix of coefficient correlations and p-values at multiple scales for the correlation between the occurrences of features in one dataset and their occurrences in another using multiscale wavelet analysis technique.
 
 The program assumes that the user has two sets of DNA sequences, S1 and S1, each of which consists of one or more sequences of equal length. Each sequence in each set is divided into the same number of multiple intervals n such that n = 2^k, where k is a positive integer and  k >= 1. Thus, n could be any value of the set {2, 4, 8, 16, 32, 64, 128, ...}. k represents the number of scales.
 
 The program has two input files obtained as follows:
 
-For a given set of features, say motifs, the user counts the number of occurrences of each feature in each interval of each sequence in S1 and S1, and builds two tabular files representing the count results in each interval of S1 and S1. These are the input files of the program. 
+For a given set of features, say motifs, the user counts the number of occurrences of each feature in each interval of each sequence in S1 and S1, and builds two tabular files representing the count results in each interval of S1 and S1. These are the input files of the program.
 
 The program gives two output files:
 
@@ -40,7 +54,7 @@ The program gives two output files:
 
 **Note**
 
-In order to obtain empirical p-values, a random perumtation test is implemented by the program, which results in the fact that the program gives slightly different results each time it is run on the same input file. 
+In order to obtain empirical p-values, a random perumtation test is implemented by the program, which results in the fact that the program gives slightly different results each time it is run on the same input file.
 
 -----
 
@@ -86,7 +100,7 @@ And counting the occurrences of 5 features (motifs) in 16 intervals (one line pe
 		111			150			138			102				451
 		94			128			151			138				481
 
-  
+
 We notice that the number of scales here is 4 because 16 = 2^4. Running the program on the above input files gives the following output:
 
 The first output file::
@@ -107,6 +121,6 @@ The second output file:
 .. image:: dwt_cor_aVa_4.png
 .. image:: dwt_cor_aVa_5.png
 
-  </help>  
-  
+  </help>
+
 </tool>

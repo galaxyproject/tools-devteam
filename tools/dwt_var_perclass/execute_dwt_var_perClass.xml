@@ -1,20 +1,38 @@
 <tool id="compute_p-values_max_variances_feature_occurrences_in_one_dataset_using_discrete_wavelet_transfom" name="Compute P-values and Max Variances for Feature Occurrences" version="1.0.0">
   <description>in one dataset using Discrete Wavelet Transfoms</description>
-  
-  <command interpreter="perl">
-  	execute_dwt_var_perClass.pl $inputFile $outputFile1 $outputFile2 $outputFile3
+  <requirements>
+    <requirement type="package" version="1.7.5">r-waveslim</requirement>
+    <requirement type="package" version="4.6.8">r-wavethresh</requirement>
+  </requirements>
+  <command detect_errors="exit_code">
+      Rscript --vanilla '$__tool_directory__/execute_dwt_var_perClass.R'
+      '$inputFile'
+      '$outputFile1'
+      '$outputFile2'
+      '$outputFile3'
   </command>
-  
   <inputs>
-  	<param format="tabular" name="inputFile" type="data" label="Select the input file"/>	
+    <param format="tabular" name="inputFile" type="data" label="Select the input file"/>
   </inputs>
-  
   <outputs>
-    <data format="tabular" name="outputFile1"/> 
-    <data format="tabular" name="outputFile2"/>
-    <data format="pdf" name="outputFile3"/>
+    <data format="tabular" name="outputFile1" label="${tool.name} on ${on_string}: scales"/> 
+    <data format="tabular" name="outputFile2" label="${tool.name} on ${on_string}: statistics"/>
+    <data format="pdf" name="outputFile3" label="${tool.name} on ${on_string}: pdf"/>
   </outputs>
-  	
+  <tests>
+    <test>
+      <param ftype="tabular" name="inputFile" value="in.tsv"/>
+      <output name="outputFile1" ftype="tabular">
+        <assert_contents><has_line_matching expression="^max_var\tscale.*"/></assert_contents>
+        <assert_contents><has_line_matching expression="^translinTarget.*" /></assert_contents>
+      </output>
+      <output name="outputFile2" ftype="tabular">
+        <assert_contents><has_line_matching expression="^motif\t1_var.*"/></assert_contents>
+        <assert_contents><has_line_matching expression="^translinTarget.*" /></assert_contents>
+      </output>
+      <output name="outputFile3" ftype="pdf" file="out.pdf" compare="sim_size"/>
+    </test>
+  </tests>
   <help> 
 
 .. class:: infomark

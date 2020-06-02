@@ -1,44 +1,44 @@
 ## Feature Selection ##
-options(echo=TRUE)
-get_features <- function(myGenes, f="gene") {
+options(echo = TRUE)
+get_features <- function(my_genes, f = "gene") {
     if (f == "isoforms")
-        return(isoforms(myGenes))
+        return(isoforms(my_genes))
     else if (f == "tss")
-        return(TSS(myGenes))
+        return(TSS(my_genes))
     else if (f == "cds")
-        return(CDS(myGenes))
+        return(CDS(my_genes))
     else
-        return(myGenes)
+        return(my_genes)
 }
 
 ## Main Function ##
 
 library(argparse)
 
-parser <- ArgumentParser(description='Create a plot with cummeRbund')
+parser <- ArgumentParser(description = "Create a plot with cummeRbund")
 
-parser$add_argument('--type', dest='plotType', default='Density', required=TRUE)
-parser$add_argument('--height', dest='height', type='integer', default=960, required=TRUE)
-parser$add_argument('--width', dest='width', type='integer', default=1280, required=TRUE)
-parser$add_argument('--outfile', dest='filename', default="plot-unknown-0.png", required=TRUE)
-parser$add_argument('--input', dest='input_database', default="cuffData.db", required=TRUE)
-parser$add_argument('--smooth', dest='smooth', action="store_true", default=FALSE)
-parser$add_argument('--gene_selector', dest='gene_selector', action="store_true", default=FALSE)
-parser$add_argument('--replicates', dest='replicates', action="store_true", default=FALSE)
-parser$add_argument('--labcol', dest='labcol', action="store_true", default=FALSE)
-parser$add_argument('--labrow', dest='labrow', action="store_true", default=FALSE)
-parser$add_argument('--border', dest='border', action="store_true", default=FALSE)
-parser$add_argument('--summary', dest='summary', action="store_true", default=FALSE)
-parser$add_argument('--count', dest='count', action="store_true", default=FALSE)
-parser$add_argument('--error_bars', dest='error_bars', action="store_true", default=FALSE)
-parser$add_argument('--log10', dest='log10', action="store_true", default=FALSE)
-parser$add_argument('--features', dest='features', action="store", default="genes")
-parser$add_argument('--clustering', dest='clustering', action="store", default="both")
-parser$add_argument('--iter_max', dest='iter_max', action="store")
-parser$add_argument('--genes', dest='genes', action="append")
-parser$add_argument('--k', dest='k', action="store")
-parser$add_argument('--x', dest='x', action="store")
-parser$add_argument('--y', dest='y', action="store")
+parser$add_argument("--type", dest = "plotType", default = "Density", required = TRUE)
+parser$add_argument("--height", dest = "height", type = "integer", default = 960, required = TRUE)
+parser$add_argument("--width", dest = "width", type = "integer", default = 1280, required = TRUE)
+parser$add_argument("--outfile", dest = "filename", default = "plot-unknown-0.png", required = TRUE)
+parser$add_argument("--input", dest = "input_database", default = "cuffData.db", required = TRUE)
+parser$add_argument("--smooth", dest = "smooth", action = "store_true", default = FALSE)
+parser$add_argument("--gene_selector", dest = "gene_selector", action = "store_true", default = FALSE)
+parser$add_argument("--replicates", dest = "replicates", action = "store_true", default = FALSE)
+parser$add_argument("--labcol", dest = "labcol", action = "store_true", default = FALSE)
+parser$add_argument("--labrow", dest = "labrow", action = "store_true", default = FALSE)
+parser$add_argument("--border", dest = "border", action = "store_true", default = FALSE)
+parser$add_argument("--summary", dest = "summary", action = "store_true", default = FALSE)
+parser$add_argument("--count", dest = "count", action = "store_true", default = FALSE)
+parser$add_argument("--error_bars", dest = "error_bars", action = "store_true", default = FALSE)
+parser$add_argument("--log10", dest = "log10", action = "store_true", default = FALSE)
+parser$add_argument("--features", dest = "features", action = "store", default = "genes")
+parser$add_argument("--clustering", dest = "clustering", action = "store", default = "both")
+parser$add_argument("--iter_max", dest = "iter_max", action = "store")
+parser$add_argument("--genes", dest = "genes", action = "append")
+parser$add_argument("--k", dest = "k", action = "store")
+parser$add_argument("--x", dest = "x", action = "store")
+parser$add_argument("--y", dest = "y", action = "store")
 
 args <- parser$parse_args()
 
@@ -58,90 +58,71 @@ print("REPLICATES:")
 replicates(cuff)
 print("FEATURES:")
 print(annotation(genes(cuff)))
-cat(annotation(genes(cuff))[[1]],sep=",")
+cat(annotation(genes(cuff))[[1]], sep = ",")
 sink()
 
-png(filename = args$filename, width = args$width, height = args$height, type=c('cairo-png'))
+png(filename = args$filename, width = args$width, height = args$height)
 tryCatch({
-    if (args$plotType == 'density') {
-        csDensity(genes(cuff), replicates=args$replicates, logMode=args$log10)
-    }
-    else if (args$plotType == 'boxplot') {
-        csBoxplot(genes(cuff), replicates=args$replicates, logMode=args$log10)
-    }
-    else if (args$plotType == 'mds') {
-        MDSplot(genes(cuff), replicates=args$replicates)
-    }
-    else if (args$plotType == 'pca') {
-        PCAplot(genes(cuff), "PC1", "PC2", replicates=args$replicates)
-    }
-    else if (args$plotType == 'dendrogram') {
-        csDendro(genes(cuff), replicates=args$replicates)
-    }
-    else if (args$plotType == 'scatter') {
+    if (args$plotType == "density") {
+        csDensity(genes(cuff), replicates = args$replicates, logMode = args$log10)
+    } else if (args$plotType == "boxplot") {
+        csBoxplot(genes(cuff), replicates = args$replicates, logMode = args$log10)
+    } else if (args$plotType == "mds") {
+        MDSplot(genes(cuff), replicates = args$replicates)
+    } else if (args$plotType == "pca") {
+        PCAplot(genes(cuff), "PC1", "PC2", replicates = args$replicates)
+    } else if (args$plotType == "dendrogram") {
+        csDendro(genes(cuff), replicates = args$replicates)
+    } else if (args$plotType == "scatter") {
         if (args$gene_selector) {
-            myGenes <- getGenes(cuff, args$genes)
-            csScatter(get_features(myGenes, args$features), args$x, args$y, smooth=args$smooth, logMode=args$log10)
+            my_genes <- get_features(getGenes(cuff, args$genes), args$features)
+        } else {
+            my_genes <- genes(cuff)
         }
-        else {
-            csScatter(genes(cuff), args$x, args$y, smooth=args$smooth, logMode=args$log10)
-        }
-    }
-    else if (args$plotType == 'volcano') {
+        csScatter(my_genes, args$x, args$y, smooth = args$smooth, logMode = args$log10)
+    } else if (args$plotType == "volcano") {
         if (args$gene_selector) {
-            myGenes <- get_features(getGenes(cuff, args$genes), args$features)
+            my_genes <- get_features(getGenes(cuff, args$genes), args$features)
+        } else {
+            my_genes <- genes(cuff)
         }
-        else {
-            myGenes <- genes(cuff)
-        }
-        csVolcano(myGenes, args$x, args$y)
-    }
-    else if (args$plotType == 'heatmap') {
+        csVolcano(my_genes, args$x, args$y)
+    } else if (args$plotType == "heatmap") {
         if (args$gene_selector) {
-            myGenes <- getGenes(cuff, args$genes)
+            my_genes <- getGenes(cuff, args$genes)
+        } else {
+            my_genes <- getGenes(cuff, annotation(genes(cuff))[[1]])
         }
-        else {
-            myGenes <- getGenes(cuff,annotation(genes(cuff))[[1]])
-        }
-        csHeatmap(get_features(myGenes, args$features), clustering=args$clustering, labCol=args$labcol, labRow=args$labrow, border=args$border, logMode=args$log10)
-    }
-    else if (args$plotType == 'cluster') {
-        myGenes <- getGenes(cuff, args$genes)
-        csCluster(get_features(myGenes, args$features), k=args$k)
-    }
-    else if (args$plotType == 'dispersion') {
+        csHeatmap(get_features(my_genes, args$features), clustering = args$clustering, labCol = args$labcol, labRow = args$labrow, border = args$border, logMode = args$log10)
+    } else if (args$plotType == "cluster") {
+        my_genes <- getGenes(cuff, args$genes)
+        csCluster(get_features(my_genes, args$features), k = args$k)
+    } else if (args$plotType == "dispersion") {
         dispersionPlot(genes(cuff))
-    }
-    else if (args$plotType == 'fpkmSCV') {
+    } else if (args$plotType == "fpkmSCV") {
         fpkmSCVPlot(genes(cuff))
-    }
-    else if (args$plotType == 'scatterMatrix') {
+    } else if (args$plotType == "scatterMatrix") {
         csScatterMatrix(genes(cuff))
+    } else if (args$plotType == "expressionplot") {
+        my_genes <- getGenes(cuff, args$genes)
+        expressionPlot(get_features(my_genes, args$features), drawSummary = args$summary, showErrorbars = args$error_bars, replicates = args$replicates)
+    } else if (args$plotType == "expressionbarplot") {
+        my_gene_id <- args$genes
+        my_genes <- getGenes(cuff, my_gene_id)
+        expressionBarplot(get_features(my_genes, args$features), showErrorbars = args$error_bars, replicates = args$replicates)
+    } else if (args$plotType == "mds") {
+        MDSplot(genes(cuff), replicates = args$replicates)
+    } else if (args$plotType == "pca") {
+        PCAplot(genes(cuff), "PC1", "PC2", replicates = args$replicates)
+    } else if (args$plotType == "maplot") {
+        MAplot(genes(cuff), args$x, args$y, useCount = args$count)
+    } else if (args$plotType == "genetrack") {
+        my_gene <- getGene(cuff, args$genes)
+        plotTracks(makeGeneRegionTrack(my_gene))
     }
-    else if (args$plotType == 'expressionplot') {
-        myGenes <- getGenes(cuff, args$genes)
-        expressionPlot(get_features(myGenes, args$features), drawSummary=args$summary, showErrorbars=args$error_bars, replicates=args$replicates)
-    }
-    else if (args$plotType == 'expressionbarplot') {
-        myGeneId <- args$genes
-        myGenes <- getGenes(cuff, myGeneId)
-        expressionBarplot(get_features(myGenes, args$features), showErrorbars=args$error_bars, replicates=args$replicates)
-    }
-    else if (args$plotType == 'mds') {
-        MDSplot(genes(cuff),replicates=args$replicates)
-    }
-    else if (args$plotType == 'pca') {
-        PCAplot(genes(cuff),"PC1","PC2", replicates=args$replicates)
-    }
-    else if (args$plotType == 'maplot') {
-        MAplot(genes(cuff), args$x, args$y, useCount=args$count)
-    }
-    else if (args$plotType == 'genetrack') {
-        myGene <- getGene(cuff, args$genes)
-        plotTracks(makeGeneRegionTrack(myGene))
-    }
-},error = function(e) {
-    write(paste("Failed:", e, sep=" "), stderr())
+}, error = function(e) {
+    write(paste("Failed:", e, sep = " "), stderr())
     q("no", 1, TRUE)
 })
-devname = dev.off()
+devname <- dev.off()
+print("cummeRbund finished")

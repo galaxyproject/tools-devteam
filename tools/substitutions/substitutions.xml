@@ -1,12 +1,12 @@
-<tool id="substitutions1" name="Fetch substitutions " version="1.0.0">
+<tool id="substitutions1" name="Fetch substitutions " version="1.0.1">
     <description> from pairwise alignments</description>
     <requirements>
-        <requirement type="package" version="0.7.2">bx-python</requirement>
+        <requirement type="package" version="0.8.8">bx-python</requirement>
     </requirements>
     <command>
-        python $__tool_directory__/substitutions.py
-            $input
-            $out_file1
+        python '$__tool_directory__/substitutions.py'
+            '$input'
+            '$out_file1'
     </command>
     <inputs>
         <param format="maf" name="input" type="data" label="Select pair-wise alignment data"/>

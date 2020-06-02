@@ -1,41 +1,45 @@
 #!/usr/bin/env python
-#By, Guruprasad Ananda.
+"""
+By, Guruprasad Ananda.
+"""
+from __future__ import print_function
 
-import sys, re
+import re
+import sys
 
-def stop_err(msg):
-    sys.stderr.write(msg)
-    sys.exit()
-    
+
 def main():
     if len(sys.argv) != 4:
-        stop_err("usage: convert_characters infile from_char outfile")
+        sys.exit("usage: convert_characters infile from_char outfile")
 
     try:
-        fin = open(sys.argv[1],'r')
-    except:
-        stop_err("Input file cannot be opened for reading.")
+        fin = open(sys.argv[1], 'r')
+    except Exception:
+        sys.exit("Input file cannot be opened for reading.")
 
     from_char = sys.argv[2]
 
     try:
-        fout = open(sys.argv[3],'w')
-    except:
-        stop_err("Output file cannot be opened for writing.")
-    
-    char_dict = {'T':'\t','s':'\s','Dt':'\.','C':',','D':'-','U':'_','P':'\|','Co':':'}
-    from_ch = char_dict[from_char] + '+'    #making an RE to match 1 or more occurences.
+        fout = open(sys.argv[3], 'w')
+    except Exception:
+        exit("Output file cannot be opened for writing.")
+
+    char_dict = {'T': r'\t', 's': r'\s', 'Dt': r'\.', 'C': r',', 'D': r'-',
+                 'U': r'_', 'P': r'\|', 'Co': r':'}
+    # making an RE to match 1 or more occurences.
+    from_ch = char_dict[from_char] + '+'
     skipped = 0
-    
+
     for line in fin:
         line = line.strip()
         try:
-            fout.write("%s\n" %(re.sub(from_ch,'\t',line)))
-        except:
+            fout.write("%s\n" % (re.sub(from_ch, '\t', line)))
+        except Exception:
             skipped += 1
-            
+
     if skipped:
-        print "Skipped %d lines as invalid." %skipped
-    
-if __name__ == "__main__": 
+        print("Skipped %d lines as invalid." % skipped)
+
+
+if __name__ == "__main__":
     main()

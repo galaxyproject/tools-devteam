@@ -1,18 +1,15 @@
-<tool id="dwt_var1" name="Wavelet variance" version="1.0.1">
+<tool id="dwt_var1" name="Wavelet variance" version="1.0.2">
     <description>using Discrete Wavelet Transfoms</description>
     <requirements>
-        <requirement type="package" version="5.26.2.1">perl</requirement>
-        <requirement type="package" version="3.4.1">r-base</requirement>
         <requirement type="package" version="1.0_6">r-bitops</requirement>
         <requirement type="package" version="1.7.5">r-waveslim</requirement>
         <requirement type="package" version="4.6.8">r-wavethresh</requirement>
-        <requirement type="package" version="2.4_5">r-rwave</requirement>
     </requirements>
-    <command>
-      perl '$__tool_directory__/execute_dwt_var_perFeature.pl'
-      '$inputFile'
-        $feature
-        $alpha
+    <command detect_errors="exit_code">
+      Rscript --vanilla '$__tool_directory__/execute_dwt_var_perFeature.R'
+        '$inputFile'
+        '$feature'
+        '$alpha'
         '$outputFile1'
         '$outputFile2'
     </command>
@@ -23,8 +20,8 @@
         <param name="alpha" type="float" value="0.05" label="alpha (significance level)" />
     </inputs>
     <outputs>
-        <data format="tabular" name="outputFile1"/>
-        <data format="pdf" name="outputFile2"/>
+        <data format="tabular" name="outputFile1" label="${tool.name} on ${on_string}: statistics"/>
+        <data format="pdf" name="outputFile2" label="${tool.name} on ${on_string}: pdf"/>
     </outputs>
     <tests>
         <test>
