@@ -1,4 +1,4 @@
-<tool id="mergeCols1" name="Merge Columns" version="1.0.1">
+<tool id="mergeCols1" name="Merge Columns" version="1.0.2">
   <description>together</description>
   <requirements>
     <requirement type="package" version="3.7">python</requirement>
