@@ -1,5 +1,8 @@
 <tool id="mergeCols1" name="Merge Columns" version="1.0.1">
   <description>together</description>
+  <requirements>
+    <requirement type="package" version="3.7">python</requirement>
+  </requirements>
   <command interpreter="python">
    mergeCols.py 
       "${input1}"
