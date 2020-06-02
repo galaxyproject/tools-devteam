@@ -1,20 +1,15 @@
 import sys
 
 
-def stop_err(msg):
-    sys.stderr.write(msg)
-    sys.exit()
-
-
 def __main__():
     try:
         infile = open(sys.argv[1], 'r')
         outfile = open(sys.argv[2], 'w')
     except Exception:
-        stop_err('Cannot open or create a file\n')
+        sys.exit('Cannot open or create a file\n')
 
     if len(sys.argv) < 4:
-        stop_err('No columns to merge\n')
+        sys.exit('No columns to merge\n')
     else:
         cols = sys.argv[3:]
 
