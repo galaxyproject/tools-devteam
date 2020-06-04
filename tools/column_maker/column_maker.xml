@@ -1,8 +1,9 @@
-<tool id="Add_a_column1" name="Compute" version="1.2.0">
+<tool id="Add_a_column1" name="Compute" version="1.3.0">
     <description>an expression on every row</description>
     <requirements>
         <requirement type="package" version="2.7.13">python</requirement>
         <requirement type="package" version="4.4">sed</requirement>
+        <requirement type="package" version="1.14">numpy</requirement>
     </requirements>
     <command detect_errors="aggressive"><![CDATA[
         #if $header_lines_conditional.header_lines_select == "yes":
@@ -18,7 +19,8 @@
             "$cond"
             $round
             ${input.metadata.columns}
-            "${input.metadata.column_types}" &&
+            "${input.metadata.column_types}"
+            $avoid_scientific_notation &&
         cat header column_maker_output > '$out_file1'
     ]]></command>
     <inputs>
@@ -39,6 +41,10 @@
                 <param name="header_new_column_name" type="text" value="New Column" label="The new column name" />
             </when>
         </conditional>
+        <param name="avoid_scientific_notation" type="select" label="Avoid scientific notation" help="If yes, use fully expanded decimal representation when writing new columns (use only if expression produces decimal numbers).">
+            <option value="no">no</option>
+            <option value="yes">yes</option>
+        </param>
     </inputs>
     <outputs>
         <data format_source="input" name="out_file1" metadata_source="input"/>
@@ -71,6 +77,30 @@
             <param name="input" value="1.interval"/>
             <param name="round" value="yes"/>
             <output name="out_file1" file="column_maker_out3.interval"/>
+        </test>
+        <test>
+            <param name="cond" value="float(.0000000000001)"/>
+            <param name="input" value="1.bed"/>
+            <param name="round" value="no"/>
+            <output name="out_file1">
+                <assert_contents>
+                    <has_text text="CCDS10397" />
+                    <has_text text="1e-13" />
+                </assert_contents>
+            </output>
+        </test>
+        <test>
+            <param name="cond" value="float(.0000000000001)"/>
+            <param name="input" value="1.bed"/>
+            <param name="round" value="no"/>
+            <param name="avoid_scientific_notation" value="yes"/>
+            <output name="out_file1">
+                <assert_contents>
+                    <has_text text="CCDS10397" />
+                    <has_text text=".0000000000001" />
+                    <not_has_text text="1e-13" />
+                </assert_contents>
+            </output>
         </test>
     </tests>
     <help>
