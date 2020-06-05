@@ -1,32 +1,49 @@
-<tool id="peakcalling_ccat" name="CCAT" version="0.0.1">
+<tool id="peakcalling_ccat" name="CCAT" version="0.0.2">
   <description>Control-based ChIP-seq Analysis Tool</description>
   <requirements>
-    <requirement type="package" version="3.0">CCAT</requirement>
     <requirement type="package" version="3.0">ccat</requirement>
   </requirements>
-  <command>
-    python $__tool_directory__/ccat_wrapper.py
-        '$input_tag_file'
-        '$input_control_file'
-        '$chromInfo'
-        #if str( $options_type[ 'options_type_selector' ] ) == 'advanced':
-            '$input_advanced_config_file' 
-        #else:
-            '${ options_type.input_config_file.fields.path }'
-        #end if
-        'CCAT in Galaxy'
-        '$output_peak_file'
-        '$output_region_file'
-        '$output_top_file'
-        '$output_log_file'
-  </command>
+  <stdio>
+    <regex match="Usage: &lt;library 1 tag file name&gt; &lt;library 2 tag file name&gt; &lt;chromosome length file name&gt; &lt;config file name&gt; &lt;project name&gt;"
+           source="both"
+           level="fatal"
+           description="CLI error" />
+     <regex match="tag file error" source="both" level="fatal" description="tag file error" />
+  </stdio>
+  <command detect_errors="aggressive"><![CDATA[
+    echo $in_test_mode && CCAT '$input_tag_file'
+      '$input_control_file'
+       #if str($in_test_mode) == "no":
+         '$chromInfo'
+       #else:
+         '$__tool_directory__/test-data/genome_length_mm8_chr19.txt'
+       #end if
+       #if str($options_type['options_type_selector']) == 'advanced':
+         '$input_advanced_config_file' 
+       #else:
+         '${options_type.input_config_file.fields.path}'
+       #end if
+       CCAT
+       | tee '$output_log_file'
+  ]]></command>
+  <configfiles>
+    <configfile name="input_advanced_config_file"><![CDATA[
+#if str( $options_type['options_type_selector'] ) == 'advanced':
+fragmentSize	${options_type['fragment_size']}
+slidingWinSize	${options_type['sliding_window_size']}
+movingStep	${options_type['moving_step']}
+isStrandSensitiveMode	${options_type['is_strand_sensitive_mode']}
+minCount	${options_type['min_count']}
+outputNum	${options_type['output_num']}
+randomSeed	${options_type['random_seed']}
+minScore	${options_type['min_score']}	
+bootstrapPass	${options_type['bootstrap_pass']}
+#end if
+    ]]></configfile>
+  </configfiles>
   <inputs>
-    <param name="input_tag_file" type="data" format="bed" label="ChIP-Seq Tag File" >
-      <validator type="unspecified_build" />
-    </param>
-    <param name="input_control_file" type="data" format="bed" label="ChIP-Seq Control File" >
-      <validator type="unspecified_build" />
-    </param>
+    <param name="input_tag_file" type="data" format="bed" label="ChIP-Seq Tag File"/>
+    <param name="input_control_file" type="data" format="bed" label="ChIP-Seq Control File"/>
     <conditional name="options_type">
       <param name="options_type_selector" type="select" label="Advanced Options">
         <option value="basic" selected="True">Hide Advanced Options</option>
@@ -54,23 +71,24 @@
         <param name="bootstrap_pass" type="integer" label="Number of passes in the bootstrapping process" value="50"/>
       </when>
     </conditional>
+    <param name="in_test_mode" type="hidden" value="no" />
   </inputs>
   <outputs>
-    <data name="output_peak_file" format="interval" label="${tool.name} on ${on_string} (peaks)">
+      <data name="output_peak_file" format="interval" label="${tool.name} on ${on_string} (peaks)" from_work_dir="CCAT.significant.peak">
       <actions>
         <action type="metadata" name="chromCol" default="1"/>
         <action type="metadata" name="startCol" default="3"/>
         <action type="metadata" name="endCol" default="4"/>
       </actions>
     </data>
-    <data name="output_region_file" format="interval" label="${tool.name} on ${on_string} (regions)">
+    <data name="output_region_file" format="interval" label="${tool.name} on ${on_string} (regions)" from_work_dir="CCAT.significant.region">
       <actions>
         <action type="metadata" name="chromCol" default="1"/>
         <action type="metadata" name="startCol" default="3"/>
         <action type="metadata" name="endCol" default="4"/>
       </actions>
     </data>
-    <data name="output_top_file" format="interval" label="${tool.name} on ${on_string} (top peaks)">
+    <data name="output_top_file" format="interval" label="${tool.name} on ${on_string} (top peaks)" from_work_dir="CCAT.top100000.peak">
       <actions>
         <action type="metadata" name="chromCol" default="1"/>
         <action type="metadata" name="startCol" default="3"/>
@@ -79,78 +97,45 @@
     </data>
     <data name="output_log_file" format="txt" label="${tool.name} on ${on_string} (log)"/>
   </outputs>
-  <configfiles>
-    <configfile name="input_advanced_config_file">#if str( $options_type['options_type_selector' ] ) == 'advanced':
-fragmentSize	${options_type[ 'fragment_size' ]}
-slidingWinSize	${options_type[ 'sliding_window_size' ]}
-movingStep	${options_type[ 'moving_step' ]}
-isStrandSensitiveMode	${options_type[ 'is_strand_sensitive_mode' ]}
-minCount	${options_type[ 'min_count' ]}
-outputNum	${options_type[ 'output_num' ]}
-randomSeed	${options_type[ 'random_seed' ]}
-minScore	${options_type[ 'min_score' ]}	
-bootstrapPass	${options_type[ 'bootstrap_pass' ]}
-#end if</configfile>
-  </configfiles>
   <tests>
     <test>
-      <param name="input_tag_file" value="chipseq_enriched.bed.gz" ftype="bed" dbkey="hg18" />
-      <param name="input_control_file" value="chipseq_input.bed.gz" ftype="bed" dbkey="hg18" />
+      <param name="input_tag_file" value="ES_CTCF_chr19.bed" ftype="bed" dbkey="hg18" />
+      <param name="input_control_file" value="ES_GFP_chr19.bed" ftype="bed" dbkey="hg18" />
+      <param name="chromInfo" value="len.tsv" ftype="tabular" dbkey="hg18" />
       <param name="options_type_selector" value="advanced" />
       <param name="fragment_size" value="200" />
-      <param name="sliding_window_size" value="500" />
-      <param name="moving_step" value="50" />
-      <param name="is_strand_sensitive_mode" value="0" />
-      <param name="min_count" value="4" />
+      <param name="sliding_window_size" value="300" />
+      <param name="moving_step" value="10" />
+      <param name="is_strand_sensitive_mode" value="1" />
+      <param name="min_count" value="3" />
       <param name="output_num" value="100000" />
       <param name="random_seed" value="123456" />
       <param name="min_score" value="5.0" />
       <param name="bootstrap_pass" value="50" />
-      <output name="output_peak_file" file="peakcalling_ccat/3.0/ccat_test_peak_out_1.interval.re_match" compare="re_match" />
-      <output name="output_region_file" file="peakcalling_ccat/3.0/ccat_test_region_out_1.interval.re_match" compare="re_match" />
-      <output name="output_top_file" file="peakcalling_ccat/3.0/ccat_test_top_out_1.interval.sorted.re_match" compare="re_match" sort="True" />
-      <output name="output_log_file" file="peakcalling_ccat/3.0/ccat_test_log_out_1.txt" />
+      <param name="in_test_mode" value="yes" />
+      <output name="output_peak_file" file="ES_CTCF_chr19.significant.peak"/>
+      <output name="output_region_file" file="ES_CTCF_chr19.significant.region" />
+      <output name="output_top_file" file="ES_CTCF_chr19.top100000.peak" />
+      <output name="output_log_file" file="ES_CTCF_chr19.log" />
     </test>
     <test>
-      <param name="input_tag_file" value="chipseq_enriched.bed.gz" ftype="bed" dbkey="hg18" />
-      <param name="input_control_file" value="chipseq_input.bed.gz" ftype="bed" dbkey="hg18" />
+      <param name="input_tag_file" value="ES_CTCF_chr19.bed" ftype="bed" dbkey="hg18" />
+      <param name="input_control_file" value="ES_GFP_chr19.bed" ftype="bed" dbkey="hg18" />
       <param name="options_type_selector" value="basic" />
-      <param name="input_config_file" value="ccat_3.0_histone_config" />
-      <output name="output_peak_file" file="peakcalling_ccat/3.0/ccat_test_peak_out_1.interval.re_match" compare="re_match" />
-      <output name="output_region_file" file="peakcalling_ccat/3.0/ccat_test_region_out_1.interval.re_match" compare="re_match" />
-      <output name="output_top_file" file="peakcalling_ccat/3.0/ccat_test_top_out_1.interval.sorted.re_match" compare="re_match" sort="true" />
-      <output name="output_log_file" file="peakcalling_ccat/3.0/ccat_test_log_out_1.txt" />
+      <param name="input_config_file" value="config_TF" />
+      <param name="in_test_mode" value="yes" />
+      <output name="output_peak_file" file="ES_CTCF_chr19.significant.peak" />
+      <output name="output_region_file" file="ES_CTCF_chr19.significant.region" />
+      <output name="output_top_file" file="ES_CTCF_chr19.top100000.peak" />
+      <output name="output_log_file" file="ES_CTCF_chr19.log" />
     </test>
-    <!-- Test below gives different answers on different architectures, 
-    e.g.: x86_64 GNU/Linux gave an extra line (additional peak called) when compared to the version running on 10.6.0 Darwin i386 
-    slidingWinSize was fixed to be 1000, default as per readme.txt
-    -->
-    <!--
-    <test>
-      <param name="input_tag_file" value="chipseq_enriched.bed.gz" ftype="bed" dbkey="hg18" />
-      <param name="input_control_file" value="chipseq_input.bed.gz" ftype="bed" dbkey="hg18" />
-      <param name="options_type_selector" value="basic" />
-      <param name="input_config_file" value="ccat_3.0_histone_config_readme" />
-      <output name="output_peak_file" file="peakcalling_ccat/3.0/ccat_test_peak_out_2.interval.re_match" compare="re_match" />
-      <output name="output_region_file" file="peakcalling_ccat/3.0/ccat_test_region_out_2.interval.re_match" compare="re_match" />
-      <output name="output_top_file" file="peakcalling_ccat/3.0/ccat_test_top_out_2.interval.sorted.re_match" compare="re_match" sort="true" />
-      <output name="output_log_file" file="peakcalling_ccat/3.0/ccat_test_log_out_2.txt" />
-    </test>
-  -->
   </tests>
   <help>
 **What it does**
 
 This tool allows ChIP-seq peak/region calling using CCAT.
 
-View the original CCAT documentation: http://cmb.gis.a-star.edu.sg/ChIPSeq/paperCCAT.htm.
-
-------
-
-**Citation**
-
-If you use this tool in Galaxy, please cite Blankenberg D, et al. *In preparation.*
-
+View the original CCAT documentation: https://www.comp.nus.edu.sg/~bioinfo/CCAT3.0/
   </help>
   <citations>
     <citation type="doi">10.1093/bioinformatics/btq128</citation>

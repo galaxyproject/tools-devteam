@@ -1,0 +1,9 @@
+fragmentSize 	200
+slidingWinSize 	300
+movingStep 	10
+isStrandSensitiveMode 	1
+minCount 	3
+outputNum 	100000
+randomSeed 	123456
+minScore 	5.0
+bootstrapPass 	50

@@ -1,0 +1,53 @@
+chromosome length information read. chromNum = 1!
+config file read.
+fragmentSize = 200
+isStrandSensitiveMode = 1
+slidingWinSize = 300
+movingStep = 10
+outputNum = 100000
+minCount = 3
+minScore = 5.000000
+bootstrapPass = 50
+randSeed = 123456
+reading tag files......
+103146 tags in L1, 97149 tags in L2.
+tag file read.
+pre-processing......
+pre-processing finished.
+estimating noise rate......
+iteration 0: nr=0.669578
+iteration 1: nr=0.613605
+iteration 2: nr=0.593059
+iteration 3: nr=0.586303
+iteration 4: nr=0.583061
+iteration 5: nr=0.583061
+iteration 6: nr=0.582451
+iteration 7: nr=0.586573
+iteration 8: nr=0.583271
+iteration 9: nr=0.581424
+iteration 10: nr=0.585253
+iteration 11: nr=0.583917
+iteration 12: nr=0.583446
+iteration 13: nr=0.581896
+iteration 14: nr=0.583084
+iteration 15: nr=0.581582
+iteration 16: nr=0.582966
+iteration 17: nr=0.583596
+iteration 18: nr=0.586691
+iteration 19: nr=0.584954
+noise rate = 0.583743
+peak-finding......
+chr19......2946 candidate peaks.
+peak-finding finished.
+Significance Analysis......
+estimating paramters......
+smoothing factor = 20.048787
+estimating local FDR.....
+FDR at the threshold 5.000000 is 0.999000. You may want to adjust the threshold by inspecting the output files.
+post-processing......
+chr19......finished.
+post-processing finished.
+Significance analysis finished.
+saving results.......
+results saved.
+CCAT process completed!
