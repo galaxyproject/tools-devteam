@@ -1,1 +1,0 @@
-Most of the tools were adopted by IUC and live in https://github.com/galaxyproject/tools-iuc/tree/master/data_managers , some (`data_manager_bwa_index_builder`, `data_manager_fetch_genome_all_fasta`, `data_manager_hisat_index_builder`) were deprecated.

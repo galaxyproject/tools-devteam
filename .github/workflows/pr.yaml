@@ -83,7 +83,7 @@ jobs:
       if: github.event_name == 'pull_request'
       run: echo ::set-env name=COMMIT_RANGE::"HEAD~.."
     - name: Planemo ci_find_repos
-      run: planemo ci_find_repos --changed_in_commit_range ${{ env.COMMIT_RANGE }} --exclude packages --exclude deprecated --output changed_repositories.list
+      run: planemo ci_find_repos --changed_in_commit_range ${{ env.COMMIT_RANGE }} --exclude packages --exclude deprecated --exclude_from .tt_skip --exclude_from .tt_biocontainer_skip --output changed_repositories.list
     - name: Show repo list
       run: cat changed_repositories.list
     - uses: actions/upload-artifact@v2.0.1
