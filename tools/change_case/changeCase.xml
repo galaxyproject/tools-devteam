@@ -1,9 +1,12 @@
 <tool id="ChangeCase" name="Change Case"  version="1.0.0">
   <description> of selected columns</description>
+  <requirements>
+    <requirement type="package" version="5.22.0">perl</requirement>
+  </requirements>
   <stdio>
-    <exit_code range="1:" err_level="fatal" />
+    <exit_code range="1:" level="fatal" />
   </stdio>
-  <command interpreter="perl">changeCase.pl "${input}" "${cols}" "${delimiter}" "${casing}" "${out_file1}"</command>
+  <command>perl '$__tool_directory__/changeCase.pl' '${input}' '${cols}' '${delimiter}' '${casing}' '${out_file1}'</command>
   <inputs>
     <param name="input" format="txt" type="data" label="From"/>
     <param name="cols" type="text" value="c1,c2" label="Change case of columns"/>
@@ -22,7 +25,7 @@
     </param>
   </inputs>
   <outputs>
-    <data format="tabular" name="out_file1" />
+    <data name="out_file1" format_source="input" metadata_source="input"/>
   </outputs>
   <tests>
     <test>
@@ -30,14 +33,14 @@
       <param name="cols" value="c1"/>
       <param name="delimiter" value="SPACE"/>
       <param name="casing" value="up"/>
-      <output name="out_file1" file="changeCase_out1.tabular"/>
+      <output name="out_file1" file="changeCase_out1.tabular" ftype="txt"/>
     </test>
     <test>
       <param name="input" value="1.bed" ftype="bed"/>
       <param name="cols" value="c1"/>
       <param name="delimiter" value="TAB"/>
       <param name="casing" value="up"/>
-      <output name="out_file1" file="changeCase_out2.tabular"/>
+      <output name="out_file1" file="changeCase_out2.tabular" ftype="bed"/>
     </test>
   </tests>
   <help>

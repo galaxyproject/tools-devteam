@@ -5,7 +5,6 @@ tools/trimmer
 tools/gmaj
 tools/dna_filtering
 tools/compute_q_values
-tools/change_case
 tools/maf_cpg_filter
 tools/kernel_canonical_correlation_analysis
 tools/ucsc_custom_track
