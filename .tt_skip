@@ -99,5 +99,4 @@ tools/vcf_extract
 tools/vcf_filter
 tools/vcf_intersect
 tools/vcf2pgsnp
-tools/velvet
 tools/weightedaverage
