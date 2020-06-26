@@ -6,6 +6,5 @@ long_description: |
   or lowercase.
 name: change_case
 owner: devteam
-homepage_url: ''
 remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/change_case
 type: unrestricted

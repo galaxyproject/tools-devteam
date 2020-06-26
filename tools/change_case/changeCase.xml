@@ -6,7 +6,7 @@
   <stdio>
     <exit_code range="1:" level="fatal" />
   </stdio>
-  <command>perl '$__tool_directory__/changeCase.pl' '${input}' '${cols}' '${delimiter}' '${casing}' '${out_file1}'</command>
+  <command>perl '$__tool_directory__/changeCase.pl' '${input}' '${cols}' ${delimiter} ${casing} '${out_file1}'</command>
   <inputs>
     <param name="input" format="txt" type="data" label="From"/>
     <param name="cols" type="text" value="c1,c2" label="Change case of columns"/>
