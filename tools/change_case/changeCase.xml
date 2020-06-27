@@ -1,7 +1,7 @@
-<tool id="ChangeCase" name="Change Case"  version="1.0.0">
+<tool id="ChangeCase" name="Change Case"  version="1.0.1">
   <description> of selected columns</description>
   <requirements>
-    <requirement type="package" version="5.22.0">perl</requirement>
+    <requirement type="package" version="5.26">perl</requirement>
   </requirements>
   <stdio>
     <exit_code range="1:" level="fatal" />
