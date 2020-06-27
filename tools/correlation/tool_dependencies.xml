@@ -1,6 +1,0 @@
-<?xml version="1.0"?>
-<tool_dependency>
-  <package name="rpy" version="1.0.3">
-      <repository name="package_rpy_1_0_3" owner="devteam" />
-    </package>
-</tool_dependency>
