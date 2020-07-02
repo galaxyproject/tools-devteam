@@ -22,7 +22,7 @@ def main():
     try:
         fout = open(sys.argv[3], 'w')
     except Exception:
-        exit("Output file cannot be opened for writing.")
+        sys.exit("Output file cannot be opened for writing.")
 
     char_dict = {'T': r'\t', 's': r'\s', 'Dt': r'\.', 'C': r',', 'D': r'-',
                  'U': r'_', 'P': r'\|', 'Co': r':'}

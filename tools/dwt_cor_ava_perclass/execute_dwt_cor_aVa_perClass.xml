@@ -1,4 +1,4 @@
-<tool id="compute_p-values_correlation_coefficients_feature_occurrences_between_two_datasets_using_discrete_wavelet_transfom" name="Compute P-values and Correlation Coefficients for Feature Occurrences" version="1.0.0">
+<tool id="compute_p-values_correlation_coefficients_feature_occurrences_between_two_datasets_using_discrete_wavelet_transfom" name="Compute P-values and Correlation Coefficients for Feature Occurrences" version="1.0.1">
   <description>between two datasets using Discrete Wavelet Transfoms</description>
   <requirements>
     <requirement type="package" version="1.7.5">r-waveslim</requirement>

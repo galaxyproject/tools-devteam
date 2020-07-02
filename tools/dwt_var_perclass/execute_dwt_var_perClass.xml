@@ -1,4 +1,4 @@
-<tool id="compute_p-values_max_variances_feature_occurrences_in_one_dataset_using_discrete_wavelet_transfom" name="Compute P-values and Max Variances for Feature Occurrences" version="1.0.0">
+<tool id="compute_p-values_max_variances_feature_occurrences_in_one_dataset_using_discrete_wavelet_transfom" name="Compute P-values and Max Variances for Feature Occurrences" version="1.0.1">
   <description>in one dataset using Discrete Wavelet Transfoms</description>
   <requirements>
     <requirement type="package" version="1.7.5">r-waveslim</requirement>

@@ -1,7 +1,7 @@
 <tool id="Convert characters1" name="Convert"  version="1.0.1">
     <description>delimiters to TAB</description>
     <requirements>
-        <requirement type="package" version="1.13.0">six</requirement>
+        <requirement type="package" version="3.8">python</requirement>
     </requirements>
     <command>
         python '$__tool_directory__/convert_characters.py'
