@@ -36,10 +36,6 @@ tools/dgidb_annotator
 tools/divide_pg_snp
 tools/dna_filtering
 tools/draw_stacked_barplots
-tools/dwt_cor_ava_perclass
-tools/dwt_cor_avb_all
-tools/dwt_ivc_all
-tools/dwt_var_perclass
 tools/express
 tools/fastqsolexa_to_fasta_qual
 tools/featurecounter
