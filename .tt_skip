@@ -86,7 +86,6 @@ tools/kernel_principal_component_analysis
 tools/multispecies_orthologous_microsats
 tools/vcf_extract
 tools/delete_overlapping_indels
-tools/histogram
 tool_collections/hgv/hgv_hilbertvis
 tool_collections/hgv/snpfreq
 tool_collections/hgv/hgv_fundo
