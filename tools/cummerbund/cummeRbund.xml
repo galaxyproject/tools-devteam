@@ -1,20 +1,22 @@
 <?xml version="1.0"?>
-<tool id="cummeRbund" name="cummeRbund" version="2.16.0">
+<tool id="cummeRbund" name="cummeRbund" version="@TOOL_VERSION@+galaxy1">
     <description>visualize Cuffdiff output</description>
     <macros>
         <import>cummeRbund_macros.xml</import>
     </macros>
     <requirements>
-        <requirement type="package" version="1.0.1">r-argparse</requirement>
-        <requirement type="package" version="2.16.0">bioconductor-cummerbund</requirement>
+        <requirement type="package" version="1">fonts-conda-ecosystem</requirement>
+        <requirement type="package" version="1.0.4">r-argparse</requirement>
+        <requirement type="package" version="3.4.1">r-base</requirement>
+        <requirement type="package" version="@TOOL_VERSION@">bioconductor-cummerbund</requirement>
     </requirements>
     <code file="cummeRbund_options.py"/>
     <command detect_errors="aggressive">
 <![CDATA[
 #for i, p in enumerate($plots):
-    Rscript $__tool_directory__/cummeRbund.R
-    --input "${input_database}" --width $p.width --height $p.height --type "${p.plot.type}"
-    --outfile plot-${p.plot.type}-${i}.png
+    Rscript --vanilla --slave '$__tool_directory__/cummeRbund.R'
+    --input '$input_database' --width $p.width --height $p.height --type "${p.plot.type}"
+    --outfile 'plot-${p.plot.type}-${i}.png'
     #if $p.plot.type in ["density", "boxplot", "mds", "pca", "dendrogram"]:
         $p.plot.replicates
     #elif $p.plot.type == "scatter":
@@ -22,7 +24,7 @@
         #if $p.plot.multiple_genes.multiple_genes_selector == "yes":
             --features $p.plot.multiple_genes.features --gene_selector
             #for gene in $p.plot.multiple_genes.genes:
-                --genes ${gene.gene_id}
+                --genes '$gene.gene_id'
             #end for
         #end if
     #elif $p.plot.type == "maplot":
@@ -32,7 +34,7 @@
         #if $p.plot.multiple_genes.multiple_genes_selector == "yes":
             --features $p.plot.multiple_genes.features --gene_selector
             #for gene in $p.plot.multiple_genes.genes:
-                --genes ${gene.gene_id}
+                --genes '$gene.gene_id'
             #end for
         #end if
     #elif $p.plot.type == "heatmap":
@@ -40,26 +42,26 @@
         #if len($p.plot.genes) > 0:
             --gene_selector
             #for gene in $p.plot.genes:
-                --genes ${gene.gene_id}
+                --genes '$gene.gene_id'
             #end for
         #end if
     #elif $p.plot.type == "cluster":
         --features $p.plot.features --k $p.plot.k --iter_max $p.plot.iter_max
         #if len($p.plot.genes) > 0:
             #for gene in $p.plot.genes:
-                --genes ${gene.gene_id}
+                --genes '$gene.gene_id'
             #end for
         #end if
     #elif $p.plot.type in [ "expressionplot", "expressionbarplot" ]:
         #if $p.plot.type == "expressionplot":
             $p.plot.draw_summary
         #end if
-        --features $p.plot.features $p.plot.error_bars --genes ${p.plot.gene_id} $p.plot.replicates $p.plot.log10
+        --features $p.plot.features $p.plot.error_bars --genes '$p.plot.gene_id' $p.plot.replicates $p.plot.log10
     #end if
     #if $p.plot.type == "density":
         $p.plot.log10
     #end if
-    > "${output}" 2>&1 ;
+    > '${output}' 2>&1 ;
 #end for
 ]]></command>
     <inputs>
@@ -175,7 +177,8 @@
                     <param name="y" value="q2" />
                 </conditional>
             </repeat>
-            <output name="output" ftype="txt" file="maplot.txt" lines_diff="2">
+            <output name="output" ftype="txt">
+                <assert_contents><has_text text="cummeRbund finished" /></assert_contents>
                 <discovered_dataset designation="maplot-0" ftype="png" file="maplot.png" />
             </output>
         </test>
@@ -190,7 +193,8 @@
                     <param name="y" value="q2" />
                 </conditional>
             </repeat>
-            <output name="output" ftype="txt" file="scatter.txt" lines_diff="2">
+            <output name="output" ftype="txt">
+                <assert_contents><has_text text="cummeRbund finished" /></assert_contents>
                 <discovered_dataset designation="scatter-0" ftype="png" file="scatter.png" />
             </output>
         </test>
@@ -203,7 +207,8 @@
                     <param name="type" value="dispersion" />
                 </conditional>
             </repeat>
-            <output name="output" ftype="txt" file="dispersion.txt" lines_diff="2">
+            <output name="output" ftype="txt">
+                <assert_contents><has_text text="cummeRbund finished" /></assert_contents>
                 <discovered_dataset designation="dispersion-0" ftype="png" file="dispersion.png" />
             </output>
         </test>
@@ -216,7 +221,8 @@
                     <param name="type" value="scatterMatrix" />
                 </conditional>
             </repeat>
-            <output name="output" ftype="txt" file="scatterMatrix.txt" lines_diff="2">
+            <output name="output" ftype="txt">
+                <assert_contents><has_text text="cummeRbund finished" /></assert_contents>
                 <discovered_dataset designation="scatterMatrix-0" ftype="png" file="scatterMatrix.png" />
             </output>
         </test>
@@ -229,7 +235,8 @@
                     <param name="type" value="pca" />
                 </conditional>
             </repeat>
-            <output name="output" ftype="txt" file="pca.txt" lines_diff="2">
+            <output name="output" ftype="txt">
+                <assert_contents><has_text text="cummeRbund finished" /></assert_contents>
                 <discovered_dataset designation="pca-0" ftype="png" file="pca.png" />
             </output>
         </test>
@@ -244,7 +251,8 @@
                     <param name="gene_id" value="XLOC_000059" />
                 </conditional>
             </repeat>
-            <output name="output" ftype="txt" file="expressionplot.txt" lines_diff="2">
+            <output name="output" ftype="txt">
+                <assert_contents><has_text text="cummeRbund finished" /></assert_contents>
                 <discovered_dataset designation="expressionplot-0" ftype="png" file="expressionplot.png" />
             </output>
         </test>
@@ -259,7 +267,8 @@
                     <param name="gene_id" value="XLOC_000039" />
                 </conditional>
             </repeat>
-            <output name="output" ftype="txt" file="expressionbarplot.txt" lines_diff="2">
+            <output name="output" ftype="txt">
+                <assert_contents><has_text text="cummeRbund finished" /></assert_contents>
                 <discovered_dataset designation="expressionbarplot-0" ftype="png" file="expressionbarplot.png" />
             </output>
         </test>
@@ -278,7 +287,8 @@
                     </repeat>
                 </conditional>
             </repeat>
-            <output name="output" ftype="txt" file="heatmap.txt" lines_diff="2">
+            <output name="output" ftype="txt">
+                <assert_contents><has_text text="cummeRbund finished" /></assert_contents>
                 <discovered_dataset designation="heatmap-0" ftype="png" file="heatmap.png" />
             </output>
         </test>
@@ -291,7 +301,8 @@
                     <param name="type" value="density" />
                 </conditional>
             </repeat>
-            <output name="output" ftype="txt" file="density.txt" lines_diff="2">
+            <output name="output" ftype="txt">
+                <assert_contents><has_text text="cummeRbund finished" /></assert_contents>
                 <discovered_dataset designation="density-0" ftype="png" file="density.png" />
             </output>
         </test>
@@ -304,7 +315,8 @@
                     <param name="type" value="dendrogram" />
                 </conditional>
             </repeat>
-            <output name="output" ftype="txt" file="dendrogram.txt" lines_diff="2">
+            <output name="output" ftype="txt">
+                <assert_contents><has_text text="cummeRbund finished" /></assert_contents>
                 <discovered_dataset designation="dendrogram-0" ftype="png" file="dendrogram.png" />
             </output>
         </test>
@@ -319,7 +331,8 @@
                     <param name="y" value="q2" />
                 </conditional>
             </repeat>
-            <output name="output" ftype="txt" file="volcano.txt" lines_diff="2">
+            <output name="output" ftype="txt">
+                <assert_contents><has_text text="cummeRbund finished" /></assert_contents>
                 <discovered_dataset designation="volcano-0" ftype="png" file="volcano.png" />
             </output>
         </test>
@@ -332,7 +345,8 @@
                     <param name="type" value="boxplot" />
                 </conditional>
             </repeat>
-            <output name="output" ftype="txt" file="boxplot.txt" lines_diff="2">
+            <output name="output" ftype="txt">
+                <assert_contents><has_text text="cummeRbund finished" /></assert_contents>
                 <discovered_dataset designation="boxplot-0" ftype="png" file="boxplot.png" />
             </output>
         </test>
@@ -345,7 +359,8 @@
                     <param name="type" value="fpkmSCV" />
                 </conditional>
             </repeat>
-            <output name="output" ftype="txt" file="fpkmSCV.txt" lines_diff="2">
+            <output name="output" ftype="txt">
+                <assert_contents><has_text text="cummeRbund finished" /></assert_contents>
                 <discovered_dataset designation="fpkmSCV-0" ftype="png" file="fpkmSCV.png" />
             </output>
         </test>
