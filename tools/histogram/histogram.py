@@ -7,14 +7,6 @@ from rpy2.robjects import r, vectors
 from rpy2.robjects.packages import importr
 
 
-assert sys.version_info[:2] >= (2, 4)
-
-
-def stop_err(msg):
-    sys.stderr.write(msg)
-    sys.exit()
-
-
 def main():
     # Handle input params
     in_fname = sys.argv[1]
