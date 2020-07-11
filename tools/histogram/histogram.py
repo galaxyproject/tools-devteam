@@ -84,7 +84,7 @@ def main():
                 graphics.lines(density)
             grdevices.dev_off()
         except Exception as exc:
-            stop_err("%s" % str(exc))
+            sys.exit("%s" % str(exc))
     else:
         if i == 0:
             sys.exit("Input dataset is empty.")
