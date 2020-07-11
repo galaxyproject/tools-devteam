@@ -89,7 +89,7 @@ def main():
         if i == 0:
             stop_err("Input dataset is empty.")
         else:
-            stop_err("All values in column %s are non-numeric." % sys.argv[3])
+            sys.exit("All values in column %s are non-numeric." % sys.argv[3])
 
     print("Histogram of column %s. " % sys.argv[3])
     if skipped_lines > 0:
