@@ -87,7 +87,7 @@ def main():
             stop_err("%s" % str(exc))
     else:
         if i == 0:
-            stop_err("Input dataset is empty.")
+            sys.exit("Input dataset is empty.")
         else:
             sys.exit("All values in column %s are non-numeric." % sys.argv[3])
 
