@@ -1,4 +1,5 @@
-<tool id="histogram_rpy" name="Histogram" version="1.0.3">
+<tool id="histogram_rpy" name="Histogram" version="1.0.4">
+
   <description>of a numeric column</description>
   <requirements>
     <requirement type="package" version="3.3.2">rpy2</requirement>
