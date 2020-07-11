@@ -22,7 +22,7 @@ def main():
     try:
         column = int(sys.argv[3]) - 1
     except Exception:
-        stop_err("Column not specified, your query does not contain a column of numerical data.")
+        sys.exit("Column not specified, your query does not contain a column of numerical data.")
     title = sys.argv[4]
     xlab = sys.argv[5]
     breaks = int(sys.argv[6])
