@@ -45,7 +45,6 @@ tools/getindelrates_3way
 tools/getindels_2way
 tools/gmaj
 tools/hisat
-tools/histogram
 tools/indels_3way
 tools/kernel_canonical_correlation_analysis
 tools/kernel_principal_component_analysis
