@@ -34,7 +34,6 @@ tools/cummerbund_to_tabular
 tools/delete_overlapping_indels
 tools/dgidb_annotator
 tools/divide_pg_snp
-tools/dna_filtering
 tools/draw_stacked_barplots
 tools/express
 tools/fastqsolexa_to_fasta_qual
