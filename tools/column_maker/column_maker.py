@@ -46,7 +46,7 @@ for key, value in mapped_str.items():
     expr = expr.replace(key, value)
 
 operators = 'is|not|or|and'
-builtin_and_math_functions = 'abs|all|any|bin|chr|cmp|complex|divmod|float|bool|hex|int|len|long|max|min|oct|ord|pow|range|reversed|round|sorted|str|sum|type|unichr|unicode|log|exp|sqrt|ceil|floor'
+builtin_and_math_functions = 'abs|all|any|bin|chr|cmp|complex|divmod|float|bool|hex|int|len|long|max|min|oct|ord|pow|range|reversed|round|sorted|str|sum|type|unichr|unicode|log|log10|exp|sqrt|ceil|floor'
 string_and_list_methods = [name for name in dir('') + dir([]) if not name.startswith('_')]
 whitelist = r"^([c0-9\+\-\*\/\(\)\.\'\"><=,:! ]|%s|%s|%s)*$" % (operators, builtin_and_math_functions, '|'.join(string_and_list_methods))
 if not re.compile(whitelist).match(expr):
@@ -84,6 +84,7 @@ from math import (
     exp,
     floor,
     log,
+    log10,
     sqrt
 )
 from numpy import format_float_positional
