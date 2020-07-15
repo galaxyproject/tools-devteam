@@ -1,18 +1,18 @@
-<tool id="mergeCols1" name="Merge Columns" version="1.0.2">
+<tool id="mergeCols1" name="Merge Columns" version="1.0.3" profile="16.04">
   <description>together</description>
   <requirements>
     <requirement type="package" version="3.7">python</requirement>
   </requirements>
-  <command interpreter="python">
-   mergeCols.py 
-      "${input1}"
-      "${out_file1}"
-      "${col1}"
-      "${col2}"
-      #for $col in $columns
-        ${col.datacol}
-      #end for
-  </command>
+  <command><![CDATA[
+python '$__tool_directory__/mergeCols.py'
+"${input1}"
+"${out_file1}"
+"${col1}"
+"${col2}"
+#for $col in $columns
+  ${col.datacol}
+#end for
+  ]]></command>
   <inputs>
     <param format="tabular" name="input1" type="data" label="Select data" help="Dataset missing? See TIP below."/>
     <param name="col1" label="Merge column" type="data_column" data_ref="input1" />
