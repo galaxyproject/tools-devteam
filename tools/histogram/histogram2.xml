@@ -1,11 +1,20 @@
 <tool id="histogram_rpy" name="Histogram" version="1.0.4">
-
   <description>of a numeric column</description>
   <requirements>
     <requirement type="package" version="3.3.2">rpy2</requirement>
     <requirement type="package" version="3.6.0">R</requirement>
   </requirements>
-  <command interpreter="python">histogram.py $input $out_file1 $numerical_column "$title" "$xlab" $breaks $density $frequency</command>
+  <command>
+python '$__tool_directory__/histogram.py'
+    '$input'
+    '$out_file1'
+    $numerical_column
+    '$title'
+    '$xlab'
+    $breaks
+    $density
+    $frequency
+</command>
   <inputs>
     <param name="input" type="data" format="tabular" label="Dataset" help="Dataset missing? See TIP below"/>
     <param name="numerical_column" type="data_column" data_ref="input" numerical="True" label="Numerical column for x axis" />
