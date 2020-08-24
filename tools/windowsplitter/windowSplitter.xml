@@ -1,7 +1,7 @@
-<tool id="winSplitter" name="Make windows" version="1.0.0">
+<tool id="winSplitter" name="Make windows" version="1.0.1">
     <description></description>
     <requirements>
-        <requirement type="package" version="0.7.2">bx-python</requirement>
+        <requirement type="package" version="0.8.8">bx-python</requirement>
     </requirements>
     <command>
         python $__tool_directory__/windowSplitter.py

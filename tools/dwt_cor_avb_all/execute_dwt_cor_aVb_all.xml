@@ -1,20 +1,35 @@
-<tool id="compute_p-values_correlation_coefficients_featureA_featureB_occurrences_between_two_datasets_using_discrete_wavelet_transfom" name="Compute P-values and Correlation Coefficients for Occurrences of Two Set of Features" version="1.0.0">
+<tool id="compute_p-values_correlation_coefficients_featureA_featureB_occurrences_between_two_datasets_using_discrete_wavelet_transfom" name="Compute P-values and Correlation Coefficients for Occurrences of Two Set of Features" version="1.0.1">
   <description>between two datasets using Discrete Wavelet Transfoms</description>
-  
-  <command interpreter="perl">
-  	execute_dwt_cor_aVb_all.pl $inputFile1 $inputFile2 $outputFile1 $outputFile2
+   <requirements>
+    <requirement type="package" version="1.7.5">r-waveslim</requirement>
+    <requirement type="package" version="4.6.8">r-wavethresh</requirement>
+  </requirements> 
+  <command detect_errors="exit_code">
+    Rscript --vanilla '$__tool_directory__/execute_dwt_cor_aVb_all.R'
+      '$inputFile1'
+      '$inputFile2'
+      '$outputFile2'
+      '$outputFile1'
   </command>
-
   <inputs>
-  	<param format="tabular" name="inputFile1" type="data" label="Select the first input file"/>	
-  	<param format="tabular" name="inputFile2" type="data" label="Select the second input file"/>
+    <param format="tabular" name="inputFile1" type="data" label="Select the first input file"/>	
+    <param format="tabular" name="inputFile2" type="data" label="Select the second input file"/>
   </inputs>
-  
   <outputs>
-    <data format="tabular" name="outputFile1"/> 
-    <data format="pdf" name="outputFile2"/>
+    <data format="tabular" name="outputFile1" label="${tool.name} on ${on_string}: statistics"/> 
+    <data format="pdf" name="outputFile2" label="${tool.name} on ${on_string}: pdf"/>
   </outputs>
-  	
+  <tests>
+    <test>
+      <param ftype="tabular" name="inputFile1" value="in1.tsv"/>
+      <param ftype="tabular" name="inputFile2" value="in2.tsv"/>
+      <output name="outputFile1" ftype="tabular">
+        <assert_contents><has_line_matching expression="^motif1\tmotif2.*"/></assert_contents>
+        <assert_contents><has_line_matching expression="^topoisomeraseCleavageSite\ttranslinTarget.*" /></assert_contents>
+      </output>
+      <output name="outputFile2" ftype="pdf" file="out2.pdf" compare="sim_size"/>
+    </test>
+  </tests>
   <help> 
 
 .. class:: infomark
