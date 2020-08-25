@@ -5,40 +5,39 @@ import sys
 
 import xml.etree.cElementTree as ElementTree
 
+
 def stop_err(msg):
     sys.stderr.write("%s\n" % msg)
     sys.exit()
 
+
 def __main__():
-    source  = sys.argv[1]
-    hspTags = [
-           "Hsp_bit-score",
-           "Hsp_evalue",
-           "Hsp_query-from",
-           "Hsp_query-to",
-           "Hsp_hit-from",
-           "Hsp_hit-to",
-           "Hsp_query-frame",
-           "Hsp_hit-frame",
-           "Hsp_identity",
-           "Hsp_align-len",
-           "Hsp_qseq",
-           "Hsp_hseq",
-           "Hsp_midline"
-          ]
-    hspData = []
+    source = sys.argv[1]
+    hspTags = ["Hsp_bit-score",
+               "Hsp_evalue",
+               "Hsp_query-from",
+               "Hsp_query-to",
+               "Hsp_hit-from",
+               "Hsp_hit-to",
+               "Hsp_query-frame",
+               "Hsp_hit-frame",
+               "Hsp_identity",
+               "Hsp_align-len",
+               "Hsp_qseq",
+               "Hsp_hseq",
+               "Hsp_midline"]
 
     # get an iterable
     try: 
         context = ElementTree.iterparse(source, events=("start", "end"))
-    except:
+    except Exception:
         stop_err("Invalid data format.")
     # turn it into an iterator
-    context = iter( context )
+    context = iter(context)
     # get the root element
     try:
         event, root = context.__next__()
-    except:
+    except Exception:
         stop_err("Invalid data format.")
 
     outfile = open(sys.argv[2], 'w')
@@ -55,12 +54,10 @@ def __main__():
                         subject = subject.split('|')[1]
                     sLen = hit.findtext("Hit_len")
                     # for every <Hsp> within <Hit>
-                    for hsp in hit.findall( "Hit_hsps/Hsp" ):
-                        outfile.write( "%s\t%s\t%s\t%s" % (query, qLen, subject, sLen))
+                    for hsp in hit.findall("Hit_hsps/Hsp"):
+                        outfile.write("%s\t%s\t%s\t%s" % (query, qLen, subject, sLen))
                         for tag in hspTags:
                             outfile.write("\t%s" %(hsp.findtext(tag)))
-                            #hspData.append( hsp.findtext( tag ) )
-                        #hspData = []
                         outfile.write('\n')
                 # prevents ElementTree from growing large datastructure
                 root.clear()
@@ -68,7 +65,6 @@ def __main__():
     except Exception:
         outfile.close()
         stop_err("The input data is malformed, or there is more than one dataset in the input file. Error: %s" % sys.exc_info()[1])
-
     outfile.close()
 
 
