@@ -41,7 +41,7 @@ def __main__():
     context = iter( context )
     # get the root element
     try:
-        event, root = context.next()
+        event, root = context.__next__()
     except:
         stop_err( "Invalid data format." )
 
