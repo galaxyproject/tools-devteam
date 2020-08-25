@@ -5,7 +5,7 @@
     </requirements>
     <command><![CDATA[
         '$__tool_directory__/megablast_xml_parser.py' '$input1' '$output1'
-    </command>
+    ]]></command>
     <inputs>
         <param name="input1" type="data" format="blastxml" label="Megablast XML output" />
     </inputs>
