@@ -2,7 +2,6 @@
 
 import re
 import sys
-
 import xml.etree.cElementTree as ElementTree
 
 
@@ -28,7 +27,7 @@ def __main__():
                "Hsp_midline"]
 
     # get an iterable
-    try: 
+    try:
         context = ElementTree.iterparse(source, events=("start", "end"))
     except Exception:
         stop_err("Invalid data format.")
@@ -57,7 +56,7 @@ def __main__():
                     for hsp in hit.findall("Hit_hsps/Hsp"):
                         outfile.write("%s\t%s\t%s\t%s" % (query, qLen, subject, sLen))
                         for tag in hspTags:
-                            outfile.write("\t%s" %(hsp.findtext(tag)))
+                            outfile.write("\t%s" % (hsp.findtext(tag)))
                         outfile.write('\n')
                 # prevents ElementTree from growing large datastructure
                 root.clear()
