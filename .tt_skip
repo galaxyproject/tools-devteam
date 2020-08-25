@@ -55,7 +55,6 @@ tools/macs
 tools/maf_cpg_filter
 tools/mapping_to_ucsc
 tools/megablast_wrapper
-tools/megablast_xml_parser
 tools/microsatellite_birthdeath
 tools/microsats_alignment_level
 tools/microsats_mutability
