@@ -1,18 +1,23 @@
-<tool id="megablast_xml_parser" name="Parse blast XML output" version="1.0.0">
-<description></description>
-<command interpreter="python">megablast_xml_parser.py $input1 $output1</command>
-<inputs>
-  <param name="input1" type="data" format="blastxml" label="Megablast XML output" />
-</inputs>
-<outputs>
-  <data name="output1" format="tabular"/>
-</outputs>
-<tests>
-  <test>
-    <param name="input1" value="megablast_xml_parser_test1.gz" ftype="blastxml" />
-    <output name="output1" file="megablast_xml_parser_test1_out.tabular" ftype="tabular" />
-  </test>
-</tests>
+<tool id="megablast_xml_parser" name="Parse blast XML output" version="1.0.1">
+    <description></description>
+    <requirements>
+        <requirement type="package" version="3.8">python</requirement>
+    </requirements>
+    <command><![CDATA[
+        python '$__tool_directory__/megablast_xml_parser.py' '$input1' '$output1'
+    ]]></command>
+    <inputs>
+        <param name="input1" type="data" format="blastxml" label="Megablast XML output" />
+    </inputs>
+    <outputs>
+        <data name="output1" format="tabular"/>
+    </outputs>
+    <tests>
+        <test>
+            <param name="input1" value="megablast_xml_parser_test1.gz" ftype="blastxml" />
+            <output name="output1" file="megablast_xml_parser_test1_out.tabular" ftype="tabular" />
+        </test>
+    </tests>
 <help>
 
 **What it does**
@@ -54,7 +59,5 @@ This tools returns tab-delimited output with the following fields::
 
 Note that this form of output does not contain alignment identify value. However, it can be computed by dividing the number of identical bases within the alignment (Field 13) by the alignment length (Field 14) using *Text Manipulation->Compute* tool 
 
-
-
-</help>
+    </help>
 </tool>
