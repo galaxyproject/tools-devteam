@@ -14,15 +14,21 @@
             ln -s '$input' data &&
         #end if
 
+        ## inject colums and column_types metadata into inputs json
+        #import json
+        #set inputs_dict = json.load(open($inputs))
+        #set inputs_dict['columns'] = $input.metadata.columns
+        #set inputs_dict['column_types'] = $input.metadata.column_types
+        #set x = json.dump($inputs_dict, open($inputs, 'w'))
+
         python '$__tool_directory__/column_maker.py'
-            data column_maker_output
-            "$cond"
-            $round
-            ${input.metadata.columns}
-            "${input.metadata.column_types}"
-            $avoid_scientific_notation &&
-        cat header column_maker_output > '$out_file1'
+             data column_maker_output
+             --load_json $inputs
+        && cat header column_maker_output > '$out_file1'
     ]]></command>
+    <configfiles>
+      <inputs name="inputs"/>
+    </configfiles>
     <inputs>
         <param name="cond" type="text" value="c3-c2" label="Add expression"/>
         <param format="tabular" name="input" type="data" label="as a new column to" help="Dataset missing? See TIP below"/>
