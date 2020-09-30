@@ -5,14 +5,10 @@ the file which is the result of a computation performed on every row in the
 original file. The tool will skip over invalid lines within the file,
 informing the user about the number of lines skipped.
 """
-from __future__ import print_function
 
 import argparse
 import json
 import re
-import sys
-
-assert sys.version_info[:2] >= (2, 4)
 
 parser = argparse.ArgumentParser()
 parser.add_argument('input', type=argparse.FileType('r'), help="input file")
