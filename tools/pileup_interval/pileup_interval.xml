@@ -1,4 +1,4 @@
-<tool id="pileup_interval" name="Pileup-to-Interval" version="1.0.2">
+<tool id="pileup_interval" name="Pileup-to-Interval" version="1.0.3">
   <description>condenses pileup format into ranges of bases</description>
   <command interpreter="python">
     pileup_interval.py 
