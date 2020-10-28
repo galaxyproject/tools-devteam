@@ -1,6 +1,7 @@
 categories:
 - ChIP-seq
 description: Statistical approach for the Identification of ChIP-Enriched Regions
+homepage_url: https://home.gwu.edu/~wpeng/Software.htm
 long_description: |
   SICER first and foremost is a filtering tool. Its main functions are:
 
