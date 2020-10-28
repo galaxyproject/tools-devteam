@@ -1,4 +1,7 @@
 <tool id="pileup_interval" name="Pileup-to-Interval" version="1.0.3">
+  <requirements>
+    <requirement type="package" version="0.7.1">bx-python</requirement>
+  </requirements>
   <description>condenses pileup format into ranges of bases</description>
   <command interpreter="python">
     pileup_interval.py 
