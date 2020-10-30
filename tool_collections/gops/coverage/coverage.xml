@@ -1,4 +1,4 @@
-<tool id="gops_coverage_1" name="Coverage" version="1.0.0">
+<tool id="gops_coverage_1" name="Coverage" version="1.0.0+py3">
     <description>of a set of intervals on second set of intervals</description>
     <macros>
         <import>macros.xml</import>

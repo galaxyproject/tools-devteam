@@ -1,4 +1,4 @@
-<tool id="gops_complement_1" name="Complement" version="1.0.0">
+<tool id="gops_complement_1" name="Complement" version="1.0.0+py3">
     <description>intervals of a dataset</description>
     <macros>
         <import>macros.xml</import>

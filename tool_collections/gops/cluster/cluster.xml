@@ -1,4 +1,4 @@
-<tool id="gops_cluster_1" name="Cluster" version="1.0.0">
+<tool id="gops_cluster_1" name="Cluster" version="1.0.0+py3">
     <description>the intervals of a dataset</description>
     <macros>
         <import>macros.xml</import>

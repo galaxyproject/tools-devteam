@@ -1,4 +1,4 @@
-<tool id="gops_intersect_1" name="Intersect" version="1.0.0">
+<tool id="gops_intersect_1" name="Intersect" version="1.0.0+py3">
     <description>the intervals of two datasets</description>
     <macros>
         <import>macros.xml</import>

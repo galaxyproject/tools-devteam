@@ -1,4 +1,4 @@
-<tool id="gops_basecoverage_1" name="Base Coverage" version="1.0.0">
+<tool id="gops_basecoverage_1" name="Base Coverage" version="1.0.0+py3">
     <description>of all intervals</description>
     <macros>
         <import>macros.xml</import>

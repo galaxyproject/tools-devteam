@@ -1,4 +1,4 @@
-<tool id="gops_concat_1" name="Concatenate" version="1.0.1">
+<tool id="gops_concat_1" name="Concatenate" version="1.0.1+py3">
     <description>two BED files</description>
     <macros>
         <import>macros.xml</import>
