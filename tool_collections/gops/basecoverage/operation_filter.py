@@ -13,7 +13,7 @@ def validate_input( trans, error_map, param_values, page_param_map ):
     dbkeys = set()
     data_param_names = set()
     data_params = 0
-    for name, param in page_param_map.items():
+    for name, param in list(page_param_map.items()):
         if isinstance( param, DataToolParameter ):
             # for each dataset parameter
             if param_values.get(name, None) is not None:
@@ -48,7 +48,7 @@ def validate_input( trans, error_map, param_values, page_param_map ):
 # Commented out by INS, 5/30/2007.  What is the PURPOSE of this?
 def exec_after_process(app, inp_data, out_data, param_dict, tool=None, stdout=None, stderr=None):
     """Verify the output data after each run"""
-    for data in out_data.values():
+    for data in list(out_data.values()):
         try:
             if stderr and len( stderr ) > 0:
                 raise Exception( stderr )
@@ -62,7 +62,7 @@ def exec_after_merge(app, inp_data, out_data, param_dict, tool=None, stdout=None
         app, inp_data, out_data, param_dict, tool=tool, stdout=stdout, stderr=stderr)
 
     # strip strand column if clusters were merged
-    for data in out_data.values():
+    for data in list(out_data.values()):
         if param_dict['returntype'] is True:
             data.metadata.chromCol = 1
             data.metadata.startCol = 2
@@ -77,5 +77,5 @@ def exec_after_cluster(app, inp_data, out_data, param_dict, tool=None, stdout=No
 
     # strip strand column if clusters were merged
     if param_dict["returntype"] == '1':
-        for data in out_data.values():
+        for data in list(out_data.values()):
             data.metadata.strandCol = None
