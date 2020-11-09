@@ -24,9 +24,9 @@ parser.add_argument('--load_json', default=None, type=argparse.FileType('r'),
                     help="overwrite parsed arguments from json file")
 args = parser.parse_args()
 
+argparse_dict = vars(args)
 if args.load_json:
     json_dict = json.load(args.load_json)
-    argparse_dict = vars(args)
     argparse_dict.update(json_dict)
 
 fh = argparse_dict['input']
