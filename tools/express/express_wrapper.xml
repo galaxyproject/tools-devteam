@@ -25,7 +25,7 @@
 	</command>
 	<inputs>
 		<param format="fasta" name="multiFasta" type="data" label="A set of target references (annotation) in multi-FASTA format" help="The multi-FASTA file can also be a fasta file." />
-		<param format="sam,bam" name="bamOrSamFile" type="data" label="Alignments in the BAM or SAM format" help="The set of aligned reads." />
+		<param format="sam,bam,unsorted.bam,qname_sorted.bam" name="bamOrSamFile" type="data" label="Alignments in the BAM or SAM format" help="The set of aligned reads." />
 		<conditional name="additional_params">
             <param name="use_additional" type="select" label="Use Additional Parameters?">
                 <option value="no">No</option>
