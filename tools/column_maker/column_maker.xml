@@ -23,7 +23,7 @@
 
         python '$__tool_directory__/column_maker.py'
              data column_maker_output
-             --load_json $inputs
+             --load_json '$inputs'
         && cat header column_maker_output > '$out_file1'
     ]]></command>
     <configfiles>
