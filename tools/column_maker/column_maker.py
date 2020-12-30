@@ -5,31 +5,48 @@ the file which is the result of a computation performed on every row in the
 original file. The tool will skip over invalid lines within the file,
 informing the user about the number of lines skipped.
 """
-from __future__ import print_function
 
+import argparse
+import json
 import re
-import sys
 
-assert sys.version_info[:2] >= (2, 4)
+parser = argparse.ArgumentParser()
+parser.add_argument('input', type=argparse.FileType('r'), help="input file")
+parser.add_argument('output', type=argparse.FileType('wt'), help="output file")
+parser.add_argument('cond', nargs='?', type=str, help="expression")
+parser.add_argument('round', nargs='?', type=str, choices=['yes', 'no'],
+                    help="round result")
+parser.add_argument('columns', nargs='?', type=int, help="number of columns")
+parser.add_argument('column_types', nargs='?', type=str, help="comma separated list of column types")
+parser.add_argument('avoid_scientific_notation', nargs='?', type=str, choices=['yes', 'no'],
+                    help="avoid scientific notation")
+parser.add_argument('--load_json', default=None, type=argparse.FileType('r'),
+                    help="overwrite parsed arguments from json file")
+args = parser.parse_args()
 
-inp_file = sys.argv[1]
-out_file = sys.argv[2]
-expr = sys.argv[3]
-round_result = sys.argv[4]
+argparse_dict = vars(args)
+if args.load_json:
+    json_dict = json.load(args.load_json)
+    argparse_dict.update(json_dict)
+
+fh = argparse_dict['input']
+out = argparse_dict['output']
+expr = argparse_dict['cond']
+round_result = argparse_dict['round']
 try:
-    in_columns = int(sys.argv[5])
+    in_columns = int(argparse_dict['columns'])
 except Exception:
     exit("Missing or invalid 'columns' metadata value, click the pencil icon in the history item and select the Auto-detect option to correct it.  This tool can only be used with tab-delimited data.")
 if in_columns < 2:
     # To be considered tabular, data must fulfill requirements of the sniff.is_column_based() method.
     exit("Missing or invalid 'columns' metadata value, click the pencil icon in the history item and select the Auto-detect option to correct it.  This tool can only be used with tab-delimited data.")
 try:
-    in_column_types = sys.argv[6].split(',')
+    in_column_types = argparse_dict['column_types'].split(',')
 except Exception:
     exit("Missing or invalid 'column_types' metadata value, click the pencil icon in the history item and select the Auto-detect option to correct it.  This tool can only be used with tab-delimited data.")
 if len(in_column_types) != in_columns:
     exit("The 'columns' metadata setting does not conform to the 'column_types' metadata setting, click the pencil icon in the history item and select the Auto-detect option to correct it.  This tool can only be used with tab-delimited data.")
-avoid_scientific_notation = sys.argv[7]
+avoid_scientific_notation = argparse_dict['avoid_scientific_notation']
 
 # Unescape if input has been escaped
 mapped_str = {
@@ -74,7 +91,6 @@ first_invalid_line = 0
 invalid_line = None
 lines_kept = 0
 total_lines = 0
-out = open(out_file, 'wt')
 
 # Read input file, skipping invalid lines, and perform computation that will result in a new column
 code = '''
@@ -89,7 +105,6 @@ from math import (
 )
 from numpy import format_float_positional
 
-fh = open(inp_file)
 for i, line in enumerate(fh):
     total_lines += 1
     line = line.rstrip('\\r\\n')

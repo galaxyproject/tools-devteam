@@ -1,9 +1,9 @@
-<tool id="Add_a_column1" name="Compute" version="1.3.1">
+<tool id="Add_a_column1" name="Compute" version="1.4">
     <description>an expression on every row</description>
     <requirements>
-        <requirement type="package" version="2.7.13">python</requirement>
+        <requirement type="package" version="3.8">python</requirement>
         <requirement type="package" version="4.4">sed</requirement>
-        <requirement type="package" version="1.14">numpy</requirement>
+        <requirement type="package" version="1.19.1">numpy</requirement>
     </requirements>
     <command detect_errors="aggressive"><![CDATA[
         #if $header_lines_conditional.header_lines_select == "yes":
@@ -14,15 +14,21 @@
             ln -s '$input' data &&
         #end if
 
+        ## inject colums and column_types metadata into inputs json
+        #import json
+        #set inputs_dict = json.load(open($inputs))
+        #set inputs_dict['columns'] = $input.metadata.columns
+        #set inputs_dict['column_types'] = $input.metadata.column_types
+        #set x = json.dump($inputs_dict, open($inputs, 'w'))
+
         python '$__tool_directory__/column_maker.py'
-            data column_maker_output
-            "$cond"
-            $round
-            ${input.metadata.columns}
-            "${input.metadata.column_types}"
-            $avoid_scientific_notation &&
-        cat header column_maker_output > '$out_file1'
+             data column_maker_output
+             --load_json '$inputs'
+        && cat header column_maker_output > '$out_file1'
     ]]></command>
+    <configfiles>
+      <inputs name="inputs"/>
+    </configfiles>
     <inputs>
         <param name="cond" type="text" value="c3-c2" label="Add expression"/>
         <param format="tabular" name="input" type="data" label="as a new column to" help="Dataset missing? See TIP below"/>
