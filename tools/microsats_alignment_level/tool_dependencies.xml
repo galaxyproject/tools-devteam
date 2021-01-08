@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<tool_dependency>
+  <package name="sputnik" version="1.0">
+      <repository name="package_sputnik_1_0" owner="devteam" prior_installation_required="False" />
+    </package>
+</tool_dependency>

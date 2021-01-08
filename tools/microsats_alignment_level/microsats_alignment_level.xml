@@ -1,4 +1,4 @@
-<tool id="microsats_align1" name="Extract Orthologous Microsatellites" version="1.0.1">
+<tool id="microsats_align1" name="Extract Orthologous Microsatellites" version="1.0.0">
   <description> from pair-wise alignments</description>
   <requirements>
     <requirement type="package" version="1.0">sputnik</requirement>
