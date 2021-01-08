@@ -37,7 +37,7 @@ def main():
     sorted_infile = tempfile.NamedTemporaryFile()
     try:
         os.system("sort -k %d,%d -k %dn -o %s %s" %(chr_col+1,chr_col+1,coord_col+1,sorted_infile.name,in_fname))
-    except Exception, exc:
+    except Exception as exc:
         stop_err( 'Initialization error -> %s' %str(exc) )
 
     #generate chr list

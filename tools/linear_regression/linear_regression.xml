@@ -1,4 +1,4 @@
-<tool id="LinearRegression1" name="Perform Linear Regression" version="1.0.1">
+<tool id="LinearRegression1" name="Perform Linear Regression" version="1.0.2">
   <description> </description>
   <requirements>
     <requirement type="package" version="2.11.0">R</requirement>

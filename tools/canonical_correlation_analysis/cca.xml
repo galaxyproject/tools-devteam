@@ -1,9 +1,9 @@
-<tool id="cca1" name="Canonical Correlation Analysis" version="1.0.0">
+<tool id="cca1" name="Canonical Correlation Analysis" version="1.0.1">
   <description> </description>
   <requirements>
     <requirement type="package" version="2.11.0">R</requirement>
     <requirement type="package" version="1.7.1">numpy</requirement>
-    <requirement type="package" version="1.0">yacca</requirement>
+    <requirement type="package" version="1.0">r-yacca</requirement>
     <requirement type="package" version="1.0.3">rpy</requirement>
   </requirements>
   <command interpreter="python">

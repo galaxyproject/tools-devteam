@@ -71,12 +71,12 @@ def __main__():
         #print command
         try:
             os.system( command )
-        except Exception, e:
+        except Exception as e:
             stop_err( str( e ) )
 
         try:
             os.system( 'cat %s >> %s' % ( output_tempfile, output_file ) )
-        except Exception, e:
+        except Exception as e:
             stop_err( str( e ) )
         
         try:

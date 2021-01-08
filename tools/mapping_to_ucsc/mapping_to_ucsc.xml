@@ -1,4 +1,4 @@
-<tool id="mapToUCSC" name="Format mapping data" version="1.0.0">
+<tool id="mapToUCSC" name="Format mapping data" version="1.0.1">
   <description> as UCSC custom track</description>
   <command interpreter="python">
   	mapping_to_ucsc.py 

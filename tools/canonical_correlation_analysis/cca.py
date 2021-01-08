@@ -106,7 +106,7 @@ try:
     ycolnames = ["c%d" %(el+1) for el in y_cols]
     cc = r.cca(x=x_dat, y=y_dat, xlab=xcolnames, ylab=ycolnames, xcenter=r(x_center), ycenter=r(y_center), xscale=r(x_scale), yscale=r(y_scale), standardize_scores=r(std_scores))
     ftest = r.F_test_cca(cc)
-except RException, rex:
+except RException as rex:
     stop_err("Encountered error while performing CCA on the input data: %s" %(rex))
 
 set_default_mode(BASIC_CONVERSION)

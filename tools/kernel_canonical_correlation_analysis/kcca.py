@@ -122,7 +122,7 @@ else:
     
 try:
     kcc = r.kcca(x=x_dat, y=y_dat, kernel=kernel, kpar=pars, ncomps=ncomps)
-except RException, rex:
+except RException as rex:
     raise
     log.exception( rex )
     stop_err("Encountered error while performing kCCA on the input data: %s" %(rex))

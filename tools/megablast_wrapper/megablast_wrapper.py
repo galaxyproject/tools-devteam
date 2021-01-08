@@ -89,7 +89,7 @@ def __main__():
             raise Exception, stderr
         if os.path.exists( tmp ):
             os.unlink( tmp )
-    except Exception, e:
+    except Exception as e:
         if os.path.exists( mega_temp_output ):
             os.unlink( mega_temp_output )
         if os.path.exists( tmp ):

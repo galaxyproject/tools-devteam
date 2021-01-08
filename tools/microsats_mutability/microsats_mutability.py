@@ -483,7 +483,7 @@ def main():
                     linestr += "\n"
                 prev_bnum = new_bnum
             output_writer(prev_bnum, linestr.strip().replace('\r','\n').split('\n'))
-        except Exception, ea:
+        except Exception as ea:
             print >> sys.stderr, ea
             skipped += 1
         if skipped:

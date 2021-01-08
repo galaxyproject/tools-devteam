@@ -1,4 +1,4 @@
-<tool id="lca1" name="Find lowest diagnostic rank" version="1.0.1">
+<tool id="lca1" name="Find lowest diagnostic rank" version="1.0.2">
   <description></description>
     <requirements>
         <requirement type="package" version="1.0.0">taxonomy</requirement>

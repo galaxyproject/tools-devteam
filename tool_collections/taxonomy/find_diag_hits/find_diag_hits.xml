@@ -1,4 +1,4 @@
-<tool id="find_diag_hits" name="Find diagnostic hits" version="1.0.0">
+<tool id="find_diag_hits" name="Find diagnostic hits" version="1.0.1">
     <description></description>
     <requirements>
         <requirement type="package" version="1.0.0">taxonomy</requirement>

@@ -42,13 +42,13 @@ for ind, line in enumerate( file( infile ) ):
             fields = line.split("\t")
             try:
                 yval = float(fields[y_col])
-            except Exception, ey:
+            except Exception as ey:
                 yval = r('NA')
             y_vals.append(yval)
             for k, col in enumerate(x_cols):
                 try:
                     xval = float(fields[col])
-                except Exception, ex:
+                except Exception as ex:
                     xval = r('NA')
                 x_vals[k].append(xval)
         except:
@@ -65,7 +65,7 @@ r.library("leaps")
 set_default_mode(NO_CONVERSION)
 try:
     leaps = r.regsubsets(r("y ~ x"), data= r.na_exclude(dat))
-except RException, rex:
+except RException as rex:
     stop_err("Error performing linear regression on the input data.\nEither the response column or one of the predictor columns contain no numeric values.")
 set_default_mode(BASIC_CONVERSION)
 

@@ -128,7 +128,7 @@ def main():
                 out_file.write( "%s\n" % "\t".join( line.fields ) )
             else:
                 out_file.write( "%s\n" % line )
-    except ParseError, exc:
+    except ParseError as exc:
         out_file.close()
         fail( str( exc ) )
 

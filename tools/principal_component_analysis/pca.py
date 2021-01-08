@@ -74,7 +74,7 @@ try:
         pc = r.princomp(r.na_exclude(dat), cor = r("FALSE"))
     elif method=="svd":
         pc = r.prcomp(r.na_exclude(dat), center = r(center), scale = r(scale))
-except RException, rex:
+except RException as rex:
     stop_err("Encountered error while performing PCA on the input data: %s" %(rex))
 
 set_default_mode(BASIC_CONVERSION)

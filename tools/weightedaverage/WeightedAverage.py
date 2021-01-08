@@ -55,7 +55,7 @@ try:
     chr_col_1, start_col_1, end_col_1, strand_col1 = parse_cols_arg( options.cols1 )
     chr_col_2, start_col_2, end_col_2, strand_col2, name_col_2 = parse_cols_arg( options.cols2 )
     input1, input2, input3 = args
-except Exception, eee:
+except Exception as eee:
     print eee
     stop_err( "Data issue: click the pencil icon in the history item to correct the metadata attributes." )
 

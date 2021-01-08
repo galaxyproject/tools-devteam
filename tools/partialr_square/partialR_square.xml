@@ -1,4 +1,4 @@
-<tool id="partialRsq" name="Compute partial R square" version="1.0.0">
+<tool id="partialRsq" name="Compute partial R square" version="1.0.1">
   <description> </description>
   <requirements>
     <requirement type="package" version="2.11.0">R</requirement>

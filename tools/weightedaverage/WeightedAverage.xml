@@ -1,4 +1,4 @@
-<tool id="wtavg" name="Assign weighted-average" version="1.0.1">
+<tool id="wtavg" name="Assign weighted-average" version="1.0.2">
   <description> of the values of features overlapping an interval </description>
   <requirements>
     <requirement type="package" version="1.0.0">galaxy-ops</requirement>

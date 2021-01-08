@@ -76,7 +76,7 @@ novif = 0
 set_default_mode(NO_CONVERSION)
 try:
     linear_model = r.glm(r("y ~ x"), data=r.na_exclude(dat), family="binomial")
-except RException, rex:
+except RException as rex:
     stop_err("Error performing logistic regression on the input data.\nEither the response column or one of the predictor columns contain only non-numeric or invalid values.")
 if len(x_cols)>1:
     try:
@@ -84,7 +84,7 @@ if len(x_cols)>1:
         r.assign('dat', dat)
         r.assign('ncols', len(x_cols))
         vif = r.vif(r('glm(dat$y ~ ., data = na.exclude(data.frame(as.matrix(dat$x,ncol=ncols))->datx), family="binomial")'))
-    except RException, rex:
+    except RException as rex:
         print rex
 else:
     novif = 1

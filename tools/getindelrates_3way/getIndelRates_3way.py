@@ -130,7 +130,7 @@ def main():
                 elif elems[1].endswith('delete'):
                     deletes[sp_ind] += 1
                 prev_bnum = new_bnum
-            except Exception, ei:
+            except Exception as ei:
                 #print >>sys.stderr, ei
                 continue
         irate = []

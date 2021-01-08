@@ -1,4 +1,4 @@
-<tool id="pca1" name="Principal Component Analysis" version="1.0.2">
+<tool id="pca1" name="Principal Component Analysis" version="1.0.3">
   <description> </description>
   <requirements>
     <requirement type="package" version="1.0.3">rpy</requirement>

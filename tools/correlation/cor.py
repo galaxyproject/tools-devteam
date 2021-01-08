@@ -71,7 +71,7 @@ def main():
         # Run correlation
         try:
             value = r.cor( array( matrix ), use="pairwise.complete.obs", method=method )
-        except Exception, exc:
+        except Exception as exc:
             out.close()
             stop_err("%s" %str( exc ))
         for row in value:

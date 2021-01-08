@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<tool_dependency>
-    <package name="blast+" version="2.2.26+">
-        <repository name="package_blast_plus_2_2_26" owner="devteam" />
-    </package>
-    <package name="bx-python" version="0.7.1">
-        <repository name="package_bx_python_0_7" owner="devteam" />
-    </package>
-</tool_dependency>

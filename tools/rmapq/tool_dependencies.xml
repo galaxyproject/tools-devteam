@@ -1,6 +1,0 @@
-<?xml version="1.0"?>
-<tool_dependency>
-  <package name="rmap" version="2.05">
-    <repository name="package_rmap_2_05" owner="devteam" />
-  </package>
-</tool_dependency>

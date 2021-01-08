@@ -1,4 +1,4 @@
-<tool id="indelRates_3way" name="Estimate Indel Rates" version="1.0.0">
+<tool id="indelRates_3way" name="Estimate Indel Rates" version="1.0.1">
   <description> for 3-way alignments</description>
   <requirements>
     <requirement type="package" version="0.7.1">bx-python</requirement>
