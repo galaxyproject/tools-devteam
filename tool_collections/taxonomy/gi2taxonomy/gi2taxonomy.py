@@ -33,7 +33,7 @@ def gi_name_to_sorted_list(file_name, gi_col, name_col):
         except:
             print >>sys.stderr, 'Non numeric GI field...skipping'
             
-    except Exception, e:
+    except Exception as e:
         stop_err('%s\n' % e)
     F.close()
     result.sort()
@@ -75,7 +75,7 @@ def collapse_repeating_gis( L ):
             gi.append( item[1] )
             i += 1
             
-    except Exception, e:
+    except Exception as e:
         stop_err('%s\n' % e)
         
     prev_L = []
@@ -170,5 +170,5 @@ try:
     retcode = subprocess.call( tb_cmd, shell=True )
     if retcode < 0:
         print >>sys.stderr, "Execution of taxBuilder terminated by signal", -retcode
-except OSError, e:
+except OSError as e:
     print >>sys.stderr, "Execution of taxBuilder2tree failed:", e
