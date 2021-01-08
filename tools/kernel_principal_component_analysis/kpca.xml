@@ -2,8 +2,8 @@
   <description> </description>
   <requirements>
     <requirement type="package" version="1.0.3">rpy</requirement>
-    <requirement type="package" version="2.11.0">R</requirement>
-    <requirement type="package" version="0.1-4">kernlab</requirement>
+    <requirement type="package" version="2.11.0">r-base</requirement>
+    <requirement type="package" version="0.1-4">r-kernlab</requirement>
     <requirement type="package" version="1.7.1">numpy</requirement>
     <requirement type="package" version="0.7.1">bx-python</requirement>
   </requirements>
