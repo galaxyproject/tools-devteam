@@ -59,12 +59,12 @@ def __main__():
         lineParts = inLine.split('\t')
         try:
             seq, loc, base, cov = lineParts[seqIndex], int(lineParts[locIndex]), lineParts[baseIndex], int(lineParts[covIndex])
-        except IndexError, ei:
+        except IndexError as ei:
             if options.format == 'ten':
                 stop_err( 'It appears that you have selected 10 columns while your file has 6. Make sure that the number of columns you specify matches the number in your file.\n' + str( ei ) )
             else:
                 stop_err( 'There appears to be something wrong with your column index values.\n' + str( ei ) )
-        except ValueError, ev:
+        except ValueError as ev:
             if options.format == 'six':
                 stop_err( 'It appears that you have selected 6 columns while your file has 10. Make sure that the number of columns you specify matches the number in your file.\n' + str( ev ) )
             else:

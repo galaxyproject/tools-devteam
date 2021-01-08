@@ -34,7 +34,7 @@ def main():
         shutil.move( os.path.join( tmp_dir, "%s.significant.peak" % project_name ), output_peak_file )
         shutil.move( os.path.join( tmp_dir, "%s.significant.region" % project_name ), output_region_file )
         shutil.move( os.path.join( tmp_dir, "%s.top%i.peak" % ( project_name, output_num ) ), output_top_file )
-    except Exception, e:
+    except Exception as e:
         return stop_err( tmp_dir, e )
     os.rmdir( tmp_dir ) #clean up empty temp working directory
 

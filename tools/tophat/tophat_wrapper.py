@@ -123,7 +123,7 @@ def __main__():
             tmp_stderr.close()
             if returncode != 0:
                 raise Exception, stderr
-        except Exception, e:
+        except Exception as e:
             if os.path.exists( tmp_index_dir ):
                 shutil.rmtree( tmp_index_dir )
             stop_err( 'Error indexing reference sequence\n' + str( e ) )
@@ -194,7 +194,7 @@ def __main__():
             if options.max_segment_intron:
                 opts += ' --max-segment-intron %d' % int( options.max_segment_intron )
             cmd = cmd % ( opts, index_path, reads )
-        except Exception, e:
+        except Exception as e:
             # Clean up temp dirs
             if os.path.exists( tmp_index_dir ):
                 shutil.rmtree( tmp_index_dir )
@@ -228,7 +228,7 @@ def __main__():
             raise Exception, stderr
             
         # TODO: look for errors in program output.
-    except Exception, e:
+    except Exception as e:
         stop_err( 'Error in tophat:\n' + str( e ) ) 
 
     # Clean up temp dirs

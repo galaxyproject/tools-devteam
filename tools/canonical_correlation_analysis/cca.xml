@@ -1,4 +1,4 @@
-<tool id="cca1" name="Canonical Correlation Analysis" version="1.0.0">
+<tool id="cca1" name="Canonical Correlation Analysis" version="1.0.1">
   <description> </description>
   <requirements>
     <requirement type="package" version="2.11.0">R</requirement>

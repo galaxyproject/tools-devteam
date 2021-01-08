@@ -1,4 +1,4 @@
-<tool id="featureCoverage1" name="Feature coverage" version="2.0.0">
+<tool id="featureCoverage1" name="Feature coverage" version="2.0.1">
   <description></description>
   <requirements>
     <requirement type="package" version="0.7.1">bx-python</requirement>

@@ -1,4 +1,4 @@
-<tool id="kcca1" name="Kernel Canonical Correlation Analysis" version="1.0.0">
+<tool id="kcca1" name="Kernel Canonical Correlation Analysis" version="1.0.1">
   <description> </description>
   <requirements>
     <requirement type="package" version="1.0.3">rpy</requirement>

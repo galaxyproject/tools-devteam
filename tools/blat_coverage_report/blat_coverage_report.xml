@@ -1,4 +1,4 @@
-<tool id="generate_coverage_report" name="Polymorphism of the Reads" version="1.0.0">
+<tool id="generate_coverage_report" name="Polymorphism of the Reads" version="1.0.1">
 	<description>the percentage of reads supporting each nucleotide at each location</description>
 	<command interpreter="python">blat_coverage_report.py $input1 $output1</command>
 	<inputs>	

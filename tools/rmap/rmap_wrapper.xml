@@ -1,4 +1,4 @@
-<tool id="rmap_wrapper" name="RMAP" version="1.0.0">
+<tool id="rmap_wrapper" name="RMAP" version="1.0.1">
     <description>for Solexa Short Reads Alignment</description>
     <requirements>
       <requirement type="package" version="2.05">rmap</requirement>

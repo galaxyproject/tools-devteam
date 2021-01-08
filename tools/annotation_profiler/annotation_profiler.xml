@@ -1,4 +1,4 @@
-<tool id="Annotation_Profiler_0" name="Profile Annotations" version="1.0.0">
+<tool id="Annotation_Profiler_0" name="Profile Annotations" version="1.0.1">
   <description>for a set of genomic intervals</description>
   <requirements>
     <requirement type="package" version="0.7.1">bx-python</requirement>

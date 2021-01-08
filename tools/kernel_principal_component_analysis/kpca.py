@@ -101,7 +101,7 @@ else:
     
 try:
     kpc = r.kpca(x=r.na_exclude(dat), kernel=kernel, kpar=pars, features=ncomps)
-except RException, rex:
+except RException as rex:
     stop_err("Encountered error while performing kPCA on the input data: %s" %(rex))
 set_default_mode(BASIC_CONVERSION)
     

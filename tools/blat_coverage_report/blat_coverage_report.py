@@ -74,7 +74,7 @@ def __main__():
                 if not diff_hash.has_key((chrom, cur_index)):
                     try:
                         diff_hash[(chrom, cur_index)] = [0,0,0,0,sub_b.upper()]    # a, t, c, g, ref. nuc.
-                    except Exception, e:
+                    except Exception as e:
                         stop_err( str( e ) )
                 if sub_a in ['a','t','c','g']:
                     diff_hash[(chrom, cur_index)][nuc_index[(sub_a)]] += 1

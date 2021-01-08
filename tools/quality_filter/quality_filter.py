@@ -120,7 +120,7 @@ def main():
                         continue
             except:
                 pass
-    except Exception, exc:
+    except Exception as exc:
         stop_err( 'Initialization errorL %s' % str( exc ) )
     
     if len(pspecies) == 0:
@@ -136,7 +136,7 @@ def main():
     try:
         maf_reader = bx.align.maf.Reader( open(inp_file, 'r') )
         maf_writer = bx.align.maf.Writer( open(out_file,'w') )
-    except Exception, e:
+    except Exception as e:
         stop_err( "Your MAF file appears to be malformed: %s" % str( e ) )
     
     maf_count = 0
@@ -214,7 +214,7 @@ def main():
         for stat in status_strings[1:]:
             try:
                 output_status_str = bitwise_and (status_strings[0], stat, '0')
-            except Exception, e:
+            except Exception as e:
                 break
             
         for seq in range (len(block.components)):

@@ -83,12 +83,12 @@ def __main__():
         #print command
         try:
             os.system( command )
-        except Exception, e:
+        except Exception as e:
             stop_err( str( e ) )
 
         try:
             assert os.system( 'cat %s >> %s' % ( output_tempfile, output_file ) ) == 0
-        except Exception, e:
+        except Exception as e:
             stop_err( str( e ) )
         
         try:

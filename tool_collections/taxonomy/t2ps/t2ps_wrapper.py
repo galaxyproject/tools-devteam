@@ -42,7 +42,7 @@ try:
     retcode = subprocess.call( t2t_cmd, shell=True )
     if retcode < 0:
         print >>sys.stderr, "Execution of taxonomy2tree terminated by signal", -retcode
-except OSError, e:
+except OSError as e:
     print >>sys.stderr, "Execution of taxonomy2tree failed:", e
 
 
@@ -53,7 +53,7 @@ try:
     retcode = subprocess.call( t2ps_cmd, shell=True )
     if retcode < 0:
         print >>sys.stderr, "Execution of tree2PS-fast terminated by signal", -retcode
-except OSError, e:
+except OSError as e:
     print >>sys.stderr, "Execution of tree2PS-fast failed:", e
     
 # Convert PS to PDF
@@ -63,5 +63,5 @@ try:
     retcode = subprocess.call( ps2pdf_cmd, shell=True )
     if retcode < 0:
         print >>sys.stderr, "Execution of ps2pdf terminated by signal", -retcode
-except OSError, e:
+except OSError as e:
     print >>sys.stderr, "Execution of ps2pdf failed:", e

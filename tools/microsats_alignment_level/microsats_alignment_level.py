@@ -309,7 +309,7 @@ def main():
                                 out = []
                             
                     #print >> fout, blockdict
-    except Exception, exc:
+    except Exception as exc:
         print >> sys.stderr, "type(exc),args,exc: %s, %s, %s" % ( type(exc), exc.args, exc )
 
 

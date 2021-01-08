@@ -1,4 +1,4 @@
-<tool id="rmapq_wrapper" name="RMAPQ" version="1.0.0">
+<tool id="rmapq_wrapper" name="RMAPQ" version="1.0.1">
     <description>for Solexa Short Reads Alignment with Quality Scores</description>
     <requirements>
       <requirement type="package" version="2.05">rmap</requirement>

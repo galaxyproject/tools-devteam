@@ -61,7 +61,7 @@ dat = r.list(x=array(x_vals1), y=y_vals)
 set_default_mode(NO_CONVERSION)
 try:
     linear_model = r.lm(r("y ~ x"), data = r.na_exclude(dat))
-except RException, rex:
+except RException as rex:
     stop_err("Error performing linear regression on the input data.\nEither the response column or one of the predictor columns contain only non-numeric or invalid values.")
 set_default_mode(BASIC_CONVERSION)
 

@@ -1,7 +1,6 @@
-<tool id="peakcalling_ccat" name="CCAT" version="0.0.1">
+<tool id="peakcalling_ccat" name="CCAT" version="0.0.2">
   <description>Control-based ChIP-seq Analysis Tool</description>
   <requirements>
-    <requirement type="package" version="3.0">CCAT</requirement>
     <requirement type="package" version="3.0">ccat</requirement>
   </requirements>
   <command>

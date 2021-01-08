@@ -1,4 +1,4 @@
-<tool id="cor2" name="Correlation" version="1.0.0">
+<tool id="cor2" name="Correlation" version="1.0.1">
   <description>for numeric columns</description>
   <requirements>
     <requirement type="package" version="1.0.3">rpy</requirement>

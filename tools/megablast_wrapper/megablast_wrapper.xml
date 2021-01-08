@@ -1,4 +1,4 @@
-<tool id="megablast_wrapper" name="Megablast" version="1.2.0">
+<tool id="megablast_wrapper" name="Megablast" version="1.2.1">
     <description> compare short reads against htgs, nt, and wgs databases</description>
     <requirements>
         <requirement type="package" version="2.2.26+">blast+</requirement>

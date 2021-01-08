@@ -257,7 +257,7 @@ def __main__():
                 chrom_lengths[ fields[0] ] = int( fields[ 1 ] )
             chroms = chrom_lengths.keys()
             print 'Chrom info taken from chromInfo.txt.gz.'
-        except Exception, e:
+        except Exception as e:
             print 'Error loading chrom info from chromInfo.txt.gz, trying FTP method.'
             chrom_lengths = {} #zero out chrom_lengths
             chroms = []

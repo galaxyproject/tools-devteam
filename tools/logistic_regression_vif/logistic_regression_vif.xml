@@ -1,4 +1,4 @@
-<tool id="LogisticRegression" name="Perform Logistic Regression with vif" version="1.0.1">
+<tool id="LogisticRegression" name="Perform Logistic Regression with vif" version="1.0.2">
   <description> </description>
   <requirements>
     <requirement type="package" version="1.7.1">numpy</requirement>

@@ -136,7 +136,7 @@ try:
         val_string = val_string.strip(', ')
         val_string = "insert into tax values(" + val_string + ")"
         cur.execute(val_string)
-except Exception, e:
+except Exception as e:
     stop_err('%s\n' % e)
 
 tax_file.close()    
@@ -165,6 +165,6 @@ try:
                 out_string = '%s\t%s\t' % ( item[0], item[1] )
                 out_string += rankName
                 print >>out_file, out_string
-except Exception, e:
+except Exception as e:
     stop_err("%s\n" % e)
     

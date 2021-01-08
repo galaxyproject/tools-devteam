@@ -34,7 +34,7 @@ class CachedRangesInFile:
         try:
             start = struct.unpack( self.fmt, self.file.read( self.fmt_size ) )[0]
             end = struct.unpack( self.fmt, self.file.read( self.fmt_size ) )[0]
-        except Exception, e:
+        except Exception as e:
             raise IndexError, e
         self._cached_ranges[i] = ( start, end )
         return start, end
@@ -45,12 +45,12 @@ class RegionCoverage:
     def __init__( self, filename_base, profiler_info ):
         try:
             self._coverage = CachedRangesInFile( "%s.covered" % filename_base, profiler_info )
-        except Exception, e:
+        except Exception as e:
             #print "Error loading coverage file %s: %s" % ( "%s.covered" % filename_base, e )
             self._coverage = []
         try: 
             self._total_coverage = int( open( "%s.total_coverage" % filename_base ).read() )
-        except Exception, e:
+        except Exception as e:
             #print "Error loading total coverage file %s: %s" % ( "%s.total_coverage" % filename_base, e )
             self._total_coverage = 0
     def get_start_index( self, start ):
