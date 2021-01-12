@@ -18,13 +18,6 @@ import sys
 
 from bx.cookbook import doc_optparse
 
-pkg_resources.require("bx-python")
-
-
-def stop_err(msg):
-    sys.stderr.write(msg)
-    sys.exit()
-
 
 def __main__():
     # strout = ''
