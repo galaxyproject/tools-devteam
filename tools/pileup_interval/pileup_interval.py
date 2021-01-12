@@ -16,8 +16,9 @@ usage: %prog [options]
 """
 
 import pkg_resources
-from bx.cookbook import doc_optparse
 import sys
+
+from bx.cookbook import doc_optparse
 
 pkg_resources.require("bx-python")
 
@@ -28,7 +29,7 @@ def stop_err(msg):
 
 
 def __main__():
-#    strout = ''
+    # strout = ''
     # Parse Command Line
     options, args = doc_optparse.parse(__doc__)
     coverage = int(options.coverage)
