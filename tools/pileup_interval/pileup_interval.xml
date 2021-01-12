@@ -3,8 +3,8 @@
     <requirement type="package" version="0.7.1">bx-python</requirement>
   </requirements>
   <description>condenses pileup format into ranges of bases</description>
-  <command interpreter="python">
-    pileup_interval.py 
+  <command>
+python '$__tool_directory__/pileup_interval.py'
       --input=$input 
       --output=$output 
       --coverage=$coverage
