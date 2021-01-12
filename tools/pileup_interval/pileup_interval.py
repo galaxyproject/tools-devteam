@@ -15,19 +15,22 @@ usage: %prog [options]
    -C, --cvrg_column=C: Coverage column
 """
 
-from galaxy import eggs
-import pkg_resources; pkg_resources.require( "bx-python" )
+import pkg_resources
 from bx.cookbook import doc_optparse
 import sys
 
-def stop_err( msg ):
-    sys.stderr.write( msg )
+pkg_resources.require("bx-python")
+
+
+def stop_err(msg):
+    sys.stderr.write(msg)
     sys.exit()
 
+
 def __main__():
-    strout = ''
-    #Parse Command Line
-    options, args = doc_optparse.parse( __doc__ )
+#    strout = ''
+    # Parse Command Line
+    options, args = doc_optparse.parse(__doc__)
     coverage = int(options.coverage)
     fin = open(options.input, 'r')
     fout = open(options.output, 'w')
@@ -61,18 +64,18 @@ def __main__():
             seq, loc, base, cov = lineParts[seqIndex], int(lineParts[locIndex]), lineParts[baseIndex], int(lineParts[covIndex])
         except IndexError as ei:
             if options.format == 'ten':
-                stop_err( 'It appears that you have selected 10 columns while your file has 6. Make sure that the number of columns you specify matches the number in your file.\n' + str( ei ) )
+                stop_err('It appears that you have selected 10 columns while your file has 6. Make sure that the number of columns you specify matches the number in your file.\n' + str(ei))
             else:
-                stop_err( 'There appears to be something wrong with your column index values.\n' + str( ei ) )
+                stop_err('There appears to be something wrong with your column index values.\n' + str(ei))
         except ValueError as ev:
             if options.format == 'six':
-                stop_err( 'It appears that you have selected 6 columns while your file has 10. Make sure that the number of columns you specify matches the number in your file.\n' + str( ev ) )
+                stop_err('It appears that you have selected 6 columns while your file has 10. Make sure that the number of columns you specify matches the number in your file.\n' + str(ev))
             else:
-                stop_err( 'There appears to be something wrong with your column index values.\n' + str( ev ) )
+                stop_err('There appears to be something wrong with your column index values.\n' + str(ev))
 #        strout += str(startLoc) + '\n'
 #        strout += str(bases) + '\n'
 #        strout += '%s\t%s\t%s\t%s\n' % (seq, loc, base, cov)
-        if loc == lastLoc+1 or lastLoc == -1:
+        if loc == lastLoc + 1 or lastLoc == -1:
             if cov >= coverage:
                 if seq == lastSeq or lastSeq == '':
                     if startLoc == -1:
@@ -81,19 +84,19 @@ def __main__():
                     bases.append(base)
                 else:
                     if len(bases) > 0:
-                        fout.write('%s\t%s\t%s\t%s\n' % (lastSeq, startLoc-1, lastLoc, ''.join(bases)))
+                        fout.write('%s\t%s\t%s\t%s\n' % (lastSeq, startLoc - 1, lastLoc, ''.join(bases)))
                     startLoc = loc
                     locs = [loc]
                     bases = [base]
             else:
                 if len(bases) > 0:
-                    fout.write('%s\t%s\t%s\t%s\n' % (lastSeq, startLoc-1, lastLoc, ''.join(bases)))
+                    fout.write('%s\t%s\t%s\t%s\n' % (lastSeq, startLoc - 1, lastLoc, ''.join(bases)))
                 startLoc = -1
                 locs = []
                 bases = []
         else:
             if len(bases) > 0:
-                fout.write('%s\t%s\t%s\t%s\n' % (lastSeq, startLoc-1, lastLoc, ''.join(bases)))
+                fout.write('%s\t%s\t%s\t%s\n' % (lastSeq, startLoc - 1, lastLoc, ''.join(bases)))
             if cov >= coverage:
                 startLoc = loc
                 locs = [loc]
@@ -106,12 +109,13 @@ def __main__():
         lastLoc = loc
         inLine = fin.readline()
     if len(bases) > 0:
-        fout.write('%s\t%s\t%s\t%s\n' % (lastSeq, startLoc-1, lastLoc, ''.join(bases)))
+        fout.write('%s\t%s\t%s\t%s\n' % (lastSeq, startLoc - 1, lastLoc, ''.join(bases)))
     fout.close()
     fin.close()
-
 #    import sys
 #    strout += file(fout.name,'r').read()
 #    sys.stderr.write(strout)
 
-if __name__ == "__main__" : __main__()
+
+if __name__ == "__main__":
+    __main__()
