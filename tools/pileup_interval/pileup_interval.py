@@ -68,7 +68,7 @@ def __main__():
                 sys.exit('There appears to be something wrong with your column index values.\n' + str(ei))
         except ValueError as ev:
             if options.format == 'six':
-                stop_err('It appears that you have selected 6 columns while your file has 10. Make sure that the number of columns you specify matches the number in your file.\n' + str(ev))
+                sys.exit('It appears that you have selected 6 columns while your file has 10. Make sure that the number of columns you specify matches the number in your file.\n' + str(ev))
             else:
                 sys.exit('There appears to be something wrong with your column index values.\n' + str(ev))
 #        strout += str(startLoc) + '\n'
