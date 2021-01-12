@@ -70,7 +70,7 @@ def __main__():
             if options.format == 'six':
                 stop_err('It appears that you have selected 6 columns while your file has 10. Make sure that the number of columns you specify matches the number in your file.\n' + str(ev))
             else:
-                stop_err('There appears to be something wrong with your column index values.\n' + str(ev))
+                sys.exit('There appears to be something wrong with your column index values.\n' + str(ev))
 #        strout += str(startLoc) + '\n'
 #        strout += str(bases) + '\n'
 #        strout += '%s\t%s\t%s\t%s\n' % (seq, loc, base, cov)
