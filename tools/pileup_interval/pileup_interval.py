@@ -16,9 +16,8 @@ usage: %prog [options]
 """
 import sys
 
-import pkg_resources
-
 from bx.cookbook import doc_optparse
+import pkg_resources
 
 pkg_resources.require("bx-python")
 
