@@ -14,9 +14,9 @@ usage: %prog [options]
    -r, --base_column=r: Reference base column
    -C, --cvrg_column=C: Coverage column
 """
+import sys
 
 import pkg_resources
-import sys
 
 from bx.cookbook import doc_optparse
 
