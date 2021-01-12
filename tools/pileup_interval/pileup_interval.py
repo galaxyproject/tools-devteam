@@ -20,7 +20,6 @@ from bx.cookbook import doc_optparse
 
 
 def __main__():
-    # strout = ''
     # Parse Command Line
     options, args = doc_optparse.parse(__doc__)
     coverage = int(options.coverage)
