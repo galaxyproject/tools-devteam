@@ -64,7 +64,6 @@ tools/mutate_snp_codon
 tools/partialr_square
 tools/pearson_correlation
 tools/pgsnp2gd_snp
-tools/pileup_interval
 tools/plot_from_lda
 tools/principal_component_analysis
 tools/quality_filter
