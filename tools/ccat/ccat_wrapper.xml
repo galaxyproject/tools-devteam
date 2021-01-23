@@ -28,7 +28,7 @@
   ]]></command>
   <configfiles>
     <configfile name="input_advanced_config_file"><![CDATA[
-#if str( $options_type['options_type_selector'] ) == 'advanced':
+#if str($options_type['options_type_selector']) == 'advanced':
 fragmentSize	${options_type['fragment_size']}
 slidingWinSize	${options_type['sliding_window_size']}
 movingStep	${options_type['moving_step']}
@@ -74,7 +74,7 @@ bootstrapPass	${options_type['bootstrap_pass']}
     <param name="in_test_mode" type="hidden" value="no" />
   </inputs>
   <outputs>
-      <data name="output_peak_file" format="interval" label="${tool.name} on ${on_string} (peaks)" from_work_dir="CCAT.significant.peak">
+    <data name="output_peak_file" format="interval" label="${tool.name} on ${on_string} (peaks)" from_work_dir="CCAT.significant.peak">
       <actions>
         <action type="metadata" name="chromCol" default="1"/>
         <action type="metadata" name="startCol" default="3"/>
