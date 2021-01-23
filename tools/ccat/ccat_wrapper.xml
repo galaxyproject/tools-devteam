@@ -1,4 +1,4 @@
-<tool id="peakcalling_ccat" name="CCAT" version="0.0.2">
+<tool id="peakcalling_ccat" name="CCAT" version="0.0.2" profile="20.01">
   <description>Control-based ChIP-seq Analysis Tool</description>
   <requirements>
     <requirement type="package" version="3.0">ccat</requirement>
@@ -13,18 +13,18 @@
   <command detect_errors="aggressive"><![CDATA[
     echo $in_test_mode && CCAT '$input_tag_file'
       '$input_control_file'
-       #if str($in_test_mode) == "no":
-         '$chromInfo'
-       #else:
-         '$__tool_directory__/test-data/genome_length_mm8_chr19.txt'
-       #end if
-       #if str($options_type['options_type_selector']) == 'advanced':
-         '$input_advanced_config_file' 
-       #else:
-         '${options_type.input_config_file.fields.path}'
-       #end if
-       CCAT
-       | tee '$output_log_file'
+      #if str($in_test_mode) == "no":
+        '$chromInfo'
+      #else:
+        '$__tool_directory__/test-data/genome_length_mm8_chr19.txt'
+      #end if
+      #if str($options_type['options_type_selector']) == 'advanced':
+        '$input_advanced_config_file' 
+      #else:
+        '${options_type.input_config_file.fields.path}'
+      #end if
+      CCAT
+      | tee '$output_log_file'
   ]]></command>
   <configfiles>
     <configfile name="input_advanced_config_file"><![CDATA[
@@ -101,7 +101,6 @@ bootstrapPass	${options_type['bootstrap_pass']}
     <test>
       <param name="input_tag_file" value="ES_CTCF_chr19.bed" ftype="bed" dbkey="hg18" />
       <param name="input_control_file" value="ES_GFP_chr19.bed" ftype="bed" dbkey="hg18" />
-      <param name="chromInfo" value="len.tsv" ftype="tabular" dbkey="hg18" />
       <param name="options_type_selector" value="advanced" />
       <param name="fragment_size" value="200" />
       <param name="sliding_window_size" value="300" />

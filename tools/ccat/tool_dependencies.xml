@@ -1,6 +1,0 @@
-<?xml version="1.0"?>
-<tool_dependency>
-  <package name="CCAT" version="3.0">
-      <repository name="package_ccat_3_0" owner="devteam" prior_installation_required="False" />
-    </package>
-</tool_dependency>
