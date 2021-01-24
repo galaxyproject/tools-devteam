@@ -30,7 +30,16 @@
       <inputs name="inputs"/>
     </configfiles>
     <inputs>
-        <param name="cond" type="text" value="c3-c2" label="Add expression"/>
+        <param name="cond" type="text" value="c3-c2" label="Add expression">
+            <sanitizer>
+                <valid initial="default">
+                    <add value="&lt;" />
+                    <add value="&gt;" />
+                    <add value="&quot;" />
+                    <add value="&apos;" />
+                </valid>
+            </sanitizer>
+        </param>
         <param format="tabular" name="input" type="data" label="as a new column to" help="Dataset missing? See TIP below"/>
         <param name="round" type="select" label="Round result?">
             <option value="no">NO</option>

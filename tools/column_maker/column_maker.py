@@ -53,20 +53,6 @@ if len(in_column_types) != in_columns:
     sys.exit("The 'columns' metadata setting does not conform to the 'column_types' metadata setting, click the pencil icon in the history item and select the Auto-detect option to correct it.  This tool can only be used with tab-delimited data.")
 avoid_scientific_notation = argparse_dict['avoid_scientific_notation']
 
-# Unescape if input has been escaped
-mapped_str = {
-    '__lt__': '<',
-    '__le__': '<=',
-    '__eq__': '==',
-    '__ne__': '!=',
-    '__gt__': '>',
-    '__ge__': '>=',
-    '__sq__': '\'',
-    '__dq__': '"',
-}
-for key, value in mapped_str.items():
-    expr = expr.replace(key, value)
-
 operators = 'is|not|or|and'
 builtin_and_math_functions = 'abs|all|any|bin|chr|cmp|complex|divmod|float|bool|hex|int|len|long|max|min|oct|ord|pow|range|reversed|round|sorted|str|sum|type|unichr|unicode|log|log10|exp|sqrt|ceil|floor'
 string_and_list_methods = [name for name in dir('') + dir([]) if not name.startswith('_')]
