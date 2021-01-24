@@ -15,12 +15,12 @@ parser = argparse.ArgumentParser()
 parser.add_argument('input', type=argparse.FileType('r'), help="input file")
 parser.add_argument('output', type=argparse.FileType('wt'), help="output file")
 parser.add_argument('cond', nargs='?', type=str, help="expression")
-parser.add_argument('round', nargs='?', type=str, choices=['yes', 'no'],
+parser.add_argument('--round', action="store_true",
                     help="round result")
+parser.add_argument('avoid_scientific_notation', action="store_true",
+                    help="avoid scientific notation")
 parser.add_argument('columns', nargs='?', type=int, help="number of columns")
 parser.add_argument('column_types', nargs='?', type=str, help="comma separated list of column types")
-parser.add_argument('avoid_scientific_notation', nargs='?', type=str, choices=['yes', 'no'],
-                    help="avoid scientific notation")
 parser.add_argument('--load_json', default=None, type=argparse.FileType('r'),
                     help="overwrite parsed arguments from json file")
 args = parser.parse_args()
@@ -34,6 +34,7 @@ fh = argparse_dict['input']
 out = argparse_dict['output']
 expr = argparse_dict['cond']
 round_result = argparse_dict['round']
+avoid_scientific_notation = argparse_dict['avoid_scientific_notation']
 try:
     in_columns = int(argparse_dict['columns'])
     if in_columns < 2:
@@ -51,7 +52,6 @@ except Exception:
     sys.exit("Missing or invalid 'column_types' metadata value, click the pencil icon in the history item and select the Auto-detect option to correct it.  This tool can only be used with tab-delimited data.")
 if len(in_column_types) != in_columns:
     sys.exit("The 'columns' metadata setting does not conform to the 'column_types' metadata setting, click the pencil icon in the history item and select the Auto-detect option to correct it.  This tool can only be used with tab-delimited data.")
-avoid_scientific_notation = argparse_dict['avoid_scientific_notation']
 
 operators = 'is|not|or|and'
 builtin_and_math_functions = 'abs|all|any|bin|chr|cmp|complex|divmod|float|bool|hex|int|len|long|max|min|oct|ord|pow|range|reversed|round|sorted|str|sum|type|unichr|unicode|log|log10|exp|sqrt|ceil|floor'
@@ -59,7 +59,7 @@ string_and_list_methods = [name for name in dir('') + dir([]) if not name.starts
 whitelist = r"^([c0-9\+\-\*\/\(\)\.\'\"><=,:! ]|%s|%s|%s)*$" % (operators, builtin_and_math_functions, '|'.join(string_and_list_methods))
 if not re.compile(whitelist).match(expr):
     sys.exit("Invalid expression")
-if avoid_scientific_notation == "yes":
+if avoid_scientific_notation:
     expr = "format_float_positional(%s)" % expr
 
 # Prepare the column variable names and wrappers for column data types
@@ -68,7 +68,7 @@ for col in range(1, in_columns + 1):
     col_name = "c%d" % col
     cols.append(col_name)
     col_type = in_column_types[col - 1].strip()
-    if round_result == 'no' and col_type == 'int':
+    if not round_result and col_type == 'int':
         col_type = 'float'
     type_cast = "%s(%s)" % (col_type, col_name)
     type_casts.append(type_cast)
@@ -109,7 +109,7 @@ for i, line in enumerate(fh):
         %s
         %s
         new_val = %s
-        if round_result == "yes":
+        if round_result:
             new_val = int(round(new_val))
         new_line = line + '\\t' + str(new_val) + "\\n"
         out.write(new_line)

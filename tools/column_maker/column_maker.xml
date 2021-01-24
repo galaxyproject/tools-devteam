@@ -41,14 +41,16 @@
             </sanitizer>
         </param>
         <param format="tabular" name="input" type="data" label="as a new column to" help="Dataset missing? See TIP below"/>
-        <param name="round" type="select" label="Round result?">
-            <option value="no">NO</option>
-            <option value="yes">YES</option>
-        </param>
+        <param name="round" type="boolean" truevalue="yes" falsevalue="no" label="Round result?" />
+        <param name="avoid_scientific_notation" type="boolean" truevalue="yes" falsevalue="no"
+        label="Avoid scientific notation"
+        help="If yes, use fully expanded decimal representation when writing new columns (use only if expression produces decimal numbers)." />
         <conditional name="header_lines_conditional">
-            <param name="header_lines_select" type="select" label="Skip a header line" help="# characters are already considered as comments and kept" >
-                <option value="no" >no</option>
-                <option value="yes" >yes</option>
+            <param name="header_lines_select" type="select"
+            label="Input has a header line with column names?"
+            help="Select Yes to be able to specify a name for the new column and have it added to the header line. If you select No, the first line will be treated as a regular line: If it is empty or starts with a # character it will be skipped, otherwise the tool will attempt to compute the specified expression on it." >
+                <option value="no" >No</option>
+                <option value="yes" >Yes</option>
             </param>
             <when value="no">
             </when>
@@ -56,10 +58,6 @@
                 <param name="header_new_column_name" type="text" value="New Column" label="The new column name" />
             </when>
         </conditional>
-        <param name="avoid_scientific_notation" type="select" label="Avoid scientific notation" help="If yes, use fully expanded decimal representation when writing new columns (use only if expression produces decimal numbers).">
-            <option value="no">no</option>
-            <option value="yes">yes</option>
-        </param>
     </inputs>
     <outputs>
         <data format_source="input" name="out_file1" metadata_source="input"/>
@@ -68,19 +66,19 @@
         <test>
             <param name="cond" value="c3-c2"/>
             <param name="input" value="1.bed"/>
-            <param name="round" value="no"/>
+            <param name="round" value="False"/>
             <output name="out_file1" file="column_maker_out1.interval"/>
         </test>
         <test>
             <param name="cond" value="c4*1"/>
             <param name="input" value="1.interval"/>
-            <param name="round" value="no"/>
+            <param name="round" value="False"/>
             <output name="out_file1" file="column_maker_out2.interval"/>
         </test>
         <test>
             <param name="cond" value="c4*1"/>
             <param name="input" value="1.header.tsv"/>
-            <param name="round" value="no"/>
+            <param name="round" value="False"/>
             <conditional name="header_lines_conditional">
                 <param name="header_lines_select" value="yes" />
                 <param name="header_new_column_name" value="value1_again" />
@@ -90,13 +88,13 @@
         <test>
             <param name="cond" value="c4*1"/>
             <param name="input" value="1.interval"/>
-            <param name="round" value="yes"/>
+            <param name="round" value="True"/>
             <output name="out_file1" file="column_maker_out3.interval"/>
         </test>
         <test>
             <param name="cond" value="float(.0000000000001)"/>
             <param name="input" value="1.bed"/>
-            <param name="round" value="no"/>
+            <param name="round" value="False"/>
             <output name="out_file1">
                 <assert_contents>
                     <has_text text="CCDS10397" />
@@ -107,8 +105,8 @@
         <test>
             <param name="cond" value="float(.0000000000001)"/>
             <param name="input" value="1.bed"/>
-            <param name="round" value="no"/>
-            <param name="avoid_scientific_notation" value="yes"/>
+            <param name="round" value="False"/>
+            <param name="avoid_scientific_notation" value="True"/>
             <output name="out_file1">
                 <assert_contents>
                     <has_text text="CCDS10397" />
