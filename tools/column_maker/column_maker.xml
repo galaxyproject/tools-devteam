@@ -2,29 +2,25 @@
     <description>an expression on every row</description>
     <requirements>
         <requirement type="package" version="3.8">python</requirement>
-        <requirement type="package" version="4.4">sed</requirement>
         <requirement type="package" version="1.19.1">numpy</requirement>
     </requirements>
     <command detect_errors="aggressive"><![CDATA[
-        #if $header_lines_conditional.header_lines_select == "yes":
-            (sed -n '1,1p' '$input' | sed  "s|$|%${header_lines_conditional.header_new_column_name}|" | tr "%" "\t") > header &&
-            sed '1,1d' '$input' > data &&
-        #else:
-            touch header &&
-            ln -s '$input' data &&
-        #end if
+        ln -s '$input' data &&
 
         ## inject colums and column_types metadata into inputs json
         #import json
         #set inputs_dict = json.load(open($inputs))
         #set inputs_dict['columns'] = $input.metadata.columns
         #set inputs_dict['column_types'] = $input.metadata.column_types
+        ## flatten conditional
+        #if $header_lines_conditional.header_lines_select == "yes":
+            #set inputs_dict['header_new_column_name'] = str($header_lines_conditional.header_new_column_name)
+        #end if
         #set x = json.dump($inputs_dict, open($inputs, 'w'))
 
         python '$__tool_directory__/column_maker.py'
-             data column_maker_output
+             data '$out_file1'
              --load_json '$inputs'
-        && cat header column_maker_output > '$out_file1'
     ]]></command>
     <configfiles>
       <inputs name="inputs"/>

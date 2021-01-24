@@ -15,12 +15,16 @@ parser = argparse.ArgumentParser()
 parser.add_argument('input', type=argparse.FileType('r'), help="input file")
 parser.add_argument('output', type=argparse.FileType('wt'), help="output file")
 parser.add_argument('cond', nargs='?', type=str, help="expression")
-parser.add_argument('--round', action="store_true",
-                    help="round result")
-parser.add_argument('avoid_scientific_notation', action="store_true",
-                    help="avoid scientific notation")
 parser.add_argument('columns', nargs='?', type=int, help="number of columns")
 parser.add_argument('column_types', nargs='?', type=str, help="comma separated list of column types")
+parser.add_argument('--round', action="store_true",
+                    help="round result")
+parser.add_argument('--avoid_scientific_notation', action="store_true",
+                    help="avoid scientific notation")
+parser.add_argument('--header_new_column_name', default=None, type=str,
+                    help="First line of input is a header line with column "
+                         "names and this should become the name of the new "
+                         "column")
 parser.add_argument('--load_json', default=None, type=argparse.FileType('r'),
                     help="overwrite parsed arguments from json file")
 args = parser.parse_args()
@@ -35,6 +39,14 @@ out = argparse_dict['output']
 expr = argparse_dict['cond']
 round_result = argparse_dict['round']
 avoid_scientific_notation = argparse_dict['avoid_scientific_notation']
+
+if argparse_dict['header_new_column_name'] is not None:
+    header_line = fh.readline().strip('\n')
+    out.write(
+        '{0}\t{1}\n'.format(
+            header_line, argparse_dict['header_new_column_name']
+        )
+    )
 try:
     in_columns = int(argparse_dict['columns'])
     if in_columns < 2:
@@ -42,7 +54,7 @@ try:
         raise ValueError
 except Exception:
     if not fh.readline():
-        # empty file is ok and should produce empty output
+        # empty file content is ok and should produce empty output
         out.close()
         sys.exit()
     sys.exit("Missing or invalid 'columns' metadata value, click the pencil icon in the history item and select the Auto-detect option to correct it.  This tool can only be used with tab-delimited data.")
