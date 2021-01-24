@@ -9,6 +9,7 @@ informing the user about the number of lines skipped.
 import argparse
 import json
 import re
+import sys
 
 parser = argparse.ArgumentParser()
 parser.add_argument('input', type=argparse.FileType('r'), help="input file")
@@ -35,17 +36,21 @@ expr = argparse_dict['cond']
 round_result = argparse_dict['round']
 try:
     in_columns = int(argparse_dict['columns'])
+    if in_columns < 2:
+        # To be considered tabular, data must fulfill requirements of the sniff.is_column_based() method.
+        raise ValueError
 except Exception:
-    exit("Missing or invalid 'columns' metadata value, click the pencil icon in the history item and select the Auto-detect option to correct it.  This tool can only be used with tab-delimited data.")
-if in_columns < 2:
-    # To be considered tabular, data must fulfill requirements of the sniff.is_column_based() method.
-    exit("Missing or invalid 'columns' metadata value, click the pencil icon in the history item and select the Auto-detect option to correct it.  This tool can only be used with tab-delimited data.")
+    if not fh.readline():
+        # empty file is ok and should produce empty output
+        out.close()
+        sys.exit()
+    sys.exit("Missing or invalid 'columns' metadata value, click the pencil icon in the history item and select the Auto-detect option to correct it.  This tool can only be used with tab-delimited data.")
 try:
     in_column_types = argparse_dict['column_types'].split(',')
 except Exception:
-    exit("Missing or invalid 'column_types' metadata value, click the pencil icon in the history item and select the Auto-detect option to correct it.  This tool can only be used with tab-delimited data.")
+    sys.exit("Missing or invalid 'column_types' metadata value, click the pencil icon in the history item and select the Auto-detect option to correct it.  This tool can only be used with tab-delimited data.")
 if len(in_column_types) != in_columns:
-    exit("The 'columns' metadata setting does not conform to the 'column_types' metadata setting, click the pencil icon in the history item and select the Auto-detect option to correct it.  This tool can only be used with tab-delimited data.")
+    sys.exit("The 'columns' metadata setting does not conform to the 'column_types' metadata setting, click the pencil icon in the history item and select the Auto-detect option to correct it.  This tool can only be used with tab-delimited data.")
 avoid_scientific_notation = argparse_dict['avoid_scientific_notation']
 
 # Unescape if input has been escaped
@@ -67,7 +72,7 @@ builtin_and_math_functions = 'abs|all|any|bin|chr|cmp|complex|divmod|float|bool|
 string_and_list_methods = [name for name in dir('') + dir([]) if not name.startswith('_')]
 whitelist = r"^([c0-9\+\-\*\/\(\)\.\'\"><=,:! ]|%s|%s|%s)*$" % (operators, builtin_and_math_functions, '|'.join(string_and_list_methods))
 if not re.compile(whitelist).match(expr):
-    exit("Invalid expression")
+    sys.exit("Invalid expression")
 if avoid_scientific_notation == "yes":
     expr = "format_float_positional(%s)" % expr
 
@@ -138,9 +143,9 @@ except Exception as e:
     out.close()
     if str(e).startswith('invalid syntax'):
         valid_expr = False
-        exit('Expression "%s" likely invalid. See tool tips, syntax and examples.' % expr)
+        sys.exit('Expression "%s" likely invalid. See tool tips, syntax and examples.' % expr)
     else:
-        exit(str(e))
+        sys.exit(str(e))
 
 if valid_expr:
     out.close()
