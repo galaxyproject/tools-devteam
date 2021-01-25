@@ -62,19 +62,19 @@
         <test>
             <param name="cond" value="c3-c2"/>
             <param name="input" value="1.bed"/>
-            <param name="round" value="False"/>
+            <param name="round" value="false"/>
             <output name="out_file1" file="column_maker_out1.interval"/>
         </test>
         <test>
             <param name="cond" value="c4*1"/>
             <param name="input" value="1.interval"/>
-            <param name="round" value="False"/>
+            <param name="round" value="false"/>
             <output name="out_file1" file="column_maker_out2.interval"/>
         </test>
         <test>
             <param name="cond" value="c4*1"/>
             <param name="input" value="1.header.tsv"/>
-            <param name="round" value="False"/>
+            <param name="round" value="false"/>
             <conditional name="header_lines_conditional">
                 <param name="header_lines_select" value="yes" />
                 <param name="header_new_column_name" value="value1_again" />
@@ -84,13 +84,13 @@
         <test>
             <param name="cond" value="c4*1"/>
             <param name="input" value="1.interval"/>
-            <param name="round" value="True"/>
+            <param name="round" value="true"/>
             <output name="out_file1" file="column_maker_out3.interval"/>
         </test>
         <test>
             <param name="cond" value="float(.0000000000001)"/>
             <param name="input" value="1.bed"/>
-            <param name="round" value="False"/>
+            <param name="round" value="false"/>
             <output name="out_file1">
                 <assert_contents>
                     <has_text text="CCDS10397" />
@@ -101,8 +101,8 @@
         <test>
             <param name="cond" value="float(.0000000000001)"/>
             <param name="input" value="1.bed"/>
-            <param name="round" value="False"/>
-            <param name="avoid_scientific_notation" value="True"/>
+            <param name="round" value="false"/>
+            <param name="avoid_scientific_notation" value="true"/>
             <output name="out_file1">
                 <assert_contents>
                     <has_text text="CCDS10397" />
