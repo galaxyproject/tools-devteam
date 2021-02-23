@@ -10,6 +10,16 @@ import argparse
 import json
 import re
 import sys
+# functions that may be used in the compute expression
+from math import (  # noqa: F401
+    ceil,
+    exp,
+    floor,
+    log,
+    log10,
+    sqrt
+)
+from numpy import format_float_positional  # noqa: F401
 
 parser = argparse.ArgumentParser()
 parser.add_argument('input', type=argparse.FileType('r'), help="input file")
@@ -100,17 +110,6 @@ total_lines = 0
 
 # Read input file, skipping invalid lines, and perform computation that will result in a new column
 code = '''
-# import here since flake8 complains otherwise
-from math import (
-    ceil,
-    exp,
-    floor,
-    log,
-    log10,
-    sqrt
-)
-from numpy import format_float_positional
-
 for i, line in enumerate(fh):
     total_lines += 1
     line = line.rstrip('\\r\\n')
