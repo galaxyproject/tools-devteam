@@ -1,4 +1,4 @@
-<tool id="Add_a_column1" name="Compute" version="1.5">
+<tool id="Add_a_column1" name="Compute" version="1.6">
     <description>an expression on every row</description>
     <requirements>
         <requirement type="package" version="3.8">python</requirement>
@@ -88,6 +88,13 @@
             <output name="out_file1" file="column_maker_out3.interval"/>
         </test>
         <test>
+             <!-- test that single column input works -->
+             <param name="cond" value="c1/10"/>
+             <param name="input" value="1.tab" ftype="tabular"/>
+             <param name="round" value="no"/>
+             <output name="out_file1" file="column_maker_out4.tab"/>
+         </test>
+         <test>
             <param name="cond" value="float(.0000000000001)"/>
             <param name="input" value="1.bed"/>
             <param name="round" value="false"/>
@@ -112,11 +119,11 @@
             </output>
         </test>
     </tests>
-    <help>
+    <help><![CDATA[
 
  .. class:: infomark
 
-**TIP:** If your data is not TAB delimited, use *Text Manipulation-&gt;Convert*
+**TIP:** If your data is not TAB delimited, use *Text Manipulation->Convert*
 
 -----
 
@@ -168,6 +175,6 @@ The following built-in functions are available::
 
   round | sorted | sqrt | str | sum | type | unichr | unicode |
 
-    </help>
+    ]]></help>
     <citations />
 </tool>
