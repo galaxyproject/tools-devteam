@@ -19,6 +19,7 @@ from math import (  # noqa: F401
     log10,
     sqrt
 )
+
 from numpy import format_float_positional  # noqa: F401
 
 parser = argparse.ArgumentParser()
