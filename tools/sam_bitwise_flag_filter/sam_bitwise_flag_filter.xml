@@ -1,10 +1,10 @@
-<tool id="sam_bw_filter" name="Filter SAM" version="1.0.0+galaxy1">
+<tool id="sam_bw_filter" name="Filter SAM" version="1.0.1">
   <description>on bitwise flag values</description>
   <requirements>
     <requirement type="package" version="2.7">python</requirement>
   </requirements>
   <command detect_errors="aggressive"><![CDATA[
-    python $__tool_directory__/sam_bitwise_flag_filter.py
+python '$__tool_directory__/sam_bitwise_flag_filter.py'
       --input_sam_file='$input1'
       --flag_column=2
       #for $bit in $bits
