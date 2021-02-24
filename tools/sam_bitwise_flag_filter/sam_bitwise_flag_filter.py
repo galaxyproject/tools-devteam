@@ -10,11 +10,11 @@ def stop_err( msg ):
 
 def main():
     usage = """%prog [options]
-    
+
 options (listed below) default to 'None' if omitted
     """
     parser = optparse.OptionParser(usage=usage)
-    
+
     parser.add_option(
         '--0x0001','--is_paired',
         choices = ( '0','1' ),
@@ -91,14 +91,14 @@ options (listed below) default to 'None' if omitted
         metavar="<0|1>",
         dest='is_duplicate',
         help='The read is either a PCR or an optical duplicate')
-        
+
     parser.add_option(
         '-f','--input_sam_file',
         metavar="INPUT_SAM_FILE",
         dest='input_sam',
         default = False,
         help='Name of the SAM file to be filtered. STDIN is default')
-            
+
     parser.add_option(
         '-c','--flag_column',
         dest='flag_col',
@@ -108,10 +108,10 @@ options (listed below) default to 'None' if omitted
     options, args = parser.parse_args()
 
     if options.input_sam:
-		infile = open ( options.input_sam, 'r')
+        infile = open ( options.input_sam, 'r')
     else:
-    	infile = sys.stdin
-        
+        infile = sys.stdin
+
     opt_ary = [
         options.is_paired,
         options.is_proper_pair,
@@ -125,23 +125,23 @@ options (listed below) default to 'None' if omitted
         options.is_bad_quality,
         options.is_duplicate
     ]
-    
+
     opt_map = { '0': False, '1': True }
     used_indices = [(index, opt_map[opt]) for index, opt in enumerate(opt_ary) if opt is not None]
     flag_col = int( options.flag_col ) - 1
-    
+
     for line in infile:
         line = line.rstrip( '\r\n' )
         if line and not line.startswith( '#' ) and not line.startswith( '@' ) :
             fields = line.split( '\t' )
             flags = int( fields[flag_col] )
-            
+
             valid_line = True
             for index, opt_bool in used_indices:
                 if bool(flags & 0x0001 << index) != opt_bool:
                     valid_line = False
                     break
-                    
+
             if valid_line:
                 print line
 

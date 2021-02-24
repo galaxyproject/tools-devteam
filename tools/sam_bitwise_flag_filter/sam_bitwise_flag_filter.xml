@@ -1,15 +1,17 @@
-<tool id="sam_bw_filter" name="Filter SAM" version="1.0.0">
+<tool id="sam_bw_filter" name="Filter SAM" version="1.0.0+galaxy1">
   <description>on bitwise flag values</description>
-  <parallelism method="basic"></parallelism>
-  <command interpreter="python">
-    sam_bitwise_flag_filter.py  
-      --input_sam_file=$input1
+  <requirements>
+    <requirement type="package" version="2.7">python</requirement>
+  </requirements>
+  <command detect_errors="aggressive"><![CDATA[
+    python $__tool_directory__/sam_bitwise_flag_filter.py
+      --input_sam_file='$input1'
       --flag_column=2
       #for $bit in $bits
        '${bit.flags}=${bit.states}'
       #end for
-      > $out_file1
-  </command>
+      > '$out_file1'
+  ]]></command>
   <inputs>
     <param format="sam" name="input1" type="data" label="Select dataset to filter"/>
     <repeat name="bits" title="Flag">
@@ -26,10 +28,7 @@
         <option value="--0x0200">The read fails platform/vendor quality checks</option>
         <option value="--0x0400">The read is a PCR or optical duplicate</option>
       </param>
-      <param name="states" type="select" display="radio" label="Set the states for this flag">
-         <option value="0">No</option>
-         <option value="1">Yes</option>
-       </param>
+      <param name="states" type="boolean" checked="false" truevalue="1" falsevalue="0" label="Set the states for this flag" />
     </repeat>
   </inputs>
   <outputs>
@@ -43,31 +42,31 @@
       <output name="out_file1" file="sam_bw_filter_0002-yes.sam" ftype="sam"/>
     </test>
   </tests>
-  <help>
+  <help><![CDATA[
 
 **What it does**
 
 Allows parsing of SAM datasets using bitwise flag (the second column). The bits in the flag are defined as follows::
 
     Bit Info
- ------ --------------------------------------------------------------------------   
- 0x0001 the read is paired in sequencing, no matter whether it is mapped in a pair 
- 0x0002 the read is mapped in a proper pair (depends on the protocol, normally 
-        inferred during alignment) 1 
- 0x0004 the query sequence itself is unmapped 
- 0x0008 the mate is unmapped 1 
- 0x0010 strand of the query (0 for forward; 1 for reverse strand) 
- 0x0020 strand of the mate 1 
+ ------ --------------------------------------------------------------------------
+ 0x0001 the read is paired in sequencing, no matter whether it is mapped in a pair
+ 0x0002 the read is mapped in a proper pair (depends on the protocol, normally
+        inferred during alignment) 1
+ 0x0004 the query sequence itself is unmapped
+ 0x0008 the mate is unmapped 1
+ 0x0010 strand of the query (0 for forward; 1 for reverse strand)
+ 0x0020 strand of the mate 1
  0x0040 the read is the first read in a pair (see below)
- 0x0080 the read is the second read in a pair (see below) 
- 0x0100 the alignment is not primary (a read having split hits may 
-        have multiple primary alignment records) 
- 0x0200 the read fails platform/vendor quality checks 
+ 0x0080 the read is the second read in a pair (see below)
+ 0x0100 the alignment is not primary (a read having split hits may
+        have multiple primary alignment records)
+ 0x0200 the read fails platform/vendor quality checks
  0x0400 the read is either a PCR duplicate or an optical duplicate
 
 Note the following:
 
-- Flag 0x02, 0x08, 0x20, 0x40 and 0x80 are only meaningful when flag 0x01 is present. 
+- Flag 0x02, 0x08, 0x20, 0x40 and 0x80 are only meaningful when flag 0x01 is present.
 - If in a read pair the information on which read is the first in the pair is lost in the upstream analysis, flag 0x01 should be set, while 0x40 and 0x80 should both be zero.
 
 -----
@@ -93,5 +92,6 @@ For more information, please consult the `SAM format description`__.
 .. __: http://www.ncbi.nlm.nih.gov/pubmed/19505943
 
 
-  </help>
+  ]]></help>
+  <citations />
 </tool>
