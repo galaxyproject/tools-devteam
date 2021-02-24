@@ -10,6 +10,17 @@ import argparse
 import json
 import re
 import sys
+# functions that may be used in the compute expression
+from math import (  # noqa: F401
+    ceil,
+    exp,
+    floor,
+    log,
+    log10,
+    sqrt
+)
+
+from numpy import format_float_positional  # noqa: F401
 
 parser = argparse.ArgumentParser()
 parser.add_argument('input', type=argparse.FileType('r'), help="input file")
@@ -49,8 +60,8 @@ if argparse_dict['header_new_column_name'] is not None:
     )
 try:
     in_columns = int(argparse_dict['columns'])
-    if in_columns < 2:
-        # To be considered tabular, data must fulfill requirements of the sniff.is_column_based() method.
+    if in_columns < 1:
+        # To be considered tabular, data must have at least one column.
         raise ValueError
 except Exception:
     if not fh.readline():
@@ -88,6 +99,9 @@ for col in range(1, in_columns + 1):
 col_str = ', '.join(cols)    # 'c1, c2, c3, c4'
 type_cast_str = ', '.join(type_casts)  # 'str(c1), int(c2), int(c3), str(c4)'
 assign = "%s = line.split('\\t')" % col_str
+if len(cols) == 1:
+    # Single column, unpacking by assignment won't work
+    assign += '[0]'
 wrap = "%s = %s" % (col_str, type_cast_str)
 skipped_lines = 0
 first_invalid_line = 0
@@ -97,17 +111,6 @@ total_lines = 0
 
 # Read input file, skipping invalid lines, and perform computation that will result in a new column
 code = '''
-# import here since flake8 complains otherwise
-from math import (
-    ceil,
-    exp,
-    floor,
-    log,
-    log10,
-    sqrt
-)
-from numpy import format_float_positional
-
 for i, line in enumerate(fh):
     total_lines += 1
     line = line.rstrip('\\r\\n')
