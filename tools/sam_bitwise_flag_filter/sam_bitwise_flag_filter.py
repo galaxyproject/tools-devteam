@@ -144,7 +144,7 @@ options (listed below) default to 'None' if omitted
                     break
 
             if valid_line:
-                print line
+                print(line)
 
 
 if __name__ == "__main__":
