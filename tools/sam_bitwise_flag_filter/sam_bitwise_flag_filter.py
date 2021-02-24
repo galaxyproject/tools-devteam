@@ -4,11 +4,6 @@ import optparse
 import sys
 
 
-def stop_err(msg):
-    sys.stderr.write(msg)
-    sys.exit()
-
-
 def main():
     usage = """%prog [options]
 
