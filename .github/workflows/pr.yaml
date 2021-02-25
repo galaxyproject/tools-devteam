@@ -250,6 +250,7 @@ jobs:
         galaxy-branch: ${{ env.GALAXY_BRANCH }}
         chunk: ${{ matrix.chunk }}
         chunk-count: ${{ needs.setup.outputs.chunk-count }}
+        planemo-version: 'https://github.com/mvdbeek/planemo/archive/fix_virtualenv_mess_maybe.zip'
     - uses: actions/upload-artifact@v2
       with:
         name: 'Tool test output ${{ matrix.chunk }}'
