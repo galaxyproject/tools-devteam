@@ -142,6 +142,9 @@ options (listed below) default to 'None' if omitted
             if valid_line:
                 print(line)
 
+    if options.input_sam:
+        infile.close()
+
 
 if __name__ == "__main__":
     main()
