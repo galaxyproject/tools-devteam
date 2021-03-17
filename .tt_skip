@@ -70,7 +70,6 @@ tools/quality_filter
 tools/rcve
 tools/rmap
 tools/rmapq
-tools/sam_bitwise_flag_filter
 tools/sam_merge
 tools/short_reads_figure_high_quality_length
 tools/short_reads_figure_score
