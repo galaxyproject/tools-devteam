@@ -1,7 +1,11 @@
-<tool id="peakcalling_ccat" name="CCAT" version="0.0.1">
+<tool id="peakcalling_ccat" name="CCAT" version="@TOOL_VERSION@+galaxy@VERSION_SUFFIX@" profile="20.05">
   <description>Control-based ChIP-seq Analysis Tool</description>
+  <macros>
+    <token name="@TOOL_VERSION@">3.0</token>
+    <token name="@VERSION_SUFFIX@">1</token>
+  </macros>
   <requirements>
-    <requirement type="package" version="3.0">ccat</requirement>
+    <requirement type="package" version="@TOOL_VERSION@">ccat</requirement>
     <requirement type="package" version="2.7">python</requirement>
   </requirements>
   <command detect_errors="exit_code"><![CDATA[
