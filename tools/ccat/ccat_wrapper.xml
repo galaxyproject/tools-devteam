@@ -11,8 +11,8 @@
         '$chromInfo'
         #if str($options_type.options_type_selector) == "advanced"
             '$input_advanced_config_file'
-        #else:
-            '$options_type.input_config_file'
+        #else
+            '$options_type.input_config_file.fields.path'
         #end if
         'CCAT in Galaxy'
         '$output_peak_file'
@@ -123,11 +123,17 @@ bootstrapPass	${options_type[ 'bootstrap_pass' ]}
       <param name="input_tag_file" value="chipseq_enriched.bed.gz" ftype="bed" dbkey="hg18" />
       <param name="input_control_file" value="chipseq_input.bed.gz" ftype="bed" dbkey="hg18" />
       <param name="options_type_selector" value="basic" />
-      <param name="input_config_file" value="ccat_3.0_histone_config" />
+      <param name="input_config_file" value="ccat_test" />
       <output name="output_peak_file" file="peakcalling_ccat/3.0/ccat_test_peak_out_1.interval.re_match" compare="re_match" />
       <output name="output_region_file" file="peakcalling_ccat/3.0/ccat_test_region_out_1.interval.re_match" compare="re_match" />
       <output name="output_top_file" file="peakcalling_ccat/3.0/ccat_test_top_out_1.interval.sorted.re_match" compare="re_match" sort="true" />
-      <output name="output_log_file" file="peakcalling_ccat/3.0/ccat_test_log_out_1.txt" />
+      <output name="output_log_file" >
+          <assert_contents>
+              <has_text text="chr1......884 candidate peaks." />
+              <has_text text="chr12......0 candidate peaks." />
+              <has_text text="chrY......finished." />
+          </assert_contents>
+      </output>
     </test>
     <!-- Test below gives different answers on different architectures,
     e.g.: x86_64 GNU/Linux gave an extra line (additional peak called) when compared to the version running on 10.6.0 Darwin i386
