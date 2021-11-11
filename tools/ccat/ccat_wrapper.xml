@@ -4,8 +4,8 @@
     <requirement type="package" version="3.0">CCAT</requirement>
     <requirement type="package" version="3.0">ccat</requirement>
   </requirements>
-  <command>
     python $__tool_directory__/ccat_wrapper.py
+  <command detect_errors="exit_code"><![CDATA[
         '$input_tag_file'
         '$input_control_file'
         '$chromInfo'
@@ -19,9 +19,10 @@
         '$output_region_file'
         '$output_top_file'
         '$output_log_file'
-  </command>
+    ]]></command>
   <configfiles>
-    <configfile name="input_advanced_config_file">#if str( $options_type['options_type_selector' ] ) == 'advanced':
+    <configfile name="input_advanced_config_file"><![CDATA[
+#if str( $options_type['options_type_selector' ] ) == 'advanced':
 fragmentSize	${options_type[ 'fragment_size' ]}
 slidingWinSize	${options_type[ 'sliding_window_size' ]}
 movingStep	${options_type[ 'moving_step' ]}
@@ -31,7 +32,8 @@ outputNum	${options_type[ 'output_num' ]}
 randomSeed	${options_type[ 'random_seed' ]}
 minScore	${options_type[ 'min_score' ]}
 bootstrapPass	${options_type[ 'bootstrap_pass' ]}
-#end if</configfile>
+#end if
+]]></configfile>
   </configfiles>
   <inputs>
     <param name="input_tag_file" type="data" format="bed" label="ChIP-Seq Tag File" >
@@ -46,7 +48,7 @@ bootstrapPass	${options_type[ 'bootstrap_pass' ]}
         <option value="advanced">Show Advanced Options</option>
       </param>
       <when value="basic">
-        <param name="input_config_file" type="select" label="Select a pre-defined configuration file">
+        <param name="input_config_file" type="select" label="Select a pre-defined configuration file" optional="true">
           <options from_data_table="ccat_configurations">
             <validator type="no_options" message="No configurations are available"/>
           </options>
