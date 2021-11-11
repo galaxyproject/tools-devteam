@@ -10,7 +10,7 @@
         '$input_control_file'
         '$chromInfo'
         #if str( $options_type[ 'options_type_selector' ] ) == 'advanced':
-            '$input_advanced_config_file' 
+            '$input_advanced_config_file'
         #else:
             '${ options_type.input_config_file.fields.path }'
         #end if
@@ -20,6 +20,19 @@
         '$output_top_file'
         '$output_log_file'
   </command>
+  <configfiles>
+    <configfile name="input_advanced_config_file">#if str( $options_type['options_type_selector' ] ) == 'advanced':
+fragmentSize	${options_type[ 'fragment_size' ]}
+slidingWinSize	${options_type[ 'sliding_window_size' ]}
+movingStep	${options_type[ 'moving_step' ]}
+isStrandSensitiveMode	${options_type[ 'is_strand_sensitive_mode' ]}
+minCount	${options_type[ 'min_count' ]}
+outputNum	${options_type[ 'output_num' ]}
+randomSeed	${options_type[ 'random_seed' ]}
+minScore	${options_type[ 'min_score' ]}
+bootstrapPass	${options_type[ 'bootstrap_pass' ]}
+#end if</configfile>
+  </configfiles>
   <inputs>
     <param name="input_tag_file" type="data" format="bed" label="ChIP-Seq Tag File" >
       <validator type="unspecified_build" />
@@ -79,19 +92,6 @@
     </data>
     <data name="output_log_file" format="txt" label="${tool.name} on ${on_string} (log)"/>
   </outputs>
-  <configfiles>
-    <configfile name="input_advanced_config_file">#if str( $options_type['options_type_selector' ] ) == 'advanced':
-fragmentSize	${options_type[ 'fragment_size' ]}
-slidingWinSize	${options_type[ 'sliding_window_size' ]}
-movingStep	${options_type[ 'moving_step' ]}
-isStrandSensitiveMode	${options_type[ 'is_strand_sensitive_mode' ]}
-minCount	${options_type[ 'min_count' ]}
-outputNum	${options_type[ 'output_num' ]}
-randomSeed	${options_type[ 'random_seed' ]}
-minScore	${options_type[ 'min_score' ]}	
-bootstrapPass	${options_type[ 'bootstrap_pass' ]}
-#end if</configfile>
-  </configfiles>
   <tests>
     <test>
       <param name="input_tag_file" value="chipseq_enriched.bed.gz" ftype="bed" dbkey="hg18" />
@@ -121,8 +121,8 @@ bootstrapPass	${options_type[ 'bootstrap_pass' ]}
       <output name="output_top_file" file="peakcalling_ccat/3.0/ccat_test_top_out_1.interval.sorted.re_match" compare="re_match" sort="true" />
       <output name="output_log_file" file="peakcalling_ccat/3.0/ccat_test_log_out_1.txt" />
     </test>
-    <!-- Test below gives different answers on different architectures, 
-    e.g.: x86_64 GNU/Linux gave an extra line (additional peak called) when compared to the version running on 10.6.0 Darwin i386 
+    <!-- Test below gives different answers on different architectures,
+    e.g.: x86_64 GNU/Linux gave an extra line (additional peak called) when compared to the version running on 10.6.0 Darwin i386
     slidingWinSize was fixed to be 1000, default as per readme.txt
     -->
     <!--
