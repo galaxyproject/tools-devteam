@@ -1,11 +1,11 @@
 <tool id="peakcalling_ccat" name="CCAT" version="0.0.1">
   <description>Control-based ChIP-seq Analysis Tool</description>
   <requirements>
-    <requirement type="package" version="3.0">CCAT</requirement>
     <requirement type="package" version="3.0">ccat</requirement>
+    <requirement type="package" version="2.7">python</requirement>
   </requirements>
-    python $__tool_directory__/ccat_wrapper.py
   <command detect_errors="exit_code"><![CDATA[
+    python2 $__tool_directory__/ccat_wrapper.py
         '$input_tag_file'
         '$input_control_file'
         '$chromInfo'
