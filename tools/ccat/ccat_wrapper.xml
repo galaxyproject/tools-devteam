@@ -5,6 +5,9 @@
     <requirement type="package" version="2.7">python</requirement>
   </requirements>
   <command detect_errors="exit_code"><![CDATA[
+    ## For testing purposes, please set chromInfo to:
+    ## #set chromInfo = $__tool_directory__ + "/test-data/ucsc.hg18.chromInfo"
+
     python2 $__tool_directory__/ccat_wrapper.py
         '$input_tag_file'
         '$input_control_file'
