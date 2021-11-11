@@ -9,10 +9,10 @@
         '$input_tag_file'
         '$input_control_file'
         '$chromInfo'
-        #if str( $options_type[ 'options_type_selector' ] ) == 'advanced':
+        #if str($options_type.options_type_selector) == "advanced"
             '$input_advanced_config_file'
         #else:
-            '${ options_type.input_config_file.fields.path }'
+            '$options_type.input_config_file'
         #end if
         'CCAT in Galaxy'
         '$output_peak_file'
@@ -48,7 +48,7 @@ bootstrapPass	${options_type[ 'bootstrap_pass' ]}
         <option value="advanced">Show Advanced Options</option>
       </param>
       <when value="basic">
-        <param name="input_config_file" type="select" label="Select a pre-defined configuration file" optional="true">
+          <param name="input_config_file" type="select" label="Select a pre-defined configuration file">
           <options from_data_table="ccat_configurations">
             <validator type="no_options" message="No configurations are available"/>
           </options>
@@ -111,7 +111,13 @@ bootstrapPass	${options_type[ 'bootstrap_pass' ]}
       <output name="output_peak_file" file="peakcalling_ccat/3.0/ccat_test_peak_out_1.interval.re_match" compare="re_match" />
       <output name="output_region_file" file="peakcalling_ccat/3.0/ccat_test_region_out_1.interval.re_match" compare="re_match" />
       <output name="output_top_file" file="peakcalling_ccat/3.0/ccat_test_top_out_1.interval.sorted.re_match" compare="re_match" sort="True" />
-      <output name="output_log_file" file="peakcalling_ccat/3.0/ccat_test_log_out_1.txt" />
+      <output name="output_log_file" >
+          <assert_contents>
+              <has_text text="chr1......884 candidate peaks." />
+              <has_text text="chr12......0 candidate peaks." />
+              <has_text text="chrY......finished." />
+          </assert_contents>
+      </output>
     </test>
     <test>
       <param name="input_tag_file" value="chipseq_enriched.bed.gz" ftype="bed" dbkey="hg18" />
