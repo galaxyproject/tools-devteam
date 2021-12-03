@@ -21,7 +21,6 @@ tools/blat_coverage_report
 tools/blat_mapping
 tools/canonical_correlation_analysis
 tools/categorize_elements_satisfying_criteria
-tools/ccat
 tools/cd_hit_dup
 tools/change_case
 tools/compute_motif_frequencies_for_all_motifs
