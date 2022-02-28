@@ -82,7 +82,6 @@ tools/table_annovar
 tools/tophat
 tools/tophat_fusion_post
 tools/trimmer
-tools/ucsc_custom_track
 tools/vcf_annotate
 tools/vcf_extract
 tools/vcf_filter
