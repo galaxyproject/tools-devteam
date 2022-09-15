@@ -75,48 +75,46 @@
             </section>
         </xml>
         <token name="@SLOW_PAIRWISE_ALIGNMENTS@"><![CDATA[
-            #if $type_conditional.algorithm_conditional.slow_pairwise_alignments.PWGAPOPEN
+            #if str($type_conditional.algorithm_conditional.slow_pairwise_alignments.PWGAPOPEN)
                 -PWGAPOPEN=$type_conditional.algorithm_conditional.slow_pairwise_alignments.PWGAPOPEN
             #end if
-            #if $type_conditional.algorithm_conditional.slow_pairwise_alignments.PWGAPEXT
+            #if str($type_conditional.algorithm_conditional.slow_pairwise_alignments.PWGAPEXT)
                 -PWGAPEXT=$type_conditional.algorithm_conditional.slow_pairwise_alignments.PWGAPEXT
             #end ifx
         ]]></token>
         <token name="@FAST_PAIRWISE_ALIGNMENTS@"><![CDATA[
-            #if $type_conditional.algorithm_conditional.fast_pairwise_alignments.KTUPLE
+            #if str($type_conditional.algorithm_conditional.fast_pairwise_alignments.KTUPLE)
             -KTUPLE=$type_conditional.algorithm_conditional.fast_pairwise_alignments.KTUPLE
             #end if
-            #if $type_conditional.algorithm_conditional.fast_pairwise_alignments.TOPDIAGS
+            #if str($type_conditional.algorithm_conditional.fast_pairwise_alignments.TOPDIAGS)
                 -TOPDIAGS=$type_conditional.algorithm_conditional.fast_pairwise_alignments.TOPDIAGS
             #end if
-            #if $type_conditional.algorithm_conditional.fast_pairwise_alignments.WINDOW
+            #if str($type_conditional.algorithm_conditional.fast_pairwise_alignments.WINDOW)
                 -WINDOW=$type_conditional.algorithm_conditional.fast_pairwise_alignments.WINDOW
             #end if
-            #if $type_conditional.algorithm_conditional.fast_pairwise_alignments.PAIRGAP
+            #if str($type_conditional.algorithm_conditional.fast_pairwise_alignments.PAIRGAP)
                 -PAIRGAP=$type_conditional.algorithm_conditional.fast_pairwise_alignments.PAIRGAP
             #end if
-            #if $type_conditional.algorithm_conditional.fast_pairwise_alignments.SCORE
-                -SCORE=$type_conditional.algorithm_conditional.fast_pairwise_alignments.SCORE
-            #end if
+            -SCORE=$type_conditional.algorithm_conditional.fast_pairwise_alignments.SCORE
         ]]></token>
         <token name="@MULTIPLE_ALIGNMENTS@"><![CDATA[
-            #if $type_conditional.multiple_alignments.GAPOPEN
+            #if str($type_conditional.multiple_alignments.GAPOPEN)
                 -GAPOPEN=$type_conditional.multiple_alignments.GAPOPEN
             #end if
-            #if $type_conditional.multiple_alignments.GAPEXT
+            #if str($type_conditional.multiple_alignments.GAPEXT)
                 -GAPEXT=$type_conditional.multiple_alignments.GAPEXT
             #end if
             $type_conditional.multiple_alignments.ENDGAPS
-            #if $type_conditional.multiple_alignments.GAPDIST
+            #if str($type_conditional.multiple_alignments.GAPDIST)
                 -GAPDIST=$type_conditional.multiple_alignments.GAPDIST
             #end if
             $type_conditional.multiple_alignments.NOPGAP
             $type_conditional.multiple_alignments.NOHGAP
-            #if $type_conditional.multiple_alignments.MAXDIV
+            #if str($type_conditional.multiple_alignments.MAXDIV)
                 -MAXDIV=$type_conditional.multiple_alignments.MAXDIV
             #end if
             $type_conditional.multiple_alignments.NEGATIVE
-            #if $type_conditional.multiple_alignments.TRANSWEIGHT
+            #if str($type_conditional.multiple_alignments.TRANSWEIGHT)
                 -TRANSWEIGHT=$type_conditional.multiple_alignments.TRANSWEIGHT
             #end if
         ]]></token>
