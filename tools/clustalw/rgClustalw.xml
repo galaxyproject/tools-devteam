@@ -6,7 +6,7 @@
     <expand macro="requirements"/>
     <command detect_errors="exit_code"><![CDATA[
 ln -s '$input' input.fasta &&
-clustalw2 -INFILE=input.fasta -OUTFILE='$output' -OUTORDER=$out_order -TYPE=$type_conditional.selector
+clustalw2 -INFILE=input.fasta -OUTFILE='$output' -OUTORDER=$out_order -TYPE=$type_conditional.dnarna
 #if $outcontrol.outform == "clustal"
     -OUTPUT=CLUSTAL
     #if $outcontrol.out_seqnos == "ON"
@@ -22,7 +22,7 @@ clustalw2 -INFILE=input.fasta -OUTFILE='$output' -OUTORDER=$out_order -TYPE=$typ
 #if $range.mode == "part"
     -RANGE=${range.seq_range_start},${range.seq_range_end}
 #end if
-#if $type_conditional.selector == 'PROTEIN'
+#if $type_conditional.dnarna == 'PROTEIN'
     #if $type_conditional.algorithm_conditional.selector == ''
         -PWMATRIX=$type_conditional.algorithm_conditional.slow_pairwise_alignments.PWMATRIX
         @SLOW_PAIRWISE_ALIGNMENTS@
@@ -48,7 +48,7 @@ $tree_calculation.TOSSGAPS
     <inputs>
         <param name="input" type="data" format="fasta" label="FASTA file" />
         <conditional name="type_conditional">
-            <param name="selector" type="select" label="Data type">
+            <param name="dnarna" type="select" label="Data type">
                 <option value="DNA" selected="True">DNA nucleotide sequences</option>
                 <option value="PROTEIN">Protein sequences</option>
             </param>
@@ -119,7 +119,9 @@ $tree_calculation.TOSSGAPS
         <test>
             <param name="input" value="rgClustal_testin.fasta" />
             <param name="outform" value="fasta" />
-            <param name="dnaprotein" value="DNA" />
+            <conditional name="type_conditional">
+                <param name="dnarna" value="DNA"/>
+            </conditional>
             <param name="mode" value="complete" />
             <param name="out_order" value="ALIGNED" />
             <output name="output" file="rgClustal_testout.fasta" ftype="fasta" />
@@ -135,7 +137,7 @@ $tree_calculation.TOSSGAPS
                 <param name="TOSSGAPS" value="true"/>
             </section>
             <conditional name="type_conditional">
-                <param name="selector" value="DNA"/>
+                <param name="dnarna" value="DNA"/>
                 <section name="multiple_alignments">
                     <param name="DNAMATRIX" value="IUB"/>
                     <param name="GAPOPEN" value="2"/>
@@ -157,7 +159,7 @@ $tree_calculation.TOSSGAPS
                 </conditional>
             </conditional>
             <output name="output" file="rgClustal_testout02.aln" ftype="clustal"/>
-            <output name="dnd" file="rgClustal_testin02.dnd" ftype="nhx"/>
+            <output name="dnd" file="rgClustal_testout02.dnd" ftype="nhx"/>
         </test>
         <!-- Test protein options and fast algorithm-->
         <test expect_num_outputs="2">
@@ -194,7 +196,7 @@ $tree_calculation.TOSSGAPS
                 </conditional>
             </conditional>
             <output name="output" file="rgClustal_testout03.aln" ftype="clustal"/>
-            <output name="dnd" file="rgClustal_testin03.dnd" ftype="nhx"/>
+            <output name="dnd" file="rgClustal_testout03.dnd" ftype="nhx"/>
         </test>
     </tests>
     <help><![CDATA[
