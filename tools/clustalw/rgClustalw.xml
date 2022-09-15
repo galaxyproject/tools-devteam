@@ -171,7 +171,7 @@ $tree_calculation.TOSSGAPS
                 <param name="TOSSGAPS" value="false"/>
             </section>
             <conditional name="type_conditional">
-                <param name="selector" value="PROTEIN"/>
+                <param name="dnarna" value="PROTEIN"/>
                 <section name="multiple_alignments">
                     <param name="MATRIX" value="BLOSUM"/>
                     <param name="GAPOPEN" value="3"/>
