@@ -1,4 +1,4 @@
-<tool id="tab2fasta" name="Tabular-to-FASTA" version="1.1.1" profile="16.04">
+<tool id="tab2fasta" name="Tabular-to-FASTA" version="1.1.2" profile="16.04">
     <description>converts tabular file to FASTA format</description>
     <requirements>
         <requirement type="package" version="3.7">python</requirement>
