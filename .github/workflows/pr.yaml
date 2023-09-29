@@ -164,16 +164,16 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-20.04]
-        r-version: ['4.0.1']
+        r-version: ['release']
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         fetch-depth: 1
-    - uses: r-lib/actions/setup-r@master
+    - uses: r-lib/actions/setup-r@v2
       with:
         r-version: ${{ matrix.r-version }}
     - name: Cache R packages
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: ${{ env.R_LIBS_USER }}
         key: r_cache_${{ matrix.os }}_${{ matrix.r-version }}
@@ -189,7 +189,7 @@ jobs:
     - name: lintr
       run: |
         library(lintr)
-        linters <- with_defaults(line_length_linter = NULL, cyclocomp_linter = NULL, object_usage_linter = NULL)
+        linters <- linters_with_defaults(line_length_linter = NULL, cyclocomp_linter = NULL, object_usage_linter = NULL)
         con <- file("repository_list.txt", "r")
         status <- 0
         while (TRUE) {
@@ -202,8 +202,8 @@ jobs:
             status <- 1
             for (l in lnt) {
               rel_path <- paste(repo, l$filename, sep="/")
-              write(paste(paste(rel_path, l$line_number, l$column_number, sep=":"), l$message), stderr())
-              write(paste(paste(rel_path, l$line_number, l$column_number, sep=":"), l$message), "rlint_report.txt", append=TRUE)
+              write(paste(paste(rel_path, l$line_number, l$column_number, sep=":"), l$message, paste("(", l$line, ")")), stderr())
+              write(paste(paste(rel_path, l$line_number, l$column_number, sep=":"), l$message, paste("(", l$line, ")")), "rlint_report.txt", append=TRUE)
             }
           }
         }

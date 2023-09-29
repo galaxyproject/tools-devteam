@@ -1,0 +1,20 @@
+1	|	all	|		|	synonym	|
+1	|	root	|		|	scientific name	|
+2	|	Bacteria	|	Bacteria <prokaryote>	|	scientific name	|
+2	|	Monera	|	Monera <Bacteria>	|	in-part	|
+2	|	Procaryotae	|	Procaryotae <Bacteria>	|	in-part	|
+2	|	Prokaryota	|	Prokaryota <Bacteria>	|	in-part	|
+2	|	Prokaryotae	|	Prokaryotae <Bacteria>	|	in-part	|
+2	|	bacteria	|	bacteria <blast2>	|	blast name	|
+2	|	eubacteria	|		|	genbank common name	|
+2	|	not Bacteria Haeckel 1894	|		|	synonym	|
+2	|	prokaryote	|	prokaryote <Bacteria>	|	in-part	|
+2	|	prokaryotes	|	prokaryotes <Bacteria>	|	in-part	|
+6	|	Azorhizobium	|		|	scientific name	|
+6	|	Azorhizobium Dreyfus et al. 1988 emend. Lang et al. 2013	|		|	authority	|
+6	|	Azotirhizobium	|		|	misspelling	|
+7	|	ATCC 43989	|		|	type material	|
+7	|	Azorhizobium caulinodans	|		|	scientific name	|
+7	|	Azorhizobium caulinodans Dreyfus et al. 1988	|		|	synonym	|
+7	|	Azotirhizobium caulinodans	|		|	equivalent name	|
+7	|	CCUG 26647	|		|	type material	|
