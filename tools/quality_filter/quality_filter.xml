@@ -4,6 +4,9 @@
     <requirement type="package" version="0.7.1">bx-python</requirement>
     <requirement type="package" version="1.7.1">numpy</requirement>
   </requirements>
+  <xrefs>
+  	<xref type="bio.tools">qualityfilter</xref>
+  </xrefs>
   <command interpreter="python">
   	quality_filter.py 
   	$input 
