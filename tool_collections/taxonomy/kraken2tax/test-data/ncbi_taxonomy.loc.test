@@ -1,0 +1,2 @@
+#value	#name	path
+test	test	${__HERE__}/tax_dir
