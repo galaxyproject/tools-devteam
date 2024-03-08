@@ -4,7 +4,6 @@ tool_collections/hgv/hgv_hilbertvis
 tool_collections/hgv/snpfreq
 tool_collections/taxonomy/find_diag_hits
 tool_collections/taxonomy/gi2taxonomy
-tool_collections/taxonomy/kraken2tax
 tool_collections/taxonomy/lca_wrapper
 tool_collections/taxonomy/poisson2test
 tool_collections/taxonomy/t2ps

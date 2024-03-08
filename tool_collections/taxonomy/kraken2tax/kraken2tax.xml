@@ -1,8 +1,8 @@
-<tool id="Kraken2Tax" name="Convert Kraken" version="1.2">
+<tool id="Kraken2Tax" name="Convert Kraken" version="1.2+galaxy0">
   <description>data to Galaxy taxonomy representation</description>
     <requirements>
-        <requirement type="package" version="4.1.0">gawk</requirement>
-        <requirement type="package" version="1.0.0">gb_taxonomy_tools</requirement>
+        <requirement type="package" version="5.1.0">gawk</requirement>
+        <requirement type="package" version="1.0.1">gb_taxonomy_tools</requirement>
     </requirements>
   <command>
 <![CDATA[
