@@ -1,5 +1,8 @@
 <tool id="Draw_phylogram" name="Draw phylogeny" version="1.0.0">
   <description></description>
+    <xrefs>
+        <xref type="bio.tools">t2ps</xref>
+    </xrefs>
     <requirements>
         <requirement type="package" version="1.0.0">taxonomy</requirement>
     </requirements>
