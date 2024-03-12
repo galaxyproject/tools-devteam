@@ -3,6 +3,9 @@
     <requirements>
         <requirement type="package" version="1.0.0">taxonomy</requirement>
     </requirements>
+  <xrefs>
+    <xref type="bio.tools">gi2taxonomy</xref>
+  </xrefs>
   <command interpreter="python">gi2taxonomy.py $input $giField $idField $out_file1 ${GALAXY_DATA_INDEX_DIR}</command>
   <inputs>
     <param format="tabular" name="input" type="data" label="Show taxonomic representation for"></param>
