@@ -7,5 +7,5 @@ long_description: |
 name: t2ps
 owner: devteam
 homepage_url: https://bitbucket.org/natefoo/taxonomy
-remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tool_collections/taxonomy/t2ps
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/main/tool_collections/taxonomy/t2ps
 type: unrestricted
