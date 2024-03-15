@@ -2,6 +2,9 @@
     <description>
         remove duplicates and detect chimaeras in sequencing reads
     </description>
+    <xrefs>
+        <xref type="bio.tools">cd_hit_dup</xref>
+    </xrefs>
     <requirements>
         <requirement type="package" version="0.5-2012-03-07-fix-dan-gh-0.0.1">cd-hit-auxtools</requirement>
     </requirements>
