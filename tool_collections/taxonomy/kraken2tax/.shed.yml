@@ -8,5 +8,5 @@ long_description: |
 name: kraken2tax
 owner: devteam
 homepage_url: https://bitbucket.org/natefoo/taxonomy
-remote_repository_url: https://github.com/galaxyproject/tools-devteam/blob/master/tool_collections/taxonomy/kraken2tax/
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/main/tool_collections/taxonomy/kraken2tax
 type: unrestricted
