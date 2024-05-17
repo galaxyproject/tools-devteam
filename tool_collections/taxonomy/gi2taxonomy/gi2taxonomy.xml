@@ -1,5 +1,8 @@
 <tool id="Fetch Taxonomic Ranks" name="Fetch taxonomic representation" version="1.1.1">
   <description></description>
+    <xrefs>
+        <xref type="bio.tools">gi2taxonomy</xref>
+    </xrefs>
     <requirements>
         <requirement type="package" version="1.0.0">taxonomy</requirement>
     </requirements>
