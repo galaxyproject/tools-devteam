@@ -14,7 +14,6 @@ tool_collections/vcftools/vcftools_isec
 tool_collections/vcftools/vcftools_merge
 tool_collections/vcftools/vcftools_slice
 tool_collections/vcftools/vcftools_subset
-tools/annotation_profiler
 tools/best_regression_subsets
 tools/blat_coverage_report
 tools/blat_mapping
