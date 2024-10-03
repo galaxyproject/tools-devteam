@@ -1,8 +1,11 @@
-<tool id="fasta_compute_length" name="Compute sequence length" version="1.0.3" profile="16.04">
+<tool id="fasta_compute_length" name="Compute sequence length" version="1.0.4" profile="22.04">
     <description></description>
     <requirements>
-        <requirement type="package" version="3.7">python</requirement>
+        <requirement type="package" version="3.12">python</requirement>
     </requirements>
+    <required_files>
+        <include path="fasta_compute_length.py"/>
+    </required_files>
     <command>
     #if $ref.ref_source == 'dbkey':
         cp '${ref.index.fields.len_path}' '$output'

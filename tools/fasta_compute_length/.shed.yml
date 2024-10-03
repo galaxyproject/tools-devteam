@@ -9,4 +9,5 @@ long_description: |
 name: fasta_compute_length
 owner: devteam
 remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/fasta_compute_length
+homepage_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/fasta_compute_length
 type: unrestricted
