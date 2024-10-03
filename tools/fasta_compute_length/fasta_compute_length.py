@@ -4,6 +4,7 @@ Uses fasta_to_len converter code.
 """
 
 import sys
+
 from utils.fasta_to_len import compute_fasta_length
 
 
