@@ -1,5 +1,8 @@
 <tool id="t2t_report" name="Summarize taxonomy" version="1.0.0">
     <description></description>
+    <xrefs>
+        <xref type="bio.tools">t2t_report</xref>
+    </xrefs>
     <requirements>
         <requirement type="package" version="1.0.0">taxonomy</requirement>
     </requirements>
