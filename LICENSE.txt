@@ -7,18 +7,6 @@ See https://github.com/galaxyproject/galaxy/ for the contribution history.
 See below for the full text of both licenses.
 
 
-Some icons found in Galaxy are from the Silk Icons set, available under
-the Creative Commons Attribution 2.5 License, from:
-
-http://www.famfamfam.com/lab/icons/silk/
-
-
-Other images and documentation are licensed under the Creative Commons
-Attribution 3.0 (CC BY 3.0) License. See:
-
-http://creativecommons.org/licenses/by/3.0/
-
-
 --------------------------------------------------------------------------------
 
 
