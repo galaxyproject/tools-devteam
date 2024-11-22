@@ -1,6 +1,6 @@
 Copyright (c) 2005-2022 Galaxy Contributors (see CONTRIBUTORS.md)
 
-Work contributed from 2021-04-07 onwards is licensed under the MIT License.
+Work contributed from 2024-12-01 onwards is licensed under the MIT License.
 Work contributed before this date is licensed under the Academic Free License
 version 3.0.
 See https://github.com/galaxyproject/galaxy/ for the contribution history.
