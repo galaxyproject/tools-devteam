@@ -5,8 +5,8 @@ from __future__ import print_function
 
 import sys
 
-from numpy import array
 import rpy2.rpy_classic as rpy
+from numpy import array
 from rpy2.robjects.numpy2ri import numpy2ri
 
 
