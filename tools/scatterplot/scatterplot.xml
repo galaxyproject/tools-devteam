@@ -1,4 +1,4 @@
-<tool id="scatterplot_rpy" name="Scatterplot" version="1.0.3">
+<tool id="scatterplot_rpy" name="Scatterplot" version="1.0.3+galaxy0">
   <description>of two numeric columns</description>
   <requirements>
     <requirement type="package" version="1.9">numpy</requirement>
