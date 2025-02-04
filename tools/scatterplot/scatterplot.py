@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # Greg Von Kuster
 
-# noqa: I100
+# flake8: noqa
 
 from __future__ import print_function
 
