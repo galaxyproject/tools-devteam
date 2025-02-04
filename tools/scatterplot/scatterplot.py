@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # Greg Von Kuster
 
-# pylint: skip-file
+# noqa: I100
 
 from __future__ import print_function
 
