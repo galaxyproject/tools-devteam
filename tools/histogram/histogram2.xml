@@ -1,4 +1,4 @@
-<tool id="histogram_rpy" name="Histogram" version="1.0.4">
+<tool id="histogram_rpy" name="Histogram" version="1.0.5">
   <description>of a numeric column</description>
   <requirements>
     <requirement type="package" version="3.3.2">rpy2</requirement>
@@ -17,7 +17,18 @@ python '$__tool_directory__/histogram.py'
 </command>
   <inputs>
     <param name="input" type="data" format="tabular" label="Dataset" help="Dataset missing? See TIP below"/>
-    <param name="numerical_column" type="data_column" data_ref="input" numerical="True" label="Numerical column for x axis" />
+    <conditional name="cols">
+        <param name="header" type="select" label="Does the table have a header?" refresh_on_change="true" help="If the table has a header, the column can be selected using the name instead of the index.">
+            <option value="yes">yes</option>
+            <option value="no">no</option>
+        </param>
+        <when value="yes">
+          <param name="numerical_column" type="data_column" data_ref="input" numerical="True" use_header_names="true" label="Numerical column for x axis" />
+        </when>
+        <when value="no">
+          <param name="numerical_column" type="data_column" data_ref="input" numerical="True" label="Numerical column for x axis" />
+        </when>
+    </conditional>
     <param name="breaks" type="integer" value="0" label="Number of breaks (bars)"/>
     <param name="title" type="text" value="Histogram" label="Plot title"/>
     <param name="xlab" type="text" value="V1" label="Label for x axis"/>
@@ -84,4 +95,7 @@ This tool computes a histogram of the numerical values in a column of a dataset.
 .. image:: histogram2.png
 
 </help>
+<citations>
+  <citation type="doi">10.1145/3386334</citation>
+</citations>
 </tool>
