@@ -3,6 +3,9 @@
     <requirements>
         <requirement type="package" version="1.0.0">taxonomy</requirement>
     </requirements>
+    <xrefs>
+        <xref type="bio.tools">t2t_report</xref>
+    </xrefs>
     <command>taxonomy2tree $input 0 /dev/null $out_file1 0</command>
     <inputs>
         <param format="taxonomy" name="input" type="data" label="Summarize taxonomic representation for"/>

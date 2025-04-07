@@ -3,6 +3,9 @@
     <requirements>
         <requirement type="package" version="1.0.0">taxonomy</requirement>
     </requirements>
+  <xrefs>
+        <xref type="bio.tools">lca1</xref>
+  </xrefs>
   <command interpreter="python">
     lca.py $input1 $out_file1 $rank_bound
   </command>
