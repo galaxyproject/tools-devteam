@@ -1,5 +1,8 @@
 <tool id="Kraken2Tax" name="Convert Kraken" version="1.2+galaxy0">
   <description>data to Galaxy taxonomy representation</description>
+    <xrefs>
+        <xref type="bio.tools">kraken2tax</xref>
+    </xrefs>
     <requirements>
         <requirement type="package" version="5.1.0">gawk</requirement>
         <requirement type="package" version="1.0.1">gb_taxonomy_tools</requirement>
