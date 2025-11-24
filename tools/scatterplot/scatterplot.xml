@@ -1,9 +1,15 @@
-<tool id="scatterplot_rpy" name="Scatterplot" version="1.0.3">
+<tool id="scatterplot_rpy" name="Scatterplot" version="1.0.3+galaxy0">
   <description>of two numeric columns</description>
   <requirements>
     <requirement type="package" version="1.9">numpy</requirement>
     <requirement type="package" version="2.8.5">rpy2</requirement>
+    <requirement type="package" version="3.0">libgfortran</requirement>
   </requirements>
+<!-- 
+  <environment_variables>
+    <environment_variable name="R_HOME">\$(R RHOME)</environment_variable>
+  </environment_variables> -->
+
   <command><![CDATA[
       python '$__tool_directory__/scatterplot.py'
         '$input'
@@ -17,8 +23,21 @@
   </command>
   <inputs>
     <param name="input" type="data" format="tabular" label="Dataset" help="Dataset missing? See TIP below"/>
-    <param name="col1" type="data_column" data_ref="input" numerical="True" label="Numerical column for x axis" />
-    <param name="col2" type="data_column" data_ref="input" numerical="True" label="Numerical column for y axis" />
+    <conditional name="cols">
+        <param name="header" type="select" label="Does the table have a header?" refresh_on_change="true" help="If the table has a header, columns can be selected by name instead of the index.">
+            <option value="yes" selected="true">yes</option>
+            <option value="no">no</option>
+        </param>
+        <when value="yes">
+          <param name="col1" type="data_column" data_ref="input" use_header_names="true" numerical="True" label="Numerical column for x axis" />
+          <param name="col2" type="data_column" data_ref="input" use_header_names="true" numerical="True" label="Numerical column for y axis" />            
+        </when>
+        <when value="no">
+          <param name="col1" type="data_column" data_ref="input" numerical="True" label="Numerical column for x axis" />
+          <param name="col2" type="data_column" data_ref="input" numerical="True" label="Numerical column for y axis" />
+        </when>
+    </conditional>
+
     <param name="title" type="text" value="Scatterplot" label="Plot title"/>
     <param name="xlab" type="text" value="V1" label="Label for x axis"/>
     <param name="ylab" type="text" value="V2" label="Label for y axis"/>
@@ -76,5 +95,6 @@ This tool creates a simple scatter plot between two variables containing numeric
 ]]>
 </help>
 <citations>
+  <citation type="doi">10.1038/s41586-020-2649-2</citation>
 </citations>
 </tool>
