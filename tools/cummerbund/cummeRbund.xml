@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
-<tool id="cummeRbund" name="cummeRbund" version="@TOOL_VERSION@+galaxy1">
+<tool id="cummeRbund" name="cummeRbund" version="@TOOL_VERSION@+galaxy0">
     <description>visualize Cuffdiff output</description>
     <macros>
         <import>cummeRbund_macros.xml</import>
     </macros>
     <requirements>
         <requirement type="package" version="1">fonts-conda-ecosystem</requirement>
-        <requirement type="package" version="1.0.4">r-argparse</requirement>
-        <requirement type="package" version="3.4.1">r-base</requirement>
+        <requirement type="package" version="2.0.1">r-argparse</requirement>
+        <requirement type="package" version="3.5.1">r-base</requirement>
         <requirement type="package" version="@TOOL_VERSION@">bioconductor-cummerbund</requirement>
     </requirements>
     <code file="cummeRbund_options.py"/>
