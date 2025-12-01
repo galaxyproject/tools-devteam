@@ -4,6 +4,9 @@
         <requirement type="package" version="5.1.0">gawk</requirement>
         <requirement type="package" version="1.0.1">gb_taxonomy_tools</requirement>
     </requirements>
+  <xrefs>
+    <xref type="bio.tools">kraken2tax</xref>
+  </xrefs>
   <command>
 <![CDATA[
   awk '{ print \$${read_name}, \$${tax_id} }' OFS="\t" "${input}" | taxonomy-reader "${ncbi_taxonomy.fields.path}/names.dmp" "${ncbi_taxonomy.fields.path}/nodes.dmp" 1 > "${out_file}"
