@@ -1,10 +1,11 @@
 categories:
 - Text Manipulation
 description: Remove lines from the beginning of a file.
+homepage_url: https://github.com/galaxyproject/tools-devteam/tree/main/tools/remove_beginning
 long_description: |
   This tool removes the specified number of lines from the beginning
   of the input dataset.
 name: remove_beginning
 owner: devteam
-remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/remove_beginning
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/main/tools/remove_beginning
 type: unrestricted
