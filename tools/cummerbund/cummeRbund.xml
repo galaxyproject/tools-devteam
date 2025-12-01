@@ -111,8 +111,8 @@
                     <expand macro="multiple_genes_conditional" />
                 </when>
                 <when value="volcano">
-                    <param name="x" type="select" label="First sample name for comparison" dynamic_options="get_samples(input_database.dataset.file_name)" />
-                    <param name="y" type="select" label="Second sample name for comparison" dynamic_options="get_samples(input_database.dataset.file_name)" />
+                    <param name="x" type="select" label="First sample name for comparison" dynamic_options="get_samples(input_database.get_file_name())" />
+                    <param name="y" type="select" label="Second sample name for comparison" dynamic_options="get_samples(input_database.get_file_name())" />
                     <expand macro="multiple_genes_conditional" />
                 </when>
                 <when value="heatmap">
@@ -144,7 +144,7 @@
                 <when value="scatterMatrix" />
                 <when value="expressionplot">
                     <expand macro="features_selector" />
-                    <param name="gene_id" type="select" label="Gene ID" dynamic_options="get_genes(input_database.dataset.file_name)" />
+                    <param name="gene_id" type="select" label="Gene ID" dynamic_options="get_genes(input_database.get_file_name())" />
                     <param name="draw_summary" type="boolean" truevalue="--summary" falsevalue="" checked="False" label="Draw a 'summary' line with mean FPKM values for each condition?"/>
                     <param name="error_bars" type="boolean" truevalue="--error_bars" falsevalue="" checked="True" label="Draw error bars?"/>
                     <expand macro="replicates_checkbox" />
@@ -152,7 +152,7 @@
                 </when>
                 <when value="expressionbarplot">
                     <expand macro="features_selector" />
-                    <param name="gene_id" type="select" label="Gene ID" dynamic_options="get_genes(input_database.dataset.file_name)" />
+                    <param name="gene_id" type="select" label="Gene ID" dynamic_options="get_genes(input_database.get_file_name())" />
                     <param name="error_bars" type="boolean" truevalue="--error_bars" falsevalue="" checked="True" label="Draw error bars?"/>
                     <expand macro="replicates_checkbox" />
                     <expand macro="log10_checkbox" />

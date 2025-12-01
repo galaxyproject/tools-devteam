@@ -8,13 +8,13 @@
         <param name="log10" type="boolean" truevalue="--log10" falsevalue="" checked="True" label="Apply log10 transformation on FPKM values?"/>
     </macro>
     <macro name="xy_selector">
-        <param name="x" type="select" label="Sample name for x axis" dynamic_options="get_samples(input_database.dataset.file_name)" />
-        <param name="y" type="select" label="Sample name for y axis" dynamic_options="get_samples(input_database.dataset.file_name)" />
+        <param name="x" type="select" label="Sample name for x axis" dynamic_options="get_samples(input_database.get_file_name())" />
+        <param name="y" type="select" label="Sample name for y axis" dynamic_options="get_samples(input_database.get_file_name())" />
     </macro>
     <macro name="genes_selector">
         <repeat name="genes" title="Genes" min="2">
             <!-- Cannot create a heatmap for less than two genes -->
-            <param name="gene_id" type="select" label="Gene ID" dynamic_options="get_genes(input_database.dataset.file_name)" />
+            <param name="gene_id" type="select" label="Gene ID" dynamic_options="get_genes(input_database.get_file_name())" />
         </repeat>
     </macro>
     <macro name="features_selector">
