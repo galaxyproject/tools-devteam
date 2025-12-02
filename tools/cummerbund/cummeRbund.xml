@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
-<tool id="cummeRbund" name="cummeRbund" version="@TOOL_VERSION@+galaxy1">
+<tool id="cummeRbund" name="cummeRbund" version="@TOOL_VERSION@+galaxy0">
     <description>visualize Cuffdiff output</description>
     <macros>
         <import>cummeRbund_macros.xml</import>
     </macros>
     <requirements>
         <requirement type="package" version="1">fonts-conda-ecosystem</requirement>
-        <requirement type="package" version="1.0.4">r-argparse</requirement>
-        <requirement type="package" version="3.4.1">r-base</requirement>
+        <requirement type="package" version="2.0.1">r-argparse</requirement>
+        <requirement type="package" version="3.5.1">r-base</requirement>
         <requirement type="package" version="@TOOL_VERSION@">bioconductor-cummerbund</requirement>
     </requirements>
     <code file="cummeRbund_options.py"/>
@@ -111,8 +111,8 @@
                     <expand macro="multiple_genes_conditional" />
                 </when>
                 <when value="volcano">
-                    <param name="x" type="select" label="First sample name for comparison" dynamic_options="get_samples(input_database.dataset.file_name)" />
-                    <param name="y" type="select" label="Second sample name for comparison" dynamic_options="get_samples(input_database.dataset.file_name)" />
+                    <param name="x" type="select" label="First sample name for comparison" dynamic_options="get_samples(input_database.get_file_name())" />
+                    <param name="y" type="select" label="Second sample name for comparison" dynamic_options="get_samples(input_database.get_file_name())" />
                     <expand macro="multiple_genes_conditional" />
                 </when>
                 <when value="heatmap">
@@ -144,7 +144,7 @@
                 <when value="scatterMatrix" />
                 <when value="expressionplot">
                     <expand macro="features_selector" />
-                    <param name="gene_id" type="select" label="Gene ID" dynamic_options="get_genes(input_database.dataset.file_name)" />
+                    <param name="gene_id" type="select" label="Gene ID" dynamic_options="get_genes(input_database.get_file_name())" />
                     <param name="draw_summary" type="boolean" truevalue="--summary" falsevalue="" checked="False" label="Draw a 'summary' line with mean FPKM values for each condition?"/>
                     <param name="error_bars" type="boolean" truevalue="--error_bars" falsevalue="" checked="True" label="Draw error bars?"/>
                     <expand macro="replicates_checkbox" />
@@ -152,7 +152,7 @@
                 </when>
                 <when value="expressionbarplot">
                     <expand macro="features_selector" />
-                    <param name="gene_id" type="select" label="Gene ID" dynamic_options="get_genes(input_database.dataset.file_name)" />
+                    <param name="gene_id" type="select" label="Gene ID" dynamic_options="get_genes(input_database.get_file_name())" />
                     <param name="error_bars" type="boolean" truevalue="--error_bars" falsevalue="" checked="True" label="Draw error bars?"/>
                     <expand macro="replicates_checkbox" />
                     <expand macro="log10_checkbox" />
@@ -179,7 +179,7 @@
             </repeat>
             <output name="output" ftype="txt">
                 <assert_contents><has_text text="cummeRbund finished" /></assert_contents>
-                <discovered_dataset designation="maplot-0" ftype="png" file="maplot.png" />
+                <discovered_dataset designation="maplot-0" ftype="png" file="maplot.png" compare="sim_size" />
             </output>
         </test>
         <test>
@@ -195,7 +195,7 @@
             </repeat>
             <output name="output" ftype="txt">
                 <assert_contents><has_text text="cummeRbund finished" /></assert_contents>
-                <discovered_dataset designation="scatter-0" ftype="png" file="scatter.png" />
+                <discovered_dataset designation="scatter-0" ftype="png" file="scatter.png" compare="sim_size" />
             </output>
         </test>
         <test>
@@ -209,7 +209,7 @@
             </repeat>
             <output name="output" ftype="txt">
                 <assert_contents><has_text text="cummeRbund finished" /></assert_contents>
-                <discovered_dataset designation="dispersion-0" ftype="png" file="dispersion.png" />
+                <discovered_dataset designation="dispersion-0" ftype="png" file="dispersion.png" compare="sim_size" />
             </output>
         </test>
         <test>
@@ -223,7 +223,7 @@
             </repeat>
             <output name="output" ftype="txt">
                 <assert_contents><has_text text="cummeRbund finished" /></assert_contents>
-                <discovered_dataset designation="scatterMatrix-0" ftype="png" file="scatterMatrix.png" />
+                <discovered_dataset designation="scatterMatrix-0" ftype="png" file="scatterMatrix.png" compare="sim_size" />
             </output>
         </test>
         <test>
@@ -237,7 +237,7 @@
             </repeat>
             <output name="output" ftype="txt">
                 <assert_contents><has_text text="cummeRbund finished" /></assert_contents>
-                <discovered_dataset designation="pca-0" ftype="png" file="pca.png" />
+                <discovered_dataset designation="pca-0" ftype="png" file="pca.png" compare="sim_size" />
             </output>
         </test>
         <test>
@@ -253,7 +253,7 @@
             </repeat>
             <output name="output" ftype="txt">
                 <assert_contents><has_text text="cummeRbund finished" /></assert_contents>
-                <discovered_dataset designation="expressionplot-0" ftype="png" file="expressionplot.png" />
+                <discovered_dataset designation="expressionplot-0" ftype="png" file="expressionplot.png" compare="sim_size" />
             </output>
         </test>
         <test>
@@ -269,7 +269,7 @@
             </repeat>
             <output name="output" ftype="txt">
                 <assert_contents><has_text text="cummeRbund finished" /></assert_contents>
-                <discovered_dataset designation="expressionbarplot-0" ftype="png" file="expressionbarplot.png" />
+                <discovered_dataset designation="expressionbarplot-0" ftype="png" file="expressionbarplot.png" compare="sim_size" />
             </output>
         </test>
         <test>
@@ -289,7 +289,7 @@
             </repeat>
             <output name="output" ftype="txt">
                 <assert_contents><has_text text="cummeRbund finished" /></assert_contents>
-                <discovered_dataset designation="heatmap-0" ftype="png" file="heatmap.png" />
+                <discovered_dataset designation="heatmap-0" ftype="png" file="heatmap.png" compare="sim_size" />
             </output>
         </test>
         <test>
@@ -303,7 +303,7 @@
             </repeat>
             <output name="output" ftype="txt">
                 <assert_contents><has_text text="cummeRbund finished" /></assert_contents>
-                <discovered_dataset designation="density-0" ftype="png" file="density.png" />
+                <discovered_dataset designation="density-0" ftype="png" file="density.png" compare="sim_size" />
             </output>
         </test>
         <test>
@@ -317,7 +317,7 @@
             </repeat>
             <output name="output" ftype="txt">
                 <assert_contents><has_text text="cummeRbund finished" /></assert_contents>
-                <discovered_dataset designation="dendrogram-0" ftype="png" file="dendrogram.png" />
+                <discovered_dataset designation="dendrogram-0" ftype="png" file="dendrogram.png" compare="sim_size" />
             </output>
         </test>
         <test>
@@ -333,7 +333,7 @@
             </repeat>
             <output name="output" ftype="txt">
                 <assert_contents><has_text text="cummeRbund finished" /></assert_contents>
-                <discovered_dataset designation="volcano-0" ftype="png" file="volcano.png" />
+                <discovered_dataset designation="volcano-0" ftype="png" file="volcano.png" compare="sim_size" />
             </output>
         </test>
         <test>
@@ -347,7 +347,7 @@
             </repeat>
             <output name="output" ftype="txt">
                 <assert_contents><has_text text="cummeRbund finished" /></assert_contents>
-                <discovered_dataset designation="boxplot-0" ftype="png" file="boxplot.png" />
+                <discovered_dataset designation="boxplot-0" ftype="png" file="boxplot.png" compare="sim_size" />
             </output>
         </test>
         <test>
@@ -361,7 +361,7 @@
             </repeat>
             <output name="output" ftype="txt">
                 <assert_contents><has_text text="cummeRbund finished" /></assert_contents>
-                <discovered_dataset designation="fpkmSCV-0" ftype="png" file="fpkmSCV.png" />
+                <discovered_dataset designation="fpkmSCV-0" ftype="png" file="fpkmSCV.png" compare="sim_size" />
             </output>
         </test>
     </tests>

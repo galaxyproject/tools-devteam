@@ -1,4 +1,4 @@
-<tool id="Remove beginning1" name="Remove beginning" version="1.0.0">
+<tool id="Remove beginning1" name="Remove beginning" version="1.0.1">
     <description>of a file</description>
     <command>
         perl $__tool_directory__/remove_beginning.pl
@@ -11,7 +11,7 @@
         <param format="txt" name="input" type="data" label="from"/>
     </inputs>
     <outputs>
-        <data format="input" name="out_file1" metadata_source="input"/>
+        <data format_source="input" name="out_file1" metadata_source="input"/>
     </outputs>
     <tests>
         <test>

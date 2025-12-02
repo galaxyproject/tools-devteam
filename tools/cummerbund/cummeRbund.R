@@ -1,14 +1,15 @@
 ## Feature Selection ##
 options(echo = TRUE)
 get_features <- function(my_genes, f = "gene") {
-    if (f == "isoforms")
+    if (f == "isoforms") {
         return(isoforms(my_genes))
-    else if (f == "tss")
+    } else if (f == "tss") {
         return(TSS(my_genes))
-    else if (f == "cds")
+    } else if (f == "cds") {
         return(CDS(my_genes))
-    else
+    } else {
         return(my_genes)
+    }
 }
 
 ## Main Function ##
@@ -62,67 +63,70 @@ cat(annotation(genes(cuff))[[1]], sep = ",")
 sink()
 
 png(filename = args$filename, width = args$width, height = args$height)
-tryCatch({
-    if (args$plotType == "density") {
-        csDensity(genes(cuff), replicates = args$replicates, logMode = args$log10)
-    } else if (args$plotType == "boxplot") {
-        csBoxplot(genes(cuff), replicates = args$replicates, logMode = args$log10)
-    } else if (args$plotType == "mds") {
-        MDSplot(genes(cuff), replicates = args$replicates)
-    } else if (args$plotType == "pca") {
-        PCAplot(genes(cuff), "PC1", "PC2", replicates = args$replicates)
-    } else if (args$plotType == "dendrogram") {
-        csDendro(genes(cuff), replicates = args$replicates)
-    } else if (args$plotType == "scatter") {
-        if (args$gene_selector) {
-            my_genes <- get_features(getGenes(cuff, args$genes), args$features)
-        } else {
-            my_genes <- genes(cuff)
-        }
-        csScatter(my_genes, args$x, args$y, smooth = args$smooth, logMode = args$log10)
-    } else if (args$plotType == "volcano") {
-        if (args$gene_selector) {
-            my_genes <- get_features(getGenes(cuff, args$genes), args$features)
-        } else {
-            my_genes <- genes(cuff)
-        }
-        csVolcano(my_genes, args$x, args$y)
-    } else if (args$plotType == "heatmap") {
-        if (args$gene_selector) {
+tryCatch(
+    {
+        if (args$plotType == "density") {
+            csDensity(genes(cuff), replicates = args$replicates, logMode = args$log10)
+        } else if (args$plotType == "boxplot") {
+            csBoxplot(genes(cuff), replicates = args$replicates, logMode = args$log10)
+        } else if (args$plotType == "mds") {
+            MDSplot(genes(cuff), replicates = args$replicates)
+        } else if (args$plotType == "pca") {
+            PCAplot(genes(cuff), "PC1", "PC2", replicates = args$replicates)
+        } else if (args$plotType == "dendrogram") {
+            csDendro(genes(cuff), replicates = args$replicates)
+        } else if (args$plotType == "scatter") {
+            if (args$gene_selector) {
+                my_genes <- get_features(getGenes(cuff, args$genes), args$features)
+            } else {
+                my_genes <- genes(cuff)
+            }
+            csScatter(my_genes, args$x, args$y, smooth = args$smooth, logMode = args$log10)
+        } else if (args$plotType == "volcano") {
+            if (args$gene_selector) {
+                my_genes <- get_features(getGenes(cuff, args$genes), args$features)
+            } else {
+                my_genes <- genes(cuff)
+            }
+            csVolcano(my_genes, args$x, args$y)
+        } else if (args$plotType == "heatmap") {
+            if (args$gene_selector) {
+                my_genes <- getGenes(cuff, args$genes)
+            } else {
+                my_genes <- getGenes(cuff, annotation(genes(cuff))[[1]])
+            }
+            csHeatmap(get_features(my_genes, args$features), clustering = args$clustering, labCol = args$labcol, labRow = args$labrow, border = args$border, logMode = args$log10)
+        } else if (args$plotType == "cluster") {
             my_genes <- getGenes(cuff, args$genes)
-        } else {
-            my_genes <- getGenes(cuff, annotation(genes(cuff))[[1]])
+            csCluster(get_features(my_genes, args$features), k = args$k)
+        } else if (args$plotType == "dispersion") {
+            dispersionPlot(genes(cuff))
+        } else if (args$plotType == "fpkmSCV") {
+            fpkmSCVPlot(genes(cuff))
+        } else if (args$plotType == "scatterMatrix") {
+            csScatterMatrix(genes(cuff))
+        } else if (args$plotType == "expressionplot") {
+            my_genes <- getGenes(cuff, args$genes)
+            expressionPlot(get_features(my_genes, args$features), drawSummary = args$summary, showErrorbars = args$error_bars, replicates = args$replicates)
+        } else if (args$plotType == "expressionbarplot") {
+            my_gene_id <- args$genes
+            my_genes <- getGenes(cuff, my_gene_id)
+            expressionBarplot(get_features(my_genes, args$features), showErrorbars = args$error_bars, replicates = args$replicates)
+        } else if (args$plotType == "mds") {
+            MDSplot(genes(cuff), replicates = args$replicates)
+        } else if (args$plotType == "pca") {
+            PCAplot(genes(cuff), "PC1", "PC2", replicates = args$replicates)
+        } else if (args$plotType == "maplot") {
+            MAplot(genes(cuff), args$x, args$y, useCount = args$count)
+        } else if (args$plotType == "genetrack") {
+            my_gene <- getGene(cuff, args$genes)
+            plotTracks(makeGeneRegionTrack(my_gene))
         }
-        csHeatmap(get_features(my_genes, args$features), clustering = args$clustering, labCol = args$labcol, labRow = args$labrow, border = args$border, logMode = args$log10)
-    } else if (args$plotType == "cluster") {
-        my_genes <- getGenes(cuff, args$genes)
-        csCluster(get_features(my_genes, args$features), k = args$k)
-    } else if (args$plotType == "dispersion") {
-        dispersionPlot(genes(cuff))
-    } else if (args$plotType == "fpkmSCV") {
-        fpkmSCVPlot(genes(cuff))
-    } else if (args$plotType == "scatterMatrix") {
-        csScatterMatrix(genes(cuff))
-    } else if (args$plotType == "expressionplot") {
-        my_genes <- getGenes(cuff, args$genes)
-        expressionPlot(get_features(my_genes, args$features), drawSummary = args$summary, showErrorbars = args$error_bars, replicates = args$replicates)
-    } else if (args$plotType == "expressionbarplot") {
-        my_gene_id <- args$genes
-        my_genes <- getGenes(cuff, my_gene_id)
-        expressionBarplot(get_features(my_genes, args$features), showErrorbars = args$error_bars, replicates = args$replicates)
-    } else if (args$plotType == "mds") {
-        MDSplot(genes(cuff), replicates = args$replicates)
-    } else if (args$plotType == "pca") {
-        PCAplot(genes(cuff), "PC1", "PC2", replicates = args$replicates)
-    } else if (args$plotType == "maplot") {
-        MAplot(genes(cuff), args$x, args$y, useCount = args$count)
-    } else if (args$plotType == "genetrack") {
-        my_gene <- getGene(cuff, args$genes)
-        plotTracks(makeGeneRegionTrack(my_gene))
+    },
+    error = function(e) {
+        write(paste("Failed:", e, sep = " "), stderr())
+        q("no", 1, TRUE)
     }
-}, error = function(e) {
-    write(paste("Failed:", e, sep = " "), stderr())
-    q("no", 1, TRUE)
-})
+)
 devname <- dev.off()
 print("cummeRbund finished")

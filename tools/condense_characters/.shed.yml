@@ -1,9 +1,10 @@
 categories:
 - Text Manipulation
 description: Condense consecutive characters.
+homepage_url: https://github.com/galaxyproject/tools-devteam/tree/main/tools/condense_characters
 long_description: |
   This tool condenses consecutive characters of the selected type.
 name: condense_characters
 owner: devteam
-remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/condense_characters
+remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/main/tools/condense_characters
 type: unrestricted
