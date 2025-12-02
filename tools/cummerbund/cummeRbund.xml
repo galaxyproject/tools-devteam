@@ -179,7 +179,7 @@
             </repeat>
             <output name="output" ftype="txt">
                 <assert_contents><has_text text="cummeRbund finished" /></assert_contents>
-                <discovered_dataset designation="maplot-0" ftype="png" file="maplot.png" />
+                <discovered_dataset designation="maplot-0" ftype="png" file="maplot.png" compare="sim_size" />
             </output>
         </test>
         <test>
@@ -195,7 +195,7 @@
             </repeat>
             <output name="output" ftype="txt">
                 <assert_contents><has_text text="cummeRbund finished" /></assert_contents>
-                <discovered_dataset designation="scatter-0" ftype="png" file="scatter.png" />
+                <discovered_dataset designation="scatter-0" ftype="png" file="scatter.png" compare="sim_size" />
             </output>
         </test>
         <test>
@@ -209,7 +209,7 @@
             </repeat>
             <output name="output" ftype="txt">
                 <assert_contents><has_text text="cummeRbund finished" /></assert_contents>
-                <discovered_dataset designation="dispersion-0" ftype="png" file="dispersion.png" />
+                <discovered_dataset designation="dispersion-0" ftype="png" file="dispersion.png" compare="sim_size" />
             </output>
         </test>
         <test>
@@ -223,7 +223,7 @@
             </repeat>
             <output name="output" ftype="txt">
                 <assert_contents><has_text text="cummeRbund finished" /></assert_contents>
-                <discovered_dataset designation="scatterMatrix-0" ftype="png" file="scatterMatrix.png" />
+                <discovered_dataset designation="scatterMatrix-0" ftype="png" file="scatterMatrix.png" compare="sim_size" />
             </output>
         </test>
         <test>
@@ -237,7 +237,7 @@
             </repeat>
             <output name="output" ftype="txt">
                 <assert_contents><has_text text="cummeRbund finished" /></assert_contents>
-                <discovered_dataset designation="pca-0" ftype="png" file="pca.png" />
+                <discovered_dataset designation="pca-0" ftype="png" file="pca.png" compare="sim_size" />
             </output>
         </test>
         <test>
@@ -253,7 +253,7 @@
             </repeat>
             <output name="output" ftype="txt">
                 <assert_contents><has_text text="cummeRbund finished" /></assert_contents>
-                <discovered_dataset designation="expressionplot-0" ftype="png" file="expressionplot.png" />
+                <discovered_dataset designation="expressionplot-0" ftype="png" file="expressionplot.png" compare="sim_size" />
             </output>
         </test>
         <test>
@@ -269,7 +269,7 @@
             </repeat>
             <output name="output" ftype="txt">
                 <assert_contents><has_text text="cummeRbund finished" /></assert_contents>
-                <discovered_dataset designation="expressionbarplot-0" ftype="png" file="expressionbarplot.png" />
+                <discovered_dataset designation="expressionbarplot-0" ftype="png" file="expressionbarplot.png" compare="sim_size" />
             </output>
         </test>
         <test>
@@ -289,7 +289,7 @@
             </repeat>
             <output name="output" ftype="txt">
                 <assert_contents><has_text text="cummeRbund finished" /></assert_contents>
-                <discovered_dataset designation="heatmap-0" ftype="png" file="heatmap.png" />
+                <discovered_dataset designation="heatmap-0" ftype="png" file="heatmap.png" compare="sim_size" />
             </output>
         </test>
         <test>
@@ -303,7 +303,7 @@
             </repeat>
             <output name="output" ftype="txt">
                 <assert_contents><has_text text="cummeRbund finished" /></assert_contents>
-                <discovered_dataset designation="density-0" ftype="png" file="density.png" />
+                <discovered_dataset designation="density-0" ftype="png" file="density.png" compare="sim_size" />
             </output>
         </test>
         <test>
@@ -317,7 +317,7 @@
             </repeat>
             <output name="output" ftype="txt">
                 <assert_contents><has_text text="cummeRbund finished" /></assert_contents>
-                <discovered_dataset designation="dendrogram-0" ftype="png" file="dendrogram.png" />
+                <discovered_dataset designation="dendrogram-0" ftype="png" file="dendrogram.png" compare="sim_size" />
             </output>
         </test>
         <test>
@@ -333,7 +333,7 @@
             </repeat>
             <output name="output" ftype="txt">
                 <assert_contents><has_text text="cummeRbund finished" /></assert_contents>
-                <discovered_dataset designation="volcano-0" ftype="png" file="volcano.png" />
+                <discovered_dataset designation="volcano-0" ftype="png" file="volcano.png" compare="sim_size" />
             </output>
         </test>
         <test>
@@ -347,7 +347,7 @@
             </repeat>
             <output name="output" ftype="txt">
                 <assert_contents><has_text text="cummeRbund finished" /></assert_contents>
-                <discovered_dataset designation="boxplot-0" ftype="png" file="boxplot.png" />
+                <discovered_dataset designation="boxplot-0" ftype="png" file="boxplot.png" compare="sim_size" />
             </output>
         </test>
         <test>
@@ -361,7 +361,7 @@
             </repeat>
             <output name="output" ftype="txt">
                 <assert_contents><has_text text="cummeRbund finished" /></assert_contents>
-                <discovered_dataset designation="fpkmSCV-0" ftype="png" file="fpkmSCV.png" />
+                <discovered_dataset designation="fpkmSCV-0" ftype="png" file="fpkmSCV.png" compare="sim_size" />
             </output>
         </test>
     </tests>
