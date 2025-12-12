@@ -1,13 +1,19 @@
-<tool id="Remove beginning1" name="Remove beginning" version="1.0.1">
+<tool id="Remove beginning1" name="Remove beginning" version="1.0.1" profile="24.0">
     <description>of a file</description>
+    <requirements>
+        <requirement type="package" version="5.32">perl</requirement>
+    </requirements>
+    <required_files>
+        <include path="remove_beginning.pl" />
+    </required_files>
     <command>
-        perl $__tool_directory__/remove_beginning.pl
-            "${input}"
-            "${num_lines}"
-            "${out_file1}"
+perl '$__tool_directory__/remove_beginning.pl'
+'${input}'
+${num_lines}
+'${out_file1}'
     </command>
     <inputs>
-        <param name="num_lines" type="integer" value="1" label="Remove first" help="lines"/>
+        <param name="num_lines" type="integer" min="0" value="1" label="Remove these number of lines from the top"/>
         <param format="txt" name="input" type="data" label="from"/>
     </inputs>
     <outputs>
