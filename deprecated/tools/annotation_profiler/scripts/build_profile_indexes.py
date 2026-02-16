@@ -13,12 +13,6 @@ try:
 except ImportError:
     from md5 import new as md5
 
-#import BitSet from bx-python, try using eggs and package resources, fall back to any local installation
-try:
-    from galaxy import eggs
-    import pkg_resources
-    pkg_resources.require( "bx-python" )
-except: pass #Maybe there is a local installation available
 from bx.bitset import BitSet
 
 #Define constants

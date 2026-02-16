@@ -41,9 +41,6 @@ usage: lastz_paired_reads_wrapper.py [options]
 import optparse, os, subprocess, shutil, sys, tempfile, time
 from string import maketrans
 
-from galaxy import eggs
-import pkg_resources
-pkg_resources.require( 'bx-python' )
 from bx.seq.twobit import *
 from bx.seq.fasta import FastaReader
 from galaxy.util.bunch import Bunch
