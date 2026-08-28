@@ -2,7 +2,7 @@
     <description>multiple VCF datasets</description>
 
     <requirements>
-        <requirement type="package">tabix</requirement>
+        <requirement type="package" version="0.2.5">tabix</requirement>
         <requirement type="package" version="0.1.11">vcftools</requirement>
     </requirements>
     
@@ -11,13 +11,13 @@
         #set dataset_names = []
         #for $input in $inputs:
             ## Sort file.                                     
-            sort -k1,1 -k2,2n ${input.file} > ${input.name}.vcf.sorted ;
+            sort -k1,1 -k2,2n '${input.file}' > '${input.name}.vcf.sorted' ;
 
             ## Compress.
-            bgzip ${input.name}.vcf.sorted ;
+            bgzip '${input.name}.vcf.sorted' ;
 
             ## Index.
-            tabix -p vcf ${input.name}.vcf.sorted.gz ;
+            tabix -p vcf '${input.name}.vcf.sorted.gz' ;
 
             #silent dataset_names.append( str($input.name) + '.vcf.sorted.gz' )
         #end for
