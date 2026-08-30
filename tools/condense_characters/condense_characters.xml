@@ -1,10 +1,16 @@
-<tool id="Condense characters1" name="Condense"  version="1.0.0">
+<tool id="Condense characters1" name="Condense"  version="1.0.1" profile="24.0">
     <description>consecutive characters</description>
+    <requirements>
+        <requirement type="package" version="5.32">perl</requirement>
+    </requirements>
+    <required_files>
+        <include path="condense_characters.pl" />
+    </required_files>
     <command>
-        perl $__tool_directory__/condense_characters.pl
-            "${input}"
-            "${character}"
-            "${out_file1}"
+perl '$__tool_directory__/condense_characters.pl'
+'${input}'
+${character}
+'${out_file1}'
     </command>
     <inputs>
     <!--    <display>condense all consecutive $character from $input</display> -->
@@ -20,7 +26,7 @@
         <param format="txt" name="input" type="data" label="in this Query"/>
     </inputs>
     <outputs>
-        <data format="input" name="out_file1" metadata_source="input" />
+        <data format_source="input" name="out_file1" metadata_source="input" />
     </outputs>
     <tests>
         <test>
@@ -30,7 +36,6 @@
         </test>
     </tests>
     <help>
-
 **What it does**
 
 This tool condenses all consecutive characters of a specified type.
