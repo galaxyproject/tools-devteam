@@ -7,7 +7,6 @@ tool_collections/taxonomy/gi2taxonomy
 tool_collections/taxonomy/lca_wrapper
 tool_collections/taxonomy/poisson2test
 tool_collections/taxonomy/t2ps
-tool_collections/taxonomy/t2t_report
 tool_collections/vcftools/vcftools_annotate
 tool_collections/vcftools/vcftools_compare
 tool_collections/vcftools/vcftools_isec
