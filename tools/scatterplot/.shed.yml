@@ -8,4 +8,5 @@ long_description: |
 name: scatterplot
 owner: devteam
 remote_repository_url: https://github.com/galaxyproject/tools-devteam/tree/master/tools/scatterplot
+homepage_url: https://github.com/galaxyproject/tools-devteam/
 type: unrestricted
