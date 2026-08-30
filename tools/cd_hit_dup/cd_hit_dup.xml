@@ -5,6 +5,9 @@
     <requirements>
         <requirement type="package" version="0.5-2012-03-07-fix-dan-gh-0.0.1">cd-hit-auxtools</requirement>
     </requirements>
+    <xrefs>
+        <xref type="bio.tools">cd-hit</xref>
+    </xrefs>
     <stdio>
         <exit_code range="1:" />
         <exit_code range=":-1" />
